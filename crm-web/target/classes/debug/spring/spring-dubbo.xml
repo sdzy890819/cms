@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://code.alibabatech.com/schema/dubbo
+	http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+
+
+	<dubbo:application name="cooperate-app" />
+	
+	<dubbo:registry protocol="zookeeper" address="zk.jrjc.hosts:2181"/>
+	<dubbo:monitor protocol="registry" />
+	<dubbo:protocol name="dubbo" port="20892" /> 
+	<dubbo:protocol accesslog="/data/Logs/cooperate.jrj.local/jobs/dubboaccount.log" port="20892"/>
+
+</beans>
+
