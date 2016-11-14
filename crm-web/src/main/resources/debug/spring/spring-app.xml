@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
@@ -15,7 +15,6 @@
 	
 	<import resource="classpath:spring/spring-cache.xml"/>
 	<import resource="classpath:spring/spring-db.xml"/>
-	<import resource="classpath:spring/spring-mybatis.xml"/>
 	<import resource="classpath:spring/spring-amqp-common.xml"/>
 
 	
@@ -45,7 +44,7 @@
 	</bean>
 
 	<bean id="viewResolver"
-		class="org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver">
+		class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
 		<property name="cache" value="true" />
 		<property name="prefix" value="/" />
 		<property name="suffix" value=".vm" />

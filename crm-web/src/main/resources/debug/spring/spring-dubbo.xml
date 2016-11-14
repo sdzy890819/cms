@@ -14,7 +14,7 @@
 	<dubbo:registry protocol="zookeeper" address="zk.jrjc.hosts:2181"/>
 	<dubbo:monitor protocol="registry" />
 	<dubbo:protocol name="dubbo" port="20892" /> 
-	<dubbo:protocol accesslog="/data/Logs/cooperate.jrj.local/jobs/dubboaccount.log" port="20892"/>
+	<dubbo:protocol accesslog="/data/Logs/cmsweb.jrj.local/jobs/dubboaccount.log" port="20892"/>
 
 </beans>
 

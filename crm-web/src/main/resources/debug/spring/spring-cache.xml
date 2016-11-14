@@ -15,7 +15,7 @@
 
     <bean id="jedisPool" class="redis.clients.jedis.JedisSentinelPool" scope="singleton">
         <constructor-arg index="0" >
-            <value>sentinel-account</value>
+            <value>sentinel-p5wc</value>
         </constructor-arg>
         <constructor-arg index="1" >
             <set>
