@@ -16,6 +16,7 @@
 	<import resource="classpath:spring/spring-cache.xml"/>
 	<import resource="classpath:spring/spring-db.xml"/>
 	<import resource="classpath:spring/spring-amqp-common.xml"/>
+	<import resource="classpath:spring/spring-amqp-pub-build.xml"/>
 
 	
 	<bean id="placeholderConfig"
@@ -63,6 +64,7 @@
 	
 	<mvc:interceptors >
 		<bean class="com.cn.cms.web.interceptor.CheckTokenInterceptor" />
+		<bean class="com.cn.cms.web.interceptor.CheckAuthInterceptor" />
 	</mvc:interceptors>
 
 	
