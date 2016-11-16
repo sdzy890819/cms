@@ -1,4 +1,4 @@
-(function(){
+
 	var ngbody = angular.module("ngbody", []);
 	ngbody.directive("main", function() {
 	    return {
@@ -38,22 +38,19 @@
 	        	title : '=data'
 	        },
 	        link : function(scope,element){
-	        	var time = 0 , 
-	        		ng = angular.element,
+	        	var ng = angular.element,
 	        		submenu = element.find('.option li>a') ;
 
 	        	function getHeight(){
-	        		clearTimeout(time);
-	        		var height = angular.element(window).height()-angular.element('#Header').height();
-	        		time = setTimeout(function(){
-	        			if(element.height()<height){
-	        				element.height(height)
-	        			}else{
-	        				element.height(element.height())
-	        			}
-	        		}, 300);
+	        		var height = document.body.scrollHeight-angular.element('#Header').height();
+        			if(element.height()<height){
+        				element.height(height)
+        			}else{
+        				element.height(element.height())
+        			}
 	        	}
 	        	window.onresize = getHeight;
+	        	setTimeout(getHeight,500);
 	        	getHeight();
 	        	function clearMenu(){
 	        		submenu.parent().removeClass('open')
@@ -89,4 +86,3 @@
 	        }
 	    };
 	});
-})();

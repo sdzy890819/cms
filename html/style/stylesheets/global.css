@@ -19,8 +19,10 @@ body, select {
 
 /* line 6, ../sass/global.scss */
 body {
-  background: #f8f8f8;
+  height: 100%;
+  background: #fff;
   color: #333;
+  overflow-y: auto;
 }
 
 /* line 8, ../sass/global.scss */
@@ -198,40 +200,41 @@ textarea:focus {
   padding: 0 20px;
 }
 
-/* line 53, ../sass/global.scss */
+/*header*/
+/* line 55, ../sass/global.scss */
 #Header {
   height: 45px;
   line-height: 45px;
   background: #212121;
   color: #ddd;
 }
-/* line 54, ../sass/global.scss */
+/* line 56, ../sass/global.scss */
 #Header .logo {
   display: block;
   float: left;
-  width: 86px;
-  height: 14px;
-  margin-top: 15px;
+  width: 88px;
+  height: 30px;
+  margin-top: 8px;
   background: url(../../images/logo.png) no-repeat;
 }
 
-/* line 56, ../sass/global.scss */
+/* line 58, ../sass/global.scss */
 .nav-sider {
   float: right;
   font-style: 13px;
 }
-/* line 57, ../sass/global.scss */
+/* line 59, ../sass/global.scss */
 .nav-sider > ul > li {
   position: relative;
   z-index: 999;
   height: 45px;
   padding: 0 10px;
 }
-/* line 58, ../sass/global.scss */
+/* line 60, ../sass/global.scss */
 .nav-sider > ul > li:hover {
   background-color: #303030;
 }
-/* line 60, ../sass/global.scss */
+/* line 62, ../sass/global.scss */
 .nav-sider .badge {
   white-space: nowrap;
   vertical-align: baseline;
@@ -248,18 +251,18 @@ textarea:focus {
   border-radius: 100%;
 }
 
-/* line 62, ../sass/global.scss */
+/* line 64, ../sass/global.scss */
 .nav-sider .myInfo {
   cursor: pointer;
 }
-/* line 63, ../sass/global.scss */
+/* line 65, ../sass/global.scss */
 .nav-sider .myInfo .icon {
   width: 17px;
   height: 17px;
   background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAYAAAA7bUf6AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NTBDQTNBNUNBQjlCMTFFNkIzOTRBOTYyQjIyRDIwQTkiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NTBDQTNBNURBQjlCMTFFNkIzOTRBOTYyQjIyRDIwQTkiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo1MENBM0E1QUFCOUIxMUU2QjM5NEE5NjJCMjJEMjBBOSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo1MENBM0E1QkFCOUIxMUU2QjM5NEE5NjJCMjJEMjBBOSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PlScFPcAAAFJSURBVHjanNPNK0RRGMfxe+9MxCwoFNOUjWIssLCR+A+Uncbbzo5SFrKQnRSmlLX8HWqmkfVQxMJLXrKw8brn+j7TczMd51yNU5/Nc8/99dxznhuEYehZJDCHAso4wCwC2/6kZ195jGAdt+jCMvqx9Gu3JXkGJ8gY9U6cIme+YwakUMKE4zOnUURDdT0wGssihZLjMwtoRk910QxpwyNeHSHveEJrXMgn6pFwhEi9Tvc5Qx6QQYcjROotuI8LucYVco6QSVzi7q8rzuICY0Z9HGfoNt/xK/f809Wonr60PI9jlDGIAezgAy84jF6MJlYmchNpnGMRR5jCEG50ep+xjV49v5XKMzpJ6wCtogm+Y9Aivu5b03+rXQobOmALXu1rF2+Btrvn/W/tYzipXcjf+RUzZLYlA9eHRgnZ0oOUYlhDiK83mv8WYAAGMTvAb0wxGwAAAABJRU5ErkJggg==) no-repeat;
   background-size: 17px auto;
 }
-/* line 64, ../sass/global.scss */
+/* line 66, ../sass/global.scss */
 .nav-sider .myInfo .dropdown-menu {
   position: absolute;
   transform: translateY(200px);
@@ -283,12 +286,13 @@ textarea:focus {
   -webkit-transition-duration: .5s;
   opacity: 0;
   display: none;
+  background: #fff;
 }
-/* line 65, ../sass/global.scss */
+/* line 68, ../sass/global.scss */
 .nav-sider .myInfo .dropdown-menu li {
   line-height: 20px;
 }
-/* line 66, ../sass/global.scss */
+/* line 69, ../sass/global.scss */
 .nav-sider .myInfo .dropdown-menu li a {
   margin: 2px 0;
   padding: 6px 0 6px 13px;
@@ -300,34 +304,34 @@ textarea:focus {
   line-height: 18px;
   white-space: nowrap;
 }
-/* line 67, ../sass/global.scss */
+/* line 70, ../sass/global.scss */
 .nav-sider .myInfo .dropdown-menu li a:hover {
   background: #e7e7e7;
 }
-/* line 69, ../sass/global.scss */
+/* line 72, ../sass/global.scss */
 .nav-sider .myInfo .dropdown-menu li i[class^="icon-"] {
   width: 15px;
   height: 15px;
   margin-top: -5px;
   margin-right: 5px;
 }
-/* line 70, ../sass/global.scss */
+/* line 73, ../sass/global.scss */
 .nav-sider .myInfo .dropdown-menu li .icon-user:before {
   content: "\f007";
 }
-/* line 71, ../sass/global.scss */
+/* line 74, ../sass/global.scss */
 .nav-sider .myInfo .dropdown-menu li .icon-out:before {
   content: "\f084";
 }
-/* line 72, ../sass/global.scss */
+/* line 75, ../sass/global.scss */
 .nav-sider .myInfo .dropdown-menu li .icon-news:before {
   content: "\f0e0";
 }
-/* line 73, ../sass/global.scss */
+/* line 76, ../sass/global.scss */
 .nav-sider .myInfo .dropdown-menu li .icon-module:before {
   content: "\f0ae";
 }
-/* line 74, ../sass/global.scss */
+/* line 77, ../sass/global.scss */
 .nav-sider .myInfo .dropdown-menu li.divider {
   height: 1px;
   margin: 9px 1px;
@@ -335,7 +339,7 @@ textarea:focus {
   background-color: #e5e5e5;
   border-bottom: 1px solid #fff;
 }
-/* line 76, ../sass/global.scss */
+/* line 79, ../sass/global.scss */
 .nav-sider .myInfo .dropdown-menu:before {
   position: absolute;
   top: -7px;
@@ -347,7 +351,7 @@ textarea:focus {
   border-bottom-color: rgba(255, 255, 255, 0.8);
   content: '';
 }
-/* line 79, ../sass/global.scss */
+/* line 82, ../sass/global.scss */
 .nav-sider .myInfo:hover .dropdown-menu {
   display: block;
   transform: translateY(0px);
@@ -355,15 +359,24 @@ textarea:focus {
   opacity: 1;
 }
 
+/*end header*/
+/*right*/
+/* line 87, ../sass/global.scss */
+#Container {
+  padding-left: 245px;
+}
+
+/*end right*/
 /* left */
-/* line 84, ../sass/global.scss */
+/* line 94, ../sass/global.scss */
 .sidebar-menu {
+  float: left;
   width: 225px;
   height: 100%;
   background: #3d3d3d;
   overflow: hidden;
 }
-/* line 85, ../sass/global.scss */
+/* line 95, ../sass/global.scss */
 .sidebar-menu .sidebar-toggler {
   width: 29px;
   height: 29px;
@@ -373,12 +386,12 @@ textarea:focus {
   opacity: 0.5;
   filter: alpha(opacity=50);
 }
-/* line 86, ../sass/global.scss */
+/* line 96, ../sass/global.scss */
 .sidebar-menu .sidebar-toggler:hover {
   opacity: 1;
   filter: alpha(opacity=100);
 }
-/* line 88, ../sass/global.scss */
+/* line 98, ../sass/global.scss */
 .sidebar-menu .webapp-tab {
   height: 28px;
   line-height: 28px;
@@ -386,7 +399,7 @@ textarea:focus {
   color: #4d4d4d;
   border: 1px solid #5c5c5c;
 }
-/* line 90, ../sass/global.scss */
+/* line 100, ../sass/global.scss */
 .sidebar-menu .webapp-tab li {
   float: left;
   width: 96px;
@@ -398,55 +411,55 @@ textarea:focus {
   cursor: pointer;
   color: #919191;
 }
-/* line 91, ../sass/global.scss */
+/* line 101, ../sass/global.scss */
 .sidebar-menu .webapp-tab li.current {
   background: #008bdb;
   color: #fff;
 }
-/* line 94, ../sass/global.scss */
+/* line 104, ../sass/global.scss */
 .sidebar-menu i {
   font-size: 16px;
   margin-right: 5px;
   text-shadow: none;
   color: #969696;
 }
-/* line 95, ../sass/global.scss */
+/* line 105, ../sass/global.scss */
 .sidebar-menu .icon-home:before {
   content: "\f015";
 }
-/* line 96, ../sass/global.scss */
+/* line 106, ../sass/global.scss */
 .sidebar-menu .icon-cogs:before {
   content: "\f085";
 }
-/* line 97, ../sass/global.scss */
+/* line 107, ../sass/global.scss */
 .sidebar-menu .icon-user:before {
   content: "\f007";
 }
-/* line 98, ../sass/global.scss */
+/* line 108, ../sass/global.scss */
 .sidebar-menu .icon-sitemap:before {
   content: "\f0e8";
 }
-/* line 99, ../sass/global.scss */
+/* line 109, ../sass/global.scss */
 .sidebar-menu .icon-file-text:before {
   content: "\f15c";
 }
-/* line 100, ../sass/global.scss */
+/* line 110, ../sass/global.scss */
 .sidebar-menu .icon-th:before {
   content: "\f00a";
 }
-/* line 101, ../sass/global.scss */
+/* line 111, ../sass/global.scss */
 .sidebar-menu .icon-map-marker:before {
   content: "\f041";
 }
-/* line 102, ../sass/global.scss */
+/* line 112, ../sass/global.scss */
 .sidebar-menu .icon-folder-open:before {
   content: "\f07c";
 }
-/* line 103, ../sass/global.scss */
+/* line 113, ../sass/global.scss */
 .sidebar-menu .icon-gift:before {
   content: "\f06b";
 }
-/* line 104, ../sass/global.scss */
+/* line 114, ../sass/global.scss */
 .sidebar-menu .selected {
   display: block;
   width: 8px;
@@ -457,13 +470,13 @@ textarea:focus {
   right: 0px;
   top: 8px;
 }
-/* line 105, ../sass/global.scss */
+/* line 115, ../sass/global.scss */
 .sidebar-menu .arrow {
   color: #7d7d7d !important;
   transition-duration: .5s;
   -webkit-transition-duration: .5s;
 }
-/* line 107, ../sass/global.scss */
+/* line 117, ../sass/global.scss */
 .sidebar-menu .arrow:before {
   float: right;
   margin-top: 1px;
@@ -476,7 +489,7 @@ textarea:focus {
   font-weight: 300;
   text-shadow: none;
 }
-/* line 108, ../sass/global.scss */
+/* line 118, ../sass/global.scss */
 .sidebar-menu .arrow.cur:before {
   float: right;
   margin-top: 1px;
@@ -489,7 +502,7 @@ textarea:focus {
   font-weight: 300;
   text-shadow: none;
 }
-/* line 112, ../sass/global.scss */
+/* line 122, ../sass/global.scss */
 .sidebar-menu .pub-menu li a {
   display: block;
   position: relative;
@@ -502,24 +515,24 @@ textarea:focus {
   border-top: 1px solid #5c5c5c;
   color: #ffffff;
 }
-/* line 114, ../sass/global.scss */
+/* line 124, ../sass/global.scss */
 .sidebar-menu .pub-menu li.active a {
   background: #e02222;
   border-top-color: transparent !important;
 }
-/* line 115, ../sass/global.scss */
+/* line 125, ../sass/global.scss */
 .sidebar-menu .pub-menu li.active a i[class^=icon] {
   color: #fff;
 }
-/* line 120, ../sass/global.scss */
+/* line 130, ../sass/global.scss */
 .sidebar-menu .option > ul > li {
   line-height: 20px;
 }
-/* line 123, ../sass/global.scss */
+/* line 133, ../sass/global.scss */
 .sidebar-menu .option > ul > li > .title {
   color: #fff;
 }
-/* line 127, ../sass/global.scss */
+/* line 137, ../sass/global.scss */
 .sidebar-menu .option > ul > li > a {
   display: block;
   position: relative;
@@ -532,19 +545,19 @@ textarea:focus {
   border-top: 1px solid #5c5c5c;
   color: #ffffff;
 }
-/* line 128, ../sass/global.scss */
+/* line 138, ../sass/global.scss */
 .sidebar-menu .option > ul > li > a:hover {
   background: #303030;
 }
-/* line 131, ../sass/global.scss */
+/* line 141, ../sass/global.scss */
 .sidebar-menu .option > ul > li.open > a {
   background: #303030;
 }
-/* line 132, ../sass/global.scss */
+/* line 142, ../sass/global.scss */
 .sidebar-menu .option > ul > li.open .sub-menu {
   display: block;
 }
-/* line 135, ../sass/global.scss */
+/* line 145, ../sass/global.scss */
 .sidebar-menu .option .sub-menu {
   display: none;
   padding: 5px 0;
@@ -552,7 +565,7 @@ textarea:focus {
   -webkit-transition-duration: .5s;
   overflow: hidden;
 }
-/* line 137, ../sass/global.scss */
+/* line 147, ../sass/global.scss */
 .sidebar-menu .option .sub-menu > li > a {
   display: block;
   margin: 0;
@@ -564,16 +577,16 @@ textarea:focus {
   background: none;
   color: #bdbdbd;
 }
-/* line 138, ../sass/global.scss */
+/* line 148, ../sass/global.scss */
 .sidebar-menu .option .sub-menu > li > a:hover {
   color: #ffffff !important;
   background: #575757 !important;
 }
-/* line 139, ../sass/global.scss */
+/* line 149, ../sass/global.scss */
 .sidebar-menu .option .sub-menu > li > a:hover i[class^=icon] {
   color: #fff;
 }
-/* line 141, ../sass/global.scss */
+/* line 151, ../sass/global.scss */
 .sidebar-menu .option .sub-menu > li > a .arrow {
   float: right;
   margin-top: 1px;

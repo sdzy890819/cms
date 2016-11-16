@@ -3,7 +3,7 @@ ngbody.directive("contentBar", function() {
 	    	restrict : 'E',
 	    	replace : true,
 	    	transclude : true,
-	        templateUrl : '../template/home.html',
+	        templateUrl : '../template/news.html',
 	        controller:function(){
 	        	
 	        },
