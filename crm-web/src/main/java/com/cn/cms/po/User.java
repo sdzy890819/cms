@@ -5,6 +5,6 @@ package com.cn.cms.po;
  */
 public class User {
 
-
+    
 
 }
