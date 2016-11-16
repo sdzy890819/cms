@@ -125,5 +125,15 @@ textarea:focus{ border:1px solid #8cb2d9;
                 &:hover{background: #303030; }
             }
         }
+        .sub-menu{ padding:5px 0; display:none;
+            >li{
+                >a{ display: block; margin: 0; padding: 5px 0px; padding-left: 44px !important; text-decoration: none; font-size: 14px; font-weight: 300;    background: none; color: #bdbdbd;
+                    &:hover{ color: #ffffff !important;  background: #575757 !important;
+                        i[class^=icon]{ color:#fff;}
+                    }
+                    .arrow{ float: right; margin-top: 1px; margin-right: 15px; display: inline; font-size: 16px; font-family: FontAwesome; height: auto; content: "\f104"; font-weight: 300; text-shadow: none;}
+                }
+            }
+        }
     }
 }
