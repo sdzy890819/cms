@@ -9,7 +9,8 @@ import lombok.Getter;
 public enum DelTagEnum {
 
     DEL("删除", 0),
-    NORMAL("正常", 1);
+    NORMAL("正常", 1),
+    ERROR("错误", -1);
 
     @Getter
     private int type;
@@ -29,6 +30,6 @@ public enum DelTagEnum {
                 return b;
             }
         }
-        return null;
+        return DelTagEnum.ERROR;
     }
 }

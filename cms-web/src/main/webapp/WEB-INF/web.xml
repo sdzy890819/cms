@@ -10,7 +10,7 @@
     </context-param>
     <context-param>
         <param-name>webAppRootKey</param-name>
-        <param-value>crm-web</param-value>
+        <param-value>cms-web</param-value>
     </context-param>
     <filter>
         <filter-name>characterEncodingFilter</filter-name>
@@ -36,7 +36,7 @@
         <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
     </listener>
     <servlet>
-        <servlet-name>crmweb</servlet-name>
+        <servlet-name>cmsweb</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>
             <param-name>contextConfigLocation</param-name>
@@ -45,7 +45,7 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
-        <servlet-name>crmweb</servlet-name>
+        <servlet-name>cmsweb</servlet-name>
         <url-pattern>/*</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
