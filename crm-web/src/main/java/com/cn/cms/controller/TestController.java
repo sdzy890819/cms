@@ -14,8 +14,14 @@ import javax.servlet.http.HttpServletRequest;
 public class TestController {
 
 
-    @RequestMapping("index")
+    @RequestMapping("/")
     public String index(HttpServletRequest request,Model model){
+        model.addAttribute("a","Hello,zhangyang");
+        return "index";
+    }
+
+    @RequestMapping("/v2")
+    public String indexV2(HttpServletRequest request,Model model){
         model.addAttribute("a","Hello,zhangyang");
         return "index";
     }

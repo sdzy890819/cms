@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/beans
+                http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/rabbit
+                http://www.springframework.org/schema/rabbit/spring-rabbit.xsd">
+
+    <!-- queue 队列声明 需要发送消息到哪些队列-->
+    <!-- 消息系统监听队列 -->
+    <rabbit:queue id="build_queue" durable="true" auto-delete="false" exclusive="false" name="build_queue"/>
+    <!-- exchange queue binging key 绑定 -->
+    <rabbit:topic-exchange name="build-exchange" durable="true" auto-delete="false" id="build-exchange">
+        <rabbit:bindings>
+            <rabbit:binding queue="build_queue" pattern="build.*" />
+        </rabbit:bindings>
+    </rabbit:topic-exchange>
+    <!-- spring amqp默认的是jackson 的一个插件,目的将生产者生产的数据转换为json存入消息队列，由于fastjson的速度快于jackson,这里替换为fastjson的一个实现 -->
+    <bean id="jsonMessageConverter"  class="com.cn.cms.message.common.JsonMessageConverter"></bean>
+    <!-- spring template声明-->
+    <rabbit:template exchange="build-exchange" id="amqpTemplate4Message"  connection-factory="connectionFactory"  message-converter="jsonMessageConverter"/>
+
+</beans>
