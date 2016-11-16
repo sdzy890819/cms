@@ -166,18 +166,7 @@
         </subPane>
       </pane>
       <pane id="PackagesPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="crm-web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cms-web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
+        <subPane />
       </pane>
       <pane id="Scratches" />
       <pane id="ProjectPane">
@@ -880,7 +869,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1479119951857</updated>
-      <workItem from="1479119953886" duration="26578000" />
+      <workItem from="1479119953886" duration="26711000" />
     </task>
     <servers />
   </component>
@@ -890,7 +879,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26578000" />
+    <option name="totallyTimeSpent" value="26711000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="773" extended-state="6" />
