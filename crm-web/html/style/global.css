@@ -62,7 +62,7 @@ textarea:focus{ border:1px solid #8cb2d9;
 .nav-sider .myInfo:hover .dropdown-menu{ transform:translateY(0px); -webkit-transform:translateY(0px); opacity: 1; }
 .dropdown-menu li{ line-height: 20px;;}
 .dropdown-menu:before{ position: absolute; top: -7px; right: 9px; display: inline-block; border-right: 7px solid transparent; border-bottom: 7px solid #fff; border-left: 7px solid transparent; border-bottom-color: rgba(255,255,255,.8); content: '';}
-.dropdown-menu li a{ margin:2px 0; padding: 6px 0 6px 13px; color: #333; text-decoration: none; display: block; clear: both; font-weight: normal; line-height: 18px; white-space: nowrap; transition-duration:.5s; -webkit-transition-duration:.5s;}
+.dropdown-menu li a{ margin:2px 0; padding: 6px 0 6px 13px; color: #333; text-decoration: none; display: block; clear: both; font-weight: normal; line-height: 18px; white-space: nowrap;}
 .dropdown-menu li i[class^="icon-"]{ width:15px; height: 15px; margin-top: -5px; margin-right: 5px; }
 .dropdown-menu li .icon-user:before{content: "\f007";}
 .dropdown-menu li .icon-out:before{content: "\f084";}
