@@ -18,7 +18,7 @@
 	    	transclude : true,
 	        templateUrl : '../template/header.html',
 	        controller : function(){
-
+	        	console.log($(window).height())
 	        }
 	    };
 	});
