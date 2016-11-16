@@ -4,7 +4,7 @@
     <list default="true" id="17dc56c1-1af3-454a-bd1b-d145af963bcc" name="Default" comment="" />
     <ignored path="crm-web.iws" />
     <ignored path=".idea/workspace.xml" />
-    <ignored path="$PROJECT_DIR$/target/" />
+    <ignored path="$USER_HOME$/Documents/projects/cms/crm-web/target/" />
     <ignored path=".idea/dataSources.local.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -43,38 +43,38 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/resources/debug/spring/spring-dubbo.xml" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/vmfile/index.vm" />
-        <option value="$PROJECT_DIR$/.idea/compiler.xml" />
-        <option value="$PROJECT_DIR$/target/crm-web/WEB-INF/web.xml" />
-        <option value="$PROJECT_DIR$/src/main/resources/debug/spring/spring-mybatis.xml" />
-        <option value="$PROJECT_DIR$/src/main/resources/debug/spring/spring-db.xml" />
-        <option value="$PROJECT_DIR$/target/crm-web/WEB-INF/classes/config.properties" />
-        <option value="$PROJECT_DIR$/src/main/resources/debug/spring/spring-cache.xml" />
-        <option value="$PROJECT_DIR$/src/main/resources/debug/config.properties" />
-        <option value="$PROJECT_DIR$/.idea/artifacts/crm_web_war_exploded.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cn/cms/controller/TestController.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/debug/spring/spring-amqp-pub-build.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cn/cms/message/enums/MessageSource.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cn/cms/message/enums/MessageQueueEnum.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cn/cms/message/BuildSendMessage.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cn/cms/message/common/MessageSender.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cn/cms/message/enums/MessageSourceEnum.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cn/cms/web/interceptor/CheckAuthInterceptor.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cn/cms/web/ann/CheckAuth.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cn/cms/web/ann/CheckToken.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/debug/spring/spring-app.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cn/cms/web/ann/package-info.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cn/cms/po/Base.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cn/cms/contants/RedisKeyContants.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cn/cms/po/User.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cn/cms/enums/DelTagEnum.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cn/cms/enums/PlatformEnum.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cn/cms/enums/RelationTypeEnum.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cn/cms/enums/EncodedEnum.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cn/cms/enums/JobEnum.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" />
-        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$USER_HOME$/Documents/projects/cms/crm-web/src/main/resources/debug/spring/spring-dubbo.xml" />
+        <option value="$USER_HOME$/Documents/projects/cms/crm-web/src/main/webapp/WEB-INF/vmfile/index.vm" />
+        <option value="$USER_HOME$/Documents/projects/cms/crm-web/.idea/compiler.xml" />
+        <option value="$USER_HOME$/Documents/projects/cms/crm-web/target/crm-web/WEB-INF/web.xml" />
+        <option value="$USER_HOME$/Documents/projects/cms/crm-web/src/main/resources/debug/spring/spring-mybatis.xml" />
+        <option value="$USER_HOME$/Documents/projects/cms/crm-web/src/main/resources/debug/spring/spring-db.xml" />
+        <option value="$USER_HOME$/Documents/projects/cms/crm-web/target/crm-web/WEB-INF/classes/config.properties" />
+        <option value="$USER_HOME$/Documents/projects/cms/crm-web/src/main/resources/debug/spring/spring-cache.xml" />
+        <option value="$USER_HOME$/Documents/projects/cms/crm-web/src/main/resources/debug/config.properties" />
+        <option value="$USER_HOME$/Documents/projects/cms/crm-web/.idea/artifacts/crm_web_war_exploded.xml" />
+        <option value="$USER_HOME$/Documents/projects/cms/crm-web/src/main/java/com/cn/cms/controller/TestController.java" />
+        <option value="$USER_HOME$/Documents/projects/cms/crm-web/src/main/resources/debug/spring/spring-amqp-pub-build.xml" />
+        <option value="$USER_HOME$/Documents/projects/cms/crm-web/src/main/java/com/cn/cms/message/enums/MessageSource.java" />
+        <option value="$USER_HOME$/Documents/projects/cms/crm-web/src/main/java/com/cn/cms/message/enums/MessageQueueEnum.java" />
+        <option value="$USER_HOME$/Documents/projects/cms/crm-web/src/main/java/com/cn/cms/message/BuildSendMessage.java" />
+        <option value="$USER_HOME$/Documents/projects/cms/crm-web/src/main/java/com/cn/cms/message/common/MessageSender.java" />
+        <option value="$USER_HOME$/Documents/projects/cms/crm-web/src/main/java/com/cn/cms/message/enums/MessageSourceEnum.java" />
+        <option value="$USER_HOME$/Documents/projects/cms/crm-web/src/main/java/com/cn/cms/web/interceptor/CheckAuthInterceptor.java" />
+        <option value="$USER_HOME$/Documents/projects/cms/crm-web/src/main/java/com/cn/cms/web/ann/CheckAuth.java" />
+        <option value="$USER_HOME$/Documents/projects/cms/crm-web/src/main/java/com/cn/cms/web/ann/CheckToken.java" />
+        <option value="$USER_HOME$/Documents/projects/cms/crm-web/src/main/resources/debug/spring/spring-app.xml" />
+        <option value="$USER_HOME$/Documents/projects/cms/crm-web/src/main/java/com/cn/cms/web/ann/package-info.java" />
+        <option value="$USER_HOME$/Documents/projects/cms/crm-web/src/main/java/com/cn/cms/po/Base.java" />
+        <option value="$USER_HOME$/Documents/projects/cms/crm-web/src/main/java/com/cn/cms/contants/RedisKeyContants.java" />
+        <option value="$USER_HOME$/Documents/projects/cms/crm-web/src/main/java/com/cn/cms/po/User.java" />
+        <option value="$USER_HOME$/Documents/projects/cms/crm-web/src/main/java/com/cn/cms/enums/DelTagEnum.java" />
+        <option value="$USER_HOME$/Documents/projects/cms/crm-web/src/main/java/com/cn/cms/enums/PlatformEnum.java" />
+        <option value="$USER_HOME$/Documents/projects/cms/crm-web/src/main/java/com/cn/cms/enums/RelationTypeEnum.java" />
+        <option value="$USER_HOME$/Documents/projects/cms/crm-web/src/main/java/com/cn/cms/enums/EncodedEnum.java" />
+        <option value="$USER_HOME$/Documents/projects/cms/crm-web/src/main/java/com/cn/cms/enums/JobEnum.java" />
+        <option value="$USER_HOME$/Documents/projects/cms/crm-web/src/main/webapp/WEB-INF/web.xml" />
+        <option value="$USER_HOME$/Documents/projects/cms/crm-web/pom.xml" />
       </list>
     </option>
   </component>
@@ -176,12 +176,6 @@
               <option name="myItemId" value="crm-web" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="crm-web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="cms-web" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
@@ -271,7 +265,7 @@
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.545977" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../Heika/crm" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Documents/Heika/crm" />
     <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.ignored.files" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="Downloaded.Files.Path.Enabled" value="false" />
@@ -432,7 +426,7 @@
       <option name="MAIN_CLASS_NAME" />
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$USER_HOME$/Documents/projects/cms/crm-web" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="ENABLE_SWING_INSPECTOR" value="false" />
@@ -869,7 +863,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1479119951857</updated>
-      <workItem from="1479119953886" duration="26711000" />
+      <workItem from="1479119953886" duration="28479000" />
     </task>
     <servers />
   </component>
@@ -879,11 +873,11 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26711000" />
+    <option name="totallyTimeSpent" value="28479000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="773" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
@@ -973,7 +967,7 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../cms-web/.idea/artifacts/crm_web_war.xml">
+    <entry file="file://$USER_HOME$/Documents/projects/cms/cms-web/.idea/artifacts/crm_web_war.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -981,7 +975,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../cms-web/.idea/artifacts/crm_web_war_exploded.xml">
+    <entry file="file://$USER_HOME$/Documents/projects/cms/cms-web/.idea/artifacts/crm_web_war_exploded.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
           <caret line="31" column="93" selection-start-line="31" selection-start-column="93" selection-end-line="31" selection-end-column="93" />
@@ -989,7 +983,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../cms-web/.idea/copyright/profiles_settings.xml">
+    <entry file="file://$USER_HOME$/Documents/projects/cms/cms-web/.idea/copyright/profiles_settings.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -997,7 +991,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../cms-web/.idea/inspectionProfiles/profiles_settings.xml">
+    <entry file="file://$USER_HOME$/Documents/projects/cms/cms-web/.idea/inspectionProfiles/profiles_settings.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -1005,7 +999,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../cms-web/.idea/inspectionProfiles/Project_Default.xml">
+    <entry file="file://$USER_HOME$/Documents/projects/cms/cms-web/.idea/inspectionProfiles/Project_Default.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -1013,7 +1007,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../cms-web/.idea/compiler.xml">
+    <entry file="file://$USER_HOME$/Documents/projects/cms/cms-web/.idea/compiler.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
           <caret line="28" column="40" selection-start-line="28" selection-start-column="40" selection-end-line="28" selection-end-column="40" />
@@ -1021,7 +1015,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../cms-web/.idea/misc.xml">
+    <entry file="file://$USER_HOME$/Documents/projects/cms/cms-web/.idea/misc.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="22" column="40" selection-start-line="22" selection-start-column="40" selection-end-line="22" selection-end-column="40" />
@@ -1029,7 +1023,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../cms-web/.idea/modules.xml">
+    <entry file="file://$USER_HOME$/Documents/projects/cms/cms-web/.idea/modules.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -1037,7 +1031,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../cms-web/.idea/workspace.xml">
+    <entry file="file://$USER_HOME$/Documents/projects/cms/cms-web/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-19812">
           <caret line="60" column="20" selection-start-line="60" selection-start-column="20" selection-end-line="60" selection-end-column="20" />
@@ -1045,7 +1039,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../cms-web/src/main/webapp/index.jsp">
+    <entry file="file://$USER_HOME$/Documents/projects/cms/cms-web/src/main/webapp/index.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="4" column="7" selection-start-line="4" selection-start-column="7" selection-end-line="4" selection-end-column="7" />
@@ -1053,7 +1047,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../cms-web/src/main/webapp/WEB-INF/vmfile/index.vm">
+    <entry file="file://$USER_HOME$/Documents/projects/cms/cms-web/src/main/webapp/WEB-INF/vmfile/index.vm">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="2" selection-start-line="0" selection-start-column="2" selection-end-line="0" selection-end-column="2" />
@@ -1061,7 +1055,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../cms-web/src/main/resources/debug/config.properties">
+    <entry file="file://$USER_HOME$/Documents/projects/cms/cms-web/src/main/resources/debug/config.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="17" column="12" selection-start-line="17" selection-start-column="12" selection-end-line="17" selection-end-column="12" />
@@ -1069,7 +1063,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../cms-web/src/main/resources/debug/spring/spring-cache.xml">
+    <entry file="file://$USER_HOME$/Documents/projects/cms/cms-web/src/main/resources/debug/spring/spring-cache.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="33">
           <caret line="21" column="35" selection-start-line="21" selection-start-column="31" selection-end-line="21" selection-end-column="35" />
@@ -1077,7 +1071,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../cms-web/src/main/resources/debug/spring/spring-db.xml">
+    <entry file="file://$USER_HOME$/Documents/projects/cms/cms-web/src/main/resources/debug/spring/spring-db.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-612">
           <caret line="23" column="33" selection-start-line="23" selection-start-column="33" selection-end-line="23" selection-end-column="33" />
@@ -1085,7 +1079,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../cms-web/src/main/resources/debug/spring/spring-dubbo.xml">
+    <entry file="file://$USER_HOME$/Documents/projects/cms/cms-web/src/main/resources/debug/spring/spring-dubbo.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-57">
           <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
@@ -1093,7 +1087,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../cms-web/target/crm-web/WEB-INF/web.xml">
+    <entry file="file://$USER_HOME$/Documents/projects/cms/cms-web/target/crm-web/WEB-INF/web.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
           <caret line="42" column="47" selection-start-line="42" selection-start-column="47" selection-end-line="42" selection-end-column="47" />
@@ -1109,7 +1103,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../cms-web/src/main/resources/debug/spring/spring-amqp-common.xml">
+    <entry file="file://$USER_HOME$/Documents/projects/cms/cms-web/src/main/resources/debug/spring/spring-amqp-common.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="17" column="37" selection-start-line="17" selection-start-column="37" selection-end-line="17" selection-end-column="37" />
@@ -1125,7 +1119,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../cms-web/src/main/java/com/cn/cms/message/common/MessageSender.java">
+    <entry file="file://$USER_HOME$/Documents/projects/cms/cms-web/src/main/java/com/cn/cms/message/common/MessageSender.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
           <caret line="15" column="11" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="11" />
@@ -1137,7 +1131,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../cms-web/src/main/java/com/cn/cms/message/BuildSendMessage.java">
+    <entry file="file://$USER_HOME$/Documents/projects/cms/cms-web/src/main/java/com/cn/cms/message/BuildSendMessage.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
@@ -1147,7 +1141,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../cms-web/src/main/resources/debug/spring/spring-amqp-pub-build.xml">
+    <entry file="file://$USER_HOME$/Documents/projects/cms/cms-web/src/main/resources/debug/spring/spring-amqp-pub-build.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="22" column="71" selection-start-line="22" selection-start-column="51" selection-end-line="22" selection-end-column="71" />
@@ -1262,7 +1256,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/target/crm-web/WEB-INF/classes/spring/spring-dubbo.xml">
+    <entry file="file://$USER_HOME$/Documents/projects/cms/crm-web/target/crm-web/WEB-INF/classes/spring/spring-dubbo.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
@@ -1270,7 +1264,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../cms-web/src/main/java/com/cn/cms/web/ann/CheckToken.java">
+    <entry file="file://$USER_HOME$/Documents/projects/cms/cms-web/src/main/java/com/cn/cms/web/ann/CheckToken.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="7" column="4" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
@@ -1278,7 +1272,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../cms-web/src/main/java/com/cn/cms/web/interceptor/CheckAuthInterceptor.java">
+    <entry file="file://$USER_HOME$/Documents/projects/cms/cms-web/src/main/java/com/cn/cms/web/interceptor/CheckAuthInterceptor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
           <caret line="16" column="8" selection-start-line="16" selection-start-column="8" selection-end-line="16" selection-end-column="20" />
@@ -1288,7 +1282,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../cms-web/src/main/java/com/cn/cms/web/interceptor/CheckTokenInterceptor.java">
+    <entry file="file://$USER_HOME$/Documents/projects/cms/cms-web/src/main/java/com/cn/cms/web/interceptor/CheckTokenInterceptor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
           <caret line="18" column="4" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="4" />
@@ -1296,7 +1290,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../cms-web/src/main/java/com/cn/cms/web/ann/CheckAuth.java">
+    <entry file="file://$USER_HOME$/Documents/projects/cms/cms-web/src/main/java/com/cn/cms/web/ann/CheckAuth.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
@@ -1304,7 +1298,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../cms-web/src/main/java/com/cn/cms/web/ann/package-info.java">
+    <entry file="file://$USER_HOME$/Documents/projects/cms/cms-web/src/main/java/com/cn/cms/web/ann/package-info.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="4" column="27" selection-start-line="4" selection-start-column="27" selection-end-line="4" selection-end-column="27" />
@@ -1312,7 +1306,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../cms-web/src/main/resources/debug/spring/spring-app.xml">
+    <entry file="file://$USER_HOME$/Documents/projects/cms/cms-web/src/main/resources/debug/spring/spring-app.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-354">
           <caret line="24" column="11" selection-start-line="24" selection-start-column="11" selection-end-line="24" selection-end-column="11" />
@@ -1320,7 +1314,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../cms-web/src/main/java/com/cn/cms/thirdpart/package-info.java">
+    <entry file="file://$USER_HOME$/Documents/projects/cms/cms-web/src/main/java/com/cn/cms/thirdpart/package-info.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -1330,7 +1324,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../cms-web/src/main/java/com/cn/cms/message/enums/MessageQueueEnum.java">
+    <entry file="file://$USER_HOME$/Documents/projects/cms/cms-web/src/main/java/com/cn/cms/message/enums/MessageQueueEnum.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
           <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
@@ -1338,7 +1332,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../cms-web/src/main/java/com/cn/cms/po/Base.java">
+    <entry file="file://$USER_HOME$/Documents/projects/cms/cms-web/src/main/java/com/cn/cms/po/Base.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="480">
           <caret line="32" column="25" selection-start-line="32" selection-start-column="25" selection-end-line="32" selection-end-column="25" />
@@ -1348,7 +1342,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../cms-web/src/main/java/com/cn/cms/message/enums/MessageSourceEnum.java">
+    <entry file="file://$USER_HOME$/Documents/projects/cms/cms-web/src/main/java/com/cn/cms/message/enums/MessageSourceEnum.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="465">
           <caret line="31" column="5" selection-start-line="11" selection-start-column="4" selection-end-line="31" selection-end-column="5" />
@@ -1356,7 +1350,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../cms-web/src/main/java/com/cn/cms/contants/StaticContants.java">
+    <entry file="file://$USER_HOME$/Documents/projects/cms/cms-web/src/main/java/com/cn/cms/contants/StaticContants.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="5" column="27" selection-start-line="5" selection-start-column="27" selection-end-line="5" selection-end-column="27" />
@@ -1364,7 +1358,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../cms-web/src/main/java/com/cn/cms/contants/RedisKeyContants.java">
+    <entry file="file://$USER_HOME$/Documents/projects/cms/cms-web/src/main/java/com/cn/cms/contants/RedisKeyContants.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
           <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
@@ -1372,7 +1366,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../cms-web/src/main/java/com/cn/cms/po/User.java">
+    <entry file="file://$USER_HOME$/Documents/projects/cms/cms-web/src/main/java/com/cn/cms/po/User.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
@@ -1380,7 +1374,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../cms-web/src/main/java/com/cn/cms/controller/TestController.java">
+    <entry file="file://$USER_HOME$/Documents/projects/cms/cms-web/src/main/java/com/cn/cms/controller/TestController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
           <caret line="18" column="32" selection-start-line="18" selection-start-column="32" selection-end-line="18" selection-end-column="32" />
@@ -1388,7 +1382,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../cms-web/src/main/java/com/cn/cms/enums/JobEnum.java">
+    <entry file="file://$USER_HOME$/Documents/projects/cms/cms-web/src/main/java/com/cn/cms/enums/JobEnum.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
@@ -1396,7 +1390,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../cms-web/src/main/java/com/cn/cms/enums/EncodedEnum.java">
+    <entry file="file://$USER_HOME$/Documents/projects/cms/cms-web/src/main/java/com/cn/cms/enums/EncodedEnum.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="480">
           <caret line="32" column="5" selection-start-line="13" selection-start-column="4" selection-end-line="32" selection-end-column="5" />
@@ -1404,7 +1398,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../cms-web/src/main/java/com/cn/cms/enums/RelationTypeEnum.java">
+    <entry file="file://$USER_HOME$/Documents/projects/cms/cms-web/src/main/java/com/cn/cms/enums/RelationTypeEnum.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="495">
           <caret line="33" column="5" selection-start-line="14" selection-start-column="4" selection-end-line="33" selection-end-column="5" />
@@ -1412,7 +1406,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../cms-web/src/main/java/com/cn/cms/enums/PlatformEnum.java">
+    <entry file="file://$USER_HOME$/Documents/projects/cms/cms-web/src/main/java/com/cn/cms/enums/PlatformEnum.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
           <caret line="11" column="20" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
@@ -1420,7 +1414,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../cms-web/src/main/java/com/cn/cms/enums/DelTagEnum.java">
+    <entry file="file://$USER_HOME$/Documents/projects/cms/cms-web/src/main/java/com/cn/cms/enums/DelTagEnum.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="435">
           <caret line="30" column="13" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
@@ -1428,7 +1422,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../cms-web/src/main/webapp/WEB-INF/web.xml">
+    <entry file="file://$USER_HOME$/Documents/projects/cms/cms-web/src/main/webapp/WEB-INF/web.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="12" column="24" selection-start-line="12" selection-start-column="24" selection-end-line="12" selection-end-column="24" />
@@ -1436,7 +1430,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../cms-web/src/main/webapp/WEB-INF/tools.xml">
+    <entry file="file://$USER_HOME$/Documents/projects/cms/cms-web/src/main/webapp/WEB-INF/tools.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -1444,7 +1438,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../cms-web/html/index.html">
+    <entry file="file://$USER_HOME$/Documents/projects/cms/cms-web/html/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
           <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
@@ -1452,7 +1446,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../cms-web/pom.xml">
+    <entry file="file://$USER_HOME$/Documents/projects/cms/cms-web/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="220">
           <caret line="167" column="16" selection-start-line="167" selection-start-column="16" selection-end-line="167" selection-end-column="16" />
@@ -1460,7 +1454,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../cms-web/cms-web.iml">
+    <entry file="file://$USER_HOME$/Documents/projects/cms/cms-web/cms-web.iml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="12" column="12" selection-start-line="12" selection-start-column="12" selection-end-line="12" selection-end-column="12" />
