@@ -50,8 +50,13 @@
 	        			}
 	        		}, 300);
 	        	}
+	        	function clearMenu(){
+	        		submenu.parent().removeClass('open')
+	        			.find('.arrow').removeClass('cur');
+	        	}
 	        	submenu.each(function( i , ele ){
 	        		ng(ele).click(function(){
+	        			clearMenu();
 		        		ng(this).parent().addClass('open')
 		        			.find('.arrow').addClass('cur');
 		        	});
