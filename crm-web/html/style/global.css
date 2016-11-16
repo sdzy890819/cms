@@ -75,4 +75,4 @@ textarea:focus{ border:1px solid #8cb2d9;
 .sidebar-menu{ width:225px; height: 100%; background: #3d3d3d; overflow: hidden; }
 .sidebar-toggler{ width: 29px; height: 29px; margin:15px 0 15px 175px; cursor: pointer; background: url(../images/sidebar-toggler.jpg) right 0 no-repeat; opacity: 0.5; filter: alpha(opacity=50);}
 .sidebar-toggler:hover{opacity: 1; filter: alpha(opacity=100);}
-.webapp-tab{ height:500px; background: red; }
+.webapp-tab{}
