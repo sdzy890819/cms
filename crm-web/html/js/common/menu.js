@@ -1,4 +1,5 @@
 (function(){
+	return;
 	var menu = angular.module("leftMenu", []);
 	menu.directive("menuNav", function() {
 	    return {
@@ -13,7 +14,7 @@
 
 	        },
 	        link : function(){
-	        		
+
 	        }
 	    };
 	});
