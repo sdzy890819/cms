@@ -546,8 +546,11 @@ textarea:focus {
 }
 /* line 135, ../sass/global.scss */
 .sidebar-menu .option .sub-menu {
-  padding: 5px 0;
   display: none;
+  padding: 5px 0;
+  transition-duration: .5s;
+  -webkit-transition-duration: .5s;
+  overflow: hidden;
 }
 /* line 137, ../sass/global.scss */
 .sidebar-menu .option .sub-menu > li > a {

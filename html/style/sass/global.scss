@@ -132,7 +132,7 @@ textarea:focus{ border:1px solid #8cb2d9;
                 .sub-menu{ display:block;}
             }
         }
-        .sub-menu{ padding:5px 0; display:none;
+        .sub-menu{ display: none; padding:5px 0; transition-duration:.5s; -webkit-transition-duration:.5s; overflow:hidden;
             >li{
                 >a{ display: block; margin: 0; padding: 5px 0px; padding-left: 44px !important; text-decoration: none; font-size: 14px; font-weight: 300;    background: none; color: #bdbdbd;
                     &:hover{ color: #ffffff !important;  background: #575757 !important;
