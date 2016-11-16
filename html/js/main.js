@@ -18,7 +18,10 @@
 	    	transclude : true,
 	        templateUrl : '../template/header.html',
 	        controller : function(){
-	        	console.log($(window).height())
+
+	        },
+	        link : function(scope,element){
+	        	var b;
 	        }
 	    };
 	});
@@ -32,10 +35,32 @@
 	        	
 	        },
 	        scope : function(){
-
+	        	title : '=data'
 	        },
-	        link : function(){
-
+	        link : function(scope,element){
+	        	var time = 0 , 
+	        		ng = angular.element,
+	        		submenu = element.find('.option li>a') ;
+	        	window.onresize = function(){
+	        		clearTimeout(time);
+	        		var height = angular.element(window).height()-angular.element('#Header').height();
+	        		time = setTimeout(function(){
+	        			if(element.height()<height){
+	        				element.height(height)
+	        			}
+	        		}, 300);
+	        	}
+	        	function clearMenu(){
+	        		submenu.parent().removeClass('open')
+	        			.find('.arrow').removeClass('cur');
+	        	}
+	        	submenu.each(function( i , ele ){
+	        		ng(ele).click(function(){
+	        			clearMenu();
+		        		ng(this).parent().addClass('open')
+		        			.find('.arrow').addClass('cur');
+		        	});
+	        	})
 	        }
 	    };
 	});

@@ -460,6 +460,8 @@ textarea:focus {
 /* line 105, ../sass/global.scss */
 .sidebar-menu .arrow {
   color: #7d7d7d !important;
+  transition-duration: .5s;
+  -webkit-transition-duration: .5s;
 }
 /* line 107, ../sass/global.scss */
 .sidebar-menu .arrow:before {
@@ -474,7 +476,20 @@ textarea:focus {
   font-weight: 300;
   text-shadow: none;
 }
-/* line 111, ../sass/global.scss */
+/* line 108, ../sass/global.scss */
+.sidebar-menu .arrow.cur:before {
+  float: right;
+  margin-top: 1px;
+  margin-right: 3px;
+  display: inline;
+  font-family: FontAwesome;
+  height: auto;
+  font-size: 16px;
+  content: "\f107";
+  font-weight: 300;
+  text-shadow: none;
+}
+/* line 112, ../sass/global.scss */
 .sidebar-menu .pub-menu li a {
   display: block;
   position: relative;
@@ -487,24 +502,24 @@ textarea:focus {
   border-top: 1px solid #5c5c5c;
   color: #ffffff;
 }
-/* line 113, ../sass/global.scss */
+/* line 114, ../sass/global.scss */
 .sidebar-menu .pub-menu li.active a {
   background: #e02222;
   border-top-color: transparent !important;
 }
-/* line 114, ../sass/global.scss */
+/* line 115, ../sass/global.scss */
 .sidebar-menu .pub-menu li.active a i[class^=icon] {
   color: #fff;
 }
-/* line 119, ../sass/global.scss */
+/* line 120, ../sass/global.scss */
 .sidebar-menu .option > ul > li {
   line-height: 20px;
 }
-/* line 122, ../sass/global.scss */
+/* line 123, ../sass/global.scss */
 .sidebar-menu .option > ul > li > .title {
   color: #fff;
 }
-/* line 124, ../sass/global.scss */
+/* line 127, ../sass/global.scss */
 .sidebar-menu .option > ul > li > a {
   display: block;
   position: relative;
@@ -517,7 +532,54 @@ textarea:focus {
   border-top: 1px solid #5c5c5c;
   color: #ffffff;
 }
-/* line 125, ../sass/global.scss */
+/* line 128, ../sass/global.scss */
 .sidebar-menu .option > ul > li > a:hover {
   background: #303030;
+}
+/* line 131, ../sass/global.scss */
+.sidebar-menu .option > ul > li.open > a {
+  background: #303030;
+}
+/* line 132, ../sass/global.scss */
+.sidebar-menu .option > ul > li.open .sub-menu {
+  display: block;
+}
+/* line 135, ../sass/global.scss */
+.sidebar-menu .option .sub-menu {
+  padding: 5px 0;
+  display: none;
+}
+/* line 137, ../sass/global.scss */
+.sidebar-menu .option .sub-menu > li > a {
+  display: block;
+  margin: 0;
+  padding: 5px 0px;
+  padding-left: 44px !important;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 300;
+  background: none;
+  color: #bdbdbd;
+}
+/* line 138, ../sass/global.scss */
+.sidebar-menu .option .sub-menu > li > a:hover {
+  color: #ffffff !important;
+  background: #575757 !important;
+}
+/* line 139, ../sass/global.scss */
+.sidebar-menu .option .sub-menu > li > a:hover i[class^=icon] {
+  color: #fff;
+}
+/* line 141, ../sass/global.scss */
+.sidebar-menu .option .sub-menu > li > a .arrow {
+  float: right;
+  margin-top: 1px;
+  margin-right: 15px;
+  display: inline;
+  font-size: 16px;
+  font-family: FontAwesome;
+  height: auto;
+  content: "\f104";
+  font-weight: 300;
+  text-shadow: none;
 }
