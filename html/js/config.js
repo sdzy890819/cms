@@ -1,9 +1,23 @@
 require.config({
-    baseUrl: './',
+    baseUrl: 'js/',
     paths: {
-        'angular': 'plug/angular.min',
+        'jquery': 'plug/jquery-1.9.1.min',
+        'angular': 'plug/angular',
+        'angular-router': 'plug/angular-ui-router.min',
     },
     shim: {
-        'angular': {exports: 'angular'}
-    }
+        'jquery': {exports: '$'},
+        'angular': {exports: 'angular'},
+        'angular-router': {
+        	deps: ['angular'] , 
+        	exports: 'angular-router'
+    	}
+    },
+    urlArgs: "bust=" +  (new Date()).getTime()
+});
+
+require(['angular', './routers'], function (angular) {
+    angular.element(document).ready(function () {
+        angular.bootstrap(document, ['ngbody']);
+    });
 });
