@@ -3,13 +3,13 @@ package com.cn.cms.enums;
 import lombok.Getter;
 
 /**
+ * 平台枚举
  * Created by zhangyang on 16/11/16.
  */
 public enum PlatformEnum {
 
     APP("APP", 2),
-    CMS("CMS", 1),
-    ERROR("ERROR",-1);
+    CMS("CMS", 1);
 
     @Getter
     private int type;
@@ -29,6 +29,6 @@ public enum PlatformEnum {
                 return b;
             }
         }
-        return PlatformEnum.ERROR;
+        return PlatformEnum.CMS;
     }
 }

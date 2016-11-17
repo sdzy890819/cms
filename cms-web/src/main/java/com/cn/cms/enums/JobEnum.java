@@ -3,13 +3,13 @@ package com.cn.cms.enums;
 import lombok.Getter;
 
 /**
+ * 定时生成或者触发生成枚举
  * Created by zhangyang on 16/11/16.
  */
 public enum JobEnum {
 
     job("定时生成", 1),
-    trigger("触发生成", 0),
-    error("无生成", -1);
+    trigger("触发生成", 0);
 
     @Getter
     private int type;
@@ -29,6 +29,6 @@ public enum JobEnum {
                 return b;
             }
         }
-        return JobEnum.error;
+        return JobEnum.trigger;
     }
 }

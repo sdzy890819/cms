@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="exploded-war" name="cms-web:war exploded">
-    <output-path>$USER_HOME$/Documents/projects/cms/crm-web/target/cms-web</output-path>
+    <output-path>$PROJECT_DIR$/target/cms-web</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
@@ -71,7 +71,7 @@
         </element>
       </element>
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$USER_HOME$/Documents/projects/cms/cms-web/target/cms-web/META-INF/MANIFEST.MF" />
+        <element id="file-copy" path="$PROJECT_DIR$/target/cms-web/META-INF/MANIFEST.MF" />
       </element>
       <element id="javaee-facet-resources" facet="cms-web/web/Web" />
     </root>

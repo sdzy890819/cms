@@ -4,13 +4,13 @@ import com.cn.cms.message.enums.MessageSourceEnum;
 import lombok.Getter;
 
 /**
+ * 删除枚举
  * Created by zhangyang on 16/11/15.
  */
 public enum DelTagEnum {
 
     DEL("删除", 0),
-    NORMAL("正常", 1),
-    ERROR("错误", -1);
+    NORMAL("正常", 1);
 
     @Getter
     private int type;
@@ -30,6 +30,6 @@ public enum DelTagEnum {
                 return b;
             }
         }
-        return DelTagEnum.ERROR;
+        return DelTagEnum.NORMAL;
     }
 }

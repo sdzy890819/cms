@@ -3,14 +3,14 @@ package com.cn.cms.enums;
 import lombok.Getter;
 
 /**
+ * 关系类型枚举
  * Created by zhangyang on 16/11/16.
  */
 public enum RelationTypeEnum {
 
     topic("专题分类ID", 3),
     fragment("碎片ID", 2),
-    column("栏目ID", 1),
-    error("不存在的类型ID", -1);
+    column("栏目ID", 1);
 
     @Getter
     private int type;
@@ -30,6 +30,6 @@ public enum RelationTypeEnum {
                 return b;
             }
         }
-        return RelationTypeEnum.error;
+        return RelationTypeEnum.column;
     }
 }

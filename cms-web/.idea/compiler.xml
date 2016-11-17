@@ -23,12 +23,10 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
         <module name="cms-web" />
-        <module name="crm-web" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="cms-web" target="1.5" />
-      <module name="crm-web" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -3,14 +3,14 @@ package com.cn.cms.enums;
 import lombok.Getter;
 
 /**
+ * 支持的编码枚举
  * Created by zhangyang on 16/11/16.
  */
 public enum EncodedEnum {
 
     utf8("UTF-8", 1),
     gbk("GBK", 2),
-    big5("BIG5", 3),
-    error("UTF-8", -1);
+    big5("BIG5", 3);
     @Getter
     private int type;
     @Getter
@@ -29,6 +29,6 @@ public enum EncodedEnum {
                 return b;
             }
         }
-        return EncodedEnum.error;
+        return EncodedEnum.utf8;
     }
 }

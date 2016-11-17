@@ -33,4 +33,9 @@ public class Base {
      * 删除标记。默认删除状态为 正常状态。
      */
     protected Integer delTag = DelTagEnum.NORMAL.getType();
+
+    /**
+     * 最后修改人ID
+     */
+    protected String lastModifyUserId;
 }
