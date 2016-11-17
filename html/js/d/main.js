@@ -16,9 +16,17 @@
 	    	restrict : 'E',
 	    	replace : true,
 	    	transclude : true,
+	    	scope: {},
 	        templateUrl : '../template/header.html',
-	        controller : function(){
-
+	        bindToController: {
+	            someObject: '=',
+	            someString: '@',
+	            someExpr: '&'
+	        },
+	        controllerAs: 'ctrl',
+	        //template: '<div>{{ctrl.name}}{{ctrl.someObject}}</div>'
+	        controller: function () {
+	            this.name = 'Pascal';
 	        },
 	        link : function(scope,element){
 	        	var b;
@@ -38,6 +46,7 @@
 	        	title : '=data'
 	        },
 	        link : function(scope,element){
+
 	        	var ng = angular.element,
 	        		submenu = element.find('.option li>a') ;
 
