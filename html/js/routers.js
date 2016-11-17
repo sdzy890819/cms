@@ -1,21 +1,5 @@
 define(function (require) {
     var app = require('./ng-element');
-
-    app.directive("headerNav", function() {
-        return {
-            restrict : 'E',
-            replace : true,
-            transclude : true,
-            templateUrl : '../template/header.html',
-            //template : 'asdfsadf',
-            controller: function () {
-                this.name = 'Pascal';
-            },
-            link : function(scope,element){
-                var b;
-            }
-        };
-    });
     app.run(['$state', '$stateParams', '$rootScope', function ($state, $stateParams, $rootScope) {
         $rootScope.$state = $state;
         $rootScope.$stateParams = $stateParams;
@@ -28,10 +12,8 @@ define(function (require) {
         $stateProvider
             .state('home', {
                 url: '/home',
-                //templateUrl: 'home/home.html',
-                 // new attribute for ajax load controller
-                controllerUrl: 'home/homeCtrl',
-                controller: 'homeCtrl'
+                templateUrl: 'template/main.html',
+                controller: 'home/homeCtrl.js'
             })
             .state('users', {
                 url: '/users',

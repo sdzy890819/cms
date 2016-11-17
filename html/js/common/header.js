@@ -1,3 +1,17 @@
+define(['angular'],function( angular ){
+	return angular.directive('headerNav',function(){
+		return {
+	    	restrict : 'E',
+	    	replace : true,
+	    	transclude : true,
+	        templateUrl : '../template/header.html',
+	        controller : function(){
+
+	        }
+	    };
+	});
+});
+
 (function(){
 	angular.module('ngbody',[]).config(function($provide ,$compileProvider){
 		$compileProvider.directive('headerNav', function() {
