@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cn.cms.dao.TopicDao" >
+
+    <resultMap type="com.cn.cms.po.Topic" id="topic" autoMapping="true" />
+
+    <sql id="delTag"> where del_tag = 1 </sql>
+    
+</mapper>

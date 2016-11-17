@@ -1,5 +1,5 @@
 /**
- * dao包。主要用来存放DAO类
+ * dao包。主要用来存放Dao类和资源
  */
 /**
  * @author zhangyang
