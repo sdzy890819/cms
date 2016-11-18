@@ -4,6 +4,10 @@ require.config({
         'jquery': 'plug/jquery-1.9.1.min',
         'angular': 'plug/angular',
         'angular-router': 'plug/angular-ui-router.min',
+        'angular-async-loader': 'plug/angular-async-loader.min',
+        'header': 'common/header',
+        'menu': 'common/header',
+        'app' : 'ng-element'
     },
     shim: {
         'jquery': {exports: '$'},
