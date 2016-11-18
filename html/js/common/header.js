@@ -1,58 +1,14 @@
-define(['angular'],function( angular ){
-	return angular.directive('headerNav',function(){
-		return {
-	    	restrict : 'E',
-	    	replace : true,
-	    	transclude : true,
-	        templateUrl : '../template/header.html',
-	        controller : function(){
-
-	        }
-	    };
-	});
+define(function (require, exports, module) {
+	exports.init = function( obj ){
+		require('../plug/jquery-1.9.1.min');
+		var $ = jQuery;
+			create = require('./createElement'),
+			config = {
+				app : obj.app , 
+				name : 'headerNav' , 
+				templateUrl : '../template/header.html'
+			}
+		$.extend(config,obj);
+		create.init( config );
+	}
 });
-
-(function(){
-	angular.module('ngbody',[]).config(function($provide ,$compileProvider){
-		$compileProvider.directive('headerNav', function() {
-	        return {
-		    	restrict : 'E',
-		    	replace : true,
-		    	transclude : true,
-		        templateUrl : '../template/header.html',
-		        controller : function(){
-
-		        }
-		    };
-	    });
-	})
-
-
-	return;
-	angular.module('ngbody.directive',['headerNav','menuNav'], function(){
-		return {
-	    	restrict : 'E',
-	    	replace : true,
-	    	transclude : true,
-	        templateUrl : '../template/header.html',
-	        controller : function(){
-
-	        }
-	    };
-	});
-
-	return;
-	angular.module('ngbody', ['xmpl.service', 'xmpl.directive', 'xmpl.filter']).
-	var menu = angular.module("header", []);
-	menu.directive("headerNav", function() {
-	    return {
-	    	restrict : 'E',
-	    	replace : true,
-	    	transclude : true,
-	        templateUrl : '../template/header.html',
-	        controller : function(){
-
-	        }
-	    };
-	});
-})();

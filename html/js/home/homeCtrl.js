@@ -1,5 +1,11 @@
-define(['header','menu','angular'],function( header , menu  , angular ){
-	angular.directive('contentRouter',function(){
+define(function (require, exports, module) {
+	var app = require('../ng-element')
+		,head = require('../common/header')
+		,menu = require('../common/menu')
+	head.init({app : app});
+	menu.init({app : app});
+	
+	app.directive('contentRouter',function(){
 		return {
 	    	restrict : 'E',
 	    	replace : true,
@@ -10,4 +16,5 @@ define(['header','menu','angular'],function( header , menu  , angular ){
 	        }
 	    };
 	});
-})
+    app.controller('homeCtrl', ['$scope', function($scope) {}]);
+});
