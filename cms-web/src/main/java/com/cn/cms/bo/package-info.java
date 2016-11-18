@@ -1,5 +1,5 @@
 /**
- * 对外提供的输出对象类。bo
+ * 业务类BEAN。bo
  */
 /**
  * @author zhangyang

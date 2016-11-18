@@ -3,8 +3,21 @@
 
 <mapper namespace="com.cn.cms.dao.ChannelDao" >
 
+    <resultMap id="base" type="com.cn.cms.po.Base">
+        <id column="id" property="id" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="del_tag" property="delTag" />
+        <result column="last_modify_user_id" property="lastModifyUserId" />
+    </resultMap>
 
-    <resultMap type="com.cn.cms.po.Channel" id="channel" autoMapping="true" />
+    <resultMap type="com.cn.cms.po.Channel" id="channel" extends="base" >
+        <result column="channel_name" property="channelName" />
+        <result column="channel_url" property="channelUrl" />
+        <result column="channel_path" property="channelPath" />
+        <result column="channel_desc" property="channelDesc" />
+        <result column="category_id" property="categoryId" />
+    </resultMap>
 
 
     <sql id="delTag"> where del_tag = 1 </sql>
