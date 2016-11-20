@@ -16,5 +16,6 @@ define(function (require, exports, module) {
 	        }
 	    };
 	});
-    app.controller('homeCtrl', ['$scope', function($scope) {}]);
+    app.controller('mainCtrl', ['$scope', function($scope) {
+    }]);
 });

@@ -4,8 +4,13 @@ define(function (require, exports, module) {
 			create = require('./createElement'),
 			config = {
 				app : obj.app , 
-				name : 'headerNav' , 
-				templateUrl : '../template/header.html'
+				name : 'position' , 
+				templateUrl : '../template/position.html',
+				controller : function($rootScope){
+					console.dir($rootScope)
+				},
+				link : function(){
+				}
 			}
 		$.extend(config,obj);
 		create.init( config );

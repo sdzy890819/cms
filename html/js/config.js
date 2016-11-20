@@ -5,6 +5,7 @@ require.config({
         'angular': 'plug/angular',
         'angular-router': 'plug/angular-ui-router.min',
         'angular-async-loader': 'plug/angular-async-loader.min',
+        'angular-css':'plug/angular-css.min',
         'header': 'common/header',
         'menu': 'common/header',
         'app' : 'ng-element'
@@ -15,9 +16,13 @@ require.config({
         'angular-router': {
         	deps: ['angular'] , 
         	exports: 'angular-router'
-    	}
-    },
-    urlArgs: "bust=" +  (new Date()).getTime()
+    	},
+        'angular-css': {
+            deps: ['angular'] , 
+            exports: 'angular-css'
+        }
+    }//,
+    //urlArgs: "bust=" +  (new Date()).getTime()
 });
 
 require(['angular', './routers'], function (angular) {
