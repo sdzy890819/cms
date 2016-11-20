@@ -3,8 +3,9 @@ define(function (require, exports, module) {
     var asyncLoader = require('plug/angular-async-loader.min');
 
     require('angular-router');
+    require('angular-css');
 
-    var app = angular.module('ngbody', ['ui.router']);
+    var app = angular.module('ngbody', ['ui.router','angularCSS']);
 
     asyncLoader.configure(app);
 
