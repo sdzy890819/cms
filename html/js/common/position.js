@@ -7,7 +7,7 @@ define(function (require, exports, module) {
 				name : 'position' , 
 				templateUrl : '../template/position.html',
 				controller : function($rootScope){
-					console.dir($rootScope)
+					//console.dir($rootScope)
 				},
 				link : function(){
 				}

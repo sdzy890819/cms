@@ -1,10 +1,10 @@
 define(function (require, exports, module) {
     var app = require('ng-element');
     require('./plug/jquery-1.9.1.min');
-    app.run(['$state', '$stateParams', '$rootScope','$ngRouteProvider', function ($state, $stateParams, $rootScope,$ngRouteProvider ) {
+    app.run(['$state', '$stateParams', '$rootScope', function ($state, $stateParams, $rootScope ) {
         $rootScope.$state = $state;
         $rootScope.$stateParams = $stateParams;
-        console.log($ngRouteProvider )
+       // console.log($ngRouteProvider )
         //通过$on为$rootScope添加路由事件
        /* $rootScope.$on('$stateChangeSuccess',function(event, current, previous){
             $log.debug('successfully changed routes');
@@ -40,7 +40,7 @@ define(function (require, exports, module) {
             })
             .state('news', {
                 url: '/news',
-                templateUrl: 'template/main.html',
+                templateUrl: 'template/news/index.html',
                 controllerUrl: 'news/index',
                 controller: 'mainCtrl'
                 /*views : {
@@ -49,10 +49,18 @@ define(function (require, exports, module) {
                         controllerUrl: 'news/add'
                     }
                 }*/
+
             })
             .state('news.add', {
                 url: '/add',
+                template : '<news-add></news-add>',
                 controllerUrl: 'news/add',
+                css: {href: 'style/stylesheets/news/index.css'}
+            })
+            .state('news.edit', {
+                url: '/add',
+                template : '<news-edit></news-edit>',
+                controllerUrl: 'news/edit',
                 css: {href: 'style/stylesheets/news/index.css'}
             })
             .state('users', {

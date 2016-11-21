@@ -6,14 +6,14 @@ define(function (require, exports, module) {
 		app : app
 	});
 
-	app.directive('contentRouter',function(){
+	app.directive('newsAdd',function(){
 		return {
 	    	restrict : 'E',
 	    	replace : true,
 	    	transclude : true,
 	        templateUrl : '../template/news/add.html',
 	        controller : function($state){
-	        	
+				//$state.reload()
 	        }
 	    };
 	});

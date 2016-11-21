@@ -1,10 +1,10 @@
 define(function (require, exports, module) {
 	var app = require('../ng-element')
 		,head = require('../common/header')
-		,menu = require('../common/menu')
+		,menu = require('../common/menu');
+		
 	head.init({app : app});
 	menu.init({app : app});
-	
 	app.directive('contentRouter',function(){
 		return {
 	    	restrict : 'E',
@@ -16,6 +16,5 @@ define(function (require, exports, module) {
 	        }
 	    };
 	});
-    app.controller('mainCtrl', ['$scope', function($scope) {
-    }]);
+    app.controller('mainCtrl', ['$scope', function($scope) {}]);
 });
