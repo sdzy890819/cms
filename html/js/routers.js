@@ -1,9 +1,10 @@
 define(function (require, exports, module) {
     var app = require('ng-element');
     require('./plug/jquery-1.9.1.min');
-    app.run(['$state', '$stateParams', '$rootScope','$log', function ($state, $stateParams, $rootScope,$log) {
+    app.run(['$state', '$stateParams', '$rootScope','$ngRouteProvider', function ($state, $stateParams, $rootScope,$ngRouteProvider ) {
         $rootScope.$state = $state;
         $rootScope.$stateParams = $stateParams;
+        console.log($ngRouteProvider )
         //通过$on为$rootScope添加路由事件
        /* $rootScope.$on('$stateChangeSuccess',function(event, current, previous){
             $log.debug('successfully changed routes');
