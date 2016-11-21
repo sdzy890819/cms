@@ -6,8 +6,14 @@ define(function (require, exports, module) {
 				app : obj.app , 
 				name : 'position' , 
 				templateUrl : '../template/position.html',
-				controller : function($rootScope){
-					//console.dir($rootScope)
+				scope : {
+		            menu : '=menu'
+		        },
+				controller : function($scope , $state){
+					$scope.position = {
+						name : '首页' , 
+						link : 'home'
+					}
 				},
 				link : function(){
 				}

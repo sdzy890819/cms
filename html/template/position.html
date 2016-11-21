@@ -2,12 +2,12 @@
 	<ul>
 		<li>
 			<i class="icon-home"></i>
-			<a ui-sref="home">home</a>
+			<a ui-sref="{{position.link}}">{{position.name}}</a>
 			<span class="icon-angle-right"></span>
 		</li>
-		<li>
-			<a ui-sref="home">栏目名称</a>
-			<span class="icon-angle-right"></span>
+		<li ng-repeat="item in menu">
+			<a ui-sref="{{item.link}}">{{item.name}}</a>
+			<span ng-if='!item.show' class="icon-angle-right"></span>
 		</li>
 	</ul>
 </div>

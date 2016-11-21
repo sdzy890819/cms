@@ -44,6 +44,11 @@ textarea:focus{ border:1px solid #8cb2d9;
     -moz-box-shadow: 0px 0px 4px #d3e6fb;
     box-shadow: 0px 0px 4px #d3e6fb;
 }
+li [class^="icon-"], li [class*=" icon-"] {
+    display: inline-block;
+    width: 1.25em;
+    text-align: center;
+}
 
 .container{ padding:0 20px; }
 
@@ -156,9 +161,10 @@ $leftWidth : 225px;
 
 .boxtab{
     >.title{
-        background-color: #4b8df8;margin-bottom: 0px;padding: 8px 10px 8px 10px;border-bottom: 1px solid #eee;color: #fff !important;
+        background-color: #35aa47;margin-bottom: 0px;padding: 8px 10px 8px 10px;color: #fff !important;
     }
     >.content{
-
+        padding:10px;
+        border:1px solid #35aa47;
     }
 }
