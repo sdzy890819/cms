@@ -4,16 +4,13 @@ define(function (require, exports, module) {
 			create = require('./createElement'),
 			config = {
 				app : obj.app , 
-				name : 'position' , 
-				templateUrl : '../template/common/position.html',
+				name : 'positionNav' , 
+				templateUrl : '../template/common/positionNav.html',
 				scope : {
-		            menu : '=menu'
+		            edit : '=edit'
 		        },
 				controller : function($scope , $state){
-					$scope.position = {
-						name : '首页' , 
-						link : 'home'
-					}
+					
 				},
 				link : function(){
 				}

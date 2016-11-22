@@ -5,7 +5,7 @@ define(function (require, exports, module) {
 			config = {
 				app : obj.app , 
 				name : 'headerNav' , 
-				templateUrl : '../template/header.html'
+				templateUrl : '../template/common/header.html'
 			}
 		$.extend(config,obj);
 		create.init( config );

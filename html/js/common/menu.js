@@ -5,7 +5,7 @@ define(function (require, exports, module) {
 			config = {
 				app : obj.app , 
 				name : 'menuNav' , 
-				templateUrl : '../template/menu.html',
+				templateUrl : '../template/common/menu.html',
 				controller : function($rootScope){
 					var state = $rootScope.$state;
 				},

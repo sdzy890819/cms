@@ -43,19 +43,13 @@ define(function (require, exports, module) {
                 templateUrl: 'template/news/index.html',
                 controllerUrl: 'news/index',
                 controller: 'mainCtrl'
-                /*views : {
-                    'add1' :{
-                        url: '/add',
-                        controllerUrl: 'news/add'
-                    }
-                }*/
-
             })
             .state('news.add', {
                 url: '/add',
                 template : '<news-add></news-add>',
                 controllerUrl: 'news/add',
-                css: {href: 'style/stylesheets/news/index.css'}
+                css: {href: 'style/stylesheets/news/index.css'},
+
             })
             .state('news.edit', {
                 url: '/add',
