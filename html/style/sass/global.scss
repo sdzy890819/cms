@@ -50,6 +50,27 @@ li [class^="icon-"], li [class*=" icon-"] {
     text-align: center;
 }
 
+$minDevice: -webkit-min-device-pixel-ratio;
+$maxDevice: -webkit-max-device-pixel-ratio;
+@mixin size( $key , $val , $device:1 ){
+    @if $device == 1080{
+        $val : $val/2.88;
+    }
+    $val : $val/16px * 1rem;
+    #{$key} :  $val;
+    @media only screen and (min-device-width : 320px) and (max-device-width : 340px) and (orientation : portrait) and ($minDevice:1) and ($maxDevice:2) {
+        #{$key}: $val*.85714285714285714;
+    }
+    @media only screen and (min-device-width : 240px) and (max-device-width : 600px) and (orientation : portrait) and ($minDevice:0.75) and ($maxDevice:1.9){
+        #{$key}: $val*.85714285714285714;
+    }
+    //iphone 6 plus
+    @media only screen and (min-device-width : 410px) and (max-device-width : 500px) and (orientation : portrait) and ($minDevice:2.5) and ($maxDevice:4.0){
+        #{$key}: $val*1.105;
+    }
+}
+.banner{ background:url(../../images/banner.png) center 0 no-repeat; @include size(height,550px,1080); background-size:contain; }
+
 .container{ padding:0 20px; }
 
 /*header*/
@@ -135,7 +156,7 @@ $leftWidth : 225px;
         }
         .sub-menu{ display: none; padding:5px 0; overflow:hidden;
             >li{
-                >a{ display: block; margin: 0; padding: 5px 0px; padding-left: 44px !important; text-decoration: none; font-size: 14px; font-weight: 300;    background: none; color: #bdbdbd;
+                >a{ display: block; margin: 0; padding: 5px 0px; padding-left: 44px !important; text-decoration: none; font-size: 14px; font-weight: 300; ackground: none; color: #bdbdbd;
                     &:hover{ color: #ffffff !important;  background: #575757 !important;
                         i[class^=icon]{ color:#fff;}
                     }
@@ -152,11 +173,27 @@ $leftWidth : 225px;
 }
 
 .position{ 
-    background-color: #eee;padding: 8px 15px; margin: 0 0 20px;
+    background-color: #eee;padding: 8px 15px; margin: 0 0 15px;
     li{
         display: inline-block; text-shadow: 0 1px 0 #fff;
     }
     a{ text-decoration: none; }
+}
+.position-fixed{height:35px; line-height:35px; margin-bottom:15px; text-align:right;
+    >ul{ display:inline-block;
+        li{ 
+            float:left; color:#fff; background:#35aa47;
+            a{display:block; height:35px; line-height:35px;padding:0 15px; color:#fff;
+                &:hover{ background:#07941d; text-decoration:none; }
+            }
+        }
+    }
+    .edit{ display:inline-block; height:35px; overflow:hidden;
+        >a { display:block; height:35px; padding:0 15px; background:#4d90fe; color:#fff;
+           &:hover{ background:#105fdf; text-decoration:none; }
+        }
+    }
+    .list{}
 }
 
 .boxtab{

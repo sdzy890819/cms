@@ -1,12 +1,17 @@
 <div class='position-fixed'>
 	<ul ng-if='edit.nav'>
 		<li ng-repeat="item in edit.nav">
-			<span ng-click='item.evt()'>{{item.name}}</span>
+			<a javascript:; ng-click='item.evt()'>
+				<i class="icon-{{item.cls}}"></i>
+				<span>{{item.name}}</span>
+			</a>
 		</li>
 	</ul>
 	<div class="edit">
-		<i></i>
-		<span>操作</span>
+		<a javascript:;>
+			<i class='icon-pencil'></i>
+			<span>操作</span>
+		</a>
 		<ul class="list">
 			<li>
 				<i></i>

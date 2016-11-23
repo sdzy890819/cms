@@ -1,6 +1,6 @@
 define(function (require, exports, module) {
     var app = require('ng-element');
-    require('./plug/jquery-1.9.1.min');
+    require('./plug/jquery-1.9.1.min')
     app.run(['$state', '$stateParams', '$rootScope', function ($state, $stateParams, $rootScope ) {
         $rootScope.$state = $state;
         $rootScope.$stateParams = $stateParams;
@@ -48,8 +48,7 @@ define(function (require, exports, module) {
                 url: '/add',
                 template : '<news-add></news-add>',
                 controllerUrl: 'news/add',
-                css: {href: 'style/stylesheets/news/index.css'},
-
+                css: {href: 'style/stylesheets/news/index.css'}
             })
             .state('news.edit', {
                 url: '/add',

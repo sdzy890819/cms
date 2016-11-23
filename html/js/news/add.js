@@ -18,10 +18,12 @@ define(function (require, exports, module) {
 				$scope.save = function(){
 					alert(2)
 				}
+				$scope.menu = [{name:"新闻管理",link:"news.add"},{name:"新增新闻",link:"news.add",show:"true"}];
 				$scope.edit = {
 					nav : [{
 						name : '保存',
-						evt : $scope.save
+						evt : $scope.save,
+						cls : 'plus'
 					}]
 				}
 	        }
