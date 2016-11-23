@@ -180,7 +180,7 @@ $leftWidth : 225px;
     a{ text-decoration: none; }
 }
 .position-fixed{height:35px; line-height:35px; margin-bottom:15px; text-align:right;
-    >ul{ display:inline-block;
+    >ul{ display:inline-block; vertical-align:middle;
         li{ 
             float:left; color:#fff; background:#35aa47;
             a{display:block; height:35px; line-height:35px;padding:0 15px; color:#fff;
@@ -188,12 +188,14 @@ $leftWidth : 225px;
             }
         }
     }
-    .edit{ display:inline-block; height:35px; overflow:hidden;
+    .edit{ position: relative; z-index:99; display:inline-block; height:35px; vertical-align:middle;
         >a { display:block; height:35px; padding:0 15px; background:#4d90fe; color:#fff;
            &:hover{ background:#105fdf; text-decoration:none; }
         }
     }
-    .list{}
+    .list{ position:absolute; right:0; top:35px; width:100px; background:#fff;  border: 1px solid #ddd; text-align:left; box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+        a{ font-size:12px; }
+    }
 }
 
 .boxtab{

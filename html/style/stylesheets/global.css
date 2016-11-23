@@ -575,6 +575,7 @@ li [class^="icon-"], li [class*=" icon-"] {
 /* line 183, ../sass/global.scss */
 .position-fixed > ul {
   display: inline-block;
+  vertical-align: middle;
 }
 /* line 184, ../sass/global.scss */
 .position-fixed > ul li {
@@ -597,9 +598,11 @@ li [class^="icon-"], li [class*=" icon-"] {
 }
 /* line 191, ../sass/global.scss */
 .position-fixed .edit {
+  position: relative;
+  z-index: 99;
   display: inline-block;
   height: 35px;
-  overflow: hidden;
+  vertical-align: middle;
 }
 /* line 192, ../sass/global.scss */
 .position-fixed .edit > a {
@@ -614,15 +617,30 @@ li [class^="icon-"], li [class*=" icon-"] {
   background: #105fdf;
   text-decoration: none;
 }
+/* line 196, ../sass/global.scss */
+.position-fixed .list {
+  position: absolute;
+  right: 0;
+  top: 35px;
+  width: 100px;
+  background: #fff;
+  border: 1px solid #ddd;
+  text-align: left;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+}
+/* line 197, ../sass/global.scss */
+.position-fixed .list a {
+  font-size: 12px;
+}
 
-/* line 200, ../sass/global.scss */
+/* line 202, ../sass/global.scss */
 .boxtab > .title {
   background-color: #35aa47;
   margin-bottom: 0px;
   padding: 8px 10px 8px 10px;
   color: #fff !important;
 }
-/* line 203, ../sass/global.scss */
+/* line 205, ../sass/global.scss */
 .boxtab > .content {
   padding: 10px;
   border: 1px solid #35aa47;
