@@ -13,10 +13,10 @@
 			<span>操作</span>
 		</a>
 		<ul class="list">
-			<li>
-				<a javascript:;>
-					<i></i>
-					发布
+			<li ng-repeat="item in edit.list">
+				<a javascript:; ng-click='item.evt()'>
+					<i class="icon-{{item.cls}}"></i>
+					<span>{{item.name}}</span>
 				</a>
 			</li>
 		</ul>
