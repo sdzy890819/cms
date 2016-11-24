@@ -15,16 +15,26 @@ define(function (require, exports, module) {
 	    	transclude : true,
 	        templateUrl : '../template/news/add.html',
 	        controller : function($scope){
-				$scope.save = function(){
-					alert(2)
+				$scope.save = function(){ //保存
+					alert('保存')
+				}
+				$scope.rlease = function(){ //发布
+					alert('发布')
 				}
 				$scope.menu = [{name:"新闻管理",link:"news.add"},{name:"新增新闻",link:"news.add",show:"true"}];
 				$scope.edit = {
 					nav : [{
 						name : '保存',
 						evt : $scope.save,
-						cls : 'plus'
-					}]
+						cls : 'save'
+					}],
+					list : [
+						{
+							name:'发布',
+							evt : $scope.rlease,
+							cls : 'add'
+						}
+					]
 				}
 	        }
 	    };
