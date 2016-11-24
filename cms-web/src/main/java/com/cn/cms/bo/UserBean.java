@@ -1,5 +1,6 @@
 package com.cn.cms.bo;
 
+import com.cn.cms.po.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +11,43 @@ import lombok.Setter;
 @Setter
 public class UserBean {
 
-    private String userName;
+    protected Long id ;
 
-    private String headImages;
+    /**
+     * 头像
+     */
+    private String headImage;
+
+    /**
+     * 真实名字
+     */
+    private String realName;
+
+
+    /**
+     * 用户ID 18位串
+     */
+    private String userId;
+
+    /**
+     * 职位ID
+     */
+    private Long positionId;
+
+    /**
+     * 职位名称
+     */
+    private String positionName;
+
+    public UserBean(User user){
+        if(user!=null) {
+            this.id = user.getId();
+            this.headImage = user.getHeadImage();
+            this.realName = user.getRealName();
+            this.userId = user.getUserId();
+            this.positionId = user.getPositionId();
+            this.positionName = user.getPositionName();
+        }
+    }
+
 }
