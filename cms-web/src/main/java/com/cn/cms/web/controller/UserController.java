@@ -12,25 +12,22 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Created by zhangyang on 16/11/14.
+ * Created by zhangyang on 16/11/23.
  */
 @Controller
-@RequestMapping(value="/",produces = "application/json; charset=UTF-8")
+@RequestMapping(value="/user/",produces = "application/json; charset=UTF-8")
 @ResponseBody
-public class TestController {
+public class UserController {
+
 
     @Resource
     private UserBiz userBiz;
 
-    @RequestMapping(value = "/")
-    public String index(HttpServletRequest request,Model model){
-        UserBean ub = userBiz.test();
-        return ApiResponse.returnSuccess(ub);
+
+    @RequestMapping(value = "/list")
+    public String index(HttpServletRequest request, Model model){
+
+        return ApiResponse.returnSuccess();
     }
 
-    @RequestMapping("/v2")
-    public String indexV2(HttpServletRequest request,Model model){
-        model.addAttribute("a","Hello,zhangyang");
-        return "index";
-    }
 }

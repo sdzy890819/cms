@@ -3,6 +3,7 @@ package com.cn.cms.biz;
 import com.cn.cms.bo.UserBean;
 import com.cn.cms.po.User;
 import com.cn.cms.service.UserService;
+import com.sun.tools.javac.util.List;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -25,5 +26,8 @@ public class UserBiz {
         userBean.setUserName(user.getUserName());
         return userBean;
     }
+
+
+    public List<User>
 
 }

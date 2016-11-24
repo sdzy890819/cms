@@ -3,7 +3,21 @@
 
 <mapper namespace="com.cn.cms.dao.FragmentDao" >
 
-    <resultMap type="com.cn.cms.po.Fragment" id="fragment" autoMapping="true" />
+    <resultMap id="base" type="com.cn.cms.po.Base">
+        <id column="id" property="id" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="del_tag" property="delTag" />
+        <result column="last_modify_user_id" property="lastModifyUserId" />
+    </resultMap>
+
+    <resultMap type="com.cn.cms.po.Fragment" id="fragment" extends="base" >
+        <result column="fragment_classify_id" property="fragmentClassifyId" />
+        <result column="fragment_content" property="fragmentContent" />
+        <result column="fragment_name" property="fragmentName" />
+        <result column="sort_num" property="sortNum" />
+        <result column="fragment_model" property="fragmentModel" />
+    </resultMap>
 
 
     <sql id="delTag"> where del_tag = 1 </sql>

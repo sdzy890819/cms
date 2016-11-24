@@ -39,43 +39,26 @@
 	<!-- 允许对静态资源文件的访问 -->
 	<mvc:default-servlet-handler/>
 	
-	<bean id="velocityConfig"
+	<!--<bean id="velocityConfig"
 		class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
 		<property name="configLocation" value="classpath:velocity.properties" />
-	</bean>
+	</bean>-->
 
-	<bean id="viewResolver"
-		class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
-		<property name="cache" value="true" />
-		<property name="prefix" value="/" />
-		<property name="suffix" value=".vm" />
-		<property name="exposeSpringMacroHelpers" value="true" />
-		<property name="contentType" value="text/html;charset=UTF-8" />
-		 <property name="toolboxConfigLocation" value="/WEB-INF/tools.xml" /> 
-	</bean>
-	<!-- 总错误处理 -->
-	<bean id="exceptionResolver"
-		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
-		<property name="defaultErrorView" value="error/error" />
-		<property name="exceptionAttribute" value="ex"></property>
-		<property name="defaultStatusCode" value="500" />
-		<property name="warnLogCategory" value="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver" />
-	</bean>
-	
+
 	<mvc:interceptors >
 		<bean class="com.cn.cms.web.interceptor.CheckTokenInterceptor" />
 		<bean class="com.cn.cms.web.interceptor.CheckAuthInterceptor" />
 	</mvc:interceptors>
 
 	
-	<bean id="multipartResolver"  
+	<!--<bean id="multipartResolver"
             class="org.springframework.web.multipart.commons.CommonsMultipartResolver">  
-            <!-- set the max upload size100MB -->  
+            &lt;!&ndash; set the max upload size100MB &ndash;&gt;
             <property name="maxUploadSize">  
                 <value>1048576</value>  
             </property>  
             <property name="maxInMemorySize">  
                 <value>1024</value>  
             </property>  
-    </bean>  
+    </bean>  -->
 </beans>

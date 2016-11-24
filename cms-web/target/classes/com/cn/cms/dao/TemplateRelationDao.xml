@@ -3,7 +3,18 @@
 
 <mapper namespace="com.cn.cms.dao.TemplateRelationDao" >
 
-    <resultMap type="com.cn.cms.po.TemplateRelation" id="templateRelation" autoMapping="true" />
+    <resultMap id="base" type="com.cn.cms.po.Base">
+        <id column="id" property="id" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="del_tag" property="delTag" />
+        <result column="last_modify_user_id" property="lastModifyUserId" />
+    </resultMap>
+    <resultMap type="com.cn.cms.po.TemplateRelation" id="templateRelation" extends="base">
+        <result column="template_id" property="templateId" />
+        <result column="relation_id" property="relationId" />
+        <result column="relation_type" property="relationType" />
+    </resultMap>
 
     <sql id="delTag"> where del_tag = 1 </sql>
     
