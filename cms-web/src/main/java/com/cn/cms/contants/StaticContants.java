@@ -23,13 +23,10 @@ public class StaticContants {
 
     public static final String DEFAULT_FAIL_MESSAGE = "失败!!!";
     //--------默认返回代码 end
-
+    //---默认分页数  start
     public static final int PAGE_SIZE = 20 ;
+    //---默认分页书  end
 
+    public static final String COOKIE_USER_ID = "CMS_QUANJING_USER_ID";
 
-    public static Map<Integer,String> errorMap = new HashMap<Integer, String>();
-    static {
-        errorMap.put(-1 ,"上帝发怒了,肿么办");
-        errorMap.put(110 ,"自定义范例");
-    }
 }

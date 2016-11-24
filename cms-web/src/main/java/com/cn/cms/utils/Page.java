@@ -29,7 +29,7 @@ public class Page {
 
     @Getter
     @Setter
-    private int page;
+    private int page = 1;
 
     public Page(int page, int pageSize, int count){
         this.page = page;
@@ -38,8 +38,14 @@ public class Page {
     }
 
     public Page(int page, int pageSize){
-        this.page = page;
-        this.pageSize = pageSize;
+
+        if(page >0) {
+            this.page = page;
+        }
+
+        if(pageSize>0) {
+            this.pageSize = pageSize;
+        }
     }
 
     public int getStart() {

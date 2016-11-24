@@ -21,9 +21,27 @@
         <result column="position_name" property="position_name" />
     </resultMap>
 
+    <sql id="all_column">
+        id,create_time,update_time,del_tag,last_modify_user_id,
+        user_name,head_image,real_name,pwd,user_id,position_id,position_name
+
+    </sql>
+
     <sql id="delTag"> where del_tag = 1 </sql>
 
     <select id="test" resultMap="user">
         select * from user <include refid="delTag" /> and id=10000;
+    </select>
+
+    <select id="queryUserCount" resultType="java.lang.Integer">
+        select count(1) from user <include refid="delTag" />;
+    </select>
+
+    <select id="queryUserList" resultMap="user">
+        select <include refid="all_column" /> from user <include refid="delTag" /> limit ${page.start},${page.pageSize};
+    </select>
+
+    <select id="findUser" resultMap="user">
+        select * from user <include refid="delTag" /> and user_id=#{userId};
     </select>
 </mapper>

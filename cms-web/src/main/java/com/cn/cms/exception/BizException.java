@@ -1,6 +1,7 @@
 package com.cn.cms.exception;
 
 import com.cn.cms.contants.StaticContants;
+import com.cn.cms.enums.ErrorCodeEnum;
 import com.cn.cms.logfactory.CommonLog;
 import com.cn.cms.logfactory.CommonLogFactory;
 import lombok.Getter;
@@ -15,9 +16,9 @@ public class BizException extends Exception {
 
     private static CommonLog log = CommonLogFactory.getLog(BizException.class);
 
-    private Integer code = -1;
+    private Integer code = ErrorCodeEnum.ERROR_CODE_DEFAULT.getType();
 
-    private String message = "上帝发怒了,肿么办";
+    private String message = ErrorCodeEnum.ERROR_CODE_DEFAULT.getMessage();
 
     public BizException(){
         log.error("非异常错误,只是为了使用错误返回");
@@ -34,7 +35,7 @@ public class BizException extends Exception {
 
     public BizException(Integer code,Exception e){
         this.code = code;
-        this.message = StaticContants.errorMap.get(code);
+        this.message = ErrorCodeEnum.get(code).getMessage();
     }
 
 
