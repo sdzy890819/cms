@@ -47,15 +47,26 @@ define(function (require, exports, module) {
             .state('news.add', {
                 url: '/add',
                 template : '<news-add></news-add>',
-                controllerUrl: 'news/add',
-                css: {href: 'style/stylesheets/news/index.css'}
+                controllerUrl: 'news/add'
             })
             .state('news.edit', {
-                url: '/add',
+                url: '/edit',
                 template : '<news-edit></news-edit>',
-                controllerUrl: 'news/edit',
-                css: {href: 'style/stylesheets/news/index.css'}
+                controllerUrl: 'news/edit'
             })
+            .state('news.list', {
+                url: '/list',
+                template : '<news-list></news-list>',
+                controllerUrl: 'news/list'
+            })
+            .state('news.newslist', {
+                url: '/newslist',
+                template : '<news-newslist></news-newslist>',
+                controllerUrl: 'news/newslist'
+            })
+
+
+
             .state('users', {
                 url: '/users',
                 templateUrl: 'template/user.html',
