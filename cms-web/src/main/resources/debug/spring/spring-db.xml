@@ -43,17 +43,17 @@
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"  autowire="byName" />
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
-			<tx:method name="do*" propagation="REQUIRED" rollback-for="Exception"/>
-			<tx:method name="create*" propagation="REQUIRED" rollback-for="Exception"/>
-			<tx:method name="update*" propagation="REQUIRED" rollback-for="Exception"/>
-			<tx:method name="commit*" propagation="REQUIRED" rollback-for="Exception"/>
-			<tx:method name="save*" propagation="REQUIRED" rollback-for="Exception"/>
-			<tx:method name="insert*" propagation="REQUIRED" rollback-for="Exception"/>
-			<tx:method name="delete*" propagation="REQUIRED" rollback-for="Exception"/>
-			<tx:method name="get*" propagation="REQUIRED" rollback-for="Exception" read-only="true"/>
-			<tx:method name="find*" propagation="REQUIRED" rollback-for="Exception" read-only="true"/>
-			<tx:method name="query*" propagation="REQUIRED" rollback-for="Exception" read-only="true"/>
-			<tx:method name="*" propagation="SUPPORTS" rollback-for="Exception"/>
+			<tx:method name="do*" propagation="REQUIRED" rollback-for="Exception,com.cn.cms.exception.BizException"/>
+			<tx:method name="create*" propagation="REQUIRED" rollback-for="Exception,com.cn.cms.exception.BizException"/>
+			<tx:method name="update*" propagation="REQUIRED" rollback-for="Exception,com.cn.cms.exception.BizException"/>
+			<tx:method name="commit*" propagation="REQUIRED" rollback-for="Exception,com.cn.cms.exception.BizException"/>
+			<tx:method name="save*" propagation="REQUIRED" rollback-for="Exception,com.cn.cms.exception.BizException"/>
+			<tx:method name="insert*" propagation="REQUIRED" rollback-for="Exception,com.cn.cms.exception.BizException"/>
+			<tx:method name="delete*" propagation="REQUIRED" rollback-for="Exception,com.cn.cms.exception.BizException"/>
+			<tx:method name="get*" propagation="REQUIRED" rollback-for="Exception,com.cn.cms.exception.BizException" read-only="true"/>
+			<tx:method name="find*" propagation="REQUIRED" rollback-for="Exception,com.cn.cms.exception.BizException" read-only="true"/>
+			<tx:method name="query*" propagation="REQUIRED" rollback-for="Exception,com.cn.cms.exception.BizException" read-only="true"/>
+			<tx:method name="*" propagation="SUPPORTS" rollback-for="Exception,com.cn.cms.exception.BizException"/>
 		</tx:attributes>
 	</tx:advice>
 	<aop:config>
