@@ -80,6 +80,7 @@ li [class^="icon-"], li [class*=" icon-"] {
     display: inline-block;
     width: 1.25em;
     text-align: center;
+    vertical-align:middle;
 }
 textarea,input[type="text"],input[type="password"]{
     -webkit-appearance: none !important;
@@ -214,10 +215,9 @@ $leftWidth : 225px;
 
 .position{ 
     background-color: #eee;padding: 8px 15px; margin: 0 0 15px;
-    li{
-        display: inline-block; text-shadow: 0 1px 0 #fff;
-    }
+    li{display: inline-block; text-shadow: 0 1px 0 #fff; font-size:14px; }
     a{ text-decoration: none; }
+    .cur{ color:#4d90fe;}
 }
 .position-fixed{height:35px; line-height:35px; margin-bottom:15px; text-align:right;
     >ul{ display:inline-block; vertical-align:middle;

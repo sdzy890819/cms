@@ -32,12 +32,14 @@ define(function (require, exports, module) {
 		        		column.parent().removeClass('open')
 		        			.find('.arrow').removeClass('cur');
 		        		column.each(function( i ){
-		        			$(this).removeClass('cur').next().slideUp("fast");
+		        			if(i!=num){
+		        				$(this).removeClass('cur').next().slideUp("fast");
+		        			}
 		        		});
 		        	}
 		        	column.each(function( i , ele ){
 		        		$(ele).click(function(){
-		        			clearMenu();
+		        			clearMenu( i );
 		        			var self = $(this);
 		        			if(this.parentclas){
 		        				this.parentclas = false;

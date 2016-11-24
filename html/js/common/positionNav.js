@@ -7,7 +7,8 @@ define(function (require, exports, module) {
 				name : 'positionNav' , 
 				templateUrl : '../template/common/positionNav.html',
 				scope : {
-		            edit : '=edit'
+		            edit : '=edit',
+		            submit : '=submit'
 		        },
 				controller : function($scope , $state){
 					var icon = {

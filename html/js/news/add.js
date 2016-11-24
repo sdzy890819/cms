@@ -17,6 +17,7 @@ define(function (require, exports, module) {
 	    	transclude : true,
 	        templateUrl : '../template/news/add.html',
 	        controller : function($scope){
+	        	$scope.$parent.menu.push({name:"新增新闻"})
 				$scope.save = function( obj ){ //保存
 					alert(obj)
 				}
@@ -29,7 +30,7 @@ define(function (require, exports, module) {
 				$scope.cancel = function( obj ){ //预览
 					alert(obj)
 				}
-				$scope.menu = [{name:"新闻管理",link:"news.add"},{name:"新增新闻",link:"news.add",show:"true"}]; //栏目
+				
 				$scope.edit = { //导航操作按钮
 					nav : [{
 						name : '保存',

@@ -38,6 +38,8 @@ define(function (require, exports, module) {
                     //bustCache: true
                 }
             })
+
+            //新闻
             .state('news', {
                 url: '/news',
                 templateUrl: 'template/news/index.html',
@@ -65,21 +67,41 @@ define(function (require, exports, module) {
                 controllerUrl: 'news/newslist'
             })
 
-
-
-            .state('users', {
-                url: '/users',
-                templateUrl: 'template/user.html',
-                 // new attribute for ajax load controller
-                controllerUrl: 'home/homeCtrl',
-                controller: 'homeCtrl'
+            //部门
+            .state('department', {
+                url: '/department',
+                templateUrl: 'template/department/index.html',
+                controllerUrl: 'department/index',
+                controller: 'mainCtrl'
             })
-            .state('components', {
-                url: '/components',
-                templateUrl: 'components/components.html',
-                 // new attribute for ajax load controller
-                controllerUrl: 'components/componentsCtrl',
-                controller: 'componentsCtrl'
-            });
+            .state('department.edit', {
+                url: '/edit',
+                template : '<department-edit></department-edit>',
+                controllerUrl: 'department/edit'
+            })
+            .state('department.list', {
+                url: '/list',
+                template : '<department-list></department-list>',
+                controllerUrl: 'department/list'
+            })
+
+            //栏目
+            .state('column', {
+                url: '/column',
+                templateUrl: 'template/column/index.html',
+                controllerUrl: 'column/index',
+                controller: 'mainCtrl'
+            })
+            .state('column.edit', {
+                url: '/edit',
+                template : '<column-edit></column-edit>',
+                controllerUrl: 'column/edit'
+            })
+            .state('column.list', {
+                url: '/list',
+                template : '<column-list></column-list>',
+                controllerUrl: 'column/list'
+            })
+            
     }]);
 });

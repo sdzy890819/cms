@@ -6,8 +6,9 @@
 			<span class="icon-angle-right"></span>
 		</li>
 		<li ng-repeat="item in menu">
-			<a ui-sref="{{item.link}}">{{item.name}}</a>
-			<span ng-if='!item.show' class="icon-angle-right"></span>
+			<a ng-if='item.link' ui-sref="{{item.link}}">{{item.name}}</a>
+			<span ng-if='!item.link' class='cur'>{{item.name}}</span>
+			<span ng-if='item.link' class="icon-angle-right"></span>
 		</li>
 	</ul>
 </div>
