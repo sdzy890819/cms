@@ -32,15 +32,12 @@ define(function (require, exports, module) {
 		        		column.parent().removeClass('open')
 		        			.find('.arrow').removeClass('cur');
 		        		column.each(function( i ){
-		        			if(i!=num){
-		        				this.parentclas = false;
-		        				$(this).next().slideUp("fast");
-		        			}
+		        			$(this).removeClass('cur').next().slideUp("fast");
 		        		});
 		        	}
 		        	column.each(function( i , ele ){
 		        		$(ele).click(function(){
-		        			clearMenu( i );
+		        			clearMenu();
 		        			var self = $(this);
 		        			if(this.parentclas){
 		        				this.parentclas = false;
@@ -56,25 +53,33 @@ define(function (require, exports, module) {
 			        	});
 		        	});
 
-		        	submenu.each(function( i ){ //展开当前页
-		        		var aName = $(this).attr('ui-sref'),
-		        			nameAr = name.split('.'),
-		        			len = nameAr.length-1,
-		        			parent = $(this).parent();
-		        		if(aName == name){
-		        			$(this).parent().addClass('cur');
-		        			$.each(nameAr,function( i ){
-		        				parent = parent.parent();
-		        				if(i==len){
-		        					parent = parent.find('>a');
-		        					parent.parent().addClass('open')
-				        			.find('.arrow').addClass('cur');
-				        			parent.next().css({display:'block'});
-				        			parent.click();
-		        				}
-		        			})
-		        		}
-		        	});
+		        	function showMenu(){
+		        		var name = state.current.name;
+			        	submenu.each(function( i ){ //展开当前页
+			        		var aName = $(this).attr('ui-sref'),
+			        			nameAr = name.split('.'),
+			        			len = nameAr.length-1,
+			        			parent = $(this).parent();
+
+			        		parent.removeClass('cur');
+			        		
+			        		if(aName == name){
+			        			$(this).parent().addClass('cur');
+			        			$.each(nameAr,function( i ){
+			        				parent = parent.parent();
+			        				if(i==len){
+			        					parent = parent.find('>a');
+			        					parent.parent().addClass('open')
+					        			.find('.arrow').addClass('cur');
+					        			parent.next().css({display:'block'});
+			        					parent[0].parentclas = false;
+					        			parent.click();
+			        				}
+			        			})
+			        		}
+			        	});
+		        	}
+		        	showMenu();
 
 		        	var tabNav = element.find('.webapp-tab li') , 
 		        		option = element.find('.option');
@@ -85,7 +90,10 @@ define(function (require, exports, module) {
 		        			option.fadeOut();
 		        			option.eq(i).fadeIn();
 		        		})
-		        	})
+		        	});
+		        	scope.$on('$viewContentLoaded',function(){
+		        		setTimeout(showMenu, 300);
+		        	});
 		        }
 			}
 		$.extend(config,obj);

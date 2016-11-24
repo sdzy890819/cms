@@ -19,12 +19,16 @@ define(function (require, exports, module) {
 						magnet:'magnet',//关联
 						ok:'ok'//全选 确定
 					};
-					$.each($scope.edit.nav,function(){
-						this.cls = icon[this.cls]
-					});
-					$.each($scope.edit.list,function(){
-						this.cls = icon[this.cls]
-					});
+					if($scope.edit){
+						if($scope.edit.nav){
+							$.each($scope.edit.nav,function(){
+								this.cls = icon[this.cls]
+							});
+						}
+						$.each($scope.edit.list,function(){
+							this.cls = icon[this.cls]
+						});
+					}
 				},
 				link : function($scope , element ){
 					var ele = $(element[0])

@@ -17,17 +17,17 @@ define(function (require, exports, module) {
 	    	transclude : true,
 	        templateUrl : '../template/news/add.html',
 	        controller : function($scope){
-				$scope.save = function( obj ){ //保存
-					alert(obj)
+				$scope.save = function(){ //保存
+					alert('保存')
 				}
-				$scope.rlease = function( obj ){ //发布
-					alert(obj)
+				$scope.rlease = function(){ //发布
+					alert('发布')
 				}
-				$scope.view = function( obj ){ //预览
-					alert(obj)
+				$scope.view = function(){ //预览
+					alert('预览')
 				}
-				$scope.cancel = function( obj ){ //预览
-					alert(obj)
+				$scope.cancel = function(){ //预览
+					alert('取消')
 				}
 				$scope.menu = [{name:"新闻管理",link:"news.add"},{name:"新增新闻",link:"news.add",show:"true"}]; //栏目
 				$scope.edit = { //导航操作按钮
@@ -106,21 +106,13 @@ define(function (require, exports, module) {
 						select : [
 							[
 								{name:'请选择部门'},
-								{name:'请选择部门1'},
-								{name:'请选择部门2'},
-								{name:'请选择部门3'},
-								{name:'请选择部门4'}
+								{name:'请选择部门'}
 							],
 							[
-								{name:'请选择频道'},
-								{name:'请选择频道1'},
-								{name:'请选择频道2'}
+								{name:'请选择频道'}
 							],
 							[
-								{name:'请选择栏目'},
-								{name:'请选择栏目1'},
-								{name:'请选择栏目2'},
-								{name:'请选择栏目3'}
+								{name:'请选择栏目'}
 							]
 						]
 					},
