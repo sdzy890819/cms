@@ -7,7 +7,8 @@ define(function (require, exports, module) {
 				name : 'formHorizontal' , 
 				templateUrl : '../template/common/form.html',
 				scope : {
-		            formdata : '=formdata'
+		            formdata : '=formdata',
+		            edit : '=edit'
 		        },
 				controller : function($scope , $state , $element , $rootScope){
 					var icon = {
@@ -29,7 +30,6 @@ define(function (require, exports, module) {
 				},
 				link : function($scope , element , arrt , controller){
 					var ele = $(element[0]) ;
-
 					$scope.submit = function( callback ){
 						var item = ele.find('.item') , 
 							arr = [];

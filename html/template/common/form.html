@@ -1,44 +1,47 @@
-<div class="boxtab {{formdata.cls}}">
-	<div class="title">
-		<i class="icon-reorder"></i>
-		{{formdata.title}}
-	</div>
-	<div class="content">
-	<div class="form-horizontal">
-		<div class="control-group" ng-repeat="obj in formdata.list">
-			<div class="li" ng-if='!isArray(obj)'>
-				<div class="item" style='float:none;' data-type='{{obj.type}}'>
-					<label class="control-label">{{obj.name}}</label>
-					<div class="controls">
-						<input ng-if="obj.type=='text'" class="text {{obj.cls||'w220'}}" type="text" placeholder="{{obj.placeholder}}">
-						<textarea ng-if="obj.type=='textarea'" class="text {{obj.cls}}" type="text" placeholder="{{obj.placeholder}}"></textarea>
-						<select ng-if="obj.type=='select'" class="{{obj.cls||'w220'}}" ng-repeat="select in obj.select">
-							<option ng-repeat="option in select">{{option.name}}</option>
-						</select>
-						<div class="edit" ng-if="obj.type=='edit'">
-							暂无eidt
+<div>
+	<position-nav edit='edit' submit='submit'></position-nav>
+	<div class="boxtab {{formdata.cls}}">
+		<div class="title">
+			<i class="icon-reorder"></i>
+			{{formdata.title}}
+		</div>
+		<div class="content">
+		<div class="form-horizontal">
+			<div class="control-group" ng-repeat="obj in formdata.list">
+				<div class="li" ng-if='!isArray(obj)'>
+					<div class="item" style='float:none;' data-type='{{obj.type}}'>
+						<label class="control-label">{{obj.name}}</label>
+						<div class="controls">
+							<input ng-if="obj.type=='text'" class="text {{obj.cls||'w220'}}" type="text" placeholder="{{obj.placeholder}}">
+							<textarea ng-if="obj.type=='textarea'" class="text {{obj.cls}}" type="text" placeholder="{{obj.placeholder}}"></textarea>
+							<select ng-if="obj.type=='select'" class="{{obj.cls||'w220'}}" ng-repeat="select in obj.select">
+								<option ng-repeat="option in select">{{option.name}}</option>
+							</select>
+							<div class="edit" ng-if="obj.type=='edit'">
+								暂无eidt
+							</div>
+							<div class="date" ng-if="obj.type=='date'">
+								暂无date
+							</div>
+							<span class="help-inline">{{obj.prompt.defualt}}</span>
 						</div>
-						<div class="date" ng-if="obj.type=='date'">
-							暂无date
-						</div>
-						<span class="help-inline">{{obj.prompt.defualt}}</span>
 					</div>
 				</div>
-			</div>
-			<div class="li" ng-if='isArray(obj)'>
-				<div class="item" ng-repeat="item in obj" data-type='{{item.type}}'>
-					<label class="control-label {{$index!=0?'next':''}}">{{item.name}}</label>
-					<div class="controls {{$index!=0?'next':''}}">
-						<input class="text {{obj.cls||'w120'}}" type="text" placeholder="{{item.placeholder}}">
+				<div class="li" ng-if='isArray(obj)'>
+					<div class="item" ng-repeat="item in obj" data-type='{{item.type}}'>
+						<label class="control-label {{$index!=0?'next':''}}">{{item.name}}</label>
+						<div class="controls {{$index!=0?'next':''}}">
+							<input class="text {{obj.cls||'w120'}}" type="text" placeholder="{{item.placeholder}}">
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="submit">
-		<div class='btn {{obj.cls}}' ng-repeat='obj in formdata.submit' ng-click='submit(obj.evt)'>
-			<i class="icon-{{obj.icon_cls}}"></i>
-			<span>{{obj.name}}</span>
+		<div class="submit">
+			<div class='btn {{obj.cls}}' ng-repeat='obj in formdata.submit' ng-click='submit(obj.evt)'>
+				<i class="icon-{{obj.icon_cls}}"></i>
+				<span>{{obj.name}}</span>
+			</div>
 		</div>
 	</div>
 </div>

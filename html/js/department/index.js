@@ -5,9 +5,10 @@ define(function (require, exports, module) {
 	head.init({app : app});
 	menu.init({app : app});
     app.controller('mainCtrl', ['$scope','$location', function($scope , $location) {
+        var arr = [{name:"部门管理",link:"department.list"}];
     	$scope.$on('$viewContentLoaded',function(){
-    		$scope.menu = [{name:"新闻管理",link:"news.list"}];
+    		$scope.menu = arr;
     	});
-    	$scope.menu = [{name:"新闻管理",link:"news.list"}]; //栏目
+    	$scope.menu = arr; //栏目
     }]);
 });
