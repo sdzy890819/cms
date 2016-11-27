@@ -1,6 +1,7 @@
 package com.cn.cms.web.interceptor;
 
 import com.cn.cms.contants.StaticContants;
+import com.cn.cms.enums.ErrorCodeEnum;
 import com.cn.cms.exception.BizException;
 import com.cn.cms.logfactory.CommonLog;
 import com.cn.cms.logfactory.CommonLogFactory;
@@ -22,8 +23,8 @@ public class ExceptionHandler implements HandlerExceptionResolver {
 
 
     public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
-        String message = StaticContants.DEFAULT_FAIL_MESSAGE;
-        Integer code = StaticContants.DEFAULT_FAIL_CODE;
+        String message = ErrorCodeEnum.ERROR_CODE_DEFAULT.getMessage();
+        Integer code = ErrorCodeEnum.ERROR_CODE_DEFAULT.getType();
         try {
             response.setHeader(StaticContants.HEADER_CONTENT_TYPE, StaticContants.JSON_UTF8);
             if(ex instanceof BizException){

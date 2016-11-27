@@ -1,8 +1,10 @@
 package com.cn.cms.utils;
 
+import com.cn.cms.contants.StaticContants;
 import com.cn.cms.exception.BizException;
 import com.cn.cms.logfactory.CommonLog;
 import com.cn.cms.logfactory.CommonLogFactory;
+import org.apache.commons.codec.digest.DigestUtils;
 import sun.misc.BASE64Encoder;
 
 import java.io.UnsupportedEncodingException;
@@ -63,41 +65,69 @@ public class EncryptUtil {
     }
 
     /**
-     * 采用MD生成密码串
+     * 采用BASE64Encode(MD5)生成密码串
      * @param pwd
      * @return
      */
-    public static String encryptPwd(String userId,String pwd){
-        String result = "";
-        try {
-
-            result = md5(userId.concat(pwd));
-            log.info("密码串生成：" + result);
-        } catch (NoSuchAlgorithmException e) {
-            log.error("密码生成异常!",e);
-        } catch (UnsupportedEncodingException e) {
-            log.error("密码生成异常!",e);
-        }
+    public static String encryptPwd(String userName,String pwd){
+        String result = md5Base64(userName.concat(pwd));
+        log.info("密码串生成：" + result);
         return result;
     }
 
 
     /**
-     * MD5加密算法
+     * BASE64Encode(MD5)加密算法
      * @param key
      * @return
      */
-    public static String md5(String key) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        MessageDigest md5=MessageDigest.getInstance("MD5");
-        BASE64Encoder base64en = new BASE64Encoder();
-        //加密后的字符串
-        String newstr=base64en.encode(md5.digest(key.getBytes("utf-8")));
-        return newstr;
+    public static String md5Base64(String key){
+        try {
+            MessageDigest md5 = MessageDigest.getInstance("MD5");
+            BASE64Encoder base64en = new BASE64Encoder();
+            //加密后的字符串
+            return base64en.encode(md5.digest(key.getBytes(StaticContants.UTF8)));
+        } catch (NoSuchAlgorithmException e) {
+            log.error("密码生成异常!",e);
+        } catch (UnsupportedEncodingException e) {
+            log.error("密码生成异常!",e);
+        }
+        return "";
 
     }
 
-
-    public static void main(String[] args){
-        System.out.println(randomPwd(16));
+    /**
+     * Md5加密
+     * @param key
+     * @return
+     */
+    public static String md5(String key){
+        return DigestUtils.md5Hex(key);
     }
+
+    /**
+     * Token生成。采用MD5+Base64Encode
+     * @param keys
+     * @return
+     */
+    public static String token(String... keys){
+        StringBuffer sbf = new StringBuffer();
+        for(int i=0; i<keys.length; i++){
+            sbf.append(md5Base64(keys[i]));
+        }
+        String tmp = sbf.toString();
+        int a = keys.length-1;
+        int b = tmp.length()/a;
+        sbf.delete(0,sbf.length());
+        for(int i=0; i<a ;i++){
+            if(i+1<a) {
+                sbf.append(md5(tmp.substring(i * b, (i + 1) * b)));
+            }else{
+                sbf.append(md5Base64(tmp.substring(i * b, (i + 1) * b)));
+            }
+        }
+        return sbf.toString();
+    }
+
+
 }

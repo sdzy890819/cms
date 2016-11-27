@@ -29,7 +29,7 @@ public class Page {
 
     @Getter
     @Setter
-    private int page = 1;
+    private int page = StaticContants.PAGE;
 
     public Page(int page, int pageSize, int count){
         this.page = page;

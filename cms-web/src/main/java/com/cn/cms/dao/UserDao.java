@@ -23,4 +23,12 @@ public interface UserDao {
     void createUser(@Param(value="user")User user);
 
     Integer queryUserName(@Param(value="userName")String userName);
+
+    void delUser(@Param(value="lastModifyUserId") String lastModifyUserId, @Param(value="userId")String userId);
+
+    void updateUser(@Param(value="user") User user);
+
+    User findUserName(@Param(value="userName")String userName);
+
+    User findUserForLogin(@Param(value="userName") String userName, @Param(value="pwd") String pwd);
 }

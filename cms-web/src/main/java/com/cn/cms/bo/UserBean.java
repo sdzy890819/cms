@@ -29,15 +29,11 @@ public class UserBean {
      */
     private String userId;
 
-    /**
-     * 职位ID
-     */
-    private Long positionId;
 
     /**
-     * 职位名称
+     * 最后修改人ID
      */
-    private String positionName;
+    protected String lastModifyUserId;
 
     public UserBean(User user){
         if(user!=null) {
@@ -45,8 +41,7 @@ public class UserBean {
             this.headImage = user.getHeadImage();
             this.realName = user.getRealName();
             this.userId = user.getUserId();
-            this.positionId = user.getPositionId();
-            this.positionName = user.getPositionName();
+            this.lastModifyUserId = user.getLastModifyUserId();
         }
     }
 

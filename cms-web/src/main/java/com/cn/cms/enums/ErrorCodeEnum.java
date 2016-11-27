@@ -7,6 +7,9 @@ import lombok.Getter;
  */
 public enum ErrorCodeEnum {
 
+    //-- ERROR_CODE_DEFAULT是动态可变。的messages
+    //-- SUCCESS_CODE_DETAIL是动态可变化的message
+    SUCCESS_CODE_DETAIL("SUCCESS_CODE_DETAIL", 0, "成功!"),
     ERROR_CODE_DEFAULT("ERROR_CODE_DEFAULT",-1,"天塌了，地陷了，小花猫不见了"),
     ERROR_LOGIN_FAIL("ERROR_LOGIN_FAIL",-110,"登录失败，请重新登录"),
     ERROR_USERNAME_RE("ERROR_USERNAME_RE",-210,"用户名重复");

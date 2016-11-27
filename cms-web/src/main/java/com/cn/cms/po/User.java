@@ -36,14 +36,5 @@ public class User extends Base{
      */
     private String userId;
 
-    /**
-     * 职位ID
-     */
-    private Long positionId;
-
-    /**
-     * 职位名称
-     */
-    private String positionName;
 
 }

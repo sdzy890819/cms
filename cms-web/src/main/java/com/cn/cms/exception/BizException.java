@@ -21,7 +21,7 @@ public class BizException extends Exception {
     private String message = ErrorCodeEnum.ERROR_CODE_DEFAULT.getMessage();
 
     public BizException(){
-        log.error("非异常错误,只是为了使用错误返回");
+        log.error("非异常错误, 使用默认错误返回");
     }
 
     public BizException(Exception e){
@@ -38,6 +38,16 @@ public class BizException extends Exception {
         this.message = ErrorCodeEnum.get(code).getMessage();
     }
 
+    public BizException(Integer code, String message, Exception e){
+        this.code = code;
+        this.message = message;
+        log.error("抛出异常信息,自定义内容：".concat(message),e);
+    }
 
+    public BizException(Integer code,String message){
+        this.code = code;
+        this.message = message;
+        log.error("非异常错误, 使用默认错误返回");
+    }
 
 }

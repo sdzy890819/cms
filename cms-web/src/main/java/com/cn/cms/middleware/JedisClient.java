@@ -79,6 +79,27 @@ public class JedisClient {
     }
 
     /**
+     * 设置有效时间 秒
+     * @param key
+     * @param value
+     * @param seconds
+     */
+    public void set(String key,String value,int seconds) {
+        Jedis client = null;
+        try{
+            client = jedisPool.getResource();
+            client.set(key, value);
+            client.expire(key, seconds);
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            if(client!=null){
+                client.close();
+            }
+        }
+    }
+
+    /**
      * 删除KEY
      * @param key
      */

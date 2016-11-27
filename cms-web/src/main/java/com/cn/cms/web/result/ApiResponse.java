@@ -2,6 +2,7 @@ package com.cn.cms.web.result;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cn.cms.contants.StaticContants;
+import com.cn.cms.enums.ErrorCodeEnum;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,17 +28,17 @@ public class ApiResponse {
 
 
     public static String returnSuccess(){
-        ApiResponse apiResponse = new ApiResponse(StaticContants.DEFAULT_SUCCESS_CODE,StaticContants.DEFAULT_SUCCESS_MESSAGE,null);
+        ApiResponse apiResponse = new ApiResponse(ErrorCodeEnum.SUCCESS_CODE_DETAIL.getType(),ErrorCodeEnum.SUCCESS_CODE_DETAIL.getMessage(),null);
         return JSONObject.toJSONString(apiResponse);
     }
 
     public static String returnSuccess(Object data){
-        ApiResponse apiResponse = new ApiResponse(StaticContants.DEFAULT_SUCCESS_CODE,StaticContants.DEFAULT_SUCCESS_MESSAGE,data);
+        ApiResponse apiResponse = new ApiResponse(ErrorCodeEnum.SUCCESS_CODE_DETAIL.getType(),ErrorCodeEnum.SUCCESS_CODE_DETAIL.getMessage(),data);
         return JSONObject.toJSONString(apiResponse);
     }
 
     public static String returnSuccess(String message, Object data){
-        ApiResponse apiResponse = new ApiResponse(StaticContants.DEFAULT_SUCCESS_CODE,message,data);
+        ApiResponse apiResponse = new ApiResponse(ErrorCodeEnum.SUCCESS_CODE_DETAIL.getType(),message,data);
         return JSONObject.toJSONString(apiResponse);
     }
 
@@ -51,13 +52,25 @@ public class ApiResponse {
         return JSONObject.toJSONString(apiResponse);
     }
 
+    public static String returnSuccess(String message){
+        ApiResponse apiResponse = new ApiResponse(ErrorCodeEnum.SUCCESS_CODE_DETAIL.getType(), message, null);
+        return JSONObject.toJSONString(apiResponse);
+    }
+
+    public static String returnSuccess(Integer code){
+        ApiResponse apiResponse = new ApiResponse(code, ErrorCodeEnum.get(code).getMessage(), null);
+        return JSONObject.toJSONString(apiResponse);
+    }
+
+
+
     public static String returnFail(Integer code, String message, Object data){
         ApiResponse apiResponse = new ApiResponse(code, message, data);
         return JSONObject.toJSONString(apiResponse);
     }
 
     public static String returnFail(String message, Object data){
-        ApiResponse apiResponse = new ApiResponse(StaticContants.DEFAULT_FAIL_CODE, message, data);
+        ApiResponse apiResponse = new ApiResponse(ErrorCodeEnum.ERROR_CODE_DEFAULT.getType(), message, data);
         return JSONObject.toJSONString(apiResponse);
     }
 
@@ -67,12 +80,17 @@ public class ApiResponse {
     }
 
     public static String returnFail(Object data){
-        ApiResponse apiResponse = new ApiResponse(StaticContants.DEFAULT_FAIL_CODE, StaticContants.DEFAULT_FAIL_MESSAGE, data);
+        ApiResponse apiResponse = new ApiResponse(ErrorCodeEnum.ERROR_CODE_DEFAULT.getType(), ErrorCodeEnum.ERROR_CODE_DEFAULT.getMessage(), data);
         return JSONObject.toJSONString(apiResponse);
     }
 
     public static String returnFail(){
-        ApiResponse apiResponse = new ApiResponse(StaticContants.DEFAULT_FAIL_CODE, StaticContants.DEFAULT_FAIL_MESSAGE, null);
+        ApiResponse apiResponse = new ApiResponse(ErrorCodeEnum.ERROR_CODE_DEFAULT.getType(), ErrorCodeEnum.ERROR_CODE_DEFAULT.getMessage(), null);
+        return JSONObject.toJSONString(apiResponse);
+    }
+
+    public static String returnFail(String message){
+        ApiResponse apiResponse = new ApiResponse(ErrorCodeEnum.ERROR_CODE_DEFAULT.getType(), message, null);
         return JSONObject.toJSONString(apiResponse);
     }
 }
