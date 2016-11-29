@@ -1,43 +1,46 @@
-define(function (require, exports, module) {
-    var app = require('ng-element');
-    require('./plug/jquery-1.9.1.min')
-    app.run(['$state', '$stateParams', '$rootScope', function ($state, $stateParams, $rootScope ) {
-        $rootScope.$state = $state;
-        $rootScope.$stateParams = $stateParams;
-       // console.log($ngRouteProvider )
-        //通过$on为$rootScope添加路由事件
-       /* $rootScope.$on('$stateChangeSuccess',function(event, current, previous){
-            $log.debug('successfully changed routes');
-            
-            $log.debug(event);
-            $log.debug(current);
-            $log.debug(previous);
-            $log.debug($rootScope.$state);
-            $log.debug($stateParams);
-        });*/
-    }]);
-   
-    app.config(['$stateProvider', '$urlRouterProvider' , '$locationProvider' , function ($stateProvider, $urlRouterProvider , $locationProvider) {
-        /*$locationProvider.html5Mode({
-          enabled: true,
-          requireBase: false,
-          //rewriteLinks: false
-        });*/
-        //$locationProvider.html5Mode(true);
+require.config({
+    baseUrl: 'js/',
+    paths: {
+        'jquery': 'plug/jquery-1.9.1.min',
+        'angular': 'plug/angular',
+        "angularAMD": "plug/angularAMD.min",
+        "ngload": "plug/ngload",
+        'angular-ui-router': 'plug/angular-ui-router.min',
+        'angular-css':'plug/angular-css.min',
+        'head' : 'common/header' , 
+        'menu' : 'common/menu'
+    },
+    shim: {
+        'jquery': {exports: '$'},
+        'angular': {exports: 'angular'},
+        'angular-ui-router': {
+            deps: ['angular'] , 
+            exports: 'angular-ui-router'
+        },
+        'angular-css': {
+            deps: ['angular'] , 
+            exports: 'angular-css'
+        },
+        "angularAMD": ["angular"],
+        "ngload": ["angularAMD"]
+    }//,
+    //urlArgs: "bust=" +  (new Date()).getTime()
+});
 
+// bootstrap
+define(["angular", "angularAMD", "angular-ui-router",'angular-css'], function (angular, angularAMD) {
+        
+    // routes
+    var registerRoutes = function($stateProvider, $urlRouterProvider) {
+        	
         $urlRouterProvider.otherwise('/home');
         $stateProvider
-            .state('home', {
-                url: '/home',
-                templateUrl: 'template/main.html',
-                 // new attribute for ajax load controller
-                controllerUrl: 'home/homeCtrl',
-                controller: 'mainCtrl',
-                css: {
-                    href: 'style/stylesheets/home.css',
-                    //bustCache: true
-                }
-            })
+            .state("home", angularAMD.route({
+                url: "/home",
+                templateUrl: "template/main.html",
+                controllerUrl: "home/homeCtrl",
+                css: {href: 'style/stylesheets/home.css'}
+            }))
 
             //新闻
             .state('news', {
@@ -102,6 +105,14 @@ define(function (require, exports, module) {
                 template : '<column-list></column-list>',
                 controllerUrl: 'column/list'
             })
-            
-    }]);
+    };        
+        
+    // module
+    var app = angular.module("app", ["ui.router",'angularCSS']);
+
+    // config
+    app.config(["$stateProvider", "$urlRouterProvider", registerRoutes]);
+
+    // bootstrap
+    return angularAMD.bootstrap(app);
 });
