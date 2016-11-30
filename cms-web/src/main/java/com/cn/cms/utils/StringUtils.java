@@ -16,12 +16,35 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils{
     public static String concatUrl(String... strings){
         StringBuffer sbf = new StringBuffer();
         if(strings!=null && strings.length>0){
-            for (String str : strings) {
-                if(isNotBlank(str)){
-                    if(str.endsWith("/")){
-                        sbf.append(str.substring(0,str.length()-1));
+            for( int i = 0 ; i < strings.length ; i ++){
+                if(i == 0 ){
+                    if(strings[i].endsWith("/")){
+                        sbf.append(strings[i]);
+                    }else {
+                        sbf.append(strings[i]);
+                        sbf.append("/");
+                    }
+                }else if(i + 1 == strings.length){
+                    if(strings[i].startsWith("/")){
+                        sbf.append(strings[i].substring(1));
                     }else{
-                        sbf.append(str);
+                        sbf.append(strings[i]);
+                    }
+                }else{
+                    if(strings[i].startsWith("/")){
+                        if(strings[i].endsWith("/")) {
+                            sbf.append(strings[i].substring(1));
+                        }else{
+                            sbf.append(strings[i].substring(1));
+                            sbf.append("/");
+                        }
+                    }else{
+                        if(strings[i].endsWith("/")) {
+                            sbf.append(strings[i].substring(0, strings[i].length()-1));
+                        }else{
+                            sbf.append(strings[i]);
+                            sbf.append("/");
+                        }
                     }
                 }
             }
@@ -57,7 +80,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils{
 
 
     public static void main(String[] args){
-        System.out.println(concatUrl("http://a.b.com/","/aaa/","index.html"));
+        System.out.println(concatUrl("aaa","/index.html"));
         List<UserBean>  userBeanList = new ArrayList<UserBean>();
         System.out.println(isNotEmpty(userBeanList));
     }

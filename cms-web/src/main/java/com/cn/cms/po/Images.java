@@ -75,4 +75,6 @@ public class Images extends Base{
      */
     private int platform = PlatformEnum.CMS.getType();
 
+
+
 }

@@ -5,8 +5,10 @@ import com.cn.cms.exception.BizException;
 import com.cn.cms.logfactory.CommonLog;
 import com.cn.cms.logfactory.CommonLogFactory;
 import org.apache.commons.codec.digest.DigestUtils;
+import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -14,6 +16,7 @@ import java.util.Date;
 import java.util.Random;
 
 /**
+ * 加密、编码
  * Created by zhangyang on 16/11/24.
  */
 public class EncryptUtil {
@@ -128,6 +131,8 @@ public class EncryptUtil {
         }
         return sbf.toString();
     }
+
+
 
 
 }

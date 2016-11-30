@@ -50,4 +50,13 @@ public class StaticContants {
     //----自定义成功码
 
     public static final int DEFAULT_SECONDS = 24*60*60;
+
+    public static final String WATERMARK_TEXT = "全景网";
+
+    /**
+     * 全景网资源文件名前缀
+     */
+    public static final String QUANJING_RESOURCE_FILENAME = "QJ_";
+
+    public static final String FILE_PATH_SP = "/";
 }
