@@ -5,8 +5,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.cn.cms.biz.UserBiz;
+import com.cn.cms.enums.ErrorCodeEnum;
 import com.cn.cms.exception.BizException;
 import com.cn.cms.web.ann.CheckToken;
+import org.apache.log4j.spi.ErrorCode;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -29,7 +31,7 @@ public class CheckTokenInterceptor extends HandlerInterceptorAdapter {
 				if(userBiz.checkUserToken(request)){
 					return true;
 				}else{
-					throw new BizException();
+					throw new BizException(ErrorCodeEnum.ERROR_LOGIN_FAIL.getType(),ErrorCodeEnum.ERROR_LOGIN_FAIL.getMessage());
 				}
 			}
 		}

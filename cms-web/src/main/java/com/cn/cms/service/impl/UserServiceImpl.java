@@ -1,9 +1,7 @@
 package com.cn.cms.service.impl;
 
 import com.cn.cms.dao.*;
-import com.cn.cms.po.Position;
-import com.cn.cms.po.User;
-import com.cn.cms.po.UserPosition;
+import com.cn.cms.po.*;
 import com.cn.cms.service.TopicService;
 import com.cn.cms.service.UserService;
 import com.cn.cms.utils.Page;
@@ -108,5 +106,37 @@ public class UserServiceImpl implements UserService {
 
     public List<Position> findPositionList(Page page) {
         return positionDao.findPositionList(page);
+    }
+
+    public List<Permission> findPermissionList() {
+        return permissionDao.findPermissionList();
+    }
+
+    public List<Long> findPositionPermission(Long positionId) {
+        return positionPermissionDao.findPositionPermission(positionId);
+    }
+
+    public void createPermission(Permission permission) {
+        permissionDao.createPermission(permission);
+    }
+
+    public void updatePermission(Permission permission){
+        permissionDao.updatePermission(permission);
+    }
+
+    public Permission findPermission(Long id) {
+        return permissionDao.findPermission(id);
+    }
+
+    public void delPermission(Long id, String lastModifyUserId){
+        permissionDao.delPermission(id, lastModifyUserId);
+    }
+
+    public void createPositionPermission(Long positionId, List<PositionPermission> positionPermissionList) {
+        positionPermissionDao.createPositionPermission(positionId, positionPermissionList);
+    }
+
+    public List<Permission> findPermissionForPositionIds(String userId) {
+        return permissionDao.findPermissionForPositionIds(userId);
     }
 }

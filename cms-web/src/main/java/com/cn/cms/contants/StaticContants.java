@@ -32,20 +32,21 @@ public class StaticContants {
     public static final String COOKIE_REAL_NAME = "CMS_QUANJING_NAME";
 
     //----自定义错误码
-    public static final String ERROR_NOT_AUTH = "无权限操作!";
 
-    public static final String ERROR_NO_POSITION = "此用户组不存在!";
+    public static final String ERROR_NO_POSITION = "找不到此用户组! ";
 
-    public static final String ERROR_PWD = "密码错误!";
+    public static final String ERROR_PWD = "密码错误! ";
 
-    public static final String ERROR_NO_USER = "用户不存在!";
+    public static final String ERROR_NO_USER = "找不到此用户! ";
 
-    public static final String ERROR_POSITION_RE = "用户组已经存在";
+    public static final String ERROR_POSITION_RE = "用户组已经存在! ";
+
+    public static final String ERROR_PERMISSION_NOT_FOUND = "找不到此权限! ";
 
     //----自定义错误码
 
     //----自定义成功码
-    public static final String SUCCESS_LOGIN = "登录成功!";
+    public static final String SUCCESS_LOGIN = "登录成功! ";
     //----自定义成功码
 
     public static final int DEFAULT_SECONDS = 24*60*60;
