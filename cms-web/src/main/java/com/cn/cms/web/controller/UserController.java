@@ -76,9 +76,9 @@ public class UserController extends BaseController{
      * @return
      */
     @CheckToken
-    @CheckAuth
-    @RequestMapping(value = "/list")
-    public String list(HttpServletRequest request, @RequestParam(value = "page",required = false) Integer page,
+    @CheckAuth( name = "user:update" )
+    @RequestMapping(value = "/userlist")
+    public String userlist(HttpServletRequest request, @RequestParam(value = "page",required = false) Integer page,
                         @RequestParam(value="pageSize",required = false)Integer pageSize){
         Page pageObj = new Page(page,pageSize);
         List<UserBean> users= userBiz.listUser(pageObj);
@@ -114,7 +114,7 @@ public class UserController extends BaseController{
      * @return
      */
     @CheckToken
-    @CheckAuth
+    @CheckAuth( name = "user:write" )
     @RequestMapping(value = "/createUser",method = RequestMethod.POST)
     public String createUser(HttpServletRequest request, @RequestPart(value="userName")String userName,
                              @RequestPart(value="realName")String realName,
@@ -136,7 +136,7 @@ public class UserController extends BaseController{
      * @return
      */
     @CheckToken
-    @CheckAuth
+    @CheckAuth( name = "user:delete" )
     @RequestMapping(value = "/delUser",method = RequestMethod.GET)
     public String delUser(HttpServletRequest request,@RequestParam("userId")String userId){
         String userID = getCurrentUserId(request);
@@ -161,7 +161,7 @@ public class UserController extends BaseController{
                             @RequestPart("pwd")String pwd){
         String userID = getCurrentUserId(request);
         if(!userId.equals(userID)){
-            return ApiResponse.returnFail(StaticContants.ERROR_NOT_AUTH);
+            return ApiResponse.returnFail(ErrorCodeEnum.ERROR_NO_PERMISSION.getType(),ErrorCodeEnum.ERROR_NO_PERMISSION.getMessage());
         }
         userBiz.updateUser(userID, userId, realName, headImage, pwd);
         return ApiResponse.returnSuccess();

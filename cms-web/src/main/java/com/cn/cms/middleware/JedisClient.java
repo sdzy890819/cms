@@ -5,7 +5,9 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisSentinelPool;
 
 import javax.annotation.Resource;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -69,6 +71,24 @@ public class JedisClient {
         try{
             client = jedisPool.getResource();
             client.set(key, value);
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            if(client!=null){
+                client.close();
+            }
+        }
+    }
+
+    public void set(Map<String,String> map){
+        Jedis client = null;
+        try{
+            client = jedisPool.getResource();
+            Iterator<Map.Entry<String,String>> it = map.entrySet().iterator();
+            while(it.hasNext()) {
+                Map.Entry<String, String> entry = it.next();
+                client.set(entry.getKey(), entry.getValue());
+            }
         }catch(Exception e){
             e.printStackTrace();
         }finally{
@@ -151,6 +171,46 @@ public class JedisClient {
             }
         }
     }
+
+    /**
+     * 批量插入
+     * @param key
+     * @param map
+     */
+    public void zadd(String key, Map<String, Double> map){
+        Jedis client = null;
+        try{
+            client = jedisPool.getResource();
+            client.zadd(key, map);
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            if(client!=null){
+                client.close();
+            }
+        }
+    }
+
+    /**
+     * 批量插入 设置时间
+     * @param key
+     * @param map
+     */
+    public void zadd(String key, Map<String, Double> map, int seconds){
+        Jedis client = null;
+        try{
+            client = jedisPool.getResource();
+            client.zadd(key, map);
+            client.expire(key, seconds);
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            if(client!=null){
+                client.close();
+            }
+        }
+    }
+
 
     /**
      * 把传递过来的N个Key进行交集计算并写入dstKey里面.
@@ -292,6 +352,28 @@ public class JedisClient {
         try{
             client = jedisPool.getResource();
             p = client.expire(key, seconds);
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            if(client!=null){
+                client.close();
+            }
+        }
+        return p;
+    }
+
+    /**
+     * 获取元素是否存在
+     * @param key
+     * @param member
+     * @return
+     */
+    public long zrank(String key, String member){
+        Jedis client = null;
+        long p = 0;
+        try{
+            client = jedisPool.getResource();
+            p = client.zrank(key, member);
         }catch(Exception e){
             e.printStackTrace();
         }finally{

@@ -6,5 +6,5 @@ package com.cn.cms.web.ann;
  */
 public @interface CheckAuth {
 
-
+    String name() default "";
 }

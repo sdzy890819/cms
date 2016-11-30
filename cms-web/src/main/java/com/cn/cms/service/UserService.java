@@ -1,8 +1,6 @@
 package com.cn.cms.service;
 
-import com.cn.cms.po.Position;
-import com.cn.cms.po.User;
-import com.cn.cms.po.UserPosition;
+import com.cn.cms.po.*;
 import com.cn.cms.utils.Page;
 
 import java.util.List;
@@ -137,4 +135,57 @@ public interface UserService {
      * @return
      */
     List<Position> findPositionList(Page page);
+
+    /**
+     * 获取所有的权限
+     * @return
+     */
+    List<Permission> findPermissionList();
+
+    /**
+     * 获取用户组权限
+     * @param positionId
+     * @return
+     */
+    List<Long> findPositionPermission(Long positionId);
+
+    /**
+     * 创建新权限
+     * @param permission
+     */
+    void createPermission(Permission permission);
+
+    /**
+     * 修改权限
+     * @param permission
+     */
+    void updatePermission(Permission permission);
+
+    /**
+     * 按照ID查询权限
+     * @param id
+     * @return
+     */
+    Permission findPermission(Long id);
+
+    /**
+     * 删除权限
+     * @param id
+     * @param lastModifyUserId
+     */
+    void delPermission(Long id, String lastModifyUserId);
+
+    /**
+     * 批量插入用户组权限
+     * @param positionPermission
+     */
+    void createPositionPermission(Long positionId, List<PositionPermission> positionPermission);
+
+    /**
+     * 根据positionId列表获取权限
+     * @param userId
+     * @return
+     */
+    List<Permission> findPermissionForPositionIds(String userId);
+
 }

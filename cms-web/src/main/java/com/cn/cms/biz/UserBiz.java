@@ -4,6 +4,7 @@ import com.cn.cms.bo.UserBean;
 import com.cn.cms.contants.RedisKeyContants;
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.middleware.JedisClient;
+import com.cn.cms.po.Permission;
 import com.cn.cms.po.User;
 import com.cn.cms.service.UserService;
 import com.cn.cms.utils.CookieUtil;
@@ -29,6 +30,9 @@ public class UserBiz extends BaseBiz{
 
     @Resource
     private UserService userService;
+
+    @Resource
+    private PermissionBiz permissionBiz;
 
     @Resource
     private JedisClient jedisClient;
@@ -145,6 +149,8 @@ public class UserBiz extends BaseBiz{
         CookieUtil.delCookieVal(request,response,StaticContants.COOKIE_TIME);
         CookieUtil.delCookieVal(request,response,StaticContants.COOKIE_REAL_NAME);
         jedisClient.del(RedisKeyContants.getToken(userId));
+        permissionBiz.delPermissionRedis(userId);
+
     }
 
     /**
@@ -181,7 +187,7 @@ public class UserBiz extends BaseBiz{
         if( user != null ){
             if(user.getPwd().equals(pwd)){
                 setCookie(response,user);
-                return ApiResponse.returnSuccess();
+                return ApiResponse.returnSuccess(StaticContants.SUCCESS_LOGIN);
             }else{
                 return ApiResponse.returnFail(StaticContants.ERROR_PWD);
             }
@@ -207,6 +213,7 @@ public class UserBiz extends BaseBiz{
         CookieUtil.addCookie(response,StaticContants.COOKIE_USER_TOKEN,token,0);
         CookieUtil.addCookie(response,StaticContants.COOKIE_REAL_NAME,user.getRealName(),0);
         jedisClient.set(RedisKeyContants.getToken(user.getUserId()), token, StaticContants.DEFAULT_SECONDS);
+        permissionBiz.setPermissionRedis(user.getUserId());
     }
 
     /**
