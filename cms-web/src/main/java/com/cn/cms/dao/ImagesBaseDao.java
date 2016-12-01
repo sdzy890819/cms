@@ -1,6 +1,7 @@
 package com.cn.cms.dao;
 
 import com.cn.cms.po.ImagesBase;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * Dao层
@@ -9,5 +10,9 @@ import com.cn.cms.po.ImagesBase;
 public interface ImagesBaseDao {
 
     ImagesBase findImagesBase();
+
+    void saveImagesBase(@Param(value = "p1") ImagesBase imagesBase);
+
+    void updateImagesBase(@Param(value = "p1") ImagesBase imagesBase);
 
 }

@@ -59,4 +59,8 @@ public class StaticContants {
     public static final String QUANJING_RESOURCE_FILENAME = "QJ_";
 
     public static final String FILE_PATH_SP = "/";
+
+    public static final String CMS_OPERATION_USER_ID = "100000000000000001";
+
+    public static final int CMS_NUM = 300;
 }

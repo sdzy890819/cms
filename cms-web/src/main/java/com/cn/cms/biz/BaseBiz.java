@@ -1,5 +1,8 @@
 package com.cn.cms.biz;
 
+import com.cn.cms.logfactory.CommonLog;
+import com.cn.cms.logfactory.CommonLogFactory;
+
 import java.util.List;
 
 /**
@@ -7,5 +10,6 @@ import java.util.List;
  */
 public class BaseBiz {
 
+    private CommonLog log = CommonLogFactory.getLog(this.getClass());
 
 }

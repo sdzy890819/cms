@@ -36,7 +36,7 @@ public class ExceptionHandler implements HandlerExceptionResolver {
             response.getWriter().flush();
             response.getWriter().close();
         }catch(Exception e){
-            log.info("错误拦截器出现错误",e);
+            log.info("错误拦截器出现错误", e);
         }
         return null;
     }

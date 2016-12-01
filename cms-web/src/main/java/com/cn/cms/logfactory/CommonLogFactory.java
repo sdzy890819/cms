@@ -13,4 +13,5 @@ public class CommonLogFactory{
         return commonLog;
     }
 
+
 }

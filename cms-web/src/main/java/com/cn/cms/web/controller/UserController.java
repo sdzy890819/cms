@@ -83,7 +83,7 @@ public class UserController extends BaseController{
         Page pageObj = new Page(page,pageSize);
         List<UserBean> users= userBiz.listUser(pageObj);
         Map<String, Object> result = new HashMap<String, Object>();
-        result.put("page",page);
+        result.put("page",pageObj);
         result.put("list",users);
         return ApiResponse.returnSuccess(result);
     }

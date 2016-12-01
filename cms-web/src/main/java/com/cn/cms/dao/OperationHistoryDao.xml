@@ -21,5 +21,15 @@
 
     <sql id="delTag"> where del_tag = 1 </sql>
 
+    <sql id="sql_column">
+        id,create_time,update_time,del_tag,last_modify_user_id,url,description,user_id,curr_time
+    </sql>
+
+    <insert id="save">
+        INSERT into operation_history ( <include refid="sql_column" /> ) values
+        <foreach collection="list" separator="," item="p1" >
+            (null,null,null,null,#{p1.lastModifyUserId},#{p1.url},#{p1.description},#{p1.userId},#{p1.currTime})
+        </foreach>
+    </insert>
 
 </mapper>

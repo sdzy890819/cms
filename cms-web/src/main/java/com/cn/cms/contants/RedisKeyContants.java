@@ -13,6 +13,8 @@ public class RedisKeyContants {
 
     public static final String REDIS_KEY_SP = "_";
 
+    public static final String REDIS_RECORD_KEY = "CMS_RECORD_KEY";
+
     public static String getToken(String userId){
         return REDIS_TOKEN_KEY.concat(userId);
     }
