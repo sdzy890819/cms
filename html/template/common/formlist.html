@@ -1,0 +1,43 @@
+<div>
+	<position-nav edit='edit' submit='submit'></position-nav>
+	<div class="boxtab {{formdata.cls}}">
+		<div class="title">
+			<i class="icon-reorder"></i>
+			{{formdata.title}}
+		</div>
+		<div class="content">
+		<div class="form-horizontal">
+			<div class="table">
+				<table cellpadding="0" cellspacing="0">
+					<tr>
+						<th><input type="checkbox"></th>
+						<th>ID</th>
+						<th>真实姓名</th>
+						<th>用户组名</th>
+						<th>操作</th>
+					</tr>
+					<tr>
+						<td><input type="checkbox"></td>
+						<td>655541154</td>
+						<td>
+							<img class="img" src='images/img.png'>
+							看完我问
+						</td>
+						<td>来提供页面</td>
+						<td class="edits">
+							<div class="add btn"><i class='icon-pencil'></i>添加新用户到组</div>
+							<div class="edit btn"><i class='icon-plus'></i>添加权限到组</div>
+							<div class="del btn"><i class='icon-trash'></i>删除</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="submit">
+			<div class='btn {{obj.cls}}' ng-repeat='obj in formdata.submit' ng-click='submit(obj.evt)'>
+				<i class="icon-{{obj.icon_cls}}"></i>
+				<span>{{obj.name}}</span>
+			</div>
+		</div>
+	</div>
+</div>

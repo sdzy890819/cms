@@ -1,13 +1,4 @@
-define(function (require, exports, module) {
-	var app = require('../ng-element'),
-		position = require('../common/position') , 
-		fixedNav = require('../common/positionNav') , 
-		form = require('../common/form');
-
-	position.init({app : app});
-	fixedNav.init({app : app});
-	form.init({app : app});
-
+define(["app",'form','position','fixedNav'], function ( app ) {
 	app.directive('newsEdit',function(){
 		return {
 	    	restrict : 'E',

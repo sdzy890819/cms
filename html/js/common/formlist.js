@@ -1,10 +1,10 @@
 define(["app",'jquery'], function ( app , $ ) {
-	app.directive('formHorizontal',function(){
+	app.directive('formList',function(){
 		return {
 	    	restrict : 'E',
 	    	replace : true,
 	    	transclude : true,
-	        templateUrl : '../template/common/form.html',
+	        templateUrl : '../template/common/formlist.html',
 			scope : {
 	            formdata : '=formdata',
 	            edit : '=edit'

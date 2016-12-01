@@ -8,7 +8,11 @@ require.config({
         'angular-ui-router': 'plug/angular-ui-router.min',
         'angular-css':'plug/angular-css.min',
         'head' : 'common/header' , 
-        'menu' : 'common/menu'
+        'menu' : 'common/menu' , 
+        'form' : 'common/form',
+        'formlist' : 'common/formlist',
+        'position' : 'common/position',
+        'fixedNav' : 'common/positionNav',
     },
     shim: {
         'jquery': {exports: '$'},
@@ -43,32 +47,31 @@ define(["angular", "angularAMD", "angular-ui-router",'angular-css'], function (a
             }))
 
             //新闻
-            .state('news', {
+            .state('news', angularAMD.route({
                 url: '/news',
                 templateUrl: 'template/news/index.html',
-                controllerUrl: 'news/index',
-                controller: 'mainCtrl'
-            })
-            .state('news.add', {
+                controllerUrl: 'news/index'
+            }))
+            .state('news.add', angularAMD.route({
                 url: '/add',
                 template : '<news-add></news-add>',
                 controllerUrl: 'news/add'
-            })
-            .state('news.edit', {
+            }))
+            .state('news.edit', angularAMD.route({
                 url: '/edit',
                 template : '<news-edit></news-edit>',
                 controllerUrl: 'news/edit'
-            })
-            .state('news.list', {
+            }))
+            .state('news.list', angularAMD.route({
                 url: '/list',
                 template : '<news-list></news-list>',
                 controllerUrl: 'news/list'
-            })
-            .state('news.newslist', {
+            }))
+            .state('news.newslist', angularAMD.route({
                 url: '/newslist',
                 template : '<news-newslist></news-newslist>',
                 controllerUrl: 'news/newslist'
-            })
+            }))
 
             //部门
             .state('department', {
