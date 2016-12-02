@@ -7,6 +7,8 @@ require.config({
         "ngload": "plug/ngload",
         'angular-ui-router': 'plug/angular-ui-router.min',
         'angular-css':'plug/angular-css.min',
+
+        
         'head' : 'common/header' , 
         'menu' : 'common/menu' , 
         'form' : 'common/form',

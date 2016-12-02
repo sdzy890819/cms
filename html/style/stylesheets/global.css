@@ -931,11 +931,13 @@ input:focus {
 .table .btn i {
   margin-right: 3px;
 }
-/* line 297, ../sass/global.scss */
+/* line 298, ../sass/global.scss */
 .table .btn.add {
   background: #35aa47;
+  color: #fff;
 }
-/* line 298, ../sass/global.scss */
+/* line 299, ../sass/global.scss */
 .table .btn.edit {
   background: #4d90fe;
+  color: #fff;
 }
