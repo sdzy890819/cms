@@ -1,14 +1,16 @@
 require.config({
     baseUrl: 'js/',
     paths: {
-        'jquery': 'plug/jquery-1.9.1.min',
+        'jquery': 'plug/jquery-3.0.0.min',
+        'jquery-migrate': 'plug/jquery-migrate-3.0.0.min',
         'angular': 'plug/angular',
         "angularAMD": "plug/angularAMD.min",
         "ngload": "plug/ngload",
         'angular-ui-router': 'plug/angular-ui-router.min',
         'angular-css':'plug/angular-css.min',
 
-        
+        'page' : 'plug/pagination.min',
+
         'head' : 'common/header' , 
         'menu' : 'common/menu' , 
         'form' : 'common/form',
@@ -18,6 +20,10 @@ require.config({
     },
     shim: {
         'jquery': {exports: '$'},
+        'jquery-migrate': ['jquery'],
+        'page': ['jquery'],
+
+
         'angular': {exports: 'angular'},
         'angular-ui-router': {
             deps: ['angular'] , 
@@ -34,7 +40,7 @@ require.config({
 });
 
 // bootstrap
-define(["angular", "angularAMD", "angular-ui-router",'angular-css'], function (angular, angularAMD) {
+define(["angular", "angularAMD", "angular-ui-router",'angular-css','jquery'], function (angular, angularAMD) {
         
     // routes
     var registerRoutes = function($stateProvider, $urlRouterProvider) {
