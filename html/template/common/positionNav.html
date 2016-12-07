@@ -1,9 +1,9 @@
 <div ng-if='edit' class='position-fixed'>
 	<ul ng-if='edit.nav'>
-		<li ng-repeat="item in edit.nav">
-			<a javascript:; ng-click='submit(item.evt)'>
-				<i class="icon-{{item.cls}}"></i>
-				<span>{{item.name}}</span>
+		<li ng-repeat="obj in edit.nav">
+			<a javascript:; ng-click='submit(obj.evt,false,$event)'>
+				<i class="icon-{{obj.icon_cls}}"></i>
+				<span>{{obj.name}}</span>
 			</a>
 		</li>
 	</ul>
@@ -13,10 +13,10 @@
 			<span>操作</span>
 		</a>
 		<ul class="list">
-			<li ng-repeat="item in edit.list">
-				<a javascript:; ng-click='submit(item.evt)'>
-					<i class="icon-{{item.cls}}"></i>
-					<span>{{item.name}}</span>
+			<li ng-repeat="obj in edit.list" repeat-finish='listFinish'>
+				<a javascript:; ng-click='submit(obj.evt,false,$event)'>
+					<i class="icon-{{obj.icon_cls}}"></i>
+					<span>{{obj.name}}</span>
 				</a>
 			</li>
 		</ul>

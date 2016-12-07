@@ -22,31 +22,34 @@ define(["app"], function ( app ) {
 				if($scope.edit){
 					if($scope.edit.nav){
 						$.each($scope.edit.nav,function(){
-							this.cls = icon[this.cls]
+							this.icon_cls = icon[this.icon_cls]
 						});
 					}
 					$.each($scope.edit.list,function(){
-						this.cls = icon[this.cls]
+						this.icon_cls = icon[this.icon_cls]
 					});
 				}
 			},
 			link : function($scope , element ){
-				var ele = $(element[0])
-					,list = ele.find('.list')
-					,timer = 0;
-				ele.find('.edit').mouseenter(function(){
-					list.show();
-					setTimeout(function(){
-						list.addClass('cur')
-					},20);
-					clearTimeout(timer);
-				})
-				.mouseleave(function(){
-					list.removeClass('cur');
-					timer = setTimeout(function(){
-						list.hide();
-					},520);
-				})
+				function listFinish(){
+					var ele = $('.position-fixed')
+						,list = ele.find('.list')
+						,timer = 0;
+					ele.find('.edit').mouseenter(function(){
+						list.show();
+						setTimeout(function(){
+							list.addClass('cur')
+						},20);
+						clearTimeout(timer);
+					})
+					.mouseleave(function(){
+						list.removeClass('cur');
+						timer = setTimeout(function(){
+							list.hide();
+						},520);
+					})
+				}
+				$scope.$on('listFinish', listFinish)
 			}
 		}
 	})
