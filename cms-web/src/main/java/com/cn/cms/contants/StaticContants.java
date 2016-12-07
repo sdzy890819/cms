@@ -43,6 +43,12 @@ public class StaticContants {
 
     public static final String ERROR_PERMISSION_NOT_FOUND = "找不到此权限! ";
 
+    public static final String ERROR_FRAGMENT_NOT_FOUND = "找不到此碎片!";
+
+    public static final String ERROR_FRAGMENT_LENGTH = "模版编辑参数不对称!";
+
+    public static final String ERROR_FRAGMENT_MODEL = "碎片模版错误。";
+
     //----自定义错误码
 
     //----自定义成功码
@@ -63,4 +69,9 @@ public class StaticContants {
     public static final String CMS_OPERATION_USER_ID = "100000000000000001";
 
     public static final int CMS_NUM = 300;
+
+    public static final String FRAGMENT_REGEX = "\\{#([^#][^\\}]+)#\\}";
+
+    public static final String FRAGMENT_ALL_REGEX = "(.*?)";
+
 }
