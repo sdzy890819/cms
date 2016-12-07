@@ -49,6 +49,12 @@ public class StaticContants {
 
     public static final String ERROR_FRAGMENT_MODEL = "碎片模版错误。";
 
+    public static final String ERROR_TIME_PARSE = "时间格式不对，格式为：";
+
+    public static final String getTimeParseErrorYYYYMMDD(){
+        return ERROR_TIME_PARSE.concat(YYYY_MM_DD);
+    }
+
     //----自定义错误码
 
     //----自定义成功码
@@ -73,5 +79,8 @@ public class StaticContants {
     public static final String FRAGMENT_REGEX = "\\{#([^#][^\\}]+)#\\}";
 
     public static final String FRAGMENT_ALL_REGEX = "(.*?)";
+
+
+    public static final String YYYY_MM_DD = "yyyy-MM-dd";
 
 }

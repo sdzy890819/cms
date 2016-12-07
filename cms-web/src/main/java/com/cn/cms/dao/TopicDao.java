@@ -16,4 +16,11 @@ public interface TopicDao {
 
     List<Topic> queryTopicList(@Param(value = "page") Page page);
 
+    Topic getTopic(@Param(value = "id") Long id);
+
+    void delTopic(@Param(value = "lastModifyUserId") String lastModifyUserId, @Param(value = "id") Long id);
+
+    void saveTopic(@Param(value = "p1") Topic topic);
+
+    void updateTopic(@Param(value = "p1") Topic topic);
 }

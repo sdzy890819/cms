@@ -44,4 +44,24 @@
         select <include refid="sql_column_simple" /> from topic <include refid="delTag" /> limit ${page.start},${page.pageSize};
     </select>
 
+    <select id="getTopic" resultMap="topic" >
+        select <include refid="sql_column" /> from topic <include refid="delTag" /> and id = ${id};
+    </select>
+
+    <update id="delTopic">
+        update topic set del_tag = 0 and last_modify_user_id = #{lastModifyUserId} where id = ${id};
+    </update>
+
+    <insert id="saveTopic">
+      insert into topic ( <include refid="sql_column"/> ) VALUES
+        ( null,null,null,null,#{p1.lastModifyUserId},#{p1.topicTitle},#{p1.topicContent},#{p1.topicPath},#{p1.topicFileName},${p1.topicClassifyId},
+        ${p1.categoryId},${p1.channelId},#{p1.releaseTime},#{p1.keyword},#{p1.description},${p1.topicColumnId},#{p1.topicUrl} );
+    </insert>
+
+    <update id="updateTopic">
+      update topic set last_modify_user_id = #{p1.lastModifyUserId},topic_title = #{p1.topicTitle},topic_content = #{p1.topicContent},
+      topic_path = #{p1.topicPath},topic_filename = #{p1.topicFileName},topic_classify_id = ${p1.topicClassifyId},
+        category_id = #{p1.categoryId},channel_id = #{p1.channelId},release_time = #{p1.releaseTime},keyword = #{p1.keyword},
+        description = #{p1.description},topic_column_id = #{p1.topicColumnId},topic_url = #{p1.topicUrl} where id = ${p1.id} ;
+    </update>
 </mapper>

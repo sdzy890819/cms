@@ -282,4 +282,18 @@ public class FragmentController extends BaseController {
         return ApiResponse.returnSuccess();
     }
 
+    /**
+     * 发布。
+     * @param request
+     * @param id
+     * @return
+     */
+    @CheckToken
+    @CheckAuth( name = "fragment:publish" )
+    @RequestMapping(value = "/publish", method = RequestMethod.GET)
+    public String publish(HttpServletRequest request, @RequestParam(value = "id") Long id){
+        //-----------
+        return ApiResponse.returnSuccess();
+    }
+
 }

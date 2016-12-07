@@ -1,10 +1,22 @@
 package com.cn.cms.dao;
 
+import com.cn.cms.po.TopicClassify;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+
 /**
  * Dao层
  * Created by zhangyang on 16/11/17.
  */
 public interface TopicClassifyDao {
 
+    List<TopicClassify> findAll();
+
+    void saveTopicClassify(@Param(value = "p1") TopicClassify topicClassify);
+
+    void delTopicClassify(@Param(value = "lastModifyUserId") String lastModifyUserId, @Param(value = "id") Long id);
+
+    void updateTopicClassify(@Param(value = "p1") TopicClassify topicClassify);
 
 }
