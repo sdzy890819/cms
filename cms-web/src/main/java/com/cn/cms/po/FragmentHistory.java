@@ -38,4 +38,9 @@ public class FragmentHistory extends Base {
      */
     private Date currTime;
 
+    /**
+     * 碎片ID
+     */
+    public Long fragmentId;
+
 }

@@ -9,10 +9,13 @@ import lombok.Getter;
 public enum AuthEnum {
 
     READ("read", 1),
-    WRITE("write", 2),
-    UPDATE("update", 3),
-    DELETE("delete", 4),
-    PUBLISH("publish",5);
+    QUERY("query", 2),
+    WRITE("write", 3),
+    UPDATE("update", 4),
+    EDIT("edit", 5),
+    DELETE("delete", 6),
+    PUBLISH("publish", 7);
+
 
     @Getter
     private int type;

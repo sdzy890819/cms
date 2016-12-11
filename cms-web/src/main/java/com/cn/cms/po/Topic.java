@@ -69,4 +69,9 @@ public class Topic extends Base {
      */
     private Long topicColumnId;
 
+    /**
+     * URL
+     */
+    private String topicUrl;
+
 }
