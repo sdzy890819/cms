@@ -125,7 +125,14 @@ define(["app",'jquery','page','./moduls/directive'], function ( app , $ ) {
 						}
 					});
 					arr = arr.substr(0,arr.length-1);
-					callback(arr);
+					if(arr.length<1){
+						layui.use(['layer'], function(){
+							var layer = layui.layer;
+							layer.msg('请至少选择一项进行操作。', function(){});
+						});
+					}else{
+						callback(arr);
+					}
 				}
 				//以下为分页
 				var container = $('#pages');

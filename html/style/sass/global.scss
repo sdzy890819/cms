@@ -6,7 +6,7 @@ body,select { font-family:"Hiragino Sans GB","Hiragino Sans GB W3","Microsoft Ya
 body { height: 100%; background:#fff;color:#333; overflow-y: auto}
 
 ul,li,ul li{ list-style: none; }
-i{ display: inline-block; vertical-align: middle;  margin-top: -2px; }
+i{ display: inline-block; vertical-align: middle;  } //margin-top: -2px;
 $browser : webkit moz o ms;
 $minDevice: -webkit-min-device-pixel-ratio;
 $maxDevice: -webkit-max-device-pixel-ratio;
@@ -67,6 +67,7 @@ a:hover { color:#333;text-decoration:underline;}
 a img{ border:0;}
 a.link{color:#5378a9;}
 a.link:hover{text-decoration:underline;}
+em{ font-style:normal;}
 select option{display:block;}
 input,textarea { outline:none;resize:none;}
 textarea { border:1px solid #c7c7c7;border-radius:5px;padding:5px 10px;font-size:14px;color:#666;
@@ -89,9 +90,9 @@ li [class^="icon-"], li [class*=" icon-"] {
     text-align: center;
     vertical-align:middle;
 }
-textarea,input[type="text"],input[type="password"]{-webkit-appearance: none !important;color: #333333;outline: 0;height: 20px;padding: 6px 6px !important;line-height: 20px; font-size: 14px; font-weight: normal; vertical-align: top; background-color: #ffffff; border-radius: 0px; background: transparent; @include transition-duration(.3s); border:1px solid #ddd;
+/* textarea,input[type="text"],input[type="password"]{-webkit-appearance: none !important;color: #333333;outline: 0;height: 20px;padding: 6px 6px !important;line-height: 20px; font-size: 14px; font-weight: normal; vertical-align: top; background-color: #ffffff; border-radius: 0px; background: transparent; @include transition-duration(.3s); border:1px solid #ddd;
 }
-input:focus{ border: 1px solid #bbb !important;}
+input:focus{ border: 1px solid #bbb !important;} */
 ::-webkit-input-placeholder{ font-size:12px; }
 ::-ms-input-placeholder{ font-size:12px; }
 ::-moz-input-placeholder{ font-size:12px; }
@@ -99,7 +100,7 @@ input:focus{ border: 1px solid #bbb !important;}
 
 .banner{ background:url(../../images/banner.png) center 0 no-repeat; @include size(height,550px,1080); background-size:contain; }
 
-.container{ padding:0 20px; }
+.container{ padding:0 20px;}
 
 /*header*/
 #Header{ height:45px; line-height: 45px; background: #212121; color: #ddd; 
@@ -140,7 +141,7 @@ $leftWidth : 225px;
 
 @mixin leftMenuA{display:block;  position: relative; margin: 0; border: 0px; padding: 10px 15px; text-decoration: none; font-size: 14px; font-weight: 300;border-top: 1px solid #5c5c5c; color: #ffffff;}
 /* left */
-.sidebar-menu{ float:left; width:$leftWidth; height: 100%; background: #3d3d3d; overflow: hidden; 
+.sidebar-menu{ position:absolute; z-index: 998; left:0; top:45px; width:$leftWidth; background: #3d3d3d; overflow: hidden; 
     .sidebar-toggler{ width: 29px; height: 29px; margin:15px 0 15px 175px; cursor: pointer; background: url(../../images/sidebar-toggler.jpg) right 0 no-repeat; opacity: 0.5; filter: alpha(opacity=50);
         &:hover{opacity: 1; filter: alpha(opacity=100);}
     }
@@ -252,6 +253,7 @@ $leftWidth : 225px;
     }
     .w120{ width:120px; }
     .w220{ width:220px; }
+    .w320{ width:320px; }
 }
 .form-horizontal{ padding:20px;
     .control-group{ margin-bottom: 20px; overflow:hidden;
@@ -269,7 +271,14 @@ $leftWidth : 225px;
             .control-label.next{ width:80px;}
             .controls.next{ margin-left:100px; }
         }
+        em{ padding-right:5px; color:#e50000; vertical-align:middle;}
     }
+}
+.layui-form{ padding:20px; 
+    textarea.w80{ width:80%; max-width:600px; min-height:50px; }
+    em{ padding-right:5px; color:#e50000; vertical-align:middle;}
+    .layui-form-label{ width:100px;}
+    .layui-input-block{ margin-left:130px;}
 }
 .table{
     table{ width:100%; border-left:1px solid #ddd; border-top:1px solid #ddd; @include box-sizing;}

@@ -126,6 +126,8 @@ define(["app",'form','position','fixedNav'], function ( app ) {
 					{
 						name : '定时发布',
 						type : 'date',
+						check : true,
+						placeholder : '请选择时间',
 						prompt : {
 							error : '时间不能为空'
 						}
