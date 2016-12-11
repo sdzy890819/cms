@@ -1,4 +1,5 @@
 define(["app",'jquery'], function ( app , $ ) {
+	layui.link('js/plug/layui/css/layui.css');
 	app.directive('formHorizontal',function(){
 		return {
 	    	restrict : 'E',
@@ -26,18 +27,41 @@ define(["app",'jquery'], function ( app , $ ) {
 				$scope.isArray = function( value ){
 					return angular.isArray(value);
 				};
+				$.each($scope.formdata.list,function(){
+					if(this.type=='date'){
+						layui.use('laydate', function(){});
+					}
+				});
+				$scope.selectDate = function( $event ){
+					layui.laydate({
+						elem: $event.target, 
+						istime: true, 
+						format: 'YYYY-MM-DD hh:mm:ss',
+						festival: true
+					});
+				}
 			},
 			link : function($scope , element , arrt , controller){
+
 				var ele = $(element[0]) ;
 				$scope.submit = function( callback ){
 					var item = ele.find('.item') , 
 						arr = [];
 					item.each(function(){
-						var type = $(this).attr('data-type');
+						var obj = $.parseJSON($(this).attr('data-obj')),
+							type = obj.type , 
+							check = obj.check , 
+							val = '';
 						if(type == 'text'){
-							arr.push($(this).find('input').val())
+							val = $(this).find('input').val();
+							if(val && val.length>=obj.minLength && val.length<=obj.maxLength){
+								arr.push(val)
+							}else{
+								alert(1)
+							}
 						}else if(type == 'textarea'){
-							arr.push($(this).find('textarea').val())
+							val = $(this).find('textarea').val()
+							arr.push(val)
 						}else if(type=='select'){
 							var select = $(this).find('select') , arr1 = [];
 							if(select.length>1){
@@ -52,7 +76,20 @@ define(["app",'jquery'], function ( app , $ ) {
 						}
 					})
 					callback(arr);
-				}			 
+				}
+
+				layui.use(['form', 'layedit', 'laydate'], function(){
+					/*var form = layui.form()
+				  ,layer = layui.layer
+				  ,layedit = layui.layedit
+				  ,laydate = layui.laydate;
+						form.on('submit(demo1)', function(data){
+					    layer.alert(JSON.stringify(data.field), {
+					      title: '最终的提交信息'
+					    })
+					    return false;
+					  });*/
+				});		 
 			}
 		}
 	});

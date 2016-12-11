@@ -1,165 +1,117 @@
-define(function (require, exports, module) {
-	var app = require('../ng-element'),
-		position = require('../common/position') , 
-		fixedNav = require('../common/positionNav') , 
-		form = require('../common/form');
-
-	position.init({
-		app : app
-	});
-	fixedNav.init({app : app})
-	form.init({app : app})
-
-	app.directive('newsAdd',function(){
+define(["app",'jquery','formlist','fixedNav'], function ( app , $ ) {
+	app.directive('newsList',function(){
 		return {
 	    	restrict : 'E',
 	    	replace : true,
 	    	transclude : true,
-	        templateUrl : '../template/news/add.html',
+	        templateUrl : '../template/news/list.html',
 	        controller : function($scope){
-				$scope.save = function(){ //保存
-					alert('保存')
+				$scope.$parent.menu.push({name:"新闻栏目列表"}); //栏目
+				$scope.add = function( id ){ //保存
+					alert(id)
 				}
-				$scope.rlease = function(){ //发布
-					alert('发布')
+				$scope.edit = function( id ){ //保存
+					alert(id)
 				}
-				$scope.view = function(){ //预览
-					alert('预览')
+				$scope.del = function( id ){ //保存
+					alert(id)
 				}
-				$scope.cancel = function(){ //预览
-					alert('取消')
+				var selectAll = {
+					name : '全选',
+					evt : function(id , scope , evt){
+						scope.selectAll(evt);
+					},
+					icon_cls : 'ok'
 				}
-				$scope.menu = [{name:"新闻管理",link:"news.add"},{name:"新增新闻",link:"news.add",show:"true"}]; //栏目
-				$scope.edit = { //导航操作按钮
-					nav : [{
-						name : '保存',
-						evt : $scope.save,
-						cls : 'save'
-					}],
+				$scope.navEdit = { //导航操作按钮
+					//nav : [selectAll],
 					list : [
 						{
-							name:'发布',
-							evt : $scope.rlease,
-							cls : 'add'
+							name : '批量删除',
+							evt : function(id , scope , evt){
+								scope.delAll(function( ids ){
+									console.log(ids)
+								});
+							},
+							cls :'red',
+							icon_cls : 'remove'
 						}
 					]
 				}
-				var list = [ //表单
-					{
-						name : '标题',
-						placeholder : '请输入标题',
-						minLength : 5,
-						maxLength : 30,
-						type : 'text', //text textarea radio checkbox edit
-						prompt : {
-							defualt : '标题为30个字符',
-							error : '内容必需为中文，5-30个字符内'
-						}
-					},
-					{
-						name : '附标题',
-						placeholder : '请输入附标题',
-						type : 'text',
-						minLength : 10,
-						maxLength : 50,
-						prompt : {
-							defualt : '附标题为50个字符',
-							error : '内容必需为中文，10-50个字符内'
-						}
-					},
-					{
-						name : '关键字',
-						placeholder : '关键字之间以 “,” 隔开',
-						type : 'text',
-						check : true,
-						prompt : {
-							defualt : '关键字之间以 “,” 隔开，不超过5个字符'
-						}
-					},
+				var td = [ //表单
 					[
-						{
-							name : '作者',
-							placeholder : '请输入作者',
-							check : true,
-							type : 'text',
-						},
-						{
-							name : '来源',
-							placeholder : '请输入作者来源',
-							check : true,
-							type : 'text'
-						}
+						{id:'566541545'},
+						{name:'用户脆响q',img : 'images/img.png'},
+						{name:'用户组名称'}
 					],
-					{
-						name : '描述',
-						placeholder : '描述',
-						check : true,
-						type : 'textarea'
-					},
-					{
-						name : '选择频道栏目',
-						type : 'select',
-						prompt : {
-							defualt : '请选择栏目',
-							error : '栏目不能为空'
-						},
-						select : [
-							[
-								{name:'请选择部门'},
-								{name:'请选择部门'}
-							],
-							[
-								{name:'请选择频道'}
-							],
-							[
-								{name:'请选择栏目'}
-							]
-						]
-					},
-					{
-						name : '内容',
-						type : 'edit',
-						prompt : {
-							error : '内容不能为空'
-						},
-						minLength : 10,
-						maxLength : 500,
-					},
-					{
-						name : '定时发布',
-						type : 'date',
-						prompt : {
-							error : '时间不能为空'
-						}
-					}
+					[
+						{id:'1242314'},
+						{name:'用户脆响q',img : 'images/img.png'},
+						{name:'用户组名称'}
+					],
+					[
+						{id:'6585568'},
+						{name:'用户脆响q',img : 'images/img.png'},
+						{name:'用户组名称'}
+					],
+					[
+						{id:'03452345'},
+						{name:'用户脆响q',img : 'images/img.png'},
+						{name:'用户组名称'}
+					],
+					[
+						{id:'98123468'},
+						{name:'用户脆响q',img : 'images/img.png'},
+						{name:'用户组名称'}
+					],
+					[
+						{id:'566541545'},
+						{name:'用户脆响q',img : 'images/img.png'},
+						{name:'用户组名称'}
+					],
+					[
+						{id:'566541545'},
+						{name:'用户脆响q',img : 'images/img.png'},
+						{name:'用户组名称'}
+					]
 				];
-				$scope.formdata = { //确认按钮
-					title : '新增新闻',
-					list : list,
+				$scope.listdata = { //确认按钮
+					title : '新闻栏目编辑',
+					table : {
+						select : true,
+						th : [
+							{name:'ID' , width : '200'},
+							{name:'真实姓名' , width : '100'},
+							{name:'用户组名'},
+							{name:'操作' , width : '200'}
+						],
+						td : td ,
+						edit : {
+							width : 300 , 
+							list : [
+								{cls : 'add' , name : '添加新用户到组',evt:$scope.add},
+								{cls : 'edit' , name : '添加权限到组',evt:$scope.edit},
+								{cls : 'del' , name : '删除',evt:$scope.del},
+							]
+						}
+					},
 					submit : [
+						selectAll,
 						{
-							name : '保存',
-							evt : $scope.save,
-							icon_cls : 'save'
-						},
-						{
-							name:'预览',
-							evt : $scope.view,
-							icon_cls : 'view'
-						},
-						{
-							name:'确认发布',
-							evt : $scope.rlease,
-							icon_cls : 'ok'
-						},
-						{
-							name:'取消',
-							evt : $scope.cancel,
-							icon_cls : 'cancel',
-							cls : 'cancel'
+							name : '批量删除',
+							evt : function(id , scope , evt){
+								scope.delAll(function( ids ){
+									console.log(ids)
+								});
+							},
+							cls :'red',
+							icon_cls : 'remove'
 						}
 					]
 				}
+	        }
+	        ,link : function($scope , element ){
+	        	
 	        }
 	    };
 	});

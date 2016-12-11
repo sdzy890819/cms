@@ -1,20 +1,47 @@
-define(["app",'jquery','formlist','fixedNav'], function ( app , $ ) {
+define(["app",'jquery','formlist','fixedNav','../moduls/service'], function ( app , $ ) {
 	app.directive('newsList',function(){
 		return {
 	    	restrict : 'E',
 	    	replace : true,
 	    	transclude : true,
 	        templateUrl : '../template/news/list.html',
-	        controller : function($scope){
+	        controller : function($scope , pop){
 				$scope.$parent.menu.push({name:"新闻栏目管理"}); //栏目
 				$scope.add = function( id ){ //保存
-					alert(id)
+					pop.alert({
+						 text:'你的ID为：'+id
+						,btn : ['确定','取消']
+						,fn : function(index){//确定
+							layer.close(index)
+						}
+					})
 				}
 				$scope.edit = function( id ){ //保存
-					alert(id)
+					pop.alert({
+						 text:'你的ID为：'+id
+						,btn : ['确定','取消']
+						,fn : function(index){//确定
+							layer.close(index)
+						}
+					})
 				}
-				$scope.del = function( id ){ //保存
-					alert(id)
+				$scope.del = function( id ){ //删除
+					pop.alert({
+						 text:'你的ID为：'+id
+						,btn : ['确定','取消']
+						,fn : function(index){//确定
+							layer.close(index)
+						}
+					})
+				};
+				$scope.delAll = function( ids ){ //删除
+					pop.alert({
+						 text:'你的ID为：'+ids
+						,btn : ['确定','取消']
+						,fn : function(index){//确定
+							layer.close(index)
+						}
+					})
 				}
 				var selectAll = {
 					name : '全选',
@@ -29,9 +56,7 @@ define(["app",'jquery','formlist','fixedNav'], function ( app , $ ) {
 						{
 							name : '批量删除',
 							evt : function(id , scope , evt){
-								scope.delAll(function( ids ){
-									console.log(ids)
-								});
+								scope.delAll($scope.delAll);
 							},
 							cls :'red',
 							icon_cls : 'remove'
@@ -115,9 +140,7 @@ define(["app",'jquery','formlist','fixedNav'], function ( app , $ ) {
 						{
 							name : '批量删除',
 							evt : function(id , scope , evt){
-								scope.delAll(function( ids ){
-									console.log(ids)
-								});
+								scope.delAll($scope.delAll);
 							},
 							cls :'red',
 							icon_cls : 'remove'
