@@ -2,14 +2,15 @@ package com.cn.cms.utils;
 
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.enums.WatermarkEnum;
+import com.cn.cms.exception.BizException;
+import com.cn.cms.logfactory.CommonLog;
+import com.cn.cms.logfactory.CommonLogFactory;
 import sun.misc.BASE64Decoder;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,8 +21,10 @@ import java.util.Random;
  */
 public class FileUtil {
 
+    private static final CommonLog log = CommonLogFactory.getLog(FragmentUtil.class);
+
     /**
-     * 图片Base64解码、
+     * Base64解码、
      * @param baseCode
      * @return
      */
@@ -34,6 +37,54 @@ public class FileUtil {
             e.printStackTrace();
         }
         return bytes;
+    }
+
+
+    /**
+     * 文件上传
+     * @param bytes
+     * @param filePath
+     */
+    public static void fileUpload(byte[] bytes, String filePath) throws BizException{
+        File file = new File(filePath);
+        if(!file.exists()){
+            file.mkdirs();
+        }
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            fileOutputStream.write(bytes);
+            fileOutputStream.flush();
+            fileOutputStream.close();
+        } catch (FileNotFoundException e) {
+            throw new BizException(StaticContants.ERROR_TEMPLATE_UPLOAD_OPEN, e);
+        } catch (IOException e) {
+            throw new BizException(StaticContants.ERROR_TEMPLATE_UPLOAD_WRITE, e);
+        }
+    }
+
+    /**
+     * 文件下载
+     * @param outputStream
+     * @param filePath
+     * @throws BizException
+     */
+    public static void fileDownload(OutputStream outputStream,String filePath) throws BizException {
+        File file = new File(filePath);
+        try {
+            FileInputStream fileInputStream = new FileInputStream(file);
+            byte[] bytes = new byte[1024];
+            int read = 0 ;
+            while( (read = fileInputStream.read(bytes)) > 0){
+                outputStream.write(bytes, 0, read);
+            }
+            outputStream.flush();
+            outputStream.close();
+            fileInputStream.close();
+        } catch (FileNotFoundException e) {
+            throw new BizException(StaticContants.ERROR_TEMPLATE_DOWNLOAD_NOT_FOUND, e);
+        } catch (IOException e) {
+            throw new BizException(StaticContants.ERROR_TEMPLATE_DOWNLOAD_FILE_EX, e);
+        }
     }
 
     /**
@@ -108,7 +159,7 @@ public class FileUtil {
 
 
     /**
-     * 获取相对路径。
+     * 图片自动生成相对路径并返回。
      * @param basePath
      * @param suffix
      * @return

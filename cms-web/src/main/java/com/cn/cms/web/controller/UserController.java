@@ -76,7 +76,7 @@ public class UserController extends BaseController{
      * @return
      */
     @CheckToken
-    @CheckAuth( name = "user:update" )
+    @CheckAuth( name = "user:read" )
     @RequestMapping(value = "/userlist")
     public String userlist(HttpServletRequest request, @RequestParam(value = "page",required = false) Integer page,
                         @RequestParam(value="pageSize",required = false)Integer pageSize){

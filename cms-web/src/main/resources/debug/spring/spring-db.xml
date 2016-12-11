@@ -50,6 +50,7 @@
 			<tx:method name="save*" propagation="REQUIRED" rollback-for="Exception,com.cn.cms.exception.BizException"/>
 			<tx:method name="insert*" propagation="REQUIRED" rollback-for="Exception,com.cn.cms.exception.BizException"/>
 			<tx:method name="delete*" propagation="REQUIRED" rollback-for="Exception,com.cn.cms.exception.BizException"/>
+			<tx:method name="del*" propagation="REQUIRED" rollback-for="Exception,com.cn.cms.exception.BizException"/>
 			<tx:method name="edit*" propagation="REQUIRED" rollback-for="Exception,com.cn.cms.exception.BizException"/>
 			<tx:method name="get*" propagation="REQUIRED" rollback-for="Exception,com.cn.cms.exception.BizException" read-only="true"/>
 			<tx:method name="find*" propagation="REQUIRED" rollback-for="Exception,com.cn.cms.exception.BizException" read-only="true"/>

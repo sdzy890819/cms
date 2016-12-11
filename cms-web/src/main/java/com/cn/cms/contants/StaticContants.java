@@ -14,6 +14,16 @@ public class StaticContants {
 
     public static final String JSON_UTF8 = "application/json;charset=UTF-8";
 
+    public static final String DOWN_LOAD_CONTENT_TYPE = "multipart/form-data";
+
+    public static final String HEADER_CONTENT_DISPOSITION = "Content-Disposition";
+
+    public static final String HEADER_ATTACHMENT = "attachment;fileName=";
+
+    public static String getHEADER_ATTACHMENT(String fileName){
+        return  HEADER_ATTACHMENT.concat(fileName);
+    }
+
     public static final String UTF8 = "UTF-8";
 
     //---默认分页数  start
@@ -51,6 +61,16 @@ public class StaticContants {
 
     public static final String ERROR_TIME_PARSE = "时间格式不对，格式为：";
 
+    public static final String ERROR_TEMPLATE_UPLOAD_OPEN = "文件上传-打开文件流失败!" ;
+
+    public static final String ERROR_TEMPLATE_UPLOAD_WRITE = "文件上传-写入失败!" ;
+
+    public static final String ERROR_TEMPLATE_DOWNLOAD_NOT_FOUND = "文件下载-找不到文件!";
+
+    public static final String ERROR_TEMPLATE_DOWNLOAD_FILE_EX = "文件下载-文件读取异常!";
+
+    public static final String ERROR_TEMPLATE_DOWNLOAD = "文件下载失败!";
+
     public static final String getTimeParseErrorYYYYMMDD(){
         return ERROR_TIME_PARSE.concat(YYYY_MM_DD);
     }
@@ -83,4 +103,6 @@ public class StaticContants {
 
     public static final String YYYY_MM_DD = "yyyy-MM-dd";
 
+
+    public static final String UNDER_LINE = "_";
 }

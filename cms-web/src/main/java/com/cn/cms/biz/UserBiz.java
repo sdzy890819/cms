@@ -70,6 +70,15 @@ public class UserBiz extends BaseBiz{
         return userBean;
     }
 
+    /**
+     * 根据UserId获取用户基础信息
+     * @param userIds
+     * @return
+     */
+    public List<UserBean> getUserBean(List<String> userIds){
+        List<User> list = userService.findUserList(userIds);
+        return toBean(list);
+    }
 
     /**
      * 创建用户。

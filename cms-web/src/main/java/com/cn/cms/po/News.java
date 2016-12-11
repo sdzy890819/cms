@@ -78,4 +78,9 @@ public class News extends Base{
      * 平台
      */
     private int platform = PlatformEnum.CMS.getType();
+
+    /**
+     * 详情
+     */
+    private NewsDetail newsDetail;
 }

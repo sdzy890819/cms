@@ -5,6 +5,7 @@ import com.cn.cms.bo.PermissionBean;
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.po.Permission;
 import com.cn.cms.po.Position;
+import com.cn.cms.po.PositionPermission;
 import com.cn.cms.utils.StringUtils;
 import com.cn.cms.web.ann.CheckAuth;
 import com.cn.cms.web.ann.CheckToken;
@@ -173,12 +174,49 @@ public class PermissionController extends BaseController {
      * @return
      */
     @CheckToken
-    @CheckAuth( name = "positionpermission:update" )
-    @RequestMapping(value = "/setPositionPermission",method = RequestMethod.POST)
-    public String setPositionPermission(HttpServletRequest request, @RequestPart("positionId") Long positionId,
+    @CheckAuth( name = "positionpermission:write" )
+    @RequestMapping(value = "/setPositionPermissions",method = RequestMethod.POST)
+    public String setPositionPermissions(HttpServletRequest request, @RequestPart("positionId") Long positionId,
                                         @RequestPart("permissionIds") String permissionIds){
         String userID = getCurrentUserId(request);
         this.permissionBiz.createPositionPermission(userID, positionId, permissionIds);
+        return ApiResponse.returnSuccess();
+    }
+
+    /**
+     * 设置用户组权限
+     * @param request
+     * @param positionId
+     * @param permissionId
+     * @return
+     */
+    @CheckToken
+    @CheckAuth( name = "positionpermission:write" )
+    @RequestMapping(value = "/createPositionPermission",method = RequestMethod.POST)
+    public String createPositionPermission(HttpServletRequest request, @RequestPart("positionId") Long positionId,
+                                         @RequestPart("permissionId") Long permissionId){
+        String userID = getCurrentUserId(request);
+        PositionPermission positionPermission = new PositionPermission();
+        positionPermission.setPositionId(positionId);
+        positionPermission.setPermissionId(permissionId);
+        positionPermission.setLastModifyUserId(userID);
+        this.permissionBiz.createPositionPermission(positionPermission);
+        return ApiResponse.returnSuccess();
+    }
+
+    /**
+     * 删除用户组权限
+     * @param request
+     * @param positionId
+     * @param permissionId
+     * @return
+     */
+    @CheckToken
+    @CheckAuth( name = "positionpermission:delete" )
+    @RequestMapping(value = "/delPositionPermission",method = RequestMethod.POST)
+    public String delPositionPermission(HttpServletRequest request, @RequestPart("positionId") Long positionId,
+                                           @RequestPart("permissionId") Long permissionId){
+        permissionBiz.delPositionPermission(positionId, permissionId);
         return ApiResponse.returnSuccess();
     }
 

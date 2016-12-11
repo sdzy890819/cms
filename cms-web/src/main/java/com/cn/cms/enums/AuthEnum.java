@@ -14,7 +14,9 @@ public enum AuthEnum {
     UPDATE("update", 4),
     EDIT("edit", 5),
     DELETE("delete", 6),
-    PUBLISH("publish", 7);
+    PUBLISH("publish", 7),
+    UPLOAD("upload", 8),
+    DOWNLOAD("download", 9);
 
 
     @Getter

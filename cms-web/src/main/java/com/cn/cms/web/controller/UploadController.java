@@ -37,6 +37,7 @@ public class UploadController extends BaseController {
      * @return
      */
     @CheckToken
+    @CheckAuth( name = "images:upload" )
     @RequestMapping(value="/uploadImage",method = RequestMethod.POST)
     public String upload(HttpServletRequest request,
                          @RequestPart(value = "baseCode") String baseCode,

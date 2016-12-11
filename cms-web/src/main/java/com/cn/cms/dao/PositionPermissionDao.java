@@ -16,4 +16,8 @@ public interface PositionPermissionDao {
 
     void createPositionPermission(@Param(value = "positionId") Long positionId, @Param(value = "list") List<PositionPermission> positionPermission);
 
+    void savePositionPermission(@Param(value = "p1") PositionPermission positionPermission);
+
+    void delPositionPermission(@Param(value = "positionId") Long positionId, @Param(value = "permissionId") Long permissionId);
+
 }

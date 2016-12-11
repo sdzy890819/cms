@@ -122,6 +122,15 @@ public class PermissionBiz extends BaseBiz{
         userService.createPositionPermission(positionId, list);
     }
 
+
+    public void createPositionPermission(PositionPermission positionPermission){
+        userService.savePositionPermission(positionPermission);
+    }
+
+    public void delPositionPermission(Long positionId, Long permissionId){
+        userService.delPositionPermission(positionId, permissionId);
+    }
+
     /**
      * 根据用户ID 开启权限
      * @param userId

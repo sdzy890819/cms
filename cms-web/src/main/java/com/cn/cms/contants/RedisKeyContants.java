@@ -11,8 +11,6 @@ public class RedisKeyContants {
 
     public static final String REDIS_POSITION_PERMISSION_KEY = "CMS_PERMISSION_USERID_";
 
-    public static final String REDIS_KEY_SP = "_";
-
     public static final String REDIS_RECORD_KEY = "CMS_RECORD_KEY";
 
     public static String getToken(String userId){

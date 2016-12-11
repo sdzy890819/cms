@@ -36,6 +36,9 @@ public interface UserService {
      */
     User findUser(String userId);
 
+
+    List<User> findUserList(List<String> userIds);
+
     /**
      * 创建新用户。
      * @param user
@@ -187,5 +190,9 @@ public interface UserService {
      * @return
      */
     List<Permission> findPermissionForPositionIds(String userId);
+
+    void savePositionPermission(PositionPermission positionPermission);
+
+    void delPositionPermission(Long positionId, Long permissionId);
 
 }

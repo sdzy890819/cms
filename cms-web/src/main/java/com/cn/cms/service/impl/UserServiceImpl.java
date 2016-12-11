@@ -48,6 +48,10 @@ public class UserServiceImpl implements UserService {
         return userDao.findUser(userId);
     }
 
+    public List<User> findUserList(List<String> userIds) {
+        return userDao.findUserList(userIds);
+    }
+
     public void createUser(User user) {
         userDao.createUser(user);
     }
@@ -138,5 +142,13 @@ public class UserServiceImpl implements UserService {
 
     public List<Permission> findPermissionForPositionIds(String userId) {
         return permissionDao.findPermissionForPositionIds(userId);
+    }
+
+    public void savePositionPermission(PositionPermission positionPermission) {
+        positionPermissionDao.savePositionPermission(positionPermission);
+    }
+
+    public void delPositionPermission(Long positionId, Long permissionId) {
+        positionPermissionDao.delPositionPermission(positionId, permissionId);
     }
 }

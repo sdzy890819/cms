@@ -27,6 +27,11 @@ public class Channel extends Base {
     private String channelPath;
 
     /**
+     * 模版位置
+     */
+    private String templatePath;
+
+    /**
      * 频道说明
      */
     private String channelDesc;

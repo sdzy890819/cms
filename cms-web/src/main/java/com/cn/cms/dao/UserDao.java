@@ -20,6 +20,8 @@ public interface UserDao {
 
     User findUser(@Param(value="userId")String userId);
 
+    List<User> findUserList(@Param(value="list") List<String> userIds);
+
     void createUser(@Param(value="user")User user);
 
     Integer queryUserName(@Param(value="userName")String userName);

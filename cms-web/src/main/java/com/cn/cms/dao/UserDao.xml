@@ -43,7 +43,15 @@
     </select>
 
     <select id="findUser" resultMap="user">
-        select * from user <include refid="delTag" /> and user_id=#{userId};
+        select <include refid="all_column" /> from user <include refid="delTag" /> and user_id=#{userId};
+    </select>
+
+    <select id="findUserList" resultMap="user">
+        select <include refid="all_column" /> from user <include refid="delTag" /> and user_id in 
+        <foreach collection="list" item="item" separator="," open="(" close=")">
+        ${item}
+        </foreach>
+        ;
     </select>
 
     <insert id="createUser" >

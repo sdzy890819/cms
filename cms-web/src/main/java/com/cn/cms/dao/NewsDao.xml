@@ -30,5 +30,10 @@
 
     <sql id="delTag"> where del_tag = 1 </sql>
 
+    <select id="sql_column">
+        id,create_time,update_time,del_tag,last_modify_user_id,title,sub_title,keyword
+        ,description,source,author,build_time,write_time,channel_id,column_id,write_user_id,build_user_id,platform
+    </select>
+
 
 </mapper>

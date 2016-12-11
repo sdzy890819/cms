@@ -53,6 +53,7 @@ public class ChannelController extends BaseController {
                                 @RequestPart(value = "channelName") String channelName,
                                 @RequestPart(value = "channelUrl") String channelUrl,
                                 @RequestPart(value = "channelPath") String channelPath,
+                                @RequestPart(value = "templatePath") String templatePath,
                                 @RequestPart(value = "channelDesc") String channelDesc,
                                 @RequestPart(value = "categoryId") Long categoryId){
         Channel channel = new Channel();
@@ -61,6 +62,7 @@ public class ChannelController extends BaseController {
         channel.setChannelName(channelName);
         channel.setCategoryId(categoryId);
         channel.setChannelPath(channelPath);
+        channel.setTemplatePath(templatePath);
         channel.setChannelUrl(channelUrl);
         channelBiz.saveChannel(channel);
         return ApiResponse.returnSuccess();
@@ -85,6 +87,7 @@ public class ChannelController extends BaseController {
                                 @RequestPart(value = "channelName") String channelName,
                                 @RequestPart(value = "channelUrl") String channelUrl,
                                 @RequestPart(value = "channelPath") String channelPath,
+                                @RequestPart(value = "templatePath") String templatePath,
                                 @RequestPart(value = "channelDesc") String channelDesc,
                                 @RequestPart(value = "categoryId") Long categoryId){
         Channel channel = new Channel();
@@ -93,6 +96,7 @@ public class ChannelController extends BaseController {
         channel.setChannelName(channelName);
         channel.setCategoryId(categoryId);
         channel.setChannelPath(channelPath);
+        channel.setTemplatePath(templatePath);
         channel.setChannelUrl(channelUrl);
         channel.setId(id);
         channelBiz.updateChannel(channel);
@@ -128,6 +132,19 @@ public class ChannelController extends BaseController {
         return ApiResponse.returnSuccess(list);
     }
 
+    /**
+     * 获取频道信息
+     * @param request
+     * @param id
+     * @return
+     */
+    @CheckToken
+    @CheckAuth( name = "channel:read" )
+    @RequestMapping(value = "/channelInfo", method = RequestMethod.GET)
+    public String channelInfo(HttpServletRequest request, @RequestParam(value = "id") Long id){
+        Channel channel = channelBiz.getChannel(id);
+        return ApiResponse.returnSuccess(channel);
+    }
 
 
 }

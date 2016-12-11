@@ -34,4 +34,12 @@
         </foreach>;
     </update>
     
+    <insert id="savePositionPermission">
+        insert into position_permission ( <include refid="sql_column" /> ) values ( null,null,null,null,#{p1.lastModifyUserId},${p1.positionId},${p1.permissionId} );
+    </insert>
+    
+    <delete id="delPositionPermission">
+        delete from position_permission where position_id = ${positionId} and permission_id = ${permissionId}
+    </delete>
+    
 </mapper>

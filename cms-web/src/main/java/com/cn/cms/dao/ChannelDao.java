@@ -21,6 +21,8 @@ public interface ChannelDao {
 
     Channel findChannel(@Param(value = "id") Long id);
 
+    List<Channel> getChannelList(@Param(value = "list") List<Long> ids);
+
     List<Channel> findChannelList(@Param(value = "categoryId") Long categoryId);
 
 }
