@@ -70,6 +70,11 @@ public class News extends Base{
     private String writeUserId;
 
     /**
+     * 撰稿人
+     */
+    private String writeUserName;
+
+    /**
      * 发布人
      */
     private String buildUserId;
@@ -80,7 +85,16 @@ public class News extends Base{
     private int platform = PlatformEnum.CMS.getType();
 
     /**
+     * 平台名称
+     */
+    private String platformStr ;
+    /**
      * 详情
      */
     private NewsDetail newsDetail;
+
+
+    public String getPlatformStr(){
+        return PlatformEnum.get(platform).getName();
+    }
 }

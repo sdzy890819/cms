@@ -17,9 +17,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * 组装包。
@@ -78,6 +76,11 @@ public class UserBiz extends BaseBiz{
     public List<UserBean> getUserBean(List<String> userIds){
         List<User> list = userService.findUserList(userIds);
         return toBean(list);
+    }
+
+    public Map<String, UserBean> getUserBeanMap(List<String> userIds){
+        List<User> list = userService.findUserList(userIds);
+        return toBeanMap(list);
     }
 
     /**
@@ -241,6 +244,17 @@ public class UserBiz extends BaseBiz{
         return userBeanList;
     }
 
+
+    public Map<String, UserBean> toBeanMap(List<User> users){
+        Map<String, UserBean> map = new HashMap<String, UserBean>();
+        if(users!=null && users.size()>0) {
+            for (int i = 0; i < users.size(); i++) {
+                UserBean userBean = new UserBean(users.get(i));
+                map.put(userBean.getUserId(),userBean);
+            }
+        }
+        return map;
+    }
 
 
 
