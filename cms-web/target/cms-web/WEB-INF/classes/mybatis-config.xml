@@ -35,6 +35,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource = "com/cn/cms/dao/UserDao.xml" />
 		<mapper resource = "com/cn/cms/dao/VideoBaseDao.xml" />
 		<mapper resource = "com/cn/cms/dao/VideoDao.xml" />
+		<mapper resource="com/cn/cms/dao/UserPositionDao.xml" />
 	</mappers>
 	
 </configuration>

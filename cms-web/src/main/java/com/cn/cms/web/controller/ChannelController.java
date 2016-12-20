@@ -84,12 +84,12 @@ public class ChannelController extends BaseController {
     @RequestMapping(value = "/updateChannel", method = RequestMethod.POST)
     public String updateChannel(HttpServletRequest request,
                                 @RequestPart(value = "id") Long id,
-                                @RequestPart(value = "channelName") String channelName,
-                                @RequestPart(value = "channelUrl") String channelUrl,
-                                @RequestPart(value = "channelPath") String channelPath,
-                                @RequestPart(value = "templatePath") String templatePath,
-                                @RequestPart(value = "channelDesc") String channelDesc,
-                                @RequestPart(value = "categoryId") Long categoryId){
+                                @RequestPart(value = "channelName",required = false) String channelName,
+                                @RequestPart(value = "channelUrl",required = false) String channelUrl,
+                                @RequestPart(value = "channelPath",required = false) String channelPath,
+                                @RequestPart(value = "templatePath",required = false) String templatePath,
+                                @RequestPart(value = "channelDesc",required = false) String channelDesc,
+                                @RequestPart(value = "categoryId",required = false) Long categoryId){
         Channel channel = new Channel();
         channel.setLastModifyUserId(getCurrentUserId(request));
         channel.setChannelDesc(channelDesc);

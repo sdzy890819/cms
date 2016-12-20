@@ -1,13 +1,8 @@
 package com.cn.cms.web.controller;
 
-import com.cn.cms.biz.PositionBiz;
 import com.cn.cms.biz.UserBiz;
-import com.cn.cms.biz.UserPositionBiz;
 import com.cn.cms.bo.UserBean;
-import com.cn.cms.contants.StaticContants;
 import com.cn.cms.enums.ErrorCodeEnum;
-import com.cn.cms.po.Position;
-import com.cn.cms.utils.CookieUtil;
 import com.cn.cms.utils.Page;
 import com.cn.cms.web.ann.CheckAuth;
 import com.cn.cms.web.ann.CheckToken;
@@ -156,9 +151,9 @@ public class UserController extends BaseController{
     @CheckToken
     @RequestMapping(value = "/updateUser",method = RequestMethod.POST)
     public String updateUser(HttpServletRequest request, @RequestPart("userId")String userId,
-                            @RequestPart("realName")String realName,
-                            @RequestPart("headImage")String headImage,
-                            @RequestPart("pwd")String pwd){
+                            @RequestPart(value = "realName",required = false)String realName,
+                            @RequestPart(value = "headImage",required = false)String headImage,
+                            @RequestPart(value = "pwd",required = false)String pwd){
         String userID = getCurrentUserId(request);
         if(!userId.equals(userID)){
             return ApiResponse.returnFail(ErrorCodeEnum.ERROR_NO_PERMISSION.getType(),ErrorCodeEnum.ERROR_NO_PERMISSION.getMessage());

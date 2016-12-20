@@ -109,7 +109,6 @@ public class TopicController extends BaseController {
      * @param keyword
      * @param description
      * @param topicColumnId
-     * @param topicUrl
      * @return
      * @throws BizException
      */
@@ -127,8 +126,8 @@ public class TopicController extends BaseController {
                              @RequestPart(value = "releaseTime") String releaseTime,
                              @RequestPart(value = "keyword") String keyword,
                              @RequestPart(value = "description") String description,
-                             @RequestPart(value = "topicColumnId") Long topicColumnId,
-                             @RequestPart(value = "topicUrl") String topicUrl) throws BizException {
+                             @RequestPart(value = "topicColumnId") Long topicColumnId
+                             ) throws BizException {
         SimpleDateFormat sdf = new SimpleDateFormat(StaticContants.YYYY_MM_DD);
         Topic topic = new Topic();
         topic.setLastModifyUserId(getCurrentUserId(request));
@@ -147,7 +146,6 @@ public class TopicController extends BaseController {
         topic.setTopicFilename(topicFilename);
         topic.setTopicPath(topicPath);
         topic.setTopicTitle(topicTitle);
-        topic.setTopicUrl(topicUrl);
         topicBiz.saveTopic(topic);
         return ApiResponse.returnSuccess();
     }
@@ -167,7 +165,6 @@ public class TopicController extends BaseController {
      * @param keyword
      * @param description
      * @param topicColumnId
-     * @param topicUrl
      * @return
      * @throws BizException
      */
@@ -176,18 +173,17 @@ public class TopicController extends BaseController {
     @RequestMapping(value = "/updateTopic", method = RequestMethod.POST)
     public String updateTopic(HttpServletRequest request,
                               @RequestPart(value = "id") Long id,
-                             @RequestPart(value = "topicTitle") String topicTitle,
-                             @RequestPart(value = "topicContent") String topicContent,
-                             @RequestPart(value = "topicPath") String topicPath,
-                             @RequestPart(value = "topicFilename") String topicFilename,
-                             @RequestPart(value = "topicClassifyId") Long topicClassifyId,
-                             @RequestPart(value = "categoryId") Long categoryId,
-                             @RequestPart(value = "channelId") Long channelId,
-                             @RequestPart(value = "releaseTime") String releaseTime,
-                             @RequestPart(value = "keyword") String keyword,
-                             @RequestPart(value = "description") String description,
-                             @RequestPart(value = "topicColumnId") Long topicColumnId,
-                             @RequestPart(value = "topicUrl") String topicUrl) throws BizException {
+                             @RequestPart(value = "topicTitle",required = false) String topicTitle,
+                             @RequestPart(value = "topicContent",required = false) String topicContent,
+                             @RequestPart(value = "topicPath",required = false) String topicPath,
+                             @RequestPart(value = "topicFilename",required = false) String topicFilename,
+                             @RequestPart(value = "topicClassifyId",required = false) Long topicClassifyId,
+                             @RequestPart(value = "categoryId",required = false) Long categoryId,
+                             @RequestPart(value = "channelId",required = false) Long channelId,
+                             @RequestPart(value = "releaseTime",required = false) String releaseTime,
+                             @RequestPart(value = "keyword",required = false) String keyword,
+                             @RequestPart(value = "description",required = false) String description,
+                             @RequestPart(value = "topicColumnId",required = false) Long topicColumnId) throws BizException {
         SimpleDateFormat sdf = new SimpleDateFormat(StaticContants.YYYY_MM_DD);
         Topic topic = new Topic();
         topic.setId(id);
@@ -207,7 +203,6 @@ public class TopicController extends BaseController {
         topic.setTopicFilename(topicFilename);
         topic.setTopicPath(topicPath);
         topic.setTopicTitle(topicTitle);
-        topic.setTopicUrl(topicUrl);
         topicBiz.saveTopic(topic);
         return ApiResponse.returnSuccess();
     }

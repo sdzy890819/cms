@@ -54,8 +54,8 @@ public class ImagesController extends BaseController{
     @RequestMapping(value = "/updateImagesBase", method = RequestMethod.POST)
     public String updateImagesBase(HttpServletRequest request,
                                    @RequestPart("id") Long id,
-                                   @RequestPart("baseUrl") String baseUrl,
-                                   @RequestPart("basePath") String basePath){
+                                   @RequestPart(value = "baseUrl",required = false) String baseUrl,
+                                   @RequestPart(value = "basePath",required = false) String basePath){
         ImagesBase imagesBase = new ImagesBase();
         imagesBase.setLastModifyUserId(getCurrentUserId(request));
         imagesBase.setBasePath(basePath);
@@ -66,7 +66,7 @@ public class ImagesController extends BaseController{
     }
 
     /**
-     * 修改图片基础信息
+     * 创建图片基础信息
      * @param request
      * @param baseUrl
      * @param basePath
@@ -131,7 +131,7 @@ public class ImagesController extends BaseController{
     }
 
     /**
-     * 上传图片保存。
+     * 上传图片修改。
      * @param request
      * @param imageUrl
      * @param imageWidthPixel
@@ -149,15 +149,15 @@ public class ImagesController extends BaseController{
     @RequestMapping(value = "/updateImages", method = RequestMethod.POST)
     public String updateImages(HttpServletRequest request,
                                @RequestPart("id") Long id,
-                               @RequestPart("imageUrl") String imageUrl,
-                               @RequestPart("imageWidthPixel") Integer imageWidthPixel,
-                               @RequestPart("imageHeightPixel") Integer imageHeightPixel,
-                               @RequestPart("orgWidthPixel") Integer orgWidthPixel,
-                               @RequestPart("orgHeightPixel") Integer orgHeightPixel,
-                               @RequestPart("imageTitle") String imageTitle,
-                               @RequestPart("imagePath") String imagePath,
-                               @RequestPart("watermark") Integer watermark,
-                               @RequestPart("compress") Integer compress){
+                               @RequestPart(value = "imageUrl",required = false) String imageUrl,
+                               @RequestPart(value = "imageWidthPixel",required = false) Integer imageWidthPixel,
+                               @RequestPart(value = "imageHeightPixel",required = false) Integer imageHeightPixel,
+                               @RequestPart(value = "orgWidthPixel",required = false) Integer orgWidthPixel,
+                               @RequestPart(value = "orgHeightPixel",required = false) Integer orgHeightPixel,
+                               @RequestPart(value = "imageTitle",required = false) String imageTitle,
+                               @RequestPart(value = "imagePath",required = false) String imagePath,
+                               @RequestPart(value = "watermark",required = false) Integer watermark,
+                               @RequestPart(value = "compress",required = false) Integer compress){
         Images images = new Images();
         images.setLastModifyUserId(getCurrentUserId(request));
         images.setCompress(compress);

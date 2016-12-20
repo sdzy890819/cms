@@ -1,0 +1,1751 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="17d1caa0-613f-4c8f-8b10-85d86ab8b671" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/cms-app/cms-app.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/cms-app/pom.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/enums/serializer/JSONEnumSerializer.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/message/common/package-info.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/message/package-info.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/web/package-info.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/cms-publish/cms-publish.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/cms-publish/pom.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cms-web/cms-web.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/web/interceptor/CheckAuthInterceptor.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/web/interceptor/CheckTokenInterceptor.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/web/controller/TestController.class" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/biz/BaseBiz.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/biz/BaseBiz.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/biz/CategoryBiz.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/biz/CategoryBiz.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/biz/ChannelBiz.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/biz/ChannelBiz.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/biz/FragmentBiz.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/biz/FragmentBiz.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/biz/NewsBiz.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/biz/NewsBiz.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/biz/OperationHistoryBiz.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/biz/OperationHistoryBiz.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/biz/PermissionBiz.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/biz/PermissionBiz.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/biz/PositionBiz.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/biz/PositionBiz.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/biz/ResourceBiz.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/biz/ResourceBiz.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/biz/TemplateBiz.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/biz/TemplateBiz.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/biz/TopicBiz.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/biz/TopicBiz.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/biz/UserBiz.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/biz/UserBiz.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/biz/UserPositionBiz.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/biz/UserPositionBiz.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/biz/package-info.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/biz/package-info.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/bo/FragmentBean.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/bo/FragmentBean.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/bo/NewsBean.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/bo/NewsBean.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/bo/PermissionBean.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/bo/PermissionBean.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/bo/PositionBean.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/bo/PositionBean.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/bo/RelationBean.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/bo/RelationBean.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/bo/UserBean.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/bo/UserBean.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/bo/package-info.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/bo/package-info.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/contants/RedisKeyContants.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/contants/RedisKeyContants.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/contants/StaticContants.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/contants/StaticContants.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/contants/package-info.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/contants/package-info.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/CategoryDao.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/CategoryDao.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/CategoryDao.xml" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/CategoryDao.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/ChannelDao.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/ChannelDao.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/ChannelDao.xml" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/ChannelDao.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/FragmentClassifyDao.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/FragmentClassifyDao.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/FragmentClassifyDao.xml" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/FragmentClassifyDao.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/FragmentDao.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/FragmentDao.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/FragmentDao.xml" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/FragmentDao.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/FragmentHistoryDao.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/FragmentHistoryDao.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/FragmentHistoryDao.xml" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/FragmentHistoryDao.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/ImagesBaseDao.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/ImagesBaseDao.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/ImagesBaseDao.xml" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/ImagesBaseDao.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/ImagesDao.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/ImagesDao.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/ImagesDao.xml" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/ImagesDao.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/NewsColumnDao.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/NewsColumnDao.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/NewsColumnDao.xml" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/NewsColumnDao.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/NewsDao.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/NewsDao.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/NewsDao.xml" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/NewsDao.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/NewsDetailDao.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/NewsDetailDao.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/NewsDetailDao.xml" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/NewsDetailDao.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/OperationHistoryDao.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/OperationHistoryDao.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/OperationHistoryDao.xml" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/OperationHistoryDao.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/PermissionDao.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/PermissionDao.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/PermissionDao.xml" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/PermissionDao.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/PositionDao.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/PositionDao.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/PositionDao.xml" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/PositionDao.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/PositionPermissionDao.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/PositionPermissionDao.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/PositionPermissionDao.xml" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/PositionPermissionDao.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/TemplateDao.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/TemplateDao.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/TemplateDao.xml" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/TemplateDao.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/TemplateRelationDao.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/TemplateRelationDao.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/TemplateRelationDao.xml" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/TemplateRelationDao.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/TopicClassifyDao.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/TopicClassifyDao.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/TopicClassifyDao.xml" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/TopicClassifyDao.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/TopicColumnDao.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/TopicColumnDao.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/TopicColumnDao.xml" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/TopicColumnDao.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/TopicDao.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/TopicDao.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/TopicDao.xml" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/TopicDao.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/UserChannelDao.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/UserChannelDao.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/UserChannelDao.xml" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/UserChannelDao.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/UserDao.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/UserDao.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/UserDao.xml" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/UserDao.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/UserPositionDao.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/UserPositionDao.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/UserPositionDao.xml" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/UserPositionDao.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/VideoBaseDao.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/VideoBaseDao.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/VideoBaseDao.xml" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/VideoBaseDao.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/VideoDao.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/VideoDao.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/VideoDao.xml" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/VideoDao.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/dao/package-info.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/dao/package-info.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/enums/AuthEnum.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/enums/AuthEnum.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/enums/CompressEnum.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/enums/CompressEnum.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/enums/CompressModeEnum.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/enums/CompressModeEnum.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/enums/DelTagEnum.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/enums/DelTagEnum.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/enums/EncodedEnum.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/enums/EncodedEnum.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/enums/ErrorCodeEnum.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/enums/ErrorCodeEnum.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/enums/JobEnum.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/enums/JobEnum.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/enums/PermissionTypeEnum.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/enums/PermissionTypeEnum.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/enums/PlatformEnum.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/enums/PlatformEnum.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/enums/RegexNumEnum.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/enums/RegexNumEnum.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/enums/RelationTypeEnum.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/enums/RelationTypeEnum.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/enums/ShowFlagEnum.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/enums/ShowFlagEnum.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/enums/TemplateClassifyEnum.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/enums/TemplateClassifyEnum.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/enums/WatermarkEnum.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/enums/WatermarkEnum.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/enums/package-info.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/enums/package-info.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/exception/BizException.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/exception/BizException.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/exception/package-info.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/exception/package-info.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/logfactory/CommonLog.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/logfactory/CommonLog.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/logfactory/CommonLogFactory.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/logfactory/CommonLogFactory.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/logfactory/package-info.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/logfactory/package-info.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/message/common/CommonMessage.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/message/common/CommonMessage.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/message/common/CommonMessageHandler.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/message/common/CommonMessageHandler.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/message/common/JsonMessageConverter.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/message/common/JsonMessageConverter.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/message/enums/MessageQueueEnum.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/message/enums/MessageQueueEnum.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/message/enums/MessageSourceEnum.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/message/enums/MessageSourceEnum.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/middleware/JedisClient.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/middleware/JedisClient.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/middleware/package-info.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/middleware/package-info.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/po/Base.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/po/Base.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/po/Category.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/po/Category.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/po/Channel.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/po/Channel.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/po/Fragment.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/po/Fragment.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/po/FragmentClassify.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/po/FragmentClassify.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/po/FragmentHistory.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/po/FragmentHistory.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/po/Images.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/po/Images.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/po/ImagesBase.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/po/ImagesBase.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/po/News.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/po/News.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/po/NewsColumn.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/po/NewsColumn.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/po/NewsDetail.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/po/NewsDetail.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/po/OperationHistory.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/po/OperationHistory.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/po/Permission.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/po/Permission.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/po/Position.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/po/Position.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/po/PositionPermission.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/po/PositionPermission.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/po/Template.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/po/Template.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/po/TemplateRelation.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/po/TemplateRelation.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/po/Topic.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/po/Topic.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/po/TopicClassify.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/po/TopicClassify.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/po/TopicColumn.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/po/TopicColumn.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/po/User.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/po/User.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/po/UserChannel.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/po/UserChannel.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/po/UserPosition.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/po/UserPosition.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/po/Video.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/po/Video.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/po/VideoBase.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/po/VideoBase.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/po/package-info.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/po/package-info.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/service/CategoryService.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/service/CategoryService.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/service/ChannelService.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/service/ChannelService.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/service/FragmentService.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/service/FragmentService.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/service/NewsService.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/service/NewsService.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/service/OperationService.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/service/OperationService.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/service/ResourceService.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/service/ResourceService.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/service/TemplateService.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/service/TemplateService.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/service/TopicService.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/service/TopicService.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/service/UserService.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/service/UserService.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/service/impl/CategoryServiceImpl.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/service/impl/CategoryServiceImpl.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/service/impl/ChannelServiceImpl.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/service/impl/ChannelServiceImpl.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/service/impl/FragmentServiceImpl.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/service/impl/FragmentServiceImpl.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/service/impl/NewsServiceImpl.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/service/impl/NewsServiceImpl.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/service/impl/OperationServiceImpl.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/service/impl/OperationServiceImpl.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/service/impl/ResourceServiceImpl.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/service/impl/ResourceServiceImpl.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/service/impl/TemplateServiceImpl.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/service/impl/TemplateServiceImpl.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/service/impl/TopicServiceImpl.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/service/impl/TopicServiceImpl.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/service/impl/UserServiceImpl.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/service/impl/UserServiceImpl.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/service/impl/package-info.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/service/impl/package-info.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/service/package-info.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/service/package-info.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/thirdpart/package-info.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/thirdpart/package-info.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/utils/CookieUtil.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/utils/CookieUtil.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/utils/EncryptUtil.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/utils/EncryptUtil.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/utils/FileUtil.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/utils/FileUtil.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/utils/FragmentUtil.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/utils/FragmentUtil.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/utils/Page.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/utils/Page.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/utils/StringUtils.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/utils/StringUtils.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/utils/package-info.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/utils/package-info.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/web/ann/CheckAuth.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/web/ann/CheckAuth.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/web/ann/CheckToken.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/web/ann/CheckToken.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/web/ann/package-info.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/web/ann/package-info.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/web/interceptor/ExceptionHandler.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/web/interceptor/ExceptionHandler.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/web/interceptor/HistoryInterceptor.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/web/interceptor/HistoryInterceptor.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/web/interceptor/package-info.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/web/interceptor/package-info.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/web/result/ApiResponse.java" afterPath="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/web/result/ApiResponse.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/biz/FragmentBiz.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/biz/FragmentBiz.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/biz/PermissionBiz.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/biz/PermissionBiz.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/biz/UserBiz.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/biz/UserBiz.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/bo/FragmentBean.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/bo/FragmentBean.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/contants/RedisKeyContants.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/contants/RedisKeyContants.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/contants/StaticContants.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/contants/StaticContants.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/CategoryDao.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/CategoryDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/ChannelDao.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/ChannelDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/FragmentClassifyDao.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/FragmentClassifyDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/FragmentDao.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/FragmentDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/FragmentHistoryDao.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/FragmentHistoryDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/NewsColumnDao.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/NewsColumnDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/NewsDao.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/NewsDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/NewsDetailDao.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/NewsDetailDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/PositionPermissionDao.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/PositionPermissionDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/TemplateDao.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/TemplateDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/TemplateRelationDao.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/TemplateRelationDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/TopicClassifyDao.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/TopicClassifyDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/TopicColumnDao.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/TopicColumnDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/TopicDao.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/TopicDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/UserDao.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/UserDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/enums/AuthEnum.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/enums/AuthEnum.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/message/BuildSendMessage.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/message/BuildSendMessage.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/message/common/MessageSender.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/message/common/MessageSender.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/po/Channel.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/po/Channel.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/po/Fragment.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/po/Fragment.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/po/FragmentHistory.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/po/FragmentHistory.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/po/Images.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/po/Images.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/po/News.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/po/News.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/po/Permission.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/po/Permission.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/po/Template.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/po/Template.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/po/TemplateRelation.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/po/TemplateRelation.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/po/Topic.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/po/Topic.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/po/Video.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/po/Video.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/service/CategoryService.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/service/CategoryService.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/service/ChannelService.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/service/ChannelService.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/service/FragmentService.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/service/FragmentService.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/service/NewsService.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/service/NewsService.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/service/TemplateService.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/service/TemplateService.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/service/TopicService.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/service/TopicService.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/service/UserService.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/service/UserService.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/service/impl/CategoryServiceImpl.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/service/impl/CategoryServiceImpl.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/service/impl/ChannelServiceImpl.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/service/impl/ChannelServiceImpl.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/service/impl/FragmentServiceImpl.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/service/impl/FragmentServiceImpl.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/service/impl/NewsServiceImpl.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/service/impl/NewsServiceImpl.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/service/impl/TemplateServiceImpl.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/service/impl/TemplateServiceImpl.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/service/impl/TopicServiceImpl.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/service/impl/TopicServiceImpl.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/service/impl/UserServiceImpl.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/service/impl/UserServiceImpl.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/utils/FileUtil.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/utils/FileUtil.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/utils/FragmentUtil.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/utils/FragmentUtil.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/web/controller/BaseController.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/web/controller/BaseController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/web/controller/FragmentController.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/web/controller/FragmentController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/web/controller/ImagesController.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/web/controller/ImagesController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/web/controller/PermissionController.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/web/controller/PermissionController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/web/controller/PositionController.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/web/controller/PositionController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/web/controller/UploadController.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/web/controller/UploadController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/web/controller/UserController.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/web/controller/UserController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/web/controller/VideoController.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/web/controller/VideoController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/web/result/ApiResponse.class" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/web/result/ApiResponse.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/biz/UserBiz.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/biz/UserBiz.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/bo/UserBean.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/bo/UserBean.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/contants/RedisKeyContants.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/contants/RedisKeyContants.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/contants/StaticContants.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/contants/StaticContants.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/CategoryDao.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/CategoryDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/ChannelDao.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/ChannelDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/FragmentClassifyDao.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/FragmentClassifyDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/FragmentDao.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/FragmentDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/FragmentHistoryDao.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/FragmentHistoryDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/ImagesBaseDao.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/ImagesBaseDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/ImagesDao.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/ImagesDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/NewsColumnDao.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/NewsColumnDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/NewsDao.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/NewsDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/NewsDetailDao.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/NewsDetailDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/OperationHistoryDao.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/OperationHistoryDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/PermissionDao.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/PermissionDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/PositionDao.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/PositionDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/PositionPermissionDao.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/PositionPermissionDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/TemplateDao.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/TemplateDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/TemplateRelationDao.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/TemplateRelationDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/TopicClassifyDao.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/TopicClassifyDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/TopicColumnDao.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/TopicColumnDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/TopicDao.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/TopicDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/UserDao.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/UserDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/VideoBaseDao.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/VideoBaseDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/VideoDao.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/VideoDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/exception/BizException.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/exception/BizException.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/message/BuildSendMessage.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/message/BuildSendMessage.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/message/common/MessageSender.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/message/common/MessageSender.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/middleware/JedisClient.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/middleware/JedisClient.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/po/Channel.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/po/Channel.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/po/Fragment.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/po/Fragment.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/po/FragmentHistory.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/po/FragmentHistory.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/po/Images.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/po/Images.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/po/News.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/po/News.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/po/Permission.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/po/Permission.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/po/Template.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/po/Template.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/po/TemplateRelation.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/po/TemplateRelation.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/po/Topic.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/po/Topic.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/po/User.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/po/User.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/po/Video.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/po/Video.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/service/CategoryService.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/service/CategoryService.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/service/ChannelService.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/service/ChannelService.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/service/FragmentService.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/service/FragmentService.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/service/NewsService.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/service/NewsService.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/service/OperationService.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/service/OperationService.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/service/ResourceService.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/service/ResourceService.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/service/TemplateService.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/service/TemplateService.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/service/TopicService.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/service/TopicService.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/service/UserService.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/service/UserService.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/service/impl/CategoryServiceImpl.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/service/impl/CategoryServiceImpl.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/service/impl/ChannelServiceImpl.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/service/impl/ChannelServiceImpl.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/service/impl/FragmentServiceImpl.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/service/impl/FragmentServiceImpl.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/service/impl/NewsServiceImpl.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/service/impl/NewsServiceImpl.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/service/impl/OperationServiceImpl.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/service/impl/OperationServiceImpl.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/service/impl/ResourceServiceImpl.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/service/impl/ResourceServiceImpl.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/service/impl/TemplateServiceImpl.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/service/impl/TemplateServiceImpl.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/service/impl/TopicServiceImpl.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/service/impl/TopicServiceImpl.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/service/impl/UserServiceImpl.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/service/impl/UserServiceImpl.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/utils/StringUtils.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/utils/StringUtils.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/web/ann/CheckAuth.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/web/ann/CheckAuth.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/web/interceptor/CheckAuthInterceptor.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/web/interceptor/CheckAuthInterceptor.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/web/interceptor/CheckTokenInterceptor.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/web/interceptor/CheckTokenInterceptor.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/web/interceptor/ExceptionHandler.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/web/interceptor/ExceptionHandler.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/web/result/ApiResponse.class" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/web/result/ApiResponse.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/.idea/workspace.xml" afterPath="$PROJECT_DIR$/cms-web/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/pom.xml" afterPath="$PROJECT_DIR$/cms-web/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/web/controller/CategoryController.java" afterPath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/web/controller/CategoryController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/web/controller/ChannelController.java" afterPath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/web/controller/ChannelController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/web/controller/FragmentController.java" afterPath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/web/controller/FragmentController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/web/controller/ImagesController.java" afterPath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/web/controller/ImagesController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/web/controller/NewsController.java" afterPath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/web/controller/NewsController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/web/controller/PermissionController.java" afterPath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/web/controller/PermissionController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/web/controller/TemplateController.java" afterPath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/web/controller/TemplateController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/web/controller/TopicController.java" afterPath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/web/controller/TopicController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/web/controller/UserChannelController.java" afterPath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/web/controller/UserChannelController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/web/controller/UserController.java" afterPath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/web/controller/UserController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/web/controller/VideoController.java" afterPath="$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/web/controller/VideoController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/src/main/resources/debug/velocity.properties" afterPath="$PROJECT_DIR$/cms-web/src/main/resources/debug/velocity.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/src/main/webapp/WEB-INF/vmfile/index.vm" afterPath="$PROJECT_DIR$/cms-web/src/main/webapp/WEB-INF/vmfile/index.vm" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/CategoryDao.xml" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/CategoryDao.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/ChannelDao.xml" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/ChannelDao.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/FragmentClassifyDao.xml" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/FragmentClassifyDao.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/FragmentDao.xml" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/FragmentDao.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/FragmentHistoryDao.xml" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/FragmentHistoryDao.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/ImagesBaseDao.xml" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/ImagesBaseDao.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/ImagesDao.xml" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/ImagesDao.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/NewsColumnDao.xml" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/NewsColumnDao.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/NewsDao.xml" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/NewsDao.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/NewsDetailDao.xml" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/NewsDetailDao.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/PermissionDao.xml" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/PermissionDao.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/PositionPermissionDao.xml" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/PositionPermissionDao.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/TemplateDao.xml" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/TemplateDao.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/TemplateRelationDao.xml" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/TemplateRelationDao.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/TopicClassifyDao.xml" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/TopicClassifyDao.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/TopicColumnDao.xml" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/TopicColumnDao.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/TopicDao.xml" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/TopicDao.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/UserDao.xml" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/UserDao.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/VideoBaseDao.xml" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/VideoBaseDao.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/VideoDao.xml" afterPath="$PROJECT_DIR$/cms-web/target/classes/com/cn/cms/dao/VideoDao.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/spring/spring-db.xml" afterPath="$PROJECT_DIR$/cms-web/target/classes/spring/spring-db.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/classes/velocity.properties" afterPath="$PROJECT_DIR$/cms-web/target/classes/velocity.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/CategoryDao.xml" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/CategoryDao.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/ChannelDao.xml" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/ChannelDao.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/FragmentClassifyDao.xml" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/FragmentClassifyDao.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/FragmentDao.xml" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/FragmentDao.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/FragmentHistoryDao.xml" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/FragmentHistoryDao.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/ImagesBaseDao.xml" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/ImagesBaseDao.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/ImagesDao.xml" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/ImagesDao.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/NewsColumnDao.xml" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/NewsColumnDao.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/NewsDao.xml" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/NewsDao.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/NewsDetailDao.xml" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/NewsDetailDao.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/OperationHistoryDao.xml" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/OperationHistoryDao.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/PermissionDao.xml" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/PermissionDao.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/PositionDao.xml" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/PositionDao.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/PositionPermissionDao.xml" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/PositionPermissionDao.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/TemplateDao.xml" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/TemplateDao.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/TemplateRelationDao.xml" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/TemplateRelationDao.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/TopicClassifyDao.xml" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/TopicClassifyDao.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/TopicColumnDao.xml" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/TopicColumnDao.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/TopicDao.xml" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/TopicDao.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/UserDao.xml" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/UserDao.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/VideoBaseDao.xml" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/VideoBaseDao.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/VideoDao.xml" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/com/cn/cms/dao/VideoDao.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/mybatis-config.xml" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/mybatis-config.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/spring/spring-db.xml" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/spring/spring-db.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/velocity.properties" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/classes/velocity.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/vmfile/index.vm" afterPath="$PROJECT_DIR$/cms-web/target/cms-web/WEB-INF/vmfile/index.vm" />
+    </list>
+    <ignored path="cms.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <ignored path=".idea/dataSources.local.xml" />
+    <ignored path="$PROJECT_DIR$/target/" />
+    <ignored path="$PROJECT_DIR$/cms-web/target/" />
+    <ignored path="$PROJECT_DIR$/cms-model/target/" />
+    <ignored path="$PROJECT_DIR$/cms-publish/target/" />
+    <ignored path="$PROJECT_DIR$/cms-app/target/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="cms" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/cms-publish/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="405">
+              <caret line="27" column="23" selection-start-line="27" selection-start-column="23" selection-end-line="27" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/cms-app/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/cms-web/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="14" column="35" selection-start-line="14" selection-start-column="35" selection-end-line="14" selection-end-column="35" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="123">
+              <caret line="167" column="12" selection-start-line="167" selection-start-column="12" selection-end-line="167" selection-end-column="12" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GradleLocalSettings">
+    <option name="externalProjectsViewState">
+      <projects_view />
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/cms-model/src/main/java/CategoryDao.java" />
+        <option value="$PROJECT_DIR$/cms-model/pom.xml" />
+        <option value="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/service/impl/ResourceServiceImpl.java" />
+        <option value="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/web/interceptor/CheckAuthInterceptor.java" />
+        <option value="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/web/interceptor/CheckTokenInterceptor.java" />
+        <option value="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/contants/StaticContants.java" />
+        <option value="$PROJECT_DIR$/cms-web/pom.xml" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/cms-publish/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="LogFilters">
+    <option name="FILTER_ERRORS" value="false" />
+    <option name="FILTER_WARNINGS" value="false" />
+    <option name="FILTER_INFO" value="true" />
+    <option name="FILTER_DEBUG" value="true" />
+    <option name="CUSTOM_FILTER" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="Bundled (Maven 3)" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
+        </PATH_ELEMENT>
+      </PATH>
+    </treeState>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="y" value="23" />
+    <option name="width" value="1280" />
+    <option name="height" value="773" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cms" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cms" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cms" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.545977" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.cn.cms.web.interceptor" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms" />
+      <recent name="$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/web" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Tomcat Server.cms-web">
+    <configuration default="true" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" ALTERNATIVE_JRE_ENABLED="false">
+      <deployment />
+      <server-settings />
+      <predefined_log_file id="Tomcat" enabled="true" />
+      <predefined_log_file id="Tomcat Catalina" enabled="true" />
+      <predefined_log_file id="Tomcat Manager" enabled="false" />
+      <predefined_log_file id="Tomcat Host Manager" enabled="false" />
+      <predefined_log_file id="Tomcat Localhost Access" enabled="false" />
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <method />
+    </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
+      <module name="" />
+      <option name="DEPLOY" value="true" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="DEBUGGER_TYPE" value="Java" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <Java />
+      <Profilers>
+        <option name="GAPID_DISABLE_PCS" value="false" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
+      <module name="" />
+      <option name="TESTING_TYPE" value="0" />
+      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="EXTRA_OPTIONS" value="" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="DEBUGGER_TYPE" value="Java" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <Java />
+      <Profilers>
+        <option name="GAPID_DISABLE_PCS" value="false" />
+      </Profilers>
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <module />
+      <method />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="ArquillianJUnit" factoryName="">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="true" type="ArquillianTestNG" factoryName="">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="Cold Fusion runner description" factoryName="Cold Fusion" custom_browser="" web_path="">
+      <method />
+    </configuration>
+    <configuration default="true" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="myFilePath" />
+      <option name="GLUE" />
+      <option name="myNameFilter" />
+      <option name="myGeneratedName" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="FlashRunConfigurationType" factoryName="Flash App">
+      <option name="BCName" value="" />
+      <option name="IOSSimulatorSdkPath" value="" />
+      <option name="adlOptions" value="" />
+      <option name="airProgramParameters" value="" />
+      <option name="appDescriptorForEmulator" value="Android" />
+      <option name="debugTransport" value="USB" />
+      <option name="debuggerSdkRaw" value="BC SDK" />
+      <option name="emulator" value="NexusOne" />
+      <option name="emulatorAdlOptions" value="" />
+      <option name="fastPackaging" value="true" />
+      <option name="fullScreenHeight" value="0" />
+      <option name="fullScreenWidth" value="0" />
+      <option name="launchUrl" value="false" />
+      <option name="launcherParameters">
+        <LauncherParameters>
+          <option name="browser" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
+          <option name="launcherType" value="OSDefault" />
+          <option name="newPlayerInstance" value="false" />
+          <option name="playerPath" value="/Applications/Flash Player Debugger.app" />
+        </LauncherParameters>
+      </option>
+      <option name="mobileRunTarget" value="Emulator" />
+      <option name="moduleName" value="" />
+      <option name="overriddenMainClass" value="" />
+      <option name="overriddenOutputFileName" value="" />
+      <option name="overrideMainClass" value="false" />
+      <option name="runTrusted" value="true" />
+      <option name="screenDpi" value="0" />
+      <option name="screenHeight" value="0" />
+      <option name="screenWidth" value="0" />
+      <option name="url" value="http://" />
+      <option name="usbDebugPort" value="7936" />
+      <method />
+    </configuration>
+    <configuration default="true" type="FlexUnitRunConfigurationType" factoryName="FlexUnit" appDescriptorForEmulator="Android" class_name="" emulatorAdlOptions="" method_name="" package_name="" scope="Class">
+      <option name="BCName" value="" />
+      <option name="launcherParameters">
+        <LauncherParameters>
+          <option name="browser" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
+          <option name="launcherType" value="OSDefault" />
+          <option name="newPlayerInstance" value="false" />
+          <option name="playerPath" value="/Applications/Flash Player Debugger.app" />
+        </LauncherParameters>
+      </option>
+      <option name="moduleName" value="" />
+      <option name="trusted" value="true" />
+      <method />
+    </configuration>
+    <configuration default="true" type="GradleRunConfiguration" factoryName="Gradle">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list />
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <method />
+    </configuration>
+    <configuration default="true" type="GrailsRunConfigurationType" factoryName="Grails">
+      <setting name="vmparams" value="" />
+      <setting name="cmdLine" value="run-app" />
+      <setting name="passParentEnv" value="true" />
+      <setting name="launchBrowser" value="true" />
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="true" type="JUnitTestDiscovery" factoryName="JUnit Test Discovery" changeList="All">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="true" type="JarApplication" factoryName="JAR Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="Java Scratch" factoryName="Java Scratch">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="SCRATCH_FILE_ID" value="0" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType" factoryName="Kotlin">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="cms" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType" factoryName="Kotlin script">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="filePath" />
+      <option name="vmParameters" />
+      <option name="alternativeJrePath" />
+      <option name="programParameters" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" />
+      <option name="isAlternativeJrePathEnabled" value="false" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+      <method />
+    </configuration>
+    <configuration default="true" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="TestNG" factoryName="TestNG">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="TestNGTestDiscovery" factoryName="TestNG Test Discovery" changeList="All">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run-script" />
+      <scripts />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="osgi.bnd.run" factoryName="Run Launcher">
+      <method />
+    </configuration>
+    <configuration default="true" type="osgi.bnd.run" factoryName="Test Launcher (JUnit)">
+      <method />
+    </configuration>
+    <configuration default="false" name="cms-web" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 8.0.37" ALTERNATIVE_JRE_ENABLED="false">
+      <option name="UPDATING_POLICY" value="restart-server" />
+      <deployment>
+        <artifact name="cms-web:war exploded">
+          <settings>
+            <option name="CONTEXT_PATH" value="/" />
+          </settings>
+        </artifact>
+      </deployment>
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="Unnamed_cms" />
+      </server-settings>
+      <predefined_log_file id="Tomcat" enabled="true" />
+      <predefined_log_file id="Tomcat Catalina" enabled="true" />
+      <predefined_log_file id="Tomcat Manager" enabled="false" />
+      <predefined_log_file id="Tomcat Host Manager" enabled="false" />
+      <predefined_log_file id="Tomcat Localhost Access" enabled="false" />
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="63278" />
+      </RunnerSettings>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method>
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="cms-web:war exploded" />
+        </option>
+      </method>
+    </configuration>
+    <list size="1">
+      <item index="0" class="java.lang.String" itemvalue="Tomcat Server.cms-web" />
+    </list>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="17d1caa0-613f-4c8f-8b10-85d86ab8b671" name="Default" comment="" />
+      <created>1482227444801</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1482227444801</updated>
+      <workItem from="1482227446329" duration="4387000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="4387000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="23" width="1280" height="773" extended-state="6" />
+    <editor active="false" />
+    <layout>
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32956383" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="JSF" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32977098" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.53282446" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3263328" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+    </layout>
+    <layout-to-restore>
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="10" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="JSF" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32977098" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.53282446" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3263328" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />
+      <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
+    </layout-to-restore>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/message/enums/MessageQueueEnum.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="12" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/message/enums/MessageQueueEnum.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#241#242#0" expanded="false" />
+            <element signature="e#271#272#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/message/common/CommonMessageHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/message/common/package-info.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/message/package-info.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/message/enums/MessageSourceEnum.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/message/common/JsonMessageConverter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/message/common/MessageSender.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/message/BuildSendMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/message/common/CommonMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/middleware/JedisClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/web/controller/ChannelController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/web/ann/package-info.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/web/result/ApiResponse.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/web/controller/UserChannelController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/web/controller/VideoController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/web/controller/NewsController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/web/controller/PositionController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/web/controller/BaseController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/web/interceptor/ExceptionHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/web/interceptor/HistoryInterceptor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="23" column="31" selection-start-line="23" selection-start-column="12" selection-end-line="23" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/biz/NewsBiz.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#468#469#0" expanded="false" />
+            <element signature="e#523#524#0" expanded="false" />
+            <element signature="e#579#580#0" expanded="false" />
+            <element signature="e#633#634#0" expanded="false" />
+            <element signature="e#699#700#0" expanded="false" />
+            <element signature="e#762#763#0" expanded="false" />
+            <element signature="e#1089#1090#0" expanded="false" />
+            <element signature="e#1145#1146#0" expanded="false" />
+            <element signature="e#1230#1231#0" expanded="false" />
+            <element signature="e#1272#1273#0" expanded="false" />
+            <element signature="e#1312#1313#0" expanded="false" />
+            <element signature="e#1356#1357#0" expanded="false" />
+            <element signature="e#1492#1493#0" expanded="false" />
+            <element signature="e#1549#1550#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/biz/PermissionBiz.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#1010#1026#0" expanded="false" />
+            <element signature="e#2145#2146#0" expanded="false" />
+            <element signature="e#2214#2215#0" expanded="false" />
+            <element signature="e#2326#2327#0" expanded="false" />
+            <element signature="e#2387#2388#0" expanded="false" />
+            <element signature="e#2498#2499#0" expanded="false" />
+            <element signature="e#2559#2560#0" expanded="false" />
+            <element signature="e#2673#2674#0" expanded="false" />
+            <element signature="e#2731#2732#0" expanded="false" />
+            <element signature="e#2873#2874#0" expanded="false" />
+            <element signature="e#2936#2937#0" expanded="false" />
+            <element signature="e#3232#3252#0" expanded="false" />
+            <element signature="e#4297#4313#0" expanded="false" />
+            <element signature="e#4774#4775#0" expanded="false" />
+            <element signature="e#4845#4846#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/biz/OperationHistoryBiz.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#1149#1167#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/biz/TopicBiz.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#909#910#0" expanded="false" />
+            <element signature="e#957#958#0" expanded="false" />
+            <element signature="e#1094#1095#0" expanded="false" />
+            <element signature="e#1153#1154#0" expanded="false" />
+            <element signature="e#1493#1494#0" expanded="false" />
+            <element signature="e#1549#1550#0" expanded="false" />
+            <element signature="e#1665#1666#0" expanded="false" />
+            <element signature="e#1722#1723#0" expanded="false" />
+            <element signature="e#1868#1869#0" expanded="false" />
+            <element signature="e#1933#1934#0" expanded="false" />
+            <element signature="e#2052#2053#0" expanded="false" />
+            <element signature="e#2111#2112#0" expanded="false" />
+            <element signature="e#2218#2219#0" expanded="false" />
+            <element signature="e#2276#2277#0" expanded="false" />
+            <element signature="e#2400#2401#0" expanded="false" />
+            <element signature="e#2461#2462#0" expanded="false" />
+            <element signature="e#2802#2803#0" expanded="false" />
+            <element signature="e#2865#2866#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/biz/UserPositionBiz.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/biz/CategoryBiz.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#452#453#0" expanded="false" />
+            <element signature="e#508#509#0" expanded="false" />
+            <element signature="e#610#611#0" expanded="false" />
+            <element signature="e#664#665#0" expanded="false" />
+            <element signature="e#768#769#0" expanded="false" />
+            <element signature="e#824#825#0" expanded="false" />
+            <element signature="e#965#966#0" expanded="false" />
+            <element signature="e#1030#1031#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/biz/TemplateBiz.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#887#888#0" expanded="false" />
+            <element signature="e#941#942#0" expanded="false" />
+            <element signature="e#1082#1083#0" expanded="false" />
+            <element signature="e#1147#1148#0" expanded="false" />
+            <element signature="e#2219#2220#0" expanded="false" />
+            <element signature="e#2281#2282#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/biz/package-info.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/web/interceptor/CheckTokenInterceptor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/web/interceptor/CheckAuthInterceptor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/middleware/package-info.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/middleware/JedisClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/message/common/MessageSender.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="21" column="14" selection-start-line="21" selection-start-column="14" selection-end-line="21" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/message/BuildSendMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/biz/ChannelBiz.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/biz/BaseBiz.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/biz/UserBiz.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="37" column="26" selection-start-line="37" selection-start-column="25" selection-end-line="37" selection-end-column="26" />
+          <folding>
+            <element signature="e#922#923#0" expanded="false" />
+            <element signature="e#949#950#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-web/src/main/java/com/cn/cms/bo/UserBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="37" column="18" selection-start-line="37" selection-start-column="18" selection-end-line="37" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/bo/NewsBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/bo/package-info.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/bo/FragmentBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/bo/PositionBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/bo/RelationBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/bo/PermissionBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/bo/UserBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-model/src/main/java/com/cn/cms/contants/StaticContants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="48">
+          <caret line="100" column="0" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="123">
+          <caret line="167" column="12" selection-start-line="167" selection-start-column="12" selection-end-line="167" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-app/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-publish/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="27" column="23" selection-start-line="27" selection-start-column="23" selection-end-line="27" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms-web/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="35" selection-start-line="14" selection-start-column="35" selection-end-line="14" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <last-edited>cms-web:war</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.5" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>Web</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.545977" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>cms-publish</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.545977" />
+                <option value="0.6" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>Maven: antlr:antlr:2.7.2</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

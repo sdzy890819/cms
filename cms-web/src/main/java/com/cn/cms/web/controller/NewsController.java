@@ -156,16 +156,16 @@ public class NewsController extends BaseController {
     @CheckAuth( name = "news:update" )
     @RequestMapping(value = "/updateNews",method = RequestMethod.POST)
     public String updateNews(HttpServletRequest request,
-                             @RequestPart(value = "id") Long id,
-                             @RequestPart(value = "title") String title,
-                             @RequestPart(value = "subTitle") String subTitle,
-                             @RequestPart(value = "keyword") String keyword,
-                             @RequestPart(value = "description") String description,
-                             @RequestPart(value = "source") String source,
-                             @RequestPart(value = "author") String author,
-                             @RequestPart(value = "channelId") Long channelId,
-                             @RequestPart(value = "columnId") Long columnId,
-                             @RequestPart(value = "content") String content){
+                             @RequestPart(value = "id",required = false) Long id,
+                             @RequestPart(value = "title",required = false) String title,
+                             @RequestPart(value = "subTitle",required = false) String subTitle,
+                             @RequestPart(value = "keyword",required = false) String keyword,
+                             @RequestPart(value = "description",required = false) String description,
+                             @RequestPart(value = "source",required = false) String source,
+                             @RequestPart(value = "author",required = false) String author,
+                             @RequestPart(value = "channelId",required = false) Long channelId,
+                             @RequestPart(value = "columnId",required = false) Long columnId,
+                             @RequestPart(value = "content",required = false) String content){
         String userID = getCurrentUserId(request);
         News news = new News();
         news.setTitle(title);
@@ -187,5 +187,18 @@ public class NewsController extends BaseController {
     }
 
 
+    /**
+     * 新闻发布
+     * @param request
+     * @param id
+     * @return
+     */
+    @CheckToken
+    @CheckAuth( name = "news:publish" )
+    @RequestMapping(value = "/publish",method = RequestMethod.GET)
+    public String publish(HttpServletRequest request, @RequestParam(value = "id") Long id){
+
+        return ApiResponse.returnSuccess();
+    }
 
 }

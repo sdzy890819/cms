@@ -111,14 +111,14 @@ public class PermissionController extends BaseController {
     @CheckAuth( name = "permission:update" )
     @RequestMapping(value = "/updatePermission",method = RequestMethod.POST)
     public String updatePermission(HttpServletRequest request,
-                                   @RequestPart(value = "id")Long id,
-                                   @RequestPart(value = "name")String name,
-                                   @RequestPart(value = "description")String description,
-                                   @RequestPart(value = "type")Integer type,
-                                   @RequestPart(value = "url")String url,
-                                   @RequestPart(value = "sort")Integer sort,
-                                   @RequestPart(value = "showFlag")Integer showFlag,
-                                   @RequestPart(value = "permission")String permission){
+                                   @RequestPart(value = "id",required = false)Long id,
+                                   @RequestPart(value = "name",required = false)String name,
+                                   @RequestPart(value = "description",required = false)String description,
+                                   @RequestPart(value = "type",required = false)Integer type,
+                                   @RequestPart(value = "url",required = false)String url,
+                                   @RequestPart(value = "sort",required = false)Integer sort,
+                                   @RequestPart(value = "showFlag",required = false)Integer showFlag,
+                                   @RequestPart(value = "permission",required = false)String permission){
         Permission old = this.permissionBiz.findPermission(id);
         if(old == null){
             return ApiResponse.returnFail(StaticContants.ERROR_PERMISSION_NOT_FOUND);

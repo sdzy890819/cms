@@ -12,12 +12,75 @@
     </resultMap>
 
     <resultMap type="com.cn.cms.po.Permission" id="permission" extends="base">
-        <result column="permission_name" property="permissionName" />
-        <result column="permission_code" property="permissionCode" />
+        <result column="name" property="name" />
+        <result column="description" property="description" />
+        <result column="type" property="type" />
+        <result column="url" property="url" />
+        <result column="sort" property="sort" />
+        <result column="parent_id" property="parentId" />
+        <result column="show_flag" property="showFlag" />
+        <result column="permission" property="permission" />
     </resultMap>
 
 
     <sql id="delTag"> where del_tag = 1 </sql>
 
+    <sql id="sql_column">
+        id,create_time,update_time,del_tag,last_modify_user_id,name,description,type,url,sort,parent_id,show_flag,permission
+    </sql>
+
+    <select id="findPermissionList" resultMap="permission">
+        select <include refid="sql_column"/> from permission <include refid="delTag"/> order by sort asc;
+    </select>
+
+    <insert id="createPermission" >
+        insert into permission (<include refid="sql_column" /> ) value(null,null,null,null,#{p1.lastModifyUserId},#{p1.name},#{p1.description},${p1.type},#{p1.url}
+        ,${p1.sort},${p1.parentId},${p1.showFlag},#{p1.permission});
+    </insert>
+
+    <update id="updatePermission">
+        update permission
+        <set>
+            <if test="p1.name != null">
+        name=#{p1.name},
+            </if>
+            <if test="p1.description != null">
+            description=#{p1.description},
+            </if>
+            <if test="p1.type != null">
+        type=${p1.type},
+            </if>
+            <if test="p1.url != null">
+            url=#{p1.url},
+            </if>
+            <if test="p1.sort != null">
+        sort=${p1.sort},
+            </if>
+            <if test="p1.parentId != null">
+        parent_id=${p1.parentId},
+            </if>
+            <if test="p1.showFlag != null">
+        show_flag=${p1.showFlag},
+            </if>
+            <if test="p1.permission != null">
+        permission=#{p1.permission},
+            </if>
+        last_modify_user_id = #{p1.lastModifyUserId}
+        </set>
+        where id = ${p1.id} ;
+    </update>
+
+    <select id="findPermission" resultMap="permission">
+        select <include refid="sql_column" /> from permission <include refid="delTag" /> and id=${id};
+    </select>
+
+    <update id="delPermission" >
+        update permission set last_modify_user_id = #{lastModifyUserId}, del_tag=0 where id = ${id} ;
+    </update>
+
+    <select id="findPermissionForPositionIds" resultMap="permission" >
+        select <include refid="sql_column" /> from permission where id in (select permission_id from position_permission <include refid="delTag" /> and position_id in
+        (select position_id from user_position where user_id = #{userId}));
+    </select>
 
 </mapper>
