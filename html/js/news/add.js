@@ -36,63 +36,53 @@ define(["app",'form','position','fixedNav'], function ( app ) {
 				}
 				var list = [ //表单
 					{
+						title : 'title',
 						name : '标题',
 						placeholder : '请输入标题',
-						minLength : 5,
-						maxLength : 30,
 						type : 'text', //text textarea radio checkbox edit
-						prompt : {
-							defualt : '标题为30个字符',
-							error : '内容必需为中文，5-30个字符内'
-						}
+						verify : 'title'
 					},
 					{
+						title : 'maxTitle',
 						name : '附标题',
 						placeholder : '请输入附标题',
 						type : 'text',
-						minLength : 10,
-						maxLength : 50,
-						prompt : {
-							defualt : '附标题为50个字符',
-							error : '内容必需为中文，10-50个字符内'
-						}
+						verify : 'title'
 					},
 					{
+						title : 'keyword',
 						name : '关键字',
 						placeholder : '关键字之间以 “,” 隔开',
 						type : 'text',
-						check : true,
-						prompt : {
-							defualt : '关键字之间以 “,” 隔开，不超过5个字符'
-						}
+						check : false
 					},
 					[
 						{
+							title : 'author',
 							name : '作者',
 							placeholder : '请输入作者',
-							check : true,
 							type : 'text',
+							check : false
 						},
 						{
+							title : 'source',
 							name : '来源',
 							placeholder : '请输入作者来源',
-							check : true,
-							type : 'text'
+							type : 'text',
+							check : false
 						}
 					],
 					{
+						title : 'describe',
 						name : '描述',
 						placeholder : '描述',
-						check : true,
-						type : 'textarea'
+						type : 'textarea',
+						check : false
 					},
 					{
+						title : 'selectCoumn',
 						name : '选择频道栏目',
 						type : 'select',
-						prompt : {
-							defualt : '请选择栏目',
-							error : '栏目不能为空'
-						},
 						select : [
 							[
 								{name:'请选择部门'},
@@ -115,22 +105,15 @@ define(["app",'form','position','fixedNav'], function ( app ) {
 						]
 					},
 					{
+						title : 'content',
 						name : '内容',
-						type : 'edit',
-						prompt : {
-							error : '内容不能为空'
-						},
-						minLength : 10,
-						maxLength : 500,
+						type : 'edit'
 					},
 					{
+						title : 'date',
 						name : '定时发布',
 						type : 'date',
-						check : true,
-						placeholder : '请选择时间',
-						prompt : {
-							error : '时间不能为空'
-						}
+						check : false
 					}
 				];
 				$scope.formdata = { //确认按钮
