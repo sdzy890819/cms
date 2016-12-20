@@ -45,6 +45,7 @@ define(["app",'jquery'], function ( app , $ ) {
 
 				var ele = $(element[0]) ;
 				$scope.submit = function( callback ){
+					return;
 					var item = ele.find('.item') , 
 						arr = [];
 					item.each(function(){
@@ -79,16 +80,33 @@ define(["app",'jquery'], function ( app , $ ) {
 				}
 
 				layui.use(['form', 'layedit', 'laydate'], function(){
-					/*var form = layui.form()
-				  ,layer = layui.layer
-				  ,layedit = layui.layedit
-				  ,laydate = layui.laydate;
-						form.on('submit(demo1)', function(data){
+					var form = layui.form()
+				 		,layer = layui.layer
+				  		,layedit = layui.layedit
+				  		,laydate = layui.laydate;
+
+
+				  	//自定义验证规则
+					  form.verify({
+					    title: function(value){
+					      if(value.length < 5){
+					        return '标题至少得5个字符啊';
+					      }
+					    }
+					    ,select : function( value , ele){
+					    	if(value.indexOf('请选择')>-1 && ele.parentNode.selectedIndex == 0){
+					    		return value;
+					    	}
+					    }
+					  });
+
+
+					form.on('submit(demo1)', function(data){
 					    layer.alert(JSON.stringify(data.field), {
 					      title: '最终的提交信息'
 					    })
 					    return false;
-					  });*/
+				  	});
 				});		 
 			}
 		}

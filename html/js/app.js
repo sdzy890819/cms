@@ -42,10 +42,11 @@ require.config({
 
 // bootstrap
 define(["angular", "angularAMD", "angular-ui-router",'angular-css','jquery','layui'], function (angular, angularAMD) {
-        
-    // routes
-    var registerRoutes = function($stateProvider, $urlRouterProvider) {
-        	
+    // module
+    var app = angular.module("app", ["ui.router",'angularCSS']);
+    // config
+    app.config(["$stateProvider", '$urlRouterProvider','$locationProvider', function($stateProvider, $urlRouterProvider,$locationProvider){
+        /*$locationProvider.html5Mode(true);*/
         $urlRouterProvider.otherwise('/home');
         $stateProvider
             .state("home", angularAMD.route({
@@ -117,13 +118,8 @@ define(["angular", "angularAMD", "angular-ui-router",'angular-css','jquery','lay
                 template : '<column-list></column-list>',
                 controllerUrl: 'column/list'
             })
-    };        
-        
-    // module
-    var app = angular.module("app", ["ui.router",'angularCSS']);
+    }]);
 
-    // config
-    app.config(["$stateProvider", "$urlRouterProvider", registerRoutes]);
     layui.config({
       dir: 'js/plug/layui/' //layui.js 所在路径（注意，如果是script单独引入layui.js，无需设定该参数。），一般情况下可以无视
       ,version: false //一般用于更新组件缓存，默认不开启。设为true即让浏览器不缓存。也可以设为一个固定的值，如：201610
