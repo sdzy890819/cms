@@ -1,5 +1,5 @@
-/.setting/
-/.bin/
-/.target/
-/.idea/
-/*.iml
+*/.setting/
+*/.bin/
+*/.target/
+*/.idea/
+*/*.iml
