@@ -13,6 +13,8 @@ public interface ChannelService {
 
     List<Channel> findChannelAll();
 
+    List<Channel> findChannelByUserId(String userId);
+
     void saveChannel(Channel channel);
 
     void updateChannel(Channel channel);

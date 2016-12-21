@@ -98,6 +98,25 @@ public class JedisClient {
         }
     }
 
+    public void set(Map<String,String> map, int seconds){
+        Jedis client = null;
+        try{
+            client = jedisPool.getResource();
+            Iterator<Map.Entry<String,String>> it = map.entrySet().iterator();
+            while(it.hasNext()) {
+                Map.Entry<String, String> entry = it.next();
+                client.set(entry.getKey(), entry.getValue());
+                client.expire(entry.getKey(), seconds);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            if(client!=null){
+                client.close();
+            }
+        }
+    }
+
     /**
      * 设置有效时间 秒
      * @param key

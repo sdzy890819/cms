@@ -16,4 +16,6 @@ public interface UserPositionDao {
 
     List<UserPosition> findUserPosition(@Param(value = "userId") String userId, @Param(value = "positionId") Long positionId);
 
+    List<UserPosition> findUserPositionByPostionId(@Param(value = "positionId") Long positionId);
+
 }

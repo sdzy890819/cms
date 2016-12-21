@@ -28,6 +28,15 @@ public class ChannelBiz extends BaseBiz {
     }
 
     /**
+     * 获取当前用户的所有频道权限
+     * @param userId
+     * @return
+     */
+    public List<Channel> listChannelByUserId(String userId){
+        return channelService.findChannelByUserId(userId);
+    }
+
+    /**
      * 保存频道
      * @param channel
      */

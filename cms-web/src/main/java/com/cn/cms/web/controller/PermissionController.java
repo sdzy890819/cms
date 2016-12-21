@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by zhangyang on 16/11/29.
@@ -220,5 +221,33 @@ public class PermissionController extends BaseController {
         return ApiResponse.returnSuccess();
     }
 
+
+    /**
+     * 获取用户拥有的菜单栏权限
+     * @param request
+     * @return
+     */
+    @CheckToken
+    @RequestMapping(value = "/currentMenuPermission",method = RequestMethod.GET)
+    public String currentMenuPermission(HttpServletRequest request){
+        String userID = getCurrentUserId(request);
+        List<Permission> list = permissionBiz.getMenuPermission(userID);
+        return ApiResponse.returnSuccess(list);
+    }
+
+    /**
+     * 获取用户Menu下的Button权限。
+     * @param request
+     * @param id
+     * @return
+     */
+    @CheckToken
+    @RequestMapping(value = "/currentButtonPermission",method = RequestMethod.GET)
+    public String currentButtonPermission(HttpServletRequest request,
+                                          @RequestParam(value = "id") Long id){
+        String userID = getCurrentUserId(request);
+        List<Permission> list = permissionBiz.getButtonPermission(userID, id);
+        return ApiResponse.returnSuccess(list);
+    }
 
 }

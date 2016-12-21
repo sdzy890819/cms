@@ -27,6 +27,11 @@ public class ChannelServiceImpl implements ChannelService {
         return channelDao.findChannelAll();
     }
 
+    @Override
+    public List<Channel> findChannelByUserId(String userId) {
+        return channelDao.findChannelByUserId(userId);
+    }
+
     public void saveChannel(Channel channel) {
         channelDao.saveChannel(channel);
     }

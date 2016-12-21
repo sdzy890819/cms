@@ -24,6 +24,7 @@ public class ChannelController extends BaseController {
     @Resource
     private ChannelBiz channelBiz;
 
+
     /**
      * 获取频道分类列表
      * @return
@@ -146,5 +147,16 @@ public class ChannelController extends BaseController {
         return ApiResponse.returnSuccess(channel);
     }
 
+    /**
+     * 获取当前用户的频道分类列表
+     * @return
+     */
+    @CheckToken
+    @RequestMapping(value = "/currentChannelList", method = RequestMethod.GET)
+    public String currentChannelList(HttpServletRequest request){
+        String userID = getCurrentUserId(request);
+        List<Channel> list = channelBiz.listChannelByUserId(userID);
+        return ApiResponse.returnSuccess(list);
+    }
 
 }

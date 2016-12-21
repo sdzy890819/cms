@@ -13,6 +13,8 @@ public interface ChannelDao {
 
     List<Channel> findChannelAll();
 
+    List<Channel> findChannelByUserId(@Param(value = "userId") String userId);
+
     void saveChannel(@Param(value = "p1") Channel channel);
 
     void updateChannel(@Param(value = "p1") Channel channel);

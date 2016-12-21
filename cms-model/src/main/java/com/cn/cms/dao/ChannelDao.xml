@@ -32,6 +32,13 @@
         SELECT <include refid="sql_column" /> from channel <include refid="delTag" />;
     </select>
 
+    <select id="findChannelByUserId" resultMap="channel">
+        SELECT <include refid="sql_column" /> from channel <include refid="delTag" /> and id in (
+        select channel_id from user_channel <include refid="delTag" /> and user_id = #{userId}
+        );
+    </select>
+
+
     <insert id="saveChannel">
         insert into channel ( <include refid="sql_column"/> ) values (
         null, null, null, null, #{p1.lastModifyUserId}, #{p1.channelName}, #{p1.channelUrl}, #{p1.channelPath},

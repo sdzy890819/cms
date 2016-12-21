@@ -100,6 +100,8 @@ public interface UserService {
      */
     List<UserPosition> findUserPosition(String userId, Long positionId);
 
+    List<UserPosition> findUserPositionByPostionId(Long positionId);
+
     /**
      * 根据用户组名 查询用户组信息
      * @param positionName

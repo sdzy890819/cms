@@ -79,8 +79,8 @@
     </update>
 
     <select id="findPermissionForPositionIds" resultMap="permission" >
-        select <include refid="sql_column" /> from permission where id in (select permission_id from position_permission <include refid="delTag" /> and position_id in
-        (select position_id from user_position where user_id = #{userId}));
+        select <include refid="sql_column" /> from permission <include refid="delTag" /> and  id in (select permission_id from position_permission <include refid="delTag" /> and position_id in
+        (select position_id from user_position <include refid="delTag" /> and  user_id = #{userId}));
     </select>
 
 </mapper>

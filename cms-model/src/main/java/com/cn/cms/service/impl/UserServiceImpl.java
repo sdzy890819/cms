@@ -86,6 +86,11 @@ public class UserServiceImpl implements UserService {
         return userPositionDao.findUserPosition(userId, positionId);
     }
 
+    @Override
+    public List<UserPosition> findUserPositionByPostionId(Long positionId) {
+        return null;
+    }
+
     public Position findPositionName(String positionName) {
         return positionDao.findPositionName(positionName);
     }
