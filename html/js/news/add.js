@@ -16,7 +16,7 @@ define(["app",'form','position','fixedNav'], function ( app ) {
 				$scope.view = function( obj ){ //预览
 					alert(obj)
 				}
-				$scope.cancel = function( obj ){ //预览
+				$scope.cancel = function( obj ){ //取消
 					alert(obj)
 				}
 				
@@ -83,6 +83,7 @@ define(["app",'form','position','fixedNav'], function ( app ) {
 						title : 'selectCoumn',
 						name : '选择频道栏目',
 						type : 'select',
+						verify : 'select',
 						select : [
 							[
 								{name:'请选择部门'},
@@ -122,22 +123,22 @@ define(["app",'form','position','fixedNav'], function ( app ) {
 					submit : [
 						{
 							name : '保存',
-							evt : $scope.save,
+							evt : 'save',
 							icon_cls : 'save'
 						},
 						{
 							name:'预览',
-							evt : $scope.view,
+							evt : 'view',
 							icon_cls : 'view'
 						},
 						{
 							name:'确认发布',
-							evt : $scope.rlease,
+							evt : 'rlease',
 							icon_cls : 'ok'
 						},
 						{
 							name:'取消',
-							evt : $scope.cancel,
+							evt : 'cancel',
 							icon_cls : 'cancel',
 							cls : 'cancel'
 						}

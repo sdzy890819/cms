@@ -87,24 +87,26 @@ define(["app",'jquery'], function ( app , $ ) {
 
 
 				  	//自定义验证规则
-					  form.verify({
-					    title: function(value){
-					      if(value.length < 5){
-					        return '标题至少得5个字符啊';
-					      }
-					    }
-					    ,select : function( value , ele){
-					    	if(value.indexOf('请选择')>-1 && ele.parentNode.selectedIndex == 0){
-					    		return value;
-					    	}
-					    }
-					  });
-
-
+					form.verify({
+						title: function(value){
+						  if(value.length < 5){
+						    return '标题至少得5个字符啊';
+						  }
+						}
+						,select : function( value , ele){
+							if(value.indexOf('请选择')>-1 && ele.parentNode.selectedIndex == 0){
+								return value;
+							}
+						}
+						//required（必填项）phone（手机号）email（邮箱）url（网址）number（数字）date（日期）identity（身份证）
+					});
 					form.on('submit(demo1)', function(data){
-					    layer.alert(JSON.stringify(data.field), {
+						var event = $(data.elem).attr('data-event');
+						$scope.$parent[event](JSON.stringify(data.field));;
+						
+					    /*layer.alert(JSON.stringify(data.field), {
 					      title: '最终的提交信息'
-					    })
+					    })*/
 					    return false;
 				  	});
 				});		 

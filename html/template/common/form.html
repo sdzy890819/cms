@@ -15,29 +15,29 @@
 
 				    <div ng-if="obj.type=='select'" class="layui-input-inline {{obj.cls}}" ng-repeat="select in obj.select">
 				      <select name="{{obj.title}}{{$index}}">
-				        <option lay-verify='select' ng-repeat="option in select">{{option.name}}</option>
+				        <option lay-verify="{{obj.verify}}" ng-repeat="option in select">{{option.name}}</option>
 				      </select>
 				    </div>
 
-				    <input ng-if="obj.type=='date'" type="text" name="{{obj.title}}" id="date"placeholder="{{obj.placeholder}}" autocomplete="off" class="layui-input {{obj.cls||'w220'}}" ng-click="selectDate($event)"><!--  lay-verify="date"  -->
+				    <input ng-if="obj.type=='date'" type="text" name="{{obj.title}}" id="date"placeholder="{{obj.placeholder}}" readonly='readonly' autocomplete="off" class="layui-input {{obj.cls||'w220'}}" ng-click="selectDate($event)"><!--  lay-verify="date"  -->
 
 				</div>
 				<div class="layui-inline" ng-if='isArray(obj)' ng-repeat="item in obj">
 					<label class="layui-form-label"><em ng-show='item.check!=false'>*</em>{{item.name}}</label>
 				    <div class="layui-input-inline">
-				        <input ng-if="item.type=='text'" class="text layui-input {{item.cls||'w220'}}" type="text" name="title" placeholder="{{item.placeholder}}" autocomplete="off" name="{{obj.title}}">
+				        <input ng-if="item.type=='text'" class="text layui-input {{item.cls||'w220'}}" type="text" name="{{obj.title}}" placeholder="{{item.placeholder}}" autocomplete="off" name="{{obj.title}}">
 				    <div ng-if="item.type=='select'" class="layui-input-inline {{item.cls}}" ng-repeat="select in item.select">
 				      <select name="{{obj.title}}">
-				        <option ng-repeat="option in select">{{option.name}}</option>
+				        <option ng-repeat="option in select" lay-verify="{{obj.verify}}">{{option.name}}</option>
 				      </select>
 				    </div>
 
-				    <input ng-if="item.type=='date'" type="text" name="{{obj.title}}" id="date" lay-verify="date" placeholder="{{item.placeholder}}" autocomplete="off" class="layui-input {{item.cls||'w220'}}" ng-click="selectDate($event)">
+				    <input ng-if="item.type=='date'" type="text" name="{{obj.title}}" id="date" lay-verify="{{obj.verify}}" readonly='readonly' placeholder="{{item.placeholder}}" autocomplete="off" class="layui-input {{item.cls||'w220'}}" ng-click="selectDate($event)">
 				    </div>
 				</div>
 			</div>
 			<div class="submit">
-				<div class='btn {{obj.cls}}' lay-submit="" lay-filter="demo1" ng-repeat='obj in formdata.submit' ng-click='submit(obj.evt)'>
+				<div class='btn {{obj.cls}}' lay-submit="" lay-filter="demo1" ng-repeat='obj in formdata.submit' data-event='{{obj.evt}}'>
 					<i class="icon-{{obj.icon_cls}}"></i>
 					<span>{{obj.name}}</span>
 				</div>
