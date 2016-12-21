@@ -1,79 +1,53 @@
 <div>
-	<position-nav edit='edit' submit='submit'></position-nav>
 	<div class="boxtab {{formdata.cls}}">
 		<div class="title">
 			<i class="icon-reorder"></i>
 			{{formdata.title}}
 		</div>
-		<div class="layui-form content clearfix">
-			<div class="layui-form-item" ng-repeat="obj in formdata.list">
-				<label ng-if='!isArray(obj)' class="layui-form-label"><em ng-show='obj.check!=false'>*</em>{{obj.name}}</label>
-				<div class="layui-input-block" ng-if='!isArray(obj)'>
-					<input ng-if="obj.type=='text'" class="text layui-input {{obj.cls||'w320'}}" type="text" name="{{obj.title}}" lay-verify="{{obj.verify}}" placeholder="{{obj.placeholder}}" autocomplete="off">
+		<div class="content clearfix">
+			<form class="layui-form clearfix">
+				<position-nav edit='edit' submit='submit'></position-nav>
+				<div class="layui-form-item" ng-repeat="obj in formdata.list">
+					<label ng-if='!isArray(obj)' class="layui-form-label"><em ng-show='obj.check!=false'>*</em>{{obj.name}}</label>
+					<div class="layui-input-block" ng-if='!isArray(obj)'>
+						<input ng-if="obj.type=='text'" class="text layui-input {{obj.cls||'w320'}}" type="text" name="{{obj.title}}" lay-verify="{{obj.verify}}" placeholder="{{obj.placeholder}}" autocomplete="off">
 
-					<textarea ng-if="obj.type=='textarea'" class="layui-textarea text w80 {{obj.cls}}" name="{{obj.title}}" lay-verify="content" placeholder="{{obj.placeholder}}"></textarea>
+						<textarea ng-if="obj.type=='textarea'" class="layui-textarea text w80 {{obj.cls}}" name="{{obj.title}}" lay-verify="content" placeholder="{{obj.placeholder}}"></textarea>
 
-				    <div ng-if="obj.type=='select'" class="layui-input-inline {{obj.cls}}" ng-repeat="select in obj.select">
-				      <select name="{{obj.title}}{{$index}}">
-				        <option lay-verify="{{obj.verify}}" ng-repeat="option in select">{{option.name}}</option>
-				      </select>
-				    </div>
+					    <div ng-if="obj.type=='select'" class="layui-input-inline {{obj.cls}}" ng-repeat="select in obj.select">
+					      <select name="{{obj.title}}{{$index}}">
+					        <option lay-verify="{{obj.verify}}" ng-repeat="option in select">{{option.name}}</option>
+					      </select>
+					    </div>
 
-				    <input ng-if="obj.type=='date'" type="text" name="{{obj.title}}" id="date"placeholder="{{obj.placeholder}}" readonly='readonly' autocomplete="off" class="layui-input {{obj.cls||'w220'}}" ng-click="selectDate($event)"><!--  lay-verify="date"  -->
+					    <input ng-if="obj.type=='date'" type="text" name="{{obj.title}}" id="date"placeholder="{{obj.placeholder}}" readonly='readonly' autocomplete="off" class="layui-input {{obj.cls||'w220'}}" ng-click="selectDate($event)"><!--  lay-verify="date"  -->
 
+					</div>
+					<div class="layui-inline" ng-if='isArray(obj)' ng-repeat="item in obj">
+						<label class="layui-form-label"><em ng-show='item.check!=false'>*</em>{{item.name}}</label>
+					    <div class="layui-input-inline">
+					        <input ng-if="item.type=='text'" class="text layui-input {{item.cls||'w220'}}" type="text" name="{{obj.title}}" placeholder="{{item.placeholder}}" autocomplete="off" name="{{obj.title}}">
+					    <div ng-if="item.type=='select'" class="layui-input-inline {{item.cls}}" ng-repeat="select in item.select">
+					      <select name="{{obj.title}}">
+					        <option ng-repeat="option in select" lay-verify="{{obj.verify}}">{{option.name}}</option>
+					      </select>
+					    </div>
+
+					    <input ng-if="item.type=='date'" type="text" name="{{obj.title}}" id="date" lay-verify="{{obj.verify}}" readonly='readonly' placeholder="{{item.placeholder}}" autocomplete="off" class="layui-input {{item.cls||'w220'}}" ng-click="selectDate($event)">
+					    </div>
+					</div>
 				</div>
-				<div class="layui-inline" ng-if='isArray(obj)' ng-repeat="item in obj">
-					<label class="layui-form-label"><em ng-show='item.check!=false'>*</em>{{item.name}}</label>
-				    <div class="layui-input-inline">
-				        <input ng-if="item.type=='text'" class="text layui-input {{item.cls||'w220'}}" type="text" name="{{obj.title}}" placeholder="{{item.placeholder}}" autocomplete="off" name="{{obj.title}}">
-				    <div ng-if="item.type=='select'" class="layui-input-inline {{item.cls}}" ng-repeat="select in item.select">
-				      <select name="{{obj.title}}">
-				        <option ng-repeat="option in select" lay-verify="{{obj.verify}}">{{option.name}}</option>
-				      </select>
-				    </div>
-
-				    <input ng-if="item.type=='date'" type="text" name="{{obj.title}}" id="date" lay-verify="{{obj.verify}}" readonly='readonly' placeholder="{{item.placeholder}}" autocomplete="off" class="layui-input {{item.cls||'w220'}}" ng-click="selectDate($event)">
-				    </div>
+				<div class="submit">
+					<div class='btn {{obj.cls}}' lay-submit="" lay-filter="demo1" ng-repeat='obj in formdata.submit' data-event='{{obj.evt}}' ng-if='obj.evt!="cancel"'>
+						<i class="icon-{{obj.icon_cls}}"></i>
+						<span>{{obj.name}}</span>
+					</div>
+					<button ng-repeat='obj in formdata.submit' ng-if='obj.evt=="cancel"' type="reset" class="btn {{obj.cls}}">
+						<i class="icon-{{obj.icon_cls}}"></i>
+						<span>{{obj.name}}</span>
+					</button>
 				</div>
-			</div>
-			<div class="submit">
-				<div class='btn {{obj.cls}}' lay-submit="" lay-filter="demo1" ng-repeat='obj in formdata.submit' data-event='{{obj.evt}}'>
-					<i class="icon-{{obj.icon_cls}}"></i>
-					<span>{{obj.name}}</span>
-				</div>
-			</div>
+			</form>
 		</div>
 	</div>
-
-	<!-- <div class="form-horizontal">
-		<div class="control-group" ng-repeat="obj in formdata.list">
-			<div class="li" ng-if='!isArray(obj)'>
-				<div class="item" style='float:none;' data-obj='{{obj}}'>
-					<label class="control-label"><em ng-show='!obj.check'>*</em>{{obj.name}}</label>
-					<div class="controls">
-						<input ng-if="obj.type=='text'" class="text {{obj.cls||'w220'}}" type="text" placeholder="{{obj.placeholder}}">
-						<textarea ng-if="obj.type=='textarea'" class="text {{obj.cls}}" type="text" placeholder="{{obj.placeholder}}"></textarea>
-						<select ng-if="obj.type=='select'" class="{{obj.cls||'w220'}}" ng-repeat="select in obj.select">
-							<option ng-repeat="option in select">{{option.name}}</option>
-						</select>
-						<div class="edit" ng-if="obj.type=='edit'">
-							暂无eidt
-						</div>
-						<div class="date" ng-if="obj.type=='date'">
-							<input class="text {{obj.cls||'w220'}}" type="text" placeholder="{{obj.placeholder}}" ng-click="selectDate($event)">
-						</div>
-						<span class="help-inline">{{obj.prompt.defualt}}</span>
-					</div>
-				</div>
-			</div>
-			<div class="li" ng-if='isArray(obj)'>
-				<div class="item" ng-repeat="item in obj"  data-obj='{{obj}}'>
-					<label class="control-label {{$index!=0?'next':''}}">{{item.name}}</label>
-					<div class="controls {{$index!=0?'next':''}}">
-						<input class="text {{obj.cls||'w120'}}" type="text" placeholder="{{item.placeholder}}">
-					</div>
-				</div>
-			</div>
-		</div>
-	</div> -->
 </div>

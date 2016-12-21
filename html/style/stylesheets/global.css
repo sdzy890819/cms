@@ -613,9 +613,12 @@ input:focus{ border: 1px solid #bbb !important;} */
 
 /* line 210, ../sass/global.scss */
 .position-fixed {
+  position: fixed;
+  top: 160px;
+  right: 30px;
+  z-index: 9999;
   height: 35px;
   line-height: 35px;
-  margin-bottom: 15px;
   text-align: right;
 }
 /* line 211, ../sass/global.scss */
@@ -741,6 +744,7 @@ input:focus{ border: 1px solid #bbb !important;} */
   line-height: 35px;
   padding: 0 15px;
   color: #fff;
+  border: none;
   background: #35aa47;
   cursor: pointer;
   transition-duration: 0.3s;

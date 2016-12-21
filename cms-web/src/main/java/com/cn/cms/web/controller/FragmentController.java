@@ -154,10 +154,10 @@ public class FragmentController extends BaseController {
     @RequestMapping(value = "/updateFragment", method = RequestMethod.POST)
     public String updateFragment(HttpServletRequest request,
                                  @RequestPart(value = "id") Long id,
-                                 @RequestPart(value = "fragmentClassifyId") Long fragmentClassifyId,
-                                 @RequestPart(value = "fragmentName") String fragmentName,
-                                 @RequestPart(value = "fragmentModel") String fragmentModel,
-                                 @RequestPart(value = "sortNum") Integer sortNum){
+                                 @RequestPart(value = "fragmentClassifyId",required = false) Long fragmentClassifyId,
+                                 @RequestPart(value = "fragmentName",required = false) String fragmentName,
+                                 @RequestPart(value = "fragmentModel",required = false) String fragmentModel,
+                                 @RequestPart(value = "sortNum",required = false) Integer sortNum){
         Fragment fragment = fragmentBiz.findFragment(id);
         if(fragment == null){
             return ApiResponse.returnFail(StaticContants.ERROR_FRAGMENT_NOT_FOUND);

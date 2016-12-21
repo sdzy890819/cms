@@ -1,7 +1,7 @@
 <div ng-if='edit' class='position-fixed'>
 	<ul ng-if='edit.nav'>
 		<li ng-repeat="obj in edit.nav">
-			<a javascript:; ng-click='submit(obj.evt,false,$event)'>
+			<a javascript:; lay-submit="" lay-filter="demo1" data-event='{{obj.evt}}'>
 				<i class="icon-{{obj.icon_cls}}"></i>
 				<span>{{obj.name}}</span>
 			</a>
@@ -14,7 +14,7 @@
 		</a>
 		<ul class="list">
 			<li ng-repeat="obj in edit.list" repeat-finish='listFinish'>
-				<a javascript:; ng-click='submit(obj.evt,false,$event)'>
+				<a javascript:; lay-submit="" lay-filter="demo1" data-event='{{obj.evt}}'>
 					<i class="icon-{{obj.icon_cls}}"></i>
 					<span>{{obj.name}}</span>
 				</a>

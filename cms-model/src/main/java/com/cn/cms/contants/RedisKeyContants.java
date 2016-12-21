@@ -1,0 +1,41 @@
+package com.cn.cms.contants;
+
+/**
+ * 所有Redis的Key保存在这里
+ * Created by zhangyang on 16/11/15.
+ */
+public class RedisKeyContants {
+
+
+    public static final String REDIS_TOKEN_KEY = "CMS_TOKEN_KEY_";
+
+    public static final String REDIS_POSITION_PERMISSION_KEY = "CMS_PERMISSION_USERID_";
+
+    public static final String REDIS_POSITION_PERMISSION_MENU_KEY = "CMS_PERMISSION_MENU_USERID_";
+
+    public static final String REDIS_POSITION_PERMISSION_BUTTON_KEY = "CMS_PERMISSION_BUTTON_USERID_";
+
+    public static final String REDIS_PARENT_KEY = "_PARENT_";
+
+    public static final String REDIS_RECORD_KEY = "CMS_RECORD_KEY";
+
+    public static String getToken(String userId){
+        return REDIS_TOKEN_KEY.concat(userId);
+    }
+
+    public static String getPermission(String userId){
+        return REDIS_POSITION_PERMISSION_KEY.concat(userId);
+    }
+
+    public static String getMenuPermission(String userId){
+        return REDIS_POSITION_PERMISSION_MENU_KEY.concat(userId);
+    }
+
+    public static String getButtonPermission(String userId){
+        return REDIS_POSITION_PERMISSION_BUTTON_KEY.concat(userId);
+    }
+
+    public static String getButtonParentPermission(String userId ,Long parentId){
+        return REDIS_POSITION_PERMISSION_BUTTON_KEY.concat(userId).concat(REDIS_PARENT_KEY).concat(String.valueOf(parentId));
+    }
+}

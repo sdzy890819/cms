@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by zhangyang on 16/11/29.
@@ -111,14 +112,14 @@ public class PermissionController extends BaseController {
     @CheckAuth( name = "permission:update" )
     @RequestMapping(value = "/updatePermission",method = RequestMethod.POST)
     public String updatePermission(HttpServletRequest request,
-                                   @RequestPart(value = "id")Long id,
-                                   @RequestPart(value = "name")String name,
-                                   @RequestPart(value = "description")String description,
-                                   @RequestPart(value = "type")Integer type,
-                                   @RequestPart(value = "url")String url,
-                                   @RequestPart(value = "sort")Integer sort,
-                                   @RequestPart(value = "showFlag")Integer showFlag,
-                                   @RequestPart(value = "permission")String permission){
+                                   @RequestPart(value = "id",required = false)Long id,
+                                   @RequestPart(value = "name",required = false)String name,
+                                   @RequestPart(value = "description",required = false)String description,
+                                   @RequestPart(value = "type",required = false)Integer type,
+                                   @RequestPart(value = "url",required = false)String url,
+                                   @RequestPart(value = "sort",required = false)Integer sort,
+                                   @RequestPart(value = "showFlag",required = false)Integer showFlag,
+                                   @RequestPart(value = "permission",required = false)String permission){
         Permission old = this.permissionBiz.findPermission(id);
         if(old == null){
             return ApiResponse.returnFail(StaticContants.ERROR_PERMISSION_NOT_FOUND);
@@ -220,5 +221,33 @@ public class PermissionController extends BaseController {
         return ApiResponse.returnSuccess();
     }
 
+
+    /**
+     * 获取用户拥有的菜单栏权限
+     * @param request
+     * @return
+     */
+    @CheckToken
+    @RequestMapping(value = "/currentMenuPermission",method = RequestMethod.GET)
+    public String currentMenuPermission(HttpServletRequest request){
+        String userID = getCurrentUserId(request);
+        List<Permission> list = permissionBiz.getMenuPermission(userID);
+        return ApiResponse.returnSuccess(list);
+    }
+
+    /**
+     * 获取用户Menu下的Button权限。
+     * @param request
+     * @param id
+     * @return
+     */
+    @CheckToken
+    @RequestMapping(value = "/currentButtonPermission",method = RequestMethod.GET)
+    public String currentButtonPermission(HttpServletRequest request,
+                                          @RequestParam(value = "id") Long id){
+        String userID = getCurrentUserId(request);
+        List<Permission> list = permissionBiz.getButtonPermission(userID, id);
+        return ApiResponse.returnSuccess(list);
+    }
 
 }

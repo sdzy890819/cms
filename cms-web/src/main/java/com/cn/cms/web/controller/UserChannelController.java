@@ -43,7 +43,7 @@ public class UserChannelController extends BaseController {
      */
     @CheckToken
     @CheckAuth( name = "userchannel:read" )
-    @RequestMapping(value = "/userchannellist/channelId")
+    @RequestMapping(value = "/list/channelId")
     public String userchannel(HttpServletRequest request, @RequestParam(value = "page",required = false) Integer page,
                               @RequestParam(value="pageSize",required = false)Integer pageSize,
                               @RequestParam(value = "channelId") Long channelId){
@@ -69,7 +69,7 @@ public class UserChannelController extends BaseController {
      */
     @CheckToken
     @CheckAuth( name = "userchannel:read" )
-    @RequestMapping(value = "/userchannellist/userId")
+    @RequestMapping(value = "/list/userId")
     public String userchannel_2(@RequestParam(value = "page",required = false) Integer page,
                               @RequestParam(value="pageSize",required = false)Integer pageSize,
                               @RequestParam(value = "userId") String userId){

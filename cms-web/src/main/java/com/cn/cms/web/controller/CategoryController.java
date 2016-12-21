@@ -69,8 +69,8 @@ public class CategoryController extends BaseController {
     @RequestMapping(value = "/updateCategory", method = RequestMethod.POST)
     public String updateCategory(HttpServletRequest request,
                                  @RequestPart(value = "id") Long id,
-                                 @RequestPart(value = "categoryName") String categoryName,
-                                 @RequestPart(value = "categoryDesc") String categoryDesc){
+                                 @RequestPart(value = "categoryName",required = false) String categoryName,
+                                 @RequestPart(value = "categoryDesc",required = false) String categoryDesc){
         Category category = new Category();
         category.setLastModifyUserId(getCurrentUserId(request));
         category.setCategoryDesc(categoryDesc);

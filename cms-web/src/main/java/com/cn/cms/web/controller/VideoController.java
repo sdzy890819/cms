@@ -55,8 +55,8 @@ public class VideoController extends BaseController{
     @RequestMapping(value = "/updateVideoBase", method = RequestMethod.POST)
     public String updateVideoBase(HttpServletRequest request,
                             @RequestPart("id") Long id,
-                            @RequestPart("baseUrl") String baseUrl,
-                            @RequestPart("basePath") String basePath){
+                            @RequestPart(value = "baseUrl",required = false) String baseUrl,
+                            @RequestPart(value = "basePath",required = false) String basePath){
         VideoBase videoBase = new VideoBase();
         videoBase.setId(id);
         videoBase.setBasePath(basePath);
@@ -133,10 +133,10 @@ public class VideoController extends BaseController{
     @RequestMapping(value = "/updateVideo", method = RequestMethod.POST)
     public String updateVideo(HttpServletRequest request,
                               @RequestPart(value = "id") Long id,
-                              @RequestPart(value = "videoTitle") String videoTitle,
-                              @RequestPart(value = "videoDesc") String videoDesc,
-                              @RequestPart(value = "videoUrl") String videoUrl,
-                              @RequestPart(value = "videoPath", required = false) String videoPath
+                              @RequestPart(value = "videoTitle",required = false) String videoTitle,
+                              @RequestPart(value = "videoDesc",required = false) String videoDesc,
+                              @RequestPart(value = "videoUrl",required = false) String videoUrl,
+                              @RequestPart(value = "videoPath",required = false) String videoPath
     ){
         String userID = getCurrentUserId(request);
         Video video = new Video();
