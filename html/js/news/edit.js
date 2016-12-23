@@ -4,32 +4,24 @@ define(["app",'form','position','fixedNav'], function ( app ) {
 	    	restrict : 'E',
 	    	replace : true,
 	    	transclude : true,
-	        templateUrl : '../template/news/add.html',
+	        templateUrl : '../template/news/edit.html',
 	        controller : function($scope){
 				$scope.$parent.menu.push({name:"新闻栏目编辑"}); //栏目
 
-				$scope.save = function( arr ){ //保存
-					alert(arr)
+				$scope.save = function( obj ){ //保存
+					alert(obj)
 				}
 				var list = [ //表单
 					{
 						name : '栏目名',
 						placeholder : '请输入栏目名称',
-						minLength : 1,
-						maxLength : 6,
 						type : 'text', //text textarea radio checkbox edit
-						prompt : {
-							defualt : '标题为1-6个字符',
-							error : '内容必需为中文，1-6个字符内'
-						}
+						verify : 'title'
 					},
 					{
 						name : '部门分类选择',
 						type : 'select',
-						prompt : {
-							defualt : '请选择栏目',
-							error : '栏目不能为空'
-						},
+						verify : 'select',
 						select : [
 							[
 								{name:'请选择部门'},
@@ -38,12 +30,9 @@ define(["app",'form','position','fixedNav'], function ( app ) {
 						]
 					},
 					{
-						name : '频道分类选择',
+						name : '请选择频道分类',
 						type : 'select',
-						prompt : {
-							defualt : '请选择栏目',
-							error : '栏目不能为空'
-						},
+						verify : 'select',
 						select : [
 							[
 								{name:'频道分类选择'},
@@ -58,11 +47,12 @@ define(["app",'form','position','fixedNav'], function ( app ) {
 					submit : [
 						{
 							name : '保存',
-							evt : $scope.save,
+							evt : 'save',
 							icon_cls : 'save'
 						}
 					]
 				}
+
 	        }
 	    };
 	});

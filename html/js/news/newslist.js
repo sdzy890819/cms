@@ -1,20 +1,38 @@
-define(["app",'jquery','formlist','fixedNav'], function ( app , $ ) {
-	app.directive('newsList',function(){
+define(['require',"app",'jquery','formlist','fixedNav','../moduls/service'], function ( require , app , $ ) {
+	app.directive('newsNewslist',function(){
 		return {
 	    	restrict : 'E',
 	    	replace : true,
 	    	transclude : true,
-	        templateUrl : '../template/news/list.html',
-	        controller : function($scope){
+	        templateUrl : '../template/news/newslist.html',
+	        controller : function($scope,pop){
 				$scope.$parent.menu.push({name:"新闻栏目列表"}); //栏目
-				$scope.add = function( id ){ //保存
+				$scope.info = function( id ){ //保存
 					alert(id)
 				}
-				$scope.edit = function( id ){ //保存
-					alert(id)
+				$scope.edit = function( id ){ //编辑
+					require(['./editPop'], function(pop) {
+        				pop.init({
+        					id : id
+        				});
+  					});
 				}
 				$scope.del = function( id ){ //保存
-					alert(id)
+					pop.alert({
+ 						 text:'您确定要删除吗'+id
+ 						,btn : ['确定','取消']
+ 						,fn : function(){
+ 							var _data = {
+							    "code":0,
+							    "message":"成功",
+							    "data":{}
+							};
+							layui.use(['layer'], function(){
+								var layer = layui.layer;
+								layer.msg(_data.message);
+							});
+						}
+ 					})
 				}
 				var selectAll = {
 					name : '全选',
@@ -38,60 +56,74 @@ define(["app",'jquery','formlist','fixedNav'], function ( app , $ ) {
 						}
 					]
 				}
-				var td = [ //表单
-					[
-						{id:'566541545'},
-						{name:'用户脆响q',img : 'images/img.png'},
-						{name:'用户组名称'}
-					],
-					[
-						{id:'1242314'},
-						{name:'用户脆响q',img : 'images/img.png'},
-						{name:'用户组名称'}
-					],
-					[
-						{id:'6585568'},
-						{name:'用户脆响q',img : 'images/img.png'},
-						{name:'用户组名称'}
-					],
-					[
-						{id:'03452345'},
-						{name:'用户脆响q',img : 'images/img.png'},
-						{name:'用户组名称'}
-					],
-					[
-						{id:'98123468'},
-						{name:'用户脆响q',img : 'images/img.png'},
-						{name:'用户组名称'}
-					],
-					[
-						{id:'566541545'},
-						{name:'用户脆响q',img : 'images/img.png'},
-						{name:'用户组名称'}
-					],
-					[
-						{id:'566541545'},
-						{name:'用户脆响q',img : 'images/img.png'},
-						{name:'用户组名称'}
-					]
+				$scope.filter = [ //过滤不需要展示的
+					'id','channelId','columnId',
+					'write_user_id','platform'
 				];
+				var _data = {
+				    "code":0,
+				    "message":"成功",
+				    "data":{
+				        "page":{
+				            "pageSize":20,
+				            "count":100,
+				            "pageCount":5,
+				            "page":1
+				        },
+				        "list":[
+				            {
+				                "id":1,
+				                "title":"标题",
+				                "source":"来源",
+				                "author":"作者",
+				                "channelId":10,//频道ID
+				                "columnId":10,//栏目ID
+				                "write_user_id":"123123213123123123",//撰稿人
+				                "writeUserName":"撰稿人",
+				                "platform":1,
+				                "platformStr":"平台名称"
+				            }
+				        ]
+				    }
+				}
+				var arr = [];
+				$.each(_data.data.list,function( i , obj ){
+					var li = {} , k = 0;
+					$.each(obj,function( key , val ){
+						var b = false;
+						for(var j=0,len=$scope.filter.length;j<len;j++){
+							if(key!=$scope.filter[j]){
+								b = true;
+							}
+						}
+						if(!b){
+							li['name'+k] = val;
+							k++;
+						}else{
+							li[key] = val;
+						}
+					})
+					arr.push(li);
+				});
 				$scope.listdata = { //确认按钮
 					title : '新闻栏目编辑',
 					table : {
 						select : true,
 						th : [
-							{name:'ID' , width : '200'},
-							{name:'真实姓名' , width : '100'},
-							{name:'用户组名'},
+							{name:'标题' , width : '200'},
+							{name:'来源' , width : '100'},
+							{name:'作者'},
+							{name:'撰稿人'},
+							{name:'平台名称'},
 							{name:'操作' , width : '200'}
 						],
-						td : td ,
+						td : arr ,
 						edit : {
-							width : 300 , 
+							width : 100 , 
 							list : [
-								{cls : 'add' , name : '添加新用户到组',evt:$scope.add},
-								{cls : 'edit' , name : '添加权限到组',evt:$scope.edit},
+								{cls : 'edit' , name : '编辑',evt:$scope.edit},
 								{cls : 'del' , name : '删除',evt:$scope.del},
+								{cls : '' , name : '详情',evt:$scope.info},
 							]
 						}
 					},

@@ -1,4 +1,4 @@
-define(["app"], function ( app ) {
+define(["app",'./moduls/directive'], function ( app ) {
 	app.directive('positionNav',function(){
 		return {
 	    	restrict : 'E',

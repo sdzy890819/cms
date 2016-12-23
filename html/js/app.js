@@ -9,7 +9,6 @@ require.config({
         'angular-ui-router': 'plug/angular-ui-router.min',
         'angular-css':'plug/angular-css.min',
 
-        'page' : 'plug/pagination.min',
         'layui' : 'plug/layui/layui',
 
         'head' : 'common/header' , 
@@ -118,6 +117,24 @@ define(["angular", "angularAMD", "angular-ui-router",'angular-css','jquery','lay
                 template : '<column-list></column-list>',
                 controllerUrl: 'column/list'
             })
+
+            //图片上传
+            /*.state('column', {
+                url: '/column',
+                templateUrl: 'template/column/index.html',
+                controllerUrl: 'column/index',
+                controller: 'mainCtrl'
+            })
+            .state('column.edit', {
+                url: '/edit',
+                template : '<column-edit></column-edit>',
+                controllerUrl: 'column/edit'
+            })
+            .state('column.list', {
+                url: '/list',
+                template : '<column-list></column-list>',
+                controllerUrl: 'column/list'
+            })*/
     }]);
 
     layui.config({

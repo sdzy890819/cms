@@ -7,6 +7,9 @@ define(["app",'jquery','formlist','fixedNav','../moduls/service'], function ( ap
 	        templateUrl : '../template/news/list.html',
 	        controller : function($scope , pop){
 				$scope.$parent.menu.push({name:"新闻栏目管理"}); //栏目
+				$scope.filter = [ //过滤不需要展示的
+					'id'
+				];
 				$scope.add = function( id ){ //保存
 					pop.alert({
 						 text:'你的ID为：'+id
@@ -63,7 +66,44 @@ define(["app",'jquery','formlist','fixedNav','../moduls/service'], function ( ap
 						}
 					]
 				}
-				var td = [ //表单
+				var _data = {
+				    "code":0,
+				    "message":"成功",
+				    "data":{
+				        "page":{
+				            "pageSize":20,
+				            "count":100,
+				            "pageCount":5,
+				            "page":1
+				        },
+				        "list":[
+				            {
+				                "columnName":"栏目名1",
+				                "channelId":"频道ID1",
+				                "id":1
+				            },
+				            {
+				                "columnName":"栏目名2",
+				                "channelId":"频道ID2",
+				                "id":2
+				            }
+				        ]
+				    }
+				}
+				var arr = [];
+				$.each(_data.data.list,function( i , obj ){
+					var li = {} , k = 0;
+					$.each(obj,function( key , val ){
+						if(key!='id'){
+							li['name'+k] = val;
+							k++;
+						}else{
+							li[key] = val;
+						}
+					})
+					arr.push(li);
+				})
+				/*var td = [ //表单
 					[
 						{id:'566541545'},
 						{name:'用户脆响q',img : 'images/img.png'},
@@ -73,59 +113,18 @@ define(["app",'jquery','formlist','fixedNav','../moduls/service'], function ( ap
 						{id:'1242314'},
 						{name:'用户脆响q',img : 'images/img.png'},
 						{name:'用户组名称'}
-					],
-					[
-						{id:'6585568'},
-						{name:'用户脆响q',img : 'images/img.png'},
-						{name:'用户组名称'}
-					],
-					[
-						{id:'03452345'},
-						{name:'用户脆响q',img : 'images/img.png'},
-						{name:'用户组名称'}
-					],
-					[
-						{id:'98123468'},
-						{name:'用户脆响q',img : 'images/img.png'},
-						{name:'用户组名称'}
-					],
-					[
-						{id:'566541545'},
-						{name:'用户脆响q',img : 'images/img.png'},
-						{name:'用户组名称'}
-					],
-					[
-						{id:'566541545'},
-						{name:'用户脆响q',img : 'images/img.png'},
-						{name:'用户组名称'}
-					],
-					[
-						{id:'566541545'},
-						{name:'用户脆响q',img : 'images/img.png'},
-						{name:'用户组名称'}
-					],
-					[
-						{id:'566541545'},
-						{name:'用户脆响q',img : 'images/img.png'},
-						{name:'用户组名称'}
-					],
-					[
-						{id:'566541545'},
-						{name:'用户脆响q',img : 'images/img.png'},
-						{name:'用户组名称'}
 					]
-				];
+				];*/
 				$scope.listdata = { //确认按钮
 					title : '新闻栏目编辑',
 					table : {
 						select : true,
 						th : [
-							{name:'ID' , width : '200'},
-							{name:'真实姓名' , width : '100'},
-							{name:'用户组名'},
-							{name:'操作' , width : '200'}
+							{name:'栏目名' , width : '200'},
+							{name:'频道ID' },
+							{name:'操作' , width : '100'}
 						],
-						td : td ,
+						td : arr ,
 						edit : {
 							width : 300 , 
 							list : [
