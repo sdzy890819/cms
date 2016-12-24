@@ -1,4 +1,4 @@
-define(["app",'jquery','page','./moduls/directive'], function ( app , $ ) {
+define(["app",'jquery','./moduls/directive'], function ( app , $ ) {
 	app.directive('formList',function(){
 		return {
 	    	restrict : 'E',
@@ -7,7 +7,8 @@ define(["app",'jquery','page','./moduls/directive'], function ( app , $ ) {
 	        templateUrl : '../template/common/formlist.html',
 			scope : {
 	            data : '=data',
-	            edit : '=edit'
+	            edit : '=edit',
+	            filter : '=filter'
 	        },
 	        controller : function($scope , $state , $element , $rootScope){
 				var icon = {
@@ -18,7 +19,18 @@ define(["app",'jquery','page','./moduls/directive'], function ( app , $ ) {
 
 				$.each($scope.data.table.edit.list,function( i , obj ){
 					obj.icon = icon[obj.cls];
-				})
+				});
+
+				$scope.filterTd = function( val ){
+					var b = true;
+					for(var i=0,len=$scope.filter.length;i<len;i++){
+						if($scope.filter[i]==val){
+							b = false;
+							break;
+						}
+					}
+					return b;
+				}
 			},
 			link : function($scope , element , arrt , controller){
 				var ele = $(element[0]) ,
@@ -135,24 +147,7 @@ define(["app",'jquery','page','./moduls/directive'], function ( app , $ ) {
 					}
 				}
 				//以下为分页
-				var container = $('#pages');
-	            var options = {
-	                dataSource: 'https://api.flickr.com/services/feeds/photos_public.gne?tags=cat&tagmode=any&format=json&jsoncallback=?',//$scope.data.table.td,
-	                locator: 'data',
-	                showGoInput  : true,
-	                showGoButton :true ,
-	                pageSize : 10 ,
-	                totalNumber : 50,
-	                totalPage : 5,
-	                ajax: {
-				        beforeSend: function() {
-				            //dataContainer.html('Loading data from flickr.com ...');
-				        }
-				    },
-	                //autoHidePrevious : true,
-	                //autoHideNext : true
-	            };
-	            container.pagination(options);		 
+				 
 			}
 		}
 	});

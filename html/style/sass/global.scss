@@ -207,7 +207,7 @@ $leftWidth : 225px;
     a{ text-decoration: none; }
     .cur{ color:#4d90fe;}
 }
-.position-fixed{height:35px; line-height:35px; margin-bottom:15px; text-align:right;
+.position-fixed{ position:relative; z-index:9999; height:35px; line-height:35px; margin-bottom:10px; text-align:right;
     >ul{ display:inline-block; vertical-align:middle;
         li{ 
             float:left; color:#fff; background:#35aa47;
@@ -231,6 +231,10 @@ $leftWidth : 225px;
 }
 
 .boxtab{
+    margin-top:55px; position:relative; z-index:9;
+    .position-fixed{
+         position:absolute; top:-45px; right:0; 
+    }
     >.title{
         background-color: #35aa47;margin-bottom: 0px;padding: 8px 10px 8px 10px;color: #fff !important;
     }
@@ -238,8 +242,8 @@ $leftWidth : 225px;
         border:1px solid #35aa47;
     }
     .submit{
-        height:60px; line-height: 60px; padding-left: 200px; background: #f5f5f5; border-top:1px solid #e5e5e5;
-        .btn{ display: inline-block; height: 35px; line-height: 35px; padding:0 15px; color: #fff; background: #35aa47; cursor: pointer;@include transition-duration(.3s);
+        height:60px; line-height: 60px; padding-left: 150px; background: #f5f5f5; border-top:1px solid #e5e5e5;
+        .btn{ display: inline-block; height: 35px; line-height: 35px; padding:0 15px; color: #fff; border:none; background: #35aa47; cursor: pointer;@include transition-duration(.3s);
             &:hover{ background:#108f24; };
             &:not(:nth-child(1)){ margin-left:10px; };
             &.cancel{ background-color: #e5e5e5; color: #737373; 
@@ -274,11 +278,12 @@ $leftWidth : 225px;
         em{ padding-right:5px; color:#e50000; vertical-align:middle;}
     }
 }
-.layui-form{ padding:20px; 
+.layui-form{ padding-top:20px;
     textarea.w80{ width:80%; max-width:600px; min-height:50px; }
     em{ padding-right:5px; color:#e50000; vertical-align:middle;}
-    .layui-form-label{ width:100px;}
-    .layui-input-block{ margin-left:130px;}
+    .layui-form-label{ width:120px;}
+    .layui-input-block{ margin-left:150px;}
+    .date{ cursor:pointer;}
 }
 .table{
     table{ width:100%; border-left:1px solid #ddd; border-top:1px solid #ddd; @include box-sizing;}
@@ -291,11 +296,14 @@ $leftWidth : 225px;
     }
     .select{ width:20px; text-align:center;}
     .edits{ }
-    .btn{ display:inline-block; margin-left:1px; padding:2px 10px; font-size:12px; background:#e5e5e5; cursor:pointer; color:#333; @include transition-duration(.3s);
+    .btn{ display:inline-block; margin-left:1px; padding:2px 10px; font-size:12px; background:#35aa47; cursor:pointer; color:#fff; @include transition-duration(.3s);
         i{ margin-right:3px; }
-        &:hover{ background:#da0000; color:#fff;}
         &.add{ background:#35aa47; color:#fff;
             &:hover{background:#1e9831; }
+        }
+        &.del{ background:#f24400; color:#fff;
+            &:hover{ background:#da0000;}
+
         }
         &.edit{ background:#4d90fe; color:#fff;
             &:hover{  background:#2673f1;}
@@ -303,6 +311,7 @@ $leftWidth : 225px;
     }
 }
 .tablist{
+    margin-top:0;
     .submit{ padding-left:25px;}
 }
 .page{
@@ -326,5 +335,11 @@ $leftWidth : 225px;
                 &:hover{background:#eee;}
             }
         }
+    }
+}
+
+.news{
+    &.edit{
+        .boxtab{ margin-top:0; }
     }
 }
