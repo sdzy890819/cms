@@ -16,7 +16,7 @@
 	<import resource="classpath:spring/spring-cache.xml"/>
 	<import resource="classpath:spring/spring-db.xml"/>
 	<import resource="classpath:spring/spring-amqp-common.xml"/>
-	<import resource="classpath:spring/spring-amqp-pub-build.xml"/>
+	<import resource="classpath:spring/spring-amqp-sub-build.xml"/>
 
 	
 	<bean id="placeholderConfig"
@@ -27,25 +27,9 @@
 	<!-- 自动扫描包，可以写多个 -->
 	<context:component-scan base-package="com.cn.cms"></context:component-scan>
 	<aop:aspectj-autoproxy />
-	
-	<mvc:annotation-driven>
-		<mvc:message-converters>
-			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
-                <constructor-arg value="UTF-8" />
-            </bean>
-		</mvc:message-converters>
-	</mvc:annotation-driven>
 
 	<!-- 允许对静态资源文件的访问 -->
 	<mvc:default-servlet-handler/>
-
-
-
-	<mvc:interceptors >
-		<bean class="com.cn.cms.web.interceptor.CheckTokenInterceptor" />
-		<bean class="com.cn.cms.web.interceptor.CheckAuthInterceptor" />
-	</mvc:interceptors>
-
 
 	<bean id="threadTaskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
 		<!-- 核心线程数，默认为1 -->
@@ -65,4 +49,5 @@
 			<bean class="java.util.concurrent.ThreadPoolExecutor$CallerRunsPolicy" />
 		</property>
 	</bean>
+
 </beans>

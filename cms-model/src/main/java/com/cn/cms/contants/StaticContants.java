@@ -128,4 +128,10 @@ public class StaticContants {
 
     }
 
+    public static final String TAG_LIST = "QJList";
+
+    public static final String TAG_DETAIL = "QJDetail";
+
+    public static final String PUBLISH_TMP_TEMPLATE_NAME = "text parse";
+
 }

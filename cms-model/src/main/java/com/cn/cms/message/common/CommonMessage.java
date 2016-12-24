@@ -16,4 +16,11 @@ public class CommonMessage {
     @Setter
     private Integer source;
 
+    public CommonMessage(Object message, Integer source){
+        this.source = source;
+        this.message = message;
+    }
+
+    public CommonMessage(){}
+
 }

@@ -1,7 +1,9 @@
 package com.cn.cms.web.controller;
 
+import com.cn.cms.biz.PublishBiz;
 import com.cn.cms.biz.TopicBiz;
 import com.cn.cms.contants.StaticContants;
+import com.cn.cms.enums.CommonMessageSourceEnum;
 import com.cn.cms.exception.BizException;
 import com.cn.cms.po.Topic;
 import com.cn.cms.po.TopicClassify;
@@ -33,6 +35,9 @@ public class TopicController extends BaseController {
 
     @Resource
     private TopicBiz topicBiz;
+
+    @Resource
+    private PublishBiz publishBiz;
 
     /**
      * 分页专题列表。
@@ -83,15 +88,14 @@ public class TopicController extends BaseController {
 
     /**
      * 发布。
-     * @param request
      * @param id
      * @return
      */
     @CheckToken
     @CheckAuth( name = "topic:publish" )
     @RequestMapping(value = "/publish", method = RequestMethod.GET)
-    public String publish(HttpServletRequest request, @RequestParam(value = "id") Long id){
-        //-----------
+    public String publish(@RequestParam(value = "id") Long id){
+        publishBiz.publish(id, CommonMessageSourceEnum.TOPIC);
         return ApiResponse.returnSuccess();
     }
 

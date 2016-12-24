@@ -1,8 +1,9 @@
 package com.cn.cms.web.controller;
 
 import com.cn.cms.biz.FragmentBiz;
-import com.cn.cms.bo.FragmentBean;
+import com.cn.cms.biz.PublishBiz;
 import com.cn.cms.contants.StaticContants;
+import com.cn.cms.enums.CommonMessageSourceEnum;
 import com.cn.cms.enums.RegexNumEnum;
 import com.cn.cms.po.Fragment;
 import com.cn.cms.po.FragmentClassify;
@@ -33,6 +34,9 @@ public class FragmentController extends BaseController {
 
     @Resource
     private FragmentBiz fragmentBiz;
+
+    @Resource
+    private PublishBiz publishBiz;
 
     /**
      * 获取碎片列表
@@ -284,15 +288,14 @@ public class FragmentController extends BaseController {
 
     /**
      * 发布。
-     * @param request
      * @param id
      * @return
      */
     @CheckToken
     @CheckAuth( name = "fragment:publish" )
     @RequestMapping(value = "/publish", method = RequestMethod.GET)
-    public String publish(HttpServletRequest request, @RequestParam(value = "id") Long id){
-        //-----------
+    public String publish(@RequestParam(value = "id") Long id){
+        publishBiz.publish(id, CommonMessageSourceEnum.FRAGMENT);
         return ApiResponse.returnSuccess();
     }
 
