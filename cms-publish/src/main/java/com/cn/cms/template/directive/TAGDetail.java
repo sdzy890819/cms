@@ -1,4 +1,4 @@
-package com.cn.cms.directive;
+package com.cn.cms.template.directive;
 
 import com.cn.cms.contants.StaticContants;
 import lombok.Getter;
@@ -15,12 +15,12 @@ import java.io.IOException;
 import java.io.Writer;
 
 /**
- * #QJDetail(String resultObjName, Integer type, String content)
+ * #TAGDetail(String resultObjName, Integer type, String content)
  * Created by zhangyang on 16/12/23.
  */
 @Getter
 @Setter
-public class QLDetail extends Directive {
+public class TAGDetail extends Directive {
 
     /**
      * 返回的对象名

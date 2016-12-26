@@ -74,4 +74,14 @@ public class NewsServiceImpl implements NewsService {
         newsDao.delNews(lastModifyUserId, id);
         newsDetailDao.delNewsDetail(lastModifyUserId, id);
     }
+
+    @Override
+    public List<News> findNewsByColumnId(Long columnId, Page page) {
+        return newsDao.findNewsByColumnId(columnId, page);
+    }
+
+    @Override
+    public void publishNews(News news) {
+        newsDao.publishNews(news);
+    }
 }

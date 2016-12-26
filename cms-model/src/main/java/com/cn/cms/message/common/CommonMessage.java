@@ -12,6 +12,9 @@ public class CommonMessage {
     @Setter
     private Object message;
 
+    /**
+     * CommonMessageSourceEnum
+     */
     @Getter
     @Setter
     private Integer source;

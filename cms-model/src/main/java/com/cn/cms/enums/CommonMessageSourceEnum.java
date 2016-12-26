@@ -14,7 +14,7 @@ public enum CommonMessageSourceEnum {
     OTHER("OTHER", 4);
 
     @Getter
-    private int type;
+    private Integer type;
 
     @Getter
     private String name;

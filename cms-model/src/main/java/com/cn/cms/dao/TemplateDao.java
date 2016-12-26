@@ -23,4 +23,8 @@ public interface TemplateDao {
     void updateTemplate(@Param(value = "p1") Template template);
 
     Template getTemplate(@Param(value = "id") Long id);
+
+    List<Template> findTemplateListByRelation(@Param(value = "relationId") Long relationId,
+                                              @Param(value = "relationType") Integer relationType);
+    void publishTemplate(@Param(value = "list") List<Long> list);
 }

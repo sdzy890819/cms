@@ -84,4 +84,19 @@ public class TopicServiceImpl implements TopicService {
     public void updateTopicClassify(TopicClassify topicClassify) {
         topicClassifyDao.updateTopicClassify(topicClassify);
     }
+
+    @Override
+    public List<Topic> findTopicByClassify(Long topicClassifyId, Page page) {
+        return topicDao.findTopicByClassify(topicClassifyId, page);
+    }
+
+    @Override
+    public List<Topic> findTopicByColumn(Long topicColumnId, Page page) {
+        return topicDao.findTopicByColumn(topicColumnId, page);
+    }
+
+    @Override
+    public void publishTopic(Topic topic) {
+        topicDao.publishTopic(topic);
+    }
 }

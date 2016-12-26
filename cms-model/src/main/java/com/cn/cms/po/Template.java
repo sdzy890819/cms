@@ -1,6 +1,7 @@
 package com.cn.cms.po;
 
 import com.cn.cms.enums.EncodedEnum;
+import com.cn.cms.enums.PublishEnum;
 import com.cn.cms.enums.TemplateClassifyEnum;
 import lombok.Getter;
 import lombok.Setter;
@@ -84,6 +85,13 @@ public class Template extends Base {
     @Getter
     @Setter
     private Integer sortNum;
+
+    /**
+     * 是否发布
+     */
+    @Getter
+    @Setter
+    private Integer publish = PublishEnum.NO.getType();
 
     public String getTemplateClassifyStr() {
         return TemplateClassifyEnum.get(templateClassify).getName();

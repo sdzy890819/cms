@@ -18,6 +18,7 @@ public class TemplateBiz extends BaseBiz {
     @Resource
     private TemplateService templateService;
 
+
     /**
      * 分页展示模版列表
      * @param page
@@ -100,4 +101,18 @@ public class TemplateBiz extends BaseBiz {
         templateService.delRelation(templateId, relationId, relationType);
     }
 
+    /**
+     * 根据对应关系查询需要更新的模版列表
+     * @param relationId
+     * @param relationType
+     * @return
+     */
+    public List<Template> findTemplateListByRelation(Long relationId, Integer relationType){
+        return templateService.findTemplateListByRelation(relationId, relationType);
+    }
+
+
+    public void publishTemplate(List<Long> list){
+        templateService.publishTemplate(list);
+    }
 }

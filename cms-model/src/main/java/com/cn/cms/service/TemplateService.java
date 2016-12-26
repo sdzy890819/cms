@@ -32,4 +32,8 @@ public interface TemplateService {
     void saveRelation(TemplateRelation templateRelation);
 
     void delRelation(Long templateId, Long relationId, Integer relationType);
+
+    List<Template> findTemplateListByRelation(Long relationId, Integer relationType);
+
+    void publishTemplate(List<Long> list);
 }

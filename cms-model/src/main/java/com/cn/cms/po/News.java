@@ -1,6 +1,7 @@
 package com.cn.cms.po;
 
 import com.cn.cms.enums.PlatformEnum;
+import com.cn.cms.enums.PublishEnum;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -93,6 +94,20 @@ public class News extends Base{
      */
     private NewsDetail newsDetail;
 
+    /**
+     * 发布地址
+     */
+    private String url;
+
+    /**
+     * 发布相对地址
+     */
+    private String relativePath;
+
+    /**
+     * 是否发布
+     */
+    private Integer publish = PublishEnum.NO.getType();
 
     public String getPlatformStr(){
         return PlatformEnum.get(platform).getName();

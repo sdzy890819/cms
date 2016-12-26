@@ -22,9 +22,10 @@ public class PublishBiz extends BaseBiz {
      * @param id
      * @param commonMessageSourceEnum
      */
-    public void publish(Long id, CommonMessageSourceEnum commonMessageSourceEnum){
+    public void publish(Long id, String userId, CommonMessageSourceEnum commonMessageSourceEnum){
         Body body = new Body();
         body.setId(id);
+        body.setUserId(userId);
         buildSendMessage.sendBuild(body, commonMessageSourceEnum, MQQueueKeyEnum.BUILD);
     }
 

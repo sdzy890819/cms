@@ -11,10 +11,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Created by zhangyang on 16/11/30.
@@ -165,28 +162,82 @@ public class FileUtil {
      * @return
      */
     public static String getRelativePath(String basePath, String suffix){
+        String relativePath = getDatePath();
+        String filePath = StringUtils.concatUrl(basePath,relativePath);
+        String fileName = getFileName(suffix);
+        File file = new File(filePath);
+        mkdir(file, false);
+        return StringUtils.concatUrl(relativePath, fileName);
+    }
+
+    /**
+     * 按照后缀生成随即文件名
+     * @param suffix
+     * @return
+     */
+    public static String getFileName(String suffix){
+        long time = new Date().getTime();
+        String timeFile = String.valueOf(time).substring(3);
+        Random random = new Random();
+        String fileName = StaticContants.QUANJING_RESOURCE_FILENAME.concat(timeFile).
+                concat(String.valueOf(random.nextInt(10))).concat(String.valueOf(random.nextInt(10)))
+                .concat(".").concat(suffix.startsWith(".")?suffix.substring(1):suffix);
+        return fileName;
+    }
+
+    /**
+     *
+     * 获取日期路径
+     * @return
+     */
+    public static String getDatePath(){
         Calendar calendar = Calendar.getInstance();
         int month = calendar.get(Calendar.MONTH) + 1;
         int year = calendar.get(Calendar.YEAR);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-        long time = calendar.getTimeInMillis();
-        String timeFile = String.valueOf(time).substring(3);
-        Random random = new Random();
-        ;
-        String fileName = StaticContants.QUANJING_RESOURCE_FILENAME.concat(timeFile).
-                concat(String.valueOf(random.nextInt(10))).concat(String.valueOf(random.nextInt(10)))
-                .concat(".").concat(suffix.startsWith(".")?suffix.substring(1):suffix);
-
         String relativePath = StringUtils.concatUrl(String.valueOf(year),
                 String.valueOf(month), String.valueOf(day));
+        return relativePath;
+    }
 
-        String filePath = StringUtils.concatUrl(basePath,relativePath);
-
-        File file = new File(filePath);
-        if(!file.canRead() || !file.canWrite()){
-            file.mkdirs();
+    /**
+     * 创建文件夹,默认的时候认为是文件
+     * @param file
+     * @param isFile true 文件 false 文件夹
+     * @return
+     */
+    public static void mkdir(File file, boolean... isFile){
+        if(isFile.length>0) {
+            if(isFile[0]){
+                File tmp = new File(file.getParent());
+                if(!tmp.exists()){
+                    tmp.mkdirs();
+                }
+            }else{
+                if(!file.exists()){
+                    file.mkdirs();
+                }
+            }
+        }else {
+            File tmp = new File(file.getParent());
+            if(!tmp.exists()){
+                tmp.mkdirs();
+            }
         }
-        return StringUtils.concatUrl(relativePath, fileName);
+    }
+
+    /**
+     * 分页获取文件名，
+     * @param fileName 必须事XXX.xxx格式
+     * @param page
+     * @return
+     */
+    public static String getFileNameByPage(String fileName, Integer page){
+        if(page != null && page > 1){
+            String[] arr = fileName.split("\\.");
+            fileName = arr[0].concat(StaticContants.UNDER_LINE).concat(String.valueOf(page)).concat(arr[1]);
+        }
+        return fileName;
     }
 
 }

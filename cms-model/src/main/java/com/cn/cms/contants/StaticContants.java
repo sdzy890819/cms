@@ -30,6 +30,7 @@ public class StaticContants {
     //---默认分页数  start
     public static final int PAGE_SIZE = 20 ;
     public static final int PAGE = 1 ;
+
     //---默认分页书  end
 
     public static final String COOKIE_USER_ID = "CMS_QUANJING_USER_ID";
@@ -128,10 +129,23 @@ public class StaticContants {
 
     }
 
-    public static final String TAG_LIST = "QJList";
+    public static final String TAG_LIST = "TAGLIST";
 
-    public static final String TAG_DETAIL = "QJDetail";
+    public static final String TAG_DETAIL = "TAGDETAIL";
 
     public static final String PUBLISH_TMP_TEMPLATE_NAME = "text parse";
+
+    public static final String HTML_SUFFIX = ".shtml";
+
+
+    public static final String TEMPLATE_KEY_PAGE = "page";
+
+    public static final String TEMPLATE_KEY_DATA = "data";
+
+    public static final String TEMPLATE_KEY_TEMPLATE = "template";
+
+    public static final int TEMPLATE_SIZE = 100;
+
+    public static final int TEMPLATE_COUNT = 100;
 
 }

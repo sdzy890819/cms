@@ -17,7 +17,7 @@ import javax.annotation.Resource;
 public class BuildSendMessage {
 
     @Resource(name = "threadTaskExecutor")
-    private TaskExecutor taskExecutor;
+    private TaskExecutor threadTaskExecutor;
 
     public void sendTest(Object object , CommonMessageSourceEnum commonMessageSourceEnum
             , MQQueueKeyEnum mqQueueKeyEnum){
@@ -46,7 +46,7 @@ public class BuildSendMessage {
         MessageSender messageSender = new MessageSender();
         messageSender.setObject(commonMessage);
         messageSender.setRoutingKey(mqQueueKeyEnum.getName());
-        taskExecutor.execute(messageSender);
+        threadTaskExecutor.execute(messageSender);
     }
 
 }

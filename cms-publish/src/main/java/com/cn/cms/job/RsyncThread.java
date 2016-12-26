@@ -25,7 +25,11 @@ public class RsyncThread implements Runnable {
 
     @Override
     public void run() {
-        this.send();
+        try {
+            this.send();
+        }catch(Exception e){
+            log.error("Rsync动作失败。", e);
+        }
     }
 
     public void send(){

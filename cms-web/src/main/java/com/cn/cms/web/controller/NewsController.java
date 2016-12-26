@@ -196,14 +196,15 @@ public class NewsController extends BaseController {
 
     /**
      * 新闻发布
+     * @param request
      * @param id
      * @return
      */
     @CheckToken
     @CheckAuth( name = "news:publish" )
     @RequestMapping(value = "/publish", method = RequestMethod.GET)
-    public String publish(@RequestParam(value = "id") Long id){
-        publishBiz.publish(id, CommonMessageSourceEnum.NEWS);
+    public String publish(HttpServletRequest request, @RequestParam(value = "id") Long id){
+        publishBiz.publish(id, getCurrentUserId(request), CommonMessageSourceEnum.NEWS);
         return ApiResponse.returnSuccess();
     }
 

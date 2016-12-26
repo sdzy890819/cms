@@ -15,6 +15,8 @@ public class DefaultCommonMessageHandler implements CommonMessageHandler {
     public void handleMessage(CommonMessage message) {
         if(message != null){
             log.info(message.toString());
+        }else{
+            return;
         }
 
     }

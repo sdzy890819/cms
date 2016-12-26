@@ -130,5 +130,32 @@ public class TopicBiz extends BaseBiz {
         topicService.updateTopicClassify(topicClassify);
     }
 
+    /**
+     * 根据专题分类获取列表
+     * @param topicClassifyId
+     * @param page
+     * @return
+     */
+    public List<Topic> findTopicByClassify(Long topicClassifyId, Page page){
+        return topicService.findTopicByClassify(topicClassifyId, page);
+    }
+
+    /**
+     * 根据系列专题获取列表
+     * @param topicColumnId
+     * @param page
+     * @return
+     */
+    public List<Topic> findTopicByColumn(Long topicColumnId, Page page){
+        return topicService.findTopicByColumn(topicColumnId, page);
+    }
+
+    /**
+     * 发布topic
+     * @param topic
+     */
+    public void publishTopic(Topic topic){
+        topicService.publishTopic(topic);
+    }
 
 }

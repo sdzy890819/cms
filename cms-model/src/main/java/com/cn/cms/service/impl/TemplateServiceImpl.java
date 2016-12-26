@@ -67,5 +67,15 @@ public class TemplateServiceImpl implements TemplateService {
     public void delRelation(Long templateId, Long relationId, Integer relationType) {
         templateRelationDao.delRelation(templateId, relationId, relationType);
     }
+
+    @Override
+    public List<Template> findTemplateListByRelation(Long relationId, Integer relationType) {
+        return templateDao.findTemplateListByRelation(relationId, relationType);
+    }
+
+    @Override
+    public void publishTemplate(List<Long> list) {
+        templateDao.publishTemplate(list);
+    }
 }
 

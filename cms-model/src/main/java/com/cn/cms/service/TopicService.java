@@ -40,4 +40,10 @@ public interface TopicService {
 
     void updateTopicClassify(TopicClassify topicClassify);
 
+    List<Topic> findTopicByClassify(Long topicClassifyId, Page page);
+
+    List<Topic> findTopicByColumn(Long topicColumnId, Page page);
+
+    void publishTopic(Topic topic);
+
 }

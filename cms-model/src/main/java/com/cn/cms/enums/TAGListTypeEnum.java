@@ -3,16 +3,15 @@ package com.cn.cms.enums;
 import lombok.Getter;
 
 /**
- * 平台枚举
+ * 类型枚举
  * Created by zhangyang on 16/11/16.
  */
-public enum QJListTypeEnum {
+public enum TAGListTypeEnum {
 
     NEWCOLUMN("NEWCOLUMN", 1),
     TOPICCOLUMN("TOPICCOLUMN", 2),
     TOPICCLASSIFY("TOPICCLASSIFY", 3),
-    FRAGMENTCLASSIFY("FRAGMENTCLASSIFY", 4),
-    SQL("SQL", 5);
+    SQL("SQL", 4);
 
     @Getter
     private int type;
@@ -21,19 +20,19 @@ public enum QJListTypeEnum {
     private String name;
 
 
-    QJListTypeEnum(String name, int type){
+    TAGListTypeEnum(String name, int type){
         this.type = type;
         this.name = name;
     }
 
-    public static QJListTypeEnum get(int type){
-        QJListTypeEnum[] a = QJListTypeEnum.values();
+    public static TAGListTypeEnum get(int type){
+        TAGListTypeEnum[] a = TAGListTypeEnum.values();
         for(int i=0; i<a.length; i++){
-            QJListTypeEnum b = a[i];
+            TAGListTypeEnum b = a[i];
             if(b.getType() == type){
                 return b;
             }
         }
-        return QJListTypeEnum.SQL;
+        return TAGListTypeEnum.SQL;
     }
 }

@@ -6,7 +6,7 @@ import lombok.Getter;
  * 平台枚举
  * Created by zhangyang on 16/11/16.
  */
-public enum QJDetailTypeEnum {
+public enum TAGDetailTypeEnum {
 
     NEWSID("NEWSID", 1),
     NEWSCOLUMNID("NEWSCOLUMNID", 2),
@@ -21,19 +21,19 @@ public enum QJDetailTypeEnum {
     private String name;
 
 
-    QJDetailTypeEnum(String name, int type){
+    TAGDetailTypeEnum(String name, int type){
         this.type = type;
         this.name = name;
     }
 
-    public static QJDetailTypeEnum get(int type){
-        QJDetailTypeEnum[] a = QJDetailTypeEnum.values();
+    public static TAGDetailTypeEnum get(int type){
+        TAGDetailTypeEnum[] a = TAGDetailTypeEnum.values();
         for(int i=0; i<a.length; i++){
-            QJDetailTypeEnum b = a[i];
+            TAGDetailTypeEnum b = a[i];
             if(b.getType() == type){
                 return b;
             }
         }
-        return QJDetailTypeEnum.SQL;
+        return TAGDetailTypeEnum.SQL;
     }
 }

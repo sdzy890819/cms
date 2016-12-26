@@ -288,14 +288,15 @@ public class FragmentController extends BaseController {
 
     /**
      * 发布。
+     * @param request
      * @param id
      * @return
      */
     @CheckToken
     @CheckAuth( name = "fragment:publish" )
     @RequestMapping(value = "/publish", method = RequestMethod.GET)
-    public String publish(@RequestParam(value = "id") Long id){
-        publishBiz.publish(id, CommonMessageSourceEnum.FRAGMENT);
+    public String publish(HttpServletRequest request ,@RequestParam(value = "id") Long id){
+        publishBiz.publish(id, getCurrentUserId(request) , CommonMessageSourceEnum.FRAGMENT);
         return ApiResponse.returnSuccess();
     }
 

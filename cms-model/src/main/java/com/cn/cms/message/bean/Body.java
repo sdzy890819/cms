@@ -12,4 +12,6 @@ public class Body {
 
     protected Long id;
 
+    protected String userId;
+
 }
