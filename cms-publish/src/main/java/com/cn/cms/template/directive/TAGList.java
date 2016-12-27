@@ -1,6 +1,5 @@
 package com.cn.cms.template.directive;
 
-import com.cn.cms.biz.FragmentBiz;
 import com.cn.cms.biz.NewsBiz;
 import com.cn.cms.biz.OtherBiz;
 import com.cn.cms.biz.TopicBiz;
@@ -8,12 +7,9 @@ import com.cn.cms.contants.StaticContants;
 import com.cn.cms.enums.TAGListTypeEnum;
 import com.cn.cms.job.TemplatePublishJob;
 import com.cn.cms.po.Base;
-import com.cn.cms.po.News;
 import com.cn.cms.po.Template;
-import com.cn.cms.po.Topic;
 import com.cn.cms.utils.ContextUtil;
 import com.cn.cms.utils.Page;
-import com.cn.cms.utils.StringUtils;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.velocity.context.InternalContextAdapter;
@@ -23,7 +19,7 @@ import org.apache.velocity.exception.ResourceNotFoundException;
 import org.apache.velocity.runtime.directive.Directive;
 import org.apache.velocity.runtime.parser.node.ASTBlock;
 import org.apache.velocity.runtime.parser.node.Node;
-import org.springframework.core.task.TaskExecutor;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -44,7 +40,7 @@ import java.util.List;
 @Setter
 public class TAGList extends Directive {
 
-    private TaskExecutor threadTaskExecutor = ContextUtil.getContextUtil().getBean("threadTaskExecutor",TaskExecutor.class);
+    private ThreadPoolTaskExecutor threadTaskExecutor = ContextUtil.getContextUtil().getBean("threadTaskExecutor",ThreadPoolTaskExecutor.class);
 
     private NewsBiz newsBiz = ContextUtil.getContextUtil().getBean(NewsBiz.class);
 

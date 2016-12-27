@@ -5,7 +5,8 @@
 	http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd"
 >
 
-	<task:scheduled-tasks>
+	<task:scheduler id="poolTaskScheduler" pool-size="10"/>
+	<task:scheduled-tasks scheduler="poolTaskScheduler">
 		<task:scheduled ref="autoPublishEntryJob" method="run" cron="1 0/1 * * * ?"/>
 	</task:scheduled-tasks>
 </beans>

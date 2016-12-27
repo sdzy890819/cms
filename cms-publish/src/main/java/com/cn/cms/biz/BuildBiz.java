@@ -14,11 +14,13 @@ import com.cn.cms.message.common.CommonMessage;
 import com.cn.cms.po.*;
 import com.cn.cms.utils.FileUtil;
 import com.cn.cms.utils.StringUtils;
-import org.springframework.core.task.TaskExecutor;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by zhangyang on 16/12/24.
@@ -43,7 +45,7 @@ public class BuildBiz extends BaseBiz {
     private ChannelBiz channelBiz;
 
     @Resource(name = "threadTaskExecutor")
-    private TaskExecutor threadTaskExecutor;
+    private ThreadPoolTaskExecutor threadTaskExecutor;
 
     private CommonLog log = CommonLogFactory.getLog(this.getClass());
 
