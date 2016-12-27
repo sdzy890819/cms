@@ -2,6 +2,9 @@ package com.cn.cms.service.impl;
 
 import com.cn.cms.dao.TemplateDao;
 import com.cn.cms.dao.TemplateRelationDao;
+import com.cn.cms.enums.JobEnum;
+import com.cn.cms.enums.PublishEnum;
+import com.cn.cms.enums.TemplateClassifyEnum;
 import com.cn.cms.po.Template;
 import com.cn.cms.po.TemplateRelation;
 import com.cn.cms.service.TemplateService;
@@ -70,12 +73,17 @@ public class TemplateServiceImpl implements TemplateService {
 
     @Override
     public List<Template> findTemplateListByRelation(Long relationId, Integer relationType) {
-        return templateDao.findTemplateListByRelation(relationId, relationType);
+        return templateDao.findTemplateListByRelation(relationId, relationType, JobEnum.trigger.getType());
     }
 
     @Override
     public void publishTemplate(List<Long> list) {
-        templateDao.publishTemplate(list);
+        templateDao.publishTemplate(list, PublishEnum.YES.getType());
+    }
+
+    @Override
+    public List<Template> findTemplateListByAuto() {
+        return templateDao.findTemplateListByAuto(TemplateClassifyEnum.detail.getType(), JobEnum.job.getType());
     }
 }
 

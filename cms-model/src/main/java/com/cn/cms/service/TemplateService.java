@@ -36,4 +36,6 @@ public interface TemplateService {
     List<Template> findTemplateListByRelation(Long relationId, Integer relationType);
 
     void publishTemplate(List<Long> list);
+
+    List<Template> findTemplateListByAuto();
 }

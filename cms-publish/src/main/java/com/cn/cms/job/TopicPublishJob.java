@@ -19,7 +19,7 @@ import java.util.Map;
  */
 @Getter
 @Setter
-public class TopicPublishJob implements Runnable {
+public class TopicPublishJob extends BaseTask {
 
     private static CommonLog log = CommonLogFactory.getLog(TopicPublishJob.class);
 
@@ -34,7 +34,8 @@ public class TopicPublishJob implements Runnable {
         this.channel = channel;
     }
 
-    private void execute(){
+    @Override
+    protected void execute(){
         Map<String, Object> map = new HashMap<>();
         String content = topic.getTopicContent();
         map.put(StaticContants.TEMPLATE_KEY_DATA, topic);
@@ -43,13 +44,7 @@ public class TopicPublishJob implements Runnable {
     }
 
     @Override
-    public void run() {
-        try{
-            execute();
-        }catch(Exception e){
-            topic.setTopicContent(null);
-            log.error("Publish出错" + JSONObject.toJSONString(topic)
-                    + JSONObject.toJSONString(channel), e);
-        }
+    protected String getJobName() {
+        return topic.getTopicTitle()+" 生成";
     }
 }

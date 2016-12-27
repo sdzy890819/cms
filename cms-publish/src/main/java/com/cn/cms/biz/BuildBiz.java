@@ -88,6 +88,14 @@ public class BuildBiz extends BaseBiz {
         this.publishTemplate(templates, base);
     }
 
+    /**
+     * 自动定时生成.
+     */
+    public void buildAuto(){
+        List<Template> templates = templateBiz.findTemplateListByAuto();
+        this.publishTemplate(templates, null);
+    }
+
 
     /**
      * 执行模版生成
@@ -108,11 +116,16 @@ public class BuildBiz extends BaseBiz {
         }
     }
 
+    /**
+     * 模版是否发布过标记
+     * @param templates
+     */
     void publishTemplate(List<Template> templates){
         List<Long> list = new ArrayList<>();
         if(StringUtils.isNotEmpty(templates)) {
             for (int i = 0; i < templates.size(); i++) {
-                if(templates.get(i).getTemplateClassify() != TemplateClassifyEnum.detail.getType()){
+                if(templates.get(i).getTemplateClassify() != TemplateClassifyEnum.detail.getType()
+                        && templates.get(i).getPublish() == PublishEnum.NO.getType()){
                     list.add(templates.get(i).getId());
                 }
             }

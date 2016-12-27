@@ -115,4 +115,8 @@ public class TemplateBiz extends BaseBiz {
     public void publishTemplate(List<Long> list){
         templateService.publishTemplate(list);
     }
+
+    public List<Template> findTemplateListByAuto(){
+        return templateService.findTemplateListByAuto();
+    }
 }

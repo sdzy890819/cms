@@ -2,6 +2,8 @@ package com.cn.cms.job;
 
 import com.cn.cms.logfactory.CommonLog;
 import com.cn.cms.logfactory.CommonLogFactory;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -10,7 +12,9 @@ import java.io.LineNumberReader;
 /**
  * Created by zhangyang on 16/12/23.
  */
-public class RsyncThread implements Runnable {
+@Getter
+@Setter
+public class RsyncThread extends BaseTask {
 
     private CommonLog log = CommonLogFactory.getLog(this.getClass());
 
@@ -18,21 +22,14 @@ public class RsyncThread implements Runnable {
 
     private String absolutePath;
 
+
     public RsyncThread(String sendFilePath, String absolutePath){
         this.sendFilePath = sendFilePath;
         this.absolutePath = absolutePath;
     }
 
     @Override
-    public void run() {
-        try {
-            this.send();
-        }catch(Exception e){
-            log.error("Rsync动作失败。", e);
-        }
-    }
-
-    public void send(){
+    public void execute(){
         try {
             String ss = getCommand();
             if(ss == null){
@@ -59,4 +56,8 @@ public class RsyncThread implements Runnable {
         return "sh /data/app/a.sh";
     }
 
+    @Override
+    protected String getJobName() {
+        return "shell执行===>.".concat(getCommand()).concat(".");
+    }
 }

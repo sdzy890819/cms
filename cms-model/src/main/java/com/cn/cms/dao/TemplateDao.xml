@@ -95,15 +95,20 @@
     <select id="findTemplateListByRelation" resultMap="template">
         select <include refid="sql_column" /> from template <include refid="delTag"/> and id in (
         select template_id from template_relation where relation_type = ${relationType} and relation_id = ${relationId}
-        ) and job = 0 order by sort_num desc;
+        ) and job = ${job} order by sort_num desc;
     </select>
 
     <update id="publishTemplate" >
-        update template set publish=1 where id in
+        update template set publish=${publish} where id in
         <foreach collection="list" separator="," close=");" open="(" item="item">
             ${item}
         </foreach>
 
     </update>
+
+    <select id="findTemplateListByAuto" resultMap="template">
+        select <include refid="sql_column" /> from template <include refid="delTag" /> and template_classify != ${templateClassify}
+        and job = ${job} ;
+    </select>
 
 </mapper>

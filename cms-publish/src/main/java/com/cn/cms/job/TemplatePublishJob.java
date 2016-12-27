@@ -29,7 +29,7 @@ import java.util.Map;
  */
 @Getter
 @Setter
-public class TemplatePublishJob implements Runnable {
+public class TemplatePublishJob extends BaseTask {
 
     private static CommonLog log = CommonLogFactory.getLog(TemplatePublishJob.class);
 
@@ -61,7 +61,8 @@ public class TemplatePublishJob implements Runnable {
         this.page = page;
     }
 
-    private void execute(){
+    @Override
+    protected void execute(){
         Channel channel = channelBiz.getChannel(template.getChannelId());
         Map<String, Object> map = new HashMap<>();
         map.put(StaticContants.TEMPLATE_KEY_TEMPLATE, template);
@@ -81,13 +82,7 @@ public class TemplatePublishJob implements Runnable {
     }
 
     @Override
-    public void run() {
-        try{
-            execute();
-        }catch(Exception e){
-            log.error("Publish出错" + JSONObject.toJSONString(base)
-                    + JSONObject.toJSONString(template), e);
-        }
+    protected String getJobName() {
+        return getTemplate().getTemplateName().concat(" 生成");
     }
-
 }

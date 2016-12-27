@@ -29,14 +29,7 @@
         <property name="maxIdleTime">
             <value>${c3p0.maxIdleTime}</value>
         </property>
-        <property name="maxStatements">
-            <value>${c3p0.maxStatements}</value>
-        </property>
-        <property name="maxStatementsPerConnection">
-            <value>${c3p0.maxStatementsPerConnection}</value>
-        </property>
         <property name="checkoutTimeout"><value>${c3p0.checkoutTimeout}</value></property>
-        <property name="idleConnectionTestPeriod"><value>${c3p0.idleConnectionTestPeriod}</value></property>
        <property name="preferredTestQuery"><value>select 1</value></property>
 	</bean>
 	
