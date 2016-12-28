@@ -63,4 +63,24 @@ public class NewsBiz extends BaseBiz {
     public void delNews(String lastModifyUserId, Long id){
         newsService.delNews(lastModifyUserId, id);
     }
+
+    /**
+     * 根据columnId 分页获取当前信息
+     * @param columnId
+     * @param page
+     * @return
+     */
+    public List<News> findNewsByColumnId(Long columnId, Page page){
+        return newsService.findNewsByColumnId(columnId, page);
+    }
+
+    /**
+     * 发布新闻
+     * @param news
+     */
+    public void publishNews(News news){
+        newsService.publishNews(news);
+    }
+
 }
+

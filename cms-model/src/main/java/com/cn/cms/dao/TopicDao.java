@@ -23,4 +23,10 @@ public interface TopicDao {
     void saveTopic(@Param(value = "p1") Topic topic);
 
     void updateTopic(@Param(value = "p1") Topic topic);
+
+    List<Topic> findTopicByClassify(@Param(value = "topicClassifyId") Long topicClassifyId, @Param(value = "page") Page page);
+
+    List<Topic> findTopicByColumn(@Param(value = "topicColumnId") Long topicColumnId, @Param(value = "page") Page page);
+
+    void publishTopic(@Param(value = "p1") Topic topic);
 }

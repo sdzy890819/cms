@@ -21,13 +21,14 @@
         <result column="encoded" property="encoded" />
         <result column="channel_id" property="channelId" />
         <result column="sort_num" property="sortNum" />
+        <result column="publish" property="publish" />
     </resultMap>
 
     <sql id="delTag"> where del_tag = 1 </sql>
 
     <sql id="sql_column">
         id,create_time,update_time,del_tag,last_modify_user_id,
-        template_name,template_desc,filename,path,template_classify,user_id,job,encoded,channel_id,sort_num
+        template_name,template_desc,filename,path,template_classify,user_id,job,encoded,channel_id,sort_num,publish
     </sql>
 
     <select id="queryTemplateCount">
@@ -49,7 +50,7 @@
     <insert id="saveTemplate">
         insert into template ( <include refid="sql_column" /> ) values (
         null,null,null,null,#{p1.lastModifyUserId},#{p1.templateName},#{p1.templateDesc},#{p1.filename},#{p1.path},${p1.templateClassify},
-        #{p1.userId},${p1.job},#{p1.encoded},${p1.channelId},${p1.sortNum});
+        #{p1.userId},${p1.job},#{p1.encoded},${p1.channelId},${p1.sortNum},${p1.publish});
     </insert>
 
     <update id="updateTemplate">
@@ -90,4 +91,24 @@
 
         where id = ${p1.id};
     </update>
+
+    <select id="findTemplateListByRelation" resultMap="template">
+        select <include refid="sql_column" /> from template <include refid="delTag"/> and id in (
+        select template_id from template_relation where relation_type = ${relationType} and relation_id = ${relationId}
+        ) and job = ${job} order by sort_num desc;
+    </select>
+
+    <update id="publishTemplate" >
+        update template set publish=${publish} where id in
+        <foreach collection="list" separator="," close=");" open="(" item="item">
+            ${item}
+        </foreach>
+
+    </update>
+
+    <select id="findTemplateListByAuto" resultMap="template">
+        select <include refid="sql_column" /> from template <include refid="delTag" /> and template_classify != ${templateClassify}
+        and job = ${job} ;
+    </select>
+
 </mapper>

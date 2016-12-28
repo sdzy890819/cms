@@ -19,6 +19,8 @@ public class RedisKeyContants {
 
     public static final String REDIS_RECORD_KEY = "CMS_RECORD_KEY";
 
+    public static final String REDIS_CHANNEL_DETAIL = "CMS_CHANNEL_DETAIL_";
+
     public static String getToken(String userId){
         return REDIS_TOKEN_KEY.concat(userId);
     }
@@ -37,5 +39,9 @@ public class RedisKeyContants {
 
     public static String getButtonParentPermission(String userId ,Long parentId){
         return REDIS_POSITION_PERMISSION_BUTTON_KEY.concat(userId).concat(REDIS_PARENT_KEY).concat(String.valueOf(parentId));
+    }
+
+    public static String getRedisChannelDetailKey(Long id){
+        return REDIS_CHANNEL_DETAIL.concat(String.valueOf(id));
     }
 }

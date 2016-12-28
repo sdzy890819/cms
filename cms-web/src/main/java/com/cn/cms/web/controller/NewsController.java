@@ -1,8 +1,12 @@
 package com.cn.cms.web.controller;
 
 import com.cn.cms.biz.NewsBiz;
+import com.cn.cms.biz.PublishBiz;
 import com.cn.cms.biz.UserBiz;
 import com.cn.cms.bo.UserBean;
+import com.cn.cms.enums.CommonMessageSourceEnum;
+import com.cn.cms.message.BuildSendMessage;
+import com.cn.cms.message.bean.Body;
 import com.cn.cms.po.News;
 import com.cn.cms.po.NewsDetail;
 import com.cn.cms.utils.Page;
@@ -30,6 +34,9 @@ public class NewsController extends BaseController {
 
     @Resource
     private UserBiz userBiz;
+
+    @Resource
+    private PublishBiz publishBiz;
 
 
     /**
@@ -195,9 +202,9 @@ public class NewsController extends BaseController {
      */
     @CheckToken
     @CheckAuth( name = "news:publish" )
-    @RequestMapping(value = "/publish",method = RequestMethod.GET)
+    @RequestMapping(value = "/publish", method = RequestMethod.GET)
     public String publish(HttpServletRequest request, @RequestParam(value = "id") Long id){
-
+        publishBiz.publish(id, getCurrentUserId(request), CommonMessageSourceEnum.NEWS);
         return ApiResponse.returnSuccess();
     }
 

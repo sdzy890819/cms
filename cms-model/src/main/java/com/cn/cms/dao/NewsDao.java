@@ -24,4 +24,8 @@ public interface NewsDao {
 
     void updateNews(@Param(value = "p1") News news);
 
+    List<News> findNewsByColumnId(@Param(value = "columnId") Long columnId, @Param(value = "page") Page page);
+
+    void publishNews(@Param(value = "p1") News news);
+
 }

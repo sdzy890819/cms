@@ -39,11 +39,12 @@
     </select>
 
 
-    <insert id="saveChannel">
+    <insert id="saveChannel" useGeneratedKeys="true" keyProperty="id">
         insert into channel ( <include refid="sql_column"/> ) values (
         null, null, null, null, #{p1.lastModifyUserId}, #{p1.channelName}, #{p1.channelUrl}, #{p1.channelPath},
         #{p1.channelDesc}, ${p1.categoryId},#{p1.templatePath}
         );
+
     </insert>
     
     <update id="updateChannel">

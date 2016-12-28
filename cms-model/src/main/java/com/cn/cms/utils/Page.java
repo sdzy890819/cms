@@ -37,6 +37,8 @@ public class Page {
         this.count = count;
     }
 
+    public Page(){}
+
     public Page(int page, int pageSize){
 
         if(page >0) {
@@ -58,6 +60,20 @@ public class Page {
 
     public int getPageCount() {
         return (count-1)/pageSize + 1;
+    }
+
+    public int getNextPage(){
+        if(hasNextPage()) {
+            return page + 1;
+        }
+        return page;
+    }
+
+    public boolean hasNextPage(){
+        if(getPageCount() > page){
+            return true;
+        }
+        return false;
     }
 
 }

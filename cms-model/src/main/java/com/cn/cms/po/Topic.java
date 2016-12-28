@@ -1,5 +1,6 @@
 package com.cn.cms.po;
 
+import com.cn.cms.enums.PublishEnum;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -73,5 +74,20 @@ public class Topic extends Base {
      * URL
      */
     private String topicUrl;
+
+    /**
+     * 发布人
+     */
+    private String buildUserId;
+
+    /**
+     * 发布时间
+     */
+    private Date buildTime;
+
+    /**
+     * 是否发布
+     */
+    private Integer publish = PublishEnum.NO.getType();
 
 }

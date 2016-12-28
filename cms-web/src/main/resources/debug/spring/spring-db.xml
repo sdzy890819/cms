@@ -8,36 +8,29 @@
 	http://www.springframework.org/schema/tx/spring-tx.xsd
 	http://www.springframework.org/schema/aop
 	http://www.springframework.org/schema/aop/spring-aop.xsd" default-autowire="byName">
-	
+
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
 		<property name="driverClass" value="${crm_DB.driver}"/>
 		<property name="jdbcUrl" value="${crm_DB.url}"/>
 		<property name="user" value="${crm_DB.user}"/>
 		<property name="password" value="${crm_DB.password}"/>
 		<property name="initialPoolSize">
-            <value>${c3p0.initialPoolSize}</value>
-        </property>
-        <property name="minPoolSize">
-            <value>${c3p0.minPoolSize}</value>
-        </property>
-        <property name="maxPoolSize">
-            <value>${c3p0.maxPoolSize}</value>
-        </property>
-        <property name="acquireIncrement">
-            <value>${c3p0.acquireIncrement}</value>
-        </property>
-        <property name="maxIdleTime">
-            <value>${c3p0.maxIdleTime}</value>
-        </property>
-        <property name="maxStatements">
-            <value>${c3p0.maxStatements}</value>
-        </property>
-        <property name="maxStatementsPerConnection">
-            <value>${c3p0.maxStatementsPerConnection}</value>
-        </property>
-        <property name="checkoutTimeout"><value>${c3p0.checkoutTimeout}</value></property>
-        <property name="idleConnectionTestPeriod"><value>${c3p0.idleConnectionTestPeriod}</value></property>
-       <property name="preferredTestQuery"><value>select 1</value></property>
+			<value>${c3p0.initialPoolSize}</value>
+		</property>
+		<property name="minPoolSize">
+			<value>${c3p0.minPoolSize}</value>
+		</property>
+		<property name="maxPoolSize">
+			<value>${c3p0.maxPoolSize}</value>
+		</property>
+		<property name="acquireIncrement">
+			<value>${c3p0.acquireIncrement}</value>
+		</property>
+		<property name="maxIdleTime">
+			<value>${c3p0.maxIdleTime}</value>
+		</property>
+		<property name="checkoutTimeout"><value>${c3p0.checkoutTimeout}</value></property>
+		<property name="preferredTestQuery"><value>select 1</value></property>
 	</bean>
 	
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"  autowire="byName" />

@@ -1,9 +1,13 @@
 package com.cn.cms.biz;
 
+import com.alibaba.fastjson.JSONObject;
+import com.cn.cms.contants.RedisKeyContants;
+import com.cn.cms.middleware.JedisClient;
 import com.cn.cms.po.Channel;
 import com.cn.cms.po.UserChannel;
 import com.cn.cms.service.ChannelService;
 import com.cn.cms.utils.Page;
+import com.cn.cms.utils.StringUtils;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -18,6 +22,9 @@ public class ChannelBiz extends BaseBiz {
 
     @Resource
     private ChannelService channelService;
+
+    @Resource
+    private JedisClient jedisClient;
 
     /**
      * 获取所有频道
@@ -42,6 +49,24 @@ public class ChannelBiz extends BaseBiz {
      */
     public void saveChannel(Channel channel){
         channelService.saveChannel(channel);
+        setRedis(channel.getId());
+    }
+
+    /**
+     * 清除Redis
+     * @param id
+     */
+    private void cleanRedis(Long id){
+        jedisClient.del(RedisKeyContants.getRedisChannelDetailKey(id));
+    }
+
+    /**
+     *  设置Redis
+     * @param id
+     */
+    private void setRedis(Long id){
+        Channel channel = channelService.findChannel(id);
+        jedisClient.set(RedisKeyContants.getRedisChannelDetailKey(id), JSONObject.toJSONString(channel));
     }
 
     /**
@@ -50,6 +75,7 @@ public class ChannelBiz extends BaseBiz {
      */
     public void updateChannel(Channel channel){
         channelService.updateChannel(channel);
+        setRedis(channel.getId());
     }
 
     /**
@@ -59,6 +85,7 @@ public class ChannelBiz extends BaseBiz {
      */
     public void delChannel(String lastModifyUserId, Long id){
         channelService.delChannel(lastModifyUserId, id);
+        cleanRedis(id);
     }
 
     /**
@@ -76,7 +103,11 @@ public class ChannelBiz extends BaseBiz {
      * @return
      */
     public Channel getChannel(Long id){
-        return channelService.findChannel(id);
+        String result = jedisClient.get(RedisKeyContants.getRedisChannelDetailKey(id));
+        if(StringUtils.isNotBlank(result)) {
+            return JSONObject.parseObject(result, Channel.class);
+        }
+        return null;
     }
 
     /**
