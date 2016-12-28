@@ -1,4 +1,4 @@
-define(['require',"app",'jquery','formlist','fixedNav','../moduls/service'], function ( require , app , $ ) {
+define(['require',"app",'jquery','formlist','fixedNav','position','../moduls/service'], function ( require , app , $ ) {
 	app.directive('newsNewslist',function(){
 		return {
 	    	restrict : 'E',

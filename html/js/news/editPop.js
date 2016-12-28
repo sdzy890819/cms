@@ -19,12 +19,12 @@ define(["app",'jquery'],function (app,$) {
 	});
     return {
     	init : function( obj ){
-    		layui.use(['layer'], function(){
+    		/*layui.use(['layer'], function(){
 				var layer = layui.layer , 
 					edit = $('<edit-pop>3498sdf</edit-pop>');
 	    		layer.open({
 					title : '标题'
-					,content: '<edit-pop>3498sdf</edit-pop>'
+					,content: '<news-add></news-add>'
 					,area : '90%'
 					,btn: ['按钮一', '按钮二', '按钮三']
 					,shadeClose : true
@@ -40,7 +40,7 @@ define(["app",'jquery'],function (app,$) {
 					//右上角关闭回调
 					}
 				});
-			});
+			});*/
 			
     	}
     }
