@@ -1,6 +1,9 @@
-<div>
+<div class="{{formdata.superClass}}">
 	<div class="boxtab {{formdata.cls}}">
 		<div class="title">
+			<div class="right-sider">
+				<button ng-if='titelement.close==true' type="button" class="close" ng-click='close()'>&times;</button>
+			</div>
 			<i class="icon-reorder"></i>
 			{{formdata.title}}
 		</div>

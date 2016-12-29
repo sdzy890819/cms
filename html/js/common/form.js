@@ -8,9 +8,11 @@ define(["app",'jquery','./moduls/directive'], function ( app , $ ) {
 	        templateUrl : '../template/common/form.html',
 			scope : {
 	            formdata : '=formdata',
-	            edit : '=edit'
+	            edit : '=edit',
+	            titelement : '=titelement'
 	        },
 	        controller : function($scope , $state , $element , $rootScope){
+	        	
 				var icon = {
 					add:'plus',//添加
 					save:'save',//保存
@@ -24,9 +26,11 @@ define(["app",'jquery','./moduls/directive'], function ( app , $ ) {
 				$.each($scope.formdata.submit,function(){
 					this.icon_cls = icon[this.icon_cls]
 				});
+
 				$scope.isArray = function( value ){
 					return angular.isArray(value);
 				};
+
 				$.each($scope.formdata.list,function(){
 					if(this.type=='date'){
 						layui.use('laydate', function(){});
@@ -39,6 +43,9 @@ define(["app",'jquery','./moduls/directive'], function ( app , $ ) {
 						format: 'YYYY-MM-DD hh:mm:ss',
 						festival: true
 					});
+				}
+				$scope.close = function(){
+					$scope.$parent.close();
 				}
 			},
 			link : function($scope , element , arrt , controller){
@@ -66,12 +73,9 @@ define(["app",'jquery','./moduls/directive'], function ( app , $ ) {
 							//required（必填项）phone（手机号）email（邮箱）url（网址）number（数字）date（日期）identity（身份证）
 						});
 						form.on('submit(demo1)', function(data){
-							if(data.elem.nodeName=='A'){
-								
-							}else{
-								var event = $(data.elem).attr('data-event');
-								$scope.$parent[event](JSON.stringify(data.field));
-							}
+							var event = $(data.elem).attr('data-event');
+							$scope.$parent[event](JSON.stringify(data.field));
+							
 
 						    /*layer.alert(JSON.stringify(data.field), {
 						      title: '最终的提交信息'

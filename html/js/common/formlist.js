@@ -121,8 +121,8 @@ define(["app",'jquery','./moduls/directive'], function ( app , $ ) {
 					    $scope.$apply();
 					}
 				}
-				$scope.submit = function( callback , id ,$event){
-					callback(id , $scope,$event);
+				$scope.submit = function( callback , obj ,$event){
+					callback(obj,$scope,$event);
 				}
 
 				$scope.selectAll = function( evt ){

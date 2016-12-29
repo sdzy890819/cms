@@ -8,7 +8,7 @@ require.config({
         "ngload": "plug/ngload",
         'angular-ui-router': 'plug/angular-ui-router.min',
         'angular-css':'plug/angular-css.min',
-        'ui-bootstrap':'plug/ui-bootstrap-2.3.2.min',
+        'ui-bootstrap':'plug/ui-bootstrap-tpls-2.3.2.min',
 
         'layui' : 'plug/layui/layui',
 
@@ -42,7 +42,7 @@ require.config({
 });
 
 // bootstrap
-define(["angular", "angularAMD",'ui-bootstrap', "angular-ui-router",'angular-css','jquery','layui'], function (angular, angularAMD) {
+define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-bootstrap','layui'], function (angular, angularAMD) {
     // module
     var app = angular.module("app", ["ui.router",'angularCSS','ui.bootstrap']);
     // config
