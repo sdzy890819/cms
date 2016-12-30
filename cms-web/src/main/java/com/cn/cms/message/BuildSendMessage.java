@@ -4,7 +4,8 @@ import com.cn.cms.enums.CommonMessageSourceEnum;
 import com.cn.cms.enums.MQQueueKeyEnum;
 import com.cn.cms.message.common.CommonMessage;
 import com.cn.cms.message.common.MessageSender;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -16,7 +17,7 @@ import javax.annotation.Resource;
 public class BuildSendMessage {
 
     @Resource(name = "threadTaskExecutor")
-    private ThreadPoolTaskExecutor threadTaskExecutor;
+    private TaskExecutor threadTaskExecutor;
 
     public void sendTest(Object object , CommonMessageSourceEnum commonMessageSourceEnum
             , MQQueueKeyEnum mqQueueKeyEnum){

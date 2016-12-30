@@ -7,6 +7,7 @@ import com.cn.cms.utils.FileUtil;
 import com.cn.cms.utils.StringUtils;
 import com.cn.cms.web.ann.CheckAuth;
 import com.cn.cms.web.ann.CheckToken;
+import com.cn.cms.web.ann.NotSaveBody;
 import com.cn.cms.web.result.ApiResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -36,6 +37,7 @@ public class UploadController extends BaseController {
      * @param height 高度
      * @return
      */
+    @NotSaveBody
     @CheckToken
     @CheckAuth( name = "images:upload" )
     @RequestMapping(value="/uploadImage",method = RequestMethod.POST)

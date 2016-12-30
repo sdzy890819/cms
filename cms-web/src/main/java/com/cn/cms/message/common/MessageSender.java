@@ -1,5 +1,7 @@
 package com.cn.cms.message.common;
 
+import com.alibaba.fastjson.JSONObject;
+import com.cn.cms.job.BaseTask;
 import com.cn.cms.utils.ContextUtil;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,7 +17,7 @@ import javax.annotation.Resource;
 
 @Getter
 @Setter
-public class MessageSender implements Runnable{
+public class MessageSender extends BaseTask {
 
     private AmqpTemplate amqpTemplate = ContextUtil.getContextUtil().getBean("amqpTemplate4Message", AmqpTemplate.class);
 
@@ -30,12 +32,13 @@ public class MessageSender implements Runnable{
         this.routingKey = routingKey;
     }
 
-    public void sendDataToQueue() {
+    @Override
+    protected void execute() {
         amqpTemplate.convertAndSend(routingKey, object);
     }
 
     @Override
-    public void run() {
-        sendDataToQueue();
+    protected String getJobName() {
+        return "生成消息发送"+ JSONObject.toJSONString(getObject());
     }
 }

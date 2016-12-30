@@ -4,12 +4,16 @@ import com.cn.cms.biz.NewsBiz;
 import com.cn.cms.biz.PublishBiz;
 import com.cn.cms.biz.UserBiz;
 import com.cn.cms.bo.UserBean;
+import com.cn.cms.contants.StaticContants;
+import com.cn.cms.enums.AutoPublishEnum;
 import com.cn.cms.enums.CommonMessageSourceEnum;
+import com.cn.cms.exception.BizException;
 import com.cn.cms.message.BuildSendMessage;
 import com.cn.cms.message.bean.Body;
 import com.cn.cms.po.News;
 import com.cn.cms.po.NewsDetail;
 import com.cn.cms.utils.Page;
+import com.cn.cms.utils.StringUtils;
 import com.cn.cms.web.ann.CheckAuth;
 import com.cn.cms.web.ann.CheckToken;
 import com.cn.cms.web.result.ApiResponse;
@@ -18,6 +22,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -107,6 +113,13 @@ public class NewsController extends BaseController {
      * @param channelId
      * @param columnId
      * @param content
+     * @param field1
+     * @param field2
+     * @param field3
+     * @param field4
+     * @param field5
+     * @param autoPublish
+     * @param timer
      * @return
      */
     @CheckToken
@@ -121,8 +134,14 @@ public class NewsController extends BaseController {
                              @RequestPart(value = "author") String author,
                              @RequestPart(value = "channelId") Long channelId,
                              @RequestPart(value = "columnId") Long columnId,
-                             @RequestPart(value = "content") String content
-                             ){
+                             @RequestPart(value = "content") String content,
+                             @RequestPart(value = "field1", required = false) String field1,
+                             @RequestPart(value = "field2", required = false) String field2,
+                             @RequestPart(value = "field3", required = false) String field3,
+                             @RequestPart(value = "field4", required = false) String field4,
+                             @RequestPart(value = "field5", required = false) String field5,
+                             @RequestPart(value = "autoPublish") Integer autoPublish,
+                             @RequestPart(value = "timer", required = false) String timer){
         String userID = getCurrentUserId(request);
         News news = new News();
         news.setTitle(title);
@@ -140,7 +159,26 @@ public class NewsController extends BaseController {
         news.setLastModifyUserId(userID);
         news.setWriteTime(new Date());
         news.setWriteUserId(userID);
+        news.setField1(field1);
+        news.setField2(field2);
+        news.setField3(field3);
+        news.setField4(field4);
+        news.setField5(field5);
+        news.setAutoPublish(autoPublish);
+        if(StringUtils.isNotBlank(timer)) {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            try {
+                news.setTimer(sdf.parse(timer));
+                news.setBuildUserId(userID);
+            } catch (ParseException e) {
+                log.error(StaticContants.ERROR_DATE_PARSE, e);
+                return ApiResponse.returnFail(StaticContants.ERROR_DATE_PARSE);
+            }
+        }
         newsBiz.saveNews(news);
+        if(autoPublish!=null && autoPublish == AutoPublishEnum.YES.getType() && news.getTimer() == null){
+            publish(request, news.getId());
+        }
         return ApiResponse.returnSuccess();
     }
 
@@ -172,7 +210,14 @@ public class NewsController extends BaseController {
                              @RequestPart(value = "author",required = false) String author,
                              @RequestPart(value = "channelId",required = false) Long channelId,
                              @RequestPart(value = "columnId",required = false) Long columnId,
-                             @RequestPart(value = "content",required = false) String content){
+                             @RequestPart(value = "content",required = false) String content,
+                             @RequestPart(value = "field1",required = false) String field1,
+                             @RequestPart(value = "field2",required = false) String field2,
+                             @RequestPart(value = "field3",required = false) String field3,
+                             @RequestPart(value = "field4",required = false) String field4,
+                             @RequestPart(value = "field5",required = false) String field5,
+                             @RequestPart(value = "autoPublish",required = false) Integer autoPublish,
+                             @RequestPart(value = "timer",required = false) String timer){
         String userID = getCurrentUserId(request);
         News news = new News();
         news.setTitle(title);
@@ -189,7 +234,26 @@ public class NewsController extends BaseController {
         newsDetail.setNewsId(id);
         news.setNewsDetail(newsDetail);
         news.setLastModifyUserId(userID);
+        news.setField1(field1);
+        news.setField2(field2);
+        news.setField3(field3);
+        news.setField4(field4);
+        news.setField5(field5);
+        news.setAutoPublish(autoPublish);
+        if(StringUtils.isNotBlank(timer)) {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(StaticContants.YYYY_MM_DD_HH_MM);
+            try {
+                news.setTimer(simpleDateFormat.parse(timer));
+                news.setBuildUserId(userID);
+            } catch (ParseException e) {
+                log.error("timer参数错误", e);
+                return ApiResponse.returnFail(StaticContants.ERROR_DATE_PARSE);
+            }
+        }
         newsBiz.updateNews(news);
+        if(autoPublish!=null && autoPublish == AutoPublishEnum.YES.getType() && news.getTimer() == null){
+            publish(request, id);
+        }
         return ApiResponse.returnSuccess();
     }
 
@@ -203,7 +267,9 @@ public class NewsController extends BaseController {
     @CheckToken
     @CheckAuth( name = "news:publish" )
     @RequestMapping(value = "/publish", method = RequestMethod.GET)
-    public String publish(HttpServletRequest request, @RequestParam(value = "id") Long id){
+    public String publish(HttpServletRequest request,
+                          @RequestParam(value = "id") Long id){
+
         publishBiz.publish(id, getCurrentUserId(request), CommonMessageSourceEnum.NEWS);
         return ApiResponse.returnSuccess();
     }

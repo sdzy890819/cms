@@ -5,6 +5,7 @@ import com.cn.cms.contants.StaticContants;
 import com.cn.cms.po.OperationHistory;
 import com.cn.cms.utils.CookieUtil;
 import com.cn.cms.web.ann.CheckAuth;
+import com.cn.cms.web.ann.NotSaveBody;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -12,6 +13,9 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+import java.io.BufferedReader;
+import java.util.Collection;
 import java.util.Date;
 
 /**
@@ -62,6 +66,23 @@ public class HistoryInterceptor extends HandlerInterceptorAdapter {
         }
         operationHistory.setUrl(request.getContextPath().concat(request.getServletPath()).concat("?")
                 .concat(request.getQueryString()));
+        boolean bool = true;
+        if(handler instanceof HandlerMethod){
+            HandlerMethod hm = (HandlerMethod) handler;
+            NotSaveBody notSaveBody = hm.getMethodAnnotation(NotSaveBody.class);
+            if(notSaveBody != null ){
+                bool = false;
+            }
+        }
+        if(bool) {
+            BufferedReader bufferedReader = request.getReader();
+            StringBuffer sbf = new StringBuffer();
+            String tmp = null;
+            while ((tmp = bufferedReader.readLine()) != null) {
+                sbf.append(tmp);
+            }
+            operationHistory.setBody(sbf.toString());
+        }
         operationHistory.setUserId(CookieUtil.getCookieVal(request, StaticContants.COOKIE_USER_ID));
         operationHistoryBiz.recordRedis(operationHistory);
     }

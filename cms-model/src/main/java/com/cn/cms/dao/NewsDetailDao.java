@@ -3,6 +3,8 @@ package com.cn.cms.dao;
 import com.cn.cms.po.NewsDetail;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * Dao层
  * Created by zhangyang on 16/11/17.
@@ -17,4 +19,6 @@ public interface NewsDetailDao {
     void saveNewsDetail(@Param(value = "p1") NewsDetail newsDetail);
 
     void updateNewsDetail(@Param(value = "p1") NewsDetail newsDetail);
+
+    List<NewsDetail> findNewsDetailByNewsIds(@Param(value = "list") List<Long> newsIds);
 }

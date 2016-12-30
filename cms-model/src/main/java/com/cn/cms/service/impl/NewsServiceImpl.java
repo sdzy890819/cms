@@ -3,6 +3,8 @@ package com.cn.cms.service.impl;
 import com.cn.cms.dao.NewsColumnDao;
 import com.cn.cms.dao.NewsDao;
 import com.cn.cms.dao.NewsDetailDao;
+import com.cn.cms.enums.AutoPublishEnum;
+import com.cn.cms.enums.PublishEnum;
 import com.cn.cms.po.News;
 import com.cn.cms.po.NewsColumn;
 import com.cn.cms.po.NewsDetail;
@@ -11,6 +13,7 @@ import com.cn.cms.utils.Page;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -83,5 +86,20 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public void publishNews(News news) {
         newsDao.publishNews(news);
+    }
+
+    @Override
+    public List<News> findNewsByAutoPublish(PublishEnum publishEnum, AutoPublishEnum autoPublishEnum, Date timer) {
+        return newsDao.findNewsByAutoPublish(publishEnum.getType(), autoPublishEnum.getType(), timer);
+    }
+
+    @Override
+    public List<News> findNewsAndDetailList(List<Long> ids) {
+        List<News> list = newsDao.findNewsByIds(ids);
+        List<NewsDetail> details = newsDetailDao.findNewsDetailByNewsIds(ids);
+        for(int i=0;i<list.size();i++){
+            list.get(i).setNewsDetail(details.get(i));
+        }
+        return list;
     }
 }

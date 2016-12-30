@@ -37,7 +37,7 @@ public class OperationHistoryBiz extends BaseBiz {
     public void recordInsertDB(){
         long current = new Date().getTime()-1;
         Set<String> set = jedisClient.zrevrangeByScore(RedisKeyContants.REDIS_RECORD_KEY,current,0);
-        List<OperationHistory> list = new ArrayList<OperationHistory>();
+        List<OperationHistory> list = new ArrayList<>();
         Iterator<String> it = set.iterator();
         int a = 0;
         while(it.hasNext()){

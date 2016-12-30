@@ -109,6 +109,41 @@ public class News extends Base{
      */
     private Integer publish = PublishEnum.NO.getType();
 
+    /**
+     * 自定义字段
+     */
+    private String field1;
+
+    /**
+     * 自定义字段
+     */
+    private String field2;
+
+    /**
+     * 自定义字段
+     */
+    private String field3;
+
+    /**
+     * 自定义字段
+     */
+    private String field4;
+
+    /**
+     * 自定义字段
+     */
+    private String field5;
+
+    /**
+     * 是否定时。
+     */
+    private Integer autoPublish;
+
+    /**
+     * 定时
+     */
+    private Date timer;
+
     public String getPlatformStr(){
         return PlatformEnum.get(platform).getName();
     }

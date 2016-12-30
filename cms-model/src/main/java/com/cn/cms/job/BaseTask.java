@@ -1,6 +1,5 @@
 package com.cn.cms.job;
 
-import com.alibaba.fastjson.JSONObject;
 import com.cn.cms.logfactory.CommonLog;
 import com.cn.cms.logfactory.CommonLogFactory;
 import lombok.Getter;

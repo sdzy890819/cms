@@ -3,6 +3,8 @@ package com.cn.cms.message.bean;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 /**
  * Created by zhangyang on 16/12/24.
  */
