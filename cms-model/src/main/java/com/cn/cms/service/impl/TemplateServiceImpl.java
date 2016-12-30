@@ -85,5 +85,11 @@ public class TemplateServiceImpl implements TemplateService {
     public List<Template> findTemplateListByAuto() {
         return templateDao.findTemplateListByAuto(TemplateClassifyEnum.detail.getType(), JobEnum.job.getType());
     }
+
+    @Override
+    public Template findTemplateByChannel(Long channelId, Integer templateClassify,
+                                          Long relationId, Integer relationType, int job) {
+        return templateDao.findTemplateByChannel(channelId, templateClassify, relationId, relationType,job);
+    }
 }
 

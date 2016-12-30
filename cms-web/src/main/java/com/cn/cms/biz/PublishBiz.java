@@ -7,6 +7,7 @@ import com.cn.cms.message.bean.Body;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 /**
  * Created by zhangyang on 16/12/24.
@@ -22,7 +23,7 @@ public class PublishBiz extends BaseBiz {
      * @param id
      * @param commonMessageSourceEnum
      */
-    public void publish(Long id, String userId, CommonMessageSourceEnum commonMessageSourceEnum){
+    public void publish(Long id, String userId , CommonMessageSourceEnum commonMessageSourceEnum){
         Body body = new Body();
         body.setId(id);
         body.setUserId(userId);

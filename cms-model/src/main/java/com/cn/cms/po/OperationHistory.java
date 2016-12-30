@@ -24,6 +24,11 @@ public class OperationHistory extends Base {
     private String description;
 
     /**
+     * 纪录body信息
+     */
+    private String body;
+
+    /**
      * 操作人
      */
     private String userId;

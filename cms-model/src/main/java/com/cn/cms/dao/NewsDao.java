@@ -4,6 +4,7 @@ import com.cn.cms.po.News;
 import com.cn.cms.utils.Page;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,4 +29,8 @@ public interface NewsDao {
 
     void publishNews(@Param(value = "p1") News news);
 
+    List<News> findNewsByAutoPublish(@Param(value = "publish") Integer publish,
+                                     @Param(value = "autoPublish") Integer autoPublish,
+                                     @Param(value = "timer") Date timer);
+    List<News> findNewsByIds(@Param(value = "list") List<Long> ids);
 }

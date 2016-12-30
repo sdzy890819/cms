@@ -1,9 +1,12 @@
 package com.cn.cms.service;
 
+import com.cn.cms.enums.AutoPublishEnum;
+import com.cn.cms.enums.PublishEnum;
 import com.cn.cms.po.News;
 import com.cn.cms.po.NewsColumn;
 import com.cn.cms.utils.Page;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -32,5 +35,11 @@ public interface NewsService {
     List<News> findNewsByColumnId(Long columnId, Page page);
 
     void publishNews(News news);
+
+    List<News> findNewsByAutoPublish(PublishEnum publishEnum, AutoPublishEnum autoPublishEnum, Date timer);
+
+    List<News> findNewsAndDetailList(List<Long> ids);
+
+    News findNews(Long id);
 
 }

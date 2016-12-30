@@ -19,6 +19,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -58,9 +59,9 @@ public class BuildBiz extends BaseBiz {
         CommonMessageSourceEnum sourceEnum = CommonMessageSourceEnum.get(commonMessage.getSource());
         Base base;
         List<Template> templates;
+        Body body = (Body) commonMessage.getMessage();
         switch (sourceEnum) {
             case NEWS: {
-                Body body = (Body) commonMessage.getMessage();
                 News news = newsBiz.findNewsAndDetail(body.getId());
                 templates = templateBiz.findTemplateListByRelation(news.getColumnId(), RelationTypeEnum.column.getType());
                 this.publishNews(news, body);
@@ -68,7 +69,6 @@ public class BuildBiz extends BaseBiz {
                 break;
             }
             case TOPIC: {
-                Body body = (Body) commonMessage.getMessage();
                 Topic topic = topicBiz.getTopic(body.getId());
                 templates = templateBiz.findTemplateListByRelation(topic.getTopicClassifyId(), RelationTypeEnum.topic.getType());
                 this.publishTopic(topic, body);
@@ -76,7 +76,6 @@ public class BuildBiz extends BaseBiz {
                 break;
             }
             case FRAGMENT: {
-                Body body = (Body) commonMessage.getMessage();
                 Fragment fragment = fragmentBiz.findFragment(body.getId());
                 templates = templateBiz.findTemplateListByRelation(fragment.getId(), RelationTypeEnum.fragment.getType());
                 base = fragment;
@@ -96,6 +95,28 @@ public class BuildBiz extends BaseBiz {
     public void buildAuto(){
         List<Template> templates = templateBiz.findTemplateListByAuto();
         this.publishTemplate(templates, null);
+    }
+
+    /**
+     * 新闻定时生成
+     */
+    public void buildAutoPublish(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND,0);
+        List<News> ids = newsBiz.findNewsByAutoPublish(calendar.getTime());
+        if(ids!=null && ids.size()>0){
+            for(int i=0; i<ids.size(); i++){
+                CommonMessage commonMessage = new CommonMessage();
+                Body body = new Body();
+                body.setId(ids.get(i).getId());
+                body.setUserId(ids.get(i).getBuildUserId());
+                commonMessage.setMessage(body);
+                commonMessage.setSource(CommonMessageSourceEnum.NEWS.getType());
+                this.build(commonMessage);
+            }
+        }
+
     }
 
 

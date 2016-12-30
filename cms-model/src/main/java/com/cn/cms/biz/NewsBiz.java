@@ -1,5 +1,7 @@
 package com.cn.cms.biz;
 
+import com.cn.cms.enums.AutoPublishEnum;
+import com.cn.cms.enums.PublishEnum;
 import com.cn.cms.po.News;
 import com.cn.cms.po.NewsColumn;
 import com.cn.cms.service.NewsService;
@@ -7,6 +9,7 @@ import com.cn.cms.utils.Page;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -80,6 +83,33 @@ public class NewsBiz extends BaseBiz {
      */
     public void publishNews(News news){
         newsService.publishNews(news);
+    }
+
+    /**
+     * 根据时间查询当前定时生成的内容
+     * @param timer
+     * @return
+     */
+    public List<News> findNewsByAutoPublish(Date timer){
+        return newsService.findNewsByAutoPublish(PublishEnum.NO, AutoPublishEnum.YES, timer);
+    }
+
+    /**
+     * 根据ID列表获取新闻列表
+     * @param ids
+     * @return
+     */
+    public List<News> findNewsAndDetailByIds(List<Long> ids){
+        return newsService.findNewsAndDetailList(ids);
+    }
+
+    /**
+     * 获取News.
+     * @param id
+     * @return
+     */
+    public News findNews(Long id){
+        return newsService.findNews(id);
     }
 
 }

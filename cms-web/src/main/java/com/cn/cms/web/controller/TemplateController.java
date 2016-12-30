@@ -328,4 +328,26 @@ public class TemplateController extends BaseController {
         return ApiResponse.returnSuccess();
     }
 
+    /**
+     * 模版跳转
+     * @param response
+     * @param id
+     * @return
+     */
+    @CheckToken
+    @RequestMapping(value = "/redirect/{id}", method = RequestMethod.GET)
+    public String redirect(HttpServletResponse response,
+                              @PathVariable(value = "id") Long id){
+        Template template = templateBiz.getTemplate(id);
+        Channel channel = channelBiz.getChannel(template.getChannelId());
+        String url = StringUtils.concatUrl(channel.getChannelUrl(), template.getPath(), template.getFilename());
+        try {
+            response.sendRedirect(url);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
 }

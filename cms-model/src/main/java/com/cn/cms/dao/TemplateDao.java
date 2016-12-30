@@ -32,4 +32,10 @@ public interface TemplateDao {
 
     List<Template> findTemplateListByAuto(@Param(value = "templateClassify") int templateClassify,
                                           @Param(value = "job") int job);
+
+    Template findTemplateByChannel(@Param(value = "channelId") Long channelId,
+                                   @Param(value = "templateClassify") Integer templateClassify,
+                                   @Param(value = "relationId") Long relationId,
+                                   @Param(value = "relationType") Integer relationType,
+                                   @Param(value = "job") int job);
 }
