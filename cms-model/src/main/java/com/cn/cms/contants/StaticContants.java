@@ -75,6 +75,14 @@ public class StaticContants {
 
     public static final String ERROR_DATE_PARSE = "时间格式不对.";
 
+    public static final String ERROR_TEMPLATE_NOT_FOUND = "找不到频道、栏目对应的模版";
+
+    public static final String ERROR_CHANNEL_NOT_FOUND = "找不到新闻对应的频道";
+
+    public static final String ERROR_NEWS_NOT_FOUND = "找不到此篇新闻";
+
+    public static final String ERROR_TOPIC_NOT_FOUND = "找不到此模版";
+
     public static final String getTimeParseErrorYYYYMMDD(){
         return ERROR_TIME_PARSE.concat(YYYY_MM_DD);
     }

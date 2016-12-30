@@ -1,5 +1,6 @@
 package com.cn.cms.service;
 
+import com.cn.cms.enums.TemplateClassifyEnum;
 import com.cn.cms.po.Template;
 import com.cn.cms.po.TemplateRelation;
 import com.cn.cms.utils.Page;
@@ -38,4 +39,10 @@ public interface TemplateService {
     void publishTemplate(List<Long> list);
 
     List<Template> findTemplateListByAuto();
+
+    Template findTemplateByChannel(Long channelId,
+                                   Integer templateClassify,
+                                   Long relationId,
+                                   Integer relationType,
+                                   int job);
 }

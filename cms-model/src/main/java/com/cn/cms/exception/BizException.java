@@ -49,4 +49,9 @@ public class BizException extends Exception {
         log.error("非异常错误, 使用默认错误返回");
     }
 
+    public BizException(String message){
+        this.message = message;
+        log.error("非异常错误, 使用默认错误返回");
+    }
+
 }

@@ -102,4 +102,9 @@ public class NewsServiceImpl implements NewsService {
         }
         return list;
     }
+
+    @Override
+    public News findNews(Long id) {
+        return newsDao.findNewsAndDetail(id);
+    }
 }

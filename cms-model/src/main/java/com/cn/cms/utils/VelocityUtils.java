@@ -33,16 +33,24 @@ public class VelocityUtils {
 
     /**
      * 解析代码片段
-     * @param str
      * @param map
+     * @param str
      * @return
      */
-    public static StringWriter publish(String str, Map<String, Object> map){
+    public static String parse(Map<String, Object> map, String str){
         VelocityEngine velocityEngine = new VelocityEngine(prop);
         VelocityContext context = new VelocityContext(map);
-        StringWriter writer = new StringWriter();
-        velocityEngine.evaluate(context, writer, StaticContants.PUBLISH_TMP_TEMPLATE_NAME, str);
-        return writer;
+
+        try {
+            StringWriter writer = new StringWriter();
+            velocityEngine.evaluate(context, writer, StaticContants.PUBLISH_TMP_TEMPLATE_NAME, str);
+            writer.flush();
+            writer.close();
+            return writer.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -91,13 +99,37 @@ public class VelocityUtils {
     }
 
     /**
+     * 解析模版，返回字符串
+     * @param map
+     * @param templateFile
+     * @param encode
+     * @return
+     */
+    public static String parseTemplate(Map<String, Object> map,
+                                       String templateFile,
+                                       String encode){
+        VelocityEngine velocityEngine = new VelocityEngine(prop);
+        VelocityContext context = new VelocityContext(map);
+        try {
+            StringWriter stringWriter = new StringWriter();
+            velocityEngine.mergeTemplate(templateFile, encode, context, stringWriter);
+            stringWriter.flush();
+            stringWriter.close();
+            return stringWriter.toString();
+        } catch (IOException e) {
+            log.error("发布模版出现错误" ,e);
+        }
+        return null;
+    }
+
+    /**
      * Test
      * @param args
      */
     public static void main(String[] args){
         Map<String, Object> objectMap = new HashMap<>();
         objectMap.put("page", 1);
-        publish("#TAGList() ABC #end", objectMap);
+        parse(objectMap, "#TAGList() ABC #end");
     }
 
 }

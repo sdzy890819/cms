@@ -1,5 +1,6 @@
 package com.cn.cms.biz;
 
+import com.cn.cms.enums.TemplateClassifyEnum;
 import com.cn.cms.po.Template;
 import com.cn.cms.po.TemplateRelation;
 import com.cn.cms.service.TemplateService;
@@ -118,5 +119,22 @@ public class TemplateBiz extends BaseBiz {
 
     public List<Template> findTemplateListByAuto(){
         return templateService.findTemplateListByAuto();
+    }
+
+    /**
+     * 查询频道下栏目触发的详情页模版.
+     * @param channelId
+     * @param templateClassify
+     * @param relationId
+     * @param relationType
+     * @param job
+     * @return
+     */
+    public Template findTemplateByChannel(Long channelId,
+                                          Integer templateClassify,
+                                          Long relationId,
+                                          Integer relationType,
+                                          int job){
+        return templateService.findTemplateByChannel(channelId, templateClassify, relationId, relationType, job);
     }
 }

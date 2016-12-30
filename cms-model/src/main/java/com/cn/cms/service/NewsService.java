@@ -40,4 +40,6 @@ public interface NewsService {
 
     List<News> findNewsAndDetailList(List<Long> ids);
 
+    News findNews(Long id);
+
 }

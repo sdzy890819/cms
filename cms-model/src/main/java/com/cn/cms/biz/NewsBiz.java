@@ -103,5 +103,14 @@ public class NewsBiz extends BaseBiz {
         return newsService.findNewsAndDetailList(ids);
     }
 
+    /**
+     * 获取News.
+     * @param id
+     * @return
+     */
+    public News findNews(Long id){
+        return newsService.findNews(id);
+    }
+
 }
 
