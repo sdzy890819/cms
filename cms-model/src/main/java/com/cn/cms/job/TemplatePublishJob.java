@@ -1,12 +1,8 @@
 package com.cn.cms.job;
 
-import com.alibaba.fastjson.JSONObject;
 import com.cn.cms.biz.ChannelBiz;
 import com.cn.cms.biz.NewsBiz;
-import com.cn.cms.biz.TemplateBiz;
 import com.cn.cms.contants.StaticContants;
-import com.cn.cms.enums.CommonMessageSourceEnum;
-import com.cn.cms.enums.PublishEnum;
 import com.cn.cms.enums.TemplateClassifyEnum;
 import com.cn.cms.logfactory.CommonLog;
 import com.cn.cms.logfactory.CommonLogFactory;

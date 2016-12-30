@@ -16,8 +16,8 @@ public enum AuthEnum {
     DELETE("delete", 6),
     PUBLISH("publish", 7),
     UPLOAD("upload", 8),
-    DOWNLOAD("download", 9);
-
+    DOWNLOAD("download", 9),
+    PREVIEW("preview", 10);
 
     @Getter
     private int type;
