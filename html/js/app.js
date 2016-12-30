@@ -118,7 +118,52 @@ define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-b
                 controllerUrl: 'column/edit'
             }))
 
-            
+            //用户管理系统
+            .state('user', angularAMD.route({
+                url: '/user',
+                templateUrl: 'template/user/index.html',
+                controllerUrl: 'user/index'
+            }))
+            .state('user.add', angularAMD.route({ //新增
+                url: '/add',
+                template: '<user-add></user-add>',
+                controllerUrl: 'user/add'
+            }))
+            .state('user.clear', angularAMD.route({ // 清理
+                url: '/clear',
+                template: '<user-clear></user-clear>',
+                controllerUrl: 'user/clear'
+            }))
+            .state('user.randomPassword', angularAMD.route({ // 密码
+                url: '/randomPassword',
+                template: '<user-random-password></user-random-password>',
+                controllerUrl: 'user/randomPassword'
+            }))
+            .state('user.password', angularAMD.route({ // 密码管理
+                url: '/password',
+                template: '<user-password></user-password>',
+                controllerUrl: 'user/password'
+            }))
+            .state('user.identity', angularAMD.route({ // 身份
+                url: '/identity',
+                template: '<user-identity></user-identity>',
+                controllerUrl: 'user/identity'
+            }))
+            .state('user.function', angularAMD.route({ // 指定功能
+                url: '/function',
+                template: '<user-function></user-function>',
+                controllerUrl: 'user/function'
+            }))
+            .state('user.login', angularAMD.route({ // 登录
+                url: '/login',
+                template: '<user-login></user-login>',
+                controllerUrl: 'user/login'
+            }))
+            .state('user.list', angularAMD.route({ // list
+                url: '/list',
+                template: '<user-list></user-list>',
+                controllerUrl: 'user/list'
+            }))
     }]);
 
     layui.config({
