@@ -21,7 +21,7 @@
 							{{val}}
 						</td>
 						<td width='{{data.table.edit.width}}' class="edits">
-							<div ng-repeat='item in data.table.edit.list' ng-click='submit(item.evt,obj.id,$event)' class="btn {{item.cls}}">
+							<div ng-repeat='item in data.table.edit.list' ng-click='submit(item.evt,obj,$event)' class="btn {{item.cls}}">
 								<i class='icon-{{item.icon}}'></i>{{item.name}}
 							</div>
 						</td>

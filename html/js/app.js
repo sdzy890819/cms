@@ -8,6 +8,7 @@ require.config({
         "ngload": "plug/ngload",
         'angular-ui-router': 'plug/angular-ui-router.min',
         'angular-css':'plug/angular-css.min',
+        'ui-bootstrap':'plug/ui-bootstrap-tpls-2.3.2.min',
 
         'layui' : 'plug/layui/layui',
 
@@ -33,6 +34,7 @@ require.config({
             deps: ['angular'] , 
             exports: 'angular-css'
         },
+        'ui-bootstrap': ["angular"],
         "angularAMD": ["angular"],
         "ngload": ["angularAMD"]
     }//,
@@ -40,9 +42,9 @@ require.config({
 });
 
 // bootstrap
-define(["angular", "angularAMD", "angular-ui-router",'angular-css','jquery','layui'], function (angular, angularAMD) {
+define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-bootstrap','layui'], function (angular, angularAMD) {
     // module
-    var app = angular.module("app", ["ui.router",'angularCSS']);
+    var app = angular.module("app", ["ui.router",'angularCSS','ui.bootstrap']);
     // config
     app.config(["$stateProvider", '$urlRouterProvider','$locationProvider', function($stateProvider, $urlRouterProvider,$locationProvider){
         /*$locationProvider.html5Mode(true);*/

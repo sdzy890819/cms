@@ -1,19 +1,23 @@
-define(['require',"app",'jquery','formlist','fixedNav','../moduls/service'], function ( require , app , $ ) {
+define(['require',"app",'jquery','formlist','fixedNav','position','../moduls/service'], function ( require , app , $ ) {
 	app.directive('newsNewslist',function(){
 		return {
 	    	restrict : 'E',
 	    	replace : true,
 	    	transclude : true,
 	        templateUrl : '../template/news/newslist.html',
-	        controller : function($scope,pop){
+	        controller : function($scope,pop,$uibModal , $css){
+			   $css.add('../../style/stylesheets/pop.css');
+
 				$scope.$parent.menu.push({name:"新闻栏目列表"}); //栏目
 				$scope.info = function( id ){ //保存
 					alert(id)
 				}
-				$scope.edit = function( id ){ //编辑
+				$scope.edit = function( obj ){ //编辑
 					require(['./editPop'], function(pop) {
         				pop.init({
-        					id : id
+        					obj : obj,
+        					$uibModal :$uibModal , 
+        					$css : $css
         				});
   					});
 				}

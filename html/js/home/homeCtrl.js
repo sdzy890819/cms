@@ -5,9 +5,17 @@ define(["app",'head','menu'], function ( app ) {
 	    	replace : true,
 	    	transclude : true,
 	        templateUrl : '../template/home/index.html',
-	        controller : function(){
-
+	        controller : function($uibModal){
+	        	 
 	        }
 	    };
 	});
+	return ["$uibModal",function($uibModal){
+		/*$uibModal.open({
+	      animation: true,
+	      ariaLabelledBy: 'modal-title',
+	      ariaDescribedBy: 'modal-body',
+	      template: 'myModalContent.html',
+	    });*/
+	}]
 });

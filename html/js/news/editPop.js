@@ -1,30 +1,13 @@
-define(["app",'jquery'],function (app,$) {
-	app.directive('editPop',function(){
-		return {
-	    	restrict : 'E',
-	    	replace : true,
-	    	transclude : true,
-	        template : '../template/common/form.html',
-	        //templateUrl : '../template/common/form.html',
-			scope : {
-	            
-	        },
-	        controller : function($scope , $state , $element , $rootScope){
-
-			},
-			link : function(){
-
-			}
-		}
-	});
+define(["app",'jquery','./addForm','form'],function (app,$,list) {
     return {
     	init : function( obj ){
-    		layui.use(['layer'], function(){
+    		var $uibModal = obj.$uibModal;
+    		/*layui.use(['layer'], function(){
 				var layer = layui.layer , 
 					edit = $('<edit-pop>3498sdf</edit-pop>');
 	    		layer.open({
 					title : '标题'
-					,content: '<edit-pop>3498sdf</edit-pop>'
+					,content: '<news-add></news-add>'
 					,area : '90%'
 					,btn: ['按钮一', '按钮二', '按钮三']
 					,shadeClose : true
@@ -40,8 +23,49 @@ define(["app",'jquery'],function (app,$) {
 					//右上角关闭回调
 					}
 				});
-			});
-			
+			});*/
+			console.log(obj.obj);
+			obj.$uibModal.open({
+		      animation: true,
+		      ariaLabelledBy: 'modal-title',
+		      ariaDescribedBy: 'modal-body',
+		      //windowTemplateUrl : '../../template/common/window.html',
+		      //template : 'asdfsadf',
+		      templateUrl: '../template/news/add.html',
+		      size: 'lg',
+		      controller: function($scope,$uibModalInstance) {
+
+		      	$scope.titelement = {
+		      		close :true
+		      	};
+		      	$scope.close = function () {
+				   	$uibModalInstance.dismiss('cancel');
+			  	};
+
+			  	$.each(list,function( i , item ){
+
+			  	});
+
+				$scope.formdata = { //确认按钮
+					title : '编辑',
+					cls : 'popedit',
+					list : list,
+					submit : [
+						{
+							name : '确定',
+							evt : 'save',
+							icon_cls : 'save'
+						},
+						{
+							name:'取消',
+							evt : 'cancel',
+							icon_cls : 'cancel',
+							cls : 'cancel'
+						}
+					]
+				}
+		      }
+		    });
     	}
     }
 });
