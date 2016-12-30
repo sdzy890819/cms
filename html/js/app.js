@@ -85,58 +85,40 @@ define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-b
             }))
 
             //部门
-            .state('department', {
+            .state('department', angularAMD.route({
                 url: '/department',
                 templateUrl: 'template/department/index.html',
-                controllerUrl: 'department/index',
-                controller: 'mainCtrl'
-            })
-            .state('department.edit', {
-                url: '/edit',
-                template : '<department-edit></department-edit>',
-                controllerUrl: 'department/edit'
-            })
-            .state('department.list', {
+                controllerUrl: 'department/index'
+            }))
+            .state('department.list', angularAMD.route({
                 url: '/list',
                 template : '<department-list></department-list>',
                 controllerUrl: 'department/list'
-            })
+            }))
+            .state('department.edit', angularAMD.route({
+                url: '/edit',
+                template : '<department-edit></department-edit>',
+                controllerUrl: 'department/edit'
+            }))
 
-            //栏目
-            .state('column', {
+            //频道管理
+            .state('column', angularAMD.route({
                 url: '/column',
                 templateUrl: 'template/column/index.html',
-                controllerUrl: 'column/index',
-                controller: 'mainCtrl'
-            })
-            .state('column.edit', {
-                url: '/edit',
-                template : '<column-edit></column-edit>',
-                controllerUrl: 'column/edit'
-            })
-            .state('column.list', {
+                controllerUrl: 'column/index'
+            }))
+            .state('column.list', angularAMD.route({
                 url: '/list',
-                template : '<column-list></column-list>',
+                template: '<column-list></column-list>',
                 controllerUrl: 'column/list'
-            })
+            }))
+            .state('column.edit', angularAMD.route({
+                url: '/edit',
+                template: '<column-edit></column-edit>',
+                controllerUrl: 'column/edit'
+            }))
 
-            //图片上传
-            /*.state('column', {
-                url: '/column',
-                templateUrl: 'template/column/index.html',
-                controllerUrl: 'column/index',
-                controller: 'mainCtrl'
-            })
-            .state('column.edit', {
-                url: '/edit',
-                template : '<column-edit></column-edit>',
-                controllerUrl: 'column/edit'
-            })
-            .state('column.list', {
-                url: '/list',
-                template : '<column-list></column-list>',
-                controllerUrl: 'column/list'
-            })*/
+            
     }]);
 
     layui.config({

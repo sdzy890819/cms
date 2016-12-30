@@ -9,7 +9,7 @@
 		</div>
 		<div class="content clearfix">
 			<form class="layui-form clearfix">
-				<position-nav edit='edit' submit='submit'></position-nav>
+				<position-nav edit='edit' submit='submit' isadd='isadd'></position-nav>
 				<div class="layui-form-item" ng-repeat="obj in formdata.list">
 					<label ng-if='!isArray(obj)' class="layui-form-label"><em ng-show='obj.check!=false'>*</em>{{obj.name}}</label>
 					<div class="layui-input-block" ng-if='!isArray(obj)' repeat-finish='formRepeat'>

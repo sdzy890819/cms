@@ -50,7 +50,7 @@ define(['require',"app",'jquery','formlist','fixedNav','position','../moduls/ser
 					list : [
 						{
 							name : '批量删除',
-							evt : function(id , scope , evt){
+							event : function(id , scope , evt){
 								scope.delAll(function( ids ){
 									console.log(ids)
 								});

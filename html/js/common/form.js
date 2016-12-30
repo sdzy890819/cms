@@ -12,7 +12,6 @@ define(["app",'jquery','./moduls/directive'], function ( app , $ ) {
 	            titelement : '=titelement'
 	        },
 	        controller : function($scope , $state , $element , $rootScope){
-	        	
 				var icon = {
 					add:'plus',//添加
 					save:'save',//保存
@@ -23,6 +22,7 @@ define(["app",'jquery','./moduls/directive'], function ( app , $ ) {
 					ok:'ok',//全选 确定
 					cancel : 'minus-sign' //取消
 				};
+
 				$.each($scope.formdata.submit,function(){
 					this.icon_cls = icon[this.icon_cls]
 				});
@@ -65,6 +65,18 @@ define(["app",'jquery','./moduls/directive'], function ( app , $ ) {
 							    return '标题至少得5个字符啊';
 							  }
 							}
+							,http : function( value ){
+								var reg = /^http:\/\/([\w-]+\.)+[\w-]+(\/[\w-./?%&=]*)?$/;
+								if(value.search(reg)<0){
+									return '请输入正确的域名（例：http://www.xy.com）';
+								};
+							}
+							,path : function( value ){
+								var reg = /^([A-Za-z]{1}\/[\w\/]*)?\w+\/{1}[a-zA-Z]+$/;
+								if(value.search(reg)<0){
+									return '请输入正确的域名（例：xy/xy）';
+								};
+							}
 							,select : function( value , ele){
 								if(value.indexOf('请选择')>-1 && ele.parentNode.selectedIndex == 0){
 									return value;
@@ -74,7 +86,11 @@ define(["app",'jquery','./moduls/directive'], function ( app , $ ) {
 						});
 						form.on('submit(demo1)', function(data){
 							var event = $(data.elem).attr('data-event');
-							$scope.$parent[event](JSON.stringify(data.field));
+							if(data.nodeName!='A'){
+								$scope.$parent[event](JSON.stringify(data.field));
+							}else{
+								
+							}
 							
 
 						    /*layer.alert(JSON.stringify(data.field), {
