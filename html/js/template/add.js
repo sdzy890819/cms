@@ -6,7 +6,8 @@ define(["app",'./addForm','form','position','fixedNav'], function ( app , list )
 	    	transclude : true,
 	        templateUrl : '../template/common/addAndEdit.html',
 	        controller : function($scope){
-	        	$scope.$parent.menu.push({name:"新增模版"});
+	        	$scope.title = '新增模版';
+	        	$scope.$parent.menu.push({name:$scope.title});
 	        	angular.extend($scope,{
 					save : function( arr ){ //保存
 						alert(arr)
@@ -25,7 +26,7 @@ define(["app",'./addForm','form','position','fixedNav'], function ( app , list )
 					]
 				}
 				$scope.formdata = { //确认按钮
-					title : '新增新闻',
+					title : $scope.title,
 					list : list,
 					submit : [
 						{
