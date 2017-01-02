@@ -23,6 +23,8 @@ public interface ChannelService {
 
     Channel findChannel(Long id);
 
+    Channel doFindChannel(Long id);
+
     List<Channel> getChannelList(List<Long> ids);
 
     List<Channel> findChannelList(Long categoryId);

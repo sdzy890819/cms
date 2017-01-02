@@ -32,50 +32,67 @@ public class ChannelServiceImpl implements ChannelService {
         return channelDao.findChannelByUserId(userId);
     }
 
+    @Override
     public void saveChannel(Channel channel) {
         channelDao.saveChannel(channel);
     }
 
+    @Override
     public void updateChannel(Channel channel) {
         channelDao.updateChannel(channel);
     }
 
+    @Override
     public void delChannel(String lastModifyUserId, Long id) {
         channelDao.delChannel(lastModifyUserId, id);
     }
 
+    @Override
     public Channel findChannel(Long id) {
         return channelDao.findChannel(id);
     }
 
+    @Override
+    public Channel doFindChannel(Long id) {
+        return channelDao.findChannel(id);
+    }
+
+    @Override
     public List<Channel> getChannelList(List<Long> ids) {
         return channelDao.getChannelList(ids);
     }
 
+    @Override
     public List<Channel> findChannelList(Long categoryId) {
         return channelDao.findChannelList(categoryId);
     }
 
+    @Override
     public Integer queryCountForUserId(String userId) {
         return userChannelDao.queryCountForUserId(userId);
     }
 
+    @Override
     public List<UserChannel> queryListForUserId(String userId, Page page) {
         return userChannelDao.queryListForUserId(userId, page);
     }
 
+    @Override
     public Integer queryCountForChannelId(Long channelId) {
         return userChannelDao.queryCountForChannelId(channelId);
     }
 
+    @Override
     public List<UserChannel> queryListForChannelId(Long channelId, Page page) {
         return userChannelDao.queryListForChannelId(channelId, page);
     }
 
+    @Override
     public void saveUserChannel(List<UserChannel> list) {
         userChannelDao.saveUserChannel(list);
     }
 
+    @Override
     public void delUserChannel(String userId, Long channelId) {
         userChannelDao.delUserChannel(userId, channelId);
     }
