@@ -43,15 +43,15 @@ define(function(){
 		},
 		{
 			title : 'selectTemplate',
-			name : '选择模版',
+			name : '选择频道',
 			type : 'select',
 			verify : 'select',
 			select : [
 				[
-					{name:'请选择模版类型'},
-					{name:'碎片频道'},
-					{name:'新闻频道'},
-					{name:'专题频道'}
+					{name:'请选择频道'},
+					{name:'频道名称'},
+					{name:'频道名称'},
+					{name:'频道名称'}
 				]
 			]
 		},
