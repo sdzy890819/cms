@@ -22,6 +22,8 @@ define(["app",'jquery','./moduls/directive'], function ( app , $ ) {
 					ok:'ok',//全选 确定
 					cancel : 'minus-sign' //取消
 				};
+				$scope.$css = $css;
+				$scope.$uibModal = $uibModal;
 
 				$.each($scope.formdata.submit,function(){
 					this.icon_cls = icon[this.icon_cls]
@@ -61,12 +63,12 @@ define(["app",'jquery','./moduls/directive'], function ( app , $ ) {
 							if(this.type=='date'){ //日期
 								layui.use('laydate', function(){});
 							}else if(this.type=='file'){
-								$css.add('../../style/stylesheets/pop.css');
+								$scope.$css.add('../../style/stylesheets/pop.css');
 								require(['../js/plug/upload/upload'], function(upload) {
 			        				upload.init({
 			        					elem : '.layui-upload-button',
-			        					$uibModal :$uibModal ,
-			        					$css : $css , 
+			        					$uibModal :$scope.$uibModal ,
+			        					$css : $scope.$css , 
 			        					typeName : self.typeName
 			        				});
 			  					});

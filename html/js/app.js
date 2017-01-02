@@ -247,27 +247,7 @@ define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-b
                 controllerUrl: 'video/select'
             }))
 
-            //模版管理
-            .state('video', angularAMD.route({
-                url: '/video',
-                templateUrl: 'template/common/index.html',
-                controllerUrl: 'video/index'
-            }))
-            .state('video.list', angularAMD.route({ 
-                url: '/list',
-                template: '<video-list></video-list>',
-                controllerUrl: 'video/list'
-            }))
-            .state('video.upload', angularAMD.route({ 
-                url: '/upload',
-                template: '<video-upload></video-upload>',
-                controllerUrl: 'video/upload'
-            }))
-            .state('video.select', angularAMD.route({ 
-                url: '/select',
-                template: '<video-select></video-select>',
-                controllerUrl: 'video/select'
-            }))
+            
             
     }]);
 
