@@ -148,8 +148,10 @@ define(["app",'jquery','./addForm','formlist','position','fixedNav','../moduls/s
 						],
 						td : GenerateArrList.arr(_data.data.list,$scope.filter) ,
 						edit : {
-							width : 120 , 
+							width : 250 , 
 							list : [
+								{cls : 'upload' , name : '下载',evt:$scope.down},
+								{cls : 'add' , name : '关联',evt:$scope.relation},
 								{cls : 'edit' , name : '编辑',evt:$scope.edit},
 								{cls : 'del' , name : '删除',evt:$scope.del},
 							]

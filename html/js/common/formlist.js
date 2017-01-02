@@ -14,6 +14,7 @@ define(["app",'jquery','./moduls/directive'], function ( app , $ ) {
 				var icon = {
 					add:'plus',//添加
 					edit:'pencil',//编辑
+					upload:'upload-alt',// 上传
 					del:'trash',//删除
 				};
 
