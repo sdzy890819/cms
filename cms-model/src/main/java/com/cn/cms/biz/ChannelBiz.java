@@ -65,7 +65,7 @@ public class ChannelBiz extends BaseBiz {
      * @param id
      */
     private void setRedis(Long id){
-        Channel channel = channelService.findChannel(id);
+        Channel channel = channelService.doFindChannel(id);
         jedisClient.set(RedisKeyContants.getRedisChannelDetailKey(id), JSONObject.toJSONString(channel));
     }
 
