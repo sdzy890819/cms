@@ -79,6 +79,7 @@ define(["app",'jquery','./moduls/directive'], function ( app , $ ) {
 										url : '/upload/uploadFile',
 										title: self.name||'',
 										type : self.fileType||'',
+										ext : self.ext||'',
 										method : self.method||'POST',
 										before : function(){},
 										success : function(){
@@ -106,7 +107,7 @@ define(["app",'jquery','./moduls/directive'], function ( app , $ ) {
 							,path : function( value ){
 								var reg = /^([A-Za-z]{1}\/[\w\/]*)?\w+\/{1}[a-zA-Z]+$/;
 								if(value.search(reg)<0){
-									return '请输入正确的域名（例：xy/xy）';
+									return '请输入正确的路经（例：xy/xy）';
 								};
 							}
 							,select : function( value , ele){

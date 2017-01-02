@@ -731,7 +731,7 @@ input:focus{ border: 1px solid #bbb !important;} */
 }
 /* line 238, ../sass/global.scss */
 .boxtab > .title {
-  background-color: #35aa47;
+  background-color: #488be7;
   margin-bottom: 0px;
   padding: 8px 10px 8px 10px;
   color: #fff !important;
@@ -755,7 +755,7 @@ input:focus{ border: 1px solid #bbb !important;} */
 }
 /* line 245, ../sass/global.scss */
 .boxtab > .content {
-  border: 1px solid #35aa47;
+  border: 1px solid #488be7;
 }
 /* line 248, ../sass/global.scss */
 .boxtab .submit {
@@ -773,7 +773,7 @@ input:focus{ border: 1px solid #bbb !important;} */
   padding: 0 15px;
   color: #fff;
   border: none;
-  background: #35aa47;
+  background: #488be7;
   cursor: pointer;
   transition-duration: 0.3s;
   -webkit-transition-duration: 0.3s;
@@ -783,7 +783,7 @@ input:focus{ border: 1px solid #bbb !important;} */
 }
 /* line 251, ../sass/global.scss */
 .boxtab .submit .btn:hover {
-  background: #108f24;
+  background: #3d82e1;
 }
 /* line 252, ../sass/global.scss */
 .boxtab .submit .btn:not(:nth-child(1)) {

@@ -1,5 +1,5 @@
 define(["app",'jquery','./addForm','formlist','position','fixedNav','../moduls/service','../moduls/factory'], function ( app , $ , list ) {
-	app.directive('videoList',function(){
+	app.directive('templateList',function(){
 		return {
 	    	restrict : 'E',
 	    	replace : true,

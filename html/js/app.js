@@ -247,7 +247,22 @@ define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-b
                 controllerUrl: 'video/select'
             }))
 
-            
+            //模版管理
+            .state('template', angularAMD.route({
+                url: '/template',
+                templateUrl: 'template/common/index.html',
+                controllerUrl: 'template/index'
+            }))
+            .state('template.list', angularAMD.route({ 
+                url: '/list',
+                template: '<template-list></template-list>',
+                controllerUrl: 'template/list'
+            }))
+            .state('template.add', angularAMD.route({ 
+                url: '/add',
+                template: '<template-add></template-add>',
+                controllerUrl: 'template/add'
+            }))
             
     }]);
 

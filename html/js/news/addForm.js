@@ -14,14 +14,14 @@ define(function(){
 			type : 'text',
 			verify : 'title'
 		},
-		{
-			title : 'keyword',
-			name : '关键字',
-			placeholder : '关键字之间以 “,” 隔开',
-			type : 'text',
-			check : false
-		},
 		[
+			{
+				title : 'keyword',
+				name : '关键字',
+				placeholder : '关键字之间以 “,” 隔开',
+				type : 'text',
+				check : false
+			},
 			{
 				title : 'author',
 				name : '作者',
@@ -80,6 +80,22 @@ define(function(){
 			name : '定时发布',
 			type : 'date',
 			check : false
+		},
+		{
+			title : 'show',
+			name : '是否发布',
+			type : 'radio',
+			radio : [
+				{
+					title : 'yes',
+					name : '是' , 
+					checked : true
+				},
+				{
+					title : 'no',
+					name : '否'
+				}
+			]
 		}
 	]
 })

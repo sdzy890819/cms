@@ -14,7 +14,14 @@
 					<label ng-if='!isArray(obj)' class="layui-form-label"><em ng-show='obj.check!=false&&obj.verify'>*</em>{{obj.name}}</label>
 					<div class="layui-input-block" ng-if='!isArray(obj)' repeat-finish='formRepeat'>
 						<!-- 输入匡 或 密码 -->
-						<input ng-if="obj.type=='text'||obj.type=='password'" class="text layui-input {{obj.cls||'w320'}}" type="{{obj.type=='text'?'text':'password'}}" name="{{obj.title}}" lay-verify="{{obj.verify}}" placeholder="{{obj.placeholder}}" autocomplete="off">
+						<input ng-if="obj.type=='text'||obj.type=='password'" 
+							class="text layui-input {{obj.cls||'w320'}}" 
+							type="{{obj.type}}" 
+							name="{{obj.title}}" 
+							lay-verify="{{obj.verify}}" 
+							placeholder="{{obj.placeholder}}" 
+							ng-pattern="{{obj.pattern}}"
+							autocomplete="off">
 
 						<!-- 多文本 -->
 						<textarea ng-if="obj.type=='textarea'" class="layui-textarea text w80 {{obj.cls}}" name="{{obj.title}}" lay-verify="content" placeholder="{{obj.placeholder}}"></textarea>
