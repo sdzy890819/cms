@@ -9,34 +9,57 @@
 		</div>
 		<div class="content clearfix">
 			<form class="layui-form clearfix">
-				<position-nav edit='edit' submit='submit'></position-nav>
+				<position-nav edit='edit' submit='submit' isadd='isadd'></position-nav>
 				<div class="layui-form-item" ng-repeat="obj in formdata.list">
-					<label ng-if='!isArray(obj)' class="layui-form-label"><em ng-show='obj.check!=false'>*</em>{{obj.name}}</label>
+					<label ng-if='!isArray(obj)' class="layui-form-label"><em ng-show='obj.check!=false&&obj.verify'>*</em>{{obj.name}}</label>
 					<div class="layui-input-block" ng-if='!isArray(obj)' repeat-finish='formRepeat'>
-						<input ng-if="obj.type=='text'" class="text layui-input {{obj.cls||'w320'}}" type="text" name="{{obj.title}}" lay-verify="{{obj.verify}}" placeholder="{{obj.placeholder}}" autocomplete="off">
+						<!-- 输入匡 或 密码 -->
+						<input ng-if="obj.type=='text'||obj.type=='password'" class="text layui-input {{obj.cls||'w320'}}" type="{{obj.type=='text'?'text':'password'}}" name="{{obj.title}}" lay-verify="{{obj.verify}}" placeholder="{{obj.placeholder}}" autocomplete="off">
 
+						<!-- 多文本 -->
 						<textarea ng-if="obj.type=='textarea'" class="layui-textarea text w80 {{obj.cls}}" name="{{obj.title}}" lay-verify="content" placeholder="{{obj.placeholder}}"></textarea>
 
+						<!-- select -->
 					    <div ng-if="obj.type=='select'" class="layui-input-inline {{obj.cls}}" ng-repeat="select in obj.select">
 					      <select name="{{obj.title}}{{$index}}">
 					        <option lay-verify="{{obj.verify}}" ng-repeat="option in select">{{option.name}}</option>
 					      </select>
 					    </div>
 
+					    <!-- 时间 -->
 					    <input ng-if="obj.type=='date'" type="text" name="{{obj.title}}" id="date"placeholder="{{obj.placeholder}}" readonly='readonly' autocomplete="off" class="layui-input date {{obj.cls||'w220'}}" ng-click="selectDate($event)"><!--  lay-verify="date"  -->
+
+					    <!-- 上传按钮 并不能上传需要点击事件 -->
+					    <div ng-if="obj.type=='file'" class="layui-box layui-upload-button" style="cursor:pointer">
+					    	<span class="layui-upload-icon"><i class="layui-icon"></i>上传图片</span>
+					    </div>
+
+					    <!-- layer 自带上传功能 -->
+					    <input ng-if="obj.type=='upload'" type="file" name="{{obj.title}}" class="layui-upload-file {{obj.cls}}">
+
+					    <input ng-if="obj.type=='radio'" ng-repeat="item in obj.radio"  type="radio" name="{{obj.title}}" title="{{item.name}}" value='{{item.title}}' ng-checked="{{item.checked}}">
 
 					</div>
 					<div class="layui-inline" ng-if='isArray(obj)' ng-repeat="item in obj" repeat-finish='formRepeat'>
-						<label class="layui-form-label"><em ng-show='item.check!=false'>*</em>{{item.name}}</label>
-					    <div class="layui-input-inline">
-					        <input ng-if="item.type=='text'" class="text layui-input {{item.cls||'w220'}}" type="text" name="{{obj.title}}" placeholder="{{item.placeholder}}" autocomplete="off" name="{{obj.title}}">
-					    <div ng-if="item.type=='select'" class="layui-input-inline {{item.cls}}" ng-repeat="select in item.select">
-					      <select name="{{obj.title}}">
-					        <option ng-repeat="option in select" lay-verify="{{obj.verify}}">{{option.name}}</option>
-					      </select>
-					    </div>
+						<label ng-if='item.type!="button"' class="layui-form-label"><em ng-show='item.check!=false'>*</em>{{item.name}}</label>
+					    <div class="layui-input-inline"> <!-- 不换行 -->
+					        <!-- 输入匡 或 密码 -->
+							<input ng-if="item.type=='text'||item.type=='password'" class="text layui-input {{item.cls||'w100'}}" type="{{item.type=='text'?'text':'password'}}" name="{{item.title}}" lay-verify="{{item.verify}}" placeholder="{{item.placeholder}}" autocomplete="off">
 
-					    <input ng-if="item.type=='date'" type="text" name="{{obj.title}}" id="date" lay-verify="{{obj.verify}}" readonly='readonly' placeholder="{{item.placeholder}}" autocomplete="off" class="layui-input date {{item.cls||'w220'}}" ng-click="selectDate($event)">
+							<!-- 多文本 -->
+							<textarea ng-if="item.type=='textarea'" class="layui-textarea text w80 {{item.cls}}" name="{{item.title}}" lay-verify="content" placeholder="{{item.placeholder}}"></textarea>
+
+							<!-- select -->
+						    <div ng-if="item.type=='select'" class="layui-input-inline {{item.cls}}" ng-repeat="select in item.select">
+						      <select name="{{item.title}}{{$index}}">
+						        <option lay-verify="{{item.verify}}" ng-repeat="option in select">{{option.name}}</option>
+						      </select>
+						    </div>
+
+						    <!-- 时间 -->
+						    <input ng-if="item.type=='date'" type="text" name="{{item.title}}" id="date"placeholder="{{item.placeholder}}" readonly='readonly' autocomplete="off" class="layui-input date {{item.cls||'w220'}}" ng-click="selectDate($event)"><!--  lay-verify="date"  -->
+
+					    	<button ng-if='item.type=="button"' class="layui-btn layui-btn-normal" ng-click='submit(item.evt,item,$event)'>{{item.name}}</button>
 					    </div>
 					</div>
 				</div>

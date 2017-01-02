@@ -1,20 +1,28 @@
 <div ng-if='edit' class='position-fixed'>
 	<ul ng-if='edit.nav'>
 		<li ng-repeat="obj in edit.nav">
-			<a javascript:; lay-submit="" lay-filter="demo1" data-event='{{obj.evt}}'>
+			<a ng-if='obj.evt' javascript:; lay-submit="" lay-filter="demo1" data-event='{{obj.evt}}'>
+				<i class="icon-{{obj.icon_cls}}"></i>
+				<span>{{obj.name}}</span>
+			</a>
+			<a ng-if='obj.event' javascript:; ng-click='submit(obj.event)'>
 				<i class="icon-{{obj.icon_cls}}"></i>
 				<span>{{obj.name}}</span>
 			</a>
 		</li>
 	</ul>
-	<div class="edit">
+	<div class="edit" ng-if='edit.list'>
 		<a javascript:;>
 			<i class='icon-pencil'></i>
 			<span>操作</span>
 		</a>
 		<ul class="list">
 			<li ng-repeat="obj in edit.list" repeat-finish='listFinish'>
-				<a javascript:; lay-submit="" lay-filter="demo1" data-event='{{obj.evt}}'>
+				<a ng-if='obj.evt' javascript:; lay-submit="" lay-filter="demo1" data-event='{{obj.evt}}'>
+					<i class="icon-{{obj.icon_cls}}"></i>
+					<span>{{obj.name}}</span>
+				</a>
+				<a ng-if='obj.event' javascript:; ng-click='submit(obj.event)'>
 					<i class="icon-{{obj.icon_cls}}"></i>
 					<span>{{obj.name}}</span>
 				</a>

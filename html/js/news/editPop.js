@@ -24,7 +24,7 @@ define(["app",'jquery','./addForm','form'],function (app,$,list) {
 					}
 				});
 			});*/
-			console.log(obj.obj);
+			//console.log(obj.obj);
 			obj.$uibModal.open({
 		      animation: true,
 		      ariaLabelledBy: 'modal-title',
@@ -43,7 +43,7 @@ define(["app",'jquery','./addForm','form'],function (app,$,list) {
 			  	};
 
 			  	$.each(list,function( i , item ){
-
+			  		
 			  	});
 
 				$scope.formdata = { //确认按钮

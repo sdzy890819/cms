@@ -1,4 +1,4 @@
-define(["app",'jquery','formlist','fixedNav','../moduls/service'], function ( app , $ ) {
+define(["app",'jquery','formlist','position','fixedNav','../moduls/service'], function ( app , $ ) {
 	app.directive('newsList',function(){
 		return {
 	    	restrict : 'E',
@@ -6,6 +6,7 @@ define(["app",'jquery','formlist','fixedNav','../moduls/service'], function ( ap
 	    	transclude : true,
 	        templateUrl : '../template/news/list.html',
 	        controller : function($scope , pop){
+	        	
 				$scope.$parent.menu.push({name:"新闻栏目管理"}); //栏目
 				$scope.filter = [ //过滤不需要展示的
 					'id'
@@ -58,8 +59,10 @@ define(["app",'jquery','formlist','fixedNav','../moduls/service'], function ( ap
 					list : [
 						{
 							name : '批量删除',
-							evt : function(id , scope , evt){
-								scope.delAll($scope.delAll);
+							event : function(id , scope , evt){
+								scope.delAll(function( ids ){
+									console.log(ids)
+								});
 							},
 							cls :'red',
 							icon_cls : 'remove'
