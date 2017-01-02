@@ -129,7 +129,7 @@ define(["app",'jquery','./moduls/directive'], function ( app , $ ) {
 					selectIcon = $(evt.currentTarget).find('i')[0];
 					$scope.selectEdit();
 				}
-				$scope.delAll = function( callback ){ //删除所有选择的 select
+				$scope.getSelect = $scope.delAll = function( callback ){ //删除所有选择的 select
 					var arr = '';
 					select.children().each(function(){
 						if(this.checked==true){
@@ -146,6 +146,19 @@ define(["app",'jquery','./moduls/directive'], function ( app , $ ) {
 						callback(arr);
 					}
 				}
+				$scope.getOneSelect = function(callback){ //只选择一个
+					$scope.getSelect(function(str){
+						if(str.split(',').length>1){
+							layui.use(['layer'], function(){
+								var layer = layui.layer;
+								layer.msg('暂时不支持多个选择。', function(){});
+							});
+						}else{
+							callback(str);
+						}
+					})
+				}
+
 				//以下为分页
 				 
 			}

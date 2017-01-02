@@ -91,6 +91,22 @@ define(function(){
 			ext : 'html|htm|shtml',
 			type : 'upload', //text textarea radio checkbox edit
 			verify : 'upload'
+		},
+		{
+			title : 'shengcheng',
+			name : '生成方式',
+			type : 'radio',
+			radio : [
+				{
+					title : 'timing',
+					name : '定时生成',
+					checked : true
+				},
+				{
+					title : 'touch',
+					name : '触发生成'
+				}
+			]
 		}
 	]
 })

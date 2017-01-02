@@ -2,11 +2,11 @@
 	<ul ng-if='edit.nav'>
 		<li ng-repeat="obj in edit.nav">
 			<a ng-if='obj.evt' javascript:; lay-submit="" lay-filter="demo1" data-event='{{obj.evt}}'>
-				<i class="icon-{{obj.icon_cls}}"></i>
+				<i class="icon-{{obj.cls}}"></i>
 				<span>{{obj.name}}</span>
 			</a>
 			<a ng-if='obj.event' javascript:; ng-click='submit(obj.event)'>
-				<i class="icon-{{obj.icon_cls}}"></i>
+				<i class="icon-{{obj.cls}}"></i>
 				<span>{{obj.name}}</span>
 			</a>
 		</li>
@@ -19,11 +19,11 @@
 		<ul class="list">
 			<li ng-repeat="obj in edit.list" repeat-finish='listFinish'>
 				<a ng-if='obj.evt' javascript:; lay-submit="" lay-filter="demo1" data-event='{{obj.evt}}'>
-					<i class="icon-{{obj.icon_cls}}"></i>
+					<i class="icon-{{obj.cls}}"></i>
 					<span>{{obj.name}}</span>
 				</a>
 				<a ng-if='obj.event' javascript:; ng-click='submit(obj.event)'>
-					<i class="icon-{{obj.icon_cls}}"></i>
+					<i class="icon-{{obj.cls}}"></i>
 					<span>{{obj.name}}</span>
 				</a>
 			</li>

@@ -30,7 +30,7 @@
 			</div>
 			<div id="pages" class="page"></div>
 		</div>
-		<div class="submit">
+		<div class="submit" ng-if='data.submit'>
 			<div class='btn {{obj.cls}}' ng-repeat='obj in data.submit' ng-click='submit(obj.evt,false,$event)'>
 				<i class="icon-{{obj.icon_cls}}"></i>
 				<span>{{obj.name}}</span>
