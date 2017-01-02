@@ -4,6 +4,7 @@ define(function(){
 			title : 'name',
 			name : '模版名称',
 			type : 'text', //text textarea radio checkbox edit
+			placeholder : '请输模版名称',
 			verify : 'title'
 		},
 		{
@@ -33,7 +34,21 @@ define(function(){
 			verify : 'select',
 			select : [
 				[
-					{name:'请选择模版'},
+					{name:'请选择模版类型'},
+					{name:'碎片频道'},
+					{name:'新闻频道'},
+					{name:'专题频道'}
+				]
+			]
+		},
+		{
+			title : 'selectTemplate',
+			name : '选择模版',
+			type : 'select',
+			verify : 'select',
+			select : [
+				[
+					{name:'请选择模版类型'},
 					{name:'碎片频道'},
 					{name:'新闻频道'},
 					{name:'专题频道'}
@@ -46,13 +61,13 @@ define(function(){
 			type : 'radio',
 			radio : [
 				{
-					title : 'GBK',
-					name : 'GBK' , 
+					title : 'UTF-8',
+					name : 'UTF-8',
 					checked : true
 				},
 				{
-					title : 'UTF-8',
-					name : 'UTF-8'
+					title : 'GBK',
+					name : 'GBK'
 				},
 				{
 					title : 'BIG5',
@@ -76,28 +91,6 @@ define(function(){
 			ext : 'html|htm|shtml',
 			type : 'upload', //text textarea radio checkbox edit
 			verify : 'upload'
-		},
-		{
-			title : 'date',
-			name : '定时发布',
-			type : 'date',
-			placeholder : '请选择时间定时发布'
-		},
-		{
-			title : 'show',
-			name : '立即发布',
-			type : 'radio',
-			radio : [
-				{
-					title : 'yes',
-					name : '是' , 
-					checked : true
-				},
-				{
-					title : 'no',
-					name : '否'
-				}
-			]
 		}
 	]
 })

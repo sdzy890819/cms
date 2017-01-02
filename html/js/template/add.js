@@ -6,7 +6,7 @@ define(["app",'./addForm','form','position','fixedNav'], function ( app , list )
 	    	transclude : true,
 	        templateUrl : '../template/common/addAndEdit.html',
 	        controller : function($scope){
-	        	$scope.$parent.menu.push({name:"新增权限"});
+	        	$scope.$parent.menu.push({name:"新增模版"});
 	        	angular.extend($scope,{
 					save : function( arr ){ //保存
 						alert(arr)
@@ -34,7 +34,7 @@ define(["app",'./addForm','form','position','fixedNav'], function ( app , list )
 							icon_cls : 'save'
 						},
 						{
-							name:'取消',
+							name:'清空',
 							evt : 'cancel',
 							icon_cls : 'cancel',
 							cls : 'cancel'
