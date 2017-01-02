@@ -15,13 +15,17 @@ define(["app",'jquery','./addForm','form'],function (app,$,list) {
 		      	$scope.titelement = {
 		      		close : true
 		      	};
-		      	$scope.close = function () {
-				   	$uibModalInstance.dismiss('cancel');
-			  	};
-
-			  	$.each(list,function( i , item ){
-			  		
-			  	});
+		      	$.extend($scope,{
+					save : function( arr ){ //保存
+						alert(arr)
+					},
+					cancel : function( arr ){ //取消
+						alert(arr)
+					},
+			      	close : function () {
+					   	$uibModalInstance.dismiss('cancel');
+				  	}
+				})
 
 				$scope.formdata = { //确认按钮
 					title : '编辑',

@@ -11,6 +11,7 @@ require.config({
         'ui-bootstrap':'plug/ui-bootstrap-tpls-2.3.2.min',
 
         'layui' : 'plug/layui/layui',
+        'jcrop' : 'plug/jcrop/jquery.Jcrop.min',
 
         'head' : 'common/header' , 
         'menu' : 'common/menu' , 
@@ -22,7 +23,7 @@ require.config({
     shim: {
         'jquery': {exports: '$'},
         'jquery-migrate': ['jquery'],
-        'page': ['jquery'],
+        'jcrop': ['jquery'],
 
 
         'angular': {exports: 'angular'},
@@ -60,7 +61,7 @@ define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-b
             //新闻
             .state('news', angularAMD.route({
                 url: '/news',
-                templateUrl: 'template/news/index.html',
+                templateUrl: 'template/common/index.html',
                 controllerUrl: 'news/index'
             }))
             .state('news.add', angularAMD.route({
@@ -87,7 +88,7 @@ define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-b
             //部门
             .state('department', angularAMD.route({
                 url: '/department',
-                templateUrl: 'template/department/index.html',
+                templateUrl: 'template/common/index.html',
                 controllerUrl: 'department/index'
             }))
             .state('department.list', angularAMD.route({
@@ -104,7 +105,7 @@ define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-b
             //频道管理
             .state('column', angularAMD.route({
                 url: '/column',
-                templateUrl: 'template/column/index.html',
+                templateUrl: 'template/common/index.html',
                 controllerUrl: 'column/index'
             }))
             .state('column.list', angularAMD.route({
@@ -121,7 +122,7 @@ define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-b
             //用户管理系统
             .state('user', angularAMD.route({
                 url: '/user',
-                templateUrl: 'template/user/index.html',
+                templateUrl: 'template/common/index.html',
                 controllerUrl: 'user/index'
             }))
             .state('user.add', angularAMD.route({ //新增
@@ -164,6 +165,110 @@ define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-b
                 template: '<user-list></user-list>',
                 controllerUrl: 'user/list'
             }))
+
+            //权限管理系统
+            .state('jurisdiction', angularAMD.route({
+                url: '/jurisdiction',
+                templateUrl: 'template/common/index.html',
+                controllerUrl: 'jurisdiction/index'
+            }))
+            .state('jurisdiction.add', angularAMD.route({ //新增
+                url: '/add',
+                template: '<jurisdiction-add></jurisdiction-add>',
+                controllerUrl: 'jurisdiction/add'
+            }))
+            .state('jurisdiction.del', angularAMD.route({ //新增
+                url: '/del',
+                template: '<jurisdiction-del></jurisdiction-del>',
+                controllerUrl: 'jurisdiction/del'
+            }))
+            .state('jurisdiction.edit', angularAMD.route({ //新增
+                url: '/edit',
+                template: '<jurisdiction-edit></jurisdiction-edit>',
+                controllerUrl: 'jurisdiction/edit'
+            }))
+            .state('jurisdiction.list', angularAMD.route({ //list
+                url: '/list',
+                template: '<jurisdiction-list></jurisdiction-list>',
+                controllerUrl: 'jurisdiction/list'
+            }))
+            .state('jurisdiction.administrator', angularAMD.route({ //list
+                url: '/administrator',
+                template: '<jurisdiction-administrator></jurisdiction-administrator>',
+                controllerUrl: 'jurisdiction/administrator'
+            }))
+
+            //图片管理系统
+            .state('image', angularAMD.route({
+                url: '/image',
+                templateUrl: 'template/common/index.html',
+                controllerUrl: 'image/index'
+            }))
+            .state('image.list', angularAMD.route({ 
+                url: '/list',
+                template: '<image-list></image-list>',
+                controllerUrl: 'image/list'
+            }))
+            .state('image.upload', angularAMD.route({ 
+                url: '/upload',
+                template: '<image-upload></image-upload>',
+                controllerUrl: 'image/upload'
+            }))
+            .state('image.edit', angularAMD.route({ 
+                url: '/edit',
+                template: '<image-edit></image-edit>',
+                controllerUrl: 'image/edit'
+            }))
+            .state('image.select', angularAMD.route({ 
+                url: '/select',
+                template: '<image-select></image-select>',
+                controllerUrl: 'image/select'
+            }))
+
+            //视频上传功能
+            .state('video', angularAMD.route({
+                url: '/video',
+                templateUrl: 'template/common/index.html',
+                controllerUrl: 'video/index'
+            }))
+            .state('video.list', angularAMD.route({ 
+                url: '/list',
+                template: '<video-list></video-list>',
+                controllerUrl: 'video/list'
+            }))
+            .state('video.upload', angularAMD.route({ 
+                url: '/upload',
+                template: '<video-upload></video-upload>',
+                controllerUrl: 'video/upload'
+            }))
+            .state('video.select', angularAMD.route({ 
+                url: '/select',
+                template: '<video-select></video-select>',
+                controllerUrl: 'video/select'
+            }))
+
+            //模版管理
+            .state('video', angularAMD.route({
+                url: '/video',
+                templateUrl: 'template/common/index.html',
+                controllerUrl: 'video/index'
+            }))
+            .state('video.list', angularAMD.route({ 
+                url: '/list',
+                template: '<video-list></video-list>',
+                controllerUrl: 'video/list'
+            }))
+            .state('video.upload', angularAMD.route({ 
+                url: '/upload',
+                template: '<video-upload></video-upload>',
+                controllerUrl: 'video/upload'
+            }))
+            .state('video.select', angularAMD.route({ 
+                url: '/select',
+                template: '<video-select></video-select>',
+                controllerUrl: 'video/select'
+            }))
+            
     }]);
 
     layui.config({

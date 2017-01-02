@@ -1,11 +1,11 @@
-define(['require',"app",'jquery','formlist','fixedNav','position','../moduls/service'], function ( require , app , $ ) {
+define(['require',"app",'jquery','formlist','fixedNav','position','../moduls/service','../moduls/factory'], function ( require , app , $ ) {
 	app.directive('newsNewslist',function(){
 		return {
 	    	restrict : 'E',
 	    	replace : true,
 	    	transclude : true,
 	        templateUrl : '../template/news/newslist.html',
-	        controller : function($scope,pop,$uibModal , $css){
+	        controller : function($scope,pop,$uibModal , $css , GenerateArrList){
 			   $css.add('../../style/stylesheets/pop.css');
 
 				$scope.$parent.menu.push({name:"新闻栏目列表"}); //栏目
@@ -90,25 +90,6 @@ define(['require',"app",'jquery','formlist','fixedNav','position','../moduls/ser
 				        ]
 				    }
 				}
-				var arr = [];
-				$.each(_data.data.list,function( i , obj ){
-					var li = {} , k = 0;
-					$.each(obj,function( key , val ){
-						var b = false;
-						for(var j=0,len=$scope.filter.length;j<len;j++){
-							if(key!=$scope.filter[j]){
-								b = true;
-							}
-						}
-						if(!b){
-							li['name'+k] = val;
-							k++;
-						}else{
-							li[key] = val;
-						}
-					})
-					arr.push(li);
-				});
 				$scope.listdata = { //确认按钮
 					title : '新闻栏目编辑',
 					table : {
@@ -121,7 +102,7 @@ define(['require',"app",'jquery','formlist','fixedNav','position','../moduls/ser
 							{name:'平台名称'},
 							{name:'操作' , width : '200'}
 						],
-						td : arr ,
+						td : GenerateArrList.arr(_data.data.list,$scope.filter) ,
 						edit : {
 							width : 100 , 
 							list : [
