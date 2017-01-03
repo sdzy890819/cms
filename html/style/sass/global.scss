@@ -107,7 +107,7 @@ input:focus{ border: 1px solid #bbb !important;} */
     .logo{ display: block; float: left; width:88px; height:30px; margin-top:8px; background: url(../../images/logo.png) no-repeat; }
 }
 .nav-sider{ float: right; font-style: 13px; 
-  >ul > li{ position: relative; z-index: 999; height: 45px; padding:0 10px;
+  >ul > li{ position: relative; z-index: 9999; height: 45px; padding:0 10px;
     &:hover{ background-color:#303030; }
   }
   .badge{ white-space: nowrap; vertical-align: baseline; position: absolute; font-size: 11px !important; font-weight: 300; top: 8px; right: -10px; text-align: center; height: 14px; line-height: 14px; background-color: #e02222; padding: 2px 5px 2px 5px; border-radius: 100%; }
@@ -210,9 +210,9 @@ $leftWidth : 225px;
 .position-fixed{ position:relative; z-index:999; height:35px; line-height:35px; margin-bottom:10px; text-align:right;
     >ul{ display:inline-block; vertical-align:middle;
         li{ 
-            float:left; color:#fff; background:#35aa47;
+            float:left; color:#fff; background:#fb6a00;
             a{display:block; height:35px; line-height:35px;padding:0 15px; color:#fff;
-                &:hover{ background:#07941d; text-decoration:none; }
+                &:hover{ background:#fe6c00; text-decoration:none; }
             }
         }
     }
@@ -294,8 +294,13 @@ $leftWidth : 225px;
 .table{
     table{ width:100%; border-left:1px solid #ddd; border-top:1px solid #ddd; @include box-sizing;}
     img.img{ vertical-align:middle; width:20px; height:20px; border-radius:100%;}
-    th{ text-align:left; padding:5px; font-size:14px; font-weight:normal; border-right:1px solid #ddd; border-bottom:1px solid #ddd; }
-    td{ text-align:left; padding:5px; font-size:14px;  border-right:1px solid #ddd; border-bottom:1px solid #ddd; }
+    th{ text-align:left; padding:5px; font-size:14px; font-weight:normal; border-right:1px solid #ddd; border-bottom:1px solid #ddd; 
+        &.center{ text-align:center;}
+    }
+    td{ text-align:left; padding:5px; font-size:14px;  border-right:1px solid #ddd; border-bottom:1px solid #ddd; 
+        &.center{ text-align:center;}
+        &.edits{ text-align:center; }
+    }
     tr{
         &:nth-child(odd){ background:#f8f8f8;}
         &:hover{ background:#f2f2f2}

@@ -15,18 +15,19 @@ define(["app",'./moduls/directive'], function ( app ) {
 					save:'save',//保存
 					edit:'edit',//编辑
 					del:'trash',//删除
-					upload:'upload-alt',//上传
+					down:'download-alt',//下载
+					plus : 'plus-sign',
 					magnet:'magnet',//关联
 					ok:'ok'//全选 确定
 				};
 				if($scope.edit){
 					if($scope.edit.nav){
 						$.each($scope.edit.nav,function(){
-							this.icon_cls = icon[this.icon_cls]
+							this.cls = icon[this.cls]
 						});
 					}
 					$.each($scope.edit.list,function(){
-						this.icon_cls = icon[this.icon_cls]
+						this.cls = icon[this.cls]
 					});
 				}
 			},

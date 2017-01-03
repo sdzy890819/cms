@@ -14,24 +14,27 @@ define(["app",'jquery','./moduls/directive'], function ( app , $ ) {
 				var icon = {
 					add:'plus',//添加
 					edit:'pencil',//编辑
-					upload:'upload-alt',// 上传
+					down:'download-alt',// 下载
 					del:'trash',//删除
 				};
 
-				$.each($scope.data.table.edit.list,function( i , obj ){
+				$.each($scope.data.table.edit,function( i , obj ){
 					obj.icon = icon[obj.cls];
 				});
 
-				$scope.filterTd = function( val ){
-					var b = true;
-					for(var i=0,len=$scope.filter.length;i<len;i++){
-						if($scope.filter[i]==val){
-							b = false;
-							break;
+				/*angular.extend($scope,{
+					filterTd : function( val ){ //过滤没用的ID
+						var b = true;
+						for(var i=0,len=$scope.filter.length;i<len;i++){
+							if($scope.filter[i]==val){
+								b = false;
+								break;
+							}
 						}
+						return b;
 					}
-					return b;
-				}
+				})*/
+
 			},
 			link : function($scope , element , arrt , controller){
 				var ele = $(element[0]) ,

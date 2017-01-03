@@ -56,7 +56,8 @@ define(["app",'jquery','./addForm','formlist','position','fixedNav','../moduls/s
 						})
 					},
 					filter : [ //过滤不需要展示的
-						'id','channelId','templateClassify','userId'
+						'id','channelId','templateClassify','userId',
+						'job','align','alignindex'
 					]
 				});
 				
@@ -80,8 +81,8 @@ define(["app",'jquery','./addForm','formlist','position','fixedNav','../moduls/s
 				                "templateClassify":1,
 				                "templateClassifyStr":"模版分类、1为首页、2为列表页、3为详情页、4、碎片页",
 				                "userId":"模版编辑人ID",
-				                "job":1, //是否定时生成。1是定时生成。0是触发生成
-				                "encoded":"目前支持GBK、UTF-8、BIG5、按照字符串形式存储",
+				                "job":0, //是否定时生成。1是定时生成。0是触发生成
+				                "encoded":"UTF-8",
 				                "channelId":1,//频道ID
 				                "sortNum":1,//排序值
 				                "id":1
@@ -95,7 +96,7 @@ define(["app",'jquery','./addForm','formlist','position','fixedNav','../moduls/s
 				                "templateClassifyStr":"模版分类、1为首页、2为列表页、3为详情页、4、碎片页",
 				                "userId":"模版编辑人ID",
 				                "job":1, //是否定时生成。1是定时生成。0是触发生成
-				                "encoded":"目前支持GBK、UTF-8、BIG5、按照字符串形式存储",
+				                "encoded":"GBK",
 				                "channelId":1,//频道ID
 				                "sortNum":1,//排序值
 				                "id":2
@@ -110,7 +111,7 @@ define(["app",'jquery','./addForm','formlist','position','fixedNav','../moduls/s
 						event : function(obj , scope , evt){
 							scope.getOneSelect($scope.down);
 						},
-						cls : 'save'
+						cls : 'down'
 					}],
 					list : [
 						{
@@ -118,16 +119,14 @@ define(["app",'jquery','./addForm','formlist','position','fixedNav','../moduls/s
 							event : function(obj , scope , evt){
 								scope.getOneSelect($scope.relation);
 							},
-							cls :'red',
-							icon_cls : 'remove'
+							cls : 'plus'
 						},
 						{
 							name : '删除',
 							event : function(obj , scope , evt){
 								scope.getOneSelect($scope.del);
 							},
-							cls :'red',
-							icon_cls : 'remove'
+							cls : 'del'
 						}
 					]
 				}
@@ -138,24 +137,20 @@ define(["app",'jquery','./addForm','formlist','position','fixedNav','../moduls/s
 						th : [
 							{name:'模版名称' , width : '200'},
 							{name:'模版说明' },
-							{name:'文件名' },
-							{name:'发布目录' },
-							{name:'模版分类' },
-							{name:'定时生成' },
-							{name:'编码' },
-							{name:'排序值' },
-							{name:'操作' , width : '100'}
+							{name:'文件名',width:'90'},
+							{name:'发布目录',width:'100'},
+							{name:'模版分类',width:'200'},
+							{name:'编码',width:'80',class:'center'},
+							{name:'排序值', width:'90',class:'center'},
+							{name:'操作' , width : '250',class:'center'}
 						],
 						td : GenerateArrList.arr(_data.data.list,$scope.filter) ,
-						edit : {
-							width : 250 , 
-							list : [
-								{cls : 'upload' , name : '下载',evt:$scope.down},
-								{cls : 'add' , name : '关联',evt:$scope.relation},
-								{cls : 'edit' , name : '编辑',evt:$scope.edit},
-								{cls : 'del' , name : '删除',evt:$scope.del},
-							]
-						}
+						edit : [
+							{cls : 'down', name : '下载',evt:$scope.down},
+							{cls : 'add', name : '关联',evt:$scope.relation},
+							{cls : 'edit' , name : '编辑',evt:$scope.edit},
+							{cls : 'del' , name : '删除',evt:$scope.del},
+						]
 					}
 					/*submit : [
 						{
@@ -175,6 +170,19 @@ define(["app",'jquery','./addForm','formlist','position','fixedNav','../moduls/s
 						}
 					]*/
 				}
+				GenerateArrList.extendType($scope.listdata.table.td,$scope.listdata.table.th,['width','name']); //把TH 中的出name属性以外的属性合传给td
+	        	GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
+	        	$.each($scope.listdata.table.td,function( i , item ){
+	        		if(item.job==1){//1是定时生成。0是触发生成
+	        			var arr = [];
+	        			$.each(item.list.edit,function( j , obj ){
+	        				if(obj.name!='关联'){
+	        					arr.push(obj);
+	        				}
+	        			});
+	        			item.list.edit = arr;
+	        		}
+	        	})
 	        }
 	        ,link : function($scope , element ){
 	        	
