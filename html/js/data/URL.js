@@ -32,6 +32,12 @@ define(function(require){
 			createNews : url+'/news/createNews',//创建新闻
 			updateNews : url+'/news/updateNews',//修改新闻
 			publish : url+'/news/publish'//新闻发布
+		},
+		category : {//部门分类
+			listCategory : url+'/category/listCategory', //获取部门分类列表
+			createCategory : url+'/category/createCategory', 
+			updateCategory : url+'/category/updateCategory', 
+			delCategory : url+'/category/delCategory', 
 		}
 	}
 })

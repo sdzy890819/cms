@@ -1,12 +1,13 @@
 define(["app",'./addForm','form','position','fixedNav'], function ( app , list ) {
-	app.directive('departmentEdit',function(){
+	app.directive('categoryEdit',function(){
 		return {
 	    	restrict : 'E',
 	    	replace : true,
 	    	transclude : true,
-	        templateUrl : '../template/news/add.html',
+	        templateUrl : '../template/common/addAndEdit.html',
 	        controller : function($scope){
-	        	$scope.$parent.menu.push({name:"部门分类编辑"})
+	        	$scope.title = '新增部门';
+	        	$scope.$parent.menu.push({name:$scope.title});
 				$scope.save = function( obj ){ //保存
 					alert(obj)
 				}
@@ -14,7 +15,7 @@ define(["app",'./addForm','form','position','fixedNav'], function ( app , list )
 					alert(obj)
 				}
 				$scope.formdata = { //确认按钮
-					title : '部门分类编辑',
+					title : $scope.title,
 					list : list,
 					submit : [
 						{

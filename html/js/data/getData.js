@@ -179,6 +179,31 @@ define(['./URL','jquery'],function(URL,$){
 					error : function(){}
 				})
 			}
+		},
+		category : { //部门分类
+			listCategory : function( callback ){ //栏目列表
+				$.ajax({
+					url : URL.category.listCategory , 
+					type : 'get',
+					data : {},
+					success : function( _data ){
+						setTimeout(function(){
+							callback({
+							    "code":0,
+							    "message":"成功",
+							    "data":[
+							        {
+							            "categoryName":"分类名",
+							            "categoryDesc":"分类说明",
+							            "id":100
+							        }
+							    ]
+							});
+						}, 1000);
+					},
+					error : function(){}
+				})
+			}
 		}
 	}
 });

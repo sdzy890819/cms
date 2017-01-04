@@ -94,20 +94,20 @@ define(['./data/loginAndOut',"angular", "angularAMD","angular-ui-router",'angula
             }))
 
             //部门
-            .state('department', angularAMD.route({
-                url: '/department',
+            .state('category', angularAMD.route({
+                url: '/category',
                 templateUrl: 'template/common/index.html',
-                controllerUrl: 'department/index'
+                controllerUrl: 'category/index'
             }))
-            .state('department.list', angularAMD.route({
+            .state('category.list', angularAMD.route({
                 url: '/list',
-                template : '<department-list></department-list>',
-                controllerUrl: 'department/list'
+                template : '<category-list></category-list>',
+                controllerUrl: 'category/list'
             }))
-            .state('department.edit', angularAMD.route({
+            .state('category.edit', angularAMD.route({
                 url: '/edit',
-                template : '<department-edit></department-edit>',
-                controllerUrl: 'department/edit'
+                template : '<category-edit></category-edit>',
+                controllerUrl: 'category/edit'
             }))
 
             //频道管理
