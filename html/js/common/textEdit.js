@@ -29,22 +29,73 @@ define(["app",'jquery','require','wangEditor'], function ( app,$,require ) {
 		                    }
 		                    ngModel.$setViewValue(html);
 		                }
-		    
+		    			/*[ //所有的
+					        'source',
+					        '|',
+					        'bold',
+					        'underline',
+					        'italic',
+					        'strikethrough',
+					        'eraser',
+					        'forecolor',
+					        'bgcolor',
+					        '|',
+					        'quote',
+					        'fontfamily',
+					        'fontsize',
+					        'head',
+					        'unorderlist',
+					        'orderlist',
+					        'alignleft',
+					        'aligncenter',
+					        'alignright',
+					        '|',
+					        'link',
+					        'unlink',
+					        'table',
+					        'emotion',
+					        '|',
+					        'img',
+					        'video',
+					        'location',
+					        'insertcode',
+					        '|',
+					        'undo',
+					        'redo',
+					        'fullscreen'
+					    ];*/
 		                // 创建编辑器
-		                $scope.editor = new wangEditor(element);
+		                var editor = new wangEditor(element);
+		                $scope.editor = editor;
 
-		                $scope.editor.config.menus = $.map(wangEditor.config.menus, function(item, key) {
+		                editor.config.menus = $.map(wangEditor.config.menus, function(item, key) {
 							if (item === 'insertcode') {
 								return null;
 							}
-							if (item === 'fullscreen') {
+							if (item === 'fullscreen') { //全屏
 								return null;
 							}
-							if(item =='location') return null;
+							if(item =='location') return null; //百度地图
 							return item;
 				      	});
-		                $scope.editor.create();
-		                $scope.editor.$txt.html('<p>请输入内容</p>');
+
+				      	//上传图片
+				      	editor.config.uploadImgUrl = '/upload';
+				      	// 配置自定义参数（举例）
+					    editor.config.uploadParams = {
+					        token: 'abcdefg',
+					        user: 'wangfupeng1988'
+					    };
+					    // 设置 headers（举例）
+					    editor.config.uploadHeaders = {
+					        'Accept' : 'text/x-json'
+					    };
+					    //editor.config.hideLinkImg = true;
+
+					    console.dir(editor.config);
+
+		                editor.create();
+		                editor.$txt.html('<p>请输入内容</p>');
 		            }
 			    };
 			});
