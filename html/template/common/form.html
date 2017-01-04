@@ -28,7 +28,7 @@
 
 						<!-- 富文本编辑器 -->
 						<div ng-if="obj.type=='edit'" style="width:{{obj.width}}; max-width:{{obj.maxWidth}}; min-width:{{obj.minWidth}}">
-							<div ng-model="text" contenteditable="true" name="obj.title" style="height:{{obj.height}};"></div>
+							<div ng-model="text" contenteditable="true" name="{{obj.title}}" style="height:{{obj.height}};"></div>
 						</div>
 
 						<!-- select -->
@@ -49,9 +49,11 @@
 					    <!-- layer 自带上传功能 -->
 					    <input ng-if="obj.type=='upload'" type="file" name="{{obj.title}}" class="layui-upload-file {{obj.cls}}">
 
+						<!-- radio -->
 					    <input ng-if="obj.type=='radio'" ng-repeat="item in obj.radio"  type="radio" name="{{obj.title}}" title="{{item.name}}" value='{{item.title}}' ng-checked="{{item.checked}}">
 
 					</div>
+					<!-- 不换行 -->
 					<div class="layui-inline" ng-if='isArray(obj)' ng-repeat="item in obj" repeat-finish='formRepeat'>
 						<label ng-if='item.type!="button"' class="layui-form-label"><em ng-show='item.check!=false'>*</em>{{item.name}}</label>
 					    <div class="layui-input-inline"> <!-- 不换行 -->

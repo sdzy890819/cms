@@ -1,11 +1,11 @@
-define(["app",'jquery','formlist','position','fixedNav','../moduls/service'], function ( app , $ ) {
+define(["app",'jquery','formlist','position','fixedNav','../moduls/service','../moduls/factory'], function ( app , $ ) {
 	app.directive('newsList',function(){
 		return {
 	    	restrict : 'E',
 	    	replace : true,
 	    	transclude : true,
-	        templateUrl : '../template/news/list.html',
-	        controller : function($scope , pop){
+	        templateUrl : '../template/common/list.html',
+	        controller : function($scope , pop , GenerateArrList){
 	        	
 				$scope.$parent.menu.push({name:"新闻栏目管理"}); //栏目
 				$scope.filter = [ //过滤不需要展示的
@@ -93,31 +93,6 @@ define(["app",'jquery','formlist','position','fixedNav','../moduls/service'], fu
 				        ]
 				    }
 				}
-				var arr = [];
-				$.each(_data.data.list,function( i , obj ){
-					var li = {} , k = 0;
-					$.each(obj,function( key , val ){
-						if(key!='id'){
-							li['name'+k] = val;
-							k++;
-						}else{
-							li[key] = val;
-						}
-					})
-					arr.push(li);
-				})
-				/*var td = [ //表单
-					[
-						{id:'566541545'},
-						{name:'用户脆响q',img : 'images/img.png'},
-						{name:'用户组名称'}
-					],
-					[
-						{id:'1242314'},
-						{name:'用户脆响q',img : 'images/img.png'},
-						{name:'用户组名称'}
-					]
-				];*/
 				$scope.listdata = { //确认按钮
 					title : '新闻栏目编辑',
 					table : {
@@ -125,17 +100,14 @@ define(["app",'jquery','formlist','position','fixedNav','../moduls/service'], fu
 						th : [
 							{name:'栏目名' , width : '200'},
 							{name:'频道ID' },
-							{name:'操作' , width : '100'}
+							{name:'操作' , width : '200' , class:'center'}
 						],
-						td : arr ,
-						edit : {
-							width : 300 , 
-							list : [
-								{cls : 'add' , name : '添加新用户到组',evt:$scope.add},
-								{cls : 'edit' , name : '添加权限到组',evt:$scope.edit},
-								{cls : 'del' , name : '删除',evt:$scope.del},
-							]
-						}
+						td : GenerateArrList.arr(_data.data.list,$scope.filter) ,
+						edit : [
+							{cls : 'edit' , name : '编辑',evt:$scope.edit},
+						/*	{cls : 'edit' , name : '添加权限到组',evt:$scope.edit},*/
+							{cls : 'del' , name : '删除',evt:$scope.del},
+						]
 					},
 					submit : [
 						selectAll,
@@ -149,6 +121,9 @@ define(["app",'jquery','formlist','position','fixedNav','../moduls/service'], fu
 						}
 					]
 				}
+				//GenerateArrList.extendType($scope.listdata.table.td,$scope.listdata.table.th,['width','name']); //把TH 中的出name属性以外的属性合传给td
+	        	GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
+	        	
 	        }
 	        ,link : function($scope , element ){
 	        	
