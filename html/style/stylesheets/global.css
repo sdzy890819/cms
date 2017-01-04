@@ -1150,3 +1150,10 @@ input:focus{ border: 1px solid #bbb !important;} */
 .news.edit .boxtab {
   margin-top: 0;
 }
+
+/* line 358, ../sass/global.scss */
+.iframe {
+  border: none;
+  margin: 0;
+  padding: 0;
+}

@@ -73,11 +73,14 @@ define(function(){
 		{
 			title : 'content',
 			name : '内容',
+			width : '800px',
+			height : '200px',
 			type : 'edit'
 		},
 		{
 			title : 'date',
 			name : '定时发布',
+			placeholder : '请选择时间 年/月/日 时:分:秒',
 			type : 'date',
 			check : false
 		},

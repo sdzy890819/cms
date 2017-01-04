@@ -1,4 +1,4 @@
-define(["app",'jquery','./moduls/directive'], function ( app , $ ) {
+define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app , $ , textEdit ) {
 	layui.link('js/plug/layui/css/layui.css');
 	app.directive('formHorizontal',function(){
 		return {
@@ -22,6 +22,7 @@ define(["app",'jquery','./moduls/directive'], function ( app , $ ) {
 					ok:'ok',//全选 确定
 					cancel : 'minus-sign' //取消
 				};
+
 				$scope.$css = $css;
 				$scope.$uibModal = $uibModal;
 
@@ -46,6 +47,14 @@ define(["app",'jquery','./moduls/directive'], function ( app , $ ) {
 					},
 					submit : function( evt , obj ,$event ){
 						evt(obj,$event.target);
+					}
+				});
+				$.each($scope.formdata.list,function(){
+					var self = this;
+					if(this.type=='edit'){
+						$scope.editorContent = '';
+			        	$css.add('../../wangEditor/dist/css/wangEditor.min.css');
+			        	textEdit.init($scope);
 					}
 				});
 			},
@@ -119,6 +128,14 @@ define(["app",'jquery','./moduls/directive'], function ( app , $ ) {
 						});
 						form.on('submit(demo1)', function(data){
 							var event = $(data.elem).attr('data-event');
+
+							 // 获取编辑器区域完整html代码
+					        var html = $scope.editor.$txt.html();
+					        // 获取编辑器纯文本内容
+					        var text = $scope.editor.$txt.text();
+					        // 获取格式化后的纯文本
+					        var formatText = $scope.editor.$txt.formatText();
+
 							if(data.nodeName!='A'){
 								$scope.$parent[event](JSON.stringify(data.field));
 							}else{

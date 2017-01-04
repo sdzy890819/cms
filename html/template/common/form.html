@@ -27,7 +27,9 @@
 						<textarea ng-if="obj.type=='textarea'" class="layui-textarea text w80 {{obj.cls}}" name="{{obj.title}}" lay-verify="content" placeholder="{{obj.placeholder}}"></textarea>
 
 						<!-- 富文本编辑器 -->
-						<text-edit ng-if="obj.type=='edit'" name="obj.title"></text-edit>
+						<div ng-if="obj.type=='edit'" style="width:{{obj.width}}; max-width:{{obj.maxWidth}}; min-width:{{obj.minWidth}}">
+							<div ng-model="text" contenteditable="true" name="obj.title" style="height:{{obj.height}};"></div>
+						</div>
 
 						<!-- select -->
 					    <div ng-if="obj.type=='select'" class="layui-input-inline {{obj.cls}}" ng-repeat="select in obj.select">

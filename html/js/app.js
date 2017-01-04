@@ -1,8 +1,11 @@
 require.config({
     baseUrl: 'js/',
     paths: {
-        'jquery': 'plug/jquery-3.0.0.min',
-        'jquery-migrate': 'plug/jquery-migrate-3.0.0.min',
+        'jquery': 'plug/jquery-1.11.2.min',
+        //'jquery-migrate': 'plug/jquery-migrate-3.0.0.min',
+        'wangEditor' : '../wangEditor/dist/js/wangEditor.min',
+
+
         'angular': 'plug/angular',
         "angularAMD": "plug/angularAMD.min",
         "ngload": "plug/ngload",
