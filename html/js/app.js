@@ -46,13 +46,18 @@ require.config({
 });
 
 // bootstrap
-define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-bootstrap','layui'], function (angular, angularAMD) {
+define(['./data/loginAndOut',"angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-bootstrap','layui'], function (data , angular, angularAMD) {
+
+    //临时登录 需要删除
+    data.login();
+
     // module
     var app = angular.module("app", ["ui.router",'angularCSS','ui.bootstrap']);
     // config
     app.config(["$stateProvider", '$urlRouterProvider','$locationProvider', function($stateProvider, $urlRouterProvider,$locationProvider){
         /*$locationProvider.html5Mode(true);*/
         $urlRouterProvider.otherwise('/home');
+
         $stateProvider
             .state("home", angularAMD.route({
                 url: "/home",

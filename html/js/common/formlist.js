@@ -18,10 +18,16 @@ define(["app",'jquery','./moduls/directive'], function ( app , $ ) {
 					del:'trash',//删除
 				};
 
-				$.each($scope.data.table.edit,function( i , obj ){
-					obj.icon = icon[obj.cls];
-				});
-
+				$scope.$watch(function(){
+					return $scope.data;
+				},function(){ 
+					if($scope.data){
+						$.each($scope.data.table.edit,function( i , obj ){
+							obj.icon = icon[obj.cls];
+						});
+						return;
+					};
+				},true);
 				/*angular.extend($scope,{
 					filterTd : function( val ){ //过滤没用的ID
 						var b = true;

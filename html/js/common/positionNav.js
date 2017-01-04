@@ -26,9 +26,11 @@ define(["app",'./moduls/directive'], function ( app ) {
 							this.cls = icon[this.cls]
 						});
 					}
-					$.each($scope.edit.list,function(){
-						this.cls = icon[this.cls]
-					});
+					if($scope.edit.list){
+						$.each($scope.edit.list,function(){
+							this.cls = icon[this.cls]
+						});
+					}
 				}
 			},
 			link : function($scope , element ){

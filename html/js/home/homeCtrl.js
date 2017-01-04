@@ -1,4 +1,4 @@
-define(["app",'head','menu'], function ( app ) {
+define(["app",'require','head','menu'], function ( app , require ) {
 	app.directive('contentRouter',function(){
 		return {
 	    	restrict : 'E',
@@ -17,5 +17,7 @@ define(["app",'head','menu'], function ( app ) {
 	      ariaDescribedBy: 'modal-body',
 	      template: 'myModalContent.html',
 	    });*/
-	}]
+	}];
+
+	
 });

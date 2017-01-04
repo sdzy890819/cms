@@ -4,7 +4,7 @@ define(["app",'./addForm','form','position','fixedNav'], function ( app , list )
 	    	restrict : 'E',
 	    	replace : true,
 	    	transclude : true,
-	        templateUrl : '../template/news/add.html',
+	        templateUrl : '../template/common/addAndEdit.html',
 	        controller : function($scope){
 	        	$scope.$parent.menu.push({name:"新增新闻"})
 				$scope.save = function( obj ){ //保存
@@ -34,6 +34,11 @@ define(["app",'./addForm','form','position','fixedNav'], function ( app , list )
 						}
 					]
 				}
+				$.each(list,function( i , obj){
+					if(obj.title == 'content'){
+						obj.width = '800px';
+					}
+				});
 				$scope.formdata = { //确认按钮
 					title : '新增新闻',
 					list : list,

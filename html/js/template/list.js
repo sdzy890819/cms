@@ -6,7 +6,6 @@ define(["app",'jquery','./addForm','formlist','position','fixedNav','../moduls/s
 	    	transclude : true,
 	        templateUrl : '../template/common/list.html',
 	        controller : function($scope , pop , $uibModal , $css,GenerateArrList){
-	        	$css.add('../../style/stylesheets/pop.css');
 	        	$scope.title = "模版列表";
 				$scope.$parent.menu.push({name:$scope.title}); //栏目
 				angular.extend($scope,{
