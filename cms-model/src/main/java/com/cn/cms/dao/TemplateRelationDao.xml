@@ -51,5 +51,8 @@
     <delete id="delRelation">
         delete from template_relation where template_id = ${templateId} and relation_id = ${relationId} and relation_type = ${relationType} ;
     </delete>
+    <delete id="delRelationByTemplateId">
+        delete from template_relation where template_id = ${templateId} ;
+    </delete>
     
 </mapper>

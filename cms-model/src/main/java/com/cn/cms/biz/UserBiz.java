@@ -49,7 +49,7 @@ public class UserBiz extends BaseBiz{
         Integer count = userService.queryUserCount();
         page.setCount(count);
         List<User>  userList = null;
-        if(count>0 && page.getPage()<=page.getPageCount()){
+        if(page.isQuery()){
             userList = userService.queryUserList(page);
         }
         List<UserBean> userBeanList = toBean(userList);

@@ -74,14 +74,14 @@ public class PermissionController extends BaseController {
     @CheckAuth( name = "permission:write" )
     @RequestMapping(value = "/createPermission",method = RequestMethod.POST)
     public String createPermission(HttpServletRequest request,
-                                   @RequestPart(value = "name")String name,
-                                   @RequestPart(value = "description")String description,
-                                   @RequestPart(value = "type")Integer type,
-                                   @RequestPart(value = "url")String url,
-                                   @RequestPart(value = "sort")Integer sort,
-                                   @RequestPart(value = "parentId")Long parentId,
-                                   @RequestPart(value = "showFlag")Integer showFlag,
-                                   @RequestPart(value = "permission")String permission){
+                                   @RequestParam(value = "name")String name,
+                                   @RequestParam(value = "description")String description,
+                                   @RequestParam(value = "type")Integer type,
+                                   @RequestParam(value = "url")String url,
+                                   @RequestParam(value = "sort")Integer sort,
+                                   @RequestParam(value = "parentId")Long parentId,
+                                   @RequestParam(value = "showFlag")Integer showFlag,
+                                   @RequestParam(value = "permission")String permission){
         Permission p = new Permission();
         p.setLastModifyUserId(getCurrentUserId(request));
         p.setDescription(description);
@@ -112,14 +112,14 @@ public class PermissionController extends BaseController {
     @CheckAuth( name = "permission:update" )
     @RequestMapping(value = "/updatePermission",method = RequestMethod.POST)
     public String updatePermission(HttpServletRequest request,
-                                   @RequestPart(value = "id",required = false)Long id,
-                                   @RequestPart(value = "name",required = false)String name,
-                                   @RequestPart(value = "description",required = false)String description,
-                                   @RequestPart(value = "type",required = false)Integer type,
-                                   @RequestPart(value = "url",required = false)String url,
-                                   @RequestPart(value = "sort",required = false)Integer sort,
-                                   @RequestPart(value = "showFlag",required = false)Integer showFlag,
-                                   @RequestPart(value = "permission",required = false)String permission){
+                                   @RequestParam(value = "id",required = false)Long id,
+                                   @RequestParam(value = "name",required = false)String name,
+                                   @RequestParam(value = "description",required = false)String description,
+                                   @RequestParam(value = "type",required = false)Integer type,
+                                   @RequestParam(value = "url",required = false)String url,
+                                   @RequestParam(value = "sort",required = false)Integer sort,
+                                   @RequestParam(value = "showFlag",required = false)Integer showFlag,
+                                   @RequestParam(value = "permission",required = false)String permission){
         Permission old = this.permissionBiz.findPermission(id);
         if(old == null){
             return ApiResponse.returnFail(StaticContants.ERROR_PERMISSION_NOT_FOUND);
@@ -177,8 +177,8 @@ public class PermissionController extends BaseController {
     @CheckToken
     @CheckAuth( name = "positionpermission:write" )
     @RequestMapping(value = "/setPositionPermissions",method = RequestMethod.POST)
-    public String setPositionPermissions(HttpServletRequest request, @RequestPart("positionId") Long positionId,
-                                        @RequestPart("permissionIds") String permissionIds){
+    public String setPositionPermissions(HttpServletRequest request, @RequestParam("positionId") Long positionId,
+                                        @RequestParam("permissionIds") String permissionIds){
         String userID = getCurrentUserId(request);
         this.permissionBiz.createPositionPermission(userID, positionId, permissionIds);
         return ApiResponse.returnSuccess();
@@ -194,8 +194,8 @@ public class PermissionController extends BaseController {
     @CheckToken
     @CheckAuth( name = "positionpermission:write" )
     @RequestMapping(value = "/createPositionPermission",method = RequestMethod.POST)
-    public String createPositionPermission(HttpServletRequest request, @RequestPart("positionId") Long positionId,
-                                         @RequestPart("permissionId") Long permissionId){
+    public String createPositionPermission(HttpServletRequest request, @RequestParam("positionId") Long positionId,
+                                         @RequestParam("permissionId") Long permissionId){
         String userID = getCurrentUserId(request);
         PositionPermission positionPermission = new PositionPermission();
         positionPermission.setPositionId(positionId);
@@ -215,8 +215,8 @@ public class PermissionController extends BaseController {
     @CheckToken
     @CheckAuth( name = "positionpermission:delete" )
     @RequestMapping(value = "/delPositionPermission",method = RequestMethod.POST)
-    public String delPositionPermission(HttpServletRequest request, @RequestPart("positionId") Long positionId,
-                                           @RequestPart("permissionId") Long permissionId){
+    public String delPositionPermission(HttpServletRequest request, @RequestParam("positionId") Long positionId,
+                                           @RequestParam("permissionId") Long permissionId){
         permissionBiz.delPositionPermission(positionId, permissionId);
         return ApiResponse.returnSuccess();
     }

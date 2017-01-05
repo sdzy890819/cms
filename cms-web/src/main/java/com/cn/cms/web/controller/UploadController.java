@@ -42,11 +42,11 @@ public class UploadController extends BaseController {
     @CheckAuth( name = "images:upload" )
     @RequestMapping(value="/uploadImage",method = RequestMethod.POST)
     public String upload(HttpServletRequest request,
-                         @RequestPart(value = "baseCode") String baseCode,
-                         @RequestPart(value = "suffix") String suffix,
-                         @RequestPart(value = "watermark") Integer watermark,
-                         @RequestPart(value = "width") Integer width,
-                         @RequestPart(value = "height") Integer height){
+                         @RequestParam(value = "baseCode") String baseCode,
+                         @RequestParam(value = "suffix") String suffix,
+                         @RequestParam(value = "watermark") Integer watermark,
+                         @RequestParam(value = "width") Integer width,
+                         @RequestParam(value = "height") Integer height){
 
         byte[] bytes = FileUtil.base64Upload(baseCode);
         ImagesBase imagesBase = resourceBiz.findImagesBase();

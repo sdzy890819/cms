@@ -20,4 +20,6 @@ public interface TemplateRelationDao {
     void saveRelation(@Param(value = "p1") TemplateRelation templateRelation);
 
     void delRelation(@Param(value = "templateId") Long templateId, @Param(value = "relationId") Long relationId, @Param(value = "relationType") Integer relationType);
+
+    void delRelationByTemplateId(@Param(value = "templateId") Long templateId);
 }

@@ -1,6 +1,7 @@
 package com.cn.cms.service;
 
 import com.cn.cms.enums.TemplateClassifyEnum;
+import com.cn.cms.po.NewsColumn;
 import com.cn.cms.po.Template;
 import com.cn.cms.po.TemplateRelation;
 import com.cn.cms.utils.Page;
@@ -34,6 +35,8 @@ public interface TemplateService {
 
     void delRelation(Long templateId, Long relationId, Integer relationType);
 
+    void delRelation(Long templateId);
+
     List<Template> findTemplateListByRelation(Long relationId, Integer relationType);
 
     void publishTemplate(List<Long> list);
@@ -45,4 +48,6 @@ public interface TemplateService {
                                    Long relationId,
                                    Integer relationType,
                                    int job);
+
+    void saveTemplateAndRelationAndNewsColumn(Template template, TemplateRelation templateRelation, NewsColumn newsColumn);
 }

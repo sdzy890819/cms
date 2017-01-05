@@ -39,6 +39,16 @@ public class NewsServiceImpl implements NewsService {
         newsColumnDao.saveNewsColumn(newsColumn);
     }
 
+    @Override
+    public void updateNewsColumn(NewsColumn newsColumn) {
+        newsColumnDao.updateNewsColumn(newsColumn);
+    }
+
+    @Override
+    public NewsColumn getNewsColumn(Long id) {
+        return newsColumnDao.getNewsColumn(id);
+    }
+
     public void delNewsColumn(String lastModifyUserId, Long id) {
         newsColumnDao.delNewsColumn(lastModifyUserId, id);
     }

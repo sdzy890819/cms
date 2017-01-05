@@ -95,8 +95,8 @@ public class FragmentController extends BaseController {
     @CheckAuth( name = "fragment:edit" )
     @RequestMapping(value = "/editFragment", method = RequestMethod.POST)
     public String editFragment(HttpServletRequest request,
-                               @RequestPart(value = "id") Long id,
-                               @RequestPart(value = "values") String[] values){
+                               @RequestParam(value = "id") Long id,
+                               @RequestParam(value = "values") String[] values){
         Fragment fragment = fragmentBiz.findFragment(id);
         if(fragment == null){
             return ApiResponse.returnFail(StaticContants.ERROR_FRAGMENT_NOT_FOUND);
@@ -123,7 +123,7 @@ public class FragmentController extends BaseController {
     @CheckAuth( name = "fragment:read" )
     @RequestMapping(value = "/fragmentMap", method = RequestMethod.GET)
     public String fragmentMap(HttpServletRequest request,
-                                @RequestPart(value = "id") Long id){
+                                @RequestParam(value = "id") Long id){
         Fragment fragment = fragmentBiz.findFragment(id);
         if(fragment == null){
             return ApiResponse.returnFail(StaticContants.ERROR_FRAGMENT_NOT_FOUND);
@@ -157,11 +157,11 @@ public class FragmentController extends BaseController {
     @CheckAuth( name = "fragment:update" )
     @RequestMapping(value = "/updateFragment", method = RequestMethod.POST)
     public String updateFragment(HttpServletRequest request,
-                                 @RequestPart(value = "id") Long id,
-                                 @RequestPart(value = "fragmentClassifyId",required = false) Long fragmentClassifyId,
-                                 @RequestPart(value = "fragmentName",required = false) String fragmentName,
-                                 @RequestPart(value = "fragmentModel",required = false) String fragmentModel,
-                                 @RequestPart(value = "sortNum",required = false) Integer sortNum){
+                                 @RequestParam(value = "id") Long id,
+                                 @RequestParam(value = "fragmentClassifyId",required = false) Long fragmentClassifyId,
+                                 @RequestParam(value = "fragmentName",required = false) String fragmentName,
+                                 @RequestParam(value = "fragmentModel",required = false) String fragmentModel,
+                                 @RequestParam(value = "sortNum",required = false) Integer sortNum){
         Fragment fragment = fragmentBiz.findFragment(id);
         if(fragment == null){
             return ApiResponse.returnFail(StaticContants.ERROR_FRAGMENT_NOT_FOUND);
@@ -189,10 +189,10 @@ public class FragmentController extends BaseController {
     @CheckAuth( name = "fragment:write" )
     @RequestMapping(value = "/createFragment", method = RequestMethod.GET)
     public String createFragment(HttpServletRequest request,
-                                 @RequestPart(value = "fragmentClassifyId") Long fragmentClassifyId,
-                                 @RequestPart(value = "fragmentName") String fragmentName,
-                                 @RequestPart(value = "fragmentModel") String fragmentModel,
-                                 @RequestPart(value = "sortNum") Integer sortNum){
+                                 @RequestParam(value = "fragmentClassifyId") Long fragmentClassifyId,
+                                 @RequestParam(value = "fragmentName") String fragmentName,
+                                 @RequestParam(value = "fragmentModel") String fragmentModel,
+                                 @RequestParam(value = "sortNum") Integer sortNum){
         Fragment fragment = new Fragment();
         fragment.setFragmentName(fragmentName);
         fragment.setFragmentClassifyId(fragmentClassifyId);
@@ -244,7 +244,7 @@ public class FragmentController extends BaseController {
     @CheckToken
     @CheckAuth( name = "fragmentclassify:write")
     @RequestMapping(value = "/createClassify", method = RequestMethod.POST)
-    public String createClassify(HttpServletRequest request, @RequestPart("classifyName") String classifyName){
+    public String createClassify(HttpServletRequest request, @RequestParam("classifyName") String classifyName){
         FragmentClassify classify = new FragmentClassify();
         classify.setLastModifyUserId(getCurrentUserId(request));
         classify.setClassifyName(classifyName);
@@ -262,8 +262,8 @@ public class FragmentController extends BaseController {
     @CheckToken
     @CheckAuth( name = "fragmentclassify:update")
     @RequestMapping(value = "/updateClassify", method = RequestMethod.POST)
-    public String updateClassify(HttpServletRequest request, @RequestPart("classifyName") String classifyName,
-                                 @RequestPart("id") Long id){
+    public String updateClassify(HttpServletRequest request, @RequestParam("classifyName") String classifyName,
+                                 @RequestParam("id") Long id){
         FragmentClassify classify = new FragmentClassify();
         classify.setId(id);
         classify.setLastModifyUserId(getCurrentUserId(request));
@@ -281,7 +281,7 @@ public class FragmentController extends BaseController {
     @CheckToken
     @CheckAuth( name = "fragmentclassify:delete")
     @RequestMapping(value = "/delClassify", method = RequestMethod.GET)
-    public String delClassify(HttpServletRequest request, @RequestPart("id") Long id){
+    public String delClassify(HttpServletRequest request, @RequestParam("id") Long id){
         fragmentBiz.delClassify(getCurrentUserId(request), id);
         return ApiResponse.returnSuccess();
     }

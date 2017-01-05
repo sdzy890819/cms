@@ -94,5 +94,17 @@ public class DataController extends BaseController {
         return ApiResponse.returnSuccess(WatermarkEnum.values());
     }
 
+    /**
+     * 文件名生成方式
+     * @return
+     */
+    @RequestMapping(value = "/buildMode", method = RequestMethod.GET)
+    public String buildMode(){
+        return ApiResponse.returnSuccess(BuildModeEnum.values());
+    }
 
+    public static void main(String[] args){
+        DataController dataController = new DataController();
+        System.out.println(dataController.buildMode());
+    }
 }

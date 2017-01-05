@@ -128,7 +128,7 @@ public class ChannelBiz extends BaseBiz {
     public List<UserChannel> listUserChannel(Long channelId, Page page){
         Integer count = this.channelService.queryCountForChannelId(channelId);
         page.setCount(count);
-        if(count > 0 && page.getPageCount() >= page.getPage()){
+        if(page.isQuery()){
             return channelService.queryListForChannelId(channelId, page);
         }
         return null;
@@ -143,7 +143,7 @@ public class ChannelBiz extends BaseBiz {
     public List<UserChannel> listUserChannel(String userId, Page page){
         Integer count = this.channelService.queryCountForUserId(userId);
         page.setCount(count);
-        if(count > 0 && page.getPageCount() >= page.getPage()){
+        if(page.isQuery()){
             return channelService.queryListForUserId(userId, page);
         }
         return null;

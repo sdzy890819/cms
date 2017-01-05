@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cn.cms.dao.PreTemplateDao" >
+
+    <resultMap id="base" type="com.cn.cms.po.Base">
+        <id column="id" property="id" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="del_tag" property="delTag" />
+        <result column="last_modify_user_id" property="lastModifyUserId" />
+    </resultMap>
+
+    <resultMap type="com.cn.cms.po.PreTemplate" id="preTemplate" extends="base">
+        <result column="name" property="name" />
+        <result column="publish_path" property="publishPath" />
+        <result column="build_mode" property="buildMode" />
+        <result column="filename_suffix" property="filenameSuffix" />
+        <result column="template_path" property="templatePath" />
+        <result column="template_classify" property="templateClassify" />
+    </resultMap>
+
+
+    <sql id="delTag"> where del_tag = 1 </sql>
+
+    <sql id="sql_column">
+        id,create_time,update_time,del_tag,last_modify_user_id,name,publish_path,
+        build_mode,filename_suffix,template_path,template_classify
+    </sql>
+
+    <select id="queryCount" resultType="java.lang.Integer">
+        select count(1) from pre_template <include refid="delTag" />
+    </select>
+
+    <select id="queryList" resultMap="preTemplate">
+        select <include refid="sql_column" /> from pre_template <include refid="delTag" /> limit ${page.start},${page.pageSize};
+    </select>
+
+    <insert id="savePreTemplate">
+
+    </insert>
+
+    <update id="updatePreTemplate">
+        update pre_template
+        <set>
+            <if test="p1.name != null">
+                name = #{p1.name},
+            </if>
+            <if test="p1.publishPath != null">
+                publish_path = #{p1.publishPath},
+            </if>
+            <if test="p1.buildMode != null">
+                build_mode = #{p1.buildMode},
+            </if>
+            <if test="p1.filenameSuffix != null">
+                filename_suffix = #{p1.filenameSuffix},
+            </if>
+            <if test="p1.templatePath != null">
+                template_path = #{p1.templatePath},
+            </if>
+            <if test="p1.templateClassify != null">
+                template_classify = #{p1.templateClassify},
+            </if>
+        last_modify_user_id = #{p1.lastModifyUserId}
+        </set>
+        where id = ${p1.id}
+    </update>
+    
+    <update id="delPreTemplate">
+        update pre_template
+        <set>
+            del_tag = 0 ,
+            last_modify_user_id = #{lastModifyUserId}
+        </set>
+        where id = ${id}
+    </update>
+
+    <select id="getPreTemplateByClassify" resultMap="preTemplate">
+        select <include refid="sql_column" /> from pre_template <include refid="delTag" /> and template_classify = #{templateClassify}
+    </select>
+
+    <select id="getPreTemplate" resultMap="preTemplate">
+        select <include refid="sql_column" /> from pre_template <include refid="delTag" /> and id = ${id};
+    </select>
+
+</mapper>

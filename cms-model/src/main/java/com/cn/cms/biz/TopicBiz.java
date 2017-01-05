@@ -28,7 +28,7 @@ public class TopicBiz extends BaseBiz {
     public List<Topic> listTopic(Page page){
         Integer count = topicService.queryTopicCount();
         page.setCount(count);
-        if(count > 0 && page.getPageCount() >= page.getPage()) {
+        if(page.isQuery()) {
             return topicService.queryTopicList(page);
         }
         return null;

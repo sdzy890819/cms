@@ -8,6 +8,6 @@ import com.cn.cms.logfactory.CommonLogFactory;
  */
 public class BaseBiz {
 
-    private CommonLog log = CommonLogFactory.getLog(this.getClass());
+    protected CommonLog log = CommonLogFactory.getLog(this.getClass());
 
 }

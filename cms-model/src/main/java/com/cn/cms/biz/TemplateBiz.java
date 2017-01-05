@@ -28,7 +28,7 @@ public class TemplateBiz extends BaseBiz {
     public List<Template> listTemplate(Page page){
         Integer count = templateService.queryTemplateCount();
         page.setCount(count);
-        if(count > 0 && page.getPage() <= page.getPageCount()) {
+        if(page.isQuery()) {
             List<Template> list = templateService.queryTemplateList(page);
             return list;
         }
@@ -100,6 +100,14 @@ public class TemplateBiz extends BaseBiz {
      */
     public void delRelation(Long templateId, Long relationId, Integer relationType){
         templateService.delRelation(templateId, relationId, relationType);
+    }
+
+    /**
+     * 取消模版关系
+     * @param templateId
+     */
+    public void delRelation(Long templateId){
+        templateService.delRelation(templateId);
     }
 
     /**

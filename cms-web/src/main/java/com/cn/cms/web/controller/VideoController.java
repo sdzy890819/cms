@@ -54,9 +54,9 @@ public class VideoController extends BaseController{
     @CheckAuth( name = "videobase:update" )
     @RequestMapping(value = "/updateVideoBase", method = RequestMethod.POST)
     public String updateVideoBase(HttpServletRequest request,
-                            @RequestPart("id") Long id,
-                            @RequestPart(value = "baseUrl",required = false) String baseUrl,
-                            @RequestPart(value = "basePath",required = false) String basePath){
+                            @RequestParam("id") Long id,
+                            @RequestParam(value = "baseUrl",required = false) String baseUrl,
+                            @RequestParam(value = "basePath",required = false) String basePath){
         VideoBase videoBase = new VideoBase();
         videoBase.setId(id);
         videoBase.setBasePath(basePath);
@@ -77,8 +77,8 @@ public class VideoController extends BaseController{
     @CheckAuth( name = "videobase:write" )
     @RequestMapping(value = "/createVideoBase", method = RequestMethod.POST)
     public String createVideoBase(HttpServletRequest request,
-                                  @RequestPart("baseUrl") String baseUrl,
-                                  @RequestPart("basePath") String basePath){
+                                  @RequestParam("baseUrl") String baseUrl,
+                                  @RequestParam("basePath") String basePath){
         VideoBase videoBase = new VideoBase();
         videoBase.setBasePath(basePath);
         videoBase.setBaseUrl(baseUrl);
@@ -101,10 +101,10 @@ public class VideoController extends BaseController{
     @CheckAuth( name = "video:write" )
     @RequestMapping(value = "/createVideo", method = RequestMethod.POST)
     public String createVideo(HttpServletRequest request,
-                              @RequestPart(value = "videoTitle") String videoTitle,
-                              @RequestPart(value = "videoDesc") String videoDesc,
-                              @RequestPart(value = "videoUrl") String videoUrl,
-                              @RequestPart(value = "videoPath", required = false) String videoPath
+                              @RequestParam(value = "videoTitle") String videoTitle,
+                              @RequestParam(value = "videoDesc") String videoDesc,
+                              @RequestParam(value = "videoUrl") String videoUrl,
+                              @RequestParam(value = "videoPath", required = false) String videoPath
                               ){
         String userID = getCurrentUserId(request);
         Video video = new Video();
@@ -132,11 +132,11 @@ public class VideoController extends BaseController{
     @CheckAuth( name = "video:update" )
     @RequestMapping(value = "/updateVideo", method = RequestMethod.POST)
     public String updateVideo(HttpServletRequest request,
-                              @RequestPart(value = "id") Long id,
-                              @RequestPart(value = "videoTitle",required = false) String videoTitle,
-                              @RequestPart(value = "videoDesc",required = false) String videoDesc,
-                              @RequestPart(value = "videoUrl",required = false) String videoUrl,
-                              @RequestPart(value = "videoPath",required = false) String videoPath
+                              @RequestParam(value = "id") Long id,
+                              @RequestParam(value = "videoTitle",required = false) String videoTitle,
+                              @RequestParam(value = "videoDesc",required = false) String videoDesc,
+                              @RequestParam(value = "videoUrl",required = false) String videoUrl,
+                              @RequestParam(value = "videoPath",required = false) String videoPath
     ){
         String userID = getCurrentUserId(request);
         Video video = new Video();
@@ -162,7 +162,7 @@ public class VideoController extends BaseController{
     @CheckAuth( name = "video:delete" )
     @RequestMapping(value = "/delVideo", method = RequestMethod.GET)
     public String delVideo(HttpServletRequest request,
-                            @RequestPart("id") Long id){
+                            @RequestParam("id") Long id){
         resourceBiz.delVideo(getCurrentUserId(request), id);
         return ApiResponse.returnSuccess();
     }

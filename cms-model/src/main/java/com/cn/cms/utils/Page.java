@@ -76,4 +76,8 @@ public class Page {
         return false;
     }
 
+    public boolean isQuery(){
+        return this.getCount() > 0 && this.getPage() <= this.getPageCount() ;
+    }
+
 }

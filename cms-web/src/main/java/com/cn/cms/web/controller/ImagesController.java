@@ -53,9 +53,9 @@ public class ImagesController extends BaseController{
     @CheckAuth( name = "imagesbase:update" )
     @RequestMapping(value = "/updateImagesBase", method = RequestMethod.POST)
     public String updateImagesBase(HttpServletRequest request,
-                                   @RequestPart("id") Long id,
-                                   @RequestPart(value = "baseUrl",required = false) String baseUrl,
-                                   @RequestPart(value = "basePath",required = false) String basePath){
+                                   @RequestParam("id") Long id,
+                                   @RequestParam(value = "baseUrl",required = false) String baseUrl,
+                                   @RequestParam(value = "basePath",required = false) String basePath){
         ImagesBase imagesBase = new ImagesBase();
         imagesBase.setLastModifyUserId(getCurrentUserId(request));
         imagesBase.setBasePath(basePath);
@@ -76,8 +76,8 @@ public class ImagesController extends BaseController{
     @CheckAuth( name = "imagesbase:write" )
     @RequestMapping(value = "/createImagesBase", method = RequestMethod.POST)
     public String createImagesBase(HttpServletRequest request,
-                                   @RequestPart("baseUrl") String baseUrl,
-                                   @RequestPart("basePath") String basePath){
+                                   @RequestParam("baseUrl") String baseUrl,
+                                   @RequestParam("basePath") String basePath){
         ImagesBase imagesBase = new ImagesBase();
         imagesBase.setLastModifyUserId(getCurrentUserId(request));
         imagesBase.setBasePath(basePath);
@@ -104,15 +104,15 @@ public class ImagesController extends BaseController{
     @CheckAuth( name = "images:write" )
     @RequestMapping(value = "/createImages", method = RequestMethod.POST)
     public String createImages(HttpServletRequest request,
-                               @RequestPart("imageUrl") String imageUrl,
-                               @RequestPart("imageWidthPixel") Integer imageWidthPixel,
-                               @RequestPart("imageHeightPixel") Integer imageHeightPixel,
-                               @RequestPart("orgWidthPixel") Integer orgWidthPixel,
-                               @RequestPart("orgHeightPixel") Integer orgHeightPixel,
-                               @RequestPart("imageTitle") String imageTitle,
-                               @RequestPart("imagePath") String imagePath,
-                               @RequestPart("watermark") Integer watermark,
-                               @RequestPart("compress") Integer compress){
+                               @RequestParam("imageUrl") String imageUrl,
+                               @RequestParam("imageWidthPixel") Integer imageWidthPixel,
+                               @RequestParam("imageHeightPixel") Integer imageHeightPixel,
+                               @RequestParam("orgWidthPixel") Integer orgWidthPixel,
+                               @RequestParam("orgHeightPixel") Integer orgHeightPixel,
+                               @RequestParam("imageTitle") String imageTitle,
+                               @RequestParam("imagePath") String imagePath,
+                               @RequestParam("watermark") Integer watermark,
+                               @RequestParam("compress") Integer compress){
         Images images = new Images();
         images.setLastModifyUserId(getCurrentUserId(request));
         images.setCompress(compress);
@@ -148,16 +148,16 @@ public class ImagesController extends BaseController{
     @CheckAuth( name = "images:update" )
     @RequestMapping(value = "/updateImages", method = RequestMethod.POST)
     public String updateImages(HttpServletRequest request,
-                               @RequestPart("id") Long id,
-                               @RequestPart(value = "imageUrl",required = false) String imageUrl,
-                               @RequestPart(value = "imageWidthPixel",required = false) Integer imageWidthPixel,
-                               @RequestPart(value = "imageHeightPixel",required = false) Integer imageHeightPixel,
-                               @RequestPart(value = "orgWidthPixel",required = false) Integer orgWidthPixel,
-                               @RequestPart(value = "orgHeightPixel",required = false) Integer orgHeightPixel,
-                               @RequestPart(value = "imageTitle",required = false) String imageTitle,
-                               @RequestPart(value = "imagePath",required = false) String imagePath,
-                               @RequestPart(value = "watermark",required = false) Integer watermark,
-                               @RequestPart(value = "compress",required = false) Integer compress){
+                               @RequestParam("id") Long id,
+                               @RequestParam(value = "imageUrl",required = false) String imageUrl,
+                               @RequestParam(value = "imageWidthPixel",required = false) Integer imageWidthPixel,
+                               @RequestParam(value = "imageHeightPixel",required = false) Integer imageHeightPixel,
+                               @RequestParam(value = "orgWidthPixel",required = false) Integer orgWidthPixel,
+                               @RequestParam(value = "orgHeightPixel",required = false) Integer orgHeightPixel,
+                               @RequestParam(value = "imageTitle",required = false) String imageTitle,
+                               @RequestParam(value = "imagePath",required = false) String imagePath,
+                               @RequestParam(value = "watermark",required = false) Integer watermark,
+                               @RequestParam(value = "compress",required = false) Integer compress){
         Images images = new Images();
         images.setLastModifyUserId(getCurrentUserId(request));
         images.setCompress(compress);
@@ -186,7 +186,7 @@ public class ImagesController extends BaseController{
     @CheckAuth( name = "images:delete" )
     @RequestMapping(value = "/delImages", method = RequestMethod.GET)
     public String delImages(HttpServletRequest request,
-                               @RequestPart("id") Long id){
+                               @RequestParam("id") Long id){
         resourceBiz.delImages(getCurrentUserId(request), id);
         return ApiResponse.returnSuccess();
     }

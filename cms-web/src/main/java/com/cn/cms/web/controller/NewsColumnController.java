@@ -1,6 +1,7 @@
 package com.cn.cms.web.controller;
 
 import com.cn.cms.biz.NewsBiz;
+import com.cn.cms.biz.PreTemplateBiz;
 import com.cn.cms.po.NewsColumn;
 import com.cn.cms.web.ann.CheckAuth;
 import com.cn.cms.web.ann.CheckToken;
@@ -23,6 +24,9 @@ public class NewsColumnController extends BaseController {
 
     @Resource
     private NewsBiz newsBiz;
+
+    @Resource
+    private PreTemplateBiz preTemplateBiz;
 
     /**
      * 栏目列表
@@ -49,14 +53,45 @@ public class NewsColumnController extends BaseController {
     @CheckAuth( name = "newscolumn:write" )
     @RequestMapping(value = "/createNewsColumn",method = RequestMethod.POST)
     public String createNewsColumn(HttpServletRequest request,
-                                   @RequestPart(value = "columnName") String columnName,
-                                   @RequestPart(value = "channelId") Long channelId
-                                   ){
+                                   @RequestParam(value = "columnName") String columnName,
+                                   @RequestParam(value = "channelId") Long channelId,
+                                   @RequestParam(value = "listId", required = false) Long listId,
+                                   @RequestParam(value = "detailId", required = false) Long detailId,
+                                   @RequestParam(value = "keywords", required = false) String keywords,
+                                   @RequestParam(value = "description", required = false) String description){
         NewsColumn newsColumn = new NewsColumn();
         newsColumn.setChannelId(channelId);
         newsColumn.setLastModifyUserId(getCurrentUserId(request));
         newsColumn.setColumnName(columnName);
+        newsColumn.setDetailId(detailId);
+        newsColumn.setListId(listId);
+        newsColumn.setKeywords(keywords);
+        newsColumn.setDescription(description);
         newsBiz.saveNewsColumn(newsColumn);
+        return ApiResponse.returnSuccess();
+    }
+
+    @CheckToken
+    @CheckAuth( name = "newscolumn:update" )
+    @RequestMapping(value = "/updateNewsColumn",method = RequestMethod.POST)
+    public String updateNewsColumn(HttpServletRequest request,
+                                   @RequestParam(value = "id") Long id,
+                                   @RequestParam(value = "columnName") String columnName,
+                                   @RequestParam(value = "channelId") Long channelId,
+                                   @RequestParam(value = "listId", required = false) Long listId,
+                                   @RequestParam(value = "detailId", required = false) Long detailId,
+                                   @RequestParam(value = "keywords", required = false) String keywords,
+                                   @RequestParam(value = "description", required = false) String description){
+        NewsColumn newsColumn = new NewsColumn();
+        newsColumn.setId(id);
+        newsColumn.setChannelId(channelId);
+        newsColumn.setLastModifyUserId(getCurrentUserId(request));
+        newsColumn.setColumnName(columnName);
+        newsColumn.setDetailId(detailId);
+        newsColumn.setListId(listId);
+        newsColumn.setKeywords(keywords);
+        newsColumn.setDescription(description);
+        newsBiz.updateNewsColumn(newsColumn);
         return ApiResponse.returnSuccess();
     }
 

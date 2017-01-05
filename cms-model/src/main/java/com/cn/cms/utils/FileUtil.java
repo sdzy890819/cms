@@ -240,4 +240,58 @@ public class FileUtil {
         return fileName;
     }
 
+
+    public static void copyFile(String fromFile, String toFile) {
+        try {
+            FileReader fileReader = new FileReader(new File(fromFile));
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            StringBuffer stringBuffer = new StringBuffer();
+            String tmp ;
+            while((tmp = bufferedReader.readLine())!=null){
+                stringBuffer.append(tmp);
+            }
+
+            File file = new File(toFile);
+            mkdir(file);
+            FileWriter fileWriter = new FileWriter(file);
+            fileWriter.write(stringBuffer.toString());
+            fileWriter.flush();
+            fileWriter.close();
+        } catch (FileNotFoundException e) {
+            log.error(e);
+        } catch (IOException e) {
+            log.error(e);
+        }
+    }
+
+
+    public static void writeFile(String content, String toFile) {
+        try {
+            File file = new File(toFile);
+            mkdir(file);
+            FileWriter fileWriter = new FileWriter(file);
+            fileWriter.write(content);
+            fileWriter.flush();
+            fileWriter.close();
+        } catch (IOException e) {
+            log.error(e);
+        }
+    }
+
+    public static String readFile(String fromFile){
+        try {
+            FileReader fileReader = new FileReader(new File(fromFile));
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            StringBuffer stringBuffer = new StringBuffer();
+            String tmp ;
+            while((tmp = bufferedReader.readLine())!=null){
+                stringBuffer.append(tmp);
+            }
+            return stringBuffer.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

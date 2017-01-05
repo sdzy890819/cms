@@ -1,10 +1,13 @@
 package com.cn.cms.service.impl;
 
+import com.cn.cms.dao.NewsColumnDao;
+import com.cn.cms.dao.NewsDao;
 import com.cn.cms.dao.TemplateDao;
 import com.cn.cms.dao.TemplateRelationDao;
 import com.cn.cms.enums.JobEnum;
 import com.cn.cms.enums.PublishEnum;
 import com.cn.cms.enums.TemplateClassifyEnum;
+import com.cn.cms.po.NewsColumn;
 import com.cn.cms.po.Template;
 import com.cn.cms.po.TemplateRelation;
 import com.cn.cms.service.TemplateService;
@@ -26,6 +29,9 @@ public class TemplateServiceImpl implements TemplateService {
 
     @Resource
     private TemplateRelationDao templateRelationDao;
+
+    @Resource
+    private NewsColumnDao newsColumnDao;
 
     public Integer queryTemplateCount() {
         return templateDao.queryTemplateCount();
@@ -72,6 +78,11 @@ public class TemplateServiceImpl implements TemplateService {
     }
 
     @Override
+    public void delRelation(Long templateId) {
+        templateRelationDao.delRelationByTemplateId(templateId);
+    }
+
+    @Override
     public List<Template> findTemplateListByRelation(Long relationId, Integer relationType) {
         return templateDao.findTemplateListByRelation(relationId, relationType, JobEnum.trigger.getType());
     }
@@ -90,6 +101,20 @@ public class TemplateServiceImpl implements TemplateService {
     public Template findTemplateByChannel(Long channelId, Integer templateClassify,
                                           Long relationId, Integer relationType, int job) {
         return templateDao.findTemplateByChannel(channelId, templateClassify, relationId, relationType,job);
+    }
+
+    @Override
+    public void saveTemplateAndRelationAndNewsColumn(Template template, TemplateRelation templateRelation, NewsColumn newsColumn) {
+        templateDao.saveTemplate(template);
+        templateRelation.setTemplateId(template.getId());
+        templateRelationDao.saveRelation(templateRelation);
+        if(template.getTemplateClassify() == TemplateClassifyEnum.list.getType()) {
+            newsColumn.setListTemplateId(template.getId());
+            newsColumnDao.publishListNewsColumn(newsColumn);
+        }else if(template.getTemplateClassify() == TemplateClassifyEnum.detail.getType()){
+            newsColumn.setDetailTemplateId(template.getId());
+            newsColumnDao.publishDetailNewsColumn(newsColumn);
+        }
     }
 }
 

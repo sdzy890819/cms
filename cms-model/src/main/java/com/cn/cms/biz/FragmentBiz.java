@@ -27,7 +27,7 @@ public class FragmentBiz extends BaseBiz {
     public List<Fragment> listFragment(Page page){
         Integer count = fragmentService.queryFragmentCount();
         page.setCount(count);
-        if(count > 0 && page.getPageCount()>=page.getPage()) {
+        if(page.isQuery()) {
             List<Fragment> list = fragmentService.queryFragmentList(page);
             return list;
         }
@@ -81,7 +81,7 @@ public class FragmentBiz extends BaseBiz {
     public List<FragmentHistory> listHistory(Long fid, Page page){
         Integer count = fragmentService.queryHistoryCount(fid);
         page.setCount(count);
-        if(count > 0 && page.getPageCount() >= page.getPage()){
+        if(page.isQuery()){
             List<FragmentHistory> list = fragmentService.queryHistoryList(fid, page);
             return list;
         }

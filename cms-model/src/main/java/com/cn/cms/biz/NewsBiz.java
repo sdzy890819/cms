@@ -2,6 +2,7 @@ package com.cn.cms.biz;
 
 import com.cn.cms.enums.AutoPublishEnum;
 import com.cn.cms.enums.PublishEnum;
+import com.cn.cms.enums.TemplateClassifyEnum;
 import com.cn.cms.po.News;
 import com.cn.cms.po.NewsColumn;
 import com.cn.cms.service.NewsService;
@@ -21,12 +22,44 @@ public class NewsBiz extends BaseBiz {
     @Resource
     private NewsService newsService;
 
+    @Resource
+    private PreTemplateBiz preTemplateBiz;
+
+    @Resource
+    private TemplateBiz templateBiz;
+
     public List<NewsColumn> listNewsColumn(Long channelId){
         return newsService.queryList(channelId);
     }
 
     public void saveNewsColumn(NewsColumn newsColumn){
         newsService.saveNewsColumn(newsColumn);
+        if(newsColumn.getListId()!=null){
+            preTemplateBiz.buildTemplate(newsColumn, newsColumn.getListId(), TemplateClassifyEnum.list);
+        }
+        if(newsColumn.getDetailId()!=null){
+            preTemplateBiz.buildTemplate(newsColumn, newsColumn.getDetailId(), TemplateClassifyEnum.detail);
+        }
+    }
+
+    public void updateNewsColumn(NewsColumn newsColumn){
+        NewsColumn old = newsService.getNewsColumn(newsColumn.getId());
+
+        newsService.updateNewsColumn(newsColumn);
+        if(old.getListId() != newsColumn.getListId() && newsColumn.getListId()!=null){
+            if(old.getListTemplateId()!=null){
+                templateBiz.delTemplate(newsColumn.getLastModifyUserId(), old.getListTemplateId());
+                templateBiz.delRelation(old.getListTemplateId());
+            }
+            preTemplateBiz.buildTemplate(newsColumn, newsColumn.getListId(), TemplateClassifyEnum.list);
+        }
+        if(old.getDetailId() != newsColumn.getDetailId() && newsColumn.getDetailId()!=null){
+            if(old.getDetailTemplateId()!=null){
+                templateBiz.delTemplate(newsColumn.getLastModifyUserId(), old.getDetailTemplateId());
+                templateBiz.delRelation(old.getDetailTemplateId());
+            }
+            preTemplateBiz.buildTemplate(newsColumn, newsColumn.getDetailId(), TemplateClassifyEnum.detail);
+        }
     }
 
     public void delNewsColumn(String lastModifyUserId, Long id){
@@ -36,7 +69,7 @@ public class NewsBiz extends BaseBiz {
     public List<News> listNews(Page page){
         Integer count = newsService.queryNewsCount();
         page.setCount(count);
-        if(count > 0 && page.getPage() <= page.getPageCount()) {
+        if(page.isQuery()) {
             return newsService.queryNewsList(page);
         }
         return null;
