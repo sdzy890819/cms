@@ -29,6 +29,20 @@ define(function(){
 		},
 		{
 			title : 'column',
+			name : '模版位置',
+			type : 'select', //text textarea radio checkbox edit
+			select : [
+				[
+					{name:'请选择模版'},
+					{name:'请选择模版1'},
+					{name:'请选择模版2'},
+					{name:'请选择模版3'}
+				]
+			],
+			verify : 'select'
+		},
+		{
+			title : 'column',
 			name : '所属部门',
 			type : 'select', //text textarea radio checkbox edit
 			select : [

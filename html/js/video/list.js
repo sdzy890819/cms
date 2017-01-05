@@ -130,6 +130,7 @@ define(["app",'jquery','./addForm','formlist','position','fixedNav','../moduls/s
 						}
 					]
 				}
+				
 	        }
 	        ,link : function($scope , element ){
 	        	

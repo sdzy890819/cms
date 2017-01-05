@@ -14,7 +14,7 @@ define(["app",'./addForm','form','position','fixedNav'], function ( app , list )
 					cancel : function( arr ){ //取消
 						alert(arr)
 					},
-					edit : { //导航操作按钮
+					/*edit : { //导航操作按钮
 						list : [
 							{
 								name:'保存',
@@ -22,7 +22,7 @@ define(["app",'./addForm','form','position','fixedNav'], function ( app , list )
 								cls : 'add'
 							}
 						]
-					},
+					},*/
 					formdata : { //确认按钮
 						title : '新增新闻',
 						list : list,
