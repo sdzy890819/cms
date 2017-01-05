@@ -4,9 +4,12 @@ define(["app",'./addForm','form','position','fixedNav'], function ( app , list )
 	    	restrict : 'E',
 	    	replace : true,
 	    	transclude : true,
-	        templateUrl : '../template/column/edit.html',
+	        templateUrl : '../template/common/addAndEdit.html',
 	        controller : function($scope){
-				$scope.$parent.menu.push({name:"频道编辑"}); //栏目
+	        	$scope.title = '新增频道';
+
+
+				$scope.$parent.menu.push({name:$scope.title}); //栏目
 
 				$.extend($scope,{
 					save : function( arr ){ //保存
@@ -18,7 +21,7 @@ define(["app",'./addForm','form','position','fixedNav'], function ( app , list )
 				})
 
 				$scope.formdata = { //确认按钮
-					title : '新增频道分类',
+					title : $scope.title,
 					list : list,
 					submit : [
 						{

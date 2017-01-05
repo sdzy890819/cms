@@ -12,7 +12,6 @@
 					<tr>
 						<th ng-if='data.table.select' class='select'><input type="checkbox"></th>
 						<th ng-repeat='obj in data.table.th' repeat-finish='thFinish' width='{{obj.width}}' class='{{obj.class}}'>
-							<a ng-if='obj.link'>{{obj.name}}</a>
 							{{obj.name}}
 						</th>
 					</tr>
@@ -22,7 +21,8 @@
 							<input type="checkbox">
 						</td>
 						<td ng-repeat='(key,item) in obj.list' class='{{item.class}}'>
-							{{item.name}}
+							<span ng-if='item.name'>{{item.name}}</span>
+							<img  ng-if='item.image' class="img" src='{{item.image}}'>
 						</td>
 						<td class="edits">
 							<div ng-repeat='item in obj.list.edit' ng-click='submit(item.evt,item,$event)' class="btn {{item.cls}}">

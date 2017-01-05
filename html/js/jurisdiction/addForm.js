@@ -25,7 +25,7 @@ define(function(){
 			name : '排序值',
 			placeholder : '排序值',
 			type : 'text', //text textarea radio checkbox edit
-			verify : 'required'
+			verify : 'number'
 		},
 		{
 			title : 'showFlag',

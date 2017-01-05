@@ -25,7 +25,7 @@ define(['app','jquery'],function(app,$){
 					});
 					return arr;
 				},*/
-				arr : function( oldarr , filter){ //对列表数据进行过滤生成新的列表
+				arr : function( oldarr , filter , changeTypeName){ //当没有ID时，把filter中的id值改为ID便把 obj.pringid 改为obj.id 对列表数据进行过滤生成新的列表 , changeTypeName为把指定的name 改成 newName
 					var arr = [];
 					$.each(oldarr,function( i , obj ){
 						var li = {} , k = 0 , _arr = [];
@@ -37,10 +37,25 @@ define(['app','jquery'],function(app,$){
 									break;
 								}
 							}
+							if(filter[0].id && filter[0].id == key){
+								li.id = val;
+							}
 							if(!b){
-								_arr.push({
-									name : val
-								});
+								var newName;
+								if(changeTypeName){
+									$.each(changeTypeName,function(k,obj){
+										if(key==obj.name){
+											newName = {[obj.newName] : val};
+										}
+									});
+								}
+								if(!newName){
+									_arr.push({
+										name : val
+									});
+								}else{
+									_arr.push(newName);
+								}
 								li[key] = val;
 								k++;
 							}else{
@@ -61,7 +76,7 @@ define(['app','jquery'],function(app,$){
 							try{
 								this.list[k][key] = value;
 							}catch(e){
-								console.log('编辑不在td范围内');
+								console.log('TH中的操作不在td范围内或者list[k]=null');
 							}
 						})
 					}
@@ -89,6 +104,17 @@ define(['app','jquery'],function(app,$){
 				extendChild : function( extend , arr , type ){ // //更新属性 把 arr传给 extend[i][type]
 					$.each(extend,function(){
 						this.list[type] = arr;
+					})
+				},
+				changeTypeName : function( extend , array ){ // 把 extend 中的 typeName == array[0] 的名字换成 array[1] 
+					$.each(array,function( i , obj ){
+						$.each(extend,function( j , _obj ){
+							$.each(_obj,function( key , value ){
+								if(key == obj.name){
+									_obj[obj.newName] = value;
+								}
+							});
+						})
 					})
 				}
 			}

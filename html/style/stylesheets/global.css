@@ -923,36 +923,45 @@ input:focus{ border: 1px solid #bbb !important;} */
   vertical-align: middle;
 }
 
-/* line 287, ../sass/global.scss */
+/*layui相关*/
+/* line 288, ../sass/global.scss */
 .layui-form {
   padding-top: 20px;
 }
-/* line 288, ../sass/global.scss */
+/* line 289, ../sass/global.scss */
 .layui-form textarea.w80 {
   width: 80%;
   max-width: 600px;
   min-height: 50px;
 }
-/* line 289, ../sass/global.scss */
+/* line 290, ../sass/global.scss */
 .layui-form em {
   padding-right: 5px;
   color: #e50000;
   vertical-align: middle;
 }
-/* line 290, ../sass/global.scss */
+/* line 291, ../sass/global.scss */
 .layui-form .layui-form-label {
   width: 120px;
 }
-/* line 291, ../sass/global.scss */
+/* line 292, ../sass/global.scss */
 .layui-form .layui-input-block {
   margin-left: 150px;
 }
-/* line 292, ../sass/global.scss */
+/* line 293, ../sass/global.scss */
 .layui-form .date {
   cursor: pointer;
 }
-
 /* line 295, ../sass/global.scss */
+.layui-form .layui-form-item .layui-input-inline {
+  width: auto;
+}
+/* line 299, ../sass/global.scss */
+.layui-form .layui-inline .layui-form-label.inline {
+  width: auto;
+}
+
+/* line 304, ../sass/global.scss */
 .table table {
   width: 100%;
   border-left: 1px solid #ddd;
@@ -963,14 +972,14 @@ input:focus{ border: 1px solid #bbb !important;} */
   -o-box-sizing: border-box;
   -ms-box-sizing: border-box;
 }
-/* line 296, ../sass/global.scss */
+/* line 305, ../sass/global.scss */
 .table img.img {
   vertical-align: middle;
   width: 20px;
   height: 20px;
   border-radius: 100%;
 }
-/* line 297, ../sass/global.scss */
+/* line 306, ../sass/global.scss */
 .table th {
   text-align: left;
   padding: 5px;
@@ -979,11 +988,11 @@ input:focus{ border: 1px solid #bbb !important;} */
   border-right: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
 }
-/* line 298, ../sass/global.scss */
+/* line 307, ../sass/global.scss */
 .table th.center {
   text-align: center;
 }
-/* line 300, ../sass/global.scss */
+/* line 309, ../sass/global.scss */
 .table td {
   text-align: left;
   padding: 5px;
@@ -991,28 +1000,28 @@ input:focus{ border: 1px solid #bbb !important;} */
   border-right: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
 }
-/* line 301, ../sass/global.scss */
+/* line 310, ../sass/global.scss */
 .table td.center {
   text-align: center;
 }
-/* line 302, ../sass/global.scss */
+/* line 311, ../sass/global.scss */
 .table td.edits {
   text-align: center;
 }
-/* line 305, ../sass/global.scss */
+/* line 314, ../sass/global.scss */
 .table tr:nth-child(odd) {
   background: #f8f8f8;
 }
-/* line 306, ../sass/global.scss */
+/* line 315, ../sass/global.scss */
 .table tr:hover {
   background: #f2f2f2;
 }
-/* line 308, ../sass/global.scss */
+/* line 317, ../sass/global.scss */
 .table .select {
   width: 20px;
   text-align: center;
 }
-/* line 310, ../sass/global.scss */
+/* line 319, ../sass/global.scss */
 .table .btn {
   display: inline-block;
   margin-left: 1px;
@@ -1027,70 +1036,70 @@ input:focus{ border: 1px solid #bbb !important;} */
   -o-transition-duration: 0.3s;
   -ms-transition-duration: 0.3s;
 }
-/* line 311, ../sass/global.scss */
+/* line 320, ../sass/global.scss */
 .table .btn i {
   margin-right: 3px;
 }
-/* line 312, ../sass/global.scss */
+/* line 321, ../sass/global.scss */
 .table .btn.add {
   background: #35aa47;
   color: #fff;
 }
-/* line 313, ../sass/global.scss */
+/* line 322, ../sass/global.scss */
 .table .btn.add:hover {
   background: #1e9831;
 }
-/* line 315, ../sass/global.scss */
+/* line 324, ../sass/global.scss */
 .table .btn.del {
   background: #f24400;
   color: #fff;
 }
-/* line 316, ../sass/global.scss */
+/* line 325, ../sass/global.scss */
 .table .btn.del:hover {
   background: #da0000;
 }
-/* line 319, ../sass/global.scss */
+/* line 328, ../sass/global.scss */
 .table .btn.edit {
   background: #4d90fe;
   color: #fff;
 }
-/* line 320, ../sass/global.scss */
+/* line 329, ../sass/global.scss */
 .table .btn.edit:hover {
   background: #2673f1;
 }
 
-/* line 324, ../sass/global.scss */
+/* line 333, ../sass/global.scss */
 .tablist {
   margin-top: 0;
 }
-/* line 326, ../sass/global.scss */
+/* line 335, ../sass/global.scss */
 .tablist .submit {
   padding-left: 25px;
 }
 
-/* line 329, ../sass/global.scss */
+/* line 338, ../sass/global.scss */
 .page .paginationjs {
   padding-top: 20px;
   text-align: right;
   font-size: 0;
 }
-/* line 330, ../sass/global.scss */
+/* line 339, ../sass/global.scss */
 .page .paginationjs .paginationjs-pages {
   display: inline-block;
   vertical-align: top;
 }
-/* line 332, ../sass/global.scss */
+/* line 341, ../sass/global.scss */
 .page .paginationjs .paginationjs-pages ul {
   display: inline-block;
   height: 30px;
   border-radius: 4px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
-/* line 333, ../sass/global.scss */
+/* line 342, ../sass/global.scss */
 .page .paginationjs .paginationjs-pages li {
   display: inline-block;
 }
-/* line 334, ../sass/global.scss */
+/* line 343, ../sass/global.scss */
 .page .paginationjs .paginationjs-pages li a {
   float: left;
   padding: 4px 12px;
@@ -1101,36 +1110,36 @@ input:focus{ border: 1px solid #bbb !important;} */
   font-size: 12px;
   color: #999;
 }
-/* line 335, ../sass/global.scss */
+/* line 344, ../sass/global.scss */
 .page .paginationjs .paginationjs-pages li a:hover {
   background: #eee;
 }
-/* line 337, ../sass/global.scss */
+/* line 346, ../sass/global.scss */
 .page .paginationjs .paginationjs-pages li:not(:first-child) a {
   border-left: none;
 }
-/* line 338, ../sass/global.scss */
+/* line 347, ../sass/global.scss */
 .page .paginationjs .paginationjs-pages li.active a {
   background: #eee;
 }
-/* line 341, ../sass/global.scss */
+/* line 350, ../sass/global.scss */
 .page .paginationjs .paginationjs-go-input {
   display: inline-block;
   vertical-align: top;
   padding-left: 10px;
 }
-/* line 342, ../sass/global.scss */
+/* line 351, ../sass/global.scss */
 .page .paginationjs .paginationjs-go-input input[type='text'] {
   width: 30px;
   height: 16px;
   line-height: 16px;
 }
-/* line 344, ../sass/global.scss */
+/* line 353, ../sass/global.scss */
 .page .paginationjs .paginationjs-go-button {
   display: inline-block;
   vertical-align: top;
 }
-/* line 345, ../sass/global.scss */
+/* line 354, ../sass/global.scss */
 .page .paginationjs .paginationjs-go-button .J-paginationjs-go-button {
   height: 30px;
   line-height: 30px;
@@ -1141,17 +1150,17 @@ input:focus{ border: 1px solid #bbb !important;} */
   background: #fff;
   cursor: pointer;
 }
-/* line 346, ../sass/global.scss */
+/* line 355, ../sass/global.scss */
 .page .paginationjs .paginationjs-go-button .J-paginationjs-go-button:hover {
   background: #eee;
 }
 
-/* line 354, ../sass/global.scss */
+/* line 363, ../sass/global.scss */
 .news.edit .boxtab {
   margin-top: 0;
 }
 
-/* line 358, ../sass/global.scss */
+/* line 367, ../sass/global.scss */
 .iframe {
   border: none;
   margin: 0;

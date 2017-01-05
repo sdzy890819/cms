@@ -55,7 +55,7 @@
 					</div>
 					<!-- 不换行 -->
 					<div class="layui-inline" ng-if='isArray(obj)' ng-repeat="item in obj" repeat-finish='formRepeat'>
-						<label ng-if='item.type!="button"' class="layui-form-label"><em ng-show='item.check!=false'>*</em>{{item.name}}</label>
+						<label ng-if='item.type!="button"' class="layui-form-label {{$index!==0?'inline':''}}"><em ng-show='item.check!=false'>*</em>{{item.name}}</label>
 					    <div class="layui-input-inline"> <!-- 不换行 -->
 					        <!-- 输入匡 或 密码 -->
 							<input ng-if="item.type=='text'||item.type=='password'" class="text layui-input {{item.cls||'w100'}}" type="{{item.type=='text'?'text':'password'}}" name="{{item.title}}" lay-verify="{{item.verify}}" placeholder="{{item.placeholder}}" autocomplete="off">
@@ -74,6 +74,9 @@
 						    <input ng-if="item.type=='date'" type="text" name="{{item.title}}" id="date"placeholder="{{item.placeholder}}" readonly='readonly' autocomplete="off" class="layui-input date {{item.cls||'w220'}}" ng-click="selectDate($event)"><!--  lay-verify="date"  -->
 
 					    	<button ng-if='item.type=="button"' class="layui-btn layui-btn-normal" ng-click='submit(item.evt,item,$event)'>{{item.name}}</button>
+
+					    	<!-- radio -->
+					    	<input ng-if="item.type=='radio'" ng-repeat="ob in item.radio"  type="radio" name="{{item.title}}" title="{{ob.name}}" value='{{ob.title}}' ng-checked="{{ob.checked}}">
 					    </div>
 					</div>
 				</div>

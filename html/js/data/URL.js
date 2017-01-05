@@ -37,7 +37,28 @@ define(function(require){
 			listCategory : url+'/category/listCategory', //获取部门分类列表
 			createCategory : url+'/category/createCategory', 
 			updateCategory : url+'/category/updateCategory', 
-			delCategory : url+'/category/delCategory', 
+			delCategory : url+'/category/delCategory'
+		},
+		channel : { //获取频道分类列表
+			listChannel : url+'/channel/listChannel' , 
+			createChannel : url+'/channel/createChannel' , 
+			updateChannel : url+'/channel/updateChannel' , 
+			delChannel : url+'/channel/delChannel' , 
+			channelListForCategory : url+'/channel/channelListForCategory' , 
+			channelInfo : url+'/channel/channelInfo' , 
+			currentChannelList : url+'/channel/currentChannelList' 
+		},
+		upload : {//上传相关
+			uploadImage : '/upload/uploadImage' //上传图片接口
+		},
+		images : {//图片
+			imageslist : url+'/images/imageslist',
+			delImages : url+'/images/delImages',
+			updateImages : url+'/images/updateImages', //上传图片修改
+			createImages : url+'/images/createImages',
+			createImagesBase : url+'/images/createImagesBase',
+			updateImagesBase : url+'/images/updateImagesBase', //修改图片基础信息
+			imagesBase : url+'/images/imagesBase'
 		}
 	}
 })

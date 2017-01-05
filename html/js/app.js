@@ -77,11 +77,6 @@ define(['./data/loginAndOut',"angular", "angularAMD","angular-ui-router",'angula
                 template : '<news-add></news-add>',
                 controllerUrl: 'news/add'
             }))
-            .state('news.edit', angularAMD.route({
-                url: '/edit',
-                template : '<news-edit></news-edit>',
-                controllerUrl: 'news/edit'
-            }))
             .state('news.list', angularAMD.route({
                 url: '/list',
                 template : '<news-list></news-list>',
@@ -103,11 +98,6 @@ define(['./data/loginAndOut',"angular", "angularAMD","angular-ui-router",'angula
                 url: '/list',
                 template : '<category-list></category-list>',
                 controllerUrl: 'category/list'
-            }))
-            .state('category.edit', angularAMD.route({
-                url: '/edit',
-                template : '<category-edit></category-edit>',
-                controllerUrl: 'category/edit'
             }))
 
             //频道管理
@@ -138,36 +128,6 @@ define(['./data/loginAndOut',"angular", "angularAMD","angular-ui-router",'angula
                 template: '<user-add></user-add>',
                 controllerUrl: 'user/add'
             }))
-            .state('user.clear', angularAMD.route({ // 清理
-                url: '/clear',
-                template: '<user-clear></user-clear>',
-                controllerUrl: 'user/clear'
-            }))
-            .state('user.randomPassword', angularAMD.route({ // 密码
-                url: '/randomPassword',
-                template: '<user-random-password></user-random-password>',
-                controllerUrl: 'user/randomPassword'
-            }))
-            .state('user.password', angularAMD.route({ // 密码管理
-                url: '/password',
-                template: '<user-password></user-password>',
-                controllerUrl: 'user/password'
-            }))
-            .state('user.identity', angularAMD.route({ // 身份
-                url: '/identity',
-                template: '<user-identity></user-identity>',
-                controllerUrl: 'user/identity'
-            }))
-            .state('user.function', angularAMD.route({ // 指定功能
-                url: '/function',
-                template: '<user-function></user-function>',
-                controllerUrl: 'user/function'
-            }))
-            .state('user.login', angularAMD.route({ // 登录
-                url: '/login',
-                template: '<user-login></user-login>',
-                controllerUrl: 'user/login'
-            }))
             .state('user.list', angularAMD.route({ // list
                 url: '/list',
                 template: '<user-list></user-list>',
@@ -185,25 +145,10 @@ define(['./data/loginAndOut',"angular", "angularAMD","angular-ui-router",'angula
                 template: '<jurisdiction-add></jurisdiction-add>',
                 controllerUrl: 'jurisdiction/add'
             }))
-            .state('jurisdiction.del', angularAMD.route({ //新增
-                url: '/del',
-                template: '<jurisdiction-del></jurisdiction-del>',
-                controllerUrl: 'jurisdiction/del'
-            }))
-            .state('jurisdiction.edit', angularAMD.route({ //新增
-                url: '/edit',
-                template: '<jurisdiction-edit></jurisdiction-edit>',
-                controllerUrl: 'jurisdiction/edit'
-            }))
             .state('jurisdiction.list', angularAMD.route({ //list
                 url: '/list',
                 template: '<jurisdiction-list></jurisdiction-list>',
                 controllerUrl: 'jurisdiction/list'
-            }))
-            .state('jurisdiction.administrator', angularAMD.route({ //list
-                url: '/administrator',
-                template: '<jurisdiction-administrator></jurisdiction-administrator>',
-                controllerUrl: 'jurisdiction/administrator'
             }))
 
             //图片管理系统
@@ -217,20 +162,10 @@ define(['./data/loginAndOut',"angular", "angularAMD","angular-ui-router",'angula
                 template: '<image-list></image-list>',
                 controllerUrl: 'image/list'
             }))
-            .state('image.upload', angularAMD.route({ 
-                url: '/upload',
-                template: '<image-upload></image-upload>',
-                controllerUrl: 'image/upload'
-            }))
-            .state('image.edit', angularAMD.route({ 
-                url: '/edit',
-                template: '<image-edit></image-edit>',
-                controllerUrl: 'image/edit'
-            }))
-            .state('image.select', angularAMD.route({ 
-                url: '/select',
-                template: '<image-select></image-select>',
-                controllerUrl: 'image/select'
+            .state('image.add', angularAMD.route({ 
+                url: '/add',
+                template: '<image-add></image-add>',
+                controllerUrl: 'image/add'
             }))
 
             //视频上传功能

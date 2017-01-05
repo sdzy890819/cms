@@ -284,12 +284,21 @@ $leftWidth : 225px;
         em{ padding-right:5px; color:#e50000; vertical-align:middle;}
     }
 }
+/*layui相关*/
 .layui-form{ padding-top:20px;
     textarea.w80{ width:80%; max-width:600px; min-height:50px; }
     em{ padding-right:5px; color:#e50000; vertical-align:middle;}
     .layui-form-label{ width:120px;}
     .layui-input-block{ margin-left:150px;}
     .date{ cursor:pointer;}
+    .layui-form-item{
+        .layui-input-inline{ width:auto; }
+    }
+    .layui-inline{
+        .layui-form-label{
+            &.inline{ width:auto;}
+        }
+    }
 }
 .table{
     table{ width:100%; border-left:1px solid #ddd; border-top:1px solid #ddd; @include box-sizing;}
