@@ -29,6 +29,10 @@ public interface TemplateService {
 
     List<TemplateRelation> queryListForTemplateId(Long templateId);
 
+    Integer queryListForTemplateIdCount(Long templateId);
+
+    TemplateRelation queryListForAll(Long templateId, Long relationId, Integer relationType);
+
     void updateRelation(Long templateId, Integer[] relationTypes, List<TemplateRelation> list);
 
     void saveRelation(TemplateRelation templateRelation);
@@ -50,4 +54,6 @@ public interface TemplateService {
                                    int job);
 
     void saveTemplateAndRelationAndNewsColumn(Template template, TemplateRelation templateRelation, NewsColumn newsColumn);
+
+    Template findTemplateList(Long channelId, Integer templateClassify);
 }

@@ -31,6 +31,9 @@ public class PreTemplateBiz extends BaseBiz {
     @Resource
     private ChannelBiz channelBiz;
 
+    @Resource
+    private NewsBiz newsBiz;
+
     public List<PreTemplate> listPreTemplate(Page page){
         Integer count = preTemplateService.queryCount();
         page.setCount(count);
@@ -79,13 +82,15 @@ public class PreTemplateBiz extends BaseBiz {
         }
     }
 
+
     /**
      * 编译预模版。生成模版文件
+     * 如果是列表页 则永远新增。
      * @param newsColumn
      * @param listId
      * @param classifyEnum
      */
-    public void buildTemplate(NewsColumn newsColumn , Long listId, TemplateClassifyEnum classifyEnum){
+    public void buildListTemplate(NewsColumn newsColumn , Long listId, TemplateClassifyEnum classifyEnum){
         PreTemplate preTemplate = preTemplateService.getPreTemplate(listId);
         Channel channel = channelBiz.getChannel(newsColumn.getChannelId());
         PreTemplateBase preTemplateBase = this.getPreTemplateBase();
@@ -121,26 +126,112 @@ public class PreTemplateBiz extends BaseBiz {
             templateRelation.setRelationType(RelationTypeEnum.column.getType());
             templateRelation.setLastModifyUserId(newsColumn.getLastModifyUserId());
             templateService.saveTemplateAndRelationAndNewsColumn(template,templateRelation,newsColumn);
-            String content = FileUtil.readFile(StringUtils.concatUrl(preTemplateBase.getBasePath(), preTemplate.getTemplatePath()));
-            List<String> keys = FragmentUtil.getKey(content,RegexNumEnum.REGEX_ALL);
-            List<String> keys2 = FragmentUtil.getKey(content,RegexNumEnum.REGEX_MATCHER_1);
-            for(int i=0;i<keys.size();i++){
-                try {
-
-                    Object object = NewsColumn.class.getMethod("get".concat(keys2.get(i).substring(0,1).toUpperCase()).concat(keys2.get(i).substring(1))).invoke(newsColumn);
-                    content = content.replaceAll(keys.get(i), object!=null?object.toString():"");
-                } catch (IllegalAccessException e) {
-                    log.error(e);
-                } catch (InvocationTargetException e) {
-                    log.error(e);
-                } catch (NoSuchMethodException e) {
-                    log.error(e);
-                }
-
-            }
-            FileUtil.writeFile(content, StringUtils.concatUrl(channel.getTemplatePath(),template.getPath(),template.getFilename()));
+            String fromFilePath = StringUtils.concatUrl(preTemplateBase.getBasePath(), preTemplate.getTemplatePath());
+            String toFilePath = StringUtils.concatUrl(channel.getTemplatePath(),template.getPath(),template.getFilename());
+            templatePublish(newsColumn, fromFilePath, toFilePath);
         }
 
+    }
+
+    /**
+     * 详情页编译预模版
+     * 如果当前频道有详情页的时候。只会添加关联关系。不会做其他操作。
+     * @param newsColumn
+     * @param detailId
+     * @param classifyEnum
+     */
+    public void buildDetailTemplate(NewsColumn newsColumn , Long detailId, TemplateClassifyEnum classifyEnum){
+        Template template = templateService.findTemplateList(newsColumn.getChannelId(), classifyEnum.getType());
+        PreTemplate preTemplate = preTemplateService.getPreTemplate(detailId);
+        Channel channel = channelBiz.getChannel(newsColumn.getChannelId());
+        PreTemplateBase preTemplateBase = this.getPreTemplateBase();
+        if(preTemplate!=null){
+            if(template == null) {
+                template = new Template();
+                String fileName = "";
+                if (preTemplate.getBuildMode() == BuildModeEnum.COLUMN.getType()) {
+
+                    fileName = StaticContants.TEMPLATE_DETAIL.concat(String.valueOf(newsColumn.getId())).concat(".").concat(preTemplate.getFilenameSuffix());
+
+                } else if (preTemplate.getBuildMode() == BuildModeEnum.RANDOM.getType()) {
+
+                    fileName = StaticContants.TEMPLATE_DETAIL.concat(String.valueOf(new Date().getTime() / 1000)).concat(".").concat(preTemplate.getFilenameSuffix());
+
+                }
+                template.setTemplateName(StaticContants.TEMPLATE_DETAIL_DESCRIPTION.concat(preTemplate.getName()).concat(fileName));
+                template.setTemplateDesc(StaticContants.TEMPLATE_DETAIL_DESCRIPTION);
+                template.setLastModifyUserId(newsColumn.getLastModifyUserId());
+                template.setPath(preTemplate.getPublishPath());
+                template.setChannelId(newsColumn.getChannelId());
+                template.setEncoded(EncodedEnum.utf8.getName());
+                template.setJob(JobEnum.trigger.getType());
+                template.setFilename(fileName);
+                template.setSortNum(StaticContants.SORT_DETAIL_NUM);
+                template.setTemplateClassify(classifyEnum.getType());
+                template.setUserId(newsColumn.getLastModifyUserId());
+                TemplateRelation templateRelation = new TemplateRelation();
+                templateRelation.setRelationId(newsColumn.getId());
+                templateRelation.setRelationType(RelationTypeEnum.column.getType());
+                templateRelation.setLastModifyUserId(newsColumn.getLastModifyUserId());
+                templateService.saveTemplateAndRelationAndNewsColumn(template,templateRelation,newsColumn);
+                String fromFilePath = StringUtils.concatUrl(preTemplateBase.getBasePath(), preTemplate.getTemplatePath());
+                String toFilePath = StringUtils.concatUrl(channel.getTemplatePath(),template.getPath(),template.getFilename());
+                templatePublish(newsColumn, fromFilePath, toFilePath);
+            }else{
+                TemplateRelation templateRelation = templateService.queryListForAll(template.getId(), newsColumn.getId(), RelationTypeEnum.column.getType());
+                if(templateRelation == null ){
+                    templateRelation = new TemplateRelation();
+                    templateRelation.setRelationId(newsColumn.getId());
+                    templateRelation.setRelationType(RelationTypeEnum.column.getType());
+                    templateRelation.setLastModifyUserId(newsColumn.getLastModifyUserId());
+                }
+                templateService.saveTemplateAndRelationAndNewsColumn(template,templateRelation,newsColumn);
+            }
+
+        }
+    }
+
+    /**
+     * 销毁模版。
+     * @param newsColumnId
+     * @param templateId
+     * @param lastModifyUserId
+     */
+    public void destroyListTemplate(Long newsColumnId, Long templateId, String lastModifyUserId){
+        templateService.delRelation(templateId,newsColumnId,RelationTypeEnum.column.getType());
+        Integer count = templateService.queryListForTemplateIdCount(templateId);
+        if( count==null || count == 0){
+            templateService.delTemplate(lastModifyUserId, templateId);
+        }
+    }
+
+
+
+    /**
+     * 预模版生成模版解析拷贝过程。
+     * @param newsColumn
+     * @param fromFilePath
+     * @param toFilePath
+     */
+    public void templatePublish(NewsColumn newsColumn, String fromFilePath, String toFilePath){
+        String content = FileUtil.readFile(fromFilePath);
+        List<String> keys = FragmentUtil.getKey(content,RegexNumEnum.REGEX_ALL);
+        List<String> keys2 = FragmentUtil.getKey(content,RegexNumEnum.REGEX_MATCHER_1);
+        for(int i=0;i<keys.size();i++){
+            try {
+
+                Object object = NewsColumn.class.getMethod("get".concat(keys2.get(i).substring(0,1).toUpperCase()).concat(keys2.get(i).substring(1))).invoke(newsColumn);
+                content = content.replaceAll(keys.get(i), object!=null?object.toString():"");
+            } catch (IllegalAccessException e) {
+                log.error(e);
+            } catch (InvocationTargetException e) {
+                log.error(e);
+            } catch (NoSuchMethodException e) {
+                log.error(e);
+            }
+
+        }
+        FileUtil.writeFile(content, toFilePath);
     }
 
 }

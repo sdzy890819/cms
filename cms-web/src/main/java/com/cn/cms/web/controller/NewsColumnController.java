@@ -71,13 +71,25 @@ public class NewsColumnController extends BaseController {
         return ApiResponse.returnSuccess();
     }
 
+    /**
+     * 新闻栏目修改。
+     * @param request
+     * @param id
+     * @param columnName
+     * @param channelId
+     * @param listId
+     * @param detailId
+     * @param keywords
+     * @param description
+     * @return
+     */
     @CheckToken
     @CheckAuth( name = "newscolumn:update" )
     @RequestMapping(value = "/updateNewsColumn",method = RequestMethod.POST)
     public String updateNewsColumn(HttpServletRequest request,
                                    @RequestParam(value = "id") Long id,
-                                   @RequestParam(value = "columnName") String columnName,
-                                   @RequestParam(value = "channelId") Long channelId,
+                                   @RequestParam(value = "columnName", required = false) String columnName,
+                                   @RequestParam(value = "channelId", required = false) Long channelId,
                                    @RequestParam(value = "listId", required = false) Long listId,
                                    @RequestParam(value = "detailId", required = false) Long detailId,
                                    @RequestParam(value = "keywords", required = false) String keywords,
@@ -108,5 +120,18 @@ public class NewsColumnController extends BaseController {
     public String delNewsColumn(HttpServletRequest request, @RequestParam(value = "id") Long id){
         newsBiz.delNewsColumn(getCurrentUserId(request), id);
         return ApiResponse.returnSuccess();
+    }
+
+    /**
+     * 获取栏目信息
+     * @param id
+     * @return
+     */
+    @CheckToken
+    @CheckAuth( name = "newscolumn:read" )
+    @RequestMapping(value = "/newscolumn",method = RequestMethod.GET)
+    public String newscolumn(@RequestParam(value = "id") Long id){
+        NewsColumn newsColumn = newsBiz.getNewsColumn(id);
+        return ApiResponse.returnSuccess(newsColumn);
     }
 }

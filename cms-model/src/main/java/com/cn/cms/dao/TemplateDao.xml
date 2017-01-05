@@ -118,4 +118,9 @@
         ) limit 1;
     </select>
 
+    <select id="findTemplateList" resultMap="template">
+        select <include refid="sql_column" /> from template <include refid="delTag" /> and job = ${job}
+        and template_classify = ${templateClassify} and channel_id = ${channelId} order by sort_num desc limit 1 ;
+    </select>
+
 </mapper>
