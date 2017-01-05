@@ -97,8 +97,8 @@ public class UserChannelController extends BaseController {
     @CheckAuth( name = "userchannel:write" )
     @RequestMapping(value = "/createUserChannel", method = RequestMethod.POST)
     public String createUserChannel(HttpServletRequest request,
-                                    @RequestPart(value = "userId") String userId,
-                                    @RequestPart(value = "channelId") Long channelId){
+                                    @RequestParam(value = "userId") String userId,
+                                    @RequestParam(value = "channelId") Long channelId){
         UserChannel userChannel = new UserChannel();
         userChannel.setLastModifyUserId(getCurrentUserId(request));
         userChannel.setChannelId(channelId);
@@ -118,8 +118,8 @@ public class UserChannelController extends BaseController {
     @CheckAuth( name = "userchannel:delete" )
     @RequestMapping(value = "/delUserChannel", method = RequestMethod.POST)
     public String delUserChannel(HttpServletRequest request,
-                                    @RequestPart(value = "userId") String userId,
-                                    @RequestPart(value = "channelId") Long channelId){
+                                    @RequestParam(value = "userId") String userId,
+                                    @RequestParam(value = "channelId") Long channelId){
         channelBiz.delUserChannel(userId, channelId);
         return ApiResponse.returnSuccess();
     }

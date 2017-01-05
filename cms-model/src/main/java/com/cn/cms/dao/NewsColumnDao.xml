@@ -15,13 +15,19 @@
     <resultMap type="com.cn.cms.po.NewsColumn" id="newsColumn" extends="base">
         <result column="column_name" property="columnName" />
         <result column="channel_id" property="channelId" />
+        <result column="list_id" property="listId" />
+        <result column="detail_id" property="detailId" />
+        <result column="list_template_id" property="listTemplateId" />
+        <result column="detail_template_id" property="detailTemplateId" />
+        <result column="keywords" property="keywords"/>
+        <result column="description" property="description" />
     </resultMap>
 
 
     <sql id="delTag"> where del_tag = 1 </sql>
 
     <sql id="sql_column">
-        id,create_time,update_time,del_tag,last_modify_user_id,column_name,channel_id
+        id,create_time,update_time,del_tag,last_modify_user_id,column_name,channel_id,list_id,detail_id,list_template_id,detail_template_id,keywords,description
     </sql>
 
     <select id="queryList" resultMap="newsColumn">
@@ -29,11 +35,66 @@
     </select>
 
     <insert id="saveNewsColumn">
-        insert into news_column ( <include refid="sql_column"/> ) values (null,null,null,null,#{p1.columnName},${channelId});
+        insert into news_column ( <include refid="sql_column"/> ) values (null,null,null,null,#{p1.lastModifyUserId},#{p1.columnName},${p1.channelId},${p1.listId},
+        ${p1.detailId},${p1.listTemplateId},${p1.detailTemplateId},#{p1.keywords},#{p1.description});
     </insert>
-    
+
+    <update id="updateNewsColumn">
+        update news_column
+        <set>
+          <if test="p1.columnName != null">
+              column_name = #{p1.columnName},
+          </if>
+            <if test="p1.channelId != null">
+                channel_id = ${p1.channelId},
+            </if>
+            <if test="p1.listId != null">
+                list_id = ${p1.listId},
+            </if>
+            <if test="p1.detailId != null">
+                detail_id = ${p1.detailId},
+            </if>
+            <if test="p1.templateId != null">
+                list_template_id = ${p1.listTemplateId},
+            </if>
+            <if test="p1.detailTemplateId != null">
+                detail_template_id = ${p1.detailTemplateId},
+            </if>
+            <if test="p1.keywords != null">
+                keywords = ${p1.keywords},
+            </if>
+            <if test="p1.description != null">
+                description = ${p1.description},
+            </if>
+            last_modify_user_id = #{p1.lastModifyUserId}
+        </set>
+        where id = ${p1.id};
+    </update>
+
+    <update id="publishListNewsColumn">
+        update news_column
+        <set>
+            list_template_id = ${p1.listTemplateId},
+            last_modify_user_id = #{p1.lastModifyUserId}
+        </set>
+        where id = ${p1.id};
+    </update>
+
+    <update id="publishDetailNewsColumn">
+        update news_column
+        <set>
+            detail_template_id = ${p1.detailTemplateId},
+            last_modify_user_id = #{p1.lastModifyUserId}
+        </set>
+        where id = ${p1.id};
+    </update>
+
     <update id="delNewsColumn">
         update news_column set last_modify_user_id = #{lastModifyUserId}, del_tag = 0 where id = ${id};
     </update>
+
+    <select id="getNewsColumn" resultMap="newsColumn" >
+        select <include refid="sql_column" /> from news_column <include refid="delTag" /> and id = ${id};
+    </select>
 
 </mapper>

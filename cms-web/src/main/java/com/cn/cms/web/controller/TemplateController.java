@@ -114,16 +114,16 @@ public class TemplateController extends BaseController {
     @CheckAuth( name = "template:update" )
     @RequestMapping(value = "/updateTemplate", method = RequestMethod.POST)
     public String updateTemplate(HttpServletRequest request,
-                                 @RequestPart(value = "id") Long id,
-                                 @RequestPart(value = "templateName",required = false) String templateName,
-                                 @RequestPart(value = "templateDesc",required = false) String templateDesc,
-                                 @RequestPart(value = "filename",required = false) String filename,
-                                 @RequestPart(value = "path",required = false) String path,
-                                 @RequestPart(value = "templateClassify",required = false) Integer templateClassify,
-                                 @RequestPart(value = "job",required = false) Integer job,
-                                 @RequestPart(value = "encoded",required = false) String encoded,
-                                 @RequestPart(value = "channelId",required = false) Long channelId,
-                                 @RequestPart(value = "sortNum",required = false) Integer sortNum){
+                                 @RequestParam(value = "id") Long id,
+                                 @RequestParam(value = "templateName",required = false) String templateName,
+                                 @RequestParam(value = "templateDesc",required = false) String templateDesc,
+                                 @RequestParam(value = "filename",required = false) String filename,
+                                 @RequestParam(value = "path",required = false) String path,
+                                 @RequestParam(value = "templateClassify",required = false) Integer templateClassify,
+                                 @RequestParam(value = "job",required = false) Integer job,
+                                 @RequestParam(value = "encoded",required = false) String encoded,
+                                 @RequestParam(value = "channelId",required = false) Long channelId,
+                                 @RequestParam(value = "sortNum",required = false) Integer sortNum){
         Template template = new Template();
         template.setId(id);
         template.setLastModifyUserId(getCurrentUserId(request));
@@ -159,15 +159,15 @@ public class TemplateController extends BaseController {
     @CheckAuth( name = "template:write" )
     @RequestMapping(value = "/createTemplate", method = RequestMethod.POST)
     public String createTemplate(HttpServletRequest request,
-                                 @RequestPart(value = "templateName") String templateName,
-                                 @RequestPart(value = "templateDesc") String templateDesc,
-                                 @RequestPart(value = "filename") String filename,
-                                 @RequestPart(value = "path") String path,
-                                 @RequestPart(value = "templateClassify") Integer templateClassify,
-                                 @RequestPart(value = "job") Integer job,
-                                 @RequestPart(value = "encoded") String encoded,
-                                 @RequestPart(value = "channelId") Long channelId,
-                                 @RequestPart(value = "sortNum") Integer sortNum){
+                                 @RequestParam(value = "templateName") String templateName,
+                                 @RequestParam(value = "templateDesc") String templateDesc,
+                                 @RequestParam(value = "filename") String filename,
+                                 @RequestParam(value = "path") String path,
+                                 @RequestParam(value = "templateClassify") Integer templateClassify,
+                                 @RequestParam(value = "job") Integer job,
+                                 @RequestParam(value = "encoded") String encoded,
+                                 @RequestParam(value = "channelId") Long channelId,
+                                 @RequestParam(value = "sortNum") Integer sortNum){
         Template template = new Template();
         template.setLastModifyUserId(getCurrentUserId(request));
         template.setChannelId(channelId);
@@ -195,8 +195,8 @@ public class TemplateController extends BaseController {
     @CheckAuth( name = "template:upload" )
     @RequestMapping(value = "/uploadTemplate", method = RequestMethod.POST)
     public String uploadTemplate(HttpServletRequest request,
-                             @RequestPart(value = "baseCode") String baseCode,
-                             @RequestPart(value = "id") Long id) throws BizException{
+                             @RequestParam(value = "baseCode") String baseCode,
+                             @RequestParam(value = "id") Long id) throws BizException{
         Template template = templateBiz.getTemplate(id);
         Channel channel = channelBiz.getChannel(template.getChannelId());
         byte[] bytes = FileUtil.base64Upload(baseCode);
@@ -267,9 +267,9 @@ public class TemplateController extends BaseController {
     @CheckAuth( name = "templaterelation:update" )
     @RequestMapping(value = "/updateRelations", method = RequestMethod.POST)
     public String updateRelations(HttpServletRequest request,
-                                 @RequestPart(value = "templateId") Long templateId,
-                                 @RequestPart(value = "relations") List<RelationBean> relations,
-                                 @RequestPart(value = "relationTypes") Integer[] relationTypes){
+                                 @RequestParam(value = "templateId") Long templateId,
+                                 @RequestParam(value = "relations") List<RelationBean> relations,
+                                 @RequestParam(value = "relationTypes") Integer[] relationTypes){
         String userID = getCurrentUserId(request);
         List<TemplateRelation> list = new ArrayList<TemplateRelation>();
         for(int i=0; i<relations.size(); i++){
@@ -296,9 +296,9 @@ public class TemplateController extends BaseController {
     @CheckAuth( name = "templaterelation:write" )
     @RequestMapping(value = "/createRelation", method = RequestMethod.POST)
     public String createRelation(HttpServletRequest request,
-                                 @RequestPart(value = "templateId") Long templateId,
-                                 @RequestPart(value = "relationId") Long relationId,
-                                 @RequestPart(value = "relationType") Integer relationType){
+                                 @RequestParam(value = "templateId") Long templateId,
+                                 @RequestParam(value = "relationId") Long relationId,
+                                 @RequestParam(value = "relationType") Integer relationType){
 
         TemplateRelation templateRelation = new TemplateRelation();
         templateRelation.setTemplateId(templateId);
@@ -321,9 +321,9 @@ public class TemplateController extends BaseController {
     @CheckAuth( name = "templaterelation:delete" )
     @RequestMapping(value = "/delRelation", method = RequestMethod.POST)
     public String delRelation(HttpServletRequest request,
-                                 @RequestPart(value = "templateId") Long templateId,
-                                 @RequestPart(value = "relationId") Long relationId,
-                                 @RequestPart(value = "relationType") Integer relationType){
+                                 @RequestParam(value = "templateId") Long templateId,
+                                 @RequestParam(value = "relationId") Long relationId,
+                                 @RequestParam(value = "relationType") Integer relationType){
         templateBiz.delRelation(templateId, relationId, relationType);
         return ApiResponse.returnSuccess();
     }

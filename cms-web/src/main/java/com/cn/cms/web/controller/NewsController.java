@@ -128,22 +128,22 @@ public class NewsController extends BaseController {
     @CheckAuth( name = "news:write" )
     @RequestMapping(value = "/createNews",method = RequestMethod.POST)
     public String createNews(HttpServletRequest request,
-                             @RequestPart(value = "title") String title,
-                             @RequestPart(value = "subTitle") String subTitle,
-                             @RequestPart(value = "keyword") String keyword,
-                             @RequestPart(value = "description") String description,
-                             @RequestPart(value = "source") String source,
-                             @RequestPart(value = "author") String author,
-                             @RequestPart(value = "channelId") Long channelId,
-                             @RequestPart(value = "columnId") Long columnId,
-                             @RequestPart(value = "content") String content,
-                             @RequestPart(value = "field1", required = false) String field1,
-                             @RequestPart(value = "field2", required = false) String field2,
-                             @RequestPart(value = "field3", required = false) String field3,
-                             @RequestPart(value = "field4", required = false) String field4,
-                             @RequestPart(value = "field5", required = false) String field5,
-                             @RequestPart(value = "autoPublish") Integer autoPublish,
-                             @RequestPart(value = "timer", required = false) String timer){
+                             @RequestParam(value = "title") String title,
+                             @RequestParam(value = "subTitle") String subTitle,
+                             @RequestParam(value = "keyword") String keyword,
+                             @RequestParam(value = "description") String description,
+                             @RequestParam(value = "source") String source,
+                             @RequestParam(value = "author") String author,
+                             @RequestParam(value = "channelId") Long channelId,
+                             @RequestParam(value = "columnId") Long columnId,
+                             @RequestParam(value = "content") String content,
+                             @RequestParam(value = "field1", required = false) String field1,
+                             @RequestParam(value = "field2", required = false) String field2,
+                             @RequestParam(value = "field3", required = false) String field3,
+                             @RequestParam(value = "field4", required = false) String field4,
+                             @RequestParam(value = "field5", required = false) String field5,
+                             @RequestParam(value = "autoPublish") Integer autoPublish,
+                             @RequestParam(value = "timer", required = false) String timer){
         String userID = getCurrentUserId(request);
         News news = new News();
         news.setTitle(title);
@@ -203,23 +203,23 @@ public class NewsController extends BaseController {
     @CheckAuth( name = "news:update" )
     @RequestMapping(value = "/updateNews",method = RequestMethod.POST)
     public String updateNews(HttpServletRequest request,
-                             @RequestPart(value = "id",required = false) Long id,
-                             @RequestPart(value = "title",required = false) String title,
-                             @RequestPart(value = "subTitle",required = false) String subTitle,
-                             @RequestPart(value = "keyword",required = false) String keyword,
-                             @RequestPart(value = "description",required = false) String description,
-                             @RequestPart(value = "source",required = false) String source,
-                             @RequestPart(value = "author",required = false) String author,
-                             @RequestPart(value = "channelId",required = false) Long channelId,
-                             @RequestPart(value = "columnId",required = false) Long columnId,
-                             @RequestPart(value = "content",required = false) String content,
-                             @RequestPart(value = "field1",required = false) String field1,
-                             @RequestPart(value = "field2",required = false) String field2,
-                             @RequestPart(value = "field3",required = false) String field3,
-                             @RequestPart(value = "field4",required = false) String field4,
-                             @RequestPart(value = "field5",required = false) String field5,
-                             @RequestPart(value = "autoPublish",required = false) Integer autoPublish,
-                             @RequestPart(value = "timer",required = false) String timer){
+                             @RequestParam(value = "id",required = false) Long id,
+                             @RequestParam(value = "title",required = false) String title,
+                             @RequestParam(value = "subTitle",required = false) String subTitle,
+                             @RequestParam(value = "keyword",required = false) String keyword,
+                             @RequestParam(value = "description",required = false) String description,
+                             @RequestParam(value = "source",required = false) String source,
+                             @RequestParam(value = "author",required = false) String author,
+                             @RequestParam(value = "channelId",required = false) Long channelId,
+                             @RequestParam(value = "columnId",required = false) Long columnId,
+                             @RequestParam(value = "content",required = false) String content,
+                             @RequestParam(value = "field1",required = false) String field1,
+                             @RequestParam(value = "field2",required = false) String field2,
+                             @RequestParam(value = "field3",required = false) String field3,
+                             @RequestParam(value = "field4",required = false) String field4,
+                             @RequestParam(value = "field5",required = false) String field5,
+                             @RequestParam(value = "autoPublish",required = false) Integer autoPublish,
+                             @RequestParam(value = "timer",required = false) String timer){
         String userID = getCurrentUserId(request);
         News news = new News();
         news.setTitle(title);

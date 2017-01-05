@@ -31,6 +31,10 @@
         select <include refid="sql_column" /> from template_relation <include refid="delTag" /> and template_id = ${templateId};
     </select>
 
+    <select id="queryListForTemplateIdCount" resultType="java.lang.Integer">
+        select count(1) from template_relation <include refid="delTag" /> and template_id = ${templateId};
+    </select>
+
     <update id="updateRelation">
         delete from template_relation where template_id = ${templateId} and relation_type in
         <foreach collection="relationTypes" item="type" open="(" close=")" separator=",">
@@ -51,5 +55,13 @@
     <delete id="delRelation">
         delete from template_relation where template_id = ${templateId} and relation_id = ${relationId} and relation_type = ${relationType} ;
     </delete>
-    
+    <delete id="delRelationByTemplateId">
+        delete from template_relation where template_id = ${templateId} ;
+    </delete>
+
+    <select id="queryListForAll" resultMap="templateRelation">
+        select <include refid="sql_column" /> from template_relation <include refid="delTag" />  and relation_type = ${relationType}
+        and relation_id = ${relationId} and template_id = ${templateId} limit 1;
+    </select>
+
 </mapper>

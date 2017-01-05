@@ -15,9 +15,17 @@ public interface TemplateRelationDao {
 
     List<TemplateRelation> queryListForTemplateId(@Param(value = "templateId") Long templateId);
 
+    Integer queryListForTemplateIdCount(@Param(value = "templateId") Long templateId);
+
+    TemplateRelation queryListForAll(@Param(value = "templateId") Long templateId,
+                                     @Param(value = "relationId") Long relationId,
+                                     @Param(value = "relationType")Integer relationType);
+
     void updateRelation(@Param(value = "templateId") Long templateId, @Param(value = "relationTypes") Integer[] relationTypes, @Param(value = "list") List<TemplateRelation> list);
 
     void saveRelation(@Param(value = "p1") TemplateRelation templateRelation);
 
     void delRelation(@Param(value = "templateId") Long templateId, @Param(value = "relationId") Long relationId, @Param(value = "relationType") Integer relationType);
+
+    void delRelationByTemplateId(@Param(value = "templateId") Long templateId);
 }

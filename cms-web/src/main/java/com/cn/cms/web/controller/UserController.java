@@ -43,8 +43,8 @@ public class UserController extends BaseController{
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(HttpServletResponse response,
-                        @RequestPart(value="userName")String userName,
-                        @RequestPart(value="pwd")String pwd){
+                        @RequestParam(value="userName")String userName,
+                        @RequestParam(value="pwd")String pwd){
         return userBiz.checkUserAndSetCookie(response ,userName ,pwd);
     }
 
@@ -111,10 +111,10 @@ public class UserController extends BaseController{
     @CheckToken
     @CheckAuth( name = "user:write" )
     @RequestMapping(value = "/createUser",method = RequestMethod.POST)
-    public String createUser(HttpServletRequest request, @RequestPart(value="userName")String userName,
-                             @RequestPart(value="realName")String realName,
-                             @RequestPart(value="pwd")String pwd,
-                             @RequestPart(value="headImage")String headImage){
+    public String createUser(HttpServletRequest request, @RequestParam(value="userName")String userName,
+                             @RequestParam(value="realName")String realName,
+                             @RequestParam(value="pwd")String pwd,
+                             @RequestParam(value="headImage")String headImage){
         String userID = getCurrentUserId(request);
         Integer a = userBiz.queryUserName(userName);
         if(a>0){
@@ -150,10 +150,10 @@ public class UserController extends BaseController{
      */
     @CheckToken
     @RequestMapping(value = "/updateUser",method = RequestMethod.POST)
-    public String updateUser(HttpServletRequest request, @RequestPart("userId")String userId,
-                            @RequestPart(value = "realName",required = false)String realName,
-                            @RequestPart(value = "headImage",required = false)String headImage,
-                            @RequestPart(value = "pwd",required = false)String pwd){
+    public String updateUser(HttpServletRequest request, @RequestParam("userId")String userId,
+                            @RequestParam(value = "realName",required = false)String realName,
+                            @RequestParam(value = "headImage",required = false)String headImage,
+                            @RequestParam(value = "pwd",required = false)String pwd){
         String userID = getCurrentUserId(request);
         if(!userId.equals(userID)){
             return ApiResponse.returnFail(ErrorCodeEnum.ERROR_NO_PERMISSION.getType(),ErrorCodeEnum.ERROR_NO_PERMISSION.getMessage());

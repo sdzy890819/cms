@@ -46,8 +46,8 @@ public class CategoryController extends BaseController {
     @CheckAuth( name = "category:write" )
     @RequestMapping(value = "/createCategory", method = RequestMethod.POST)
     public String createCategory(HttpServletRequest request,
-                                 @RequestPart(value = "categoryName") String categoryName,
-                                 @RequestPart(value = "categoryDesc") String categoryDesc){
+                                 @RequestParam(value = "categoryName") String categoryName,
+                                 @RequestParam(value = "categoryDesc") String categoryDesc){
         Category category = new Category();
         category.setLastModifyUserId(getCurrentUserId(request));
         category.setCategoryDesc(categoryDesc);
@@ -68,9 +68,9 @@ public class CategoryController extends BaseController {
     @CheckAuth( name = "category:update" )
     @RequestMapping(value = "/updateCategory", method = RequestMethod.POST)
     public String updateCategory(HttpServletRequest request,
-                                 @RequestPart(value = "id") Long id,
-                                 @RequestPart(value = "categoryName",required = false) String categoryName,
-                                 @RequestPart(value = "categoryDesc",required = false) String categoryDesc){
+                                 @RequestParam(value = "id") Long id,
+                                 @RequestParam(value = "categoryName",required = false) String categoryName,
+                                 @RequestParam(value = "categoryDesc",required = false) String categoryDesc){
         Category category = new Category();
         category.setLastModifyUserId(getCurrentUserId(request));
         category.setCategoryDesc(categoryDesc);

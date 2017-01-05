@@ -51,12 +51,12 @@ public class ChannelController extends BaseController {
     @CheckAuth( name = "channel:write" )
     @RequestMapping(value = "/createChannel", method = RequestMethod.POST)
     public String createChannel(HttpServletRequest request,
-                                @RequestPart(value = "channelName") String channelName,
-                                @RequestPart(value = "channelUrl") String channelUrl,
-                                @RequestPart(value = "channelPath") String channelPath,
-                                @RequestPart(value = "templatePath") String templatePath,
-                                @RequestPart(value = "channelDesc") String channelDesc,
-                                @RequestPart(value = "categoryId") Long categoryId){
+                                @RequestParam(value = "channelName") String channelName,
+                                @RequestParam(value = "channelUrl") String channelUrl,
+                                @RequestParam(value = "channelPath") String channelPath,
+                                @RequestParam(value = "templatePath") String templatePath,
+                                @RequestParam(value = "channelDesc") String channelDesc,
+                                @RequestParam(value = "categoryId") Long categoryId){
         Channel channel = new Channel();
         channel.setLastModifyUserId(getCurrentUserId(request));
         channel.setChannelDesc(channelDesc);
@@ -84,13 +84,13 @@ public class ChannelController extends BaseController {
     @CheckAuth( name = "channel:update" )
     @RequestMapping(value = "/updateChannel", method = RequestMethod.POST)
     public String updateChannel(HttpServletRequest request,
-                                @RequestPart(value = "id") Long id,
-                                @RequestPart(value = "channelName",required = false) String channelName,
-                                @RequestPart(value = "channelUrl",required = false) String channelUrl,
-                                @RequestPart(value = "channelPath",required = false) String channelPath,
-                                @RequestPart(value = "templatePath",required = false) String templatePath,
-                                @RequestPart(value = "channelDesc",required = false) String channelDesc,
-                                @RequestPart(value = "categoryId",required = false) Long categoryId){
+                                @RequestParam(value = "id") Long id,
+                                @RequestParam(value = "channelName",required = false) String channelName,
+                                @RequestParam(value = "channelUrl",required = false) String channelUrl,
+                                @RequestParam(value = "channelPath",required = false) String channelPath,
+                                @RequestParam(value = "templatePath",required = false) String templatePath,
+                                @RequestParam(value = "channelDesc",required = false) String channelDesc,
+                                @RequestParam(value = "categoryId",required = false) Long categoryId){
         Channel channel = new Channel();
         channel.setLastModifyUserId(getCurrentUserId(request));
         channel.setChannelDesc(channelDesc);

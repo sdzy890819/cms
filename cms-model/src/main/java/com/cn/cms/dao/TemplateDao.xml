@@ -47,7 +47,7 @@
         select <include refid="sql_column" /> from template <include refid="delTag" /> and id = ${id};
     </select>
 
-    <insert id="saveTemplate">
+    <insert id="saveTemplate" useGeneratedKeys="true" keyProperty="id">
         insert into template ( <include refid="sql_column" /> ) values (
         null,null,null,null,#{p1.lastModifyUserId},#{p1.templateName},#{p1.templateDesc},#{p1.filename},#{p1.path},${p1.templateClassify},
         #{p1.userId},${p1.job},#{p1.encoded},${p1.channelId},${p1.sortNum},${p1.publish});
@@ -116,6 +116,11 @@
         and template_classify = ${templateClassify} and channel_id = ${channelId} and id in (
         select template_id from template_relation where relation_type = ${relationType} and relation_id = ${relationId}
         ) limit 1;
+    </select>
+
+    <select id="findTemplateList" resultMap="template">
+        select <include refid="sql_column" /> from template <include refid="delTag" /> and job = ${job}
+        and template_classify = ${templateClassify} and channel_id = ${channelId} order by sort_num desc limit 1 ;
     </select>
 
 </mapper>

@@ -121,17 +121,17 @@ public class TopicController extends BaseController {
     @CheckAuth( name = "topic:write" )
     @RequestMapping(value = "/createTopic", method = RequestMethod.POST)
     public String createTopic(HttpServletRequest request,
-                             @RequestPart(value = "topicTitle") String topicTitle,
-                             @RequestPart(value = "topicContent") String topicContent,
-                             @RequestPart(value = "topicPath") String topicPath,
-                             @RequestPart(value = "topicFilename") String topicFilename,
-                             @RequestPart(value = "topicClassifyId") Long topicClassifyId,
-                             @RequestPart(value = "categoryId") Long categoryId,
-                             @RequestPart(value = "channelId") Long channelId,
-                             @RequestPart(value = "releaseTime") String releaseTime,
-                             @RequestPart(value = "keyword") String keyword,
-                             @RequestPart(value = "description") String description,
-                             @RequestPart(value = "topicColumnId") Long topicColumnId
+                             @RequestParam(value = "topicTitle") String topicTitle,
+                             @RequestParam(value = "topicContent") String topicContent,
+                             @RequestParam(value = "topicPath") String topicPath,
+                             @RequestParam(value = "topicFilename") String topicFilename,
+                             @RequestParam(value = "topicClassifyId") Long topicClassifyId,
+                             @RequestParam(value = "categoryId") Long categoryId,
+                             @RequestParam(value = "channelId") Long channelId,
+                             @RequestParam(value = "releaseTime") String releaseTime,
+                             @RequestParam(value = "keyword") String keyword,
+                             @RequestParam(value = "description") String description,
+                             @RequestParam(value = "topicColumnId") Long topicColumnId
                              ) throws BizException {
         SimpleDateFormat sdf = new SimpleDateFormat(StaticContants.YYYY_MM_DD);
         Topic topic = new Topic();
@@ -177,18 +177,18 @@ public class TopicController extends BaseController {
     @CheckAuth( name = "topic:update" )
     @RequestMapping(value = "/updateTopic", method = RequestMethod.POST)
     public String updateTopic(HttpServletRequest request,
-                              @RequestPart(value = "id") Long id,
-                             @RequestPart(value = "topicTitle",required = false) String topicTitle,
-                             @RequestPart(value = "topicContent",required = false) String topicContent,
-                             @RequestPart(value = "topicPath",required = false) String topicPath,
-                             @RequestPart(value = "topicFilename",required = false) String topicFilename,
-                             @RequestPart(value = "topicClassifyId",required = false) Long topicClassifyId,
-                             @RequestPart(value = "categoryId",required = false) Long categoryId,
-                             @RequestPart(value = "channelId",required = false) Long channelId,
-                             @RequestPart(value = "releaseTime",required = false) String releaseTime,
-                             @RequestPart(value = "keyword",required = false) String keyword,
-                             @RequestPart(value = "description",required = false) String description,
-                             @RequestPart(value = "topicColumnId",required = false) Long topicColumnId) throws BizException {
+                              @RequestParam(value = "id") Long id,
+                             @RequestParam(value = "topicTitle",required = false) String topicTitle,
+                             @RequestParam(value = "topicContent",required = false) String topicContent,
+                             @RequestParam(value = "topicPath",required = false) String topicPath,
+                             @RequestParam(value = "topicFilename",required = false) String topicFilename,
+                             @RequestParam(value = "topicClassifyId",required = false) Long topicClassifyId,
+                             @RequestParam(value = "categoryId",required = false) Long categoryId,
+                             @RequestParam(value = "channelId",required = false) Long channelId,
+                             @RequestParam(value = "releaseTime",required = false) String releaseTime,
+                             @RequestParam(value = "keyword",required = false) String keyword,
+                             @RequestParam(value = "description",required = false) String description,
+                             @RequestParam(value = "topicColumnId",required = false) Long topicColumnId) throws BizException {
         SimpleDateFormat sdf = new SimpleDateFormat(StaticContants.YYYY_MM_DD);
         Topic topic = new Topic();
         topic.setId(id);
@@ -234,7 +234,7 @@ public class TopicController extends BaseController {
     @CheckAuth( name = "topicclassify:write" )
     @RequestMapping(value = "/createTopicClassify", method = RequestMethod.POST)
     public String createTopicClassify(HttpServletRequest request,
-                                      @RequestPart(value = "name") String name){
+                                      @RequestParam(value = "name") String name){
         TopicClassify topicClassify = new TopicClassify();
         topicClassify.setClassifyName(name);
         topicClassify.setLastModifyUserId(getCurrentUserId(request));
@@ -253,8 +253,8 @@ public class TopicController extends BaseController {
     @CheckAuth( name = "topicclassify:update" )
     @RequestMapping(value = "/updateTopicClassify", method = RequestMethod.POST)
     public String updateTopicClassify(HttpServletRequest request,
-                                      @RequestPart(value = "id") Long id,
-                                      @RequestPart(value = "name") String name){
+                                      @RequestParam(value = "id") Long id,
+                                      @RequestParam(value = "name") String name){
         TopicClassify topicClassify = new TopicClassify();
         topicClassify.setId(id);
         topicClassify.setClassifyName(name);
@@ -300,7 +300,7 @@ public class TopicController extends BaseController {
     @CheckAuth( name = "topiccolumn:write" )
     @RequestMapping(value = "/createTopicColumn", method = RequestMethod.POST)
     public String createTopicColumn(HttpServletRequest request,
-                                      @RequestPart(value = "name") String name){
+                                      @RequestParam(value = "name") String name){
         TopicColumn topicColumn = new TopicColumn();
         topicColumn.setColumnName(name);
         topicColumn.setLastModifyUserId(getCurrentUserId(request));
@@ -319,8 +319,8 @@ public class TopicController extends BaseController {
     @CheckAuth( name = "topiccolumn:update" )
     @RequestMapping(value = "/updateTopicColumn", method = RequestMethod.POST)
     public String updateTopicColumn(HttpServletRequest request,
-                                      @RequestPart(value = "id") Long id,
-                                      @RequestPart(value = "name") String name){
+                                      @RequestParam(value = "id") Long id,
+                                      @RequestParam(value = "name") String name){
         TopicColumn topicColumn = new TopicColumn();
         topicColumn.setColumnName(name);
         topicColumn.setLastModifyUserId(getCurrentUserId(request));

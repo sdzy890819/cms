@@ -43,7 +43,7 @@ public class PositionController extends BaseController{
     @CheckToken
     @CheckAuth( name = "position:write" )
     @RequestMapping(value = "/createPosition",method = RequestMethod.POST)
-    public String createPosition(HttpServletRequest request,@RequestPart(value="positionname") String positionName){
+    public String createPosition(HttpServletRequest request,@RequestParam(value="positionname") String positionName){
         String userID = getCurrentUserId(request);
         Position position = positionBiz.findPositionName(positionName);
         if( position != null ){
@@ -79,8 +79,8 @@ public class PositionController extends BaseController{
     @CheckAuth( name = "position:update" )
     @RequestMapping(value = "/updatePosition",method = RequestMethod.POST)
     public String updatePosition(HttpServletRequest request,
-                                 @RequestPart(value="positionName") String positionName,
-                                 @RequestPart(value="id") Long id){
+                                 @RequestParam(value="positionName") String positionName,
+                                 @RequestParam(value="id") Long id){
         String userID = getCurrentUserId(request);
         positionBiz.updatePosition(userID, positionName, id);
         return ApiResponse.returnSuccess();

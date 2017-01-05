@@ -15,5 +15,13 @@ public interface NewsColumnDao {
 
     void saveNewsColumn(@Param(value = "p1") NewsColumn newsColumn);
 
+    void updateNewsColumn(@Param(value = "p1") NewsColumn newsColumn);
+
+    NewsColumn getNewsColumn(@Param(value = "p1") Long id);
+
+    void publishListNewsColumn(@Param(value = "p1") NewsColumn newsColumn);
+
+    void publishDetailNewsColumn(@Param(value = "p1") NewsColumn newsColumn);
+
     void delNewsColumn(@Param(value = "lastModifyUserId") String lastModifyUserId, @Param(value = "id") Long id);
 }

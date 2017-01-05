@@ -38,4 +38,9 @@ public interface TemplateDao {
                                    @Param(value = "relationId") Long relationId,
                                    @Param(value = "relationType") Integer relationType,
                                    @Param(value = "job") int job);
+
+    Template findTemplateList(@Param(value = "channelId") Long channelId,
+                              @Param(value = "templateClassify") Integer templateClassify,
+                              @Param(value = "job") int job);
+
 }

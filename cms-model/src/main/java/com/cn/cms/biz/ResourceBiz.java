@@ -71,7 +71,7 @@ public class ResourceBiz {
     public List<Images> listImages(Page page){
         Integer count = resourceService.queryImagesCount();
         page.setCount(count);
-        if(count > 0 && page.getPage() <= page.getPageCount()){
+        if(page.isQuery()){
             List<Images> images = resourceService.queryImagesList(page);
             return images;
         }
@@ -127,7 +127,7 @@ public class ResourceBiz {
     public List<Video> listVideo(Page page){
         Integer count = resourceService.queryVideoCount();
         page.setCount(count);
-        if(count > 0 && page.getPage() <= page.getPageCount()){
+        if(page.isQuery()){
             List<Video> videos = resourceService.queryVideoList(page);
             return videos;
         }

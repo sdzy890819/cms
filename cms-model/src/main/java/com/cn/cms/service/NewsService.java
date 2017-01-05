@@ -18,6 +18,10 @@ public interface NewsService {
 
     void saveNewsColumn(NewsColumn newsColumn);
 
+    void updateNewsColumn(NewsColumn newsColumn);
+
+    NewsColumn getNewsColumn(Long id);
+
     void delNewsColumn(String lastModifyUserId, Long id);
 
     List<News> queryNewsList(Page page);

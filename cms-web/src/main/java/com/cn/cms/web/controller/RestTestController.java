@@ -36,7 +36,7 @@ public class RestTestController extends BaseController{
     }
 
     @RequestMapping(value = "/a", method = RequestMethod.POST)
-    public String a(@RequestPart("c") String c){
+    public String a(@RequestParam("c") String c){
         return ApiResponse.returnSuccess(c);
     }
 

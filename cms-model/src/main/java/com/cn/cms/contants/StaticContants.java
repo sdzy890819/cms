@@ -125,19 +125,27 @@ public class StaticContants {
 
     static {
         config.put(AuthEnum.class, new JSONEnumSerializer());
+        config.put(AutoPublishEnum.class, new JSONEnumSerializer());
+        config.put(BuildModeEnum.class, new JSONEnumSerializer());
+        config.put(CommonMessageSourceEnum.class, new JSONEnumSerializer());
         config.put(CompressEnum.class, new JSONEnumSerializer());
         config.put(CompressModeEnum.class, new JSONEnumSerializer());
         config.put(DelTagEnum.class, new JSONEnumSerializer());
         config.put(EncodedEnum.class, new JSONEnumSerializer());
         config.put(ErrorCodeEnum.class, new JSONEnumSerializer());
         config.put(JobEnum.class, new JSONEnumSerializer());
+        config.put(MQQueueKeyEnum.class, new JSONEnumSerializer());
         config.put(PermissionTypeEnum.class, new JSONEnumSerializer());
         config.put(PlatformEnum.class, new JSONEnumSerializer());
+        config.put(PublishEnum.class, new JSONEnumSerializer());
         config.put(RegexNumEnum.class, new JSONEnumSerializer());
         config.put(RelationTypeEnum.class, new JSONEnumSerializer());
         config.put(ShowFlagEnum.class, new JSONEnumSerializer());
+        config.put(TAGDetailTypeEnum.class, new JSONEnumSerializer());
+        config.put(TAGListTypeEnum.class, new JSONEnumSerializer());
         config.put(TemplateClassifyEnum.class, new JSONEnumSerializer());
         config.put(WatermarkEnum.class, new JSONEnumSerializer());
+
 
     }
 
@@ -159,5 +167,13 @@ public class StaticContants {
     public static final int TEMPLATE_SIZE = 100;
 
     public static final int TEMPLATE_COUNT = 100;
+
+    public static final String TEMPLATE_LIST = "list_";
+
+    public static final String TEMPLATE_DETAIL = "detail_";
+
+    public static final String TEMPLATE_DETAIL_DESCRIPTION = "[预模版生成模版]";
+
+    public static final Integer SORT_DETAIL_NUM = 1000;
 
 }

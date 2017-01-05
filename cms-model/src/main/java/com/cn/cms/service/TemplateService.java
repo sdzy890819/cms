@@ -1,6 +1,7 @@
 package com.cn.cms.service;
 
 import com.cn.cms.enums.TemplateClassifyEnum;
+import com.cn.cms.po.NewsColumn;
 import com.cn.cms.po.Template;
 import com.cn.cms.po.TemplateRelation;
 import com.cn.cms.utils.Page;
@@ -28,11 +29,17 @@ public interface TemplateService {
 
     List<TemplateRelation> queryListForTemplateId(Long templateId);
 
+    Integer queryListForTemplateIdCount(Long templateId);
+
+    TemplateRelation queryListForAll(Long templateId, Long relationId, Integer relationType);
+
     void updateRelation(Long templateId, Integer[] relationTypes, List<TemplateRelation> list);
 
     void saveRelation(TemplateRelation templateRelation);
 
     void delRelation(Long templateId, Long relationId, Integer relationType);
+
+    void delRelation(Long templateId);
 
     List<Template> findTemplateListByRelation(Long relationId, Integer relationType);
 
@@ -45,4 +52,8 @@ public interface TemplateService {
                                    Long relationId,
                                    Integer relationType,
                                    int job);
+
+    void saveTemplateAndRelationAndNewsColumn(Template template, TemplateRelation templateRelation, NewsColumn newsColumn);
+
+    Template findTemplateList(Long channelId, Integer templateClassify);
 }

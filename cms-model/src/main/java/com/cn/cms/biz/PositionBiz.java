@@ -44,7 +44,7 @@ public class PositionBiz extends BaseBiz {
     public List<Position> listPosition(Page page){
         int count  = userService.queryPositionCount();
         page.setCount(count);
-        if(count>0 && page.getPage()<=page.getPageCount()) {
+        if(page.isQuery()) {
             List<Position> positions = userService.findPositionList(page);
             return positions;
         }
