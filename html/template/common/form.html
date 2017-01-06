@@ -52,6 +52,9 @@
 						<!-- radio -->
 					    <input ng-if="obj.type=='radio'" ng-repeat="item in obj.radio"  type="radio" name="{{obj.title}}" title="{{item.name}}" value='{{item.title}}' ng-checked="{{item.checked}}">
 
+					    <!-- checkbox -->
+					    <input ng-if="obj.type=='checkbox'" ng-repeat="item in obj.checkbox"  type="checkbox" name="{{obj.title}}" title="{{item.name}}" value='{{item.title}}' ng-checked="{{item.checked}}">
+
 					</div>
 					<!-- 不换行 -->
 					<div class="layui-inline" ng-if='isArray(obj)' ng-repeat="item in obj" repeat-finish='formRepeat'>

@@ -1,4 +1,4 @@
-define(function(){
+define(['../data/getData'],function( data ){
 	return [ //表单
 		{
 			title : 'name',

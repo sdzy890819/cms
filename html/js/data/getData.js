@@ -1,5 +1,5 @@
 define(['./URL','jquery'],function(URL,$){
-	return {
+	var public = {
 		permission : {//权限
 			listPermission:function( callback ){ //权限列表接口
 				$.ajax({
@@ -641,4 +641,5 @@ define(['./URL','jquery'],function(URL,$){
 			}
 		}
 	}
+	return public;
 });
