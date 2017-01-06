@@ -16,6 +16,8 @@ public interface NewsService {
 
     List<NewsColumn> queryList(Long channelId);
 
+    List<NewsColumn> getListForChannelIds(List<Long> ids);
+
     void saveNewsColumn(NewsColumn newsColumn);
 
     void updateNewsColumn(NewsColumn newsColumn);

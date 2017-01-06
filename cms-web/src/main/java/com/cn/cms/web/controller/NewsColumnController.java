@@ -2,6 +2,7 @@ package com.cn.cms.web.controller;
 
 import com.cn.cms.biz.NewsBiz;
 import com.cn.cms.biz.PreTemplateBiz;
+import com.cn.cms.bo.RelationColumn;
 import com.cn.cms.po.NewsColumn;
 import com.cn.cms.web.ann.CheckAuth;
 import com.cn.cms.web.ann.CheckToken;
@@ -133,5 +134,18 @@ public class NewsColumnController extends BaseController {
     public String newscolumn(@RequestParam(value = "id") Long id){
         NewsColumn newsColumn = newsBiz.getNewsColumn(id);
         return ApiResponse.returnSuccess(newsColumn);
+    }
+
+
+    /**
+     * 获取所有栏目
+     * @return
+     */
+    @CheckToken
+    @CheckAuth( name = "newscolumn:read" )
+    @RequestMapping(value = "/relationColumnList",method = RequestMethod.GET)
+    public String relationColumnList(){
+        List<RelationColumn> list = newsBiz.getAll();
+        return ApiResponse.returnSuccess(list);
     }
 }

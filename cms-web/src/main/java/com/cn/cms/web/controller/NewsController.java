@@ -134,6 +134,7 @@ public class NewsController extends BaseController {
                              @RequestParam(value = "description") String description,
                              @RequestParam(value = "source") String source,
                              @RequestParam(value = "author") String author,
+                             @RequestParam(value = "categoryId") Long categoryId,
                              @RequestParam(value = "channelId") Long channelId,
                              @RequestParam(value = "columnId") Long columnId,
                              @RequestParam(value = "content") String content,
@@ -148,6 +149,7 @@ public class NewsController extends BaseController {
         News news = new News();
         news.setTitle(title);
         news.setSubTitle(subTitle);
+        news.setCategoryId(categoryId);
         news.setChannelId(channelId);
         news.setColumnId(columnId);
         news.setAuthor(author);
@@ -210,6 +212,7 @@ public class NewsController extends BaseController {
                              @RequestParam(value = "description",required = false) String description,
                              @RequestParam(value = "source",required = false) String source,
                              @RequestParam(value = "author",required = false) String author,
+                             @RequestParam(value = "categoryId", required = false) Long categoryId,
                              @RequestParam(value = "channelId",required = false) Long channelId,
                              @RequestParam(value = "columnId",required = false) Long columnId,
                              @RequestParam(value = "content",required = false) String content,
@@ -224,6 +227,7 @@ public class NewsController extends BaseController {
         News news = new News();
         news.setTitle(title);
         news.setSubTitle(subTitle);
+        news.setCategoryId(categoryId);
         news.setChannelId(channelId);
         news.setColumnId(columnId);
         news.setAuthor(author);

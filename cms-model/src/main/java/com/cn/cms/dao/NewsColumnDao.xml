@@ -34,6 +34,13 @@
         select <include refid="sql_column"/> from news_column <include refid="delTag" /> and channel_id = ${channelId};
     </select>
 
+    <select id="getListForChannelIds" resultMap="newsColumn">
+        select <include refid="sql_column"/> from news_column <include refid="delTag" /> and channel_id in
+        <foreach collection="list" item="item" open="(" close=");" separator=",">
+            ${item}
+        </foreach>
+    </select>
+
     <insert id="saveNewsColumn">
         insert into news_column ( <include refid="sql_column"/> ) values (null,null,null,null,#{p1.lastModifyUserId},#{p1.columnName},${p1.channelId},${p1.listId},
         ${p1.detailId},${p1.listTemplateId},${p1.detailTemplateId},#{p1.keywords},#{p1.description});

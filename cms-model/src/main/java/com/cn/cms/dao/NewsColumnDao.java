@@ -13,6 +13,8 @@ public interface NewsColumnDao {
 
     List<NewsColumn> queryList(@Param(value = "channelId") Long channelId);
 
+    List<NewsColumn> getListForChannelIds(@Param(value = "list") List<Long> ids);
+
     void saveNewsColumn(@Param(value = "p1") NewsColumn newsColumn);
 
     void updateNewsColumn(@Param(value = "p1") NewsColumn newsColumn);
