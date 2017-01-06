@@ -25,7 +25,7 @@ require.config({
     },
     shim: {
         'jquery': {exports: '$'},
-        'jquery-migrate': ['jquery'],
+        //'jquery-migrate': ['jquery'],
         'jcrop': ['jquery'],
 
 
@@ -41,8 +41,8 @@ require.config({
         'ui-bootstrap': ["angular"],
         "angularAMD": ["angular"],
         "ngload": ["angularAMD"]
-    }//,
-    //urlArgs: "bust=" +  (new Date()).getTime()
+    }
+    ,urlArgs: "bust=" +  (new Date()).getTime()
 });
 
 // bootstrap
@@ -179,15 +179,10 @@ define(['./data/loginAndOut',"angular", "angularAMD","angular-ui-router",'angula
                 template: '<video-list></video-list>',
                 controllerUrl: 'video/list'
             }))
-            .state('video.upload', angularAMD.route({ 
-                url: '/upload',
-                template: '<video-upload></video-upload>',
-                controllerUrl: 'video/upload'
-            }))
-            .state('video.select', angularAMD.route({ 
-                url: '/select',
-                template: '<video-select></video-select>',
-                controllerUrl: 'video/select'
+            .state('video.add', angularAMD.route({ 
+                url: '/add',
+                template: '<video-add></video-add>',
+                controllerUrl: 'video/add'
             }))
 
             //模版管理

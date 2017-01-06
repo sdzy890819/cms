@@ -26,6 +26,7 @@ define(["app",'jquery'], function ( app,$ ) {
 	        	}
 	        	window.onresize = getHeight;
 	        	getHeight();
+	        	setTimeout(getHeight, 1000);
 	        	function clearMenu( num ){
 	        		column.parent().removeClass('open')
 	        			.find('.arrow').removeClass('cur');

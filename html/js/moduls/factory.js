@@ -45,7 +45,8 @@ define(['app','jquery'],function(app,$){
 								if(changeTypeName){
 									$.each(changeTypeName,function(k,obj){
 										if(key==obj.name){
-											newName = {[obj.newName] : val};
+											newName = {};
+											newName[obj.newName] = val;
 										}
 									});
 								}

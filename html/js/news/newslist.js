@@ -10,7 +10,6 @@ define(['require',"app",'jquery'
 	    	transclude : true,
 	        templateUrl : '../template/common/list.html',
 	        controller : function($scope,pop,$uibModal , $css , GenerateArrList){
-				$scope.$parent.menu.push({name:"新闻栏目列表"}); //栏目
 				$scope.title = "新闻列表";
 				$scope.$parent.menu.push({name:$scope.title}); //栏目
 				angular.extend($scope,{
