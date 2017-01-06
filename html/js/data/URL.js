@@ -10,6 +10,18 @@ define(function(require){
 			updateUser : url+'/user/updateUser',//用户修改接口
 			delUser : url+'/user/delUser'//逻辑删除
 		},
+		data : { //基础接口
+			compress : '/data/compress',//图片是否压缩选项列表接口
+			compressMode : '/data/compressMode',//按照宽｜高等比压缩选项接口
+			encoded : '/data/encoded',//模版支持的编码选项列表
+			job : '/data/job',//模版生成方式选项列表
+			permissionType : '/data/permissionType',//权限类型选项列表
+			relationType : '/data/relationType',//模版关系对应类型选项列表
+			showFlag : '/data/showFlag',//权限是否显示在左侧选项列表
+			templateClassify : '/data/templateClassify',//模版类型选项列表
+			watermark : '/data/watermark',//图片是否水印选项列表
+			buildMode : '/data/buildMode'
+		},
 		permission : { //权限
 			listPermission : url+'/permission/listPermission',
 			listPositionPermission : url+'/permission/listPositionPermission',
@@ -59,6 +71,29 @@ define(function(require){
 			createImagesBase : url+'/images/createImagesBase',
 			updateImagesBase : url+'/images/updateImagesBase', //修改图片基础信息
 			imagesBase : url+'/images/imagesBase'
+		},
+		video : {//获取视频基础库
+			videoBase : '/video/videoBase',//获取视频基础库
+			updateVideoBase : '/video/updateVideoBase',//修改图片基础信息
+			createVideoBase : '/video/createVideoBase',//创建视频
+			createVideo : '/video/createVideo',//创建Video 接口
+			updateVideo : '/video/updateVideo',//修改Video 接口
+			delVideo : '/video/delVideo',//删除视频 接口
+			videolist : '/video/videolist'//获取视频列表 接口
+		},
+		template : {
+			listTemplate : '/template/listTemplate',//模版列表［分页］
+			templateInfo : '/template/templateInfo',//模版详细信息
+			delTemplate : '/template/delTemplate',//删除模版
+			updateTemplate : '/template/updateTemplate',//模版修改 
+			createTemplate : '/template/createTemplate',//创建新模版
+			uploadTemplate : '/template/uploadTemplate',//模版上传
+			downTemplate : '/template/downTemplate',//模版上传
+			relation : '/template/relation',//模版上传
+			updateRelations : '/template/updateRelations',//根据relationType 修改模版对应关系
+			createRelation : '/template/createRelation',//新增模版关系
+			delRelation : '/template/delRelation',//模版关系删除
+			redirect : '/template/redirect'//模版跳转
 		}
 	}
 })

@@ -1,5 +1,5 @@
 define(["app",'./addForm','form','position','fixedNav'], function ( app , list ) {
-	app.directive('videoUpload',function(){
+	app.directive('videoAdd',function(){
 		return {
 	    	restrict : 'E',
 	    	replace : true,
