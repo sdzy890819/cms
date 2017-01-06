@@ -56,6 +56,11 @@ public class News extends Base{
     private Date writeTime;
 
     /**
+     * 部门ID
+     */
+    private Long categoryId;
+
+    /**
      * 频道ID
      */
     private Long channelId;

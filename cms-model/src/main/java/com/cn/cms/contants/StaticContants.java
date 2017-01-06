@@ -176,4 +176,22 @@ public class StaticContants {
 
     public static final Integer SORT_DETAIL_NUM = 1000;
 
+    public static String[] CONDITION_FIELD = new String[]{"title","title.pinyin","subTitle","keyword","description","content"};
+
+    public static String[] FIELDS_SEARCH_FIELD = new String[]{"field1","field2","field3","field4","field5"};
+
+    public static String FIELD_AUTHOR = "author";
+
+    public static String FIELD_SOURCE = "source";
+
+    public static String FIELD_CHANNELID = "channelId";
+
+    public static String FIELD_COLUMNID = "columnId";
+
+    public static String FIELD_PLATFORM = "platform";
+
+    public static String FIELD_CREATE_TIME = "createTime";
+
+    public static String ES_INDEX = "cmsindex";
+
 }

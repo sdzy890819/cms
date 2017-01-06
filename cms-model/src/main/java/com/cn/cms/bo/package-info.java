@@ -1,5 +1,5 @@
 /**
- * 业务类BEAN。bo
+ * 业务类BEAN。po
  */
 /**
  * @author zhangyang

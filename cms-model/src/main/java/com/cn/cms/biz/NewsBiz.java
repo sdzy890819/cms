@@ -1,17 +1,19 @@
 package com.cn.cms.biz;
 
+import com.cn.cms.bo.RelationColumn;
 import com.cn.cms.enums.AutoPublishEnum;
 import com.cn.cms.enums.PublishEnum;
 import com.cn.cms.enums.TemplateClassifyEnum;
+import com.cn.cms.po.Channel;
 import com.cn.cms.po.News;
 import com.cn.cms.po.NewsColumn;
 import com.cn.cms.service.NewsService;
 import com.cn.cms.utils.Page;
+import com.cn.cms.utils.StringUtils;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by zhangyang on 16/12/11.
@@ -28,8 +30,41 @@ public class NewsBiz extends BaseBiz {
     @Resource
     private TemplateBiz templateBiz;
 
+    @Resource
+    private ChannelBiz channelBiz;
+
     public List<NewsColumn> listNewsColumn(Long channelId){
         return newsService.queryList(channelId);
+    }
+
+    public List<RelationColumn> getAll(){
+        List<Channel> list = channelBiz.listChannel();
+        List<Long> ids = new ArrayList<>();
+        for(int i=0;i<list.size();i++){
+            ids.add(list.get(i).getId());
+        }
+        List<NewsColumn> newsColumns = newsService.getListForChannelIds(ids);
+        Map<Long, List<NewsColumn>> map = new HashMap<>();
+        List<NewsColumn> tmp = null;
+        for(int i=0;i<newsColumns.size();i++){
+            NewsColumn newsColumn = newsColumns.get(i);
+            tmp = map.get(newsColumn.getChannelId());
+            if(!StringUtils.isNotEmpty(tmp)){
+                tmp = new ArrayList<>();
+                map.put(newsColumn.getChannelId(), tmp);
+            }
+            tmp.add(newsColumn);
+        }
+
+        List<RelationColumn> result = new ArrayList<>();
+        for(int i=0;i<list.size();i++){
+            Channel channel = list.get(i);
+            RelationColumn relationColumn = new RelationColumn();
+            relationColumn.setChannel(channel);
+            relationColumn.setList(map.get(channel.getId()));
+            result.add(relationColumn);
+        }
+        return result;
     }
 
     /**

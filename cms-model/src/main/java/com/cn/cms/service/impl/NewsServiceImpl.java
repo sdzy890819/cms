@@ -35,6 +35,11 @@ public class NewsServiceImpl implements NewsService {
         return newsColumnDao.queryList(channelId);
     }
 
+    @Override
+    public List<NewsColumn> getListForChannelIds(List<Long> ids) {
+        return newsColumnDao.getListForChannelIds(ids);
+    }
+
     public void saveNewsColumn(NewsColumn newsColumn) {
         newsColumnDao.saveNewsColumn(newsColumn);
     }
