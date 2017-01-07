@@ -825,10 +825,42 @@ define(['./URL','jquery'],function(URL,$){
 
 			},
 			listHistory : function( callback ){ //碎片编辑的历史纪录［分页查询］
+				$.ajax({
+					url : URL.fragment.listHistory , 
+					type : 'get',
+					data : {},
+					success : function( _data ){
+						setTimeout(function(){
+							callback({
+							    "code":0,
+							    "message":"成功",
+							    "data":{
+							        "page":{
+							            "pageSize":20,
+							            "count":100,
+							            "pageCount":5,
+							            "page":1
+							        },
+							        "list":[
+							            {
+							                "fragmentClassifyId":1, //碎片分类ID
+							                "fragmentContent":"碎片当前内容",
+							                "fragmentName":"碎片名称",
+							                "userId":"创建人USERID",
+							                "currTime":"当前时间",
+							                "fragmentId":1, //碎片ID
+							                id:1
+							            }
+							        ]
+							    }
+							});
+						},1000);
+					}
+				});
 			},
 			listClassify : function( callback ){ //碎片编辑的历史纪录［分页查询］
 				$.ajax({
-					url : URL.fragment.listHistory , 
+					url : URL.fragment.listClassify , 
 					type : 'get',
 					data : {},
 					success : function( _data ){
@@ -871,7 +903,7 @@ define(['./URL','jquery'],function(URL,$){
 			updateClassify : function( callback ){ //分类修改
 			},
 			delClassify : function( callback ){ //删除分类
-			
+				
 			},
 			publish : function( callback ){ //发布
 			}

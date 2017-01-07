@@ -1,5 +1,5 @@
 define(["app",'./classForm','form','position','fixedNav'], function ( app , list ) {
-	app.directive('topicAddClass',function(){
+	app.directive('fragmentAddClass',function(){
 		return {
 	    	restrict : 'E',
 	    	replace : true,

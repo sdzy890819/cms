@@ -283,6 +283,11 @@ define(['./data/loginAndOut',"angular", "angularAMD","angular-ui-router",'angula
                 template: '<fragment-class-list></fragment-class-list>',
                 controllerUrl: 'fragment/classList'
             }))
+            .state('fragment.listHistory', angularAMD.route({ 
+                url: '/listHistory',
+                template: '<fragment-list-history></fragment-list-history>',
+                controllerUrl: 'fragment/listHistory'
+            }))
     }]);
 
     layui.config({
