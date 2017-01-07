@@ -11,16 +11,16 @@ define(function(require){
 			delUser : url+'/user/delUser'//逻辑删除
 		},
 		data : { //基础接口
-			compress : '/data/compress',//图片是否压缩选项列表接口
-			compressMode : '/data/compressMode',//按照宽｜高等比压缩选项接口
-			encoded : '/data/encoded',//模版支持的编码选项列表
-			job : '/data/job',//模版生成方式选项列表
-			permissionType : '/data/permissionType',//权限类型选项列表
-			relationType : '/data/relationType',//模版关系对应类型选项列表
-			showFlag : '/data/showFlag',//权限是否显示在左侧选项列表
-			templateClassify : '/data/templateClassify',//模版类型选项列表
-			watermark : '/data/watermark',//图片是否水印选项列表
-			buildMode : '/data/buildMode'
+			compress : url+'/data/compress',//图片是否压缩选项列表接口
+			compressMode : url+'/data/compressMode',//按照宽｜高等比压缩选项接口
+			encoded : url+'/data/encoded',//模版支持的编码选项列表
+			job : url+'/data/job',//模版生成方式选项列表
+			permissionType : url+'/data/permissionType',//权限类型选项列表
+			relationType : url+'/data/relationType',//模版关系对应类型选项列表
+			showFlag : url+'/data/showFlag',//权限是否显示在左侧选项列表
+			templateClassify : url+'/data/templateClassify',//模版类型选项列表
+			watermark : url+'/data/watermark',//图片是否水印选项列表
+			buildMode : url+'/data/buildMode'
 		},
 		permission : { //权限
 			listPermission : url+'/permission/listPermission',
@@ -73,27 +73,65 @@ define(function(require){
 			imagesBase : url+'/images/imagesBase'
 		},
 		video : {//获取视频基础库
-			videoBase : '/video/videoBase',//获取视频基础库
-			updateVideoBase : '/video/updateVideoBase',//修改图片基础信息
-			createVideoBase : '/video/createVideoBase',//创建视频
-			createVideo : '/video/createVideo',//创建Video 接口
-			updateVideo : '/video/updateVideo',//修改Video 接口
-			delVideo : '/video/delVideo',//删除视频 接口
-			videolist : '/video/videolist'//获取视频列表 接口
+			videoBase : url+'/video/videoBase',//获取视频基础库
+			updateVideoBase : url+'/video/updateVideoBase',//修改图片基础信息
+			createVideoBase : url+'/video/createVideoBase',//创建视频
+			createVideo : url+'/video/createVideo',//创建Video 接口
+			updateVideo : url+'/video/updateVideo',//修改Video 接口
+			delVideo : url+'/video/delVideo',//删除视频 接口
+			videolist : url+'/video/videolist'//获取视频列表 接口
 		},
 		template : {
-			listTemplate : '/template/listTemplate',//模版列表［分页］
-			templateInfo : '/template/templateInfo',//模版详细信息
-			delTemplate : '/template/delTemplate',//删除模版
-			updateTemplate : '/template/updateTemplate',//模版修改 
-			createTemplate : '/template/createTemplate',//创建新模版
-			uploadTemplate : '/template/uploadTemplate',//模版上传
-			downTemplate : '/template/downTemplate',//模版上传
-			relation : '/template/relation',//模版上传
-			updateRelations : '/template/updateRelations',//根据relationType 修改模版对应关系
-			createRelation : '/template/createRelation',//新增模版关系
-			delRelation : '/template/delRelation',//模版关系删除
-			redirect : '/template/redirect'//模版跳转
+			listTemplate : url+'/template/listTemplate',//模版列表［分页］
+			templateInfo : url+'/template/templateInfo',//模版详细信息
+			delTemplate : url+'/template/delTemplate',//删除模版
+			updateTemplate : url+'/template/updateTemplate',//模版修改 
+			createTemplate : url+'/template/createTemplate',//创建新模版
+			uploadTemplate : url+'/template/uploadTemplate',//模版上传
+			downTemplate : url+'/template/downTemplate',//模版上传
+			relation : url+'/template/relation',//模版上传
+			updateRelations : url+'/template/updateRelations',//根据relationType 修改模版对应关系
+			createRelation : url+'/template/createRelation',//新增模版关系
+			delRelation : url+'/template/delRelation',//模版关系删除
+			redirect : url+'/template/redirect'//模版跳转
+		},
+		topic : { //专题
+			topic:url+'/topic/listTopic',//
+			topicInfo:url+'/topic/topicInfo',//
+			delTopic:url+'/topic/delTopic',//
+			publish:url+'/topic/publish',//
+			createTopic:url+'/topic/createTopic',//
+			updateTopic:url+'/topic/updateTopic',//
+			topicClassifyList:url+'/topic/topicClassifyList',//
+			createTopicClassify:url+'/topic/createTopicClassify',//
+			updateTopicClassify:url+'/topic/updateTopicClassify',//修改专题分类
+			delTopicClassify:url+'/topic/delTopicClassify',//删除专题分类
+			topicColumnList:url+'/topic/topicColumnList',//专题分类列表
+			createTopicColumn:url+'/topic/createTopicColumn',//专题分类列表
+			updateTopicColumn:url+'/topic/updateTopicColumn',//
+			delTopicColumn:url+'/topic/delTopicColumn'//
+		},
+		userchannel : { //用户频道编辑权限
+			channelId:url+'/userchannel/list/channelId',//根据频道ID获取用户列表 
+			userId:url+'/userchannel/list/userId',//根据用户ID获取频道列表 
+			createUserChannel:url+'/userchannel/list/createUserChannel',//创建用户权限 
+			delUserChannel:url+'/userchannel/list/delUserChannel'//删除用户权限 
+		},
+		fragment : {
+			listFragment : url+'/fragment/listFragment', //获取碎片列表
+			findFragment : url+'/fragment/findFragment', //获取碎片详细信息
+			delFragment : url+'/fragment/delFragment', //删除碎片
+			editFragment : url+'/fragment/editFragment', //编辑碎片
+			fragmentMap : url+'/fragment/fragmentMap', //获取编辑碎片的Map维护信息
+			updateFragment : url+'/fragment/updateFragment', //修改碎片
+			createFragment : url+'/fragment/createFragment', //创建碎片信息
+
+			listHistory : url+'/fragment/listHistory', //碎片编辑的历史纪录［分页查询］
+			listClassify : url+'/fragment/listClassify', //碎片编辑的历史纪录［分页查询］
+			createClassify : url+'/fragment/createClassify', //分类列表
+			updateClassify : url+'/fragment/updateClassify', //分类修改
+			delClassify : url+'/fragment/delClassify', //删除分类
+			publish : url+'/fragment/publish' //发布
 		}
 	}
 })

@@ -52,10 +52,13 @@
 						<!-- radio -->
 					    <input ng-if="obj.type=='radio'" ng-repeat="item in obj.radio"  type="radio" name="{{obj.title}}" title="{{item.name}}" value='{{item.title}}' ng-checked="{{item.checked}}">
 
+					    <!-- checkbox -->
+					    <input ng-if="obj.type=='checkbox'" ng-repeat="item in obj.checkbox"  type="checkbox" name="{{obj.title}}" title="{{item.name}}" value='{{item.title}}' ng-checked="{{item.checked}}">
+
 					</div>
 					<!-- 不换行 -->
 					<div class="layui-inline" ng-if='isArray(obj)' ng-repeat="item in obj" repeat-finish='formRepeat'>
-						<label ng-if='item.type!="button"' class="layui-form-label {{$index!==0?'inline':''}}"><em ng-show='item.check!=false'>*</em>{{item.name}}</label>
+						<label ng-if='item.type!="button"' class="layui-form-label {{$index!==0?'inline':''}}"><em ng-show='item.check!=false&&item.verify'>*</em>{{item.name}}</label>
 					    <div class="layui-input-inline"> <!-- 不换行 -->
 					        <!-- 输入匡 或 密码 -->
 							<input ng-if="item.type=='text'||item.type=='password'" class="text layui-input {{item.cls||'w100'}}" type="{{item.type=='text'?'text':'password'}}" name="{{item.title}}" lay-verify="{{item.verify}}" placeholder="{{item.placeholder}}" autocomplete="off">

@@ -1,8 +1,8 @@
 define(['require',"app",'jquery'
-	,'../data/getData' , './addForm',
+	,'../data/getData' , './addForm', './editForm'
 	,'formlist','fixedNav','position'
 	,'../moduls/service','../moduls/factory'
-], function ( require , app , $ , data , list ) {
+], function ( require , app , $ , data , list , editForm ) {
 	app.directive('templateList',function(){
 		return {
 	    	restrict : 'E',
@@ -10,9 +10,6 @@ define(['require',"app",'jquery'
 	    	transclude : true,
 	        templateUrl : '../template/common/list.html',
 	        controller : function($scope , pop , $uibModal , $css,GenerateArrList){
-	        	'use strict';
-				new Promise(function () {});
-				alert('支持Promise!');
 	        	$scope.title = "模版列表";
 				$scope.$parent.menu.push({name:$scope.title}); //栏目
 				angular.extend($scope,{
@@ -26,7 +23,7 @@ define(['require',"app",'jquery'
 						})
 					},
 					edit : function( obj ){ //保存
-						require(['./common/editPop'], function(pop) {
+						require(['../common/editPop'], function(pop) {
 	        				pop.init({
 	        					obj : obj,
 	        					list : list,
@@ -52,14 +49,14 @@ define(['require',"app",'jquery'
 							}
 						})
 					},
-					relation : function( id ){
-						pop.alert({
-							 text:'你的ID为：'+id
-							,btn : ['确定','取消']
-							,fn : function(index){//确定
-								layer.close(index)
-							}
-						})
+					relation : function( obj ){
+						require(['../common/editPop'], function(pop) {
+	        				pop.init({
+	        					obj : obj,
+	        					list : editForm,
+	        					$uibModal :$uibModal 
+	        				});
+	  					});
 					},
 					filter : [ //过滤不需要展示的
 						'id','channelId','templateClassify','userId',
@@ -67,32 +64,32 @@ define(['require',"app",'jquery'
 					]
 				});
 				
-				data.template.listTemplate(function(_data){
-					$scope.navEdit = { //导航操作按钮
-						nav : [{
-							name : '下载模版',
+				$scope.navEdit = { //导航操作按钮
+					nav : [{
+						name : '下载模版',
+						event : function(obj , scope , evt){
+							scope.getOneSelect($scope.down);
+						},
+						cls : 'down'
+					}],
+					list : [
+						{
+							name : '模版关联',
 							event : function(obj , scope , evt){
-								scope.getOneSelect($scope.down);
+								scope.getOneSelect($scope.relation);
 							},
-							cls : 'down'
-						}],
-						list : [
-							{
-								name : '模版关联',
-								event : function(obj , scope , evt){
-									scope.getOneSelect($scope.relation);
-								},
-								cls : 'plus'
+							cls : 'plus'
+						},
+						{
+							name : '删除',
+							event : function(obj , scope , evt){
+								scope.getOneSelect($scope.del);
 							},
-							{
-								name : '删除',
-								event : function(obj , scope , evt){
-									scope.getOneSelect($scope.del);
-								},
-								cls : 'del'
-							}
-						]
-					}
+							cls : 'del'
+						}
+					]
+				}
+				data.template.listTemplate(function(_data){
 					$scope.listdata = { //确认按钮
 						title : $scope.title,
 						table : {
