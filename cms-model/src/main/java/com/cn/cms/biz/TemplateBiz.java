@@ -1,5 +1,6 @@
 package com.cn.cms.biz;
 
+import com.cn.cms.bo.TemplateSearch;
 import com.cn.cms.enums.TemplateClassifyEnum;
 import com.cn.cms.po.Template;
 import com.cn.cms.po.TemplateRelation;
@@ -30,6 +31,16 @@ public class TemplateBiz extends BaseBiz {
         page.setCount(count);
         if(page.isQuery()) {
             List<Template> list = templateService.queryTemplateList(page);
+            return list;
+        }
+        return null;
+    }
+
+    public List<Template> searchTemplate(TemplateSearch templateSearch, Page page){
+        Integer count = templateService.searchTemplateCount(templateSearch);
+        page.setCount(count);
+        if(page.isQuery()) {
+            List<Template> list = templateService.searchTemplate(templateSearch, page);
             return list;
         }
         return null;

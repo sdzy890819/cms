@@ -1,5 +1,6 @@
 package com.cn.cms.service.impl;
 
+import com.cn.cms.bo.TemplateSearch;
 import com.cn.cms.dao.NewsColumnDao;
 import com.cn.cms.dao.NewsDao;
 import com.cn.cms.dao.TemplateDao;
@@ -39,6 +40,16 @@ public class TemplateServiceImpl implements TemplateService {
 
     public List<Template> queryTemplateList(Page page) {
         return templateDao.queryTemplateList(page);
+    }
+
+    @Override
+    public Integer searchTemplateCount(TemplateSearch templateSearch) {
+        return templateDao.searchTemplateCount(templateSearch);
+    }
+
+    @Override
+    public List<Template> searchTemplate(TemplateSearch templateSearch, Page page) {
+        return templateDao.searchTemplate(templateSearch, page);
     }
 
     public void delTemplate(String lastModifyUserId, Long id) {

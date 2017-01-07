@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by zhangyang on 16/12/20.
  */
@@ -103,8 +106,27 @@ public class DataController extends BaseController {
         return ApiResponse.returnSuccess(BuildModeEnum.values());
     }
 
+
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public String all(){
+        Map<String,Object> map = new HashMap<>();
+        map.put("buildMode", BuildModeEnum.values());
+        map.put("watermark", WatermarkEnum.values());
+        map.put("templateClassify", TemplateClassifyEnum.values());
+        map.put("showFlag", ShowFlagEnum.values());
+        map.put("relationType", RelationTypeEnum.values());
+        map.put("permissionType", PermissionTypeEnum.values());
+        map.put("job", JobEnum.values());
+        map.put("encoded", EncodedEnum.values());
+        map.put("compressMode", CompressModeEnum.values());
+        map.put("compress", CompressEnum.values());
+        return ApiResponse.returnSuccess(map);
+    }
+
+
+
     public static void main(String[] args){
         DataController dataController = new DataController();
-        System.out.println(dataController.buildMode());
+        System.out.println(dataController.all());
     }
 }

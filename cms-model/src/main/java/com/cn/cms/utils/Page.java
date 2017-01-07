@@ -32,8 +32,12 @@ public class Page {
     private int page = StaticContants.PAGE;
 
     public Page(int page, int pageSize, int count){
-        this.page = page;
-        this.pageSize = pageSize;
+        if(page > 0) {
+            this.page = page;
+        }
+        if(pageSize > 0) {
+            this.pageSize = pageSize;
+        }
         this.count = count;
     }
 

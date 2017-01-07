@@ -1,5 +1,6 @@
 package com.cn.cms.dao;
 
+import com.cn.cms.bo.TemplateSearch;
 import com.cn.cms.po.Template;
 import com.cn.cms.utils.Page;
 import org.apache.ibatis.annotations.Param;
@@ -15,6 +16,10 @@ public interface TemplateDao {
     Integer queryTemplateCount();
 
     List<Template> queryTemplateList(@Param(value = "page") Page page);
+
+    Integer searchTemplateCount(@Param(value = "p1") TemplateSearch templateSearch);
+
+    List<Template> searchTemplate(@Param(value = "p1") TemplateSearch templateSearch, @Param(value = "page") Page page);
 
     void delTemplate(@Param(value = "lastModifyUserId") String lastModifyUserId, @Param(value = "id") Long id);
 
