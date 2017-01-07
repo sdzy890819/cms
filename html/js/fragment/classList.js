@@ -3,14 +3,14 @@ define(['require',"app",'jquery'
 	,'formlist','fixedNav','position'
 	,'../moduls/service','../moduls/factory'
 ], function ( require , app , $ , data , list ) {
-	app.directive('topicClassList',function(){
+	app.directive('fragmentClassList',function(){
 		return {
 	    	restrict : 'E',
 	    	replace : true,
 	    	transclude : true,
 	        templateUrl : '../template/common/list.html',
 	        controller : function($scope , pop , $uibModal , $css,GenerateArrList){
-	        	$scope.title = "专题分类列表";
+	        	$scope.title = "碎片分类列表";
 				$scope.$parent.menu.push({name:$scope.title}); //栏目
 				angular.extend($scope,{
 					add : function( id ){ //保存
@@ -41,18 +41,16 @@ define(['require',"app",'jquery'
 						})
 					},
 					filter : [ //过滤不需要展示的
-						'id','topicClassifyId',
-						'categoryId','channelId',
-						'topicColumnId'
+						'id'
 					]
 				});
-				data.topic.topicClassifyList(function(_data){
+				data.fragment.listClassify(function(_data){
 					$scope.listdata = { //确认按钮
 						title : $scope.title,
 						table : {
 							select : true,
 							th : [
-								{name:'专题分类名称'},
+								{name:'名称'},
 								{name:'操作' , width : '120', class:'center'}
 							],
 							td : GenerateArrList.arr(_data.data,$scope.filter) ,

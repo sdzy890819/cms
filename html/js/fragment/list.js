@@ -3,14 +3,14 @@ define(['require',"app",'jquery'
 	,'formlist','fixedNav','position'
 	,'../moduls/service','../moduls/factory'
 ], function ( require , app , $ , data , list ) {
-	app.directive('topicList',function(){
+	app.directive('fragmentList',function(){
 		return {
 	    	restrict : 'E',
 	    	replace : true,
 	    	transclude : true,
 	        templateUrl : '../template/common/list.html',
 	        controller : function($scope , pop , $uibModal , $css,GenerateArrList){
-	        	$scope.title = "专题列表";
+	        	$scope.title = "碎片列表";
 				$scope.$parent.menu.push({name:$scope.title}); //栏目
 				angular.extend($scope,{
 					add : function( id ){ //保存
@@ -41,25 +41,19 @@ define(['require',"app",'jquery'
 						})
 					},
 					filter : [ //过滤不需要展示的
-						'id','topicClassifyId',
-						'categoryId','channelId',
-						'topicColumnId'
+						'id','fragmentClassifyId'
 					]
 				});
-				data.topic.listTopic(function(_data){
+				data.fragment.listFragment(function(_data){
 					$scope.listdata = { //确认按钮
 						title : $scope.title,
 						table : {
 							select : true,
 							th : [
-								{name:'专题标题' , width : '200'},
-								{name:'专题内容' },
-								{name:'专题相对路径' },
-								{name:'专题文件名' },
-								{name:'发布时间' },
-								{name:'关键字' },
-								{name:'描述、SEO标准' },
-								{name:'URL' },
+								{name:'碎片当前内容'},
+								{name:'碎片名称' },
+								{name:'排序值', width : '110' , class:'center'},
+								{name:'碎片模版' },
 								{name:'操作' , width : '120', class:'center'}
 							],
 							td : GenerateArrList.arr(_data.data.list,$scope.filter) ,
@@ -69,7 +63,7 @@ define(['require',"app",'jquery'
 							]
 						}
 					}
-					// GenerateArrList.extendType($scope.listdata.table.td,$scope.listdata.table.th,['width','name']); //把TH 中的出name属性以外的属性合传给td
+					GenerateArrList.extendType($scope.listdata.table.td,$scope.listdata.table.th,['width','name']); //把TH 中的出name属性以外的属性合传给td
 	        		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
 	        		$scope.$apply();
 				});

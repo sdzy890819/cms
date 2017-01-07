@@ -1,18 +1,18 @@
 define(["app",'./addForm','form','position','fixedNav'], function ( app , list ) {
-	app.directive('topicAdd',function(){
+	app.directive('fragmentAdd',function(){
 		return {
 	    	restrict : 'E',
 	    	replace : true,
 	    	transclude : true,
 	        templateUrl : '../template/common/addAndEdit.html',
 	        controller : function($scope){
-	        	$scope.title = "新增专题";
+	        	$scope.title = "新增碎片";
 	        	$scope.$parent.menu.push({name:$scope.title})
 				$scope.save = function( obj ){ //保存
-					alert(obj)
+					alert(obj);
 				}
 				$scope.cancel = function( obj ){ //取消
-					alert(obj)
+					alert(obj);
 				}
 				$scope.formdata = { //确认按钮
 					title : $scope.title,

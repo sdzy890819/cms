@@ -127,7 +127,7 @@ define(function(require){
 			createFragment : url+'/fragment/createFragment', //创建碎片信息
 
 			listHistory : url+'/fragment/listHistory', //碎片编辑的历史纪录［分页查询］
-			listHistory : url+'/fragment/listHistory', //碎片编辑的历史纪录［分页查询］
+			listClassify : url+'/fragment/listClassify', //碎片编辑的历史纪录［分页查询］
 			createClassify : url+'/fragment/createClassify', //分类列表
 			updateClassify : url+'/fragment/updateClassify', //分类修改
 			delClassify : url+'/fragment/delClassify', //删除分类
