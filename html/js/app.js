@@ -51,6 +51,7 @@ define(['./data/loginAndOut',"angular", "angularAMD","angular-ui-router",'angula
     //临时登录 需要删除
     data.login();
 
+
     // module
     var app = angular.module("app", ["ui.router",'angularCSS','ui.bootstrap']);
     // config
@@ -201,7 +202,87 @@ define(['./data/loginAndOut',"angular", "angularAMD","angular-ui-router",'angula
                 template: '<template-add></template-add>',
                 controllerUrl: 'template/add'
             }))
-            
+
+            //专题管理
+            .state('topic', angularAMD.route({
+                url: '/topic',
+                templateUrl: 'template/common/index.html',
+                controllerUrl: 'topic/index'
+            }))
+            .state('topic.list', angularAMD.route({ 
+                url: '/list',
+                template: '<topic-list></topic-list>',
+                controllerUrl: 'topic/list'
+            }))
+            .state('topic.add', angularAMD.route({ 
+                url: '/add',
+                template: '<topic-add></topic-add>',
+                controllerUrl: 'topic/add'
+            }))
+            .state('topic.addClass', angularAMD.route({ 
+                url: '/addClass',
+                template: '<topic-add-class></topic-add-class>',
+                controllerUrl: 'topic/addClass'
+            }))
+            .state('topic.classList', angularAMD.route({ 
+                url: '/classList',
+                template: '<topic-class-list></topic-class-list>',
+                controllerUrl: 'topic/classList'
+            }))
+
+            //频道管理
+            .state('userchannel', angularAMD.route({
+                url: '/userchannel',
+                templateUrl: 'template/common/index.html',
+                controllerUrl: 'userchannel/index'
+            }))
+            .state('userchannel.list', angularAMD.route({ 
+                url: '/userchannel',
+                template: '<userchannel-list></userchannel-list>',
+                controllerUrl: 'userchannel/list'
+            }))
+            .state('userchannel.add', angularAMD.route({ 
+                url: '/add',
+                template: '<userchannel-add></userchannel-add>',
+                controllerUrl: 'userchannel/add'
+            }))
+            .state('userchannel.userList', angularAMD.route({ 
+                url: '/userList',
+                template: '<userchannel-user-list></userchannel-user-list>',
+                controllerUrl: 'userchannel/userList'
+            }))
+            .state('userchannel.addUser', angularAMD.route({ 
+                url: '/addUser',
+                template: '<userchannel-add-user></userchannel-add-user>',
+                controllerUrl: 'userchannel/addUser'
+            }))
+
+            //碎片管理
+            .state('fragment', angularAMD.route({
+                url: '/fragment',
+                templateUrl: 'template/common/index.html',
+                controllerUrl: 'fragment/index'
+            }))
+            .state('fragment.list', angularAMD.route({ 
+                url: '/list',
+                template: '<fragment-list></fragment-list>',
+                controllerUrl: 'fragment/list'
+            }))
+            .state('fragment.add', angularAMD.route({ 
+                url: '/add',
+                template: '<fragment-add></fragment-add>',
+                controllerUrl: 'fragment/add'
+            }))
+            .state('fragment.addClass', angularAMD.route({ 
+                url: '/addClass',
+                template: '<fragment-add-class></fragment-add-class>',
+                controllerUrl: 'fragment/addClass'
+            }))
+            .state('fragment.classList', angularAMD.route({ 
+                url: '/classList',
+                template: '<fragment-class-list></fragment-class-list>',
+                controllerUrl: 'fragment/classList'
+            }))
     }]);
 
     layui.config({

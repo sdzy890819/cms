@@ -64,32 +64,32 @@ define(['require',"app",'jquery'
 					]
 				});
 				
-				data.template.listTemplate(function(_data){
-					$scope.navEdit = { //导航操作按钮
-						nav : [{
-							name : '下载模版',
+				$scope.navEdit = { //导航操作按钮
+					nav : [{
+						name : '下载模版',
+						event : function(obj , scope , evt){
+							scope.getOneSelect($scope.down);
+						},
+						cls : 'down'
+					}],
+					list : [
+						{
+							name : '模版关联',
 							event : function(obj , scope , evt){
-								scope.getOneSelect($scope.down);
+								scope.getOneSelect($scope.relation);
 							},
-							cls : 'down'
-						}],
-						list : [
-							{
-								name : '模版关联',
-								event : function(obj , scope , evt){
-									scope.getOneSelect($scope.relation);
-								},
-								cls : 'plus'
+							cls : 'plus'
+						},
+						{
+							name : '删除',
+							event : function(obj , scope , evt){
+								scope.getOneSelect($scope.del);
 							},
-							{
-								name : '删除',
-								event : function(obj , scope , evt){
-									scope.getOneSelect($scope.del);
-								},
-								cls : 'del'
-							}
-						]
-					}
+							cls : 'del'
+						}
+					]
+				}
+				data.template.listTemplate(function(_data){
 					$scope.listdata = { //确认按钮
 						title : $scope.title,
 						table : {

@@ -639,6 +639,255 @@ define(['./URL','jquery'],function(URL,$){
 					error : function(){}
 				});
 			}
+		},
+		topic : { //专题
+			listTopic : function( callback ){//模版列表［分页］ 接口
+				$.ajax({
+					url : URL.topic.listTopic , 
+					type : 'get',
+					data : {},
+					success : function( _data ){
+						setTimeout(function(){
+							callback({
+							    "code":0,
+							    "message":"成功",
+							    "data":{
+							        "page":{
+							            "pageSize":20,
+							            "count":100,
+							            "pageCount":5,
+							            "page":1
+							        },
+							        "list":[
+							            {
+							                "topicTitle":"专题标题",
+							                "topicContent":"专题内容",
+							                "topicPath":"专题相对路径",
+							                "topicFilename":"专题文件名",
+							                "topicClassifyId":1,//专题分类ID
+							                "categoryId":1,//部门类别ID
+							                "channelId":1, //频道ID
+							                "releaseTime":"yyyy-MM-dd", //发布时间
+							                "keyword":"关键字",
+							                "description":"描述、SEO标准",
+							                "topicColumnId":1, //专题栏目ID(做系列专题使用)
+							                "topicUrl":"URL",
+							                "id":1
+							            }
+							        ]
+							    }
+						   	})
+						},1000)
+					}
+				});
+			},
+			topicClassifyList : function( callback ){//模版列表［分页］ 接口
+				$.ajax({
+					url : URL.topic.topicClassifyList , 
+					type : 'get',
+					data : {},
+					success : function( _data ){
+						setTimeout(function(){
+							callback({
+							    "code":0,
+							    "message":"成功",
+							    "data":[
+							        {
+							            "classifyName":"专题分类名",
+							            "id":1
+							        }
+							    ]
+							})
+						},1000);
+					}
+				});
+			}
+		},
+		userchannel : { //用户频道编辑权限
+			channelId:function( callback ){//根据频道ID获取用户列表 接口
+				$.ajax({
+					url : URL.userchannel.channelId , 
+					type : 'get',
+					data : {},
+					success : function( _data ){
+						setTimeout(function(){
+							callback({
+							    "code":0,
+							    "message":"成功",
+							    "data":{
+							        "page":{
+							            "pageSize":20,
+							            "count":100,
+							            "pageCount":5,
+							            "page":1
+							        },
+							        "list":[
+							            {
+							                "headImage":"头像",
+							                "realName":"真实名字",
+							                "userId":"111111111111111",//用户ID
+							                "lastModifyUserId":"1111111111111", //最后修改人ID
+							                "id":1
+							            }
+							        ]
+							    }
+							});
+						},1000)
+					}
+				});
+			},
+			userId:function( callback ){ //根据用户ID获取频道列表
+				$.ajax({
+					url : URL.userchannel.userId , 
+					type : 'get',
+					data : {},
+					success : function( _data ){
+						setTimeout(function(){
+							callback({
+							    "code":0,
+							    "message":"成功",
+							    "data":{
+							        "page":{
+							            "pageSize":20,
+							            "count":100,
+							            "pageCount":5,
+							            "page":1
+							        },
+							        "list":[
+							            {
+							                "channelName":"频道名称",
+							                "channelUrl":"频道域名",
+							                "channelPath":"频道绝对路径",
+							                "templatePath":"模版位置",
+							                "channelDesc":"频道说明",
+							                "categoryId":1, //部门分类ID
+							                "id":1
+							            }
+							        ]
+							    }
+							});
+						},1000);
+					}
+				});
+			},
+			createUserChannel:function( callback ){
+
+			},
+			delUserChannel:function( callback ){
+
+			}
+		},
+		fragment : {
+			listFragment : function( callback ){ //获取碎片列表
+				$.ajax({
+					url : URL.fragment.listFragment , 
+					type : 'get',
+					data : {},
+					success : function( _data ){
+						setTimeout(function(){
+							callback({
+							    "code":0,
+							    "message":"成功",
+							    "data":{
+							        "page":{
+							            "pageSize":20,
+							            "count":100,
+							            "pageCount":5,
+							            "page":1
+							        },
+							        "list":[
+							            {
+							                "fragmentClassifyId":1, //碎片分类ID
+							                "fragmentContent":"碎片当前内容",
+							                "fragmentName":"碎片名称",
+							                "sortNum":1, //排序值
+							                "fragmentModel":"碎片模版",
+							                "id":1
+							            }
+							        ]
+							    }
+							});
+						},1000);
+					}
+				});
+			},
+			findFragment : function( callback ){ //获取碎片详细信息
+			},
+			delFragment : function( callback ){ //删除碎片
+			},
+			editFragment : function( callback ){ //编辑碎片
+			},
+			fragmentMap : function( callback ){ //获取编辑碎片的Map维护信息
+			},
+			updateFragment : function( callback ){ //修改碎片
+			},
+			createFragment : function( callback ){ //创建碎片信息
+
+			},
+			listHistory : function( callback ){ //碎片编辑的历史纪录［分页查询］
+			},
+			listHistory : function( callback ){ //碎片编辑的历史纪录［分页查询］
+				$.ajax({
+					url : URL.fragment.listHistory , 
+					type : 'get',
+					data : {},
+					success : function( _data ){
+						setTimeout(function(){
+							callback({
+							    "code":0,
+							    "message":"成功",
+							    "data":{
+							        "page":{
+							            "pageSize":20,
+							            "count":100,
+							            "pageCount":5,
+							            "page":1
+							        },
+							        "list":[
+							            {
+							                "fragmentClassifyId":1, //碎片分类ID
+							                "fragmentContent":"碎片当前内容",
+							                "fragmentName":"碎片名称",
+							                "userId":"创建人USERID",
+							                "currTime":"当前时间",
+							                "fragmentId":1, //碎片ID
+							                id:1
+							            }
+							        ]
+							    }
+							});
+						},1000);
+					}
+				});
+			},
+			createClassify : function( callback ){ //分类列表
+				$.ajax({
+					url : URL.fragment.createClassify , 
+					type : 'get',
+					data : {},
+					success : function( _data ){
+						setTimeout(function(){
+							callback({
+							    "code":0,
+							    "message":"成功",
+							    "data":[
+								    {
+								        "classifyName":"名称",
+								        "id":1
+								    }
+							    ]
+							});
+						},1000);
+					}
+				});
+			},
+			updateClassify : function( callback ){ //分类修改
+			},
+			delClassify : function( callback ){ //删除分类
+			
+			},
+			publish : function( callback ){ //发布
+			}
 		}
 	}
 	return public;
