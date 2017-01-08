@@ -83,6 +83,11 @@ define(['./data/loginAndOut',"angular", "angularAMD","angular-ui-router",'angula
                 template : '<news-list></news-list>',
                 controllerUrl: 'news/list'
             }))
+            .state('news.edit', angularAMD.route({
+                url: '/edit',
+                template : '<news-edit></news-edit>',
+                controllerUrl: 'news/edit'
+            }))
             .state('news.newslist', angularAMD.route({
                 url: '/newslist',
                 template : '<news-newslist></news-newslist>',
