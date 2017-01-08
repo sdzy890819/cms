@@ -1,5 +1,6 @@
 package com.cn.cms.service;
 
+import com.cn.cms.bo.TemplateSearch;
 import com.cn.cms.enums.TemplateClassifyEnum;
 import com.cn.cms.po.NewsColumn;
 import com.cn.cms.po.Template;
@@ -16,6 +17,10 @@ public interface TemplateService {
     Integer queryTemplateCount();
 
     List<Template> queryTemplateList(Page page);
+
+    Integer searchTemplateCount(TemplateSearch templateSearch);
+
+    List<Template> searchTemplate(TemplateSearch templateSearch, Page page);
 
     void delTemplate(String lastModifyUserId, Long id);
 

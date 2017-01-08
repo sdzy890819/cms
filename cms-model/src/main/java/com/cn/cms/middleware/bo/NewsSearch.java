@@ -26,6 +26,11 @@ public class NewsSearch {
     private String source;
 
     /**
+     * 部门分类ID
+     */
+    private Long categoryId;
+
+    /**
      * 频道ID
      */
     private Long channelId;

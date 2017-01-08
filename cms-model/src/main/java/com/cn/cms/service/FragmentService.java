@@ -1,5 +1,6 @@
 package com.cn.cms.service;
 
+import com.cn.cms.bo.FragmentSearch;
 import com.cn.cms.po.Fragment;
 import com.cn.cms.po.FragmentClassify;
 import com.cn.cms.po.FragmentHistory;
@@ -15,6 +16,10 @@ public interface FragmentService {
     Integer queryFragmentCount();
 
     List<Fragment> queryFragmentList(Page page);
+
+    Integer searchFragementCount(FragmentSearch fragmentSearch);
+
+    List<Fragment> searchFragement(FragmentSearch fragmentSearch, Page page);
 
     Fragment findFragment(Long id);
 

@@ -1,5 +1,6 @@
 package com.cn.cms.biz;
 
+import com.cn.cms.bo.FragmentSearch;
 import com.cn.cms.po.Fragment;
 import com.cn.cms.po.FragmentClassify;
 import com.cn.cms.po.FragmentHistory;
@@ -29,6 +30,16 @@ public class FragmentBiz extends BaseBiz {
         page.setCount(count);
         if(page.isQuery()) {
             List<Fragment> list = fragmentService.queryFragmentList(page);
+            return list;
+        }
+        return null;
+    }
+
+    public List<Fragment> searchFragement(FragmentSearch fragmentSearch, Page page){
+        Integer count = fragmentService.searchFragementCount(fragmentSearch);
+        page.setCount(count);
+        if(page.isQuery()) {
+            List<Fragment> list = fragmentService.searchFragement(fragmentSearch, page);
             return list;
         }
         return null;

@@ -1,5 +1,6 @@
 package com.cn.cms.service.impl;
 
+import com.cn.cms.bo.FragmentSearch;
 import com.cn.cms.dao.FragmentClassifyDao;
 import com.cn.cms.dao.FragmentDao;
 import com.cn.cms.dao.FragmentHistoryDao;
@@ -36,6 +37,16 @@ public class FragmentServiceImpl implements FragmentService {
 
     public List<Fragment> queryFragmentList(Page page) {
         return fragmentDao.queryFragmentList(page);
+    }
+
+    @Override
+    public Integer searchFragementCount(FragmentSearch fragmentSearch) {
+        return fragmentDao.searchFragementCount(fragmentSearch);
+    }
+
+    @Override
+    public List<Fragment> searchFragement(FragmentSearch fragmentSearch, Page page) {
+        return fragmentDao.searchFragement(fragmentSearch, page);
     }
 
     public Fragment findFragment(Long id) {

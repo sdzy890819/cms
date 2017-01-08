@@ -1,5 +1,6 @@
 package com.cn.cms.middleware;
 
+import com.alibaba.fastjson.JSONObject;
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.enums.ESSearchTypeEnum;
 import com.cn.cms.logfactory.CommonLog;
@@ -9,10 +10,7 @@ import com.cn.cms.middleware.bo.NewsSearch;
 import com.cn.cms.middleware.bo.TopicSearch;
 import com.cn.cms.middleware.bo.VideoSearch;
 import com.cn.cms.middleware.po.QueryResult;
-import com.cn.cms.po.Images;
-import com.cn.cms.po.News;
-import com.cn.cms.po.Topic;
-import com.cn.cms.po.Video;
+import com.cn.cms.po.*;
 import com.cn.cms.utils.DateUtils;
 import com.cn.cms.utils.Page;
 import com.cn.cms.utils.StringUtils;
@@ -43,6 +41,7 @@ import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
@@ -62,6 +61,8 @@ public class ESearchClient {
 
     private String url;
 
+    private Calendar calendar = Calendar.getInstance();
+
 
     /**
      * 新闻检索
@@ -79,6 +80,9 @@ public class ESearchClient {
         }
         if(StringUtils.isNotBlank(newsSearch.getSource())){
             qb = qb.must(QueryBuilders.commonTermsQuery(StaticContants.FIELD_SOURCE,newsSearch.getSource()));
+        }
+        if(newsSearch.getCategoryId()!=null && newsSearch.getCategoryId()>0){
+            qb = qb.must(QueryBuilders.termQuery("categoryId", newsSearch.getCategoryId()));
         }
         if(newsSearch.getChannelId()!=null && newsSearch.getChannelId()>0){
             qb = qb.must(QueryBuilders.termQuery(StaticContants.FIELD_CHANNELID, newsSearch.getChannelId()));
@@ -106,30 +110,28 @@ public class ESearchClient {
                 .execute().actionGet();
         SearchHits hits = response.getHits();
         page.setCount((int)hits.getTotalHits());
-        Calendar calendar = Calendar.getInstance();
+
         QueryResult<News> queryResult = new QueryResult<>();
         List<News> newses = new ArrayList<>();
         for(SearchHit hit : hits){
             News news = new News();
-            news.setId((Long)hit.getSource().get("id"));
+            news.setId(convertLong(hit.getSource().get("id").toString()));
             news.setUrl((String)hit.getSource().get("url"));
             news.setTitle((String)hit.getSource().get("title"));
-            news.setPublish((Integer) hit.getSource().get("publish"));
+            news.setPublish(convertInteger( hit.getSource().get("publish")));
             news.setSubTitle((String)hit.getSource().get("subTitle"));
             news.setKeyword((String)hit.getSource().get("keyword"));
             news.setDescription((String)hit.getSource().get("description"));
             news.setSource((String)hit.getSource().get("source"));
             news.setAuthor((String)hit.getSource().get("author"));
-            calendar.setTimeInMillis((Long)hit.getSource().get("buildTime"));
-            news.setBuildTime(calendar.getTime());
+            news.setBuildTime(convertLongAndDate(hit.getSource().get("buildTime")));
             news.setBuildUserId((String)hit.getSource().get("buildUserId"));
-            calendar.setTimeInMillis((Long)hit.getSource().get("writeTime"));
-            news.setWriteTime(calendar.getTime());
+            news.setWriteTime(convertLongAndDate(hit.getSource().get("writeTime")));
             news.setWriteUserId((String)hit.getSource().get("writeUserId"));
-            news.setCategoryId((Long)hit.getSource().get("categoryId"));
-            news.setChannelId((Long)hit.getSource().get("channelId"));
-            news.setColumnId((Long)hit.getSource().get("columnId"));
-            news.setPlatform((Integer)hit.getSource().get("platform"));
+            news.setCategoryId(convertLong(hit.getSource().get("categoryId")));
+            news.setChannelId(convertLong(hit.getSource().get("channelId")));
+            news.setColumnId(convertLong(hit.getSource().get("columnId")));
+            news.setPlatform(convertInteger(hit.getSource().get("platform")));
             news.setRelativePath((String)hit.getSource().get("relativePath"));
             newses.add(news);
         }
@@ -137,6 +139,45 @@ public class ESearchClient {
         queryResult.setPage(page);
         return queryResult;
     }
+
+    /**
+     * 转换类型
+     * @param obj
+     * @return
+     */
+    public Long convertLong(Object obj){
+        if(obj!=null){
+            return Long.parseLong(obj.toString());
+        }
+        return 0L;
+    }
+
+    /**
+     * 转换类型
+     * @param obj
+     * @return
+     */
+    public Integer convertInteger(Object obj){
+        if(obj!=null){
+            return Integer.parseInt(obj.toString());
+        }
+        return 0;
+    }
+
+    /**
+     * 转换类型
+     * @param obj
+     * @return
+     */
+    public Date convertLongAndDate(Object obj){
+        if(obj!=null){
+            calendar.setTimeInMillis(Long.parseLong(obj.toString()));
+            return calendar.getTime();
+        }
+        return null;
+    }
+
+
 
     /**
      * 查询专题
@@ -188,23 +229,21 @@ public class ESearchClient {
         List<Topic> topics = new ArrayList<>();
         for(SearchHit hit : hits){
             Topic topic = new Topic();
-            topic.setId((Long)hit.getSource().get("id"));
+            topic.setId(convertLong(hit.getSource().get("id")));
             topic.setTopicTitle((String)hit.getSource().get("topicTitle"));
             topic.setTopicPath((String)hit.getSource().get("topicPath"));
             topic.setTopicFilename((String)hit.getSource().get("topicFileName"));
-            topic.setTopicClassifyId((Long)hit.getSource().get("topicClassifyId"));
-            topic.setCategoryId((Long)hit.getSource().get("categoryId"));
-            topic.setChannelId((Long)hit.getSource().get("channelId"));
-            calendar.setTimeInMillis((Long)hit.getSource().get("releaseTime"));
-            topic.setReleaseTime(calendar.getTime());
+            topic.setTopicClassifyId(convertLong(hit.getSource().get("topicClassifyId")));
+            topic.setCategoryId(convertLong(hit.getSource().get("categoryId")));
+            topic.setChannelId(convertLong(hit.getSource().get("channelId")));
+            topic.setReleaseTime(convertLongAndDate(hit.getSource().get("releaseTime")));
             topic.setKeyword((String)hit.getSource().get("keyword"));
             topic.setDescription((String)hit.getSource().get("description"));
-            topic.setTopicColumnId((Long)hit.getSource().get("topicColumnId"));
+            topic.setTopicColumnId(convertLong(hit.getSource().get("topicColumnId")));
             topic.setTopicUrl((String)hit.getSource().get("topicUrl"));
             topic.setBuildUserId((String)hit.getSource().get("buildUserId"));
-            calendar.setTimeInMillis((Long)hit.getSource().get("buildTime"));
-            topic.setBuildTime(calendar.getTime());
-            topic.setPublish((Integer)hit.getSource().get("publish"));
+            topic.setBuildTime(convertLongAndDate(hit.getSource().get("buildTime")));
+            topic.setPublish(convertInteger(hit.getSource().get("publish")));
             topics.add(topic);
         }
         queryResult.setList(topics);
@@ -240,20 +279,19 @@ public class ESearchClient {
         List<Images> imagesList = new ArrayList<>();
         for(SearchHit hit : hits){
             Images images = new Images();
-            images.setId((Long)hit.getSource().get("id"));
+            images.setId(convertLong(hit.getSource().get("id")));
             images.setImageUrl((String)hit.getSource().get("imageUrl"));
-            images.setImageWidthPixel((Integer)hit.getSource().get("imageWidthPixel"));
-            images.setImageHeightPixel((Integer)hit.getSource().get("imageHeightPixel"));
-            images.setOrgWidthPixel((Integer)hit.getSource().get("orgWidthPixel"));
-            images.setOrgHeightPixel((Integer)hit.getSource().get("orgHeightPixel"));
+            images.setImageWidthPixel(convertInteger(hit.getSource().get("imageWidthPixel")));
+            images.setImageHeightPixel(convertInteger(hit.getSource().get("imageHeightPixel")));
+            images.setOrgWidthPixel(convertInteger(hit.getSource().get("orgWidthPixel")));
+            images.setOrgHeightPixel(convertInteger(hit.getSource().get("orgHeightPixel")));
             images.setImageTitle((String)hit.getSource().get("imageTitle"));
             images.setUploadUserId((String)hit.getSource().get("uploadUserId"));
-            calendar.setTimeInMillis((Long)hit.getSource().get("uploadTime"));
-            images.setUploadTime(calendar.getTime());
+            images.setUploadTime(convertLongAndDate(hit.getSource().get("uploadTime")));
             images.setImagePath((String)hit.getSource().get("imagePath"));
-            images.setWatermark((Integer)hit.getSource().get("watermark"));
-            images.setCompress((Integer)hit.getSource().get("compress"));
-            images.setPlatform((Integer)hit.getSource().get("platform"));
+            images.setWatermark(convertInteger(hit.getSource().get("watermark")));
+            images.setCompress(convertInteger(hit.getSource().get("compress")));
+            images.setPlatform(convertInteger(hit.getSource().get("platform")));
 
             imagesList.add(images);
         }
@@ -290,15 +328,14 @@ public class ESearchClient {
         List<Video> videos = new ArrayList<>();
         for(SearchHit hit : hits){
             Video video = new Video();
-            video.setId((Long)hit.getSource().get("id"));
+            video.setId(convertLong(hit.getSource().get("id")));
             video.setVideoTitle((String)hit.getSource().get("videoTitle"));
             video.setVideoDesc((String)hit.getSource().get("videoDesc"));
             video.setUploadUserId((String)hit.getSource().get("uploadUserId"));
-            calendar.setTimeInMillis((Long)hit.getSource().get("uploadTime"));
-            video.setUploadTime(calendar.getTime());
+            video.setUploadTime(convertLongAndDate(hit.getSource().get("uploadTime")));
             video.setVideoUrl((String)hit.getSource().get("videoUrl"));
             video.setVideoPath((String) hit.getSource().get("videoPath"));
-            video.setPlatform((Integer)hit.getSource().get("platform"));
+            video.setPlatform(convertInteger(hit.getSource().get("platform")));
 
             videos.add(video);
         }
@@ -331,7 +368,7 @@ public class ESearchClient {
             builder = builder.field("writeUserId", news.getWriteUserId());
             builder = builder.field("buildUserId", news.getBuildUserId());
             builder = builder.field("platform", news.getPlatform());
-            builder = builder.field("content", news.getNewsDetail().getContent());
+            builder = builder.field("content", news.getNewsDetail()!=null?news.getNewsDetail().getContent():"");
             builder = builder.field("url", news.getUrl());
             builder = builder.field("relativePath", news.getRelativePath());
             builder = builder.field("publish", news.getPublish());
@@ -494,6 +531,7 @@ public class ESearchClient {
         try {
             Settings settings = Settings.builder()
                     .put("client.transport.sniff", true)
+                    .put("cluster.name", "cms-application")
                     .put("client.transport.ping_timeout", "10s").build();
             this.client = new PreBuiltTransportClient(settings);
             if(clusterList!=null){
@@ -501,7 +539,7 @@ public class ESearchClient {
                     String items = clusterList.get(i);
                     if(StringUtils.isNotBlank(items)){
                         String[] item = items.split(":");
-                            this.client.addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(item[0]),Integer.parseInt(item[1])));
+                            this.client = this.client.addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(item[0]),Integer.parseInt(item[1])));
                     }
                 }
             }
@@ -520,5 +558,21 @@ public class ESearchClient {
         this.client.close();
         this.client = null;
     }
+
+    public static void main(String[] args){
+        ESearchClient eSearchClient = new ESearchClient();
+        List<String> list = new ArrayList<>();
+        list.add("127.0.0.1:9300");
+        eSearchClient.setClusterList(list);
+        eSearchClient.open();
+        NewsSearch newsSearch = new NewsSearch();
+        newsSearch.setCondition("测试");
+        Page page = new Page(1,20);
+        QueryResult<News> newsQueryResult = eSearchClient.searchNews(newsSearch,page);
+        System.out.println(JSONObject.toJSONString(newsQueryResult));
+
+    }
+
+
 
 }

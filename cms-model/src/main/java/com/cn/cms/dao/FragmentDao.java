@@ -1,5 +1,6 @@
 package com.cn.cms.dao;
 
+import com.cn.cms.bo.FragmentSearch;
 import com.cn.cms.po.Fragment;
 import com.cn.cms.utils.Page;
 import org.apache.ibatis.annotations.Param;
@@ -15,6 +16,11 @@ public interface FragmentDao {
     Integer queryFragmentCount();
 
     List<Fragment> queryFragmentList(@Param(value = "page") Page page);
+
+    Integer searchFragementCount(@Param(value = "p1") FragmentSearch fragmentSearch);
+
+    List<Fragment> searchFragement(@Param(value = "p1") FragmentSearch fragmentSearch,
+                                   @Param(value = "page") Page page);
 
     Fragment findFragment(@Param(value = "id") Long id);
 

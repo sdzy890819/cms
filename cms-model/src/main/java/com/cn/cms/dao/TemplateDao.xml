@@ -31,12 +31,32 @@
         template_name,template_desc,filename,path,template_classify,user_id,job,encoded,channel_id,sort_num,publish
     </sql>
 
-    <select id="queryTemplateCount">
+    <select id="queryTemplateCount" resultType="java.lang.Integer">
         select count(1) from template <include refid="delTag" />;
     </select>
     
     <select id="queryTemplateList" resultMap="template">
         select <include refid="sql_column" /> from template <include refid="delTag" /> limit ${page.start},${page.pageSize} ;
+    </select>
+
+    <select id="searchTemplateCount" resultType="java.lang.Integer">
+        select count(1) from template <include refid="delTag" />
+        <if test="p1.condition != null">
+          and template_name like '%#{p1.condition}%'
+        </if>
+        <if test="p1.channelId != null">
+          and channel_id = ${p1.channelId}
+        </if>;
+    </select>
+
+    <select id="searchTemplate" resultMap="template">
+        select <include refid="sql_column" /> from template <include refid="delTag" />
+        <if test="p1.condition != null">
+            and template_name like '%#{p1.condition}%'
+        </if>
+        <if test="p1.channelId != null">
+            and channel_id = ${p1.channelId}
+        </if> limit ${page.start},${page.pageSize};
     </select>
 
     <update id="delTemplate">
