@@ -14,6 +14,7 @@ echo "----------------------------------------------------"
 cd /data/projects/cms-web/
 jar -xvf /data/source/cms/cms-web/target/cms-web.war 
 cp -rf /data/source/cms/cms-publish/target/cms-publish.jar /data/projects/cms-publish/
+cp -rf /data/source/cms/html /data/
 echo "----------------------------------------------------"
 echo "-----------------------project restart------------------------"
 echo "----------------------------------------------------"
@@ -26,6 +27,3 @@ then
 fi
 /usr/local/tomcat/bin/catalina.sh start
 
-echo "----------------------------------------------------"
-echo "-----------------------END------------------------"
-echo "----------------------------------------------------"
