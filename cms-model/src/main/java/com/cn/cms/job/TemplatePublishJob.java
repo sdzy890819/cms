@@ -2,14 +2,12 @@ package com.cn.cms.job;
 
 import com.cn.cms.biz.ChannelBiz;
 import com.cn.cms.biz.NewsBiz;
+import com.cn.cms.biz.Template2Biz;
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.enums.TemplateClassifyEnum;
 import com.cn.cms.logfactory.CommonLog;
 import com.cn.cms.logfactory.CommonLogFactory;
-import com.cn.cms.po.Base;
-import com.cn.cms.po.Channel;
-import com.cn.cms.po.News;
-import com.cn.cms.po.Template;
+import com.cn.cms.po.*;
 import com.cn.cms.utils.ContextUtil;
 import com.cn.cms.utils.FileUtil;
 import com.cn.cms.utils.StringUtils;
@@ -37,48 +35,67 @@ public class TemplatePublishJob extends BaseTask {
     /**
      * 模版信息.
      */
-    private Template template;
+    private TemplateBasics templateBasics;
 
     /**
      * 列表页使用
      */
     private Integer page = StaticContants.PAGE;
 
+    private Long channelId;
+
     private ChannelBiz channelBiz = ContextUtil.getContextUtil().getBean(ChannelBiz.class);
 
     private NewsBiz newsBiz = ContextUtil.getContextUtil().getBean(NewsBiz.class);
 
+    private Template2Biz template2Biz = ContextUtil.getContextUtil().getBean(Template2Biz.class);
+
 
     public TemplatePublishJob(){}
 
-    public TemplatePublishJob(Base base, Template template, Integer page){
+    public TemplatePublishJob(Base base, TemplateBasics templateBasics, Integer page){
         this.base = base;
-        this.template = template;
+        this.templateBasics = templateBasics;
         this.page = page;
     }
 
     @Override
     protected void execute(){
-        Channel channel = channelBiz.getChannel(template.getChannelId());
         Map<String, Object> map = new HashMap<>();
-        map.put(StaticContants.TEMPLATE_KEY_TEMPLATE, template);
+        map.put(StaticContants.TEMPLATE_KEY_TEMPLATE, templateBasics);
         map.put(StaticContants.TEMPLATE_KEY_DATA, base);
         map.put(StaticContants.TEMPLATE_KEY_PAGE, page);
-        if(template.getTemplateClassify() == TemplateClassifyEnum.detail.getType()) {
-            News news = (News)base;
-            String publishPath = StringUtils.concatUrl(channel.getChannelPath(),news.getRelativePath());
-            VelocityUtils.publish(map, StringUtils.concatUrl(channel.getTemplatePath(), template.getPath(), template.getFilename()),
-                    publishPath, template.getEncoded());
+        map.put(StaticContants.TEMPLATE_KEY_CHANNELID, channelId);
+        Channel channel ;
+        String templatePath;
+        if(templateBasics instanceof Template2){
+            channel = channelBiz.getChannel(channelId);
+            Template2Base template2Base = template2Biz.getTemplate2Base();
+            templatePath = template2Base.getBasePath();
+
         }else{
-            String publishPath = StringUtils.concatUrl(channel.getChannelPath(), template.getPath(), FileUtil.getFileNameByPage(template.getFilename(),getPage()));
-            VelocityUtils.publish(map, StringUtils.concatUrl(channel.getTemplatePath(), template.getPath(), template.getFilename()),
-                    publishPath, template.getEncoded());
+            Template template = (Template) templateBasics;
+            channel = channelBiz.getChannel(template.getChannelId());
+            templatePath = channel.getTemplatePath();
+
         }
+        String publishPath;
+        String fromPath;
+        if(templateBasics.getTemplateClassify() == TemplateClassifyEnum.detail.getType()) {
+            News news = (News)base;
+            publishPath = StringUtils.concatUrl(channel.getChannelPath(),news.getRelativePath());
+            fromPath = StringUtils.concatUrl(templatePath, templateBasics.getPath(), templateBasics.getFilename());
+        }else{
+            publishPath = StringUtils.concatUrl(channel.getChannelPath(), templateBasics.getPath(), FileUtil.getFileNameByPage(templateBasics.getFilename(),getPage()));
+            fromPath = StringUtils.concatUrl(templatePath, templateBasics.getPath(), templateBasics.getFilename());
+        }
+        VelocityUtils.publish(map, fromPath,
+                publishPath, templateBasics.getEncoded());
 
     }
 
     @Override
     protected String getJobName() {
-        return getTemplate().getTemplateName().concat(" 生成");
+        return getTemplateBasics().getTemplateName().concat(" 生成");
     }
 }

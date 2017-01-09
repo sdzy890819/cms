@@ -80,6 +80,8 @@ public class TAGList extends Directive {
     private Template template ;
 
     private Integer page;
+
+    private Long channelId;
     //------------------------------------------
 
 
@@ -99,6 +101,7 @@ public class TAGList extends Directive {
         page = (Integer) context.get(StaticContants.TEMPLATE_KEY_PAGE);
         data = (Base) context.get(StaticContants.TEMPLATE_KEY_DATA);
         template = (Template) context.get(StaticContants.TEMPLATE_KEY_TEMPLATE);
+        channelId = (Long) context.get(StaticContants.TEMPLATE_KEY_CHANNELID);
         for(int i=0; i<node.jjtGetNumChildren(); i++) {
             if (node.jjtGetChild(i) != null ) {
                 if(!(node.jjtGetChild(i) instanceof ASTBlock)) {
@@ -161,7 +164,8 @@ public class TAGList extends Directive {
         if(pageObj.hasNextPage() && list!=null && list.size() >= pageObj.getPageSize()){
             TemplatePublishJob templatePublishJob = new TemplatePublishJob();
             templatePublishJob.setBase(data);
-            templatePublishJob.setTemplate(template);
+            templatePublishJob.setTemplateBasics(template);
+            templatePublishJob.setChannelId(channelId);
             templatePublishJob.setPage(pageObj.getNextPage());
             threadTaskExecutor.execute(templatePublishJob);
         }

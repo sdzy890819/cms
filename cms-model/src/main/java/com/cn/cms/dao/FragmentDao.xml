@@ -17,6 +17,7 @@
         <result column="fragment_name" property="fragmentName" />
         <result column="sort_num" property="sortNum" />
         <result column="fragment_model" property="fragmentModel" />
+        <result column="channel_id" property="channelId" />
     </resultMap>
 
 
@@ -24,9 +25,10 @@
 
     <sql id="sql_column">
         id,create_time,update_time,del_tag,last_modify_user_id,fragment_classify_id,fragment_content,fragment_name,sort_num,fragment_model
+        ,channel_id
     </sql>
     <sql id="sql_column_1">
-        id,last_modify_user_id,fragment_classify_id,fragment_name
+        id,last_modify_user_id,fragment_classify_id,fragment_name,channel_id
     </sql>
 
     <select id="queryFragmentCount" resultType="java.lang.Integer">
@@ -44,7 +46,11 @@
         </if>
         <if test="p1.fragmentClassifyId != null">
             and fragment_classify_id = ${p1.fragmentClassifyId}
-        </if>;
+        </if>
+        <if test="p1.channelId != null ">
+            and channel_id = ${p1.channelId}
+        </if>
+        ;
     </select>
 
     <select id="searchFragement" resultMap="fragment">
@@ -54,7 +60,11 @@
         </if>
         <if test="p1.fragmentClassifyId != null">
           and fragment_classify_id = ${p1.fragmentClassifyId}
-        </if> limit ${page.start},${page.pageSize};
+        </if>
+        <if test="p1.channelId != null ">
+            and channel_id = ${p1.channelId}
+        </if>
+         limit ${page.start},${page.pageSize};
     </select>
 
     <select id="findFragment" resultMap="fragment">
@@ -75,6 +85,9 @@
           <if test="p1.fragmentClassifyId != null ">
             fragment_classify_id = ${p1.fragmentClassifyId},
           </if>
+          <if test="p1.channelId != null ">
+              channel_id = ${p1.channelId},
+          </if>
           <if test="p1.fragmentName != null ">
             fragment_name = #{p1.fragmentName},
           </if>
@@ -91,7 +104,8 @@
 
     <insert id="saveFragment">
       insert into fragment ( <include refid="sql_column"/> ) values
-        ( null,null,null,null,#{p1.lastModifyUserId}, ${p1.fragmentClassifyId}, null, #{p1.fragmentName}, ${p1.sortNum}, #{p1.fragmentModel});
+        ( null,null,null,null,#{p1.lastModifyUserId}, ${p1.fragmentClassifyId}, null, #{p1.fragmentName},
+        ${p1.sortNum}, #{p1.fragmentModel},${p1.channelId});
     </insert>
 
 </mapper>

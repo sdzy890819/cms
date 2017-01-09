@@ -17,8 +17,8 @@
         <result column="channel_id" property="channelId" />
         <result column="list_id" property="listId" />
         <result column="detail_id" property="detailId" />
-        <result column="list_template_id" property="listTemplateId" />
-        <result column="detail_template_id" property="detailTemplateId" />
+        <result column="list_template2_id" property="listTemplate2Id" />
+        <result column="detail_template2_id" property="detailTemplate2Id" />
         <result column="keywords" property="keywords"/>
         <result column="description" property="description" />
     </resultMap>
@@ -27,7 +27,7 @@
     <sql id="delTag"> where del_tag = 1 </sql>
 
     <sql id="sql_column">
-        id,create_time,update_time,del_tag,last_modify_user_id,column_name,channel_id,list_id,detail_id,list_template_id,detail_template_id,keywords,description
+        id,create_time,update_time,del_tag,last_modify_user_id,column_name,channel_id,list_id,detail_id,list_template2_id,detail_template2_id,keywords,description
     </sql>
 
     <select id="queryList" resultMap="newsColumn">
@@ -43,7 +43,7 @@
 
     <insert id="saveNewsColumn">
         insert into news_column ( <include refid="sql_column"/> ) values (null,null,null,null,#{p1.lastModifyUserId},#{p1.columnName},${p1.channelId},${p1.listId},
-        ${p1.detailId},${p1.listTemplateId},${p1.detailTemplateId},#{p1.keywords},#{p1.description});
+        ${p1.detailId},${p1.listTemplate2Id},${p1.detailTemplate2Id},#{p1.keywords},#{p1.description});
     </insert>
 
     <update id="updateNewsColumn">
@@ -61,11 +61,11 @@
             <if test="p1.detailId != null">
                 detail_id = ${p1.detailId},
             </if>
-            <if test="p1.templateId != null">
-                list_template_id = ${p1.listTemplateId},
+            <if test="p1.listTemplate2Id != null">
+                list_template2_id = ${p1.listTemplate2Id},
             </if>
-            <if test="p1.detailTemplateId != null">
-                detail_template_id = ${p1.detailTemplateId},
+            <if test="p1.detailTemplate2Id != null">
+                detail_template2_id = ${p1.detailTemplate2Id},
             </if>
             <if test="p1.keywords != null">
                 keywords = ${p1.keywords},
@@ -81,7 +81,7 @@
     <update id="publishListNewsColumn">
         update news_column
         <set>
-            list_template_id = ${p1.listTemplateId},
+            list_template2_id = ${p1.listTemplate2Id},
             last_modify_user_id = #{p1.lastModifyUserId}
         </set>
         where id = ${p1.id};
@@ -90,7 +90,7 @@
     <update id="publishDetailNewsColumn">
         update news_column
         <set>
-            detail_template_id = ${p1.detailTemplateId},
+            detail_template2_id = ${p1.detailTemplate2Id},
             last_modify_user_id = #{p1.lastModifyUserId}
         </set>
         where id = ${p1.id};

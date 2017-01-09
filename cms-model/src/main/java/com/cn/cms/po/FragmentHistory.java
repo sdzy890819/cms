@@ -14,6 +14,11 @@ import java.util.Date;
 public class FragmentHistory extends Base {
 
     /**
+     * 频道ID
+     */
+    private Long channelId;
+
+    /**
      * 碎片分类ID
      */
     private Long fragmentClassifyId;

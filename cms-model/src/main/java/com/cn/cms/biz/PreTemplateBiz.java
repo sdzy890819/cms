@@ -90,6 +90,7 @@ public class PreTemplateBiz extends BaseBiz {
      * @param listId
      * @param classifyEnum
      */
+    @Deprecated
     public void buildListTemplate(NewsColumn newsColumn , Long listId, TemplateClassifyEnum classifyEnum){
         PreTemplate preTemplate = preTemplateService.getPreTemplate(listId);
         Channel channel = channelBiz.getChannel(newsColumn.getChannelId());
@@ -140,6 +141,7 @@ public class PreTemplateBiz extends BaseBiz {
      * @param detailId
      * @param classifyEnum
      */
+    @Deprecated
     public void buildDetailTemplate(NewsColumn newsColumn , Long detailId, TemplateClassifyEnum classifyEnum){
         Template template = templateService.findTemplateList(newsColumn.getChannelId(), classifyEnum.getType());
         PreTemplate preTemplate = preTemplateService.getPreTemplate(detailId);
@@ -197,6 +199,7 @@ public class PreTemplateBiz extends BaseBiz {
      * @param templateId
      * @param lastModifyUserId
      */
+    @Deprecated
     public void destroyListTemplate(Long newsColumnId, Long templateId, String lastModifyUserId){
         templateService.delRelation(templateId,newsColumnId,RelationTypeEnum.column.getType());
         Integer count = templateService.queryListForTemplateIdCount(templateId);
@@ -213,6 +216,7 @@ public class PreTemplateBiz extends BaseBiz {
      * @param fromFilePath
      * @param toFilePath
      */
+    @Deprecated
     public void templatePublish(NewsColumn newsColumn, String fromFilePath, String toFilePath){
         String content = FileUtil.readFile(fromFilePath);
         List<String> keys = FragmentUtil.getKey(content,RegexNumEnum.REGEX_ALL);

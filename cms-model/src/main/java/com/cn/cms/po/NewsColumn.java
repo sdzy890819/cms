@@ -23,24 +23,24 @@ public class NewsColumn extends Base {
     private Long channelId;
 
     /**
-     * 列表页预模版ID
+     * 列表页预模版ID[废弃]
      */
     private Long listId;
 
     /**
-     * 详情页预模版ID
+     * 详情页预模版ID[废弃]
      */
     private Long detailId;
 
     /**
      * 模版ID
      */
-    private Long listTemplateId;
+    private Long listTemplate2Id;
 
     /**
      * 模版ID
      */
-    private Long detailTemplateId;
+    private Long detailTemplate2Id;
 
     /**
      * 关键字

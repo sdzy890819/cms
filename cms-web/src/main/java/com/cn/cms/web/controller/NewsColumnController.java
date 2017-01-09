@@ -58,6 +58,8 @@ public class NewsColumnController extends BaseController {
                                    @RequestParam(value = "channelId") Long channelId,
                                    @RequestParam(value = "listId", required = false) Long listId,
                                    @RequestParam(value = "detailId", required = false) Long detailId,
+                                   @RequestParam(value = "listTemplate2Id", required = false) Long listTemplate2Id,
+                                   @RequestParam(value = "detailTemplate2Id", required = false) Long detailTemplate2Id,
                                    @RequestParam(value = "keywords", required = false) String keywords,
                                    @RequestParam(value = "description", required = false) String description){
         NewsColumn newsColumn = new NewsColumn();
@@ -66,6 +68,8 @@ public class NewsColumnController extends BaseController {
         newsColumn.setColumnName(columnName);
         newsColumn.setDetailId(detailId);
         newsColumn.setListId(listId);
+        newsColumn.setListTemplate2Id(listTemplate2Id);
+        newsColumn.setDetailTemplate2Id(detailTemplate2Id);
         newsColumn.setKeywords(keywords);
         newsColumn.setDescription(description);
         newsBiz.saveNewsColumn(newsColumn);
@@ -93,6 +97,8 @@ public class NewsColumnController extends BaseController {
                                    @RequestParam(value = "channelId", required = false) Long channelId,
                                    @RequestParam(value = "listId", required = false) Long listId,
                                    @RequestParam(value = "detailId", required = false) Long detailId,
+                                   @RequestParam(value = "listTemplate2Id", required = false) Long listTemplate2Id,
+                                   @RequestParam(value = "detailTemplate2Id", required = false) Long detailTemplate2Id,
                                    @RequestParam(value = "keywords", required = false) String keywords,
                                    @RequestParam(value = "description", required = false) String description){
         NewsColumn newsColumn = new NewsColumn();
@@ -102,6 +108,8 @@ public class NewsColumnController extends BaseController {
         newsColumn.setColumnName(columnName);
         newsColumn.setDetailId(detailId);
         newsColumn.setListId(listId);
+        newsColumn.setDetailTemplate2Id(detailTemplate2Id);
+        newsColumn.setListTemplate2Id(listTemplate2Id);
         newsColumn.setKeywords(keywords);
         newsColumn.setDescription(description);
         newsBiz.updateNewsColumn(newsColumn);

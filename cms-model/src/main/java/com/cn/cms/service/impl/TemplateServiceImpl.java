@@ -134,10 +134,10 @@ public class TemplateServiceImpl implements TemplateService {
             templateRelationDao.saveRelation(templateRelation);
         }
         if(template.getTemplateClassify() == TemplateClassifyEnum.list.getType()) {
-            newsColumn.setListTemplateId(template.getId());
+//            newsColumn.setListTemplateId(template.getId());
             newsColumnDao.publishListNewsColumn(newsColumn);
         }else if(template.getTemplateClassify() == TemplateClassifyEnum.detail.getType()){
-            newsColumn.setDetailTemplateId(template.getId());
+//            newsColumn.setDetailTemplateId(template.getId());
             newsColumnDao.publishDetailNewsColumn(newsColumn);
         }
     }

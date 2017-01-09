@@ -14,6 +14,11 @@ public class Fragment extends Base {
     /**
      * 碎片分类ID
      */
+    private Long channelId;
+
+    /**
+     * 碎片分类ID
+     */
     private Long fragmentClassifyId;
 
     /**

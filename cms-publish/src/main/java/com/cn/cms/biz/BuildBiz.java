@@ -45,6 +45,9 @@ public class BuildBiz extends BaseBiz {
     @Resource
     private ChannelBiz channelBiz;
 
+    @Resource
+    private Template2Biz template2Biz;
+
     @Resource(name = "threadTaskExecutor")
     private ThreadPoolTaskExecutor threadTaskExecutor;
 
@@ -65,6 +68,7 @@ public class BuildBiz extends BaseBiz {
                 News news = newsBiz.findNewsAndDetail(body.getId());
                 templates = templateBiz.findTemplateListByRelation(news.getColumnId(), RelationTypeEnum.column.getType());
                 this.publishNews(news, body);
+                this.publishTemplate2(news);
                 base = news;
                 break;
             }
@@ -87,6 +91,33 @@ public class BuildBiz extends BaseBiz {
             }
         }
         this.publishTemplate(templates, base);
+    }
+
+
+    /**
+     * 第二模版发布
+     * @param news
+     */
+    public void publishTemplate2(News news){
+        if(news.getColumnId()!=null && news.getColumnId()>0) {
+            NewsColumn newsColumn = newsBiz.getNewsColumn(news.getColumnId());
+            if(newsColumn.getListTemplate2Id()!=null && newsColumn.getListTemplate2Id() > 0){
+                Template2 template2 = template2Biz.getTemplate2(newsColumn.getListTemplate2Id());
+                TemplatePublishJob templatePublishJob = new TemplatePublishJob();
+                templatePublishJob.setChannelId(news.getChannelId());
+                templatePublishJob.setTemplateBasics(template2);
+                threadTaskExecutor.execute(templatePublishJob);
+            }
+            if(newsColumn.getDetailTemplate2Id() != null && newsColumn.getDetailTemplate2Id() > 0){
+                Template2 template2 = template2Biz.getTemplate2(newsColumn.getDetailTemplate2Id());
+                TemplatePublishJob templatePublishJob = new TemplatePublishJob();
+                templatePublishJob.setTemplateBasics(template2);
+                templatePublishJob.setChannelId(news.getChannelId());
+                templatePublishJob.setBase(news);
+                threadTaskExecutor.execute(templatePublishJob);
+            }
+
+        }
     }
 
     /**
@@ -133,7 +164,7 @@ public class BuildBiz extends BaseBiz {
                 if(templates.get(i).getTemplateClassify() == TemplateClassifyEnum.detail.getType()) {
                     templatePublishJob.setBase(base);
                 }
-                templatePublishJob.setTemplate(templates.get(i));
+                templatePublishJob.setTemplateBasics(templates.get(i));
                 threadTaskExecutor.execute(templatePublishJob);
             }
         }

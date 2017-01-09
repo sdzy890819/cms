@@ -158,6 +158,7 @@ public class FragmentController extends BaseController {
     @RequestMapping(value = "/updateFragment", method = RequestMethod.POST)
     public String updateFragment(HttpServletRequest request,
                                  @RequestParam(value = "id") Long id,
+                                 @RequestParam(value = "channelId",required = false) Long channelId,
                                  @RequestParam(value = "fragmentClassifyId",required = false) Long fragmentClassifyId,
                                  @RequestParam(value = "fragmentName",required = false) String fragmentName,
                                  @RequestParam(value = "fragmentModel",required = false) String fragmentModel,
@@ -166,6 +167,7 @@ public class FragmentController extends BaseController {
         if(fragment == null){
             return ApiResponse.returnFail(StaticContants.ERROR_FRAGMENT_NOT_FOUND);
         }
+        fragment.setChannelId(channelId);
         fragment.setFragmentName(fragmentName);
         fragment.setFragmentClassifyId(fragmentClassifyId);
         fragment.setFragmentModel(fragmentModel);
@@ -189,11 +191,13 @@ public class FragmentController extends BaseController {
     @CheckAuth( name = "fragment:write" )
     @RequestMapping(value = "/createFragment", method = RequestMethod.GET)
     public String createFragment(HttpServletRequest request,
+                                 @RequestParam(value = "channelId",required = false) Long channelId,
                                  @RequestParam(value = "fragmentClassifyId") Long fragmentClassifyId,
                                  @RequestParam(value = "fragmentName") String fragmentName,
                                  @RequestParam(value = "fragmentModel") String fragmentModel,
                                  @RequestParam(value = "sortNum") Integer sortNum){
         Fragment fragment = new Fragment();
+        fragment.setChannelId(channelId);
         fragment.setFragmentName(fragmentName);
         fragment.setFragmentClassifyId(fragmentClassifyId);
         fragment.setFragmentModel(fragmentModel);

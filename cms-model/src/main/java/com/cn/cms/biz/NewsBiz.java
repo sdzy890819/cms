@@ -73,12 +73,13 @@ public class NewsBiz extends BaseBiz {
      */
     public void saveNewsColumn(NewsColumn newsColumn){
         newsService.saveNewsColumn(newsColumn);
-        if(newsColumn.getListId()!=null){
-            preTemplateBiz.buildListTemplate(newsColumn, newsColumn.getListId(), TemplateClassifyEnum.list);
-        }
-        if(newsColumn.getDetailId()!=null){
-            preTemplateBiz.buildDetailTemplate(newsColumn, newsColumn.getDetailId(), TemplateClassifyEnum.detail);
-        }
+//        作废
+//        if(newsColumn.getListId()!=null){
+//            preTemplateBiz.buildListTemplate(newsColumn, newsColumn.getListId(), TemplateClassifyEnum.list);
+//        }
+//        if(newsColumn.getDetailId()!=null){
+//            preTemplateBiz.buildDetailTemplate(newsColumn, newsColumn.getDetailId(), TemplateClassifyEnum.detail);
+//        }
     }
 
     /**
@@ -86,20 +87,21 @@ public class NewsBiz extends BaseBiz {
      * @param newsColumn
      */
     public void updateNewsColumn(NewsColumn newsColumn){
-        NewsColumn old = newsService.getNewsColumn(newsColumn.getId());
+//        作废
+//        NewsColumn old = newsService.getNewsColumn(newsColumn.getId());
         newsService.updateNewsColumn(newsColumn);
-        if(old.getListId() != newsColumn.getListId() && newsColumn.getListId()!=null){
-            if(old.getListTemplateId()!=null){
-                preTemplateBiz.destroyListTemplate(old.getId(), old.getListTemplateId(), newsColumn.getLastModifyUserId());
-            }
-            preTemplateBiz.buildListTemplate(newsColumn, newsColumn.getListId(), TemplateClassifyEnum.list);
-        }
-        if(old.getDetailId() != newsColumn.getDetailId() && newsColumn.getDetailId()!=null){
-            if(old.getDetailTemplateId()!=null){
-                preTemplateBiz.destroyListTemplate(old.getId(), old.getDetailTemplateId(), newsColumn.getLastModifyUserId());
-            }
-            preTemplateBiz.buildDetailTemplate(newsColumn, newsColumn.getDetailId(), TemplateClassifyEnum.detail);
-        }
+//        if(old.getListId() != newsColumn.getListId() && newsColumn.getListId()!=null){
+//            if(old.getListTemplateId()!=null){
+//                preTemplateBiz.destroyListTemplate(old.getId(), old.getListTemplateId(), newsColumn.getLastModifyUserId());
+//            }
+//            preTemplateBiz.buildListTemplate(newsColumn, newsColumn.getListId(), TemplateClassifyEnum.list);
+//        }
+//        if(old.getDetailId() != newsColumn.getDetailId() && newsColumn.getDetailId()!=null){
+//            if(old.getDetailTemplateId()!=null){
+//                preTemplateBiz.destroyListTemplate(old.getId(), old.getDetailTemplateId(), newsColumn.getLastModifyUserId());
+//            }
+//            preTemplateBiz.buildDetailTemplate(newsColumn, newsColumn.getDetailId(), TemplateClassifyEnum.detail);
+//        }
     }
 
     /**
@@ -117,14 +119,15 @@ public class NewsBiz extends BaseBiz {
      * @param id
      */
     public void delNewsColumn(String lastModifyUserId, Long id){
-        NewsColumn old = newsService.getNewsColumn(id);
+//        作废
+//        NewsColumn old = newsService.getNewsColumn(id);
         newsService.delNewsColumn(lastModifyUserId, id);
-        if(old !=null && old.getDetailTemplateId()!=null){
-            preTemplateBiz.destroyListTemplate(old.getId(), old.getDetailTemplateId(), lastModifyUserId);
-        }
-        if(old !=null && old.getListTemplateId()!=null){
-            preTemplateBiz.destroyListTemplate(old.getId(), old.getListTemplateId(), lastModifyUserId);
-        }
+//        if(old !=null && old.getDetailTemplateId()!=null){
+//            preTemplateBiz.destroyListTemplate(old.getId(), old.getDetailTemplateId(), lastModifyUserId);
+//        }
+//        if(old !=null && old.getListTemplateId()!=null){
+//            preTemplateBiz.destroyListTemplate(old.getId(), old.getListTemplateId(), lastModifyUserId);
+//        }
     }
 
     public List<News> listNews(Page page){

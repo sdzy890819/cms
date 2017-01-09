@@ -1,8 +1,10 @@
 package com.cn.cms.web.controller;
 
 import com.cn.cms.biz.FragmentBiz;
+import com.cn.cms.biz.Template2Biz;
 import com.cn.cms.biz.TemplateBiz;
 import com.cn.cms.bo.FragmentSearch;
+import com.cn.cms.bo.Template2Search;
 import com.cn.cms.bo.TemplateSearch;
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.middleware.ESearchClient;
@@ -45,6 +47,9 @@ public class SearchController extends BaseController {
 
     @Resource
     private TemplateBiz templateBiz;
+
+    @Resource
+    private Template2Biz template2Biz;
 
     /**
      * 全文检索新闻
@@ -252,4 +257,27 @@ public class SearchController extends BaseController {
         return ApiResponse.returnSuccess(queryResult);
     }
 
+
+    /**
+     * 搜索模版
+     * @param condition
+     * @param page
+     * @param pageSize
+     * @return
+     */
+    @CheckToken
+    @CheckAuth(name = "template2:search")
+    @RequestMapping(value = "/searchTemplate2", method = RequestMethod.POST)
+    public String searchTemplate2(@RequestParam(value = "condition", required = false) String condition,
+                                 @RequestParam(value = "page", required = false) Integer page,
+                                 @RequestParam(value = "pageSize", required = false) Integer pageSize){
+        Page pageObj = new Page(page, pageSize);
+        Template2Search template2Search = new Template2Search();
+        template2Search.setCondition(condition);
+        List<Template2> result = template2Biz.searchTemplate2(template2Search, pageObj);
+        QueryResult<Template2> queryResult = new QueryResult<>();
+        queryResult.setPage(pageObj);
+        queryResult.setList(result);
+        return ApiResponse.returnSuccess(queryResult);
+    }
 }

@@ -164,6 +164,9 @@ public class StaticContants {
 
     public static final String TEMPLATE_KEY_TEMPLATE = "template";
 
+    public static final String TEMPLATE_KEY_CHANNELID = "channelId";
+
+
     public static final int TEMPLATE_SIZE = 100;
 
     public static final int TEMPLATE_COUNT = 100;
