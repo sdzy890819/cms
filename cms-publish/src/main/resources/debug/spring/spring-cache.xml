@@ -15,11 +15,11 @@
 
     <bean id="jedisPool" class="redis.clients.jedis.JedisSentinelPool" scope="singleton">
         <constructor-arg index="0" >
-            <value>sentinel-p5wc</value>
+            <value>${redis.master.group.name}</value>
         </constructor-arg>
         <constructor-arg index="1" >
             <set>
-                <value>${redis.host}:${redis.port}</value>
+                <value>${redis.host}</value>
             </set>
         </constructor-arg>
         <constructor-arg index="2" ref="jedisPoolConfig" />
