@@ -8,7 +8,7 @@ define(function(){
 			verify : 'title'
 		},
 		{
-			title : 'maxTitle',
+			title : 'subTitle',
 			name : '附标题',
 			placeholder : '请输入附标题',
 			type : 'text',
@@ -38,14 +38,14 @@ define(function(){
 			}
 		],
 		{
-			title : 'describe',
+			title : 'description',
 			name : '描述',
 			placeholder : '描述',
 			type : 'textarea',
 			check : false
 		},
 		{
-			title : 'selectCoumn',
+			title : 'channelId',
 			name : '选择频道栏目',
 			type : 'select',
 			verify : 'select',
@@ -78,7 +78,7 @@ define(function(){
 			type : 'edit'
 		},
 		{
-			title : 'date',
+			title : 'buildTime',
 			name : '定时发布',
 			placeholder : '请选择时间 年/月/日 时:分:秒',
 			type : 'date',

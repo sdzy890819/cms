@@ -447,6 +447,45 @@ define(['./URL','jquery'],function(URL,$){
 					},
 					error : function(){}
 				})
+			},
+			newsdetail : function( callback ){ //获取新闻详细信息
+				$.ajax({
+					url : URL.news.newsdetail , 
+					type : 'get',
+					data : {},
+					success : function( _data ){
+						setTimeout(function(){
+							callback({
+							    "code":0,
+							    "message":"成功",
+							    "data":{
+					                "id":1,
+					                "title":"标题",
+					                "subTitle":"子标题",
+					                "keyword":"关键字 多个关键字按照空格分割",
+					                "description":"SEO描述",
+					                "source":"来源",
+					                "author":"作者",
+					                "buildTime":"发布时间",
+					                "writeTime":"撰稿时间",
+					                "channelId":10,//频道ID
+					                "columnId":10,//栏目ID
+					                "write_user_id":"123123213123123123",//撰稿人
+					                "writeUserName":"撰稿人"
+					                "buildUserId":"发布人"
+					                "platform",1
+					                "platformStr","平台名称",
+					                "newsDetail":{
+					                    "content":"详细内容",
+					                    "newsId":1,
+					                    "id":1
+					                }
+							    }
+							});
+						}, 1000);
+					},
+					error : function(){}
+				})
 			}
 		},
 		category : { //部门分类
