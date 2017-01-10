@@ -38,7 +38,7 @@
 	</mvc:annotation-driven>
 
 	<!-- 允许对静态资源文件的访问 -->
-	<mvc:default-servlet-handler/>
+	<mvc:default-servlet-handler default-servlet-name="cmsweb-servlet"/>
 
 
 
