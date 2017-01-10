@@ -24,16 +24,16 @@ public class CheckTokenInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
-//		if(handler instanceof HandlerMethod){
-//			HandlerMethod hm = (HandlerMethod) handler;
-//			if(hm.getMethodAnnotation(CheckToken.class) != null) {
-//				if(userBiz.checkUserToken(request)){
-//					return true;
-//				}else{
-//					throw new BizException(ErrorCodeEnum.ERROR_LOGIN_FAIL.getType(),ErrorCodeEnum.ERROR_LOGIN_FAIL.getMessage());
-//				}
-//			}
-//		}
+		if(handler instanceof HandlerMethod){
+			HandlerMethod hm = (HandlerMethod) handler;
+			if(hm.getMethodAnnotation(CheckToken.class) != null) {
+				if(userBiz.checkUserToken(request)){
+					return true;
+				}else{
+					throw new BizException(ErrorCodeEnum.ERROR_LOGIN_FAIL.getType(),ErrorCodeEnum.ERROR_LOGIN_FAIL.getMessage());
+				}
+			}
+		}
 		return true;
 	}
 	
