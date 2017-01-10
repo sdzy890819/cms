@@ -33,6 +33,7 @@ import java.util.Map;
  */
 
 @Controller
+@RequestMapping(value = "/webapi/")
 public class PreviewController extends BaseController {
 
     @Resource

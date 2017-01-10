@@ -33,7 +33,7 @@ import java.util.*;
  */
 
 @Controller
-@RequestMapping(value="/news/",produces = "application/json; charset=UTF-8")
+@RequestMapping(value="/webapi/news/",produces = "application/json; charset=UTF-8")
 @ResponseBody
 public class NewsController extends BaseController {
 

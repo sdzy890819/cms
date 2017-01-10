@@ -24,13 +24,13 @@
     <sql id="delTag"> where del_tag = 1 </sql>
 
     <sql id="sql_column">
-        id,create_time,update_time,del_tag,last_modify_user_id,
+        id,last_modify_user_id,
         video_title,video_desc,upload_user_id,upload_time,video_url,video_path,platform
     </sql>
 
-    <insert id="saveVideo">
+    <insert id="saveVideo" useGeneratedKeys="true" keyProperty="p1.id">
     insert into video ( <include refid="sql_column"/> ) values (
-        null,null,null,null,#{p1.lastModifyUserId},#{p1.videoTitle},#{p1.videoDesc},#{p1.uploadUserId},
+        null,#{p1.lastModifyUserId},#{p1.videoTitle},#{p1.videoDesc},#{p1.uploadUserId},
         #{p1.uploadTime},#{p1.videoUrl},#{p1.videoPath},#{p1.platform} );
     </insert>
 

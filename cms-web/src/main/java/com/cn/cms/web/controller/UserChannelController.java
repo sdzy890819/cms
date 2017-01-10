@@ -23,7 +23,7 @@ import java.util.Map;
  * Created by zhangyang on 16/12/11.
  */
 @Controller
-@RequestMapping(value="/userchannel/",produces = "application/json; charset=UTF-8")
+@RequestMapping(value="/webapi/userchannel/",produces = "application/json; charset=UTF-8")
 @ResponseBody
 public class UserChannelController extends BaseController {
 

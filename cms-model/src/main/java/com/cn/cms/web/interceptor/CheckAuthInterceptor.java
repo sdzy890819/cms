@@ -26,16 +26,16 @@ public class CheckAuthInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response, Object handler) throws Exception {
-        if(handler instanceof HandlerMethod) {
-            HandlerMethod hm = (HandlerMethod) handler;
-            CheckAuth checkAuth = hm.getMethodAnnotation(CheckAuth.class);
-            if (checkAuth != null) {
-                String userID = CookieUtil.getCookieVal(request, StaticContants.COOKIE_USER_ID);
-                if(!permissionBiz.checkPermission(userID, checkAuth.name())){
-                    throw new BizException(ErrorCodeEnum.ERROR_NO_PERMISSION.getType(),ErrorCodeEnum.ERROR_NO_PERMISSION.getMessage());
-                }
-            }
-        }
+//        if(handler instanceof HandlerMethod) {
+//            HandlerMethod hm = (HandlerMethod) handler;
+//            CheckAuth checkAuth = hm.getMethodAnnotation(CheckAuth.class);
+//            if (checkAuth != null) {
+//                String userID = CookieUtil.getCookieVal(request, StaticContants.COOKIE_USER_ID);
+//                if(!permissionBiz.checkPermission(userID, checkAuth.name())){
+//                    throw new BizException(ErrorCodeEnum.ERROR_NO_PERMISSION.getType(),ErrorCodeEnum.ERROR_NO_PERMISSION.getMessage());
+//                }
+//            }
+//        }
         return true;
     }
 

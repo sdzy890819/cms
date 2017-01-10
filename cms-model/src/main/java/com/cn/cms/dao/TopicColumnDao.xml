@@ -25,9 +25,9 @@
         select <include refid="sql_column" /> from topic_column <include refid="delTag" /> ;
     </select>
 
-    <insert id="saveTopicColumn">
+    <insert id="saveTopicColumn" useGeneratedKeys="true" keyProperty="p1.id">
         insert into topic_column ( <include refid="sql_column"/> ) VALUES
-        ( null,null,null,null,#{p1.lastModifyUserId},#{p1.columnName} );
+        ( null,#{p1.lastModifyUserId},#{p1.columnName} );
     </insert>
     
     <update id="delTopicColumn">

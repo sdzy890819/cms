@@ -11,31 +11,31 @@ import lombok.Setter;
 public class Page {
 
     @Setter
-    private int start;
+    private Integer start;
 
     @Getter
     @Setter
-    private int pageSize = StaticContants.PAGE_SIZE;
+    private Integer pageSize = StaticContants.PAGE_SIZE;
 
     @Setter
-    private int end ;
+    private Integer end ;
 
     @Getter
     @Setter
-    private int count;
+    private Integer count;
 
     @Setter
-    private int pageCount ;
+    private Integer pageCount ;
 
     @Getter
     @Setter
-    private int page = StaticContants.PAGE;
+    private Integer page = StaticContants.PAGE;
 
-    public Page(int page, int pageSize, int count){
-        if(page > 0) {
+    public Page(Integer page, Integer pageSize, Integer count){
+        if(page!=null && page > 0) {
             this.page = page;
         }
-        if(pageSize > 0) {
+        if(pageSize!=null && pageSize > 0) {
             this.pageSize = pageSize;
         }
         this.count = count;
@@ -43,30 +43,30 @@ public class Page {
 
     public Page(){}
 
-    public Page(int page, int pageSize){
+    public Page(Integer page, Integer pageSize){
 
-        if(page >0) {
+        if(page!=null && page >0) {
             this.page = page;
         }
 
-        if(pageSize>0) {
+        if(pageSize!=null && pageSize>0) {
             this.pageSize = pageSize;
         }
     }
 
-    public int getStart() {
+    public Integer getStart() {
         return (page-1) * pageSize;
     }
 
-    public int getEnd() {
+    public Integer getEnd() {
         return page*pageSize-1;
     }
 
-    public int getPageCount() {
+    public Integer getPageCount() {
         return (count-1)/pageSize + 1;
     }
 
-    public int getNextPage(){
+    public Integer getNextPage(){
         if(hasNextPage()) {
             return page + 1;
         }

@@ -17,7 +17,7 @@
 
     <sql id="delTag"> where del_tag = 1 </sql>
 
-    <sql id="sql_column">id,create_time,update_time,del_tag,last_modify_user_id,position_name</sql>
+    <sql id="sql_column">id,last_modify_user_id,position_name</sql>
 
     <select id="findPosition" resultMap="position">
       select <include refid="sql_column" /> from position <include refid="delTag" /> and id = #{id} ;
@@ -27,8 +27,8 @@
       select <include refid="sql_column" /> from position <include refid="delTag" /> and position_name = #{positionName} ;
     </select>
 
-    <insert id="insertPosition">
-        insert into position ( <include refid="sql_column"/> ) value ( null,null,null,null,#{p1.lastModifyUserId},#{p1.positionName} );
+    <insert id="insertPosition" useGeneratedKeys="true" keyProperty="p1.id">
+        insert into position ( <include refid="sql_column"/> ) value ( null,#{p1.lastModifyUserId},#{p1.positionName} );
     </insert>
 
     <update id="deletePosition">

@@ -24,7 +24,7 @@ import java.util.Map;
  */
 
 @Controller
-@RequestMapping(value="/user/",produces = "application/json; charset=UTF-8")
+@RequestMapping(value="/webapi/user/",produces = "application/json; charset=UTF-8")
 @ResponseBody
 public class UserController extends BaseController{
 
@@ -88,8 +88,8 @@ public class UserController extends BaseController{
      * @param request
      * @return
      */
-    @CheckToken
     @RequestMapping(value = "/currentUser")
+    @CheckToken
     public String currentUser(HttpServletRequest request){
         String userID = getCurrentUserId(request);
         if(StringUtils.isBlank(userID)){

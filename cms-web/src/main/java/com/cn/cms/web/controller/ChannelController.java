@@ -16,7 +16,7 @@ import java.util.List;
  * Created by zhangyang on 16/12/7.
  */
 @Controller
-@RequestMapping(value="/channel/",produces = "application/json; charset=UTF-8")
+@RequestMapping(value="/webapi/channel/",produces = "application/json; charset=UTF-8")
 @ResponseBody
 public class ChannelController extends BaseController {
 

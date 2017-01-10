@@ -13,7 +13,7 @@ import java.util.Map;
  * Created by zhangyang on 16/12/20.
  */
 @RestController
-@RequestMapping(value="/data/",produces = "application/json; charset=UTF-8")
+@RequestMapping(value="/webapi/data/",produces = "application/json; charset=UTF-8")
 public class DataController extends BaseController {
 
     /**

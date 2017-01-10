@@ -23,6 +23,9 @@
             </set>
         </constructor-arg>
         <constructor-arg index="2" ref="jedisPoolConfig" />
+        <constructor-arg index="3">
+            <value>${redis.pass}</value>
+        </constructor-arg>
     </bean>
   
 </beans>

@@ -22,7 +22,7 @@ import java.util.Map;
  * Created by zhangyang on 16/11/30.
  */
 @Controller
-@RequestMapping(value="/images/",produces = "application/json; charset=UTF-8")
+@RequestMapping(value="/webapi/images/",produces = "application/json; charset=UTF-8")
 @ResponseBody
 public class ImagesController extends BaseController{
 

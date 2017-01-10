@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +28,7 @@ import java.util.Map;
  * Created by zhangyang on 16/12/1.
  */
 @Controller
-@RequestMapping(value="/fragment/",produces = "application/json; charset=UTF-8")
+@RequestMapping(value="/webapi/fragment/",produces = "application/json; charset=UTF-8")
 @ResponseBody
 public class FragmentController extends BaseController {
 
@@ -47,7 +48,7 @@ public class FragmentController extends BaseController {
     @CheckToken
     @CheckAuth( name = "fragment:read" )
     @RequestMapping(value = "/listFragment", method = RequestMethod.GET)
-    public String listFragment(@RequestParam(value = "page",defaultValue = "1") Integer page,
+    public String listFragment(@RequestParam(value = "page",required = false) Integer page,
                                @RequestParam(value="pageSize",required = false)Integer pageSize){
         Page pageObj = new Page(page, pageSize);
         List<Fragment> list = fragmentBiz.listFragment(pageObj);
@@ -106,9 +107,12 @@ public class FragmentController extends BaseController {
             return ApiResponse.returnFail(StaticContants.ERROR_FRAGMENT_LENGTH);
         }
         fragment.setLastModifyUserId(getCurrentUserId(request));
+        String fragmentModel = fragment.getFragmentModel();
         for(int i=0; i<list.size(); i++){
-            fragment.setFragmentContent(fragment.getFragmentModel().replace(list.get(i), values[i]));
+            fragmentModel = fragmentModel.replace(list.get(i), values[i]);
+
         }
+        fragment.setFragmentContent(fragmentModel);
         fragmentBiz.editFragment(fragment);
         return ApiResponse.returnSuccess();
     }
@@ -128,17 +132,22 @@ public class FragmentController extends BaseController {
         if(fragment == null){
             return ApiResponse.returnFail(StaticContants.ERROR_FRAGMENT_NOT_FOUND);
         }
-        Map<String,String> map = new HashMap<String, String>();
+        Map<String,String> map = new HashMap<>();
         List<String> keys = FragmentUtil.getKey(fragment.getFragmentModel(), RegexNumEnum.REGEX_MATCHER_1);
         if(StringUtils.isEmpty(keys)){
             return ApiResponse.returnFail(StaticContants.ERROR_FRAGMENT_MODEL);
         }
-        List<String> values = FragmentUtil.getVal(fragment.getFragmentModel(), fragment.getFragmentContent());
-        if(StringUtils.isEmpty(values)){
-            return ApiResponse.returnFail(StaticContants.ERROR_FRAGMENT_MODEL);
+        List<String> values = null ;
+        if(StringUtils.isNotBlank(fragment.getFragmentContent())) {
+            values = FragmentUtil.getVal(fragment.getFragmentModel(), fragment.getFragmentContent());
+            if (StringUtils.isEmpty(values)) {
+                return ApiResponse.returnFail(StaticContants.ERROR_FRAGMENT_MODEL);
+            }
         }
-        for(int i = 0; i<keys.size(); i++) {
-            map.put(keys.get(i), values.get(i));
+        if(StringUtils.isNotEmpty(keys)) {
+            for (int i = 0; i < keys.size(); i++) {
+                map.put(keys.get(i), StringUtils.isNotEmpty(values) && i + 1 <= values.size() ? values.get(i) : "");
+            }
         }
         return ApiResponse.returnSuccess(map);
     }
@@ -189,7 +198,7 @@ public class FragmentController extends BaseController {
      */
     @CheckToken
     @CheckAuth( name = "fragment:write" )
-    @RequestMapping(value = "/createFragment", method = RequestMethod.GET)
+    @RequestMapping(value = "/createFragment", method = RequestMethod.POST)
     public String createFragment(HttpServletRequest request,
                                  @RequestParam(value = "channelId",required = false) Long channelId,
                                  @RequestParam(value = "fragmentClassifyId") Long fragmentClassifyId,
@@ -221,7 +230,7 @@ public class FragmentController extends BaseController {
                               @RequestParam(value = "fid") Long fid){
         Page pageObj = new Page(page, pageSize);
         List<FragmentHistory> list = fragmentBiz.listHistory(fid, pageObj);
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
         map.put("page", pageObj);
         map.put("list", list);
         return ApiResponse.returnSuccess(map);

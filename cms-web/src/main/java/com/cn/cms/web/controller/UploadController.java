@@ -21,7 +21,7 @@ import java.util.Map;
  * Created by zhangyang on 16/11/30.
  */
 @Controller
-@RequestMapping(value="/upload/",produces = "application/json; charset=UTF-8")
+@RequestMapping(value="/webapi/upload/",produces = "application/json; charset=UTF-8")
 @ResponseBody
 public class UploadController extends BaseController {
 

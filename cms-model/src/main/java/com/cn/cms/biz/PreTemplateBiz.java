@@ -48,7 +48,7 @@ public class PreTemplateBiz extends BaseBiz {
     }
 
     public void savePreTemplate(PreTemplate preTemplate){
-        if(preTemplate.getId() == null) {
+        if(preTemplate.getId() == null || preTemplate.getId() == 0) {
             preTemplateService.savePreTemplate(preTemplate);
         }else{
             preTemplateService.updatePreTemplate(preTemplate);
@@ -68,7 +68,7 @@ public class PreTemplateBiz extends BaseBiz {
      * @param p
      */
     public void savePreTemplateBase(PreTemplateBase p){
-        if(p.getId()==null){
+        if(p.getId()==null || p.getId() == 0){
             PreTemplateBase preTemplateBase = getPreTemplateBase();
             if(preTemplateBase!=null){
                 preTemplateBase.setLastModifyUserId(p.getLastModifyUserId());

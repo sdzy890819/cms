@@ -76,7 +76,7 @@ public class FragmentBiz extends BaseBiz {
      * @param fragment
      */
     public void updateFragment(Fragment fragment){
-        if(fragment.getId() > 0 ){
+        if(fragment.getId()!=null && fragment.getId() > 0 ){
             fragmentService.updateFragment(fragment);
         }else{
             fragmentService.saveFragment(fragment);
@@ -112,7 +112,7 @@ public class FragmentBiz extends BaseBiz {
      * @param fragmentClassify
      */
     public void saveClassify(FragmentClassify fragmentClassify){
-        if(fragmentClassify.getId() > 0){
+        if(fragmentClassify.getId()!=null && fragmentClassify.getId() > 0){
             fragmentService.updateFragmentClassify(fragmentClassify);
         }else{
             fragmentService.saveFragmentClassify(fragmentClassify);

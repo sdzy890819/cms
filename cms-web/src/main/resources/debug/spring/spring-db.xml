@@ -29,6 +29,7 @@
 		<property name="maxIdleTime">
 			<value>${c3p0.maxIdleTime}</value>
 		</property>
+		<property name="statementCacheNumDeferredCloseThreads"><value>1</value></property>
 		<property name="checkoutTimeout"><value>${c3p0.checkoutTimeout}</value></property>
 		<property name="preferredTestQuery"><value>select 1</value></property>
 	</bean>

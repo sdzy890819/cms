@@ -20,7 +20,7 @@
     <sql id="delTag"> where del_tag = 1 </sql>
 
     <sql id="sql_column">
-        id,create_time,update_time,del_tag,last_modify_user_id,user_id,channel_id
+        id,last_modify_user_id,user_id,channel_id
     </sql>
 
     <select id="queryCountForUserId" resultType="java.lang.Integer">
@@ -42,7 +42,7 @@
     <insert id="saveUserChannel">
         insert into user_channel ( <include refid="sql_column" /> ) values
         <foreach collection="list" item="item" separator=",">
-            ( null,null,null,null,#{item.userId},${item.channelId} )
+            ( null,#{item.userId},${item.channelId} )
         </foreach>
         ;
     </insert>

@@ -1,5 +1,6 @@
 package com.cn.cms.utils;
 
+import com.alibaba.fastjson.JSONArray;
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.enums.RegexNumEnum;
 import com.cn.cms.logfactory.CommonLog;
@@ -49,7 +50,7 @@ public class FragmentUtil {
         String regex = model.replaceAll(StaticContants.FRAGMENT_REGEX, StaticContants.FRAGMENT_ALL_REGEX);
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(str);
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         if(matcher.find()){
             for(int i = 1; i <= matcher.groupCount(); i++){
                 list.add(matcher.group(i));
@@ -57,6 +58,7 @@ public class FragmentUtil {
         }
         return list;
     }
+
 
 
 }

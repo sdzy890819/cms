@@ -19,7 +19,7 @@ import java.util.List;
  */
 
 @Controller
-@RequestMapping(value="/newscolumn/",produces = "application/json; charset=UTF-8")
+@RequestMapping(value="/webapi/newscolumn/",produces = "application/json; charset=UTF-8")
 @ResponseBody
 public class NewsColumnController extends BaseController {
 

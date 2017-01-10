@@ -22,7 +22,7 @@ import java.util.Set;
  * Created by zhangyang on 16/11/29.
  */
 @Controller
-@RequestMapping(value="/permission/",produces = "application/json; charset=UTF-8")
+@RequestMapping(value="/webapi/permission/",produces = "application/json; charset=UTF-8")
 @ResponseBody
 public class PermissionController extends BaseController {
 

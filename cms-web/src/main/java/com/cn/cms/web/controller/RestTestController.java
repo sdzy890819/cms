@@ -13,7 +13,7 @@ import javax.annotation.Resource;
  * Created by zhangyang on 16/12/24.
  */
 @Controller
-@RequestMapping(value="/test/",produces = "application/json; charset=UTF-8")
+@RequestMapping(value="/webapi/test/",produces = "application/json; charset=UTF-8")
 @ResponseBody
 public class RestTestController extends BaseController{
 

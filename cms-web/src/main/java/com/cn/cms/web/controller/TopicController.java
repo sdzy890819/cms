@@ -29,7 +29,7 @@ import java.util.Map;
  * Created by zhangyang on 16/12/3.
  */
 @Controller
-@RequestMapping(value="/topic/",produces = "application/json; charset=UTF-8")
+@RequestMapping(value="/webapi/topic/",produces = "application/json; charset=UTF-8")
 @ResponseBody
 public class TopicController extends BaseController {
 

@@ -19,7 +19,7 @@
     <sql id="delTag"> where del_tag = 1 </sql>
 
     <sql id="sql_column">
-        id,create_time,update_time,del_tag,last_modify_user_id,
+        id,last_modify_user_id,
         template_id,relation_id,relation_type
     </sql>
     
@@ -43,13 +43,13 @@
 
         insert into template_relation ( <include refid="sql_column"/> ) values
         <foreach collection="list" item="item" close=";" separator=",">
-          (null,null,null,null,#{item.lastModifyUserId},${item.templateId},${item.relationId},${item.relationType})
+          (null,#{item.lastModifyUserId},${item.templateId},${item.relationId},${item.relationType})
         </foreach>
     </update>
 
-    <insert id="saveRelation">
+    <insert id="saveRelation" useGeneratedKeys="true" keyProperty="p1.id">
         insert into template_relation ( <include refid="sql_column"/> ) values
-        ( (null,null,null,null,#{p1.lastModifyUserId},${p1.templateId},${p1.relationId},${p1.relationType}) )
+        ( (null,#{p1.lastModifyUserId},${p1.templateId},${p1.relationId},${p1.relationType}) )
     </insert>
 
     <delete id="delRelation">

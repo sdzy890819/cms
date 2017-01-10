@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by zhangyang on 16/12/20.
  */
 @RestController
-@RequestMapping(value="/",produces = "application/json; charset=UTF-8")
+@RequestMapping(value="/webapi",produces = "application/json; charset=UTF-8")
 public class IndexController extends BaseController {
 
     @RequestMapping(value="/",method = RequestMethod.GET)

@@ -34,7 +34,7 @@ public class ResourceBiz {
      * @param imagesBase
      */
     public void saveImagesBase(ImagesBase imagesBase){
-        if(imagesBase.getId()>0){
+        if(imagesBase.getId()!=null && imagesBase.getId()>0){
             resourceService.updateImagesBase(imagesBase);
         }else{
             resourceService.saveImagesBase(imagesBase);
@@ -46,7 +46,7 @@ public class ResourceBiz {
      * @param images
      */
     public void saveImages(Images images){
-        if(images.getId()>0){
+        if(images.getId()!=null && images.getId()>0){
             resourceService.updateImages(images);
         }else{
             resourceService.saveImages(images);
@@ -91,7 +91,7 @@ public class ResourceBiz {
      * @param videoBase
      */
     public void saveVideoBase(VideoBase videoBase){
-        if(videoBase.getId()>0){
+        if(videoBase!=null && videoBase.getId()>0){
             resourceService.updateVideoBase(videoBase);
         }else{
             resourceService.saveVideoBase(videoBase);
@@ -103,7 +103,7 @@ public class ResourceBiz {
      * @param video
      */
     public void saveVideo(Video video){
-        if(video.getId()>0){
+        if(video.getId()!=null && video.getId()>0){
             resourceService.updateVideo(video);
         }else {
             resourceService.saveVideo(video);

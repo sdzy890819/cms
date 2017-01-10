@@ -34,7 +34,7 @@ import java.util.List;
  * Created by zhangyang on 17/1/7.
  */
 @Controller
-@RequestMapping(value="/search/",produces = "application/json; charset=UTF-8")
+@RequestMapping(value="/webapi/search/",produces = "application/json; charset=UTF-8")
 @ResponseBody
 public class SearchController extends BaseController {
 

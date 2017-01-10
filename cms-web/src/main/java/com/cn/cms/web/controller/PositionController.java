@@ -23,7 +23,7 @@ import java.util.Map;
  */
 
 @Controller
-@RequestMapping(value="/position/",produces = "application/json; charset=UTF-8")
+@RequestMapping(value="/webapi/position/",produces = "application/json; charset=UTF-8")
 @ResponseBody
 public class PositionController extends BaseController{
 

@@ -65,7 +65,7 @@ public class TemplateBiz extends BaseBiz {
      * @param template
      */
     public void saveTemplate(Template template){
-        if(template.getId() > 0) {
+        if(template.getId()!=null && template.getId() > 0) {
             templateService.updateTemplate(template);
         }else {
             templateService.saveTemplate(template);

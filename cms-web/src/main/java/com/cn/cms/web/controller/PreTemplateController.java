@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping(value="/pretemplate/",produces = "application/json; charset=UTF-8")
+@RequestMapping(value="/webapi/pretemplate/",produces = "application/json; charset=UTF-8")
 @ResponseBody
 public class PreTemplateController extends BaseController {
 

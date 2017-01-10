@@ -22,7 +22,7 @@ import java.util.Map;
  * Created by zhangyang on 16/11/30.
  */
 @Controller
-@RequestMapping(value="/video/",produces = "application/json; charset=UTF-8")
+@RequestMapping(value="/webapi/video/",produces = "application/json; charset=UTF-8")
 @ResponseBody
 public class VideoController extends BaseController{
 

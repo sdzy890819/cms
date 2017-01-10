@@ -57,7 +57,7 @@ public class TopicBiz extends BaseBiz {
      * @param topic
      */
     public void saveTopic(Topic topic){
-        if(topic.getId()>0){
+        if(topic!=null && topic.getId()>0){
             topicService.updateTopic(topic);
         }else{
             topicService.saveTopic(topic);

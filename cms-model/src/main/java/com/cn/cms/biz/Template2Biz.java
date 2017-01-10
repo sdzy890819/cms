@@ -67,7 +67,7 @@ public class Template2Biz extends BaseBiz {
      * @param template2
      */
     public void saveTemplate2(Template2 template2){
-        if(template2.getId() > 0) {
+        if(template2.getId()!=null && template2.getId() > 0) {
             template2Service.updateTemplate2(template2);
         }else {
             template2Service.saveTemplate2(template2);
@@ -83,7 +83,7 @@ public class Template2Biz extends BaseBiz {
      * @param p
      */
     public void saveTemplate2Base(Template2Base p){
-        if(p.getId()==null){
+        if(p.getId()==null || p.getId() == 0){
             Template2Base template2Base = getTemplate2Base();
             if(template2Base!=null){
                 template2Base.setLastModifyUserId(p.getLastModifyUserId());

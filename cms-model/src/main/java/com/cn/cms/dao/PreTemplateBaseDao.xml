@@ -19,16 +19,16 @@
     <sql id="delTag"> where del_tag = 1 </sql>
 
     <sql id="sql_column">
-        id,create_time,update_time,del_tag,last_modify_user_id,base_path
+        id,last_modify_user_id,base_path
     </sql>
 
     <select id="queryPreTemplateBase" resultMap="preTemplateBase">
         select <include refid="sql_column" /> from pre_template <include refid="delTag" /> limit 1;
     </select>
 
-    <insert id="savePreTemplateBase" useGeneratedKeys="true" keyProperty="id" >
+    <insert id="savePreTemplateBase" useGeneratedKeys="true" keyProperty="p1.id" >
         insert into pre_template_base ( <include refid="sql_column" /> ) values
-        (null,null,null,null,#{p1.lastModifyUserId},#{p1.basePath});
+        (null,#{p1.lastModifyUserId},#{p1.basePath});
     </insert>
 
     <update id="updatePreTemplateBase">

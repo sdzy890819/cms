@@ -1,8 +1,15 @@
 package com.cn.cms.utils;
 
+import com.cn.cms.contants.StaticContants;
+import com.cn.cms.logfactory.CommonLog;
+import com.cn.cms.logfactory.CommonLogFactory;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,16 +18,23 @@ import java.util.Map;
  */
 public class CookieUtil {
 
+    private static CommonLog log = CommonLogFactory.getLog(CookieUtil.class);
+
     public static void addCookie(HttpServletResponse response,String name,String value,int maxAge){
-        response.addCookie(addcookie(name,value,maxAge));
+        response.addCookie(addcookie(name, value, maxAge));
     }
 
 
     public static Cookie addcookie(String name , String value, int maxAge){
-        Cookie cookie = new Cookie(name,value);
-        cookie.setPath("/");
-        if(maxAge>0){
-            cookie.setMaxAge(maxAge);
+        Cookie cookie = null;
+        try {
+            cookie = new Cookie(name, URLEncoder.encode(value, StaticContants.UTF8));
+            cookie.setPath("/");
+            if(maxAge>0){
+                cookie.setMaxAge(maxAge);
+            }
+        } catch (UnsupportedEncodingException e) {
+            log.error(e);
         }
         return cookie;
     }
@@ -49,12 +63,16 @@ public class CookieUtil {
     }
 
     private static Map<String,String> getCookieMap(HttpServletRequest request){
-        Map<String,String> cookieMap = new HashMap<String,String>();
+        Map<String,String> cookieMap = new HashMap<>();
         Cookie[] cookies = request.getCookies();
-        if(null!=cookies){
-            for(Cookie cookie : cookies){
-                cookieMap.put(cookie.getName(), cookie.getValue());
+        try {
+            if(null!=cookies){
+                for(Cookie cookie : cookies){
+                    cookieMap.put(cookie.getName(), URLDecoder.decode(cookie.getValue(), StaticContants.UTF8));
+                }
             }
+        } catch (UnsupportedEncodingException e) {
+            log.error(e);
         }
         return cookieMap;
     }

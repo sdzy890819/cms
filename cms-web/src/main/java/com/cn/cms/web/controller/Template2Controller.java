@@ -30,7 +30,7 @@ import java.util.Map;
  * Created by zhangyang on 17/1/8.
  */
 @Controller
-@RequestMapping(value="/template2/",produces = "application/json; charset=UTF-8")
+@RequestMapping(value="/webapi/template2/",produces = "application/json; charset=UTF-8")
 @ResponseBody
 public class Template2Controller extends BaseController  {
 
