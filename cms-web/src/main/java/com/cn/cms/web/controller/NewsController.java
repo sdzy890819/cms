@@ -61,15 +61,17 @@ public class NewsController extends BaseController {
         Page page1 = new Page(page, pageSize);
         List<News> list = newsBiz.listNews(page1);
 
-        List<String> userIds = new ArrayList<String>();
-        for( int i = 0; i < list.size(); i++ ){
-            userIds.add(list.get(i).getWriteUserId());
+        List<String> userIds = new ArrayList<>();
+        if(StringUtils.isNotEmpty(list)) {
+            for (int i = 0; i < list.size(); i++) {
+                userIds.add(list.get(i).getWriteUserId());
+            }
+            Map<String, UserBean> map = userBiz.getUserBeanMap(userIds);
+            for (int i = 0; i < list.size(); i++) {
+                list.get(i).setWriteUserName(map.get(list.get(i).getWriteUserId()).getRealName());
+            }
         }
-        Map<String, UserBean> map = userBiz.getUserBeanMap(userIds);
-        for( int i = 0; i < list.size(); i++ ){
-            list.get(i).setWriteUserName(map.get(list.get(i).getWriteUserId()).getRealName());
-        }
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
         result.put("page", page1);
         result.put("list", list);
         return ApiResponse.returnSuccess(result);
