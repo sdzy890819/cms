@@ -91,7 +91,7 @@ public class ResourceBiz {
      * @param videoBase
      */
     public void saveVideoBase(VideoBase videoBase){
-        if(videoBase!=null && videoBase.getId()>0){
+        if(videoBase.getId()!=null && videoBase.getId()>0){
             resourceService.updateVideoBase(videoBase);
         }else{
             resourceService.saveVideoBase(videoBase);

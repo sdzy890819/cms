@@ -12,7 +12,7 @@
     </resultMap>
     <resultMap type="com.cn.cms.po.Topic" id="topic" extends="base">
         <result column="topic_title" property="topicTitle" />
-        <result column="topic_content" property="topic_content" />
+        <result column="topic_content" property="topicContent" />
         <result column="topic_path" property="topicPath" />
         <result column="topic_filename" property="topicFilename" />
         <result column="topic_classify_id" property="topicClassifyId" />

@@ -559,8 +559,8 @@ public class ESearchClient {
     public void open(){
         try {
             Settings settings = Settings.builder()
-                    .put("client.transport.sniff", true)
-                    .put("cluster.name", "cms-application")
+                    .put("client.transport.sniff", false)
+                    .put("cluster.name", "cms-p5wc")
                     .put("client.transport.ping_timeout", "20s").build();
             this.client = new PreBuiltTransportClient(settings);
             if(clusterList!=null){

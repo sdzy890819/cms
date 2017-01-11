@@ -49,7 +49,7 @@
 
     <insert id="saveRelation" useGeneratedKeys="true" keyProperty="p1.id">
         insert into template_relation ( <include refid="sql_column"/> ) values
-        ( (null,#{p1.lastModifyUserId},${p1.templateId},${p1.relationId},${p1.relationType}) )
+        (null,#{p1.lastModifyUserId},${p1.templateId},${p1.relationId},${p1.relationType});
     </insert>
 
     <delete id="delRelation">

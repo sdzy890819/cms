@@ -44,9 +44,7 @@ public class FileUtil {
      */
     public static void fileUpload(byte[] bytes, String filePath) throws BizException{
         File file = new File(filePath);
-        if(!file.exists()){
-            file.mkdirs();
-        }
+        FileUtil.mkdir(file);
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(file);
             fileOutputStream.write(bytes);

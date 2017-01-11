@@ -18,7 +18,7 @@
     <sql id="delTag"> where del_tag = 1 </sql>
 
     <sql id="sql_column">
-        id, create_time, update_time, del_tag, last_modify_user_id, column_name
+        id, last_modify_user_id, `column_name`
     </sql>
 
     <select id="findAll" resultMap="topicColumn">
@@ -35,7 +35,7 @@
     </update>
 
     <update id="updateTopicColumn">
-        update topic_column set last_modify_user_id = #{p1.lastModifyUserId}, column_name = #{p1.columnName} where id = ${p1.id} ;
+        update topic_column set last_modify_user_id = #{p1.lastModifyUserId}, `column_name` = #{p1.columnName} where id = ${p1.id} ;
     </update>
     
 </mapper>
