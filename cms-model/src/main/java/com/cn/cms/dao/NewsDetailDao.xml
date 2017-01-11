@@ -28,7 +28,7 @@
     </select>
 
     <insert id="saveNewsDetail" useGeneratedKeys="true" keyProperty="p1.id">
-        insert into news ( <include refid="sql_column"/> ) values (
+        insert into news_detail ( <include refid="sql_column"/> ) values (
         null,#{p1.lastModifyUserId},#{p1.content},${p1.newsId}
         );
     </insert>
