@@ -26,7 +26,7 @@ public class OtherBiz {
                 content = content.substring(0,tmp.indexOf("LIMIT"));
             }
             content = content.concat(" LIMIT ").concat(String.valueOf(page.getStart())).concat(",").concat(String.valueOf(page.getPageSize()));
-            otherService.execSql(content);
+            return otherService.execSql(content);
         }
         return null;
     }
