@@ -10,10 +10,7 @@ import com.cn.cms.middleware.bo.NewsSearch;
 import com.cn.cms.middleware.bo.TopicSearch;
 import com.cn.cms.middleware.bo.VideoSearch;
 import com.cn.cms.middleware.po.QueryResult;
-import com.cn.cms.po.Images;
-import com.cn.cms.po.News;
-import com.cn.cms.po.Topic;
-import com.cn.cms.po.Video;
+import com.cn.cms.po.*;
 import com.cn.cms.utils.DateUtils;
 import com.cn.cms.utils.Page;
 import com.cn.cms.utils.StringUtils;
@@ -390,6 +387,39 @@ public class ESearchClient {
             bool = true;
         } catch (IOException e) {
             log.error(e);
+        }
+        return bool;
+    }
+
+    /**
+     * 统一更新
+     * @param base
+     * @param esSearchTypeEnum
+     * @return
+     */
+    public boolean update(Base base, ESSearchTypeEnum esSearchTypeEnum){
+        boolean bool = false;
+
+        switch (esSearchTypeEnum){
+            case news:{
+                bool = this.updateNews((News) base);
+                break;
+            }
+            case topic:{
+                bool = this.updateTopic((Topic) base);
+                break;
+            }
+            case images:{
+                bool = this.updateImages((Images) base);
+                break;
+            }
+            case video:{
+                bool = this.updateVideo((Video) base);
+                break;
+            }
+            default:{
+                break;
+            }
         }
         return bool;
     }

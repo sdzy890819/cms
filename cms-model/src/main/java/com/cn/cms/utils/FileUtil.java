@@ -98,7 +98,7 @@ public class FileUtil {
      */
     public static Map<String,Object> compressAndWatermark(byte[] bytes, int width, int height, String filePath, int watermark){
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
         try {
             Image image = ImageIO.read(byteArrayInputStream);
             int w = image.getWidth(null);
@@ -293,5 +293,7 @@ public class FileUtil {
         }
         return null;
     }
+
+
 
 }

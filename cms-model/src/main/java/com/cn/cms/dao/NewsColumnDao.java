@@ -19,7 +19,7 @@ public interface NewsColumnDao {
 
     void updateNewsColumn(@Param(value = "p1") NewsColumn newsColumn);
 
-    NewsColumn getNewsColumn(@Param(value = "p1") Long id);
+    NewsColumn getNewsColumn(@Param(value = "id") Long id);
 
     void publishListNewsColumn(@Param(value = "p1") NewsColumn newsColumn);
 

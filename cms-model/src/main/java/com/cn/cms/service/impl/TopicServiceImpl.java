@@ -3,11 +3,16 @@ package com.cn.cms.service.impl;
 import com.cn.cms.dao.TopicClassifyDao;
 import com.cn.cms.dao.TopicColumnDao;
 import com.cn.cms.dao.TopicDao;
+import com.cn.cms.enums.ESSearchTypeEnum;
+import com.cn.cms.enums.IndexOperEnum;
+import com.cn.cms.job.IndexThread;
+import com.cn.cms.po.Base;
 import com.cn.cms.po.Topic;
 import com.cn.cms.po.TopicClassify;
 import com.cn.cms.po.TopicColumn;
 import com.cn.cms.service.TopicService;
 import com.cn.cms.utils.Page;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
@@ -28,6 +33,9 @@ public class TopicServiceImpl implements TopicService {
     @Resource
     private TopicColumnDao topicColumnDao;
 
+    @Resource(name = "threadTaskExecutor")
+    private ThreadPoolTaskExecutor threadTaskExecutor;
+
 
     public Integer queryTopicCount() {
         return topicDao.queryTopicCount();
@@ -43,14 +51,17 @@ public class TopicServiceImpl implements TopicService {
 
     public void delTopic(String lastModifyUserId, Long id) {
         topicDao.delTopic(lastModifyUserId, id);
+        delIndex(id);
     }
 
     public void saveTopic(Topic topic) {
         topicDao.saveTopic(topic);
+        sendIndex(topic);
     }
 
     public void updateTopic(Topic topic) {
         topicDao.updateTopic(topic);
+        sendIndex(topic);
     }
 
     public List<TopicColumn> findTopicColumnAll() {
@@ -98,5 +109,25 @@ public class TopicServiceImpl implements TopicService {
     @Override
     public void publishTopic(Topic topic) {
         topicDao.publishTopic(topic);
+        sendIndex(topic);
+    }
+
+    private void sendIndex(Base base){
+        IndexThread indexThread = new IndexThread();
+        indexThread.setBase(base);
+        indexThread.setIndexOperEnum(IndexOperEnum.update);
+        indexThread.setEsSearchTypeEnum(ESSearchTypeEnum.topic);
+        threadTaskExecutor.execute(indexThread);
+    }
+
+
+    private void delIndex(Long id){
+        Base base = new Base();
+        base.setId(id);
+        IndexThread indexThread = new IndexThread();
+        indexThread.setBase(base);
+        indexThread.setIndexOperEnum(IndexOperEnum.delete);
+        indexThread.setEsSearchTypeEnum(ESSearchTypeEnum.topic);
+        threadTaskExecutor.execute(indexThread);
     }
 }

@@ -4,12 +4,17 @@ import com.cn.cms.dao.NewsColumnDao;
 import com.cn.cms.dao.NewsDao;
 import com.cn.cms.dao.NewsDetailDao;
 import com.cn.cms.enums.AutoPublishEnum;
+import com.cn.cms.enums.ESSearchTypeEnum;
+import com.cn.cms.enums.IndexOperEnum;
 import com.cn.cms.enums.PublishEnum;
+import com.cn.cms.job.IndexThread;
+import com.cn.cms.po.Base;
 import com.cn.cms.po.News;
 import com.cn.cms.po.NewsColumn;
 import com.cn.cms.po.NewsDetail;
 import com.cn.cms.service.NewsService;
 import com.cn.cms.utils.Page;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
@@ -30,6 +35,9 @@ public class NewsServiceImpl implements NewsService {
 
     @Resource
     private NewsDetailDao newsDetailDao;
+
+    @Resource(name = "threadTaskExecutor")
+    private ThreadPoolTaskExecutor threadTaskExecutor;
 
     public List<NewsColumn> queryList(Long channelId) {
         return newsColumnDao.queryList(channelId);
@@ -80,17 +88,38 @@ public class NewsServiceImpl implements NewsService {
         newsDao.saveNews(news);
         news.getNewsDetail().setNewsId(news.getId());
         newsDetailDao.saveNewsDetail(news.getNewsDetail());
+        sendIndex(news);
     }
+
+    private void sendIndex(Base base){
+        IndexThread indexThread = new IndexThread();
+        indexThread.setBase(base);
+        indexThread.setIndexOperEnum(IndexOperEnum.update);
+        indexThread.setEsSearchTypeEnum(ESSearchTypeEnum.news);
+        threadTaskExecutor.execute(indexThread);
+    }
+
+    private void delIndex(Long id){
+        Base base = new Base();
+        base.setId(id);
+        IndexThread indexThread = new IndexThread();
+        indexThread.setBase(base);
+        indexThread.setIndexOperEnum(IndexOperEnum.delete);
+        indexThread.setEsSearchTypeEnum(ESSearchTypeEnum.news);
+        threadTaskExecutor.execute(indexThread);
+    }
+
 
     public void updateNews(News news) {
         newsDao.updateNews(news);
         newsDetailDao.updateNewsDetail(news.getNewsDetail());
-
+        sendIndex(news);
     }
 
     public void delNews(String lastModifyUserId, Long id) {
         newsDao.delNews(lastModifyUserId, id);
         newsDetailDao.delNewsDetail(lastModifyUserId, id);
+        delIndex(id);
     }
 
     @Override
@@ -101,6 +130,7 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public void publishNews(News news) {
         newsDao.publishNews(news);
+        sendIndex(news);
     }
 
     @Override

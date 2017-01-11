@@ -4,12 +4,13 @@ import com.cn.cms.dao.ImagesBaseDao;
 import com.cn.cms.dao.ImagesDao;
 import com.cn.cms.dao.VideoBaseDao;
 import com.cn.cms.dao.VideoDao;
-import com.cn.cms.po.Images;
-import com.cn.cms.po.ImagesBase;
-import com.cn.cms.po.Video;
-import com.cn.cms.po.VideoBase;
+import com.cn.cms.enums.ESSearchTypeEnum;
+import com.cn.cms.enums.IndexOperEnum;
+import com.cn.cms.job.IndexThread;
+import com.cn.cms.po.*;
 import com.cn.cms.service.ResourceService;
 import com.cn.cms.utils.Page;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
@@ -33,6 +34,9 @@ public class ResourceServiceImpl implements ResourceService {
     @Resource
     private VideoBaseDao videoBaseDao;
 
+    @Resource(name = "threadTaskExecutor")
+    private ThreadPoolTaskExecutor threadTaskExecutor;
+
     public ImagesBase findImagesBase() {
         return imagesBaseDao.findImagesBase();
     }
@@ -47,14 +51,17 @@ public class ResourceServiceImpl implements ResourceService {
 
     public void saveImages(Images images) {
         imagesDao.saveImages(images);
+        sendIndex(images, ESSearchTypeEnum.images);
     }
 
     public void updateImages(Images images) {
         imagesDao.updateImages(images);
+        sendIndex(images, ESSearchTypeEnum.images);
     }
 
     public void delImages(String lastModifyUserId, Long id) {
         imagesDao.delImages(lastModifyUserId, id);
+        delIndex(id, ESSearchTypeEnum.images);
     }
 
     public Integer queryImagesCount() {
@@ -79,14 +86,17 @@ public class ResourceServiceImpl implements ResourceService {
 
     public void updateVideo(Video video) {
         videoDao.updateVideo(video);
+        sendIndex(video, ESSearchTypeEnum.video);
     }
 
     public void saveVideo(Video video) {
         videoDao.saveVideo(video);
+        sendIndex(video, ESSearchTypeEnum.video);
     }
 
     public void delVideo(String lastModifyUserId, Long id) {
         videoDao.delVideo(lastModifyUserId, id);
+        delIndex(id, ESSearchTypeEnum.video);
     }
 
     public Integer queryVideoCount() {
@@ -95,5 +105,24 @@ public class ResourceServiceImpl implements ResourceService {
 
     public List<Video> queryVideoList(Page page) {
         return videoDao.queryVideoList(page);
+    }
+
+    private void sendIndex(Base base, ESSearchTypeEnum esSearchTypeEnum){
+        IndexThread indexThread = new IndexThread();
+        indexThread.setBase(base);
+        indexThread.setIndexOperEnum(IndexOperEnum.update);
+        indexThread.setEsSearchTypeEnum(esSearchTypeEnum);
+        threadTaskExecutor.execute(indexThread);
+    }
+
+
+    private void delIndex(Long id, ESSearchTypeEnum esSearchTypeEnum){
+        Base base = new Base();
+        base.setId(id);
+        IndexThread indexThread = new IndexThread();
+        indexThread.setBase(base);
+        indexThread.setIndexOperEnum(IndexOperEnum.delete);
+        indexThread.setEsSearchTypeEnum(esSearchTypeEnum);
+        threadTaskExecutor.execute(indexThread);
     }
 }
