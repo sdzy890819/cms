@@ -35,8 +35,8 @@ public class PermissionBiz extends BaseBiz{
      */
     public List<PermissionBean> findPermissionListAndSort(){
         List<Permission> list = userService.findPermissionList();
-        List<PermissionBean> beanList = new ArrayList<PermissionBean>();
-        Map<Long,List<Permission>>  map = new HashMap<Long, List<Permission>>();
+        List<PermissionBean> beanList = new ArrayList<>();
+        Map<Long,List<Permission>>  map = new HashMap<>();
         for(int i=0;i<list.size();i++){
             Permission permission = list.get(i);
             PermissionBean permissionBean = new PermissionBean();
@@ -46,7 +46,7 @@ public class PermissionBiz extends BaseBiz{
             }else{
                 List<Permission> tmpList = map.get(permission.getParentId());
                 if(StringUtils.isEmpty(tmpList)) {
-                    tmpList = new ArrayList<Permission>();
+                    tmpList = new ArrayList<>();
 
                 }
                 tmpList.add(permission);
@@ -55,7 +55,7 @@ public class PermissionBiz extends BaseBiz{
         }
         for(int i=0; i<beanList.size();i++){
             PermissionBean tmp = beanList.get(i);
-            tmp.setPermissions(map.get(tmp.getPermission().getParentId()));
+            tmp.setPermissions(map.get(tmp.getPermission().getId()));
         }
         return beanList;
     }

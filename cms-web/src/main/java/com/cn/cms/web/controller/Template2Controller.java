@@ -64,7 +64,7 @@ public class Template2Controller extends BaseController  {
      * @return
      */
     @CheckToken
-    @CheckAuth( name = "template2:read")
+    @CheckAuth( name = "newscolumn:read")
     @RequestMapping(value = "/listTemplate2/list", method = RequestMethod.GET)
     public String listTemplate2ByList(){
         List<Template2> list = template2Biz.queryTemplate2ByClassify(TemplateClassifyEnum.list.getType());
@@ -76,7 +76,7 @@ public class Template2Controller extends BaseController  {
      * @return
      */
     @CheckToken
-    @CheckAuth( name = "template2:read")
+    @CheckAuth( name = "newscolumn:read")
     @RequestMapping(value = "/listTemplate2/detail", method = RequestMethod.GET)
     public String listTemplate2ByDetail(){
         List<Template2> list = template2Biz.queryTemplate2ByClassify(TemplateClassifyEnum.detail.getType());

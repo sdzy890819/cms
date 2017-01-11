@@ -43,7 +43,7 @@ public class PositionController extends BaseController{
     @CheckToken
     @CheckAuth( name = "position:write" )
     @RequestMapping(value = "/createPosition",method = RequestMethod.POST)
-    public String createPosition(HttpServletRequest request,@RequestParam(value="positionname") String positionName){
+    public String createPosition(HttpServletRequest request,@RequestParam(value="positionName") String positionName){
         String userID = getCurrentUserId(request);
         Position position = positionBiz.findPositionName(positionName);
         if( position != null ){
