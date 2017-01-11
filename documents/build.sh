@@ -31,9 +31,9 @@ echo "----------------------------------------------------"
 echo "-----------------------java jar restart------------------------"
 echo "----------------------------------------------------"
 cd /data/projects/cms-publish/
-ABC = `ps -af|grep "cms-publish" |grep "java" |awk '{print $2}'`
-if [[ $ABC > 0 ]]
+ABC2=`ps -af|grep "cms-publish" |grep "java" |awk '{print $2}'`
+if [[ $ABC2 > 0 ]]
 then
-	kill -9 $ABC
+	kill -9 $ABC2
 fi
 java -jar cms-publish.jar >/data/logs/cms-publish/catalina.out &
