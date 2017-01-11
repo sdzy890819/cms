@@ -129,7 +129,11 @@ public class EncryptUtil {
         return sbf.toString();
     }
 
-
+    public static void main(String[] args){
+        System.out.println(EncryptUtil.encryptPwd("admin3","1234qwer"));
+        System.out.println(EncryptUtil.encryptPwd("admin2","1234qwer"));
+        System.out.println(EncryptUtil.encryptPwd("admin","1234qwer"));
+    }
 
 
 }
