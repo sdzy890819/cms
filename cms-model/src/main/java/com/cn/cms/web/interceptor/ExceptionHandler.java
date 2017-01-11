@@ -26,6 +26,7 @@ public class ExceptionHandler implements HandlerExceptionResolver {
         String message = ErrorCodeEnum.ERROR_CODE_DEFAULT.getMessage();
         Integer code = ErrorCodeEnum.ERROR_CODE_DEFAULT.getType();
         try {
+            log.error("异常错误,被捕获.",ex);
             response.setHeader(StaticContants.HEADER_CONTENT_TYPE, StaticContants.JSON_UTF8);
             if(ex instanceof BizException){
                 BizException bizException = (BizException) ex;

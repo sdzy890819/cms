@@ -157,8 +157,8 @@ public class BuildBiz extends BaseBiz {
      * @param base
      */
     void publishTemplate(List<Template> templates, Base base){
-        this.publishTemplate(templates);
         if(StringUtils.isNotEmpty(templates)) {
+            this.publishTemplate(templates);
             for (int i = 0; i < templates.size(); i++) {
                 TemplatePublishJob templatePublishJob = new TemplatePublishJob();
                 if(templates.get(i).getTemplateClassify() == TemplateClassifyEnum.detail.getType()) {
@@ -183,8 +183,9 @@ public class BuildBiz extends BaseBiz {
                     list.add(templates.get(i).getId());
                 }
             }
+            templateBiz.publishTemplate(list);
         }
-        templateBiz.publishTemplate(list);
+
     }
 
 
