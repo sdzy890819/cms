@@ -60,7 +60,7 @@
     </select>
     
     <select id="queryNewsList" resultMap="news">
-        select <include refid="sql_column_simple" /> from news <include refid="delTag" /> limit ${page.page},${page.pageSize};
+        select <include refid="sql_column_simple" /> from news <include refid="delTag" /> limit ${page.start},${page.pageSize};
     </select>
     
     <select id="findNewsAndDetail" resultMap="news">

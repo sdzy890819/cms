@@ -57,7 +57,7 @@
 
     <insert id="saveTopic" useGeneratedKeys="true" keyProperty="p1.id">
       insert into topic ( <include refid="sql_column"/> ) VALUES
-        ( null,#{p1.lastModifyUserId},#{p1.topicTitle},#{p1.topicContent},#{p1.topicPath},#{p1.topicFileName},${p1.topicClassifyId},
+        ( null,#{p1.lastModifyUserId},#{p1.topicTitle},#{p1.topicContent},#{p1.topicPath},#{p1.topicFilename},${p1.topicClassifyId},
         ${p1.categoryId},${p1.channelId},#{p1.releaseTime},#{p1.keyword},#{p1.description},${p1.topicColumnId},#{p1.topicUrl},${p1.publish},#{p1.buildUserId},#{p1.buildTime} );
     </insert>
 
@@ -73,8 +73,8 @@
           <if test="p1.topicPath != null">
       topic_path = #{p1.topicPath},
           </if>
-          <if test="p1.topicFileName != null">
-      topic_filename = #{p1.topicFileName},
+          <if test="p1.topicFilename != null">
+      topic_filename = #{p1.topicFilename},
           </if>
           <if test="p1.topicClassifyId != null">
       topic_classify_id = ${p1.topicClassifyId},

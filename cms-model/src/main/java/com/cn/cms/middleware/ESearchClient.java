@@ -561,7 +561,7 @@ public class ESearchClient {
             Settings settings = Settings.builder()
                     .put("client.transport.sniff", true)
                     .put("cluster.name", "cms-application")
-                    .put("client.transport.ping_timeout", "10s").build();
+                    .put("client.transport.ping_timeout", "20s").build();
             this.client = new PreBuiltTransportClient(settings);
             if(clusterList!=null){
                 for(int i=0; i<clusterList.size(); i++){
@@ -591,7 +591,7 @@ public class ESearchClient {
     public static void main(String[] args){
         ESearchClient eSearchClient = new ESearchClient();
         List<String> list = new ArrayList<>();
-        list.add("127.0.0.1:9300");
+        list.add("120.77.220.11:9300");
         eSearchClient.setClusterList(list);
         eSearchClient.open();
         NewsSearch newsSearch = new NewsSearch();

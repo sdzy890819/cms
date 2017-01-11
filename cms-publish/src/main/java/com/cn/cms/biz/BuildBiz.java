@@ -183,7 +183,9 @@ public class BuildBiz extends BaseBiz {
                     list.add(templates.get(i).getId());
                 }
             }
-            templateBiz.publishTemplate(list);
+            if(StringUtils.isNotEmpty(list)) {
+                templateBiz.publishTemplate(list);
+            }
         }
 
     }

@@ -131,7 +131,7 @@ public class TopicController extends BaseController {
                              @RequestParam(value = "releaseTime") String releaseTime,
                              @RequestParam(value = "keyword") String keyword,
                              @RequestParam(value = "description") String description,
-                             @RequestParam(value = "topicColumnId") Long topicColumnId
+                             @RequestParam(value = "topicColumnId", required = false) Long topicColumnId
                              ) throws BizException {
         SimpleDateFormat sdf = new SimpleDateFormat(StaticContants.YYYY_MM_DD);
         Topic topic = new Topic();

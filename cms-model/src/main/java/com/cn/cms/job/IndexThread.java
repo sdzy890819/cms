@@ -59,6 +59,6 @@ public class IndexThread extends BaseTask {
 
     @Override
     protected String getJobName() {
-        return null;
+        return "索引操作";
     }
 }
