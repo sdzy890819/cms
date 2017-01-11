@@ -28,6 +28,7 @@ public class VelocityUtils {
     static{
         prop.put("userdirective","com.cn.cms.template.directive.TAGList," +
                 "com.cn.cms.template.directive.TAGDetail");
+        prop.put(Velocity.FILE_RESOURCE_LOADER_PATH, "/");
     }
 
 
