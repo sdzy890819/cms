@@ -184,7 +184,7 @@ public class ESearchClient {
     public QueryResult<Topic> searchTopic(TopicSearch topicSearch, Page page){
         BoolQueryBuilder qb = QueryBuilders.boolQuery();
         if(StringUtils.isNotBlank(topicSearch.getCondition())) {
-            qb = qb.must(QueryBuilders.multiMatchQuery(topicSearch.getCondition(), new String[]{"topicTitle","topicTitle.pinyin","keyword","description","","",}));
+            qb = qb.must(QueryBuilders.multiMatchQuery(topicSearch.getCondition(), new String[]{"topicTitle","topicTitle.pinyin","keyword","description"}));
         }
         if(topicSearch.getChannelId()!=null && topicSearch.getChannelId()>0){
             qb = qb.must(QueryBuilders.termQuery("channelId", topicSearch.getChannelId()));

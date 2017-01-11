@@ -64,7 +64,7 @@
     </update>
 
     <update id="delVideo">
-        update video set last_modify_user_id = #{lastModifyUserId}, delTag = 0 where id = ${id} ;
+        update video set last_modify_user_id = #{lastModifyUserId}, del_tag = 0 where id = ${id} ;
     </update>
 
     <select id="queryVideoCount" resultType="java.lang.Integer">

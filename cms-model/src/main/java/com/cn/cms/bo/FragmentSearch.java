@@ -13,4 +13,6 @@ public class FragmentSearch {
     private String condition;
 
     private Long fragmentClassifyId;
+
+    private Long channelId;
 }

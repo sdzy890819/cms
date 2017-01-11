@@ -41,14 +41,14 @@
     <select id="searchTemplate2Count" resultType="java.lang.Integer">
         select count(1) from template2 <include refid="delTag" />
         <if test="p1.condition != null">
-          and template_name like '%#{p1.condition}%'
+          and template_name like CONCAT('%',#{p1.condition},'%')
         </if>
     </select>
 
     <select id="searchTemplate2" resultMap="template2">
         select <include refid="sql_column" /> from template2 <include refid="delTag" />
         <if test="p1.condition != null">
-            and template_name like '%#{p1.condition}%'
+            and template_name like CONCAT('%',#{p1.condition},'%')
         </if> limit ${page.start},${page.pageSize};
     </select>
 
@@ -62,7 +62,7 @@
 
     <insert id="saveTemplate2" useGeneratedKeys="true" keyProperty="p1.id">
         insert into template2 ( <include refid="sql_column" /> ) values (
-        null,#{p1.lastModifyUserId},#{p1.templateName},#{p1.filename},#{p1.path},${p1.templateClassify},
+        null,#{p1.lastModifyUserId},#{p1.templateName},#{p1.filename},#{p1.path},#{p1.templateClassify},
         #{p1.userId},#{p1.encoded});
     </insert>
 

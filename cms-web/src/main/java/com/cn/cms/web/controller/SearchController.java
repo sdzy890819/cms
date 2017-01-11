@@ -218,11 +218,13 @@ public class SearchController extends BaseController {
     @RequestMapping(value = "/searchFragment", method = RequestMethod.POST)
     public String searchVideo(@RequestParam(value = "condition", required = false) String condition,
                               @RequestParam(value = "fragmentClassifyId", required = false) Long fragmentClassifyId,
+                              @RequestParam(value = "channelId", required = false) Long channelId,
                               @RequestParam(value = "page", required = false) Integer page,
                               @RequestParam(value = "pageSize", required = false) Integer pageSize){
         Page pageObj = new Page(page, pageSize);
         FragmentSearch fragmentSearch = new FragmentSearch();
         fragmentSearch.setCondition(condition);
+        fragmentSearch.setChannelId(channelId);
         fragmentSearch.setFragmentClassifyId(fragmentClassifyId);
         List<Fragment> result = fragmentBiz.searchFragement(fragmentSearch, pageObj);
         QueryResult<Fragment> queryResult = new QueryResult<>();

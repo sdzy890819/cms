@@ -1,5 +1,6 @@
 package com.cn.cms.message.common;
 
+import com.cn.cms.message.bean.Body;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -147,7 +147,7 @@
     </select>
 
     <update id="publishNews" >
-        update news set url = #{p1.url},relativePath = #{p1.relative_path},publish = ${p1.publish}
+        update news set url = #{p1.url},relative_path = #{p1.relativePath},publish = ${p1.publish}
         ,build_user_id = #{p1.buildUserId}, build_time = #{p1.buildTime} where id = ${p1.id};
     </update>
 

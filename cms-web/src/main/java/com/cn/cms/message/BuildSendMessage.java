@@ -2,6 +2,7 @@ package com.cn.cms.message;
 
 import com.cn.cms.enums.CommonMessageSourceEnum;
 import com.cn.cms.enums.MQQueueKeyEnum;
+import com.cn.cms.message.bean.Body;
 import com.cn.cms.message.common.CommonMessage;
 import com.cn.cms.message.common.MessageSender;
 import org.springframework.amqp.core.AmqpTemplate;

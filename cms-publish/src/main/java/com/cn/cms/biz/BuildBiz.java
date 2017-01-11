@@ -1,5 +1,6 @@
 package com.cn.cms.biz;
 
+import com.alibaba.fastjson.JSONObject;
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.enums.CommonMessageSourceEnum;
 import com.cn.cms.enums.PublishEnum;
@@ -62,7 +63,7 @@ public class BuildBiz extends BaseBiz {
         CommonMessageSourceEnum sourceEnum = CommonMessageSourceEnum.get(commonMessage.getSource());
         Base base;
         List<Template> templates;
-        Body body = (Body) commonMessage.getMessage();
+        Body body = JSONObject.parseObject(((JSONObject)commonMessage.getMessage()).toJSONString(),Body.class);
         switch (sourceEnum) {
             case NEWS: {
                 News news = newsBiz.findNewsAndDetail(body.getId());

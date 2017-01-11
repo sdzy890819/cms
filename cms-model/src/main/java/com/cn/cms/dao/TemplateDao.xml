@@ -42,7 +42,7 @@
     <select id="searchTemplateCount" resultType="java.lang.Integer">
         select count(1) from template <include refid="delTag" />
         <if test="p1.condition != null">
-          and template_name like '%#{p1.condition}%'
+          and template_name like CONCAT('%',#{p1.condition},'%')
         </if>
         <if test="p1.channelId != null">
           and channel_id = ${p1.channelId}
@@ -52,7 +52,7 @@
     <select id="searchTemplate" resultMap="template">
         select <include refid="sql_column" /> from template <include refid="delTag" />
         <if test="p1.condition != null">
-            and template_name like '%#{p1.condition}%'
+            and template_name like CONCAT('%',#{p1.condition},'%')
         </if>
         <if test="p1.channelId != null">
             and channel_id = ${p1.channelId}
