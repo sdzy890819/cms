@@ -18,14 +18,14 @@ public class OtherBiz {
     private OtherService otherService;
 
     public List<Map<String,Object>> getList(String content , Page page){
-        content = content.toUpperCase().trim();
-        if(content.startsWith("SELECT ") && content.indexOf("UPDATE ") < 0 &&
-                content.indexOf("DELETE ") < 0 && content.indexOf("INSERT ") < 0 && content.indexOf("CREATE ") < 0 &&
-                content.indexOf("SHOW ") < 0){
-            if(content.indexOf("LIMIT")>0){
-                content = content.substring(0,content.indexOf("LIMIT"));
+        String tmp = content.toUpperCase().trim();
+        if(tmp.startsWith("SELECT ") && tmp.indexOf("UPDATE ") < 0 &&
+                tmp.indexOf("DELETE ") < 0 && tmp.indexOf("INSERT ") < 0 && tmp.indexOf("CREATE ") < 0 &&
+                tmp.indexOf("SHOW ") < 0){
+            if(tmp.indexOf("LIMIT")>0){
+                content = content.substring(0,tmp.indexOf("LIMIT"));
             }
-            content = content.concat("LIMIT ").concat(String.valueOf(page.getStart())).concat(",").concat(String.valueOf(page.getPageSize()));
+            content = content.concat(" LIMIT ").concat(String.valueOf(page.getStart())).concat(",").concat(String.valueOf(page.getPageSize()));
             otherService.execSql(content);
         }
         return null;
