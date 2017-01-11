@@ -27,3 +27,13 @@ then
 fi
 /usr/local/tomcat/bin/catalina.sh start
 
+echo "----------------------------------------------------"
+echo "-----------------------java jar restart------------------------"
+echo "----------------------------------------------------"
+cd /data/projects/cms-publish/
+ABC = `ps -af|grep "cms-publish" |grep "java" |awk '{print $2}'`
+if [[ $ABC > 0 ]]
+then
+	kill -9 $ABC
+fi
+java -jar cms-publish.jar >/data/logs/cms-publish/catalina.out &
