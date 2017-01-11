@@ -18,6 +18,7 @@
 	<import resource="classpath:spring/spring-amqp-common.xml"/>
 	<import resource="classpath:spring/spring-amqp-sub-build.xml"/>
 	<import resource="classpath:spring/spring-schedule.xml" />
+	<import resource="classpath:spring/spring-es.xml"
 
 	
 	<bean id="placeholderConfig"
