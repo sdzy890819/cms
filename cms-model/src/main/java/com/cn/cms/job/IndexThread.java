@@ -22,7 +22,7 @@ import java.util.Date;
 @Setter
 public class IndexThread extends BaseTask {
 
-    private ESearchClient eSearchClient = ContextUtil.getContextUtil().getBean(ESearchClient.class);
+    private ESearchClient eSearchClient = ContextUtil.getContextUtil().getBean("esearchClient", ESearchClient.class);
 
     private JedisClient jedisClient = ContextUtil.getContextUtil().getBean(JedisClient.class);
 
