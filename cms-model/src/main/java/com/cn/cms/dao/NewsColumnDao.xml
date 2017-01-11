@@ -42,8 +42,8 @@
     </select>
 
     <insert id="saveNewsColumn" useGeneratedKeys="true" keyProperty="p1.id">
-        insert into news_column ( <include refid="sql_column"/> ) values (null,#{p1.lastModifyUserId},#{p1.columnName},${p1.channelId},${p1.listId},
-        ${p1.detailId},${p1.listTemplate2Id},${p1.detailTemplate2Id},#{p1.keywords},#{p1.description});
+        insert into news_column ( <include refid="sql_column"/> ) values (null,#{p1.lastModifyUserId},#{p1.columnName},#{p1.channelId},#{p1.listId},
+        #{p1.detailId},#{p1.listTemplate2Id},#{p1.detailTemplate2Id},#{p1.keywords},#{p1.description});
     </insert>
 
     <update id="updateNewsColumn">
