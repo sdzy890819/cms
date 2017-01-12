@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cn.cms.dao.ImagesDao" >
+
+    <resultMap id="base" type="com.cn.cms.po.Base">
+        <id column="id" property="id" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="del_tag" property="delTag" />
+        <result column="last_modify_user_id" property="lastModifyUserId" />
+    </resultMap>
+
+    <resultMap type="com.cn.cms.po.Images" id="images" extends="base" >
+        <result column="image_url" property="imageUrl" />
+        <result column="image_width_pixel" property="imageWidthPixel" />
+        <result column="image_height_pixel" property="imageHeightPixel" />
+        <result column="org_width_pixel" property="orgWidthPixel" />
+        <result column="org_height_pixel" property="orgHeightPixel" />
+        <result column="image_title" property="imageTitle" />
+        <result column="upload_user_id" property="uploadUserId" />
+        <result column="upload_time" property="uploadTime" />
+        <result column="image_path" property="imagePath" />
+        <result column="watermark" property="watermark" />
+        <result column="compress" property="compress" />
+        <result column="platform" property="platform" />
+    </resultMap>
+
+
+    <sql id="delTag"> where del_tag = 1 </sql>
+    
+    <sql id="sql_column">
+        id,last_modify_user_id,
+        image_url,image_width_pixel,image_height_pixel,org_width_pixel,org_height_pixel,
+        image_title,upload_user_id,upload_time,image_path,watermark,compress,platform
+    </sql>
+
+    <insert id="saveImages" useGeneratedKeys="true" keyProperty="p1.id">
+        insert into images ( <include refid="sql_column"/> ) values
+        (null,#{p1.lastModifyUserId},#{p1.imageUrl},${p1.imageWidthPixel},${p1.imageHeightPixel},${p1.orgWidthPixel}
+        ,${p1.orgHeightPixel},#{p1.imageTitle},#{p1.uploadUserId},#{p1.uploadTime},#{p1.imagePath},${p1.watermark},${p1.compress},${p1.platform});
+    </insert>
+
+    <update id="updateImages">
+      update images
+      <set>
+          <if test="p1.imageUrl != null ">
+          image_url=#{p1.imageUrl},
+          </if>
+          <if test="p1.imageWidthPixel != null ">
+          image_width_pixel=${p1.imageWidthPixel},
+          </if>
+          <if test="p1.imageHeightPixel != null ">
+          image_height_pixel=${p1.imageHeightPixel},
+          </if>
+          <if test="p1.orgWidthPixel != null ">
+          org_width_pixel=${p1.orgWidthPixel},
+          </if>
+          <if test="p1.orgHeightPixel != null ">
+          org_height_pixel=${p1.orgHeightPixel},
+          </if>
+          <if test="p1.imageTitle != null ">
+          image_title=#{p1.imageTitle},
+          </if>
+          <if test="p1.uploadUserId != null ">
+          upload_user_id=#{p1.uploadUserId},
+          </if>
+          <if test="p1.uploadTime != null ">
+          upload_time=#{p1.uploadTime},
+          </if>
+          <if test="p1.imagePath != null ">
+          image_path=#{p1.imagePath},
+          </if>
+          <if test="p1.watermark != null ">
+          watermark=${p1.watermark},
+          </if>
+          <if test="p1.compress != null ">
+          compress=${p1.compress},
+          </if>
+          <if test="p1.platform != null ">
+          platform=${p1.platform},
+          </if>
+          last_modify_user_id=#{p1.lastModifyUserId}
+      </set>
+         where id = #{p1.id};
+    </update>
+    
+    <update id="delImages">
+        update images set last_modify_user_id=#{lastModifyUserId}, del_tag = 0 where id = ${id};
+    </update>
+
+    <select id="queryImagesCount" resultType="java.lang.Integer">
+        select count(1) from images <include refid="delTag" />;
+    </select>
+
+    <select id="queryImagesList" resultMap="images">
+        select <include refid="sql_column" /> from images <include refid="delTag" /> limit ${page.start},${page.pageSize}
+    </select>
+
+</mapper>

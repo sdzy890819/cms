@@ -23,7 +23,7 @@ import java.util.Map;
  */
 
 @Controller
-@RequestMapping(value="/position/",produces = "application/json; charset=UTF-8")
+@RequestMapping(value="/webapi/position/",produces = "application/json; charset=UTF-8")
 @ResponseBody
 public class PositionController extends BaseController{
 
@@ -41,9 +41,9 @@ public class PositionController extends BaseController{
      * @return
      */
     @CheckToken
-    @CheckAuth
+    @CheckAuth( name = "position:write" )
     @RequestMapping(value = "/createPosition",method = RequestMethod.POST)
-    public String createPosition(HttpServletRequest request,@RequestPart(value="positionname") String positionName){
+    public String createPosition(HttpServletRequest request,@RequestParam(value="positionName") String positionName){
         String userID = getCurrentUserId(request);
         Position position = positionBiz.findPositionName(positionName);
         if( position != null ){
@@ -60,7 +60,7 @@ public class PositionController extends BaseController{
      * @return
      */
     @CheckToken
-    @CheckAuth
+    @CheckAuth( name = "position:delete" )
     @RequestMapping(value = "/delPosition",method = RequestMethod.GET)
     public String delPosition(HttpServletRequest request, @RequestParam(value="id")Long id){
         String userID = getCurrentUserId(request);
@@ -76,11 +76,11 @@ public class PositionController extends BaseController{
      * @return
      */
     @CheckToken
-    @CheckAuth
+    @CheckAuth( name = "position:update" )
     @RequestMapping(value = "/updatePosition",method = RequestMethod.POST)
     public String updatePosition(HttpServletRequest request,
-                                 @RequestPart(value="positionName") String positionName,
-                                 @RequestPart(value="id") Long id){
+                                 @RequestParam(value="positionName") String positionName,
+                                 @RequestParam(value="id") Long id){
         String userID = getCurrentUserId(request);
         positionBiz.updatePosition(userID, positionName, id);
         return ApiResponse.returnSuccess();
@@ -93,7 +93,7 @@ public class PositionController extends BaseController{
      * @return
      */
     @CheckToken
-    @CheckAuth
+    @CheckAuth( name = "position:read" )
     @RequestMapping(value = "/listPosition",method = RequestMethod.GET)
     public String listPosition(@RequestParam(value = "page",defaultValue = "1") Integer page,
                        @RequestParam(value="pageSize",required = false)Integer pageSize){
@@ -107,14 +107,14 @@ public class PositionController extends BaseController{
 
 
     /**
-     * 给用户分配组权限
+     * 给用户分配组
      * @param request
      * @param userId
      * @param positionId
      * @return
      */
     @CheckToken
-    @CheckAuth
+    @CheckAuth( name = "userposition:update" )
     @RequestMapping(value = "/setUserPosition",method = RequestMethod.GET)
     public String setUserPosition(HttpServletRequest request,
                                   @RequestParam("userId")String userId,

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cn.cms.dao.UserDao">
+
+    <resultMap id="base" type="com.cn.cms.po.Base">
+        <id column="id" property="id" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="del_tag" property="delTag" />
+        <result column="last_modify_user_id" property="lastModifyUserId" />
+    </resultMap>
+
+    <resultMap type="com.cn.cms.po.User" id="user" extends="base" >
+        <result column="user_name" property="userName" />
+        <result column="head_image" property="headImage" />
+        <result column="real_name" property="realName" />
+        <result column="pwd" property="pwd" />
+        <result column="user_id" property="userId" />
+        <result column="position_id" property="positionId" />
+        <result column="position_name" property="position_name" />
+    </resultMap>
+
+    <sql id="all_column">
+        id,last_modify_user_id,
+        user_name,head_image,real_name,pwd,user_id
+
+    </sql>
+
+    <sql id="delTag"> where del_tag = 1 </sql>
+
+    <select id="test" resultMap="user">
+        select * from user <include refid="delTag" /> and id=10000;
+    </select>
+
+    <select id="queryUserCount" resultType="java.lang.Integer">
+        select count(1) from user <include refid="delTag" />;
+    </select>
+
+    <select id="queryUserList" resultMap="user">
+        select <include refid="all_column" /> from user <include refid="delTag" />
+        limit ${page.start},${page.pageSize};
+    </select>
+
+    <select id="findUser" resultMap="user">
+        select <include refid="all_column" /> from user <include refid="delTag" /> and user_id=#{userId};
+    </select>
+
+    <select id="findUserList" resultMap="user">
+        select <include refid="all_column" /> from user <include refid="delTag" /> and user_id in 
+        <foreach collection="list" item="item" separator="," open="(" close=")">
+        ${item}
+        </foreach>
+        ;
+    </select>
+
+    <insert id="createUser" useGeneratedKeys="true" keyProperty="p1.id">
+        insert into user (<include refid="all_column" />) value (null,
+        #{user.lastModifyUserId},#{user.userName},#{user.headImage},#{user.realName}
+        ,#{user.pwd},#{user.userId});
+    </insert>
+
+    <select id="queryUserName" resultType="java.lang.Integer">
+        select count(1) from user <include refid="delTag" /> and user_name = #{userName};
+    </select>
+
+    <update id="delUser" >
+        update user set del_tag = 0,last_modify_user_id = #{lastModifyUserId} where user_id = #{userId};
+    </update>
+
+    <update id="updateUser" >
+        update user
+         <set>
+             <if test="user.realName != null">
+         real_name=#{user.realName},
+             </if>
+             <if test="user.pwd != null">
+        pwd=#{user.pwd},
+             </if>
+             <if test="user.headImage != null">
+        head_image=#{user.headImage},
+             </if>
+             last_modify_user_id = #{user.lastModifyUserId}
+         </set>
+         where user_id = #{userId};
+    </update>
+
+    <select id="findUserName" resultMap="user">
+        select * from user <include refid="delTag" /> and user_name = #{userName};
+    </select>
+
+    <select id="findUserForLogin" resultMap="user">
+        select * from user <include refid="delTag" /> and user_name = #{userName} and pwd = #{pwd};
+    </select>
+
+</mapper>

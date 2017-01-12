@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cn.cms.dao.TemplateRelationDao" >
+
+    <resultMap id="base" type="com.cn.cms.po.Base">
+        <id column="id" property="id" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="del_tag" property="delTag" />
+        <result column="last_modify_user_id" property="lastModifyUserId" />
+    </resultMap>
+    <resultMap type="com.cn.cms.po.TemplateRelation" id="templateRelation" extends="base">
+        <result column="template_id" property="templateId" />
+        <result column="relation_id" property="relationId" />
+        <result column="relation_type" property="relationType" />
+    </resultMap>
+
+    <sql id="delTag"> where del_tag = 1 </sql>
+
+    <sql id="sql_column">
+        id,last_modify_user_id,
+        template_id,relation_id,relation_type
+    </sql>
+    
+    <select id="queryTemplateRelationList" resultMap="templateRelation">
+      select <include refid="sql_column" /> from template_relation <include refid="delTag" /> and template_id = ${templateId} and relation_type = ${relationType};
+    </select>
+
+    <select id="queryListForTemplateId" resultMap="templateRelation">
+        select <include refid="sql_column" /> from template_relation <include refid="delTag" /> and template_id = ${templateId};
+    </select>
+
+    <select id="queryListForTemplateIdCount" resultType="java.lang.Integer">
+        select count(1) from template_relation <include refid="delTag" /> and template_id = ${templateId};
+    </select>
+
+    <update id="updateRelation">
+        delete from template_relation where template_id = ${templateId} and relation_type in
+        <foreach collection="relationTypes" item="type" open="(" close=")" separator=",">
+            ${type}
+        </foreach>;
+
+        insert into template_relation ( <include refid="sql_column"/> ) values
+        <foreach collection="list" item="item" close=";" separator=",">
+          (null,#{item.lastModifyUserId},${item.templateId},${item.relationId},${item.relationType})
+        </foreach>
+    </update>
+
+    <insert id="saveRelation" useGeneratedKeys="true" keyProperty="p1.id">
+        insert into template_relation ( <include refid="sql_column"/> ) values
+        (null,#{p1.lastModifyUserId},${p1.templateId},${p1.relationId},${p1.relationType});
+    </insert>
+
+    <delete id="delRelation">
+        delete from template_relation where template_id = ${templateId} and relation_id = ${relationId} and relation_type = ${relationType} ;
+    </delete>
+    <delete id="delRelationByTemplateId">
+        delete from template_relation where template_id = ${templateId} ;
+    </delete>
+
+    <select id="queryListForAll" resultMap="templateRelation">
+        select <include refid="sql_column" /> from template_relation <include refid="delTag" />  and relation_type = ${relationType}
+        and relation_id = ${relationId} and template_id = ${templateId} limit 1;
+    </select>
+
+</mapper>

@@ -1,165 +1,109 @@
-define(function (require, exports, module) {
-	var app = require('../ng-element'),
-		position = require('../common/position') , 
-		fixedNav = require('../common/positionNav') , 
-		form = require('../common/form');
-
-	position.init({
-		app : app
-	});
-	fixedNav.init({app : app})
-	form.init({app : app})
-
-	app.directive('newsAdd',function(){
+define(["app",'jquery','./columnForm'
+		,'../data/getData','formlist'
+		,'position','fixedNav'
+		,'../moduls/service','../moduls/factory',
+], function ( app , $ , list , data) {
+	app.directive('newsList',function(){
 		return {
 	    	restrict : 'E',
 	    	replace : true,
 	    	transclude : true,
-	        templateUrl : '../template/news/add.html',
-	        controller : function($scope){
-				$scope.save = function(){ //保存
-					alert('保存')
-				}
-				$scope.rlease = function(){ //发布
-					alert('发布')
-				}
-				$scope.view = function(){ //预览
-					alert('预览')
-				}
-				$scope.cancel = function(){ //预览
-					alert('取消')
-				}
-				$scope.menu = [{name:"新闻管理",link:"news.add"},{name:"新增新闻",link:"news.add",show:"true"}]; //栏目
-				$scope.edit = { //导航操作按钮
-					nav : [{
-						name : '保存',
-						evt : $scope.save,
-						cls : 'save'
-					}],
-					list : [
-						{
-							name:'发布',
-							evt : $scope.rlease,
-							cls : 'add'
-						}
+	        templateUrl : '../template/common/list.html',
+	        controller : function($scope , pop , GenerateArrList , $uibModal ){
+				$scope.title = "新闻栏目列表";
+				$scope.$parent.menu.push({name:$scope.title}); //栏目
+				angular.extend($scope,{
+					add : function( id ){ //保存
+						pop.alert({
+							 text:'你的ID为：'+id
+							,btn : ['确定','取消']
+							,fn : function(index){//确定
+								layer.close(index)
+							}
+						})
+					},
+					edit : function( obj ){ //保存
+						require(['./common/editPop'], function(pop) {
+	        				pop.init({
+	        					obj : obj,
+	        					list : list,
+	        					$uibModal :$uibModal 
+	        				});
+	  					});
+					},
+					del : function( id ){ //删除
+						pop.alert({
+							 text:'你的ID为：'+id
+							,btn : ['确定','取消']
+							,fn : function(index){//确定
+								layer.close(index)
+							}
+						})
+					},
+					filter : [ //过滤不需要展示的
+						'id'
 					]
+				});
+				 
+				$scope.navEdit = { //导航操作按钮
+					//nav : [selectAll],
+					/*list : [
+						{
+							name : '批量删除',
+							event : function(id , scope , evt){
+								scope.delAll(function( ids ){
+									console.log(ids)
+								});
+							},
+							cls :'red',
+							icon_cls : 'remove'
+						}
+					]*/
 				}
-				var list = [ //表单
-					{
-						name : '标题',
-						placeholder : '请输入标题',
-						minLength : 5,
-						maxLength : 30,
-						type : 'text', //text textarea radio checkbox edit
-						prompt : {
-							defualt : '标题为30个字符',
-							error : '内容必需为中文，5-30个字符内'
-						}
-					},
-					{
-						name : '附标题',
-						placeholder : '请输入附标题',
-						type : 'text',
-						minLength : 10,
-						maxLength : 50,
-						prompt : {
-							defualt : '附标题为50个字符',
-							error : '内容必需为中文，10-50个字符内'
-						}
-					},
-					{
-						name : '关键字',
-						placeholder : '关键字之间以 “,” 隔开',
-						type : 'text',
-						check : true,
-						prompt : {
-							defualt : '关键字之间以 “,” 隔开，不超过5个字符'
-						}
-					},
-					[
-						{
-							name : '作者',
-							placeholder : '请输入作者',
-							check : true,
-							type : 'text',
-						},
-						{
-							name : '来源',
-							placeholder : '请输入作者来源',
-							check : true,
-							type : 'text'
-						}
-					],
-					{
-						name : '描述',
-						placeholder : '描述',
-						check : true,
-						type : 'textarea'
-					},
-					{
-						name : '选择频道栏目',
-						type : 'select',
-						prompt : {
-							defualt : '请选择栏目',
-							error : '栏目不能为空'
-						},
-						select : [
-							[
-								{name:'请选择部门'},
-								{name:'请选择部门'}
+
+				data.news.newscolumnlist(function(_data){
+					$scope.listdata = { //确认按钮
+						title : $scope.title,
+						table : {
+							select : true,
+							th : [
+								{name:'栏目名' , width : '200'},
+								{name:'频道ID' },
+								{name:'操作' , width : '200' , class:'center'}
 							],
-							[
-								{name:'请选择频道'}
-							],
-							[
-								{name:'请选择栏目'}
+							td : GenerateArrList.arr(_data.data.list,$scope.filter) ,
+							edit : [
+								{cls : 'edit' , name : '编辑',evt:$scope.edit},
+							/*	{cls : 'edit' , name : '添加权限到组',evt:$scope.edit},*/
+								{cls : 'del' , name : '删除',evt:$scope.del},
 							]
-						]
-					},
-					{
-						name : '内容',
-						type : 'edit',
-						prompt : {
-							error : '内容不能为空'
-						},
-						minLength : 10,
-						maxLength : 500,
-					},
-					{
-						name : '定时发布',
-						type : 'date',
-						prompt : {
-							error : '时间不能为空'
 						}
+						/*submit : [
+							{
+								name : '全选',
+								evt : function(id , scope , evt){
+									scope.selectAll(evt);
+								},
+								icon_cls : 'ok'
+							},
+							{
+								name : '批量删除',
+								evt : function(id , scope , evt){
+									scope.delAll($scope.delAll);
+								},
+								cls :'red',
+								icon_cls : 'remove'
+							}
+						]*/
 					}
-				];
-				$scope.formdata = { //确认按钮
-					title : '新增新闻',
-					list : list,
-					submit : [
-						{
-							name : '保存',
-							evt : $scope.save,
-							icon_cls : 'save'
-						},
-						{
-							name:'预览',
-							evt : $scope.view,
-							icon_cls : 'view'
-						},
-						{
-							name:'确认发布',
-							evt : $scope.rlease,
-							icon_cls : 'ok'
-						},
-						{
-							name:'取消',
-							evt : $scope.cancel,
-							icon_cls : 'cancel',
-							cls : 'cancel'
-						}
-					]
-				}
+					//GenerateArrList.extendType($scope.listdata.table.td,$scope.listdata.table.th,['width','name']); //把TH 中的出name属性以外的属性合传给td
+		        	GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
+		        	$scope.$apply();
+				})
+	        	
+	        }
+	        ,link : function($scope , element ){
+	        	
 	        }
 	    };
 	});

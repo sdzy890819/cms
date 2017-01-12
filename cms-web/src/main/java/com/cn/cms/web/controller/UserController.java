@@ -1,13 +1,8 @@
 package com.cn.cms.web.controller;
 
-import com.cn.cms.biz.PositionBiz;
 import com.cn.cms.biz.UserBiz;
-import com.cn.cms.biz.UserPositionBiz;
 import com.cn.cms.bo.UserBean;
-import com.cn.cms.contants.StaticContants;
 import com.cn.cms.enums.ErrorCodeEnum;
-import com.cn.cms.po.Position;
-import com.cn.cms.utils.CookieUtil;
 import com.cn.cms.utils.Page;
 import com.cn.cms.web.ann.CheckAuth;
 import com.cn.cms.web.ann.CheckToken;
@@ -29,7 +24,7 @@ import java.util.Map;
  */
 
 @Controller
-@RequestMapping(value="/user/",produces = "application/json; charset=UTF-8")
+@RequestMapping(value="/webapi/user/",produces = "application/json; charset=UTF-8")
 @ResponseBody
 public class UserController extends BaseController{
 
@@ -48,8 +43,8 @@ public class UserController extends BaseController{
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(HttpServletResponse response,
-                        @RequestPart(value="userName")String userName,
-                        @RequestPart(value="pwd")String pwd){
+                        @RequestParam(value="userName")String userName,
+                        @RequestParam(value="pwd")String pwd){
         return userBiz.checkUserAndSetCookie(response ,userName ,pwd);
     }
 
@@ -76,14 +71,14 @@ public class UserController extends BaseController{
      * @return
      */
     @CheckToken
-    @CheckAuth
-    @RequestMapping(value = "/list")
-    public String list(HttpServletRequest request, @RequestParam(value = "page",required = false) Integer page,
+    @CheckAuth( name = "user:read" )
+    @RequestMapping(value = "/userlist")
+    public String userlist(HttpServletRequest request, @RequestParam(value = "page",required = false) Integer page,
                         @RequestParam(value="pageSize",required = false)Integer pageSize){
         Page pageObj = new Page(page,pageSize);
         List<UserBean> users= userBiz.listUser(pageObj);
         Map<String, Object> result = new HashMap<String, Object>();
-        result.put("page",page);
+        result.put("page",pageObj);
         result.put("list",users);
         return ApiResponse.returnSuccess(result);
     }
@@ -93,8 +88,8 @@ public class UserController extends BaseController{
      * @param request
      * @return
      */
-    @CheckToken
     @RequestMapping(value = "/currentUser")
+    @CheckToken
     public String currentUser(HttpServletRequest request){
         String userID = getCurrentUserId(request);
         if(StringUtils.isBlank(userID)){
@@ -114,12 +109,12 @@ public class UserController extends BaseController{
      * @return
      */
     @CheckToken
-    @CheckAuth
+    @CheckAuth( name = "user:write" )
     @RequestMapping(value = "/createUser",method = RequestMethod.POST)
-    public String createUser(HttpServletRequest request, @RequestPart(value="userName")String userName,
-                             @RequestPart(value="realName")String realName,
-                             @RequestPart(value="pwd")String pwd,
-                             @RequestPart(value="headImage")String headImage){
+    public String createUser(HttpServletRequest request, @RequestParam(value="userName")String userName,
+                             @RequestParam(value="realName")String realName,
+                             @RequestParam(value="pwd")String pwd,
+                             @RequestParam(value="headImage")String headImage){
         String userID = getCurrentUserId(request);
         Integer a = userBiz.queryUserName(userName);
         if(a>0){
@@ -136,7 +131,7 @@ public class UserController extends BaseController{
      * @return
      */
     @CheckToken
-    @CheckAuth
+    @CheckAuth( name = "user:delete" )
     @RequestMapping(value = "/delUser",method = RequestMethod.GET)
     public String delUser(HttpServletRequest request,@RequestParam("userId")String userId){
         String userID = getCurrentUserId(request);
@@ -155,13 +150,13 @@ public class UserController extends BaseController{
      */
     @CheckToken
     @RequestMapping(value = "/updateUser",method = RequestMethod.POST)
-    public String updateUser(HttpServletRequest request, @RequestPart("userId")String userId,
-                            @RequestPart("realName")String realName,
-                            @RequestPart("headImage")String headImage,
-                            @RequestPart("pwd")String pwd){
+    public String updateUser(HttpServletRequest request, @RequestParam("userId")String userId,
+                            @RequestParam(value = "realName",required = false)String realName,
+                            @RequestParam(value = "headImage",required = false)String headImage,
+                            @RequestParam(value = "pwd",required = false)String pwd){
         String userID = getCurrentUserId(request);
         if(!userId.equals(userID)){
-            return ApiResponse.returnFail(StaticContants.ERROR_NOT_AUTH);
+            return ApiResponse.returnFail(ErrorCodeEnum.ERROR_NO_PERMISSION.getType(),ErrorCodeEnum.ERROR_NO_PERMISSION.getMessage());
         }
         userBiz.updateUser(userID, userId, realName, headImage, pwd);
         return ApiResponse.returnSuccess();

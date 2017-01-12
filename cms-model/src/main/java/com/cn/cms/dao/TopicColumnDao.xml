@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cn.cms.dao.TopicColumnDao" >
+
+    <resultMap id="base" type="com.cn.cms.po.Base">
+        <id column="id" property="id" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="del_tag" property="delTag" />
+        <result column="last_modify_user_id" property="lastModifyUserId" />
+    </resultMap>
+
+    <resultMap type="com.cn.cms.po.TopicColumn" id="topicColumn" extends="base">
+        <result column="column_name" property="columnName" />
+    </resultMap>
+
+    <sql id="delTag"> where del_tag = 1 </sql>
+
+    <sql id="sql_column">
+        id, last_modify_user_id, `column_name`
+    </sql>
+
+    <select id="findAll" resultMap="topicColumn">
+        select <include refid="sql_column" /> from topic_column <include refid="delTag" /> ;
+    </select>
+
+    <insert id="saveTopicColumn" useGeneratedKeys="true" keyProperty="p1.id">
+        insert into topic_column ( <include refid="sql_column"/> ) VALUES
+        ( null,#{p1.lastModifyUserId},#{p1.columnName} );
+    </insert>
+    
+    <update id="delTopicColumn">
+        UPDATE topic_column set last_modify_user_id = #{lastModifyUserId}, del_tag = 0 where id = ${id} ;
+    </update>
+
+    <update id="updateTopicColumn">
+        update topic_column set last_modify_user_id = #{p1.lastModifyUserId}, `column_name` = #{p1.columnName} where id = ${p1.id} ;
+    </update>
+    
+</mapper>

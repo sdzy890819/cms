@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cn.cms.dao.Template2Dao" >
+
+    <resultMap id="base" type="com.cn.cms.po.Base">
+        <id column="id" property="id" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="del_tag" property="delTag" />
+        <result column="last_modify_user_id" property="lastModifyUserId" />
+    </resultMap>
+    <resultMap type="com.cn.cms.po.Template2" id="template2" extends="base">
+        <result column="template_name" property="templateName" />
+        <result column="filename" property="filename" />
+        <result column="path" property="path" />
+        <result column="template_classify" property="templateClassify" />
+        <result column="user_id" property="userId" />
+        <result column="encoded" property="encoded" />
+    </resultMap>
+
+    <sql id="delTag"> where del_tag = 1 </sql>
+
+    <sql id="sql_column">
+        id,last_modify_user_id,
+        template_name,filename,path,template_classify,user_id,encoded
+    </sql>
+
+    <select id="queryTemplate2Count" resultType="java.lang.Integer">
+        select count(1) from template2 <include refid="delTag" />;
+    </select>
+    
+    <select id="queryTemplate2List" resultMap="template2">
+        select <include refid="sql_column" /> from template2 <include refid="delTag" /> limit ${page.start},${page.pageSize} ;
+    </select>
+
+    <select id="queryTemplate2ByClassify" resultMap="template2">
+        select <include refid="sql_column" /> from template2 <include refid="delTag" /> and template_classify = ${templateClassify}
+    </select>
+
+    <select id="searchTemplate2Count" resultType="java.lang.Integer">
+        select count(1) from template2 <include refid="delTag" />
+        <if test="p1.condition != null">
+          and template_name like CONCAT('%',#{p1.condition},'%')
+        </if>
+    </select>
+
+    <select id="searchTemplate2" resultMap="template2">
+        select <include refid="sql_column" /> from template2 <include refid="delTag" />
+        <if test="p1.condition != null">
+            and template_name like CONCAT('%',#{p1.condition},'%')
+        </if> limit ${page.start},${page.pageSize};
+    </select>
+
+    <update id="delTemplate2">
+        update template2 set last_modify_user_id = #{lastModifyUserId}, del_tag = 0 where id = ${id};
+    </update>
+
+    <select id="getTemplate2" resultMap="template2">
+        select <include refid="sql_column" /> from template2 <include refid="delTag" /> and id = ${id};
+    </select>
+
+    <insert id="saveTemplate2" useGeneratedKeys="true" keyProperty="p1.id">
+        insert into template2 ( <include refid="sql_column" /> ) values (
+        null,#{p1.lastModifyUserId},#{p1.templateName},#{p1.filename},#{p1.path},#{p1.templateClassify},
+        #{p1.userId},#{p1.encoded});
+    </insert>
+
+    <update id="updateTemplate">
+        update template2
+        <set>
+            <if test="p1.templateName != null">
+                template_name = #{p1.templateName},
+            </if>
+            <if test="p1.filename != null">
+                filename = #{p1.filename},
+            </if>
+            <if test="p1.path != null">
+                path = #{p1.path},
+            </if>
+            <if test="p1.templateClassify != null">
+                template_classify = ${p1.templateClassify},
+            </if>
+            <if test="p1.userId != null">
+                user_id = #{p1.userId},
+            </if>
+            <if test="p1.encoded != null">
+                encoded = #{p1.encoded},
+            </if>
+            last_modify_user_id = #{lastModifyUserId}
+        </set>
+
+        where id = ${p1.id};
+    </update>
+
+</mapper>

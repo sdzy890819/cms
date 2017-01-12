@@ -1,38 +1,41 @@
-define(function (require, exports, module) {
-	exports.init = function( obj ){
-		var $ = jQuery,
-			create = require('./createElement'),
-			config = {
-				app : obj.app , 
-				name : 'positionNav' , 
-				templateUrl : '../template/common/positionNav.html',
-				scope : {
-		            edit : '=edit',
-		            submit : '=submit'
-		        },
-				controller : function($scope , $state){
-					var icon = {
-						add:'plus',//添加
-						save:'save',//保存
-						edit:'edit',//编辑
-						del:'trash',//删除
-						upload:'upload-alt',//上传
-						magnet:'magnet',//关联
-						ok:'ok'//全选 确定
-					};
-					if($scope.edit){
-						if($scope.edit.nav){
-							$.each($scope.edit.nav,function(){
-								this.cls = icon[this.cls]
-							});
-						}
+define(["app",'./moduls/directive'], function ( app ) {
+	app.directive('positionNav',function(){
+		return {
+	    	restrict : 'E',
+	    	replace : true,
+	    	transclude : true,
+	        templateUrl : '../template/common/positionNav.html',
+			scope : {
+	            edit : '=edit',
+	            submit : '=submit'
+	        },
+			controller : function($scope , $state){
+				var icon = {
+					add:'plus',//添加
+					save:'save',//保存
+					edit:'edit',//编辑
+					del:'trash',//删除
+					down:'download-alt',//下载
+					plus : 'plus-sign',
+					magnet:'magnet',//关联
+					ok:'ok'//全选 确定
+				};
+				if($scope.edit){
+					if($scope.edit.nav){
+						$.each($scope.edit.nav,function(){
+							this.cls = icon[this.cls]
+						});
+					}
+					if($scope.edit.list){
 						$.each($scope.edit.list,function(){
 							this.cls = icon[this.cls]
 						});
 					}
-				},
-				link : function($scope , element ){
-					var ele = $(element[0])
+				}
+			},
+			link : function($scope , element ){
+				function listFinish(){
+					var ele = $('.position-fixed')
 						,list = ele.find('.list')
 						,timer = 0;
 					ele.find('.edit').mouseenter(function(){
@@ -49,8 +52,8 @@ define(function (require, exports, module) {
 						},520);
 					})
 				}
+				$scope.$on('listFinish', listFinish)
 			}
-		$.extend(config,obj);
-		create.init( config );
-	}
+		}
+	})
 });

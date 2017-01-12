@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cn.cms.dao.UserChannelDao" >
+
+    <resultMap id="base" type="com.cn.cms.po.Base">
+        <id column="id" property="id" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="del_tag" property="delTag" />
+        <result column="last_modify_user_id" property="lastModifyUserId" />
+    </resultMap>
+
+    <resultMap type="com.cn.cms.po.UserChannel" id="userChannel" extends="base" >
+        <result column="user_id" property="userId" />
+        <result column="channel_id" property="channelId" />
+    </resultMap>
+
+
+    <sql id="delTag"> where del_tag = 1 </sql>
+
+    <sql id="sql_column">
+        id,last_modify_user_id,user_id,channel_id
+    </sql>
+
+    <select id="queryCountForUserId" resultType="java.lang.Integer">
+        SELECT count(1) from user_channel <include refid="delTag" /> and user_id = #{userId};
+    </select>
+
+    <select id="queryListForUserId" resultMap="userChannel">
+        SELECT <include refid="sql_column" /> from user_channel <include refid="delTag" /> and user_id = #{userId} limit ${page.start},${page.pageSize};
+    </select>
+
+    <select id="queryCountForChannelId" resultType="java.lang.Integer">
+        SELECT count(1) from user_channel <include refid="delTag" /> and channel_id = #{channelId};
+    </select>
+
+    <select id="queryListForChannelId" resultMap="userChannel">
+        SELECT <include refid="sql_column" /> from user_channel <include refid="delTag" /> and channel_id = #{channelId} limit ${page.start},${page.pageSize};
+    </select>
+
+    <insert id="saveUserChannel">
+        insert into user_channel ( <include refid="sql_column" /> ) values
+        <foreach collection="list" item="item" separator=",">
+            ( null,#{item.userId},${item.channelId} )
+        </foreach>
+        ;
+    </insert>
+
+    <update id="delUserChannel">
+        delete from user_channel where user_id = #{userId} and channel_id = ${channelId};
+    </update>
+
+    
+</mapper>

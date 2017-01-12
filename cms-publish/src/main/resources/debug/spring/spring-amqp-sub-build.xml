@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+                http://www.springframework.org/schema/beans/spring-beans.xsd
+
+
+            http://www.springframework.org/schema/rabbit
+                http://www.springframework.org/schema/rabbit/spring-rabbit.xsd">
+
+	<rabbit:queue id="build_queue" durable="true" auto-delete="false" exclusive="false" name="build_queue"/>
+    
+    <!-- exchange queue binging key 绑定 -->
+    <rabbit:topic-exchange name="build-exchange" durable="true" auto-delete="false" id="build-exchange">
+		<rabbit:bindings>
+			<rabbit:binding queue="build_queue" pattern="build.*" />
+		</rabbit:bindings>
+	</rabbit:topic-exchange>
+	<!-- 默认消息处理类，可以重写 -->
+	
+	<!-- 用于消息的监听的代理类MessageListenerAdapter -->  
+    <bean id="messageQueueListenerAdapter"  
+        class="org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter">  
+        <constructor-arg ref="buildMessageHandler" />
+        <property name="defaultListenerMethod" value="handleMessage"></property>  
+        <property name="messageConverter" ref="jsonMessageConverter"></property>
+    </bean> 
+	
+	<!-- 监听容器 -->
+	<rabbit:listener-container
+		connection-factory="connectionFactory" acknowledge="auto" task-executor="taskExecutor">
+		<rabbit:listener queues="build_queue" ref="messageQueueListenerAdapter" />
+	</rabbit:listener-container>
+	
+</beans>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cn.cms.dao.OperationHistoryDao" >
+
+    <resultMap id="base" type="com.cn.cms.po.Base">
+        <id column="id" property="id" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="del_tag" property="delTag" />
+        <result column="last_modify_user_id" property="lastModifyUserId" />
+    </resultMap>
+
+    <resultMap type="com.cn.cms.po.OperationHistory" id="operationHistory" extends="base">
+        <result column="url" property="url" />
+        <result column="description" property="description" />
+        <result column="user_id" property="userId" />
+        <result column="curr_time" property="currTime" />
+        <result column="body" property="body" />
+    </resultMap>
+
+
+    <sql id="delTag"> where del_tag = 1 </sql>
+
+    <sql id="sql_column">
+        id,last_modify_user_id,url,description,user_id,curr_time,body
+    </sql>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="p1.id">
+        INSERT into operation_history ( <include refid="sql_column" /> ) values
+        <foreach collection="list" separator="," item="p1"  close=";">
+            (null,#{p1.lastModifyUserId},#{p1.url},#{p1.description},#{p1.userId},#{p1.currTime},#{p1.body})
+        </foreach>
+
+    </insert>
+
+</mapper>

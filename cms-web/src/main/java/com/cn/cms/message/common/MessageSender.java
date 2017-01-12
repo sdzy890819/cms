@@ -1,27 +1,44 @@
 package com.cn.cms.message.common;
 
+import com.alibaba.fastjson.JSONObject;
+import com.cn.cms.job.BaseTask;
+import com.cn.cms.utils.ContextUtil;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 
 /**
- * 发送消息基础类。封装amqpTemplate
+ * 发送消息
  * Created by zhangyang on 16/11/15.
  */
-public class MessageSender  {
 
-    @Getter
-    @Setter
+@Getter
+@Setter
+public class MessageSender extends BaseTask {
+
+    private AmqpTemplate amqpTemplate = ContextUtil.getContextUtil().getBean("amqpTemplate4Message", AmqpTemplate.class);
+
+    private Object object;
+
     private String routingKey;
 
-    @Getter
-    @Setter
-    @Resource(name="amqpTemplate4Message")
-    private AmqpTemplate amqpTemplate;
+    public MessageSender(){}
 
-    public void sendDataToQueue(Object obj) {
-        amqpTemplate.convertAndSend(this.routingKey, obj);
+    public MessageSender(Object object, String routingKey){
+        this.object = object;
+        this.routingKey = routingKey;
+    }
+
+    @Override
+    protected void execute() {
+        amqpTemplate.convertAndSend(routingKey, object);
+    }
+
+    @Override
+    protected String getJobName() {
+        return "生成消息发送"+ JSONObject.toJSONString(getObject());
     }
 }

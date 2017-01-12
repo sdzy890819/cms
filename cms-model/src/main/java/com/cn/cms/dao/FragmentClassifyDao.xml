@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cn.cms.dao.FragmentClassifyDao" >
+
+    <resultMap id="base" type="com.cn.cms.po.Base">
+        <id column="id" property="id" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="del_tag" property="delTag" />
+        <result column="last_modify_user_id" property="lastModifyUserId" />
+    </resultMap>
+
+    <resultMap type="com.cn.cms.po.FragmentClassify" id="fragmentClassify" extends="base" >
+        <result column="classify_name" property="classifyName" />
+    </resultMap>
+
+
+    <sql id="delTag"> where del_tag = 1 </sql>
+
+    <sql id="sql_column">
+        id,last_modify_user_id,classify_name
+    </sql>
+
+    <select id="queryFragmentClassify" resultMap="fragmentClassify">
+        select <include refid="sql_column" /> from fragment_classify <include refid="delTag" />;
+    </select>
+
+    <update id="updateFragmentClassify" >
+        update fragment_classify set last_modify_user_id = #{p1.lastModifyUserId}, classify_name = #{p1.classifyName} where id = ${p1.id};
+    </update>
+
+    <insert id="saveFragmentClassify" useGeneratedKeys="true" keyProperty="p1.id">
+        insert into fragment_classify ( <include refid="sql_column" /> )
+        values (null,#{p1.lastModifyUserId},#{p1.classifyName});
+    </insert>
+
+    <update id="delClassify">
+        update fragment_classify set last_modify_user_id = #{lastModifyUserId}, del_tag = 0 where id = ${id};
+    </update>
+    
+</mapper>

@@ -1,2 +1,17 @@
 .DS_Store
 */.DS_Store
+.setting/
+.bin/
+target/
+.idea/
+*.iml
+velocity.log*
+
+.DS_Store
+../demo/.DS_Store
+.DS_Store
+images/.DS_Store
+style/.DS_Store
+style/font/.DS_Store
+style/stylesheets/.DS_Store
+style/stylesheets/news/.DS_Store
