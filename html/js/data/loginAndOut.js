@@ -8,6 +8,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$,userInfo){
 
 				success : function(_data){
 					
+					console.log(_data);
 					var _data = {
 					    "code":0,
 					    "message":"成功",
