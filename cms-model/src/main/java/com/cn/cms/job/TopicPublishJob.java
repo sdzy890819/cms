@@ -71,6 +71,6 @@ public class TopicPublishJob extends BaseTask {
 
     @Override
     protected String getJobName() {
-        return "专题：".concat(topic.getTopicTitle())+" 生成";
+        return "专题：".concat(topic.getTopicTitle()).concat(",页码：").concat(String.valueOf(page)).concat(" 生成");
     }
 }

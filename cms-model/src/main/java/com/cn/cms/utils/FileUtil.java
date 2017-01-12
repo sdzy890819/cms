@@ -233,7 +233,7 @@ public class FileUtil {
     public static String getFileNameByPage(String fileName, Integer page){
         if(page != null && page > 1){
             String[] arr = fileName.split("\\.");
-            fileName = arr[0].concat(StaticContants.UNDER_LINE).concat(String.valueOf(page)).concat(arr[1]);
+            fileName = arr[0].concat(StaticContants.CONNECT_LINE).concat(String.valueOf(page)).concat(".").concat(arr[1]);
         }
         return fileName;
     }

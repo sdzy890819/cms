@@ -120,6 +120,8 @@ public class StaticContants {
 
     public static final String UNDER_LINE = "_";
 
+    public static final String CONNECT_LINE = "-";
+
 
     public static final String ESSEARCH_JOB_LIST = "ESSEARCH_JOB_LIST_KEY";
 
