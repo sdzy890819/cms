@@ -46,17 +46,7 @@ define(['./URL','jquery'],function(URL,$){
 					type : 'get',
 					data : {},
 					success : function(_data){
-						callback({
-						    "code":0,
-						    "message":"成功",
-						    "data":{
-						        "id":1,
-						        "headImage":"http://xxx/aa.png",//头像
-						        "realName":"真实名",//真实名
-						        "userId":"110820091891029920", //用户ID
-						        "lastModifyUserId":"10111920300192" //修改人
-						    }
-						});
+						callback(_data);
 					},
 					error : function(){}
 				})
@@ -68,27 +58,7 @@ define(['./URL','jquery'],function(URL,$){
 					data : {},
 					success : function( _data ){
 						setTimeout(function(){
-							callback({
-							    "code":0,
-							    "message":"成功",
-							    "data":{
-							        "page":{
-							            "count":10, //总数
-							            "pageCount":1, //总页数
-							            "page":1, //当前页
-							            "pageSize":20 //每页数量
-							        },
-							        "list":[
-								        {
-								            "id":1,
-								            "headImage":"http://xxx/aa.png",//头像
-								            "realName":"真实名",//真实名
-								            "userId":"110820091891029920", //用户ID
-								            "lastModifyUserId":"10111920300192" //修改人
-								        }
-							        ]
-							    }
-							});
+							callback(_data);
 						}, 1000);
 					},
 					error : function(){}
@@ -124,24 +94,7 @@ define(['./URL','jquery'],function(URL,$){
 					type : 'get',
 					data : {},
 					success : function( _data ){
-						callback({
-							"code":0,
-						    "data":[
-					            {
-					                    "type":1,
-					                    "name":"UTF-8"
-					            },
-					            {
-					                    "type":2,
-					                    "name":"GBK"
-					            },
-					            {
-					                    "type":3,
-					                    "name":"BIG5"
-					            }
-						    ],
-						    "message":"成功!"
-						})
+						callback(_data)
 					},
 					error : function(){}
 				})
@@ -152,20 +105,7 @@ define(['./URL','jquery'],function(URL,$){
 					type : 'get',
 					data : {},
 					success : function( _data ){
-						callback({
-							"code":0,
-						    "data":[
-					            {
-					                    "type":1,
-					                    "name":"定时生成"
-					            },
-					            {
-					                    "type":0,
-					                    "name":"触发生成"
-					            }
-						    ],
-						    "message":"成功!"
-						})
+						callback(_data)
 					},
 					error : function(){}
 				})
@@ -176,20 +116,7 @@ define(['./URL','jquery'],function(URL,$){
 					type : 'get',
 					data : {},
 					success : function( _data ){
-						callback({
-							"code":0,
-						    "data":[
-					            {
-					                    "type":1,
-					                    "name":"MENU"
-					            },
-					            {
-					                    "type":2,
-					                    "name":"BUTTON"
-					            }
-						    ],
-						    "message":"成功!"
-						})
+						callback(_data)
 					},
 					error : function(){}
 				})
@@ -200,24 +127,7 @@ define(['./URL','jquery'],function(URL,$){
 					type : 'get',
 					data : {},
 					success : function( _data ){
-						callback({
-						    "code":0,
-						    "data":[
-						            {
-						                    "type":3,
-						                    "name":"专题分类ID"
-						            },
-						            {
-						                    "type":2,
-						                    "name":"碎片ID"
-						            },
-						            {
-						                    "type":1,
-						                    "name":"栏目ID"
-						            }
-						    ],
-						    "message":"成功!"
-						})
+						callback(_data)
 					},
 					error : function(){}
 				})
@@ -228,20 +138,7 @@ define(['./URL','jquery'],function(URL,$){
 					type : 'get',
 					data : {},
 					success : function( _data ){
-						callback({
-						    "code":0,
-						    "data":[
-						            {
-						                    "type":1,
-						                    "name":"YES"
-						            },
-						            {
-						                    "type":0,
-						                    "name":"NO"
-						            }
-						    ],
-						    "message":"成功!"
-						})
+						callback(_data)
 					},
 					error : function(){}
 				})
@@ -252,28 +149,7 @@ define(['./URL','jquery'],function(URL,$){
 					type : 'get',
 					data : {},
 					success : function( _data ){
-						callback({
-						    "code":0,
-						    "data":[
-						            {
-						                    "type":1,
-						                    "name":"首页"
-						            },
-						            {
-						                    "type":2,
-						                    "name":"列表页"
-						            },
-						            {
-						                    "type":3,
-						                    "name":"详情页"
-						            },
-						            {
-						                    "type":4,
-						                    "name":"碎片页"
-						            }
-						    ],
-						    "message":"成功!"
-						})
+						callback(_data)
 					},
 					error : function(){}
 				})
@@ -284,20 +160,7 @@ define(['./URL','jquery'],function(URL,$){
 					type : 'get',
 					data : {},
 					success : function( _data ){
-						callback({
-						    "code":0,
-						    "data":[
-						            {
-						                    "type":1,
-						                    "name":"水印"
-						            },
-						            {
-						                    "type":0,
-						                    "name":"不打水印"
-						            }
-						    ],
-						    "message":"成功!"
-						})
+						callback(_data)
 					},
 					error : function(){}
 				})
@@ -308,20 +171,7 @@ define(['./URL','jquery'],function(URL,$){
 					type : 'get',
 					data : {},
 					success : function( _data ){
-						callback({
-						    "code":0,
-						    "data":[
-						        {
-						            "type":1,
-						            "name":"随机生成"
-						        },
-						        {
-						            "type":2,
-						            "name":"栏目ID"
-						        }
-						    ],
-						    "message":"成功!"
-						})
+						callback(_data)
 					},
 					error : function(){}
 				})
@@ -335,25 +185,7 @@ define(['./URL','jquery'],function(URL,$){
 					data : {},
 					success : function( _data ){
 						setTimeout(function(){
-							callback({
-							    "code":0,
-							    "message":"成功",
-							    "data":{
-							        "page":{
-							            "pageSize":20,
-							            "count":100,
-							            "pageCount":5,
-							            "page":1
-							        },
-							        "list":[
-							            {
-							                "columnName":"栏目名",
-							                "channelId":"频道ID",
-							                "id":1
-							            }
-							        ]
-							    }
-							});
+							callback(_data);
 						}, 1000);
 					},
 					error : function(){}
@@ -366,32 +198,7 @@ define(['./URL','jquery'],function(URL,$){
 					data : {},
 					success : function( _data ){
 						setTimeout(function(){
-							callback({
-							    "code":0,
-							    "message":"成功",
-							    "data":{
-							        "page":{
-							            "pageSize":20,
-							            "count":100,
-							            "pageCount":5,
-							            "page":1
-							        },
-							        "list":[
-							            {
-							                "id":1,
-							                "title":"标题",
-							                "source":"来源",
-							                "author":"作者",
-							                "channelId":10,//频道ID
-							                "columnId":10,//栏目ID
-							                "write_user_id":"123123213123123123",//撰稿人
-							                "writeUserName":"撰稿人",
-							                "platform":1,
-							                "platformStr":"平台名称"
-							            }
-							        ]
-							    }
-							});
+							callback(_data);
 						}, 1000);
 					},
 					error : function(){}
@@ -404,33 +211,7 @@ define(['./URL','jquery'],function(URL,$){
 					data : {},
 					success : function( _data ){
 						setTimeout(function(){
-							callback({
-							    "code":0,
-							    "message":"成功",
-							    "data":{
-					                "id":1,
-					                "title":"标题",
-					                "subTitle":"子标题",
-					                "keyword":"关键字 多个关键字按照空格分割",
-					                "description":"SEO描述",
-					                "source":"来源",
-					                "author":"作者",
-					                "buildTime":"发布时间",
-					                "writeTime":"撰稿时间",
-					                "channelId":10,//频道ID
-					                "columnId":10,//栏目ID
-					                "write_user_id":"123123213123123123",//撰稿人
-					                "writeUserName":"撰稿人",
-					                "buildUserId":"发布人",
-					                "platform" : 1,
-					                "platformStr" : "平台名称",
-					                "newsDetail":{
-					                    "content":"详细内容",
-					                    "newsId":1,
-					                    "id":1
-					                }
-							    }
-							});
+							callback(_data);
 						}, 1000);
 					},
 					error : function(){}
@@ -445,17 +226,7 @@ define(['./URL','jquery'],function(URL,$){
 					data : {},
 					success : function( _data ){
 						setTimeout(function(){
-							callback({
-							    "code":0,
-							    "message":"成功",
-							    "data":[
-							        {
-							            "categoryName":"分类名",
-							            "categoryDesc":"分类说明",
-							            "id":100
-							        }
-							    ]
-							});
+							callback(_data);
 						}, 1000);
 					},
 					error : function(){}
@@ -470,21 +241,7 @@ define(['./URL','jquery'],function(URL,$){
 					data : {},
 					success : function( _data ){
 						setTimeout(function(){
-							callback({
-							    "code":0,
-							    "message":"成功",
-							    "data":[
-							        {
-							            "channelName":"频道名称",
-							            "channelUrl":"频道域名",
-							            "channelPath":"频道绝对路径",
-							            "templatePath":"模版位置",
-							            "channelDesc":"频道说明",
-							            "categoryId":1, //部门分类ID
-							            "id":1
-							        }
-							    ]
-							});
+							callback(_data);
 						}, 1000);
 					},
 					error : function(){}
@@ -499,35 +256,7 @@ define(['./URL','jquery'],function(URL,$){
 					data : {},
 					success : function( _data ){
 						setTimeout(function(){
-							callback({
-							    "code":0,
-							    "message":"成功",
-							    "data":{
-							        "page":{
-							            "pageSize":20,
-							            "count":100,
-							            "pageCount":5,
-							            "page":1
-							        },
-							        "list":[
-							        	{
-								            "imageUrl":"图片地址",
-								            "imageWidthPixel":200, //图片长像素
-								            "imageHeightPixel":100, // 图片宽像素
-								            "orgWidthPixel":200, //原始长像素
-								            "orgHeightPixel":100, //原始宽像素
-								            "imageTitle":"图片标题",
-								            "uploadUserId":"123213213123123",
-								            "uploadTime":"上传时间",
-								            "imagePath":"图片相对路径",
-								            "watermark":1, //是否水印 1、0
-								            "compress":1, //是否压缩
-								            "platform":1, //平台
-								            "id":1 //ID
-							      		}
-							        ]
-							    }
-							});
+							callback(_data);
 						}, 1000);
 					},
 					error : function(){}
@@ -542,30 +271,7 @@ define(['./URL','jquery'],function(URL,$){
 					data : {},
 					success : function( _data ){
 						setTimeout(function(){
-							callback({
-							    "code":0,
-							    "message":"成功",
-							    "data":{
-							        "page":{
-							            "pageSize":20,
-							            "count":100,
-							            "pageCount":5,
-							            "page":1
-							        },
-							        "list":[
-							            {
-							                "videoTitle":"视频标题",
-							                "videoDesc":"视频说明",
-							                "videoUrl":"视频链接URL",
-							                "videoPath":"视频相对路径",
-							                "uploadUserId":"111111111111111", //上传人
-							                "uploadTime":"上传时间",
-							                "platform":1, //平台
-							                "id":1
-							            }
-							        ]       
-							    }
-							});
+							callback(_data);
 						}, 1000);
 					},
 					error : function(){}
@@ -580,48 +286,7 @@ define(['./URL','jquery'],function(URL,$){
 					data : {},
 					success : function( _data ){
 						setTimeout(function(){
-							callback({
-							    "code":0,
-							    "message":"成功",
-							    "data":{
-							        "page":{
-							            "pageSize":20,
-							            "count":100,
-							            "pageCount":5,
-							            "page":1
-							        },
-							        "list":[
-							            {
-							                "templateName":"模版名称",
-							                "templateDesc":"模版说明",
-							                "filename":"模版、发布文件名",
-							                "path":"发布目录",
-							                "templateClassify":1,
-							                "templateClassifyStr":"模版分类、1为首页、2为列表页、3为详情页、4、碎片页",
-							                "userId":"模版编辑人ID",
-							                "job":1, //是否定时生成。1是定时生成。0是触发生成
-							                "encoded":"目前支持GBK、UTF-8、BIG5、按照字符串形式存储",
-							                "channelId":1,//频道ID
-							                "sortNum":1,//排序值
-							                "id":1
-							            },
-							            {
-							                "templateName":"模版名称",
-							                "templateDesc":"模版说明",
-							                "filename":"模版、发布文件名",
-							                "path":"发布目录",
-							                "templateClassify":1,
-							                "templateClassifyStr":"碎片页",
-							                "userId":"模版编辑人ID",
-							                "job":0, //是否定时生成。1是定时生成。0是触发生成
-							                "encoded":"UTF-8",
-							                "channelId":1,//频道ID
-							                "sortNum":1,//排序值
-							                "id":1
-							            }
-							        ]
-							    }
-							});
+							callback(_data);
 						}, 1000);
 					},
 					error : function(){}
@@ -636,35 +301,7 @@ define(['./URL','jquery'],function(URL,$){
 					data : {},
 					success : function( _data ){
 						setTimeout(function(){
-							callback({
-							    "code":0,
-							    "message":"成功",
-							    "data":{
-							        "page":{
-							            "pageSize":20,
-							            "count":100,
-							            "pageCount":5,
-							            "page":1
-							        },
-							        "list":[
-							            {
-							                "topicTitle":"专题标题",
-							                "topicContent":"专题内容",
-							                "topicPath":"专题相对路径",
-							                "topicFilename":"专题文件名",
-							                "topicClassifyId":1,//专题分类ID
-							                "categoryId":1,//部门类别ID
-							                "channelId":1, //频道ID
-							                "releaseTime":"yyyy-MM-dd", //发布时间
-							                "keyword":"关键字",
-							                "description":"描述、SEO标准",
-							                "topicColumnId":1, //专题栏目ID(做系列专题使用)
-							                "topicUrl":"URL",
-							                "id":1
-							            }
-							        ]
-							    }
-						   	})
+							callback(_data)
 						},1000)
 					}
 				});
@@ -676,16 +313,7 @@ define(['./URL','jquery'],function(URL,$){
 					data : {},
 					success : function( _data ){
 						setTimeout(function(){
-							callback({
-							    "code":0,
-							    "message":"成功",
-							    "data":[
-							        {
-							            "classifyName":"专题分类名",
-							            "id":1
-							        }
-							    ]
-							})
+							callback(_data)
 						},1000);
 					}
 				});
@@ -699,27 +327,7 @@ define(['./URL','jquery'],function(URL,$){
 					data : {},
 					success : function( _data ){
 						setTimeout(function(){
-							callback({
-							    "code":0,
-							    "message":"成功",
-							    "data":{
-							        "page":{
-							            "pageSize":20,
-							            "count":100,
-							            "pageCount":5,
-							            "page":1
-							        },
-							        "list":[
-							            {
-							                "headImage":"头像",
-							                "realName":"真实名字",
-							                "userId":"111111111111111",//用户ID
-							                "lastModifyUserId":"1111111111111", //最后修改人ID
-							                "id":1
-							            }
-							        ]
-							    }
-							});
+							callback(_data);
 						},1000)
 					}
 				});
@@ -731,29 +339,7 @@ define(['./URL','jquery'],function(URL,$){
 					data : {},
 					success : function( _data ){
 						setTimeout(function(){
-							callback({
-							    "code":0,
-							    "message":"成功",
-							    "data":{
-							        "page":{
-							            "pageSize":20,
-							            "count":100,
-							            "pageCount":5,
-							            "page":1
-							        },
-							        "list":[
-							            {
-							                "channelName":"频道名称",
-							                "channelUrl":"频道域名",
-							                "channelPath":"频道绝对路径",
-							                "templatePath":"模版位置",
-							                "channelDesc":"频道说明",
-							                "categoryId":1, //部门分类ID
-							                "id":1
-							            }
-							        ]
-							    }
-							});
+							callback(_data);
 						},1000);
 					}
 				});
@@ -773,28 +359,7 @@ define(['./URL','jquery'],function(URL,$){
 					data : {},
 					success : function( _data ){
 						setTimeout(function(){
-							callback({
-							    "code":0,
-							    "message":"成功",
-							    "data":{
-							        "page":{
-							            "pageSize":20,
-							            "count":100,
-							            "pageCount":5,
-							            "page":1
-							        },
-							        "list":[
-							            {
-							                "fragmentClassifyId":1, //碎片分类ID
-							                "fragmentContent":"碎片当前内容",
-							                "fragmentName":"碎片名称",
-							                "sortNum":1, //排序值
-							                "fragmentModel":"碎片模版",
-							                "id":1
-							            }
-							        ]
-							    }
-							});
+							callback(_data);
 						},1000);
 					}
 				});
@@ -819,29 +384,7 @@ define(['./URL','jquery'],function(URL,$){
 					data : {},
 					success : function( _data ){
 						setTimeout(function(){
-							callback({
-							    "code":0,
-							    "message":"成功",
-							    "data":{
-							        "page":{
-							            "pageSize":20,
-							            "count":100,
-							            "pageCount":5,
-							            "page":1
-							        },
-							        "list":[
-							            {
-							                "fragmentClassifyId":1, //碎片分类ID
-							                "fragmentContent":"碎片当前内容",
-							                "fragmentName":"碎片名称",
-							                "userId":"创建人USERID",
-							                "currTime":"当前时间",
-							                "fragmentId":1, //碎片ID
-							                id:1
-							            }
-							        ]
-							    }
-							});
+							callback(_data);
 						},1000);
 					}
 				});
@@ -853,16 +396,7 @@ define(['./URL','jquery'],function(URL,$){
 					data : {},
 					success : function( _data ){
 						setTimeout(function(){
-							callback({
-							    "code":0,
-							    "message":"成功",
-							    "data":[
-							   		{
-								        "classifyName":"名称",
-								        "id":1
-							        }
-							    ]
-							});
+							callback(_data);
 						},1000);
 					}
 				});
@@ -874,16 +408,7 @@ define(['./URL','jquery'],function(URL,$){
 					data : {},
 					success : function( _data ){
 						setTimeout(function(){
-							callback({
-							    "code":0,
-							    "message":"成功",
-							    "data" : [
-								    {
-								        "classifyName" : "名称",
-								        "id":1
-								    }
-							    ]
-							});
+							callback(_data);
 						},1000);
 					}
 				});
