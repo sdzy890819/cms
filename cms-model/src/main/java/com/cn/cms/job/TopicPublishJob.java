@@ -34,7 +34,7 @@ public class TopicPublishJob extends BaseTask {
 
     private Integer page = StaticContants.PAGE;
 
-    private static int MODEL = PublishJobTypeEnum.template.getType();
+    private static int MODEL = PublishJobTypeEnum.topic.getType();
 
     public TopicPublishJob(){}
 
