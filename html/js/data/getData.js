@@ -7,9 +7,7 @@ define(['./URL','jquery'],function(URL,$){
 					type : 'get',
 					data : {},
 					success : function( _data ){
-						setTimeout(function(){
 							callback(_data);
-						}, 1000);
 					},
 					error : function(){}
 				})
@@ -57,9 +55,7 @@ define(['./URL','jquery'],function(URL,$){
 					type : 'get',
 					data : {},
 					success : function( _data ){
-						setTimeout(function(){
-							callback(_data);
-						}, 1000);
+						callback(_data);
 					},
 					error : function(){}
 				})
@@ -72,7 +68,7 @@ define(['./URL','jquery'],function(URL,$){
 					type : 'get',
 					data : {},
 					success : function( _data ){
-						
+						callback(_data);
 					},
 					error : function(){}
 				})
@@ -83,7 +79,7 @@ define(['./URL','jquery'],function(URL,$){
 					type : 'get',
 					data : {},
 					success : function( _data ){
-						
+						callback(_data);
 					},
 					error : function(){}
 				})
@@ -184,9 +180,7 @@ define(['./URL','jquery'],function(URL,$){
 					type : 'get',
 					data : {},
 					success : function( _data ){
-						setTimeout(function(){
-							callback(_data);
-						}, 1000);
+						callback(_data);
 					},
 					error : function(){}
 				})
@@ -197,9 +191,7 @@ define(['./URL','jquery'],function(URL,$){
 					type : 'get',
 					data : {},
 					success : function( _data ){
-						setTimeout(function(){
-							callback(_data);
-						}, 1000);
+						callback(_data);
 					},
 					error : function(){}
 				})
@@ -210,9 +202,7 @@ define(['./URL','jquery'],function(URL,$){
 					type : 'get',
 					data : {},
 					success : function( _data ){
-						setTimeout(function(){
-							callback(_data);
-						}, 1000);
+						callback(_data);
 					},
 					error : function(){}
 				})
@@ -225,9 +215,7 @@ define(['./URL','jquery'],function(URL,$){
 					type : 'get',
 					data : {},
 					success : function( _data ){
-						setTimeout(function(){
-							callback(_data);
-						}, 1000);
+						callback(_data);
 					},
 					error : function(){}
 				})
@@ -240,9 +228,7 @@ define(['./URL','jquery'],function(URL,$){
 					type : 'get',
 					data : {},
 					success : function( _data ){
-						setTimeout(function(){
-							callback(_data);
-						}, 1000);
+						callback(_data);
 					},
 					error : function(){}
 				})
@@ -255,9 +241,7 @@ define(['./URL','jquery'],function(URL,$){
 					type : 'get',
 					data : {},
 					success : function( _data ){
-						setTimeout(function(){
-							callback(_data);
-						}, 1000);
+						callback(_data);
 					},
 					error : function(){}
 				})
@@ -270,9 +254,7 @@ define(['./URL','jquery'],function(URL,$){
 					type : 'get',
 					data : {},
 					success : function( _data ){
-						setTimeout(function(){
-							callback(_data);
-						}, 1000);
+						callback(_data);
 					},
 					error : function(){}
 				})
@@ -285,9 +267,7 @@ define(['./URL','jquery'],function(URL,$){
 					type : 'get',
 					data : {},
 					success : function( _data ){
-						setTimeout(function(){
-							callback(_data);
-						}, 1000);
+						callback(_data);
 					},
 					error : function(){}
 				});
@@ -300,9 +280,7 @@ define(['./URL','jquery'],function(URL,$){
 					type : 'get',
 					data : {},
 					success : function( _data ){
-						setTimeout(function(){
-							callback(_data)
-						},1000)
+						callback(_data)
 					}
 				});
 			},
@@ -312,9 +290,7 @@ define(['./URL','jquery'],function(URL,$){
 					type : 'get',
 					data : {},
 					success : function( _data ){
-						setTimeout(function(){
-							callback(_data)
-						},1000);
+						callback(_data)
 					}
 				});
 			}
@@ -326,9 +302,7 @@ define(['./URL','jquery'],function(URL,$){
 					type : 'get',
 					data : {},
 					success : function( _data ){
-						setTimeout(function(){
-							callback(_data);
-						},1000)
+						callback(_data);
 					}
 				});
 			},
@@ -338,9 +312,7 @@ define(['./URL','jquery'],function(URL,$){
 					type : 'get',
 					data : {},
 					success : function( _data ){
-						setTimeout(function(){
-							callback(_data);
-						},1000);
+						callback(_data);
 					}
 				});
 			},
@@ -358,9 +330,7 @@ define(['./URL','jquery'],function(URL,$){
 					type : 'get',
 					data : {},
 					success : function( _data ){
-						setTimeout(function(){
-							callback(_data);
-						},1000);
+						callback(_data);
 					}
 				});
 			},
@@ -383,9 +353,7 @@ define(['./URL','jquery'],function(URL,$){
 					type : 'get',
 					data : {},
 					success : function( _data ){
-						setTimeout(function(){
-							callback(_data);
-						},1000);
+						callback(_data);
 					}
 				});
 			},
@@ -395,9 +363,7 @@ define(['./URL','jquery'],function(URL,$){
 					type : 'get',
 					data : {},
 					success : function( _data ){
-						setTimeout(function(){
-							callback(_data);
-						},1000);
+						callback(_data);
 					}
 				});
 			},
@@ -407,9 +373,7 @@ define(['./URL','jquery'],function(URL,$){
 					type : 'get',
 					data : {},
 					success : function( _data ){
-						setTimeout(function(){
-							callback(_data);
-						},1000);
+						callback(_data);
 					}
 				});
 			},
