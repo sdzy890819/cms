@@ -8,83 +8,32 @@ define(['./URL','jquery'],function(URL,$){
 					data : {},
 					success : function( _data ){
 						setTimeout(function(){
-							callback({
-							    "code":0,
-							    "message":"成功",
-							    "data":{
-							        
-						            "permission":{
-						                "name":"名称",
-						                "description":"说明",
-						                "type":1,//type 1 是 menu、2 是 button
-						                "url":"http://www/",
-						                "sort":1, //排序
-						                "parentId":1, //父ID
-						                "showFlag":1, //1展示、0 不展示。展示的话 就在左侧菜单展示
-						                "permission":"user:read" //权限CODE代码
-						            },
-						            "permissions":[
-						                {
-						                    "name":"名称",
-						                    "description":"说明",
-						                    "type":1,//type 1 是 menu、2 是 button
-						                    "url":"http://www/",
-						                    "sort":1, //排序
-						                    "parentId":1, //父ID
-						                    "showFlag":1, //1展示、0 不展示。展示的话 就在左侧菜单展示
-						                    "permission":"user:read" //权限CODE代码
-						                },
-						                {
-						                    "name":"名称",
-						                    "description":"说明",
-						                    "type":1,//type 1 是 menu、2 是 button
-						                    "url":"http://www/",
-						                    "sort":1, //排序
-						                    "parentId":1, //父ID
-						                    "showFlag":1, //1展示、0 不展示。展示的话 就在左侧菜单展示
-						                    "permission":"user:read" //权限CODE代码
-						                }
-						            ]
-							        
-							    }
-							});
+							callback(_data);
 						}, 1000);
 					},
 					error : function(){}
 				})
 			},
-			currentButtonPermission : function( callback ){ //获取用户Menu下的Button权限
+			currentMenuPermission : function ( callback ){
 				$.ajax({
-					url : URL.permission.currentButtonPermission , 
+					url : URL.permission.currentMenuPermission ,
 					type : 'get',
 					data : {},
 					success : function(_data){
-						callback({
-						    "code":0,
-						    "message":"成功",
-						    "data":[
-				                {
-				                    "name":"名称",
-				                    "description":"说明",
-				                    "type":2,//type 1 是 menu、2 是 button
-				                    "url":"http://www/",
-				                    "sort":1, //排序
-				                    "parentId":1, //父ID
-				                    "showFlag":1, //1展示、0 不展示。展示的话 就在左侧菜单展示
-				                    "permission":"user:read" //权限CODE代码
-				                },
-				                {
-				                    "name":"名称",
-				                    "description":"说明",
-				                    "type":2,//type 1 是 menu、2 是 button
-				                    "url":"http://www/",
-				                    "sort":1, //排序
-				                    "parentId":1, //父ID
-				                    "showFlag":1, //1展示、0 不展示。展示的话 就在左侧菜单展示
-				                    "permission":"user:read" //权限CODE代码
-				                }
-				            ]
-						});
+						callback(_data);
+					},
+					error : function(){}
+				})
+			},
+			currentButtonPermission : function( id, callback ){ //获取用户Menu下的Button权限
+				$.ajax({
+					url : URL.permission.currentButtonPermission , 
+					type : 'get',
+					data : {
+						id : id
+					},
+					success : function(_data){
+						callback(_data);
 					},
 					error : function(){}
 				})

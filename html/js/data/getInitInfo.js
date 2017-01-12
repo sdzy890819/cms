@@ -5,7 +5,7 @@ define(['./URL','jquery','./getData'],function(URL,$ , data){
 
 		};
 		var arr = [];
-		data.permission.currentButtonPermission(function(_data){
+		data.permission.currentMenuPermission(function(_data){
 			info.currentButtonPermission = _data.data;
 		});
 		window.initInfo = info;
