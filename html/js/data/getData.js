@@ -471,10 +471,10 @@ define(['./URL','jquery'],function(URL,$){
 					                "channelId":10,//频道ID
 					                "columnId":10,//栏目ID
 					                "write_user_id":"123123213123123123",//撰稿人
-					                "writeUserName":"撰稿人"
-					                "buildUserId":"发布人"
-					                "platform",1
-					                "platformStr","平台名称",
+					                "writeUserName":"撰稿人",
+					                "buildUserId":"发布人",
+					                "platform" : 1,
+					                "platformStr" : "平台名称",
 					                "newsDetail":{
 					                    "content":"详细内容",
 					                    "newsId":1,
