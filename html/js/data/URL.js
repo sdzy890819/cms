@@ -2,7 +2,7 @@ define(function(require){
 	var url = '/webapi';
 	return {
 		user : {
-			login : url+'/login',
+			login : url+'/user/login',
 			loginOut : url+'/user/loginOut',
 			userlist : url+'/user/userlist',//用户列表接口
 			currentUser : url+'/user/currentUser',//当前登录用户信息接口
