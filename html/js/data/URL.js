@@ -2,7 +2,7 @@ define(function(require){
 	var url = '';
 	return {
 		user : {
-			login : url+'/user/login',
+			login : url+'/login',
 			loginOut : url+'/user/loginOut',
 			userlist : url+'/user/userlist',//用户列表接口
 			currentUser : url+'/user/currentUser',//当前登录用户信息接口
