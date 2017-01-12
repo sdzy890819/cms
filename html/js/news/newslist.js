@@ -68,6 +68,7 @@ define(['require',"app",'jquery'
 					]
 				}*/
 				data.news.newslist(function(_data){
+									
 					$scope.listdata = { //确认按钮
 						title : $scope.title,
 						table : {

@@ -19,7 +19,7 @@ define(['./URL','jquery'],function(URL,$){
 					url : URL.permission.currentMenuPermission ,
 					type : 'get',
 					data : {},
-					success : function(_data){
+					success : function(_data){						
 						callback(_data);
 					},
 					error : function(){}
