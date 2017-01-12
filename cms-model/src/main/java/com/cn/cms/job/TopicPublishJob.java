@@ -65,7 +65,7 @@ public class TopicPublishJob extends BaseTask {
             map.put(StaticContants.TEMPLATE_KEY_CHANNELID, channel.getId());
         }
         map.put(StaticContants.TEMPLATE_KEY_PUBLISH_JOB_TYPE, MODEL);
-        topic.setTopicContent(null);
+        map.put(StaticContants.TEMPLATE_KEY_PAGE, page);
         VelocityUtils.publish(map, content, StringUtils.concatUrl(channel.getChannelPath(), topic.getTopicPath(), FileUtil.getFileNameByPage(topic.getTopicFilename(),page)));
     }
 
