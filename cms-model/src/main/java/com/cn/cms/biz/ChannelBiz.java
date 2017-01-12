@@ -39,8 +39,8 @@ public class ChannelBiz extends BaseBiz {
      * @param userId
      * @return
      */
-    public List<Channel> listChannelByUserId(String userId){
-        return channelService.findChannelByUserId(userId);
+    public List<Channel> listChannelByUserId(String userId ,Long categoryId){
+        return channelService.findChannelByUserId(userId, categoryId);
     }
 
     /**

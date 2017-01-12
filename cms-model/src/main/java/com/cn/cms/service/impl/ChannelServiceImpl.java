@@ -28,8 +28,8 @@ public class ChannelServiceImpl implements ChannelService {
     }
 
     @Override
-    public List<Channel> findChannelByUserId(String userId) {
-        return channelDao.findChannelByUserId(userId);
+    public List<Channel> findChannelByUserId(String userId ,Long categoryId) {
+        return channelDao.findChannelByUserId(userId ,categoryId);
     }
 
     @Override

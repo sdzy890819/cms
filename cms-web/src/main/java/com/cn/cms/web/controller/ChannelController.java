@@ -153,9 +153,9 @@ public class ChannelController extends BaseController {
      */
     @CheckToken
     @RequestMapping(value = "/currentChannelList", method = RequestMethod.GET)
-    public String currentChannelList(HttpServletRequest request){
+    public String currentChannelList(HttpServletRequest request, @RequestParam(value = "categoryId", required = false) Long categoryId){
         String userID = getCurrentUserId(request);
-        List<Channel> list = channelBiz.listChannelByUserId(userID);
+        List<Channel> list = channelBiz.listChannelByUserId(userID, categoryId);
         return ApiResponse.returnSuccess(list);
     }
 

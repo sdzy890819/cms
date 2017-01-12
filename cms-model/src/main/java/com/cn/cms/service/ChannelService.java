@@ -13,7 +13,7 @@ public interface ChannelService {
 
     List<Channel> findChannelAll();
 
-    List<Channel> findChannelByUserId(String userId);
+    List<Channel> findChannelByUserId(String userId ,Long categoryId);
 
     void saveChannel(Channel channel);
 

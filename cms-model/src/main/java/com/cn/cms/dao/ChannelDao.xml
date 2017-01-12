@@ -33,7 +33,11 @@
     </select>
 
     <select id="findChannelByUserId" resultMap="channel">
-        SELECT <include refid="sql_column" /> from channel <include refid="delTag" /> and id in (
+        SELECT <include refid="sql_column" /> from channel <include refid="delTag" />
+        <if test="categoryId != null">
+            and category_id = ${categoryId} 
+        </if>
+         and id in (
         select channel_id from user_channel <include refid="delTag" /> and user_id = #{userId}
         );
     </select>
