@@ -4,6 +4,7 @@ import com.cn.cms.biz.ChannelBiz;
 import com.cn.cms.biz.NewsBiz;
 import com.cn.cms.biz.Template2Biz;
 import com.cn.cms.contants.StaticContants;
+import com.cn.cms.enums.PublishJobTypeEnum;
 import com.cn.cms.enums.TemplateClassifyEnum;
 import com.cn.cms.logfactory.CommonLog;
 import com.cn.cms.logfactory.CommonLogFactory;
@@ -50,6 +51,8 @@ public class TemplatePublishJob extends BaseTask {
 
     private Template2Biz template2Biz = ContextUtil.getContextUtil().getBean(Template2Biz.class);
 
+    private static int MODEL = PublishJobTypeEnum.template.getType();
+
 
     public TemplatePublishJob(){}
 
@@ -66,6 +69,7 @@ public class TemplatePublishJob extends BaseTask {
         map.put(StaticContants.TEMPLATE_KEY_DATA, base);
         map.put(StaticContants.TEMPLATE_KEY_PAGE, page);
         map.put(StaticContants.TEMPLATE_KEY_CHANNELID, channelId);
+        map.put(StaticContants.TEMPLATE_KEY_PUBLISH_JOB_TYPE, MODEL);
         Channel channel ;
         String templatePath;
         if(templateBasics instanceof Template2){
@@ -96,6 +100,6 @@ public class TemplatePublishJob extends BaseTask {
 
     @Override
     protected String getJobName() {
-        return getTemplateBasics().getTemplateName().concat(" 生成");
+        return "模版名：".concat(getTemplateBasics().getTemplateName()).concat("页码：").concat(String.valueOf(page)).concat(" 生成");
     }
 }

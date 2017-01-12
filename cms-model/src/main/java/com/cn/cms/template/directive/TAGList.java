@@ -4,10 +4,13 @@ import com.cn.cms.biz.NewsBiz;
 import com.cn.cms.biz.OtherBiz;
 import com.cn.cms.biz.TopicBiz;
 import com.cn.cms.contants.StaticContants;
+import com.cn.cms.enums.PublishJobTypeEnum;
 import com.cn.cms.enums.TAGListTypeEnum;
 import com.cn.cms.job.TemplatePublishJob;
+import com.cn.cms.job.TopicPublishJob;
 import com.cn.cms.po.Base;
 import com.cn.cms.po.Template;
+import com.cn.cms.po.Topic;
 import com.cn.cms.utils.ContextUtil;
 import com.cn.cms.utils.Page;
 import lombok.Getter;
@@ -82,6 +85,8 @@ public class TAGList extends Directive {
     private Integer page;
 
     private Long channelId;
+
+    private Integer model;
     //------------------------------------------
 
 
@@ -102,6 +107,7 @@ public class TAGList extends Directive {
         data = (Base) context.get(StaticContants.TEMPLATE_KEY_DATA);
         template = (Template) context.get(StaticContants.TEMPLATE_KEY_TEMPLATE);
         channelId = (Long) context.get(StaticContants.TEMPLATE_KEY_CHANNELID);
+        model = (Integer) context.get(StaticContants.TEMPLATE_KEY_PUBLISH_JOB_TYPE);
         for(int i=0; i<node.jjtGetNumChildren(); i++) {
             if (node.jjtGetChild(i) != null ) {
                 if(!(node.jjtGetChild(i) instanceof ASTBlock)) {
@@ -162,12 +168,20 @@ public class TAGList extends Directive {
         }
         context.put(resultObjName, list);
         if(pageObj.hasNextPage() && list!=null && list.size() >= pageObj.getPageSize()){
-            TemplatePublishJob templatePublishJob = new TemplatePublishJob();
-            templatePublishJob.setBase(data);
-            templatePublishJob.setTemplateBasics(template);
-            templatePublishJob.setChannelId(channelId);
-            templatePublishJob.setPage(pageObj.getNextPage());
-            threadTaskExecutor.execute(templatePublishJob);
+            if(model!=null && model == PublishJobTypeEnum.template.getType()) {
+                TemplatePublishJob templatePublishJob = new TemplatePublishJob();
+                templatePublishJob.setBase(data);
+                templatePublishJob.setTemplateBasics(template);
+                templatePublishJob.setChannelId(channelId);
+                templatePublishJob.setPage(pageObj.getNextPage());
+                threadTaskExecutor.execute(templatePublishJob);
+            }else if(model!=null && model == PublishJobTypeEnum.topic.getType()){
+                if(data instanceof Topic) {
+                    Topic tmp = (Topic) data;
+                    TopicPublishJob topicPublishJob = new TopicPublishJob(tmp, channelId, pageObj.getNextPage());
+                    threadTaskExecutor.execute(topicPublishJob);
+                }
+            }
         }
     }
 

@@ -168,6 +168,7 @@ public class StaticContants {
 
     public static final String TEMPLATE_KEY_CHANNELID = "channelId";
 
+    public static final String TEMPLATE_KEY_PUBLISH_JOB_TYPE = "publishJobType";
 
     public static final int TEMPLATE_SIZE = 100;
 
