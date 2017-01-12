@@ -1,17 +1,22 @@
 define(['./URL','jquery','./getInitInfo'],function(URL,$,userInfo){
 	var user = {
-		login : function(){ //栏目列表
+		login : function(){						
 			$.ajax({
+				type: 'POST',				
 				url : URL.user.login , 
-				data : {},
+				data : {userName: 'admin3', pwd: '1234qwer'},
+
 				success : function(_data){
+					
+					console.log(_data);
 					var _data = {
 					    "code":0,
 					    "message":"成功",
 					    "data":{}
 					}
 				},
-				error : function(){}
+				error : function(_data){					
+				}
 			})
 		},
 		loginOut : function(){ //栏目列表
