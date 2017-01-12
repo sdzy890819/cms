@@ -1,5 +1,5 @@
 define(function(require){
-	var url = '';
+	var url = '/webapi';
 	return {
 		user : {
 			login : url+'/user/login',
