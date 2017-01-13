@@ -9,6 +9,9 @@ define(['./URL','./loginAndOut','jquery','./getData'],function(URL , user ,$ , d
 		init : function(){
 			info.getAllInfo();
 		},
+		login : function(callback){
+			info.getUserInfo(callback);
+		},
 		getUserInfo : function( callback ){
 			user.getUserInfo(function(_data){
 				quanjing.user = _data;

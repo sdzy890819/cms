@@ -6,7 +6,12 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 				type : obj.type,
 				data : obj.data,
 				success : function( _data ){
-					obj.success(_data);
+					if(_data.code == 0 ){
+						obj.success(_data);
+					}else if(_data.code == -1 ){//未登录
+						initInfo.login();
+					}
+					
 				},
 				error : function(){}
 			})
@@ -14,7 +19,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 		ajax : function( obj ){
 			obj.type = obj.type || 'get';
 			if(!quanjing.user){
-				initInfo.getAllInfo(function(){
+				initInfo.getUserInfo(function(){
 					T.getdata(obj);
 				})
 			}else{
@@ -225,6 +230,17 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					data : {},
 					success : function( _data ){
 						callback(_data);
+					},
+					error : function(){}
+				})
+			},
+			delNews : function( obj ){ //删除新闻
+				T.ajax({
+					url : URL.news.delNews , 
+					type : 'get',
+					data : {id:obj.id},
+					success : function( _data ){
+						obj.callback(_data);
 					},
 					error : function(){}
 				})

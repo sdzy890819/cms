@@ -66,7 +66,25 @@ define(['app','jquery'],function(app,$){
 						li.list = _arr;
 						arr.push(li);
 					});
+					console.log(arr)
 					return arr;
+				},
+				setArr : function( list , th ){ //只显示 th 字段中的数据
+					var newArr = [] , arr = [] , li = [];
+					var showArr = [];
+					$.each(list,function( i , obj ){
+						showArr = [];
+						$.each(th,function(_k , _thobj ){
+							$.each(obj,function( objkey , objval ){
+								if( objkey == _thobj.key ){
+									showArr.push({name:objval});
+								}
+							});	
+						});
+						obj.list = showArr;
+						li.push(obj)
+					});
+					return li;
 				},
 				extendType : function( extend  , arr , exclude ){ //更新属性 把 arr中exclude中的属性以外的属性 传给 extend[i].list 
 					exclude = exclude || [];

@@ -27,30 +27,30 @@ define(['require',"app",'jquery'
 	        				});
 	  					});
 					},
-					info : function( id ){ //保存
-						alert(id)
-					},
-					del : function( id ){ //保存
+					info : function( obj ){ //详情
 						pop.alert({
-	 						 text:'您确定要删除吗'+id
+	 						 text:'去相关页面，因为还没有页面所以这样提示：<br>ID为：'+obj.id
 	 						,btn : ['确定','取消']
-	 						,fn : function(){
-	 							var _data = {
-								    "code":0,
-								    "message":"成功",
-								    "data":{}
-								};
-								layui.use(['layer'], function(){
-									var layer = layui.layer;
-									layer.msg(_data.message);
-								});
-							}
 	 					})
 					},
-					filter : [ //过滤不需要展示的
-						'id','channelId','columnId',
-						'write_user_id','platform'
-					]
+					del : function( obj ){ //保存
+						obj.callback = function(_data){//删除成功
+							layui.use(['layer'], function(){
+								var layer = layui.layer;
+								layer.msg(_data.message);
+								setTimeout(function(){
+									location.reload()
+								},300)
+							});
+						};
+						pop.alert({
+	 						 text:'您确定要删除"'+obj.title+'"吗'
+	 						,btn : ['确定','取消']
+	 						,fn : function(){
+	 							data.news.delNews(obj);
+							}
+	 					})
+					}
 				});
 				/*$scope.navEdit = { //导航操作按钮
 					//nav : [selectAll],
@@ -68,19 +68,20 @@ define(['require',"app",'jquery'
 					]
 				}*/
 				data.news.newslist(function(_data){
+					var th = [
+						{name:'标题' , key:'title' , width : '200'},
+						{name:'来源' , key:'source', width : '100'},
+						{name:'作者' , key:'author'},
+						{name:'撰稿人' , key:'writeUserName'},
+						{name:'平台名称',key:'platformStr'},
+						{name:'操作' , width : '200'}
+					];
 					$scope.listdata = { //确认按钮
 						title : $scope.title,
 						table : {
 							select : true,
-							th : [
-								{name:'标题' , width : '200'},
-								{name:'来源' , width : '100'},
-								{name:'作者'},
-								{name:'撰稿人'},
-								{name:'平台名称'},
-								{name:'操作' , width : '200'}
-							],
-							td : GenerateArrList.arr(_data.data.list,$scope.filter) ,
+							th : th,
+							td : GenerateArrList.setArr(_data.data.list,th) ,
 							edit : [
 								{cls : 'edit' , name : '编辑',evt:$scope.edit},
 								{cls : 'del' , name : '删除',evt:$scope.del},
