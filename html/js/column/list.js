@@ -46,19 +46,23 @@ define(["require","app",'jquery',
 				});
 
 				data.channel.listChannel(function(_data){
+					var th = [
+								{name:'频道名称' , key: 'channelName', width : '200'},
+								{name:'频道域名', key: 'channelUrl' },
+								{name:'频道绝对路径', key: 'channelPath' },
+								{name:'模版位置', key: 'templatePath' },
+								{name:'频道说明', key: 'channelDesc' },
+								{name:'部门分类ID', key: 'categoryId' },
+								{name:'操作' , width : '120' , class:'center'}
+							];
+
 					$scope.listdata = { //确认按钮
 						title : $scope.title,
 						table : {
 							select : true,
-							th : [
-								{name:'频道名称' , width : '200'},
-								{name:'频道域名' },
-								{name:'频道绝对路径' },
-								{name:'模版位置' },
-								{name:'频道说明' },
-								{name:'操作' , width : '120' , class:'center'}
-							],
-							td : GenerateArrList.arr(_data.data,$scope.filter) ,
+					
+							th : th,
+							td : GenerateArrList.setArr(_data.data,th) ,
 							edit : [
 								{cls : 'edit' , name : '编辑',evt:$scope.edit},
 								{cls : 'del' , name : '删除',evt:$scope.del}

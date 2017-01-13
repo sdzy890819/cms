@@ -74,6 +74,7 @@ define(['require',"app",'jquery'
 					]
 				}*/
 
+
 				var page = 1;
 				function getDataList(){
 					data.news.newslist({
@@ -109,6 +110,7 @@ define(['require',"app",'jquery'
 										{cls : 'del' , name : '删除',evt:$scope.del},
 										{cls : '' , name : '详情',evt:$scope.info},
 									]
+
 								},
 								/*submit : [
 									selectAll,
