@@ -247,16 +247,18 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 			}
 		},
 		category : { //部门分类
-			listCategory : function( callback ){ //栏目列表
+			listCategory : function( obj ){ //栏目列表
 				T.ajax({
 					url : URL.category.listCategory , 
 					type : 'get',
 					data : {},
 					success : function( _data ){
-						callback(_data);
+						obj.callback(_data);
 					},
 					error : function(){}
 				})
+
+
 			}
 		},
 		channel : {//取频道分类管理
