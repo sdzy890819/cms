@@ -46,12 +46,9 @@ require.config({
 });
 
 // bootstrap
-define(['./data/loginAndOut',"angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-bootstrap','layui'], function (data , angular, angularAMD) {
+define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-bootstrap','layui'], function ( angular, angularAMD) {
 
     //临时登录 需要删除
-    data.login();
-
-
     // module
     var app = angular.module("app", ["ui.router",'angularCSS','ui.bootstrap']);
     // config
@@ -65,6 +62,13 @@ define(['./data/loginAndOut',"angular", "angularAMD","angular-ui-router",'angula
                 templateUrl: "template/main.html",
                 controllerUrl: "home/homeCtrl",
                 css: {href: 'style/stylesheets/home.css'}
+            }))
+
+            //登录
+            .state('login', angularAMD.route({
+                url: '/login',
+                templateUrl: 'template/login/index.html',
+                controllerUrl: 'login/index'
             }))
 
             //新闻

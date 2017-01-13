@@ -11,6 +11,7 @@ define(function(require){
 			delUser : url+'/user/delUser'//逻辑删除
 		},
 		data : { //基础接口
+			all : url+'/data/all',
 			compress : url+'/data/compress',//图片是否压缩选项列表接口
 			compressMode : url+'/data/compressMode',//按照宽｜高等比压缩选项接口
 			encoded : url+'/data/encoded',//模版支持的编码选项列表
