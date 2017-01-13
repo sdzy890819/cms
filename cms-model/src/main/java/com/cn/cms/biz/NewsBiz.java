@@ -37,6 +37,15 @@ public class NewsBiz extends BaseBiz {
         return newsService.queryList(channelId);
     }
 
+    public List<NewsColumn> listNewsColumn(Page page){
+        Integer count = this.newsService.queryListCount();
+        page.setCount(count);
+        if(page.isQuery()){
+            return this.newsService.queryListForPage(page);
+        }
+        return null;
+    }
+
     public List<RelationColumn> getAll(){
         List<Channel> list = channelBiz.listChannel();
         List<Long> ids = new ArrayList<>();

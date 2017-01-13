@@ -1,6 +1,7 @@
 package com.cn.cms.dao;
 
 import com.cn.cms.po.NewsColumn;
+import com.cn.cms.utils.Page;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -10,6 +11,10 @@ import java.util.List;
  * Created by zhangyang on 16/11/17.
  */
 public interface NewsColumnDao {
+
+    Integer queryListCount();
+
+    List<NewsColumn> queryListForPage(@Param(value = "page") Page page);
 
     List<NewsColumn> queryList(@Param(value = "channelId") Long channelId);
 

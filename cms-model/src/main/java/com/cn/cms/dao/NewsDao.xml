@@ -55,6 +55,7 @@
         id,build_user_id
     </sql>
 
+
     <select id="queryNewsCount" resultType="java.lang.Integer">
         select count(1) from news <include refid="delTag" /> ;
     </select>
