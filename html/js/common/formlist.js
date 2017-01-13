@@ -175,6 +175,7 @@ define(["app",'jquery','./moduls/directive'], function ( app , $ ) {
 				}
 
 				//以下为分页
+				$scope.current = 1;
 				$scope.$watch(function(){
 					return $scope.page;
 				},function(){ 
@@ -187,7 +188,9 @@ define(["app",'jquery','./moduls/directive'], function ( app , $ ) {
 								cont: 'pages'
 								,pages: $scope.page.pageCount //总页数
 								,groups: 5 //连续显示分页数
+								,curr : $scope.current
 								,jump : function( obj ){
+									$scope.current = obj.curr;
 									$scope.page.jump(obj);
 								}
 							});

@@ -71,7 +71,7 @@ define(['require',"app",'jquery'
 				var page = 1;
 				function getDataList(){
 					data.news.newslist({
-						page : 1,
+						page : page,
 						pageSize : 5,
 						callback : function(_data){
 							//分页
