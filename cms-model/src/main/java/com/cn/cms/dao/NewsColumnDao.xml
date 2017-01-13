@@ -30,8 +30,21 @@
         id,last_modify_user_id,`column_name`,channel_id,list_id,detail_id,list_template2_id,detail_template2_id,keywords,description
     </sql>
 
+    <select id="queryListCount" resultType="java.lang.Integer">
+        select count(1) from news_column <include refid="delTag" />
+
+    </select>
+
+    <select id="queryListForPage" resultMap="newsColumn">
+        select <include refid="sql_column" /> from news_column <include refid="delTag" />
+        limit ${page.start}, ${page.pageSize};
+    </select>
+
     <select id="queryList" resultMap="newsColumn">
-        select <include refid="sql_column"/> from news_column <include refid="delTag" /> and channel_id = ${channelId};
+        select <include refid="sql_column"/> from news_column <include refid="delTag" />
+        <if test="channelId != null ">
+            and channel_id = ${channelId}
+        </if>
     </select>
 
     <select id="getListForChannelIds" resultMap="newsColumn">

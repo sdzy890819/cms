@@ -1,10 +1,39 @@
-define(['./URL','jquery'],function(URL,$){
+define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
+	var T = {
+		getdata : function( obj ){
+			$.ajax({
+				url : obj.url , 
+				type : obj.type,
+				data : obj.data,
+				success : function( _data ){
+					if(_data.code == 0 ){
+						obj.success(_data);
+					}else if(_data.code == -1 ){//未登录
+						initInfo.login();
+					}
+					
+				},
+				error : function(){}
+			})
+		},
+		ajax : function( obj ){
+			obj.type = obj.type || 'get';
+			if(!quanjing.user){
+				initInfo.getUserInfo(function(){
+					T.getdata(obj);
+				})
+			}else{
+				T.getdata(obj);
+			}
+		}
+	};
 	var public = {
 		permission : {//权限
 			listPermission:function( callback ){ //权限列表接口
-				$.ajax({
+				T.ajax({
 					url : URL.permission.listPermission , 
 					type : 'get',
+
 					data : {},
 					success : function( _data ){
 							callback(_data);
@@ -13,7 +42,7 @@ define(['./URL','jquery'],function(URL,$){
 				})
 			},
 			currentMenuPermission : function ( callback ){
-				$.ajax({
+				T.ajax({
 					url : URL.permission.currentMenuPermission ,
 					type : 'get',
 					data : {},
@@ -24,7 +53,7 @@ define(['./URL','jquery'],function(URL,$){
 				})
 			},
 			currentButtonPermission : function( id, callback ){ //获取用户Menu下的Button权限
-				$.ajax({
+				T.ajax({
 					url : URL.permission.currentButtonPermission , 
 					type : 'get',
 					data : {
@@ -39,7 +68,7 @@ define(['./URL','jquery'],function(URL,$){
 		},
 		user : {
 			currentUser : function( callback ){ //当前登录用户信息接口
-				$.ajax({
+				T.ajax({
 					url : URL.user.currentUser , 
 					type : 'get',
 					data : {},
@@ -50,7 +79,7 @@ define(['./URL','jquery'],function(URL,$){
 				})
 			},
 			userlist : function( callback ){ //栏目列表
-				$.ajax({
+				T.ajax({
 					url : URL.user.userlist , 
 					type : 'get',
 					data : {},
@@ -63,7 +92,7 @@ define(['./URL','jquery'],function(URL,$){
 		},
 		data : {//基础接口
 			compress : function(callback){//图片是否压缩选项列表接口
-				$.ajax({
+				T.ajax({
 					url : URL.data.compress , 
 					type : 'get',
 					data : {},
@@ -74,7 +103,7 @@ define(['./URL','jquery'],function(URL,$){
 				})
 			},
 			compressMode : function(callback){//按照宽｜高等比压缩选项接口
-				$.ajax({
+				T.ajax({
 					url : URL.data.compressMode , 
 					type : 'get',
 					data : {},
@@ -85,7 +114,7 @@ define(['./URL','jquery'],function(URL,$){
 				})
 			},
 			encoded : function(callback){//模版支持的编码选项列表
-				$.ajax({
+				T.ajax({
 					url : URL.data.encoded , 
 					type : 'get',
 					data : {},
@@ -96,7 +125,7 @@ define(['./URL','jquery'],function(URL,$){
 				})
 			},
 			job : function(callback){//模版生成方式选项列表
-				$.ajax({
+				T.ajax({
 					url : URL.data.job , 
 					type : 'get',
 					data : {},
@@ -107,7 +136,7 @@ define(['./URL','jquery'],function(URL,$){
 				})
 			},
 			permissionType : function(callback){//权限类型选项列表
-				$.ajax({
+				T.ajax({
 					url : URL.data.permissionType , 
 					type : 'get',
 					data : {},
@@ -118,7 +147,7 @@ define(['./URL','jquery'],function(URL,$){
 				})
 			},
 			relationType : function(callback){//模版关系对应类型选项列表
-				$.ajax({
+				T.ajax({
 					url : URL.data.relationType , 
 					type : 'get',
 					data : {},
@@ -129,7 +158,7 @@ define(['./URL','jquery'],function(URL,$){
 				})
 			},
 			showFlag : function(callback){//权限是否显示在左侧选项列表
-				$.ajax({
+				T.ajax({
 					url : URL.data.showFlag , 
 					type : 'get',
 					data : {},
@@ -140,7 +169,7 @@ define(['./URL','jquery'],function(URL,$){
 				})
 			},
 			templateClassify : function(callback){//模版类型选项列表
-				$.ajax({
+				T.ajax({
 					url : URL.data.templateClassify , 
 					type : 'get',
 					data : {},
@@ -151,7 +180,7 @@ define(['./URL','jquery'],function(URL,$){
 				})
 			},
 			watermark : function(callback){//图片是否水印选项列表
-				$.ajax({
+				T.ajax({
 					url : URL.data.watermark , 
 					type : 'get',
 					data : {},
@@ -162,7 +191,7 @@ define(['./URL','jquery'],function(URL,$){
 				})
 			},
 			buildMode : function(callback){//图片是否水印选项列表
-				$.ajax({
+				T.ajax({
 					url : URL.data.buildMode , 
 					type : 'get',
 					data : {},
@@ -175,55 +204,64 @@ define(['./URL','jquery'],function(URL,$){
 		},
 		news : {
 			newscolumnlist : function( callback ){ //栏目列表
-				$.ajax({
+				T.ajax({
 					url : URL.news.newscolumnlist , 
 					type : 'get',
-					data : {},
 					success : function( _data ){
 						callback(_data);
-					},
-					error : function(){}
+					}
 				})
 			},
-			newslist : function( callback ){ //栏目列表
-				$.ajax({
+			newslist : function( obj ){ //栏目列表
+				T.ajax({
 					url : URL.news.newslist , 
 					type : 'get',
-					data : {},
+					data : {page:obj.page,pageSize:obj.pageSize},
 					success : function( _data ){
-						callback(_data);
-					},
-					error : function(){}
+						obj.callback(_data);
+					}
 				})
 			},
-			newsdetail : function( callback ){ //获取新闻详细信息
-				$.ajax({
+			newsdetail : function( obj ){ //获取新闻详细信息
+				T.ajax({
 					url : URL.news.newsdetail , 
 					type : 'get',
-					data : {},
+					data : {id:obj.id},
 					success : function( _data ){
-						callback(_data);
+						obj.callback(_data);
+					}
+				})
+			},
+			delNews : function( obj ){ //删除新闻
+				T.ajax({
+					url : URL.news.delNews , 
+					type : 'get',
+					data : {id:obj.id},
+					success : function( _data ){
+						obj.callback(_data);
 					},
 					error : function(){}
 				})
 			}
 		},
 		category : { //部门分类
-			listCategory : function( callback ){ //栏目列表
-				$.ajax({
+			listCategory : function( obj ){ //栏目列表
+				T.ajax({
 					url : URL.category.listCategory , 
 					type : 'get',
 					data : {},
 					success : function( _data ){
-						callback(_data);
+						obj.callback(_data);
 					},
 					error : function(){}
 				})
+
+
 			}
 		},
 		channel : {//取频道分类管理
 			listChannel : function( callback ){ //栏目列表
-				$.ajax({
+				T.ajax({
 					url : URL.category.listCategory , 
 					type : 'get',
 					data : {},
@@ -236,7 +274,7 @@ define(['./URL','jquery'],function(URL,$){
 		},
 		image : {
 			imageslist : function( callback ){ //栏目列表
-				$.ajax({
+				T.ajax({
 					url : URL.category.listCategory , 
 					type : 'get',
 					data : {},
@@ -249,7 +287,7 @@ define(['./URL','jquery'],function(URL,$){
 		},
 		video : {
 			videolist : function( callback ){ //获取视频列表
-				$.ajax({
+				T.ajax({
 					url : URL.video.videolist , 
 					type : 'get',
 					data : {},
@@ -262,7 +300,7 @@ define(['./URL','jquery'],function(URL,$){
 		},
 		template : { //模版
 			listTemplate : function( callback ){//模版列表［分页］ 接口
-				$.ajax({
+				T.ajax({
 					url : URL.template.listTemplate , 
 					type : 'get',
 					data : {},
@@ -275,7 +313,7 @@ define(['./URL','jquery'],function(URL,$){
 		},
 		topic : { //专题
 			listTopic : function( callback ){//模版列表［分页］ 接口
-				$.ajax({
+				T.ajax({
 					url : URL.topic.listTopic , 
 					type : 'get',
 					data : {},
@@ -285,7 +323,7 @@ define(['./URL','jquery'],function(URL,$){
 				});
 			},
 			topicClassifyList : function( callback ){//模版列表［分页］ 接口
-				$.ajax({
+				T.ajax({
 					url : URL.topic.topicClassifyList , 
 					type : 'get',
 					data : {},
@@ -297,7 +335,7 @@ define(['./URL','jquery'],function(URL,$){
 		},
 		userchannel : { //用户频道编辑权限
 			channelId:function( callback ){//根据频道ID获取用户列表 接口
-				$.ajax({
+				T.ajax({
 					url : URL.userchannel.channelId , 
 					type : 'get',
 					data : {},
@@ -307,7 +345,7 @@ define(['./URL','jquery'],function(URL,$){
 				});
 			},
 			userId:function( callback ){ //根据用户ID获取频道列表
-				$.ajax({
+				T.ajax({
 					url : URL.userchannel.userId , 
 					type : 'get',
 					data : {},
@@ -325,7 +363,7 @@ define(['./URL','jquery'],function(URL,$){
 		},
 		fragment : {
 			listFragment : function( callback ){ //获取碎片列表
-				$.ajax({
+				T.ajax({
 					url : URL.fragment.listFragment , 
 					type : 'get',
 					data : {},
@@ -348,7 +386,7 @@ define(['./URL','jquery'],function(URL,$){
 
 			},
 			listHistory : function( callback ){ //碎片编辑的历史纪录［分页查询］
-				$.ajax({
+				T.ajax({
 					url : URL.fragment.listHistory , 
 					type : 'get',
 					data : {},
@@ -358,7 +396,7 @@ define(['./URL','jquery'],function(URL,$){
 				});
 			},
 			listClassify : function( callback ){ //碎片编辑的历史纪录［分页查询］
-				$.ajax({
+				T.ajax({
 					url : URL.fragment.listClassify , 
 					type : 'get',
 					data : {},
@@ -368,7 +406,7 @@ define(['./URL','jquery'],function(URL,$){
 				});
 			},
 			createClassify : function( callback ){ //分类列表
-				$.ajax({
+				T.ajax({
 					url : URL.fragment.createClassify , 
 					type : 'get',
 					data : {},

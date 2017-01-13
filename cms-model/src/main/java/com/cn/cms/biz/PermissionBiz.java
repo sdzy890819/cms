@@ -5,6 +5,7 @@ import com.cn.cms.bo.PermissionBean;
 import com.cn.cms.contants.RedisKeyContants;
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.enums.PermissionTypeEnum;
+import com.cn.cms.enums.ShowFlagEnum;
 import com.cn.cms.middleware.JedisClient;
 import com.cn.cms.po.Permission;
 import com.cn.cms.po.PositionPermission;
@@ -150,7 +151,9 @@ public class PermissionBiz extends BaseBiz{
                     if(StringUtils.isEmpty(tmp)){
                         tmp = new ArrayList<>();
                     }
-                    tmp.add(permission);
+                    if(permission.getShowFlag() == ShowFlagEnum.YES.getType()) {
+                        tmp.add(permission);
+                    }
                     childMap.put(permission.getParentId() ,tmp);
                 }
             }

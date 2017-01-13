@@ -1,5 +1,6 @@
 package com.cn.cms.dao;
 
+import com.cn.cms.middleware.bo.UserSearch;
 import com.cn.cms.po.User;
 import com.cn.cms.utils.Page;
 import org.apache.ibatis.annotations.Param;
@@ -33,4 +34,8 @@ public interface UserDao {
     User findUserName(@Param(value = "userName") String userName);
 
     User findUserForLogin(@Param(value = "userName") String userName, @Param(value = "pwd") String pwd);
+
+    Integer searchUsersCount(@Param(value = "p1") UserSearch userSearch);
+
+    List<User> searchUsers(@Param(value = "p1") UserSearch userSearch, @Param(value = "page") Page page);
 }

@@ -4,6 +4,7 @@ import com.cn.cms.bo.UserBean;
 import com.cn.cms.contants.RedisKeyContants;
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.middleware.JedisClient;
+import com.cn.cms.middleware.bo.UserSearch;
 import com.cn.cms.po.User;
 import com.cn.cms.service.UserService;
 import com.cn.cms.utils.CookieUtil;
@@ -36,6 +37,17 @@ public class UserBiz extends BaseBiz{
 
 
     public UserBean test(){
+        return null;
+    }
+
+
+    public List<UserBean> searchUsers(UserSearch userSearch, Page page){
+        Integer count = userService.searchUsersCount(userSearch);
+        page.setCount(count);
+        if(page.isQuery()){
+            List<User> users =  userService.searchUsers(userSearch, page);
+            return toBean(users);
+        }
         return null;
     }
 

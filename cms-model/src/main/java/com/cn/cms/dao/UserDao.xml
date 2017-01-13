@@ -30,7 +30,7 @@
     <sql id="delTag"> where del_tag = 1 </sql>
 
     <select id="test" resultMap="user">
-        select * from user <include refid="delTag" /> and id=10000;
+        select <include refid="all_column" /> from user <include refid="delTag" /> and id=10000;
     </select>
 
     <select id="queryUserCount" resultType="java.lang.Integer">
@@ -86,11 +86,26 @@
     </update>
 
     <select id="findUserName" resultMap="user">
-        select * from user <include refid="delTag" /> and user_name = #{userName};
+        select <include refid="all_column" /> from user <include refid="delTag" /> and user_name = #{userName};
     </select>
 
     <select id="findUserForLogin" resultMap="user">
-        select * from user <include refid="delTag" /> and user_name = #{userName} and pwd = #{pwd};
+        select <include refid="all_column" /> from user <include refid="delTag" /> and user_name = #{userName} and pwd = #{pwd};
+    </select>
+
+    <select id="searchUsersCount" resultType="java.lang.Integer">
+        select count(1) from user <include refid="delTag" />
+        <if test="p1.condition != null ">
+            and real_name like CONCAT('%',#{p1.condition},'%')
+        </if>
+    </select>
+
+    <select id="searchUsers" resultMap="user">
+        select <include refid="all_column" /> from user <include refid="delTag" />
+        <if test="p1.condition != null ">
+            and real_name like CONCAT('%',#{p1.condition},'%')
+        </if>
+        limit ${page.start},${page.pageSize};
     </select>
 
 </mapper>

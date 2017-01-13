@@ -14,6 +14,10 @@ import java.util.List;
  */
 public interface NewsService {
 
+    Integer queryListCount();
+
+    List<NewsColumn> queryListForPage(Page page);
+
     List<NewsColumn> queryList(Long channelId);
 
     List<NewsColumn> getListForChannelIds(List<Long> ids);

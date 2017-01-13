@@ -1,21 +1,15 @@
 define(['./URL','jquery','./getInitInfo'],function(URL,$,userInfo){
 	var user = {
-		login : function(){						
+		login : function( obj ){
 			$.ajax({
 				type: 'POST',				
 				url : URL.user.login , 
-				data : {userName: 'admin3', pwd: '1234qwer'},
-
+				data : {userName: obj.userName, pwd: obj.pwd},
 				success : function(_data){
-					
-					console.log(_data);
-					var _data = {
-					    "code":0,
-					    "message":"成功",
-					    "data":{}
-					}
+					obj.callback(_data);
 				},
-				error : function(_data){					
+				error : function(_data){
+					alert('登录请求异常');				
 				}
 			})
 		},
@@ -28,6 +22,13 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$,userInfo){
 					window.initInfo = null;
 				},
 				error : function(){}
+			})
+		},
+		getUserInfo : function( callback ){
+			user.login({
+				userName: 'admin2', 
+				pwd: '1234qwer',
+				callback : callback
 			})
 		}
 	}
