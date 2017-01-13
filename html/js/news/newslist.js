@@ -15,21 +15,28 @@ define(['require',"app",'jquery'
 				$scope.$parent.menu.push({name:$scope.title}); //栏目
 				angular.extend($scope,{
 					edit : function( obj ){ //保存
-						$.each(list,function( i , obj){
-							if(obj.title == 'content'){
-								obj.width = '650px';
-							}
-						});
-						function getAddForm(callback){
+						function getAddForm(callback){ //填充数据
 							data.news.newsdetail({
 								id : obj.id,
-								callback : callback
+								callback : function(_data){
+									_data.data.writeTime = new Date(_data.data.writeTime).format('yyyy-MM-dd h:m:s');
+									callback(_data);
+								}
 							})
 						}
+						
         				editPop.init({
         					obj : obj,
         					list : list,
-        					callback : getAddForm,
+        					updateData : getAddForm,
+        					callback : function( list , callback ){ //返回获取的数据 用于操作
+								$.each(list,function( i , obj){
+									if(obj.title == 'content'){
+										obj.width = '650px';
+									}
+								});
+								callback(list);
+        					},
         					$uibModal :$uibModal 
         				});
 					},

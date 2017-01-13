@@ -12,7 +12,7 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 	            titelement : '=titelement',
 	            data : '=data'
 	        },
-	        controller : function($scope , $state , $element , $rootScope,$uibModal,$css){
+	        controller : function($scope , $state , $element , $rootScope,$uibModal,$css,$timeout){
 				var icon = {
 					add:'plus',//添加
 					save:'save',//保存
@@ -60,6 +60,11 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 								$scope.editorContent = '';
 					        	$css.add('../../wangEditor/dist/css/wangEditor.min.css');
 					        	textEdit.init($scope);
+					        	$timeout(function(){
+					        		try{
+					        			$scope.editor.$txt.html($scope.data.newsDetail.content||'请输入内容');
+					        		}catch(e){}
+					        	})
 							}
 						});
 						return;

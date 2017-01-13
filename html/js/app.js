@@ -46,7 +46,7 @@ require.config({
 });
 
 // bootstrap
-define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-bootstrap','layui'], function ( angular, angularAMD) {
+define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-bootstrap','layui','moduls/prototype'], function ( angular, angularAMD) {
 
     //临时登录 需要删除
     // module

@@ -74,7 +74,7 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 			type : 'edit'
 		},
 		{
-			title : 'buildTime',
+			title : 'writeTime',
 			name : '定时发布',
 			placeholder : '请选择时间 年/月/日 时:分:秒',
 			type : 'date',
