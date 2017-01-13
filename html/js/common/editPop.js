@@ -1,29 +1,29 @@
 define(["app",'jquery','form'],function (app,$) {
     return {
     	init : function( obj ){
-    		var $uibModal = obj.$uibModal , 
-    			list = obj.list;
+			var $uibModal = obj.$uibModal , 
+				list = obj.list;
 			obj.$uibModal.open({
-		      animation: true,
-		      ariaLabelledBy: 'modal-title',
-		      ariaDescribedBy: 'modal-body',
-		      //windowTemplateUrl : '../../template/common/window.html',
-		      //template : 'asdfsadf',
-		      templateUrl: '../template/common/addAndEdit.html',
-		      size: 'lg',
-		      controller: function($scope,$uibModalInstance,$css) {
-		      	$css.add('../../style/stylesheets/pop.css');
-		      	angular.extend($scope,{
-		      		titelement : {
-			      		close : true
-			      	},
+				animation: true,
+				ariaLabelledBy: 'modal-title',
+				ariaDescribedBy: 'modal-body',
+				//windowTemplateUrl : '../../template/common/window.html',
+				//template : 'asdfsadf',
+				templateUrl: '../template/common/addAndEdit.html',
+				size: 'lg',
+				controller: function($scope,$uibModalInstance,$css) {
+					$css.add('../../style/stylesheets/pop.css');
+					angular.extend($scope,{
+						titelement : {
+				  		close : true
+				  	},
 					save : function( arr ){ //保存
 						alert(arr)
 					},
 					cancel : function( arr ){ //取消
 						alert(arr)
 					},
-			      	close : function () {
+				  	close : function () {
 					   	$uibModalInstance.dismiss('cancel');
 				  	},
 				  	formdata : { //确认按钮
@@ -45,8 +45,11 @@ define(["app",'jquery','form'],function (app,$) {
 						]
 					}
 				});
-		      }
-		    });
+				}
+			});
+    	},
+    	updateData : function(){
+    		
     	}
     }
 });

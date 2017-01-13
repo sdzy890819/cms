@@ -9,7 +9,8 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 			scope : {
 	            formdata : '=formdata',
 	            edit : '=edit',
-	            titelement : '=titelement'
+	            titelement : '=titelement',
+	            data : '=data'
 	        },
 	        controller : function($scope , $state , $element , $rootScope,$uibModal,$css){
 				var icon = {
