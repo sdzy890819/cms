@@ -12,9 +12,9 @@ define(["app",'jquery','form'],function (app,$) {
 				templateUrl: '../template/common/addAndEdit.html',
 				size: 'lg',
 				controller: function($scope,$uibModalInstance,$css) {
-					$css.add('../../style/stylesheets/pop.css');
 					obj.callback(function(_data){
 						$scope.data = _data.data;
+						console.log(_data.data)
 					});
 					angular.extend($scope,{
 						titelement : {

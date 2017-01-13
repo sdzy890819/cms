@@ -1,8 +1,9 @@
 define(['require',"app",'jquery'
-	,'../data/getData' , './addForm',
+	,'../data/getData' , './addForm'
+	,'../common/editPop'
 	,'formlist','fixedNav','position'
 	,'../moduls/service','../moduls/factory'
-], function ( require , app , $ , data , list ) {
+], function ( require , app , $ , data , list , editPop ) {
 	app.directive('newsNewslist',function(){
 		return {
 	    	restrict : 'E',
@@ -14,25 +15,23 @@ define(['require',"app",'jquery'
 				$scope.$parent.menu.push({name:$scope.title}); //栏目
 				angular.extend($scope,{
 					edit : function( obj ){ //保存
-						require(['../common/editPop'], function(pop) {
-							$.each(list,function( i , obj){
-								if(obj.title == 'content'){
-									obj.width = '650px';
-								}
-							});
-							function getAddForm(callback){
-								data.news.newsdetail({
-									id : obj.id,
-									callback : callback
-								})
+						$.each(list,function( i , obj){
+							if(obj.title == 'content'){
+								obj.width = '650px';
 							}
-	        				pop.init({
-	        					obj : obj,
-	        					list : list,
-	        					callback : getAddForm,
-	        					$uibModal :$uibModal 
-	        				});
-	  					});
+						});
+						function getAddForm(callback){
+							data.news.newsdetail({
+								id : obj.id,
+								callback : callback
+							})
+						}
+        				editPop.init({
+        					obj : obj,
+        					list : list,
+        					callback : getAddForm,
+        					$uibModal :$uibModal 
+        				});
 					},
 					info : function( obj ){ //详情
 						pop.alert({

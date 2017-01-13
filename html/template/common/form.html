@@ -13,18 +13,20 @@
 				<div class="layui-form-item" ng-repeat="obj in formdata.list">
 					<label ng-if='!isArray(obj)' class="layui-form-label"><em ng-show='obj.check!=false&&obj.verify'>*</em>{{obj.name}}</label>
 					<div class="layui-input-block" ng-if='!isArray(obj)' repeat-finish='formRepeat'>
+
 						<!-- 输入匡 或 密码 -->
 						<input ng-if="obj.type=='text'||obj.type=='password'" 
 							class="text layui-input {{obj.cls||'w320'}}" 
 							type="{{obj.type}}" 
 							name="{{obj.title}}" 
+							value="{{data[obj.title]}}"
 							lay-verify="{{obj.verify}}" 
 							placeholder="{{obj.placeholder}}" 
 							ng-pattern="{{obj.pattern}}"
 							autocomplete="off">
 
 						<!-- 多文本 -->
-						<textarea ng-if="obj.type=='textarea'" class="layui-textarea text w80 {{obj.cls}}" name="{{obj.title}}" lay-verify="content" placeholder="{{obj.placeholder}}"></textarea>
+						<textarea ng-if="obj.type=='textarea'" class="layui-textarea text w80 {{obj.cls}}" name="{{obj.title}}" lay-verify="content" placeholder="{{obj.placeholder}}">{{data[obj.title]}}</textarea>
 
 						<!-- 富文本编辑器 -->
 						<div ng-if="obj.type=='edit'" style="width:{{obj.width}}; max-width:{{obj.maxWidth}}; min-width:{{obj.minWidth}}">
@@ -61,10 +63,17 @@
 						<label ng-if='item.type!="button"' class="layui-form-label {{$index!==0?'inline':''}}"><em ng-show='item.check!=false&&item.verify'>*</em>{{item.name}}</label>
 					    <div class="layui-input-inline"> <!-- 不换行 -->
 					        <!-- 输入匡 或 密码 -->
-							<input ng-if="item.type=='text'||item.type=='password'" class="text layui-input {{item.cls||'w100'}}" type="{{item.type=='text'?'text':'password'}}" name="{{item.title}}" lay-verify="{{item.verify}}" placeholder="{{item.placeholder}}" autocomplete="off">
+							<input ng-if="item.type=='text'||item.type=='password'" 
+								class="text layui-input {{item.cls||'w100'}}" 
+								type="{{item.type=='text'?'text':'password'}}" 
+								name="{{item.title}}" 
+								value="{{data[item.title]}}"
+								lay-verify="{{item.verify}}" 
+								placeholder="{{item.placeholder}}" 
+								autocomplete="off">
 
 							<!-- 多文本 -->
-							<textarea ng-if="item.type=='textarea'" class="layui-textarea text w80 {{item.cls}}" name="{{item.title}}" lay-verify="content" placeholder="{{item.placeholder}}"></textarea>
+							<textarea ng-if="item.type=='textarea'" class="layui-textarea text w80 {{item.cls}}" name="{{item.title}}" lay-verify="content" placeholder="{{item.placeholder}}">{{data[item.title]}}</textarea>
 
 							<!-- select -->
 						    <div ng-if="item.type=='select'" class="layui-input-inline {{item.cls}}" ng-repeat="select in item.select">
