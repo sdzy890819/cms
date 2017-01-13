@@ -45,28 +45,58 @@ define(['require',"app",'jquery',
 					],
 					changeTypeName : [{name:'headImage',newName:'image'}]
 				});
-				data.user.userlist(function(_data){
-					$scope.listdata = { //确认按钮
-						title : $scope.title,
-						table : {
-							select : true,
-							th : [
-								{name:'头像' , width : '200'},
-								{name:'真实名称' },
-								{name:'操作' , width : '120' , class:'center'}
-							],
-							td : GenerateArrList.arr(_data.data.list,$scope.filter,$scope.changeTypeName) ,
-							edit : [
-								{cls : 'edit' , name : '编辑',evt:$scope.edit},
-								{cls : 'del' , name : '删除',evt:$scope.del}
-							]
-						}
-					}
-					// GenerateArrList.extendType($scope.listdata.table.td,$scope.listdata.table.th,['width','name']); //把TH 中的出name属性以外的属性合传给td
-	        		//GenerateArrList.changeTypeName($scope.listdata.table.td,[{name:'headImage',newName:'image'}]);
+
+				var page = 1;
+				function getDataList(){
+					data.user.userlist({
+						page : page,
+						pageSize: 1,
+
+						callback : function(_data){
+							//分页
+							$scope.page = _data.data.page;
+							$scope.page.jump = function( obj ){
+								if(page != obj.curr){
+									page = obj.curr;
+									getDataList();
+								}
+							}
+							//end 分页
+
+							var th = [
+										{name:'头像' ,  key: 'headImage', width : '200'},										
+										{name:'真实名称', key: 'realName' },
+										{name: '用户ID', key: 'userId'},
+										{name:'操作' , width : '120' , class:'center'}
+							];					
+
+							$scope.listdata = { //确认按钮
+								title : $scope.title,
+								table : {
+									select : true,
+									th : th,
+									td : GenerateArrList.setArr(_data.data.list,th),
+									edit : [
+										{cls : 'edit' , name : '编辑',evt:$scope.edit},
+										{cls : 'del' , name : '删除',evt:$scope.del}
+									]
+								}
+							}
+
+
+							// GenerateArrList.extendType($scope.listdata.table.td,$scope.listdata.table.th,['width','name']); //把TH 中的出name属性以外的属性合传给td							
+			        // GenerateArrList.changeTypeName($scope.listdata.table.td,[{name:'headImage',newName:'image'}]);
+			        
+			        console.log($scope.listdata.table.td);
 	        		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
-	        		$scope.$apply();
-				});
+	        		$scope.$apply();							
+						}
+
+					});
+				}
+
+					getDataList();
+
 	        }
 	        ,link : function($scope , element ){
 	        	
