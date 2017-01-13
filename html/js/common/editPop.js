@@ -14,7 +14,7 @@ define(["app",'jquery','form'],function (app,$) {
 				controller: function($scope,$uibModalInstance,$css) {
 					$css.add('../../style/stylesheets/pop.css');
 					obj.callback(function(_data){
-						debugger;
+						$scope.data = _data.data;
 					});
 					angular.extend($scope,{
 						titelement : {
