@@ -262,7 +262,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 		channel : {//取频道分类管理
 			listChannel : function( callback ){ //栏目列表
 				T.ajax({
-					url : URL.category.listCategory , 
+					url : URL.channel.listChannel , 
 					type : 'get',
 					data : {},
 					success : function( _data ){
