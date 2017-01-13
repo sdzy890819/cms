@@ -4,6 +4,7 @@ import com.cn.cms.biz.NewsBiz;
 import com.cn.cms.biz.PreTemplateBiz;
 import com.cn.cms.bo.RelationColumn;
 import com.cn.cms.po.NewsColumn;
+import com.cn.cms.utils.Page;
 import com.cn.cms.web.ann.CheckAuth;
 import com.cn.cms.web.ann.CheckToken;
 import com.cn.cms.web.result.ApiResponse;
@@ -12,7 +13,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zhangyang on 16/12/11.
@@ -40,6 +43,23 @@ public class NewsColumnController extends BaseController {
     public String list(@RequestParam(value = "channelId") Long channelId){
         List<NewsColumn> list = newsBiz.listNewsColumn(channelId);
         return ApiResponse.returnSuccess(list);
+    }
+
+    /**
+     * 新闻栏目列表分页
+     * @return
+     */
+    @CheckToken
+    @CheckAuth( name = "newscolumn:read" )
+    @RequestMapping(value = "/list",method = RequestMethod.GET)
+    public String list(@RequestParam(value = "page",required = false) Integer page,
+                       @RequestParam(value="pageSize",required = false)Integer pageSize){
+        Page page1 = new Page(page, pageSize);
+        List<NewsColumn> list = newsBiz.listNewsColumn(page1);
+        Map<String, Object> map = new HashMap<>();
+        map.put("page" ,page1);
+        map.put("list", list);
+        return ApiResponse.returnSuccess(map);
     }
 
 
