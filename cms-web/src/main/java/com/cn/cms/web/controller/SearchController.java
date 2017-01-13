@@ -3,15 +3,14 @@ package com.cn.cms.web.controller;
 import com.cn.cms.biz.FragmentBiz;
 import com.cn.cms.biz.Template2Biz;
 import com.cn.cms.biz.TemplateBiz;
+import com.cn.cms.biz.UserBiz;
 import com.cn.cms.bo.FragmentSearch;
 import com.cn.cms.bo.Template2Search;
 import com.cn.cms.bo.TemplateSearch;
+import com.cn.cms.bo.UserBean;
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.middleware.ESearchClient;
-import com.cn.cms.middleware.bo.ImagesSearch;
-import com.cn.cms.middleware.bo.NewsSearch;
-import com.cn.cms.middleware.bo.TopicSearch;
-import com.cn.cms.middleware.bo.VideoSearch;
+import com.cn.cms.middleware.bo.*;
 import com.cn.cms.middleware.po.QueryResult;
 import com.cn.cms.po.*;
 import com.cn.cms.utils.Page;
@@ -50,6 +49,9 @@ public class SearchController extends BaseController {
 
     @Resource
     private Template2Biz template2Biz;
+
+    @Resource
+    private UserBiz userBiz;
 
     /**
      * 全文检索新闻
@@ -280,6 +282,29 @@ public class SearchController extends BaseController {
         QueryResult<Template2> queryResult = new QueryResult<>();
         queryResult.setPage(pageObj);
         queryResult.setList(result);
+        return ApiResponse.returnSuccess(queryResult);
+    }
+
+    /**
+     * 搜索用户
+     * @param condition
+     * @param page
+     * @param pageSize
+     * @return
+     */
+    @CheckToken
+    @CheckAuth(name = "user:search")
+    @RequestMapping(value = "/searchUser", method = RequestMethod.POST)
+    public String searchUser(@RequestParam(value = "condition", required = false) String condition,
+                             @RequestParam(value = "page", required = false) Integer page,
+                             @RequestParam(value = "pageSize", required = false) Integer pageSize){
+        Page pageObj = new Page(page, pageSize);
+        UserSearch userSearch = new UserSearch();
+        userSearch.setCondition(condition);
+        List<UserBean> list = userBiz.searchUsers(userSearch, pageObj);
+        QueryResult<UserBean> queryResult = new QueryResult<>();
+        queryResult.setPage(pageObj);
+        queryResult.setList(list);
         return ApiResponse.returnSuccess(queryResult);
     }
 }
