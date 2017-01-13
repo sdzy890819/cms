@@ -27,10 +27,6 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 				$scope.$css = $css;
 				$scope.$uibModal = $uibModal;
 
-				$.each($scope.formdata.submit,function(){
-					this.icon_cls = icon[this.icon_cls]
-				});
-
 				angular.extend($scope,{
 					isArray : function( value ){
 						return angular.isArray(value);
@@ -50,14 +46,28 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 						evt(obj,$event.target);
 					}
 				});
-				$.each($scope.formdata.list,function(){
-					var self = this;
-					if(this.type=='edit'){
-						$scope.editorContent = '';
-			        	$css.add('../../wangEditor/dist/css/wangEditor.min.css');
-			        	textEdit.init($scope);
-					}
-				});
+
+				$scope.$watch(function(){
+					return $scope.formdata;
+				},function(){ 
+					if($scope.formdata){
+						$.each($scope.formdata.submit,function(){
+							this.icon_cls = icon[this.icon_cls]
+						});
+						$.each($scope.formdata.list,function(){
+							var self = this;
+							if(this.type=='edit'){
+								$scope.editorContent = '';
+					        	$css.add('../../wangEditor/dist/css/wangEditor.min.css');
+					        	textEdit.init($scope);
+							}
+						});
+						return;
+					};
+				},true);
+				
+				
+
 			},
 			link : function($scope , element , arrt , controller){
 				var ele = $(element[0]);
@@ -67,6 +77,8 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 					 		,layer = layui.layer
 					  		,layedit = layui.layedit
 					  		,laydate = layui.laydate;
+
+					  	
 
 					  	$.each($scope.formdata.list,function(){
 							var self = this;
@@ -97,6 +109,11 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 										}
 									});
 								});
+							}
+							if(this.type =='select'){
+								form.on('select',function( _obj ){
+									self.callback(_obj);
+							  	});
 							}
 						});
 

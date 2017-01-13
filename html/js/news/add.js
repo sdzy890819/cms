@@ -1,4 +1,4 @@
-define(["app",'./addForm','form','position','fixedNav'], function ( app , list ) {
+define(["app",'./addForm','../data/getData','form','position','fixedNav'], function ( app , getList , getData ) {
 	app.directive('newsAdd',function(){
 		return {
 	    	restrict : 'E',
@@ -34,39 +34,61 @@ define(["app",'./addForm','form','position','fixedNav'], function ( app , list )
 						}
 					]
 				}
-				$.each(list,function( i , obj){
-					if(obj.title == 'content'){
-						obj.width = '800px';
-					}
-				});
-				$scope.formdata = { //确认按钮
-					title : '新增新闻',
-					list : list,
-					submit : [
-						{
-							name : '保存',
-							evt : 'save',
-							icon_cls : 'save'
-						},
-						{
-							name:'预览',
-							evt : 'view',
-							icon_cls : 'view'
-						},
-						{
-							name:'确认发布',
-							evt : 'rlease',
-							icon_cls : 'ok'
-						},
-						{
-							name:'取消',
-							evt : 'cancel',
-							icon_cls : 'cancel',
-							cls : 'cancel'
+
+				getList(function(list){
+					$.each(list,function( i , obj){
+						if(obj.title == 'content'){
+							obj.width = '800px';
 						}
-					]
-				}
+						if(obj.type=='select'){
+							obj.callback = function( _obj ){
+								$.each(obj.select,function(j,arr){
+									var id = arr[_obj.elem.selectedIndex].id;
+									if(arr[0].title==_obj.elem.name == 'categoryId'){//请选择部门
+										getData.channel.currentChannelList({
+											categoryId : id,
+											callback : function(_data){
+												debugger;
+											}
+										})
+									}
+								})
+								debugger;
+							}
+						}
+					});
+					//debugger;
+					$scope.formdata = { //确认按钮
+						title : '新增新闻',
+						list : list,
+						submit : [
+							{
+								name : '保存',
+								evt : 'save',
+								icon_cls : 'save'
+							},
+							{
+								name:'预览',
+								evt : 'view',
+								icon_cls : 'view'
+							},
+							{
+								name:'确认发布',
+								evt : 'rlease',
+								icon_cls : 'ok'
+							},
+							{
+								name:'取消',
+								evt : 'cancel',
+								icon_cls : 'cancel',
+								cls : 'cancel'
+							}
+						]
+					}
+					$scope.$apply();
+				})
 	        }
+
 	    };
 	});
 });

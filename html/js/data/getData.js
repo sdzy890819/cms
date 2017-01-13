@@ -249,14 +249,10 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 				T.ajax({
 					url : URL.category.listCategory , 
 					type : 'get',
-					data : {},
 					success : function( _data ){
 						obj.callback(_data);
-					},
-					error : function(){}
-				})
-
-
+					}
+				});
 			}
 		},
 		channel : {//取频道分类管理

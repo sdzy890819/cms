@@ -10,7 +10,7 @@
 		<div class="content clearfix">
 			<form class="layui-form clearfix">
 				<position-nav edit='edit' submit='submit' isadd='isadd'></position-nav>
-				<div class="layui-form-item" ng-repeat="obj in formdata.list">
+				<div ng-if='formdata' class="layui-form-item" ng-repeat="obj in formdata.list">
 					<label ng-if='!isArray(obj)' class="layui-form-label"><em ng-show='obj.check!=false&&obj.verify'>*</em>{{obj.name}}</label>
 					<div class="layui-input-block" ng-if='!isArray(obj)' repeat-finish='formRepeat'>
 
@@ -35,7 +35,7 @@
 
 						<!-- select -->
 					    <div ng-if="obj.type=='select'" class="layui-input-inline {{obj.cls}}" ng-repeat="select in obj.select">
-					      <select name="{{obj.title}}{{$index}}">
+					      <select name="{{obj.selectName[$index]}}">
 					        <option lay-verify="{{obj.verify}}" ng-repeat="option in select">{{option.name}}</option>
 					      </select>
 					    </div>
@@ -77,7 +77,7 @@
 
 							<!-- select -->
 						    <div ng-if="item.type=='select'" class="layui-input-inline {{item.cls}}" ng-repeat="select in item.select">
-						      <select name="{{item.title}}{{$index}}">
+						      <select name="{{item.selectName[$index]}}">
 						        <option lay-verify="{{item.verify}}" ng-repeat="option in select">{{option.name}}</option>
 						      </select>
 						    </div>
@@ -92,7 +92,7 @@
 					    </div>
 					</div>
 				</div>
-				<div class="submit">
+				<div class="submit" ng-if='formdata'>
 					<div class='btn {{obj.cls}}' lay-submit="" lay-filter="demo1" ng-repeat='obj in formdata.submit' data-event='{{obj.evt}}' ng-if='obj.evt!="cancel"'>
 						<i class="icon-{{obj.icon_cls}}"></i>
 						<span>{{obj.name}}</span>
