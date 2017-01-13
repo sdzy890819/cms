@@ -203,16 +203,25 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 			}
 		},
 		news : {
-			newscolumnlist : function( callback ){ //栏目列表
+			createNews : function( obj ){
 				T.ajax({
 					url : URL.news.newscolumnlist , 
-					type : 'get',
+					data : {channelId : obj.channelId},
 					success : function( _data ){
-						callback(_data);
+						obj.callback(_data);
 					}
 				})
 			},
-			newslist : function( obj ){ //栏目列表
+			newscolumnlist : function( obj ){ //栏目列表
+				T.ajax({
+					url : URL.news.newscolumnlist , 
+					data : {channelId : obj.channelId},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				})
+			},
+			newslist : function( obj ){ //新闻栏目列表
 				T.ajax({
 					url : URL.news.newslist , 
 					type : 'get',
@@ -263,8 +272,16 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					data : {},
 					success : function( _data ){
 						callback(_data);
-					},
-					error : function(){}
+					}
+				})
+			},
+			currentChannelList : function( obj ){
+				T.ajax({
+					url : URL.channel.currentChannelList , 
+					data : {categoryId:obj.categoryId},
+					success : function( _data ){
+						obj.callback(_data);
+					}
 				})
 			}
 		},

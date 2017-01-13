@@ -112,7 +112,9 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 							}
 							if(this.type =='select'){
 								form.on('select',function( _obj ){
-									self.callback(_obj);
+									self.callback(_obj,function(){
+										form.render();
+									});
 							  	});
 							}
 						});
@@ -154,6 +156,7 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 						        var text = $scope.editor.$txt.text();
 						        // 获取格式化后的纯文本
 						        var formatText = $scope.editor.$txt.formatText();
+						        debugger;
 							}
 
 							if(data.nodeName!='A'){
