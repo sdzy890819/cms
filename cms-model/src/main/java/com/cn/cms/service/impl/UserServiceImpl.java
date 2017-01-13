@@ -1,6 +1,7 @@
 package com.cn.cms.service.impl;
 
 import com.cn.cms.dao.*;
+import com.cn.cms.middleware.bo.UserSearch;
 import com.cn.cms.po.*;
 import com.cn.cms.service.UserService;
 import com.cn.cms.utils.Page;
@@ -153,5 +154,15 @@ public class UserServiceImpl implements UserService {
 
     public void delPositionPermission(Long positionId, Long permissionId) {
         positionPermissionDao.delPositionPermission(positionId, permissionId);
+    }
+
+    @Override
+    public Integer searchUsersCount(UserSearch userSearch) {
+        return userDao.searchUsersCount(userSearch);
+    }
+
+    @Override
+    public List<User> searchUsers(UserSearch userSearch ,Page page) {
+        return userDao.searchUsers(userSearch, page);
     }
 }

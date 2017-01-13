@@ -1,5 +1,7 @@
 package com.cn.cms.service;
 
+import com.cn.cms.bo.UserBean;
+import com.cn.cms.middleware.bo.UserSearch;
 import com.cn.cms.po.*;
 import com.cn.cms.utils.Page;
 
@@ -196,5 +198,9 @@ public interface UserService {
     void savePositionPermission(PositionPermission positionPermission);
 
     void delPositionPermission(Long positionId, Long permissionId);
+
+    Integer searchUsersCount(UserSearch userSearch);
+
+    List<User> searchUsers(UserSearch userSearch, Page page);
 
 }
