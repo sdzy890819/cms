@@ -26,7 +26,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$,userInfo){
 		},
 		getUserInfo : function( callback ){
 			user.login({
-				userName: 'admin3', 
+				userName: 'admin2', 
 				pwd: '1234qwer',
 				callback : callback
 			})

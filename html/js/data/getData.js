@@ -46,7 +46,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					url : URL.permission.currentMenuPermission ,
 					type : 'get',
 					data : {},
-					success : function(_data){
+					success : function(_data){						
 						callback(_data);
 					},
 					error : function(){}
@@ -78,13 +78,13 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					error : function(){}
 				})
 			},
-			userlist : function( callback ){ //栏目列表
+			userlist : function( obj ){ //栏目列表
 				T.ajax({
 					url : URL.user.userlist , 
 					type : 'get',
-					data : {},
+					data : {page: obj.page, pageSize: obj.pageSize},
 					success : function( _data ){
-						callback(_data);
+						obj.callback(_data);
 					},
 					error : function(){}
 				})
@@ -212,26 +212,24 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					}
 				})
 			},
-			newslist : function( callback ){ //栏目列表
+			newslist : function( obj ){ //栏目列表
 				T.ajax({
 					url : URL.news.newslist , 
 					type : 'get',
-					data : {},
+					data : {page:obj.page,pageSize:obj.pageSize},
 					success : function( _data ){
-						callback(_data);
-					},
-					error : function(){}
+						obj.callback(_data);
+					}
 				})
 			},
-			newsdetail : function( callback ){ //获取新闻详细信息
+			newsdetail : function( obj ){ //获取新闻详细信息
 				T.ajax({
 					url : URL.news.newsdetail , 
 					type : 'get',
-					data : {},
+					data : {id:obj.id},
 					success : function( _data ){
-						callback(_data);
-					},
-					error : function(){}
+						obj.callback(_data);
+					}
 				})
 			},
 			delNews : function( obj ){ //删除新闻
@@ -247,22 +245,24 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 			}
 		},
 		category : { //部门分类
-			listCategory : function( callback ){ //栏目列表
+			listCategory : function( obj ){ //栏目列表
 				T.ajax({
 					url : URL.category.listCategory , 
 					type : 'get',
 					data : {},
 					success : function( _data ){
-						callback(_data);
+						obj.callback(_data);
 					},
 					error : function(){}
 				})
+
+
 			}
 		},
 		channel : {//取频道分类管理
 			listChannel : function( callback ){ //栏目列表
 				T.ajax({
-					url : URL.category.listCategory , 
+					url : URL.channel.listChannel , 
 					type : 'get',
 					data : {},
 					success : function( _data ){

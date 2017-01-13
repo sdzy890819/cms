@@ -8,9 +8,12 @@ define(["app",'jquery','./moduls/directive'], function ( app , $ ) {
 			scope : {
 	            data : '=data',
 	            edit : '=edit',
-	            filter : '=filter'
+	            filter : '=filter',
+	            page : '=page'
 	        },
 	        controller : function($scope , $state , $element , $rootScope){
+	        	layui.link('js/plug/layui/css/layui.css');
+
 				var icon = {
 					add:'plus',//添加
 					edit:'pencil',//编辑
@@ -28,6 +31,8 @@ define(["app",'jquery','./moduls/directive'], function ( app , $ ) {
 						return;
 					};
 				},true);
+
+
 				/*angular.extend($scope,{
 					filterTd : function( val ){ //过滤没用的ID
 						var b = true;
@@ -45,7 +50,6 @@ define(["app",'jquery','./moduls/directive'], function ( app , $ ) {
 			link : function($scope , element , arrt , controller){
 				var ele = $(element[0]) ,
 					thSelect ,
-					select ,
 					len,
 					index = 0 , 
 					selectIcon;
@@ -170,7 +174,29 @@ define(["app",'jquery','./moduls/directive'], function ( app , $ ) {
 				}
 
 				//以下为分页
-				 
+				$scope.current = 1;
+				$scope.$watch(function(){
+					return $scope.page;
+				},function(){ 
+					if($scope.page && $scope.page.pageCount){
+						layui.use(['laypage', 'layer'], function(){
+							var laypage = layui.laypage
+							,layer = layui.layer;
+
+							laypage({
+								cont: 'pages'
+								,pages: $scope.page.pageCount //总页数
+								,groups: 5 //连续显示分页数
+								,curr : $scope.current
+								,jump : function( obj ){
+									$scope.current = obj.curr;
+									$scope.page.jump(obj);
+								}
+							});
+						});
+						return false;
+					}
+				},true);
 			}
 		}
 	});
