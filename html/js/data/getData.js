@@ -78,13 +78,13 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					error : function(){}
 				})
 			},
-			userlist : function( callback ){ //栏目列表
+			userlist : function( obj ){ //栏目列表
 				T.ajax({
 					url : URL.user.userlist , 
 					type : 'get',
-					data : {},
+					data : {page: obj.page, pageSize: obj.pageSize},
 					success : function( _data ){
-						callback(_data);
+						obj.callback(_data);
 					},
 					error : function(){}
 				})

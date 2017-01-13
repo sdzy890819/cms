@@ -39,7 +39,7 @@ insert into permission(id,last_modify_user_id,name,description,type,url,sort,par
 values(10019,'','频道列表','频道列表',2,'/webapi/channel/listChannel',301,10002,1,'channel:read');
 
 insert into permission(id,last_modify_user_id,name,description,type,url,sort,parent_id,show_flag,permission)
-values(10020,'','新增频道','新增频道',2,'/webapi/channel/listChannel',300,10002,1,'channel:write');
+values(10020,'','新增频道','新增频道',2,'/webapi/channel/createChannel',300,10002,1,'channel:write');
 
 insert into permission(id,last_modify_user_id,name,description,type,url,sort,parent_id,show_flag,permission)
 values(10021,'','修改频道','修改频道',2,'/webapi/channel/updateChannel',350,10002,0,'channel:update');
@@ -115,6 +115,9 @@ values(10036,'','创建图片基础信息','创建图片基础信息',2,'/webapi
 
 insert into permission(id,last_modify_user_id,name,description,type,url,sort,parent_id,show_flag,permission)
 values(10037,'','图片上传','图片上传',2,'/webapi/images/createImages',501,10004,1,'images:write');
+
+insert into permission(id,last_modify_user_id,name,description,type,url,sort,parent_id,show_flag,permission)
+values(10120,'','图片列表','图片列表',2,'/webapi/images/imageslist',502,10004,1,'images:read');
 
 insert into permission(id,last_modify_user_id,name,description,type,url,sort,parent_id,show_flag,permission)
 values(10038,'','修改图片','修改图片',2,'/webapi/images/updateImages',553,10004,0,'images:update');
