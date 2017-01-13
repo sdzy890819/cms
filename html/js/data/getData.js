@@ -212,13 +212,13 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					}
 				})
 			},
-			newslist : function( callback ){ //栏目列表
+			newslist : function( obj ){ //栏目列表
 				T.ajax({
 					url : URL.news.newslist , 
 					type : 'get',
-					data : {},
+					data : {page:obj.page,pageSize:obj.pageSize},
 					success : function( _data ){
-						callback(_data);
+						obj.callback(_data);
 					},
 					error : function(){}
 				})
