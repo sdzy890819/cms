@@ -1,9 +1,9 @@
 define(['require',"app",'jquery'
 	,'../data/getData' , './addForm'
-	,'../common/editPop'
+	,'../common/editPop','../data/getData','../moduls/Tool'
 	,'formlist','fixedNav','position'
 	,'../moduls/service','../moduls/factory'
-], function ( require , app , $ , data , list , editPop ) {
+], function ( require , app , $ , data , list , editPop ,getData , Tool  ) {
 	app.directive('newsNewslist',function(){
 		return {
 	    	restrict : 'E',
@@ -33,6 +33,47 @@ define(['require',"app",'jquery'
 								$.each(list,function( i , obj){
 									if(obj.title == 'content'){
 										obj.width = '650px';
+									}
+									if(obj.type=='select'){
+										obj.callback = function( _object ){
+											if(_object.title == 'categoryId'){
+												getData.channel.currentChannelList({
+													categoryId : _object.obj.id,
+													callback : function(_data){
+														var arr = [obj.select[1][0]];
+														obj.select[1] = arr;
+														var _data = {
+															data : [{
+															      "categoryId": 10001,
+															      "channelDesc": "世界频道，带你看世界",
+															      "channelName": "世界频道",
+															      "channelPath": "/data/publish/",
+															      "channelUrl": "http://120.77.220.11/publish/",
+															      "delTag": 1,
+															      "id": 10001,
+															      "lastModifyUserId": "14840345528522311094",
+															      "templatePath": "/data/template/"
+															    }]											
+															}
+														obj.select[1] = obj.select[1].concat(Tool.changeObjectName(_data.data,[{name:'channelName',newName:'name'}]));
+														
+														$scope.$apply();
+														_object.callback();
+													}
+												})
+											}else if(_object.title == 'channelId'){
+												getData.news.newscolumnlist({
+													channelId : _object.obj.id,
+													callback : function(_data){
+														var arr = [obj.select[2][0]];
+														obj.select[2] = arr;
+														obj.select[2] = obj.select[2].concat(Tool.changeObjectName(_data.data,[{name:'columnName',newName:'name'}]));
+														$scope.$apply();
+														_object.callback();
+													}
+												})
+											}
+										}
 									}
 								});
 								callback(list);
