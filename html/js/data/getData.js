@@ -219,19 +219,17 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					data : {page:obj.page,pageSize:obj.pageSize},
 					success : function( _data ){
 						obj.callback(_data);
-					},
-					error : function(){}
+					}
 				})
 			},
-			newsdetail : function( callback ){ //获取新闻详细信息
+			newsdetail : function( obj ){ //获取新闻详细信息
 				T.ajax({
 					url : URL.news.newsdetail , 
 					type : 'get',
-					data : {},
+					data : {id:obj.id},
 					success : function( _data ){
-						callback(_data);
-					},
-					error : function(){}
+						obj.callback(_data);
+					}
 				})
 			},
 			delNews : function( obj ){ //删除新闻

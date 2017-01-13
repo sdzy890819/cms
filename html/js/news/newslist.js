@@ -20,9 +20,16 @@ define(['require',"app",'jquery'
 									obj.width = '650px';
 								}
 							});
+							function getAddForm(callback){
+								data.news.newsdetail({
+									id : obj.id,
+									callback : callback
+								})
+							}
 	        				pop.init({
 	        					obj : obj,
 	        					list : list,
+	        					callback : getAddForm,
 	        					$uibModal :$uibModal 
 	        				});
 	  					});

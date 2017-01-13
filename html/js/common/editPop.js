@@ -13,43 +13,46 @@ define(["app",'jquery','form'],function (app,$) {
 				size: 'lg',
 				controller: function($scope,$uibModalInstance,$css) {
 					$css.add('../../style/stylesheets/pop.css');
+					obj.callback(function(_data){
+						debugger;
+					});
 					angular.extend($scope,{
 						titelement : {
-				  		close : true
-				  	},
-					save : function( arr ){ //保存
-						alert(arr)
-					},
-					cancel : function( arr ){ //取消
-						alert(arr)
-					},
-				  	close : function () {
-					   	$uibModalInstance.dismiss('cancel');
-				  	},
-				  	formdata : { //确认按钮
-						title : '编辑',
-						cls : 'popedit',
-						list : list,
-						submit : [
-							{
-								name : '确定',
-								evt : 'save',
-								icon_cls : 'save'
-							},
-							{
-								name:'清空',
-								evt : 'cancel',
-								icon_cls : 'cancel',
-								cls : 'cancel'
-							}
-						]
-					}
-				});
+					  		close : true
+					  	},
+						save : function( arr ){ //保存
+							alert(arr)
+						},
+						cancel : function( arr ){ //取消
+							alert(arr)
+						},
+					  	close : function () {
+						   	$uibModalInstance.dismiss('cancel');
+					  	},
+					  	formdata : { //确认按钮
+							title : '编辑',
+							cls : 'popedit',
+							list : list,
+							submit : [
+								{
+									name : '确定',
+									evt : 'save',
+									icon_cls : 'save'
+								},
+								{
+									name:'清空',
+									evt : 'cancel',
+									icon_cls : 'cancel',
+									cls : 'cancel'
+								}
+							]
+						}
+					});
 				}
 			});
     	},
     	updateData : function(){
-    		
+
     	}
     }
 });
