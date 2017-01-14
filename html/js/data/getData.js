@@ -279,13 +279,11 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 			}
 		},
 		channel : {//取频道分类管理
-			listChannel : function( callback ){ //栏目列表
+			listChannel : function( obj ){ //栏目列表
 				T.ajax({
 					url : URL.channel.listChannel , 
-					type : 'get',
-					data : {},
 					success : function( _data ){
-						callback(_data);
+						obj.callback(_data);
 					}
 				})
 			},

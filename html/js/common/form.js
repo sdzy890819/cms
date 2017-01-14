@@ -114,6 +114,7 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 							}
 							if(this.type =='select'){
 								$scope.selects = [];
+								if(!self.callback) return;
 								form.on('select',function( _obj ){
 									$.each(self.select,function(j,arr){
 										if(arr[0].title==_obj.elem.name){//请选择部门
