@@ -61,11 +61,17 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 					        	$css.add('../../wangEditor/dist/css/wangEditor.min.css');
 					        	textEdit.init($scope,{
 					        		callback : function(editor){
-							        	$timeout(function(){
-							        		try{
-							        			editor.$txt.html($scope.data.newsDetail.content||'请输入内容');
-							        		}catch(e){}
-							        	},400)
+					        			if($scope.data){
+								        	$timeout(function(){
+								        		try{
+								        			$scope.editor.$txt.html($scope.data.newsDetail.content||'请输入内容');
+								        		}catch(e){}
+								        	},400);
+										}else{
+											$timeout(function(){
+												$scope.editor.$txt.html('请输入内容');
+											},400)
+										}
 					        		}
 					        	});
 							}

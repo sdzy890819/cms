@@ -124,7 +124,6 @@ define(['require',"app",'jquery'
 
 				var page = 1;
 				function getDataList(){
-					console.log("start*********************");
 					getData.news.newslist({
 						page : page,
 						pageSize : 5,
