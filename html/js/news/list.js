@@ -39,15 +39,12 @@ define(["app",'jquery','./columnForm'
 								layer.close(index)
 							}
 						})
-					},
-					filter : [ //过滤不需要展示的
-						'id'
-					]
+					}
 				});
 				 
-				$scope.navEdit = { //导航操作按钮
+				/*$scope.navEdit = { //导航操作按钮
 					//nav : [selectAll],
-					/*list : [
+					list : [
 						{
 							name : '批量删除',
 							event : function(id , scope , evt){
@@ -58,24 +55,25 @@ define(["app",'jquery','./columnForm'
 							cls :'red',
 							icon_cls : 'remove'
 						}
-					]*/
-				}
+					]
+				}*/
 
 				data.news.newscolumnlist(function(_data){
+					var th = [
+						{name:'栏目名' , width : '200'},
+						{name:'频道ID' },
+						{name:'操作' , width : '200' , class:'center'}
+					];
 					$scope.listdata = { //确认按钮
 						title : $scope.title,
 						table : {
 							select : true,
-							th : [
-								{name:'栏目名' , width : '200'},
-								{name:'频道ID' },
-								{name:'操作' , width : '200' , class:'center'}
-							],
-							td : GenerateArrList.arr(_data.data.list,$scope.filter) ,
+							th : th,
+							td : GenerateArrList.setArr(_data.data.list,th) ,
 							edit : [
 								{cls : 'edit' , name : '编辑',evt:$scope.edit},
 							/*	{cls : 'edit' , name : '添加权限到组',evt:$scope.edit},*/
-								{cls : 'del' , name : '删除',evt:$scope.del},
+								{cls : 'del' , name : '删除',evt:$scope.del}
 							]
 						}
 						/*submit : [
