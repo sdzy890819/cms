@@ -7,6 +7,7 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 	        templateUrl : '../template/common/addAndEdit.html',
 	        controller : function($scope){
 	        	$scope.$parent.menu.push({name:"新增新闻"})
+	        	$scope.data = null;
 				$scope.save = function( obj ){ //保存
 					alert(obj)
 				}
@@ -93,7 +94,7 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 												    }]											
 												}*/
 											obj.select[1] = obj.select[1].concat(Tool.changeObjectName(_data.data,[{name:'channelName',newName:'name'}]));
-											
+						
 											$scope.$apply();
 											_object.callback();
 										}

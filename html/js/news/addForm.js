@@ -101,9 +101,12 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 		getData.category.listCategory({//部门
 			callback:function(_data){
 				$.each(list,function(i , obj){
-					if(obj.title && obj.title=='channelId'){
-						obj.select[0] = obj.select[0].concat(Tool.changeObjectName(_data.data,[{name:'categoryName',newName:'name'}]));
-						callback(list);
+					if(obj.type=='select'){
+						if(obj.select[0][0].title=='categoryId'){
+							obj.select[0] = obj.select[0].concat(Tool.changeObjectName(_data.data,[{name:'categoryName',newName:'name'}]));
+
+							callback(list);
+						}
 					}
 				})
 			}

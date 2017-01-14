@@ -23,7 +23,6 @@ define(["app",'jquery','./columnForm'
 								}
 							})
 						}
-						
         				editPop.init({
         					obj : obj,
         					list : list,

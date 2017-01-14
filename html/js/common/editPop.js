@@ -41,13 +41,13 @@ define(["app",'jquery','form'],function (app,$) {
 										name : '确定',
 										evt : 'save',
 										icon_cls : 'save'
-									},
+									}/*,
 									{
 										name:'清空',
 										evt : 'cancel',
 										icon_cls : 'cancel',
 										cls : 'cancel'
-									}
+									}*/
 								]
 							}
 							$scope.$apply();
