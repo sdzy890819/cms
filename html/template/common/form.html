@@ -37,7 +37,7 @@
 						<!-- select -->
 					    <div ng-if="obj.type=='select'" class="layui-input-inline {{obj.cls}}" ng-repeat="select in obj.select">
 					      <select name="{{obj.selectName[$index]}}">
-					        <option lay-verify="{{obj.verify}}" ng-repeat="option in select">{{option.name}}</option>
+					        <option lay-verify="{{obj.verify}}" ng-repeat="option in select" ng-selected="option.id==data[select[0].title]" >{{option.name}}</option>
 					      </select>
 					    </div>
 
@@ -79,7 +79,7 @@
 							<!-- select -->
 						    <div ng-if="item.type=='select'" class="layui-input-inline {{item.cls}}" ng-repeat="select in item.select">
 						      <select name="{{item.selectName[$index]}}">
-						        <option lay-verify="{{item.verify}}" ng-selected="selected" ng-repeat="option in select">{{option.name}}</option>
+						        <option lay-verify="{{item.verify}}" ng-repeat="option in select" ng-selected="option.id==data[select[0].title]">{{option.name}}</option>
 						      </select>
 						    </div>
 
