@@ -199,7 +199,6 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 							var self = this;
 							$.each(self.select,function(j,arr){
 								if(arr[0].title==_obj.elem.name){//请选择部门
-									debugger;
 									var obj = arr[_obj.elem.selectedIndex];
 									obj.title = _obj.elem.name;
 									if($scope.selects.length){
@@ -208,7 +207,7 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 											var name = _obj.elem.name;
 											if(select.title == _obj.elem.name){
 												b = true;
-												select = obj;
+												$scope.selects[k] = obj;
 											}else{
 												//$scope.selects.push(obj);
 											}
@@ -216,7 +215,6 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 										if(!b){
 											$scope.selects.push(obj);
 										}
-										debugger;
 									}else{
 										$scope.selects.push(obj);
 									}
