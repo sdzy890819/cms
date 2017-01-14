@@ -65,7 +65,7 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 							        		try{
 							        			editor.$txt.html($scope.data.newsDetail.content||'请输入内容');
 							        		}catch(e){}
-							        	},100)
+							        	},300)
 					        		}
 					        	});
 							}
