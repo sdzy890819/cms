@@ -1,6 +1,6 @@
 define(["app",'jquery','require','wangEditor'], function ( app,$,require ) {
 	return {
-		init : function( $scope ){
+		init : function( $scope , obj ){
 			app.directive('contenteditable',function(){
 				return {
 			    	restrict : 'A',
@@ -95,6 +95,7 @@ define(["app",'jquery','require','wangEditor'], function ( app,$,require ) {
 
 		                editor.create();
 		                editor.$txt.html('<p>请输入内容</p>');
+		                obj.callback(editor);
 		            }
 			    };
 			});

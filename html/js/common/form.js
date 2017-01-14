@@ -59,12 +59,15 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 							if(this.type=='edit'){
 								$scope.editorContent = '';
 					        	$css.add('../../wangEditor/dist/css/wangEditor.min.css');
-					        	textEdit.init($scope);
-					        	$timeout(function(){
-					        		try{
-					        			$scope.editor.$txt.html($scope.data.newsDetail.content||'请输入内容');
-					        		}catch(e){}
-					        	},200)
+					        	textEdit.init($scope,{
+					        		callback : function(editor){
+							        	$timeout(function(){
+							        		try{
+							        			editor.$txt.html($scope.data.newsDetail.content||'请输入内容');
+							        		}catch(e){}
+							        	},100)
+					        		}
+					        	});
 							}
 						});
 						return;
@@ -111,27 +114,6 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 									});
 								});
 							}
-
-							/*if(this.type =='select'){
-								form.on('select',function( _obj ){
-									$.each(self.select,function(j,arr){
-										if(arr[0].title==_obj.elem.name){//请选择部门
-											var obj = arr[_obj.elem.selectedIndex];
-											obj.title = _obj.elem.name;
-											$scope.selects[j] = obj;
-											self.callback && self.callback({
-												obj : obj,
-												index : _obj.elem.selectedIndex,
-												title : _obj.elem.name,
-												name : _obj.name,
-												callback : function(){
-													form.render();
-												}
-											});
-										} 
-									})
-							  	});
-							}*/
 					  	}
 
 					  	$.each($scope.formdata.list,function( i , obj ){
@@ -195,7 +177,7 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 						    return false;
 					  	});
 
-						function getSelect(_obj){
+						function getSelect(_obj){ //获取选择匡的option
 							var self = this;
 							$.each(self.select,function(j,arr){
 								if(arr[0].title==_obj.elem.name){//请选择部门
