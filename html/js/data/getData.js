@@ -351,7 +351,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 			}
 		},
 		category : { //部门分类
-			listCategory : function( obj ){ //栏目列表
+			listCategory : function( obj ){ // 部门分类列表
 				T.ajax({
 					url : URL.category.listCategory , 
 					type : 'get',
@@ -359,6 +359,44 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						obj.callback(_data);
 					}
 				});
+			},
+
+			delCategory : function( obj ) { // 删除部门
+				T.ajax({
+
+					url : URL.category.delCategory ,
+					type : 'get',
+					data : {id : obj.id},
+					success : function(_data) {						
+						obj.callback(_data);
+					}
+				})
+			},
+
+			createCategory : function(obj) { //创建分类
+				T.ajax({
+					url : URL.category.createCategory,
+					type : 'post',
+					data : {categoryName: obj.categoryName, categoryDesc: obj.categoryDesc},
+					success : function(_data) {
+						obj.callback(_data);
+					}
+				})
+			},
+
+			updateCategory : function(obj) {				
+				T.ajax({
+					url : URL.category.updateCategory,
+					type : 'post',
+					data : {
+						id : obj.id,
+						categoryName: obj.categoryName, 
+						categoryDesc: obj.categoryDesc
+					},
+					success : function(_data) {
+						obj.callback(_data);
+					}
+				})
 			}
 		},
 		channel : {//取频道分类管理

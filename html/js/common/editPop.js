@@ -12,7 +12,7 @@ define(["app",'jquery','form'],function (app,$) {
 				templateUrl: '../template/common/addAndEdit.html',
 				size: 'lg',
 				controller: function($scope,$uibModalInstance,$css) {
-					obj.updateData(function(_data){
+					obj.updateData(function(_data){						
 						$scope.data = _data.data;
 					});
 					angular.extend($scope,{
@@ -31,6 +31,7 @@ define(["app",'jquery','form'],function (app,$) {
 					});
 
 					getList(function(list){
+						
 						obj.callback(list,function(_list){
 							$scope.formdata = { //确认按钮
 								title : '编辑',
