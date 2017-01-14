@@ -49,7 +49,9 @@ define(function(require){
 			listTemplate2list : url+'/template2/listTemplate2/list'
 		},
 		news : {
+			newscolumn : url+'/newscolumn/newscolumn', //获取栏目信息
 			newscolumnlist : url+'/newscolumn/newscolumnlist', //栏目列表
+			newscolumn_list : url+'/newscolumn/list', //栏目列表分页
 			createNewsColumn : url+'/newscolumn/createNewsColumn',//创建栏目
 			delNewsColumn : url+'/newscolumn/delNewsColumn',//删除栏目
 			newslist : url+'/news/newslist',//新闻列表
