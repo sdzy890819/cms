@@ -35,8 +35,23 @@ define(function(require){
 			currentMenuPermission : url+'/permission/currentMenuPermission',//获取用户拥有的菜单栏权限 接口
 			currentButtonPermission : url+'/permission/currentButtonPermission'//用户Menu下的Button权限
 		},
+		pretemplate:{//预模版加载
+			listPreTemplate : url+'/pretemplate/listPreTemplate',
+			list : url+'/pretemplate/list',
+			detail : url+'/pretemplate/detail',
+			save : url+'/pretemplate/save',
+			update : url+'/pretemplate/update',
+			delete : url+'/pretemplate/delete',
+			preTemplateBase : url+'/pretemplate/preTemplateBase',
+			baseUpdate : url+'/pretemplate/base/update',
+			listTemplate2 : url+'/template2/listTemplate2',
+			listTemplate2detail : url+'/template2/listTemplate2/detail',
+			listTemplate2list : url+'/template2/listTemplate2/list'
+		},
 		news : {
+			newscolumn : url+'/newscolumn/newscolumn', //获取栏目信息
 			newscolumnlist : url+'/newscolumn/newscolumnlist', //栏目列表
+			newscolumn_list : url+'/newscolumn/list', //栏目列表分页
 			createNewsColumn : url+'/newscolumn/createNewsColumn',//创建栏目
 			delNewsColumn : url+'/newscolumn/delNewsColumn',//删除栏目
 			newslist : url+'/news/newslist',//新闻列表

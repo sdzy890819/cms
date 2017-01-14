@@ -99,7 +99,7 @@ input:focus{ border: 1px solid #bbb !important;} */
 
 
 .banner{ background:url(../../images/banner.png) center 0 no-repeat; @include size(height,550px,1080); background-size:contain; }
-
+.loadding{ height:200px; background:url(../../images/loadding.gif) center center no-repeat;}
 .container{ padding:0 20px;}
 
 /* login */

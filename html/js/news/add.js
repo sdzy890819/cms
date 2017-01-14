@@ -79,7 +79,7 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 										callback : function(_data){
 											var arr = [obj.select[1][0]];
 											obj.select[1] = arr;
-											var _data = {
+											/*var _data = {
 												data : [{
 												      "categoryId": 10001,
 												      "channelDesc": "世界频道，带你看世界",
@@ -91,7 +91,7 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 												      "lastModifyUserId": "14840345528522311094",
 												      "templatePath": "/data/template/"
 												    }]											
-												}
+												}*/
 											obj.select[1] = obj.select[1].concat(Tool.changeObjectName(_data.data,[{name:'channelName',newName:'name'}]));
 											
 											$scope.$apply();

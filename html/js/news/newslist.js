@@ -1,9 +1,8 @@
 define(['require',"app",'jquery'
-	,'../data/getData' , './addForm'
-	,'../common/editPop','../data/getData','../moduls/Tool'
+	,'./addForm','../common/editPop','../data/getData','../moduls/Tool'
 	,'formlist','fixedNav','position'
 	,'../moduls/service','../moduls/factory'
-], function ( require , app , $ , data , list , editPop ,getData , Tool  ) {
+], function ( require , app , $ , list , editPop ,getData , Tool  ) {
 	app.directive('newsNewslist',function(){
 		return {
 	    	restrict : 'E',
@@ -16,7 +15,7 @@ define(['require',"app",'jquery'
 				angular.extend($scope,{
 					edit : function( obj ){ //保存
 						function getAddForm(callback){ //填充数据
-							data.news.newsdetail({
+							getData.news.newsdetail({
 								id : obj.id,
 								callback : function(_data){
 									_data.data.writeTime = new Date(_data.data.writeTime).format('yyyy-MM-dd h:m:s');
@@ -42,7 +41,7 @@ define(['require',"app",'jquery'
 													callback : function(_data){
 														var arr = [obj.select[1][0]];
 														obj.select[1] = arr;
-														var _data = {
+														/*var _data = {
 															data : [{
 															      "categoryId": 10001,
 															      "channelDesc": "世界频道，带你看世界",
@@ -54,7 +53,7 @@ define(['require',"app",'jquery'
 															      "lastModifyUserId": "14840345528522311094",
 															      "templatePath": "/data/template/"
 															    }]											
-															}
+															}*/
 														obj.select[1] = obj.select[1].concat(Tool.changeObjectName(_data.data,[{name:'channelName',newName:'name'}]));
 														
 														$scope.$apply();
@@ -101,7 +100,7 @@ define(['require',"app",'jquery'
 	 						 text:'您确定要删除"'+obj.title+'"吗'
 	 						,btn : ['确定','取消']
 	 						,fn : function(){
-	 							data.news.delNews(obj);
+	 							getData.news.delNews(obj);
 							}
 	 					})
 					}
@@ -125,7 +124,7 @@ define(['require',"app",'jquery'
 
 				var page = 1;
 				function getDataList(){
-					data.news.newslist({
+					getData.news.newslist({
 						page : page,
 						pageSize : 5,
 						callback : function(_data){

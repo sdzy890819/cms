@@ -42,7 +42,7 @@
     <insert id="saveUserChannel">
         insert into user_channel ( <include refid="sql_column" /> ) values
         <foreach collection="list" item="item" separator=",">
-            ( null,#{item.userId},${item.channelId} )
+            ( null,#{item.lastModifyUserId},#{item.userId},${item.channelId} )
         </foreach>
         ;
     </insert>

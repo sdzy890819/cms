@@ -8,10 +8,13 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 				success : function( _data ){
 					if(_data.code == 0 ){
 						obj.success(_data);
-					}else if(_data.code == -1 ){//未登录
-						initInfo.login();
+					}else{
+						if(_data.code == -1 ){//未登录
+							initInfo.login();
+						}else if(_data.code == -111 ){ //无权限
+
+						}
 					}
-					
 				},
 				error : function(){}
 			})
@@ -202,6 +205,40 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 				})
 			}
 		},
+		pretemplate : {//预模版加载
+			list : function( obj ){//预模版列表
+				T.ajax({
+					url : URL.pretemplate.list , 
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				})
+			},
+			listTemplate2 : function( obj ){//预模版列表
+				T.ajax({
+					url : URL.pretemplate.listTemplate2 , 
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				})
+			},
+			listTemplate2list : function( obj ){//获取list类型的第二模版列表 
+				T.ajax({
+					url : URL.pretemplate.listTemplate2list , 
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				})
+			},
+			listTemplate2detail : function( obj ){//获取list类型的第二模版列表 
+				T.ajax({
+					url : URL.pretemplate.listTemplate2detail , 
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				})
+			}
+		},
 		news : {
 			createNews : function( obj ){
 				T.ajax({
@@ -226,10 +263,38 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					}
 				})
 			},
+			createNewsColumn : function( obj ){
+				T.ajax({
+					url : URL.news.createNewsColumn , 
+					type : 'POST',
+					data : {
+						channelId:obj.channelId,//频道ID
+						columnName:obj.columnName,
+						listId:obj.listId,//预模版list接口返回的预模版ID. 不是必须
+						detailId:obj.detailId,//预模版detail接口返回的预模版ID. 不是必须
+						listTemplate2Id:obj.listTemplate2Id, //第二套模版接口模版ID，不是必须。如果选择则传参。参考B19文档
+						detailTemplate2Id:obj.detailTemplate2Id,//第二套模版接口模版ID，不是必须。如果选择则传参。参考B19文档
+						keywords:obj.keywords, //不是必须
+						description:obj.description, //不是必须
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				})
+			},
 			newscolumnlist : function( obj ){ //栏目列表
 				T.ajax({
 					url : URL.news.newscolumnlist , 
 					data : {channelId : obj.channelId},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				})
+			},
+			newscolumn_list : function( obj ){ //栏目列表
+				T.ajax({
+					url : URL.news.newscolumn_list , 
+					data : {page:obj.page,pageSize:obj.pageSize},
 					success : function( _data ){
 						obj.callback(_data);
 					}
@@ -240,6 +305,15 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					url : URL.news.newslist , 
 					type : 'get',
 					data : {page:obj.page,pageSize:obj.pageSize},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				})
+			},
+			newscolumn : function( obj ){ //获取获取栏目信息
+				T.ajax({
+					url : URL.news.newscolumn , 
+					data : {id:obj.id},
 					success : function( _data ){
 						obj.callback(_data);
 					}
@@ -264,6 +338,15 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						obj.callback(_data);
 					},
 					error : function(){}
+				})
+			},
+			delNewsColumn : function( obj ){ //删除新闻栏目
+				T.ajax({
+					url : URL.news.delNewsColumn , 
+					data : {id:obj.id},
+					success : function( _data ){
+						obj.callback(_data);
+					}
 				})
 			}
 		},
