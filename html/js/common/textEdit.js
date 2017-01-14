@@ -93,9 +93,11 @@ define(["app",'jquery','require','wangEditor'], function ( app,$,require ) {
 					    //editor.config.hideLinkImg = true;
 
 
+		                editor.ready(function(){
+		                	obj.callback(editor);
+		                })
 		                editor.create();
 		                editor.$txt.html('<p>请输入内容</p>');
-		                obj.callback(editor);
 		            }
 			    };
 			});

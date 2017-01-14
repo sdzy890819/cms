@@ -61,11 +61,17 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 					        	$css.add('../../wangEditor/dist/css/wangEditor.min.css');
 					        	textEdit.init($scope,{
 					        		callback : function(editor){
-							        	$timeout(function(){
-							        		try{
-							        			editor.$txt.html($scope.data.newsDetail.content||'请输入内容');
-							        		}catch(e){}
-							        	},300)
+					        			if($scope.data){
+								        	$timeout(function(){
+								        		try{
+								        			$scope.editor.$txt.html($scope.data.newsDetail.content||'请输入内容');
+								        		}catch(e){}
+								        	},400);
+										}else{
+											$timeout(function(){
+												$scope.editor.$txt.html('请输入内容');
+											},400)
+										}
 					        		}
 					        	});
 							}
@@ -182,6 +188,7 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 							$.each(self.select,function(j,arr){
 								if(arr[0].title==_obj.elem.name){//请选择部门
 									var obj = arr[_obj.elem.selectedIndex];
+									//obj.elem = _obj;
 									obj.title = _obj.elem.name;
 									if($scope.selects.length){
 										var b = false;
@@ -228,7 +235,7 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 							})
 					  	});
 
-					});	
+					});
 				}
 			}
 		}
