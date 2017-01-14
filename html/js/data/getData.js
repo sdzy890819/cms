@@ -25,7 +25,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 				initInfo.getUserInfo(function(){
 					T.getdata(obj);
 				})
-			}else{
+			}else{				
 				T.getdata(obj);
 			}
 		}
@@ -75,7 +75,8 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					url : URL.user.currentUser , 
 					type : 'get',
 					data : {},
-					success : function(_data){
+					success : function(_data){						
+						console.log(_data);
 						callback(_data);
 					},
 					error : function(){}

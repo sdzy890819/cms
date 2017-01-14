@@ -50,9 +50,9 @@ define(["app",'jquery','require',
 				});
 
 
-				function getDataList(){
+				function getDataList(){					
 					data.category.listCategory({
-
+						
 						callback : function(_data){
 
 							var th = [
@@ -76,6 +76,7 @@ define(["app",'jquery','require',
 							}
 							// GenerateArrList.extendType($scope.listdata.table.td,$scope.listdata.table.th,['width','name']); //把TH 中的出name属性以外的属性合传给td
 		        		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
+		        		
 		        		$scope.$apply();						
 
 						}
@@ -106,7 +107,7 @@ define(["app",'jquery','require',
 				// 	// GenerateArrList.extendType($scope.listdata.table.td,$scope.listdata.table.th,['width','name']); //把TH 中的出name属性以外的属性合传给td
 	   //      		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
 	   //      		$scope.$apply();
-				// });
+				// });		
 
 				getDataList();
 	        }

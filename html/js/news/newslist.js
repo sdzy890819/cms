@@ -124,6 +124,7 @@ define(['require',"app",'jquery'
 
 				var page = 1;
 				function getDataList(){
+					console.log("start*********************");
 					getData.news.newslist({
 						page : page,
 						pageSize : 5,
@@ -136,6 +137,8 @@ define(['require',"app",'jquery'
 									getDataList();
 								}
 							}
+
+							console.log("step0.1*********************");
 							//end 分页
 
 							var th = [
@@ -146,6 +149,8 @@ define(['require',"app",'jquery'
 								{name:'平台名称',key:'platformStr'},
 								{name:'操作' , width : '200' , class: 'center'}
 							];
+
+							console.log("step0.2*********************");
 							$scope.listdata = { //确认按钮
 								title : $scope.title,
 								table : {
@@ -173,9 +178,14 @@ define(['require',"app",'jquery'
 									}
 								]*/
 							}
+
+							console.log("step0.3*********************");
 							GenerateArrList.extendType($scope.listdata.table.td,th,['width','name','key']); //把TH 中的出name,key,width属性以外的属性合传给td
+							console.log("step0.4*********************");
 			        		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
+			        		console.log("step2*********************");
 			        		$scope.$apply();
+			        		console.log("finished*********************");
 						}
 					});
 				};
