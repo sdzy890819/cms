@@ -1,9 +1,8 @@
 define(['require',"app",'jquery'
-	,'../data/getData' , './addForm'
-	,'../common/editPop','../data/getData','../moduls/Tool'
+	,'./addForm','../common/editPop','../data/getData','../moduls/Tool'
 	,'formlist','fixedNav','position'
 	,'../moduls/service','../moduls/factory'
-], function ( require , app , $ , data , list , editPop ,getData , Tool  ) {
+], function ( require , app , $ , list , editPop ,getData , Tool  ) {
 	app.directive('newsNewslist',function(){
 		return {
 	    	restrict : 'E',
@@ -16,7 +15,7 @@ define(['require',"app",'jquery'
 				angular.extend($scope,{
 					edit : function( obj ){ //保存
 						function getAddForm(callback){ //填充数据
-							data.news.newsdetail({
+							getData.news.newsdetail({
 								id : obj.id,
 								callback : function(_data){
 									_data.data.writeTime = new Date(_data.data.writeTime).format('yyyy-MM-dd h:m:s');
@@ -101,7 +100,7 @@ define(['require',"app",'jquery'
 	 						 text:'您确定要删除"'+obj.title+'"吗'
 	 						,btn : ['确定','取消']
 	 						,fn : function(){
-	 							data.news.delNews(obj);
+	 							getData.news.delNews(obj);
 							}
 	 					})
 					}
@@ -125,7 +124,7 @@ define(['require',"app",'jquery'
 
 				var page = 1;
 				function getDataList(){
-					data.news.newslist({
+					getData.news.newslist({
 						page : page,
 						pageSize : 5,
 						callback : function(_data){
