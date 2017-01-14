@@ -182,6 +182,7 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 							$.each(self.select,function(j,arr){
 								if(arr[0].title==_obj.elem.name){//请选择部门
 									var obj = arr[_obj.elem.selectedIndex];
+									obj.elem = _obj;
 									obj.title = _obj.elem.name;
 									if($scope.selects.length){
 										var b = false;
@@ -228,7 +229,48 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 							})
 					  	});
 
-					});	
+						//更新 select 选择匡
+						function setSelect(){
+							var self = this;
+							$.each($scope.data,function(key,val){
+								$.each(self.select,function( i ,arr){
+									if(this[0].title == key){
+										$.each(arr,function( k , obj ){
+											if(obj.id == val){
+												obj.selected = true;
+											}
+										})
+									}
+								});
+							});
+							console.log($scope.formdata.list)
+							form.render();
+						}
+						function forData(){
+							if($scope.data){
+								$.each($scope.formdata.list,function( i , obj ){
+					  				if($.type(obj) == 'array'){
+					  					$.each(obj,function(){
+					  						if(this.type =='select'){
+												setSelect.call(this);
+											}
+										})
+					  				}else{
+							  			if(this.type =='select'){
+											setSelect.call(this);
+										}
+				  					}
+								})
+								return;
+							};
+						}
+						$scope.$watch(function(){
+							return $scope.data;
+						},function(){ 
+							forData();
+						},true);
+						forData();
+					});
 				}
 			}
 		}
