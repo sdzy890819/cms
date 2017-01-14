@@ -41,7 +41,7 @@
 					    </div>
 
 					    <!-- 时间 -->
-					    <input ng-if="obj.type=='date'" type="text" name="{{obj.title}}" id="date"placeholder="{{obj.placeholder}}" readonly='readonly' autocomplete="off" class="layui-input date {{obj.cls||'w220'}}" ng-click="selectDate($event)"><!--  lay-verify="date"  -->
+					    <input ng-if="obj.type=='date'" value="{{data[obj.title]}}" type="text" name="{{obj.title}}" id="date"placeholder="{{obj.placeholder}}" readonly='readonly' autocomplete="off" class="layui-input date {{obj.cls||'w220'}}" ng-click="selectDate($event)"><!--  lay-verify="date"  -->
 
 					    <!-- 上传按钮 并不能上传需要点击事件 -->
 					    <div ng-if="obj.type=='file'" class="layui-box layui-upload-button" style="cursor:pointer">
@@ -83,7 +83,7 @@
 						    </div>
 
 						    <!-- 时间 -->
-						    <input ng-if="item.type=='date'" type="text" name="{{item.title}}" id="date"placeholder="{{item.placeholder}}" readonly='readonly' autocomplete="off" class="layui-input date {{item.cls||'w220'}}" ng-click="selectDate($event)"><!--  lay-verify="date"  -->
+						    <input ng-if="item.type=='date'" value="{{data[item.title]}}" type="text" name="{{item.title}}" id="date"placeholder="{{item.placeholder}}" readonly='readonly' autocomplete="off" class="layui-input date {{item.cls||'w220'}}" ng-click="selectDate($event)"><!--  lay-verify="date"  -->
 
 					    	<button ng-if='item.type=="button"' class="layui-btn layui-btn-normal" ng-click='submit(item.evt,item,$event)'>{{item.name}}</button>
 

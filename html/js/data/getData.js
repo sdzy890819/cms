@@ -205,8 +205,22 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 		news : {
 			createNews : function( obj ){
 				T.ajax({
-					url : URL.news.newscolumnlist , 
-					data : {channelId : obj.channelId},
+					url : URL.news.createNews , 
+					type : 'POST',
+					data : {
+						"title":obj.title,
+						"subTitle":obj.subTitle,
+						"keyword":obj.keyword,
+						"description":obj.description,
+						"source":obj.source,
+						"author":obj.author,
+						"channelId":obj.channelId,//频道ID
+						"columnId":obj.columnId,//栏目ID
+						"categoryId": obj.categoryId, //部门分类ID
+						"content":obj.content,
+						"autoPublish":obj.autoPublish, //1 是自动发布。0是不自动发布.默认不自动发布
+						"timer":obj.timer, //定时发布。//可不传,
+					},
 					success : function( _data ){
 						obj.callback(_data);
 					}
@@ -265,13 +279,11 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 			}
 		},
 		channel : {//取频道分类管理
-			listChannel : function( callback ){ //栏目列表
+			listChannel : function( obj ){ //栏目列表
 				T.ajax({
 					url : URL.channel.listChannel , 
-					type : 'get',
-					data : {},
 					success : function( _data ){
-						callback(_data);
+						obj.callback(_data);
 					}
 				})
 			},

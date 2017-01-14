@@ -11,7 +11,38 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 					alert(obj)
 				}
 				$scope.rlease = function( obj ){ //发布
-					alert(obj)
+					var channelId , columnId , categoryId;
+					$.each(obj.selects,function(){
+						if(this.title == 'channelId'){
+							channelId = this.id;
+						}
+						if(this.title == 'columnId'){
+							columnId = this.id;
+						}
+						if(this.title == 'categoryId'){
+							categoryId = this.id;
+						}
+					})
+					getData.news.createNews({
+						"title":obj.title,
+						"subTitle":obj.subTitle,
+						"keyword":obj.keyword,
+						"description":obj.description,
+						"source":obj.source,
+						"author":obj.author,
+						"channelId":channelId,//频道ID
+						"columnId":columnId,//栏目ID
+						"categoryId": categoryId, //部门分类ID
+						"content":obj.html,
+						"autoPublish":(obj.show=='yes'?1:0), //1 是自动发布。0是不自动发布.默认不自动发布
+						"timer":obj.buildTime, //定时发布。//可不传
+						callback : function(_data){
+							layui.use(['layer'], function(){
+								var layer = layui.layer;
+								layer.msg(_data.message);
+							});
+						}
+					});
 				}
 				$scope.view = function( obj ){ //预览
 					alert(obj)
@@ -41,51 +72,44 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 							obj.width = '800px';
 						}
 						if(obj.type=='select'){
-							obj.callback = function( _obj , callback ){
-								$.each(obj.select,function(j,arr){
-									if(arr[0].title==_obj.elem.name){//请选择部门
-										var id = arr[_obj.elem.selectedIndex].id || null;
-										if(_obj.elem.name == 'categoryId'){
-											getData.channel.currentChannelList({
-												categoryId : id,
-												callback : function(_data){
-													var arr = [obj.select[1][0]];
-													obj.select[1] = arr;
-													//obj.select[1] = obj.select[1].concat({name:'hasdfsadf',id:10001});
-													var _data = {
-														data : [{
-														      "categoryId": 10001,
-														      "channelDesc": "世界频道，带你看世界",
-														      "channelName": "世界频道",
-														      "channelPath": "/data/publish/",
-														      "channelUrl": "http://120.77.220.11/publish/",
-														      "delTag": 1,
-														      "id": 10001,
-														      "lastModifyUserId": "14840345528522311094",
-														      "templatePath": "/data/template/"
-														    }]											
-														}
-													obj.select[1] = obj.select[1].concat(Tool.changeObjectName(_data.data,[{name:'channelName',newName:'name'}]));
-													//$(_obj.elem).parent().next().find()
-													
-													$scope.$apply();
-													callback();
+							obj.callback = function( _object ){
+								if(_object.title == 'categoryId'){
+									getData.channel.currentChannelList({
+										categoryId : _object.obj.id,
+										callback : function(_data){
+											var arr = [obj.select[1][0]];
+											obj.select[1] = arr;
+											var _data = {
+												data : [{
+												      "categoryId": 10001,
+												      "channelDesc": "世界频道，带你看世界",
+												      "channelName": "世界频道",
+												      "channelPath": "/data/publish/",
+												      "channelUrl": "http://120.77.220.11/publish/",
+												      "delTag": 1,
+												      "id": 10001,
+												      "lastModifyUserId": "14840345528522311094",
+												      "templatePath": "/data/template/"
+												    }]											
 												}
-											})
-										}else if(_obj.elem.name == 'channelId'){
-											getData.news.newscolumnlist({
-												channelId : id,
-												callback : function(_data){
-													var arr = [obj.select[2][0]];
-													obj.select[2] = arr;
-													obj.select[2] = obj.select[2].concat(Tool.changeObjectName(_data.data,[{name:'columnName',newName:'name'}]));
-													$scope.$apply();
-													callback();
-												}
-											})
+											obj.select[1] = obj.select[1].concat(Tool.changeObjectName(_data.data,[{name:'channelName',newName:'name'}]));
+											
+											$scope.$apply();
+											_object.callback();
 										}
-									} 
-								})
+									})
+								}else if(_object.title == 'channelId'){
+									getData.news.newscolumnlist({
+										channelId : _object.obj.id,
+										callback : function(_data){
+											var arr = [obj.select[2][0]];
+											obj.select[2] = arr;
+											obj.select[2] = obj.select[2].concat(Tool.changeObjectName(_data.data,[{name:'columnName',newName:'name'}]));
+											$scope.$apply();
+											_object.callback();
+										}
+									})
+								}
 							}
 						}
 					});

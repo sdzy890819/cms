@@ -92,7 +92,6 @@ define(["app",'jquery','require','wangEditor'], function ( app,$,require ) {
 					    };
 					    //editor.config.hideLinkImg = true;
 
-					    console.dir(editor.config);
 
 		                editor.create();
 		                editor.$txt.html('<p>请输入内容</p>');

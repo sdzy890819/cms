@@ -12,7 +12,7 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 	            titelement : '=titelement',
 	            data : '=data'
 	        },
-	        controller : function($scope , $state , $element , $rootScope,$uibModal,$css){
+	        controller : function($scope , $state , $element , $rootScope,$uibModal,$css,$timeout){
 				var icon = {
 					add:'plus',//添加
 					save:'save',//保存
@@ -60,14 +60,16 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 								$scope.editorContent = '';
 					        	$css.add('../../wangEditor/dist/css/wangEditor.min.css');
 					        	textEdit.init($scope);
+					        	$timeout(function(){
+					        		try{
+					        			$scope.editor.$txt.html($scope.data.newsDetail.content||'请输入内容');
+					        		}catch(e){}
+					        	},200)
 							}
 						});
 						return;
 					};
 				},true);
-				
-				
-
 			},
 			link : function($scope , element , arrt , controller){
 				var ele = $(element[0]);
@@ -111,10 +113,25 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 								});
 							}
 							if(this.type =='select'){
+								$scope.selects = [];
+								if(!self.callback) return;
 								form.on('select',function( _obj ){
-									self.callback(_obj,function(){
-										form.render();
-									});
+									$.each(self.select,function(j,arr){
+										if(arr[0].title==_obj.elem.name){//请选择部门
+											var obj = arr[_obj.elem.selectedIndex];
+											obj.title = _obj.elem.name;
+											$scope.selects[j] = obj;
+											self.callback({
+												obj : obj,
+												index : _obj.elem.selectedIndex,
+												title : _obj.elem.name,
+												name : _obj.name,
+												callback : function(){
+													form.render();
+												}
+											});
+										} 
+									})
 							  	});
 							}
 						});
@@ -156,19 +173,17 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 						        var text = $scope.editor.$txt.text();
 						        // 获取格式化后的纯文本
 						        var formatText = $scope.editor.$txt.formatText();
-						        debugger;
+						        data.field.html = html;
+						        data.field.text = text;
+						        data.field.formatText = formatText;
 							}
+							data.field.selects = $scope.selects;
 
-							if(data.nodeName!='A'){
-								$scope.$parent[event](JSON.stringify(data.field));
-							}else{
+							//if(data.nodeName!='A'){
+								$scope.$parent[event](data.field);
+							//}else{
 								
-							}
-							
-
-						    /*layer.alert(JSON.stringify(data.field), {
-						      title: '最终的提交信息'
-						    })*/
+							//}
 						    return false;
 					  	});
 					});	
