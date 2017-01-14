@@ -265,7 +265,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 			},
 			createNewsColumn : function( obj ){
 				T.ajax({
-					url : URL.news.createNews , 
+					url : URL.news.createNewsColumn , 
 					type : 'POST',
 					data : {
 						channelId:obj.channelId,//频道ID
