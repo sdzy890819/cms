@@ -8,10 +8,13 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 				success : function( _data ){
 					if(_data.code == 0 ){
 						obj.success(_data);
-					}else if(_data.code == -1 ){//未登录
-						initInfo.login();
+					}else{
+						if(_data.code == -1 ){//未登录
+							initInfo.login();
+						}else if(_data.code == -111 ){ //无权限
+
+						}
 					}
-					
 				},
 				error : function(){}
 			})
@@ -199,6 +202,40 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						callback(_data)
 					},
 					error : function(){}
+				})
+			}
+		},
+		pretemplate : {//预模版加载
+			list : function( obj ){//预模版列表
+				T.ajax({
+					url : URL.pretemplate.list , 
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				})
+			},
+			listTemplate2 : function( obj ){//预模版列表
+				T.ajax({
+					url : URL.pretemplate.listTemplate2 , 
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				})
+			},
+			listTemplate2list : function( obj ){//获取list类型的第二模版列表 
+				T.ajax({
+					url : URL.pretemplate.listTemplate2list , 
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				})
+			},
+			listTemplate2detail : function( obj ){//获取list类型的第二模版列表 
+				T.ajax({
+					url : URL.pretemplate.listTemplate2detail , 
+					success : function( _data ){
+						obj.callback(_data);
+					}
 				})
 			}
 		},

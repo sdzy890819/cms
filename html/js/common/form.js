@@ -73,6 +73,7 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 			},
 			link : function($scope , element , arrt , controller){
 				var ele = $(element[0]);
+			  	$scope.selects = [];
 				$scope.formRepeat = function(){
 					layui.use(['form', 'layedit', 'laydate'], function(){
 						var form = layui.form()
@@ -80,11 +81,9 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 					  		,layedit = layui.layedit
 					  		,laydate = layui.laydate;
 
-					  	
-
-					  	$.each($scope.formdata.list,function(){
-							var self = this;
-							if(this.type=='date'){ //日期
+					  	function setType(){
+					  		var self = this;
+					  		if(this.type=='date'){ //日期
 								layui.use('laydate', function(){});
 							}else if(this.type=='file'){
 								$scope.$css.add('../../style/stylesheets/pop.css');
@@ -112,16 +111,15 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 									});
 								});
 							}
-							if(this.type =='select'){
-								$scope.selects = [];
-								if(!self.callback) return;
+
+							/*if(this.type =='select'){
 								form.on('select',function( _obj ){
 									$.each(self.select,function(j,arr){
 										if(arr[0].title==_obj.elem.name){//请选择部门
 											var obj = arr[_obj.elem.selectedIndex];
 											obj.title = _obj.elem.name;
 											$scope.selects[j] = obj;
-											self.callback({
+											self.callback && self.callback({
 												obj : obj,
 												index : _obj.elem.selectedIndex,
 												title : _obj.elem.name,
@@ -133,6 +131,16 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 										} 
 									})
 							  	});
+							}*/
+					  	}
+
+					  	$.each($scope.formdata.list,function( i , obj ){
+							if($.type(obj) == 'array'){
+								$.each(obj,function(){
+									setType.call(this);
+								})
+							}else{
+								setType.call(this);
 							}
 						});
 
@@ -186,6 +194,60 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 							//}
 						    return false;
 					  	});
+
+						function getSelect(_obj){
+							var self = this;
+							$.each(self.select,function(j,arr){
+								if(arr[0].title==_obj.elem.name){//请选择部门
+									debugger;
+									var obj = arr[_obj.elem.selectedIndex];
+									obj.title = _obj.elem.name;
+									if($scope.selects.length){
+										var b = false;
+										$.each($scope.selects,function( k , select ){
+											var name = _obj.elem.name;
+											if(select.title == _obj.elem.name){
+												b = true;
+												select = obj;
+											}else{
+												//$scope.selects.push(obj);
+											}
+										});
+										if(!b){
+											$scope.selects.push(obj);
+										}
+										debugger;
+									}else{
+										$scope.selects.push(obj);
+									}
+									self.callback && self.callback({
+										obj : obj,
+										index : _obj.elem.selectedIndex,
+										title : _obj.elem.name,
+										name : _obj.name,
+										callback : function(){
+											form.render();
+										}
+									});
+								} 
+							});
+						}
+					  	form.on('select',function( _obj ){ //select点击时，需单独处理，可能会存在多个select
+					  		$.each($scope.formdata.list,function( i , obj ){
+				  				if($.type(obj) == 'array'){
+				  					$.each(obj,function(){
+				  						if(this.type =='select'){
+											getSelect.call(this,_obj);
+										}
+									})
+				  				}else{
+						  			if(this.type =='select'){
+										getSelect.call(this,_obj);
+									}
+			  					}
+							})
+					  	});
+
 					});	
 				}
 			}

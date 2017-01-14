@@ -222,6 +222,12 @@ input:focus{ border: 1px solid #bbb !important;} */
   }
 }
 
+/* line 102, ../sass/global.scss */
+.loadding {
+  height: 200px;
+  background: url(../../images/loadding.gif) center center no-repeat;
+}
+
 /* line 103, ../sass/global.scss */
 .container {
   padding: 0 20px;
