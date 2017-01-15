@@ -551,9 +551,28 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					}
 				});
 			},
-			topicColumnList : function( obj ){//专题分类列表 接口
+			topicColumnList : function( obj ){//专题分类栏目列表 接口
 				T.ajax({
 					url : URL.topic.topicColumnList , 
+					success : function( _data ){
+						obj.callback(_data)
+					}
+				});
+			},
+			delTopicColumn : function( obj ){//删除分类栏目列表
+				T.ajax({
+					url : URL.topic.delTopicColumn ,
+					data : {id:obj.id}, 
+					success : function( _data ){
+						obj.callback(_data)
+					}
+				});
+			},
+			updateTopicColumn: function( obj ){//删除分类栏目列表
+				T.ajax({
+					url : URL.topic.updateTopicColumn ,
+					type : 'POST',
+					data : {id:obj.id,name:obj.name}, 
 					success : function( _data ){
 						obj.callback(_data)
 					}
