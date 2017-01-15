@@ -1,23 +1,35 @@
 define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 	var T = {
 		getdata : function( obj ){
-			$.ajax({
-				url : obj.url , 
-				type : obj.type,
-				data : obj.data,
-				success : function( _data ){
-					if(_data.code == 0 ){
-						obj.success(_data);
-					}else{
-						if(_data.code == -1 ){//未登录
-							initInfo.login();
-						}else if(_data.code == -111 ){ //无权限
+			layui.use(['layer'], function(){
+				var loadding;
+				if(obj.loadding!=false){
+					loadding = layer.load(1,{
+						shade : 0.3
+					});
+				}
+				$.ajax({
+					url : obj.url , 
+					type : obj.type,
+					data : obj.data,
+					success : function( _data ){
+						layer.close(loadding);
+						if(_data.code == 0 ){
+							obj.success(_data);
+						}else{
+							if(_data.code == -1 ){//未登录
+								initInfo.login();
+							}else if(_data.code == -111 ){ //无权限
 
+							}
+							layer.confirm(_data.message, {icon: 2, title:'提示'}, function(index){
+							  layer.close(index);
+							});
 						}
-					}
-				},
-				error : function(){}
-			})
+					},
+					error : function(){}
+				})
+			});
 		},
 		ajax : function( obj ){
 			obj.type = obj.type || 'get';
@@ -332,12 +344,38 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 			delNews : function( obj ){ //删除新闻
 				T.ajax({
 					url : URL.news.delNews , 
-					type : 'get',
 					data : {id:obj.id},
 					success : function( _data ){
 						obj.callback(_data);
+					}
+				})
+			},
+			updateNews : function( obj ){ //修改新闻
+				T.ajax({
+					url : URL.news.updateNews , 
+					type : 'POST',
+					data : {
+						"title":obj.title,
+						"subTitle":obj.subTitle,
+						"keyword":obj.keyword,
+						"description":obj.description,
+						"source":obj.source,
+						"author":obj.author,
+						"channelId":obj.channelId,//频道ID
+						"columnId":obj.columnId,//栏目ID
+						"content":obj.content,
+						"id":obj.id,
+						"field1":obj.field1,
+						"field2":obj.field2,
+						"field3":obj.field3,
+						"field4":obj.field4,
+						"field5":obj.field5,
+						"autoPublish":obj.autoPublish, //1 是自动发布。0是不自动发布.默认不自动发布
+						"timer":obj.timer //定时发布。
 					},
-					error : function(){}
+					success : function( _data ){
+						obj.callback(_data);
+					}
 				})
 			},
 			delNewsColumn : function( obj ){ //删除新闻栏目
