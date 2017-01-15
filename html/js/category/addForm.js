@@ -23,9 +23,7 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 				})
 			}
 		});
-
-		// callback(list);
-		
+				
 	}
 	return getList;	
 })

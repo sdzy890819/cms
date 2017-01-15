@@ -1,11 +1,13 @@
-define(function(){
-	return [ //表单
+define(['../data/getData','../moduls/Tool'],function(getData,Tool){
+	var list = [ //表单
 		{
-			title : 'name',
-			name : '分类名',
-			type : 'text', //text textarea radio checkbox edit
+			title : 'classifyName',
+			name : '分类名称',
+			type : 'text',
 			placeholder : '请输入分类名',
 			verify : 'title'
 		}
-	]
+	];
+
+	return list;
 })
