@@ -113,7 +113,7 @@ define(function(require){
 			redirect : url+'/template/redirect'//模版跳转
 		},
 		topic : { //专题
-			topic:url+'/topic/listTopic',//
+			listTopic:url+'/topic/listTopic',//分页专题列表 接口
 			topicInfo:url+'/topic/topicInfo',//
 			delTopic:url+'/topic/delTopic',//
 			publish:url+'/topic/publish',//

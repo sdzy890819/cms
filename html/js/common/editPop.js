@@ -3,6 +3,12 @@ define(["app",'jquery','form'],function (app,$) {
     	init : function( obj ){
 			var $uibModal = obj.$uibModal , 
 				getList = obj.list;
+			
+			if($.type(getList)=='array'){
+				getList = function(callback){
+					callback(obj.list);
+				}
+			}
 			obj.$uibModal.open({
 				animation: true,
 				ariaLabelledBy: 'modal-title',
@@ -32,7 +38,6 @@ define(["app",'jquery','form'],function (app,$) {
 					});
 
 					getList(function(list){
-						
 						obj.callback(list,function(_list){
 							$scope.formdata = { //确认按钮
 								title : '编辑',
@@ -52,7 +57,9 @@ define(["app",'jquery','form'],function (app,$) {
 									}*/
 								]
 							}
-							$scope.$apply();
+							if(!$scope.$$phase) { 
+								$scope.$apply();
+							} 
 						})
 					})
 				}

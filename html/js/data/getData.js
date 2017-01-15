@@ -19,7 +19,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						}else{
 							if(_data.code == -1 ){//未登录
 								initInfo.getUserInfo({callback:function(){
-									
+
 								}});
 							}else if(_data.code == -111 ){ //无权限
 
@@ -589,6 +589,15 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					}
 				});
 			},
+			topicInfo : function( obj ){//专题详情 接口
+				T.ajax({
+					url : URL.topic.topicInfo , 
+					data : {id:obj.id},
+					success : function( _data ){
+						obj.callback(_data)
+					}
+				});
+			},
 			topicClassifyList : function( obj ){//模版列表［分页］ 接口
 				T.ajax({
 					url : URL.topic.topicClassifyList , 
@@ -597,9 +606,28 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					}
 				});
 			},
-			topicColumnList : function( obj ){//专题分类列表 接口
+			topicColumnList : function( obj ){//专题分类栏目列表 接口
 				T.ajax({
 					url : URL.topic.topicColumnList , 
+					success : function( _data ){
+						obj.callback(_data)
+					}
+				});
+			},
+			delTopicColumn : function( obj ){//删除分类栏目列表
+				T.ajax({
+					url : URL.topic.delTopicColumn ,
+					data : {id:obj.id}, 
+					success : function( _data ){
+						obj.callback(_data)
+					}
+				});
+			},
+			updateTopicColumn: function( obj ){//删除分类栏目列表
+				T.ajax({
+					url : URL.topic.updateTopicColumn ,
+					type : 'POST',
+					data : {id:obj.id,name:obj.name}, 
 					success : function( _data ){
 						obj.callback(_data)
 					}
