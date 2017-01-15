@@ -21,10 +21,10 @@ define(["app",'jquery','form'],function (app,$) {
 					  		close : true
 					  	},
 						save : function( arr ){ //保存
-							alert(arr)
+							obj.save(arr,$scope.data)
 						},
 						cancel : function( arr ){ //取消
-							alert(arr)
+							obj.cancel(arr,$scope.data)
 						},
 					  	close : function () {
 						   	$uibModalInstance.dismiss('cancel');

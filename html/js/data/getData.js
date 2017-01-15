@@ -348,6 +348,26 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						obj.callback(_data);
 					}
 				})
+			},
+			updateNewsColumn  : function( obj ){ //修改栏目
+				T.ajax({
+					url : URL.news.updateNewsColumn , 
+					type : 'post',
+					data : {
+						id:obj.id,
+						channelId:obj.channelId,//频道ID //不是必须
+						columnName:obj.columnName,//不是必须
+						listId:obj.listId,//预模版list接口返回的预模版ID. 不是必须
+						detailId:obj.detailId,//预模版detail接口返回的预模版ID. 不是必须
+						listTemplate2Id:obj.listTemplate2Id, //第二套模版接口模版ID，不是必须。如果选择则传参。参考B19文档
+						detailTemplate2Id:obj.detailTemplate2Id,//第二套模版接口模版ID，不是必须。如果选择则传参。参考B19文档
+						keywords:obj.keywords, //不是必须
+						description:obj.description //不是必须
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				})
 			}
 		},
 		category : { //部门分类
