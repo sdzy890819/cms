@@ -522,13 +522,19 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					}
 				});
 			},
-			topicClassifyList : function( callback ){//模版列表［分页］ 接口
+			topicClassifyList : function( obj ){//模版列表［分页］ 接口
 				T.ajax({
 					url : URL.topic.topicClassifyList , 
-					type : 'get',
-					data : {},
 					success : function( _data ){
-						callback(_data)
+						obj.callback(_data)
+					}
+				});
+			},
+			topicColumnList : function( obj ){//专题分类列表 接口
+				T.ajax({
+					url : URL.topic.topicColumnList , 
+					success : function( _data ){
+						obj.callback(_data)
 					}
 				});
 			}

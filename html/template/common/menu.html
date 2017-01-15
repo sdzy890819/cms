@@ -3,7 +3,7 @@
 	<div class="webapp-tab">
 		<ul>
 			<li class='current'>WEB</li>
-			<li>APP</li>
+			<!-- <li>APP</li> -->
 		</ul>
 	</div>
 	<div class="menubar">
@@ -20,7 +20,7 @@
 		</div>
 		<div class="option">
 			<ul>
-				<li ng-if='menu' ng-repeat='obj in menu' repeat-finish='columnDone'>
+				<li ng-if='Nav' ng-repeat='obj in Nav' repeat-finish='columnDone'>
 					<a javascript:; ng-click='menuClick($index , obj , $event)'>
 						<i class="{{obj.class}}"></i>
 						<span class="title">{{obj.name}}</span>

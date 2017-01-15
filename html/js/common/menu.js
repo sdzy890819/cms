@@ -10,7 +10,7 @@ define(["app",'jquery','./data/getData','./moduls/directive'], function ( app,$,
 	        		pre : function(scope, iElement, iAttrs, controller){
 	        			getData.permission.currentMenuPermission({
 			        		callback : function( _data ){
-			        			scope.menu = _data.data;
+			        			scope.Nav = _data.data;
 			        			scope.$apply();
 			        		}
 			        	})
@@ -54,9 +54,9 @@ define(["app",'jquery','./data/getData','./moduls/directive'], function ( app,$,
 			        			getData.permission.currentButtonPermission({
 			        				id : obj.id,
 			        				callback : function( _data ){
-			        					$.each(scope.menu,function( i ){
+			        					$.each(scope.Nav,function( i ){
 			        						if(this.id == obj.id){
-			        							scope.menu[i][obj.id] = _data.data;
+			        							scope.Nav[i][obj.id] = _data.data;
 			        						}
 			        					});
 			        					scope.$apply();
