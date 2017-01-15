@@ -24,11 +24,10 @@ define(['require',"app",'jquery'
 						})
 					},
 					edit : function( obj ){ //保存
-						function getAddForm(callback){ //填充数据
+						function updateData(callback){ //填充数据
 							getData.topic.topicInfo({
 								id : obj.id,
 								callback : function(_data){
-									_data.data.writeTime = new Date(_data.data.writeTime).format('yyyy-MM-dd h:m:s');
 									callback(_data);
 								}
 							})
@@ -37,25 +36,35 @@ define(['require',"app",'jquery'
         				editPop.init({
         					obj : obj,
         					list : list,
-        					updateData : getAddForm,
+        					updateData : updateData,
         					save : function(obj , _detail ){ //保存 新增 确认 等
-        						debugger;
-        						var channelId = _detail.channelId , 
-        							columnId = _detail.columnId , 
-        							categoryId = _detail.categoryId;
+        						var channelId , topicColumnId , categoryId , topicClassifyId;
 								$.each(obj.selects,function(){
 									if(this.title == 'channelId'){
 										channelId = this.id;
 									}
-									if(this.title == 'columnId'){
-										columnId = this.id;
+									if(this.title == 'topicColumnId'){
+										topicColumnId = this.id;
 									}
 									if(this.title == 'categoryId'){
 										categoryId = this.id;
 									}
-								})
-								getData.news.updateNews({
-
+									if(this.title == 'topicClassifyId'){
+										topicClassifyId = this.id;
+									}
+								});
+								getData.topic.updateTopic({
+									"topicTitle":obj.topicTitle,
+									"topicContent":obj.topicContent,
+									"topicPath":obj.topicPath,
+									"topicFilename":obj.topicFilename,
+									"topicClassifyId":topicClassifyId,//专题分类ID
+									"categoryId":categoryId,//部门类别ID
+									"channelId":channelId, //频道ID
+									"releaseTime":obj.releaseTime, //发布时间
+									"keyword":obj.keyword,
+									"description":obj.description,
+									"topicColumnId":topicColumnId, //专题栏目ID(做系列专题使用)
 									callback : function(_data){
 										layui.use(['layer'], function(){
 											var layer = layui.layer;
@@ -65,7 +74,7 @@ define(['require',"app",'jquery'
 								});
         					},
         					callback : function( list , callback ){ //返回获取的数据 用于操作
-								
+								callback(list);
         					},
         					$uibModal :$uibModal 
         				});
@@ -92,7 +101,7 @@ define(['require',"app",'jquery'
 						{name:'发布时间' , key:'releaseTime' },
 						//{name:'关键字' , key:'keyword' },
 						//{name:'描述、SEO标准' , key:'description' },
-						{name:'URL' , key:'topicUrl' },
+						//{name:'URL' , key:'topicUrl' },
 						{name:'操作' , width : '120', class:'center'}
 					];
 					$scope.listdata = { //确认按钮

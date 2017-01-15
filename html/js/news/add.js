@@ -6,10 +6,7 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 	    	transclude : true,
 	        templateUrl : '../template/common/addAndEdit.html',
 	        controller : function($scope){
-	        	$scope.$parent.menu.push({name:"新增新闻"})
-				$scope.save = function( obj ){ //保存
-					alert(obj)
-				}
+	        	$scope.$parent.menu.push({name:"新增新闻"});
 				$scope.rlease = function( obj ){ //发布
 					var channelId , columnId , categoryId;
 					$.each(obj.selects,function(){

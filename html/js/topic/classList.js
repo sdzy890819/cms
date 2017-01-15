@@ -16,7 +16,8 @@ define(['require',"app",'jquery'
 				angular.extend($scope,{
 					edit : function( obj ){ //保存 obj为原始数据
 						function updateData(callback){ //填充数据
-							callback(obj)
+							GenerateArrList.changeTypeName([obj],[{name:'columnName',newName:'name'}])
+							callback({data:obj})
 							/*getData.topic.topicInfo({
 								id : obj.id,
 								callback : function(_data){

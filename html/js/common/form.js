@@ -168,6 +168,12 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 									return value;
 								}
 							}
+							,html : function( value ){
+								var reg = /^\w+\.html/;
+								if(value.search(reg)<0){
+									return '请输入正确文件名（例：index.html）';
+								};
+							}
 							//required（必填项）phone（手机号）email（邮箱）url（网址）number（数字）date（日期）identity（身份证）
 						});
 						form.on('submit(demo1)', function(data){
