@@ -87,6 +87,7 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 		{
 			title : 'topicContent',
 			name : '内容',
+			height : 100,
 			placeholder : '请输入内容',
 			type : 'textarea'
 		}
