@@ -13,8 +13,11 @@ define(['./URL','./loginAndOut','jquery','./getData'],function(URL , user ,$ , g
 			user.login({
 				data : obj.data,
 				callback : function(_data){
-					getData.user.currentUser({
-						callback : function(_data){
+					$.ajax({ //当前登录用户信息接口
+						url : URL.user.currentUser , 
+						type : 'get',
+						dataType : 'json',
+						success : function(_data){												
 							quanjing.user = _data;
 							obj.callback(_data);
 						}

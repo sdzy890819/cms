@@ -1,12 +1,17 @@
-define(["app",'jquery'], function ( app,$ ) {
+define(["app",'jquery','./data/getData'], function ( app,$,getData ) {
 	app.directive('menuNav',function(){
 		return {
 	    	restrict : 'E',
 	    	replace : true,
 	    	transclude : true,
 	        templateUrl : '../template/common/menu.html',
-	        compile : function(){
-	        	console.log(2)
+	        compile : function( $scope ){ //获取数据
+	        			debugger;
+	        	getData.permission.currentMenuPermission({
+	        		callback : function( _data ){
+	        			debugger
+	        		}
+	        	})
 	        },
 			controller : function($scope,$state){
 				console.log(1)

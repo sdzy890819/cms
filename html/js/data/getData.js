@@ -56,15 +56,12 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					error : function(){}
 				})
 			},
-			currentMenuPermission : function ( callback ){
+			currentMenuPermission : function ( obj ){
 				T.ajax({
 					url : URL.permission.currentMenuPermission ,
-					type : 'get',
-					data : {},
 					success : function(_data){						
-						callback(_data);
-					},
-					error : function(){}
+						obj.callback(_data);
+					}
 				})
 			},
 			currentButtonPermission : function( id, callback ){ //获取用户Menu下的Button权限
