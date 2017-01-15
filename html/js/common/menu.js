@@ -5,7 +5,11 @@ define(["app",'jquery'], function ( app,$ ) {
 	    	replace : true,
 	    	transclude : true,
 	        templateUrl : '../template/common/menu.html',
+	        compile : function(){
+	        	console.log(2)
+	        },
 			controller : function($scope,$state){
+				console.log(1)
 				$scope.state = $state;
 			},
 			link : function(scope,element){

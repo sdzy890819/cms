@@ -13,19 +13,21 @@ define(['./URL','./loginAndOut','jquery','./getData'],function(URL , user ,$ , g
 			user.login({
 				data : obj.data,
 				callback : function(_data){
-					info.getUserInfo({
-						callback : obj.callback
+					getData.user.currentUser({
+						callback : function(_data){
+							quanjing.user = _data;
+							obj.callback(_data);
+						}
 					})
 				}
 			});
 		},
 		getUserInfo : function( obj ){
-			getData.user.currentUser({
-				callback : function(_data){
-					quanjing.user = _data;
-					obj.callback(_data);
-				}
-			})
+			if(!quanjing.user){
+				window.location.href = '/#/login';
+			}else{
+				return quanjing.user;
+			}
 		},
 		getPublicData : function(callback){
 			$.ajax({
