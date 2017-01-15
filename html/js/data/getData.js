@@ -472,7 +472,62 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						obj.callback(_data);
 					}
 				})
-			}
+			},
+
+			createChannel : function( obj ){
+				T.ajax({
+					url : URL.channel.createChannel , 
+					type : 'post',
+					data : { 
+						categoryId   : obj.categoryId,
+						channelName  : obj.channelName,
+						channelUrl   : obj.channelUrl,
+						channelPath  : obj.channelPath,
+						templatePath : obj.templatePath,
+						channelDesc  : obj.channelDesc						
+					},
+					success : function( _data ){						
+						obj.callback(_data);
+					},
+
+					error : function() {						
+					}
+				})
+			},
+
+			updateChannel : function( obj ){
+				T.ajax({
+					url : URL.channel.updateChannel , 
+					type : 'post',
+					data : { 
+						id 					 : obj.id,
+						categoryId   : obj.categoryId,
+						channelName  : obj.channelName,
+						channelUrl   : obj.channelUrl,
+						channelPath  : obj.channelPath,
+						templatePath : obj.templatePath,
+						channelDesc  : obj.channelDesc						
+					},
+					success : function( _data ){						
+						obj.callback(_data);
+					},
+
+					error : function() {						
+					}
+				})
+			},		
+			delChannel : function( obj ){ //栏目列表
+				T.ajax({
+					url     : URL.channel.delChannel , 
+					data    : {
+						id : obj.id
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				})
+			}				
+
 		},
 		image : {
 			imageslist : function( callback ){ //栏目列表
@@ -551,9 +606,28 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					}
 				});
 			},
-			topicColumnList : function( obj ){//专题分类列表 接口
+			topicColumnList : function( obj ){//专题分类栏目列表 接口
 				T.ajax({
 					url : URL.topic.topicColumnList , 
+					success : function( _data ){
+						obj.callback(_data)
+					}
+				});
+			},
+			delTopicColumn : function( obj ){//删除分类栏目列表
+				T.ajax({
+					url : URL.topic.delTopicColumn ,
+					data : {id:obj.id}, 
+					success : function( _data ){
+						obj.callback(_data)
+					}
+				});
+			},
+			updateTopicColumn: function( obj ){//删除分类栏目列表
+				T.ajax({
+					url : URL.topic.updateTopicColumn ,
+					type : 'POST',
+					data : {id:obj.id,name:obj.name}, 
 					success : function( _data ){
 						obj.callback(_data)
 					}
