@@ -1,5 +1,5 @@
 define(['require',"app",'jquery'
-	,'../data/getData' , './addForm',
+	,'../data/getData' , './addForm'
 	,'../common/editPop'
 	,'formlist','fixedNav','position'
 	,'../moduls/service','../moduls/factory'
@@ -39,6 +39,7 @@ define(['require',"app",'jquery'
         					list : list,
         					updateData : getAddForm,
         					save : function(obj , _detail ){ //保存 新增 确认 等
+        						debugger;
         						var channelId = _detail.channelId , 
         							columnId = _detail.columnId , 
         							categoryId = _detail.categoryId;
@@ -54,24 +55,7 @@ define(['require',"app",'jquery'
 									}
 								})
 								getData.news.updateNews({
-									"id":_detail.id,
-									"title":obj.title,
-									"subTitle":obj.subTitle,
-									"keyword":obj.keyword,
-									"description":obj.description,
-									"source":obj.source,
-									"author":obj.author,
-									"channelId":channelId,//频道ID
-									"columnId":columnId,//栏目ID
-									"categoryId": categoryId, //部门分类ID
-									"content":obj.html,
-									"autoPublish":(obj.show=='yes'?1:0), //1 是自动发布。0是不自动发布.默认不自动发布
-									"timer":obj.writeTime, //定时发布。//可不传
-									"field1":obj.field1,
-									"field2":obj.field2,
-									"field3":obj.field3,
-									"field4":obj.field4,
-									"field5":obj.field5,
+
 									callback : function(_data){
 										layui.use(['layer'], function(){
 											var layer = layui.layer;
