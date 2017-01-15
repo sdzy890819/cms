@@ -54,14 +54,18 @@ define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-b
     // config
     app.config(["$stateProvider", '$urlRouterProvider','$locationProvider', function($stateProvider, $urlRouterProvider,$locationProvider){
         /*$locationProvider.html5Mode(true);*/
-        $urlRouterProvider.otherwise('/home');
+        $urlRouterProvider.otherwise('/home/main');
 
         $stateProvider
             .state("home", angularAMD.route({
                 url: "/home",
                 templateUrl: "template/main.html",
-                controllerUrl: "home/homeCtrl",
                 css: {href: 'js/stylesheets/home.css'}
+            }))
+            .state('home.main', angularAMD.route({
+                url: '/main',
+                template : '<home-main></home-main>',
+                controllerUrl: 'home/index'
             }))
 
             //登录
