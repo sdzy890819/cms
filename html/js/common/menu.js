@@ -58,23 +58,7 @@ define(["app",'jquery','./data/getData','./moduls/directive'], function ( app,$,
 					        		self.next().slideDown("fast");
 			        			}
 				        	}
-				        	/*column.each(function( i , ele ){
-				        		$(ele).click(function(){
-				        			clearMenu( i );
-				        			var self = $(this);
-				        			if(this.parentclas){
-				        				this.parentclas = false;
-				        				$(this).parent().removeClass('open')
-						        			.find('.arrow').removeClass('cur');
-						        		self.next().slideUp("fast");
-				        			}else{
-				        				this.parentclas=true;
-						        		$(this).parent().addClass('open')
-						        			.find('.arrow').addClass('cur');
-						        		self.next().slideDown("fast");
-				        			}
-					        	});
-				        	});*/
+
 
 				        	function showMenu(){
 				        		var name = state.current.name;
@@ -115,7 +99,7 @@ define(["app",'jquery','./data/getData','./moduls/directive'], function ( app,$,
 				        		})
 				        	});
 				        	scope.$on('$viewContentLoaded',function(){
-				        		setTimeout(showMenu, 300);
+				        		setTimeout(showMenu, 500);
 				        	});
 	        			})
 			        }

@@ -84,10 +84,10 @@ define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-b
                 template : '<news-add></news-add>',
                 controllerUrl: 'news/add'
             }))
-            .state('news.list', angularAMD.route({
-                url: '/list',
+            .state('news.newslist', angularAMD.route({
+                url: '/newslist',
                 template : '<news-list></news-list>',
-                controllerUrl: 'news/list'
+                controllerUrl: 'news/newslist'
             }))
 
             //新闻栏目
