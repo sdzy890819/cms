@@ -290,20 +290,20 @@ define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-b
             }))
 
             //用户组
-            .state('userchannel', angularAMD.route({
-                url: '/userchannel',
+            .state('position', angularAMD.route({
+                url: '/position',
                 templateUrl: 'template/common/index.html',
-                controllerUrl: 'userchannel/index'
+                controllerUrl: 'position/index'
             }))
-            .state('userchannel.list', angularAMD.route({ 
+            .state('position.list', angularAMD.route({
                 url: '/list',
-                template: '<userchannel-list></userchannel-list>',
-                controllerUrl: 'userchannel/list'
+                template: '<position-list></position-list>',
+                controllerUrl: 'position/list'
             }))
-            .state('userchannel.add', angularAMD.route({ 
+            .state('position.add', angularAMD.route({
                 url: '/add',
-                template: '<userchannel-add></userchannel-add>',
-                controllerUrl: 'userchannel/add'
+                template: '<position-add></position-add>',
+                controllerUrl: 'position/add'
             }))
 
 
