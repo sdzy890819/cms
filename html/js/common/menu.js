@@ -43,25 +43,20 @@ define(["app",'jquery','./data/getData','./moduls/directive'], function ( app,$,
 				        			}
 				        		});
 				        	}
-				        	scope.$on('menuDone',function( event , element, attr){
-				        		var ul = $(element).parent();
-				        		ul.slideDown("fast");
-				        	});
 				        	scope.menuClick = function(  i , obj , $event ){
 			        			var self = $($event.currentTarget);
 			        			clearMenu( i );
-			        			self.parent().addClass('open').find('.arrow').addClass('cur');
-			        			getData.permission.currentButtonPermission({
-			        				id : obj.id,
-			        				callback : function( _data ){
-			        					$.each(scope.Nav,function( i ){
-			        						if(this.id == obj.id){
-			        							scope.Nav[i][obj.id] = _data.data;
-			        						}
-			        					});
-			        					scope.$apply();
-			        				}
-			        			})
+			        			if(this.parentclas){
+			        				this.parentclas = false;
+			        				$(this).parent().removeClass('open')
+					        			.find('.arrow').removeClass('cur');
+					        		self.next().slideUp("fast");
+			        			}else{
+			        				this.parentclas=true;
+					        		$(this).parent().addClass('open')
+					        			.find('.arrow').addClass('cur');
+					        		self.next().slideDown("fast");
+			        			}
 				        	}
 				        	/*column.each(function( i , ele ){
 				        		$(ele).click(function(){
