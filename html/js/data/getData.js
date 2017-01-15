@@ -581,11 +581,41 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					}
 				});
 			},
+			templateInfo : function( obj ){//模版详细信息 接口
+				T.ajax({
+					url : URL.template.templateInfo , 
+					data : {id:obj.id},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});
+			},
 			createTemplate : function( obj ){//读取所有的模版对应的关系列表 接口
 				T.ajax({
 					url : URL.template.createTemplate , 
 					type : 'POST',
 					data : {
+						"templateName":obj.templateName,
+						"templateDesc":obj.templateDesc,
+						"filename":obj.filename,
+						"path":obj.path,
+						"templateClassify":obj.templateClassify,
+						"job":obj.job, //是否定时生成。1是定时生成。0是触发生成
+						"encoded":obj.encoded,
+						"channelId":obj.channelId,//频道ID
+						"sortNum":obj.sortNum,//排序值
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});
+			},
+			updateTemplate : function( obj ){//模版修改 接口
+				T.ajax({
+					url : URL.template.updateTemplate , 
+					type : 'POST',
+					data : {
+						id : obj.id,
 						"templateName":obj.templateName,
 						"templateDesc":obj.templateDesc,
 						"filename":obj.filename,

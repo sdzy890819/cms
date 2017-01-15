@@ -143,6 +143,18 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 							}
 						});
 
+						/*$scope.$watch(
+							function(){
+								return $scope.data;
+							},function(){ 
+								if($scope.data){
+									form.render(); //更新全部
+									console.log(1)
+									debugger;
+								}
+							}
+						);*/
+
 					  	form.render(); //更新全部
 					  	//自定义验证规则
 						form.verify({

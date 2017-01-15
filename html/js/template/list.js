@@ -1,9 +1,9 @@
 define(['require',"app",'jquery'
 	,'../data/getData' , './addForm', './editForm'
-	,'../moduls/Tool'
+	,'../moduls/Tool','../common/editPop'
 	,'formlist','fixedNav','position'
 	,'../moduls/service','../moduls/factory'
-], function ( require , app , $ , getData , list , editForm , Tool ) {
+], function ( require , app , $ , getData , list , editForm , Tool , editPop ) {
 	app.directive('templateList',function(){
 		return {
 	    	restrict : 'E',
@@ -51,11 +51,10 @@ define(['require',"app",'jquery'
 					},
 					edit : function( obj ){ //保存
 						function updateData(callback){ //填充数据
-							getData.topic.topicInfo({
+							getData.template.templateInfo({
 								id : obj.id,
 								callback : function(_data){
-									_data.data.releaseTime = new Date(_data.data.releaseTime).format('yyyy-MM-dd h:m:s');
-									
+									//_data.data.releaseTime = new Date(_data.data.releaseTime).format('yyyy-MM-dd h:m:s');
 									callback(_data);
 								}
 							})
@@ -66,34 +65,26 @@ define(['require',"app",'jquery'
         					list : list,
         					updateData : updateData,
         					save : function(obj , _detail ){ //保存 新增 确认 等
-        						var channelId , topicColumnId , categoryId , topicClassifyId;
+								var templateClassify  , channelId;
 								$.each(obj.selects,function(){
+									if(this.title == 'templateClassify'){
+										templateClassify = this.type;
+									}
 									if(this.title == 'channelId'){
-										channelId = this.id;
-									}
-									if(this.title == 'topicColumnId'){
-										topicColumnId = this.id;
-									}
-									if(this.title == 'categoryId'){
-										categoryId = this.id;
-									}
-									if(this.title == 'topicClassifyId'){
-										topicClassifyId = this.id;
+										channelId = this.type;
 									}
 								});
-								getData.topic.updateTopic({
+								getData.template.updateTemplate({
 									id : _detail.id,
-									"topicTitle":obj.topicTitle,
-									"topicContent":obj.topicContent,
-									"topicPath":obj.topicPath,
-									"topicFilename":obj.topicFilename,
-									"topicClassifyId":topicClassifyId,//专题分类ID
-									"categoryId":categoryId,//部门类别ID
-									"channelId":channelId, //频道ID
-									"releaseTime":obj.releaseTime, //发布时间
-									"keyword":obj.keyword,
-									"description":obj.description,
-									"topicColumnId":topicColumnId, //专题栏目ID(做系列专题使用)
+									"templateName":obj.templateName,
+									"templateDesc":obj.templateDesc,
+									"filename":obj.filename,
+									"path":obj.path,
+									"templateClassify":templateClassify,
+									"job":(obj.job=='触发生成'?1:0), //是否定时生成。1是定时生成。0是触发生成
+									"encoded":obj.encoded,
+									"channelId":channelId,//频道ID
+									"sortNum":obj.sortNum,//排序值
 									callback : function(_data){
 										layui.use(['layer'], function(){
 											var layer = layui.layer;
@@ -106,28 +97,6 @@ define(['require',"app",'jquery'
 								});
         					},
         					callback : function( list , callback ){ //返回获取的数据 用于操作
-        						$.each(list,function( i , obj){
-									if(obj.title == 'content'){
-										obj.width = '800px';
-									}
-									if(obj.type=='select'){
-										obj.callback = function( _object ){
-											if(_object.title == 'categoryId'){
-												getData.channel.currentChannelList({
-													categoryId : _object.obj.id,
-													callback : function(_data){
-														var arr = [obj.select[1][0]];
-														obj.select[1] = arr;
-														obj.select[1] = obj.select[1].concat(Tool.changeObjectName(_data.data,[{name:'channelName',newName:'name'}]));
-									
-														$scope.$apply();
-														_object.callback();
-													}
-												})
-											}
-										}
-									}
-								});
 								callback(list);
         					},
         					$uibModal :$uibModal 

@@ -19,9 +19,6 @@ define(["app",'jquery','form'],function (app,$) {
 				size: 'lg',
 				controller: function($scope,$uibModalInstance,$css) {
 					$scope.data = null;
-					obj.updateData(function(_data){
-						$scope.data = _data.data;
-					});
 					angular.extend($scope,{
 						titelement : {
 					  		close : true
@@ -57,6 +54,12 @@ define(["app",'jquery','form'],function (app,$) {
 									}*/
 								]
 							}
+							obj.updateData(function(_data){
+								$scope.data = _data.data;
+								if(!$scope.$$phase) { 
+									$scope.$apply();
+								} 
+							});
 							if(!$scope.$$phase) { 
 								$scope.$apply();
 							} 

@@ -82,9 +82,9 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 		var self = obj.self;
 		if(self.type=='select'){
 			if(self.select[0][0].title=='templateClassify'){
-				self.select[0] = self.select[0].concat(obj.data.templateClassify);
+				self.select[0] = self.select[0].concat(Tool.changeObjectName(obj.data.templateClassify,[{name:'type',newName:'id'}]));
 			}else if(self.select[0][0].title=='channelId'){
-				self.select[0] = self.select[0].concat(obj.data.relationType);
+				self.select[0] = self.select[0].concat(Tool.changeObjectName(obj.data.relationType,[{name:'type',newName:'id'}]));
 			}
 		}else if(self.type=='radio'){
 			if(self.title=='encoded'){
