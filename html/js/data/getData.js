@@ -18,9 +18,8 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 							obj.success(_data);
 						}else{
 							if(_data.code == -1 ){//未登录
-								initInfo.getUserInfo({callback:function(){
-
-								}});
+								window.location.href = '/#/login';
+								return;
 							}else if(_data.code == -111 ){ //无权限
 
 							}
@@ -578,6 +577,51 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						obj.callback(_data)
 					}
 				});
+			},
+			createTopic : function( obj ){//新建专题分类
+				T.ajax({
+					url : URL.topic.createTopic , 
+					type : 'POST',
+					data : {
+						"topicTitle":obj.topicTitle,
+						"topicContent":obj.topicContent,
+						"topicPath":obj.topicPath,
+						"topicFilename":obj.topicFilename,
+						"topicClassifyId":obj.topicClassifyId,//专题分类ID
+						"categoryId":obj.categoryId,//部门类别ID
+						"channelId":obj.channelId, //频道ID
+						"releaseTime":obj.releaseTime, //发布时间
+						"keyword":obj.keyword,
+						"description":obj.description,
+						"topicColumnId":obj.topicColumnId, //专题栏目ID(做系列专题使用)
+					},
+					success : function( _data ){
+						obj.callback(_data)
+					}
+				});
+			},
+			updateTopic : function( obj ){//新建专题分类
+				T.ajax({
+					url : URL.topic.updateTopic , 
+					type : 'POST',
+					data : {
+						id : obj.id,
+						"topicTitle":obj.topicTitle,
+						"topicContent":obj.topicContent,
+						"topicPath":obj.topicPath,
+						"topicFilename":obj.topicFilename,
+						"topicClassifyId":obj.topicClassifyId,//专题分类ID
+						"categoryId":obj.categoryId,//部门类别ID
+						"channelId":obj.channelId, //频道ID
+						"releaseTime":obj.releaseTime, //发布时间
+						"keyword":obj.keyword,
+						"description":obj.description,
+						"topicColumnId":obj.topicColumnId, //专题栏目ID(做系列专题使用)
+					},
+					success : function( _data ){
+						obj.callback(_data)
+					}
+				});
 			}
 			,listTopic : function( callback ){//模版列表［分页］ 接口
 				T.ajax({
@@ -623,9 +667,37 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					}
 				});
 			},
+			delTopic : function( obj ){//删除分类栏目列表
+				T.ajax({
+					url : URL.topic.delTopic ,
+					data : {id:obj.id}, 
+					success : function( _data ){
+						obj.callback(_data)
+					}
+				});
+			},
+			delTopicClassify : function( obj ){//删除专题分类 
+				T.ajax({
+					url : URL.topic.delTopicClassify ,
+					data : {id:obj.id}, 
+					success : function( _data ){
+						obj.callback(_data)
+					}
+				});
+			},
 			updateTopicColumn: function( obj ){//删除分类栏目列表
 				T.ajax({
 					url : URL.topic.updateTopicColumn ,
+					type : 'POST',
+					data : {id:obj.id,name:obj.name}, 
+					success : function( _data ){
+						obj.callback(_data)
+					}
+				});
+			},
+			updateTopicClassify: function( obj ){//删除分类栏目列表
+				T.ajax({
+					url : URL.topic.updateTopicClassify ,
 					type : 'POST',
 					data : {id:obj.id,name:obj.name}, 
 					success : function( _data ){

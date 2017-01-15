@@ -48,7 +48,7 @@
     </sql>
 
     <sql id="sql_column_simple">
-        id,title,source,author,channel_id,column_id,write_user_id,platform,category_id
+        id,title,source,author,channel_id,column_id,write_user_id,platform,category_id,publish,update_time,build_time
     </sql>
 
     <sql id="sql_column_simple_1">
@@ -61,7 +61,7 @@
     </select>
     
     <select id="queryNewsList" resultMap="news">
-        select <include refid="sql_column_simple" /> from news <include refid="delTag" /> limit ${page.start},${page.pageSize};
+        select <include refid="sql_column_simple" /> from news <include refid="delTag" />  order by update_time desc limit ${page.start},${page.pageSize};
     </select>
     
     <select id="findNewsAndDetail" resultMap="news">
@@ -144,7 +144,7 @@
 
     <select id="findNewsByColumnId" resultMap="news">
         select <include refid="sql_column" /> from news <include refid="delTag" /> and publish = 1 and column_id = ${columnId}
-        order by id desc limit ${page.start}, ${page.pageSize};
+        order by update_time desc limit ${page.start}, ${page.pageSize};
     </select>
 
     <update id="publishNews" >

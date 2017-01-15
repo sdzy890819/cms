@@ -30,7 +30,7 @@
     </sql>
 
     <select id="findPermissionList" resultMap="permission">
-        select <include refid="sql_column"/> from permission <include refid="delTag"/> order by sort asc;
+        select <include refid="sql_column"/> from permission <include refid="delTag"/> order by sort,update_time asc;
     </select>
 
     <insert id="createPermission" useGeneratedKeys="true" keyProperty="p1.id">

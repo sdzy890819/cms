@@ -149,6 +149,16 @@ public class News extends Base{
      */
     private Date timer;
 
+    private String publishStr;
+
+    public String getPublishStr(){
+        PublishEnum publishEnum = PublishEnum.get(publish);
+        if(publishEnum!=null){
+            return publishEnum.getName();
+        }
+        return publishStr;
+    }
+
     public String getPlatformStr(){
         return PlatformEnum.get(platform).getName();
     }

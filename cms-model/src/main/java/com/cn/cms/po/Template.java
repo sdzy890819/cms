@@ -53,4 +53,14 @@ public class Template extends TemplateBasics {
     @Setter
     private Integer publish = PublishEnum.NO.getType();
 
+    private String publishStr;
+
+    public String getPublishStr(){
+        PublishEnum publishEnum = PublishEnum.get(publish);
+        if(publishEnum!=null){
+            return publishEnum.getName();
+        }
+        return publishStr;
+    }
+
 }

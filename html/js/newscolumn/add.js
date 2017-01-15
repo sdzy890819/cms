@@ -1,5 +1,5 @@
 define(["app",'./columnForm','../data/getData','form','position','fixedNav'], function ( app , getList ,getData ) {
-	app.directive('newsEdit',function(){
+	app.directive('newscolumnAdd',function(){
 		return {
 	    	restrict : 'E',
 	    	replace : true,

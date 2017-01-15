@@ -54,14 +54,18 @@ define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-b
     // config
     app.config(["$stateProvider", '$urlRouterProvider','$locationProvider', function($stateProvider, $urlRouterProvider,$locationProvider){
         /*$locationProvider.html5Mode(true);*/
-        $urlRouterProvider.otherwise('/home');
+        $urlRouterProvider.otherwise('/home/main');
 
         $stateProvider
             .state("home", angularAMD.route({
                 url: "/home",
                 templateUrl: "template/main.html",
-                controllerUrl: "home/homeCtrl",
                 css: {href: 'js/stylesheets/home.css'}
+            }))
+            .state('home.main', angularAMD.route({
+                url: '/main',
+                template : '<home-main></home-main>',
+                controllerUrl: 'home/index'
             }))
 
             //登录
@@ -84,16 +88,16 @@ define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-b
                 template : '<news-add></news-add>',
                 controllerUrl: 'news/add'
             }))
-            .state('news.list', angularAMD.route({
-                url: '/list',
+            .state('news.newslist', angularAMD.route({
+                url: '/newslist',
                 template : '<news-list></news-list>',
-                controllerUrl: 'news/list'
+                controllerUrl: 'news/newslist'
             }))
 
             //新闻栏目
             .state('newscolumn', angularAMD.route({
                 url: '/newscolumn',
-                template : 'template/common/index.html',
+                templateUrl : 'template/common/index.html',
                 controllerUrl: 'newscolumn/index'
             }))
             .state('newscolumn.add', angularAMD.route({

@@ -158,7 +158,8 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 								};
 							}
 							,path : function( value ){
-								var reg = /^([A-Za-z]{1}\/[\w\/]*)?\w+\/{1}[a-zA-Z]+$/;
+								//var reg = /^\/+([A-Za-z]{1}\/[\w\/]*)?\w+\/{1}[a-zA-Z]+$/;
+								var reg = /^\/+[\w|\d]+\/{1}[\w|\d]?$/;
 								if(value.search(reg)<0){
 									return '请输入正确的路经（例：xy/xy）';
 								};
@@ -167,6 +168,12 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 								if(value.indexOf('请选择')>-1 && ele.parentNode.selectedIndex == 0){
 									return value;
 								}
+							}
+							,html : function( value ){
+								var reg = /^\w+\.html/;
+								if(value.search(reg)<0){
+									return '请输入正确文件名（例：index.html）';
+								};
 							}
 							//required（必填项）phone（手机号）email（邮箱）url（网址）number（数字）date（日期）identity（身份证）
 						});

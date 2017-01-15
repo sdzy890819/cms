@@ -23,7 +23,7 @@
     </sql>
 
     <select id="queryFragmentClassify" resultMap="fragmentClassify">
-        select <include refid="sql_column" /> from fragment_classify <include refid="delTag" />;
+        select <include refid="sql_column" /> from fragment_classify <include refid="delTag" />  order by update_time desc;
     </select>
 
     <update id="updateFragmentClassify" >

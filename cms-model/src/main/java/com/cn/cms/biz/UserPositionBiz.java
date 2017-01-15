@@ -35,4 +35,16 @@ public class UserPositionBiz extends BaseBiz {
         }
     }
 
+    public void delUserPosition(String lastModifyId, String userId, Long positionId){
+        UserPosition userPosition = new UserPosition();
+        userPosition.setPositionId(positionId);
+        userPosition.setUserId(userId);
+        userPosition.setLastModifyUserId(lastModifyId);
+        userService.delUserPosition(userPosition);
+    }
+
+    public List<UserPosition>  findUserPositionByUserId(String userId){
+        return userService.findUserPositionByUserId(userId);
+    }
+
 }

@@ -7,24 +7,36 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 			placeholder : '请输入专题标题',
 			verify : 'title'
 		},
+		[
+			{
+				title : 'topicPath',
+				name : '发布目录',
+				type : 'text',
+				placeholder : '请输入发布目录',
+				verify : 'path'
+			},
+			{
+				title : 'topicFilename',
+				name : '专题文件名',
+				placeholder : '请输入专题文件名',
+				type : 'text', //text textarea radio checkbox edit
+				verify : 'html'
+			}
+		],
 		{
-			title : 'topicContent',
-			name : '专题内容',
-			placeholder : '请输入视频标题',
-			type : 'textarea' //text textarea radio checkbox edit
-		},
-		{
-			title : 'topicPath',
-			name : '专题相对路径',
-			type : 'text',
-			placeholder : '请输入视频说明'
-		},
-		{
-			title : 'topicFilename',
-			name : '专题文件名',
-			placeholder : '请输入专题文件名',
-			type : 'text', //text textarea radio checkbox edit
-			verify : 'title'
+			title : 'channelId',
+			selectName : ['categoryId','channelId'],
+			name : '请选择分类',
+			type : 'select',
+			verify : 'select',
+			select : [
+				[
+					{name:'请选择部门类别',title:'categoryId'}
+				],
+				[
+					{name:'请选择频道类别',title:'channelId'}
+				]
+			]
 		},
 		[
 			{
@@ -42,24 +54,12 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 			{
 				title : 'topicColumnId',
 				selectName : ['topicColumnId'],
-				name : '专题栏目',
+				name : '系列专题',
 				type : 'select',
 				verify : 'select',
 				select : [
 					[
 						{name:'请选择专题栏目',title:'topicColumnId'}
-					]
-				]
-			},
-			{
-				title : 'channelId',
-				selectName : ['channelId'],
-				name : '频道类别',
-				type : 'select',
-				verify : 'select',
-				select : [
-					[
-						{name:'请选择频道类别',title:'channelId'}
 					]
 				]
 			}
@@ -81,22 +81,82 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 		{
 			title : 'description',
 			name : '描述',
-			placeholder : '请输入关键字以“,”间隔',
-			type : 'text'
+			placeholder : '请输入描述',
+			type : 'textarea'
+		},
+		{
+			title : 'topicContent',
+			name : '内容',
+			height : 100,
+			placeholder : '请输入内容',
+			type : 'textarea'
 		}
 	];
+	function setData(obj){
+		var self = obj.self;
+		if(self.type=='select'){
+			if(self.select[0][0].title==obj.title){
+				self.select[0] = self.select[0].concat(Tool.changeObjectName(obj.data.data,[{name:obj.changeName,newName:'name'}]));
+			}
+		}
+	}
 	function getList(callback){
-		getData.topic.topicColumnList({//部门
+		getData.topic.topicColumnList({//系列专题是。topicColumn
 			callback:function(_data){
-				$.each(list,function(i , obj){
-					if(obj.type=='select'){
-						if(obj.select[0][0].title=='topicClassifyId'){
-							obj.select[0] = obj.select[0].concat(Tool.changeObjectName(_data.data,[{name:'categoryName',newName:'name'}]));
+				getData.topic.topicClassifyList({//专题分类 topicClassifyId
+					callback : function( _data1 ){
+						getData.category.listCategory({//获取部门分类列表 categoryId
+							callback : function( _data2 ){
+								$.each(list,function(i , obj){
+									if($.type(obj)=='array'){
+										$.each(obj,function(){
+											setData({
+												self : this, //对像本身
+												title : 'topicColumnId', //需要添加到arr的，title名称
+												data : _data , //数据
+												changeName : 'columnName' //需要显示字段的 name 名称
+											});
+											setData({
+												self : this,
+												title : 'topicClassifyId',
+												data : _data1 ,
+												changeName : 'classifyName'
+											});
+											setData({
+												self : this,
+												title : 'categoryId',
+												data : _data2 ,
+												changeName : 'categoryName'
+											});
+										})
+									}else{
+										setData({
+											self : this,
+											title : 'topicColumnId',
+											data : _data ,
+											changeName : 'classifyName'
+										});
+										setData({
+											self : this,
+											title : 'topicClassifyId',
+											data : _data1 ,
+											changeName : 'classifyName'
+										});
+										setData({
+											self : this,
+											title : 'categoryId',
+											data : _data2 ,
+											changeName : 'categoryName'
+										});
+									}
 
-						}
+								})
+								callback(list);
+							}
+						});
 					}
-				})
-				callback(list);
+				});
+
 			}
 		});
 	}

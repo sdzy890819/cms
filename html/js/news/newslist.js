@@ -3,7 +3,7 @@ define(['require',"app",'jquery'
 	,'formlist','fixedNav','position'
 	,'../moduls/service','../moduls/factory'
 ], function ( require , app , $ , list , editPop ,getData , Tool  ) {
-	app.directive('newsNewslist',function(){
+	app.directive('newsList',function(){
 		return {
 	    	restrict : 'E',
 	    	replace : true,
@@ -66,6 +66,9 @@ define(['require',"app",'jquery'
 										layui.use(['layer'], function(){
 											var layer = layui.layer;
 											layer.msg(_data.message);
+											setTimeout(function(){
+												location.reload();
+											},300);
 										});
 									}
 								});

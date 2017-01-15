@@ -16,7 +16,8 @@ define(['require',"app",'jquery'
 				angular.extend($scope,{
 					edit : function( obj ){ //保存 obj为原始数据
 						function updateData(callback){ //填充数据
-							callback(obj)
+							GenerateArrList.changeTypeName([obj],[{name:'classifyName',newName:'name'}])
+							callback({data:obj})
 							/*getData.topic.topicInfo({
 								id : obj.id,
 								callback : function(_data){
@@ -31,7 +32,7 @@ define(['require',"app",'jquery'
         					list : list,
         					updateData : updateData,
         					save : function(_obj , _detail ){ //保存 新增 确认 等 _obj为修改后的数据 _detail等于updateData 
-								getData.topic.updateTopicColumn({
+								getData.topic.updateTopicClassify({
 									id : obj.id,
 									name : _obj.name,
 									callback : function(_data){
@@ -65,15 +66,15 @@ define(['require',"app",'jquery'
 	 						 text:'您确定要删除"'+obj.columnName+'"吗'
 	 						,btn : ['确定','取消']
 	 						,fn : function(){
-	 							getData.topic.delTopicColumn(obj);
+	 							getData.topic.delTopicClassify(obj);
 							}
 	 					})
 					}
 				});
-				getData.topic.topicColumnList({
+				getData.topic.topicClassifyList({
 					callback : function(_data){
 						var th = [
-							{name:'专题分类名称' , key:'columnName'},
+							{name:'专题分类名称' , key:'classifyName'},
 							{name:'操作' , width : '120', class:'center'}
 						];
 						$scope.listdata = { //确认按钮
