@@ -61,7 +61,9 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 					        	$css.add('../../wangEditor/dist/css/wangEditor.min.css');
 					        	textEdit.init($scope,{
 					        		callback : function(editor){
-					        			if($scope.data){
+
+					        			/*if($scope.data){
+					        				//debugger;
 								        	$timeout(function(){
 								        		try{
 								        			$scope.editor.$txt.html($scope.data.newsDetail.content||'请输入内容');
@@ -71,7 +73,7 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 											$timeout(function(){
 												$scope.editor.$txt.html('请输入内容');
 											},400)
-										}
+										}*/
 					        		}
 					        	});
 							}
@@ -119,6 +121,9 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 										}
 									});
 								});
+							}else if(this.type=='edit'){ //富文本
+								var html = $('.wangEditor').attr('data-html');
+								window.wangEditor.$txt.html(html);
 							}
 					  	}
 

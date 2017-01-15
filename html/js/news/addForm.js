@@ -68,6 +68,7 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 		},
 		{
 			title : 'content',
+			cls : 'newsEdit',
 			name : '内容',
 			width : '800px',
 			height : '200px',
