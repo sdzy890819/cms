@@ -94,6 +94,8 @@ public interface UserService {
      */
     void insertUserPosition(UserPosition userPosition);
 
+    void delUserPosition(UserPosition userPosition);
+
     /**
      * 根据用户ID＋用户组ID 获取
      * @param userId
@@ -142,6 +144,8 @@ public interface UserService {
      * @return
      */
     List<Position> findPositionList(Page page);
+
+    List<Position> findPositionListAll();
 
     /**
      * 获取所有的权限
@@ -202,5 +206,7 @@ public interface UserService {
     Integer searchUsersCount(UserSearch userSearch);
 
     List<User> searchUsers(UserSearch userSearch, Page page);
+
+    List<UserPosition> findUserPositionByUserId(String userId);
 
 }

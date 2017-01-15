@@ -769,28 +769,100 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 			}
 		},
 		fragment : {
-			listFragment : function( callback ){ //获取碎片列表
+			listFragment : function( obj ){ //获取碎片列表
 				T.ajax({
 					url : URL.fragment.listFragment , 
 					type : 'get',
-					data : {},
+					data : {
+						page     : obj.page,
+						pageSize : obj.pageSize
+					},
 					success : function( _data ){
-						callback(_data);
+						obj.callback(_data);
 					}
 				});
 			},
-			findFragment : function( callback ){ //获取碎片详细信息
+			findFragment : function( obj ){ //获取碎片详细信息
+				T.ajax({
+					url : URL.fragment.findFragment , 
+					type : 'get',
+					data : {
+						id : obj.id
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});				
 			},
-			delFragment : function( callback ){ //删除碎片
+			delFragment : function( obj ){ //删除碎片
+				T.ajax({
+					url : URL.fragment.delFragment , 
+					type : 'get',
+					data : {
+						id : obj.id
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});						
 			},
-			editFragment : function( callback ){ //编辑碎片
+			editFragment : function( obj ){
+				T.ajax({
+					url : URL.fragment.editFragment, 
+					type : 'post',
+					data : {
+						id : obj.id,
+						values : obj.values.toString()
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});							
 			},
-			fragmentMap : function( callback ){ //获取编辑碎片的Map维护信息
+			fragmentMap : function( obj ){ //获取编辑碎片的Map维护信息
+				T.ajax({
+					url : URL.fragment.fragmentMap , 
+					type : 'get',
+					data : {
+						id : obj.id
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});							
 			},
-			updateFragment : function( callback ){ //修改碎片
+			updateFragment : function( obj ){ //修改碎片
+				T.ajax({
+					url : URL.fragment.updateFragment, 
+					type : 'post',
+					data : {
+						id : obj.id,
+						channelId : obj.channelId,
+						fragmentClassifyId : obj.fragmentClassifyId,
+						fragmentName : obj.fragmentName,
+						sortNum : obj.sortNum,
+						fragmentModel : obj.fragmentModel
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});				
 			},
-			createFragment : function( callback ){ //创建碎片信息
-
+			createFragment : function( obj ){ //创建碎片信息
+				T.ajax({
+					url : URL.fragment.createFragment, 
+					type : 'post',
+					data : {
+						channelId : obj.channelId,
+						fragmentClassifyId : obj.fragmentClassifyId,
+						fragmentName : obj.fragmentName,
+						sortNum : obj.sortNum,
+						fragmentModel : obj.fragmentModel
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});
 			},
 			listHistory : function( callback ){ //碎片编辑的历史纪录［分页查询］
 				T.ajax({
@@ -802,32 +874,64 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					}
 				});
 			},
-			listClassify : function( callback ){ //碎片编辑的历史纪录［分页查询］
+			listClassify : function( obj ){ //碎片分类列表
 				T.ajax({
 					url : URL.fragment.listClassify , 
 					type : 'get',
 					data : {},
 					success : function( _data ){
-						callback(_data);
+						obj.callback(_data);
 					}
 				});
 			},
-			createClassify : function( callback ){ //分类列表
+			createClassify : function( obj ){ //新建碎片分类
 				T.ajax({
 					url : URL.fragment.createClassify , 
-					type : 'get',
-					data : {},
+					type : 'post',
+					data : {
+						classifyName : obj.classifyName
+					},
 					success : function( _data ){
-						callback(_data);
+						obj.callback(_data);
 					}
 				});
 			},
-			updateClassify : function( callback ){ //分类修改
+			updateClassify : function( obj ){ //分类修改
+				T.ajax({
+					url : URL.fragment.updateClassify , 
+					type : 'post',
+					data : {
+						id : obj.id,
+						classifyName : obj.classifyName
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});				
 			},
-			delClassify : function( callback ){ //删除分类
-				
+			delClassify : function( obj ){ //删除分类
+				T.ajax({
+					url : URL.fragment.delClassify , 
+					type : 'get',
+					data : {
+						id : obj.id
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});				
 			},
-			publish : function( callback ){ //发布
+			publish : function( obj ){ //发布
+				T.ajax({
+					url : URL.fragment.publish , 
+					type : 'get',
+					data : {
+						id : obj.id
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});	
 			}
 		}
 	}

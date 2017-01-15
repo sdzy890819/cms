@@ -19,10 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by zhangyang on 16/12/1.
@@ -132,7 +129,7 @@ public class FragmentController extends BaseController {
         if(fragment == null){
             return ApiResponse.returnFail(StaticContants.ERROR_FRAGMENT_NOT_FOUND);
         }
-        Map<String,String> map = new HashMap<>();
+        Map<String,String> map = new LinkedHashMap<>();
         List<String> keys = FragmentUtil.getKey(fragment.getFragmentModel(), RegexNumEnum.REGEX_MATCHER_1);
         if(StringUtils.isEmpty(keys)){
             return ApiResponse.returnFail(StaticContants.ERROR_FRAGMENT_MODEL);

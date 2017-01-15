@@ -24,11 +24,19 @@
         insert into user_position (<include refid="sql_column" />) value (null,#{p1.lastModifyUserId},${p1.positionId},#{p1.userId});
     </insert>
 
+    <update id="delUserPosition">
+        update user_position set last_modify_user_id = #{p1.lastModifyUserId}, del_tag = 0 where user_id = #{p1.userId} and position_id = ${p1.positionId};
+    </update>
+
     <select id="findUserPosition" resultMap="userPosition">
         select <include refid="sql_column" /> from user_position <include refid="delTag"/> and user_id = #{userId} and position_id = ${positionId};
     </select>
 
     <select id="findUserPositionByPostionId" resultMap="userPosition">
         select <include refid="sql_column" /> from user_position <include refid="delTag"/> and position_id = ${positionId};
+    </select>
+
+    <select id="findUserPositionByUserId" resultMap="userPosition">
+        select <include refid="sql_column" /> from user_position <include refid="delTag"/> and user_id = #{userId};
     </select>
 </mapper>

@@ -44,7 +44,7 @@
     </select>
     
     <select id="queryTopicList" resultMap="topic">
-        select <include refid="sql_column_simple" /> from topic <include refid="delTag" /> limit ${page.start},${page.pageSize};
+        select <include refid="sql_column_simple" /> from topic <include refid="delTag" />  order by update_time desc limit ${page.start},${page.pageSize};
     </select>
 
     <select id="getTopic" resultMap="topic" >

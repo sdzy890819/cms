@@ -1,15 +1,13 @@
 package com.cn.cms.web.controller;
 
 import com.cn.cms.biz.NewsBiz;
+import com.cn.cms.biz.PermissionBiz;
 import com.cn.cms.biz.PublishBiz;
 import com.cn.cms.biz.UserBiz;
 import com.cn.cms.bo.UserBean;
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.enums.AutoPublishEnum;
 import com.cn.cms.enums.CommonMessageSourceEnum;
-import com.cn.cms.exception.BizException;
-import com.cn.cms.message.BuildSendMessage;
-import com.cn.cms.message.bean.Body;
 import com.cn.cms.po.News;
 import com.cn.cms.po.NewsDetail;
 import com.cn.cms.utils.Page;
@@ -18,12 +16,13 @@ import com.cn.cms.web.ann.CheckAuth;
 import com.cn.cms.web.ann.CheckToken;
 import com.cn.cms.web.result.ApiResponse;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -45,6 +44,9 @@ public class NewsController extends BaseController {
 
     @Resource
     private PublishBiz publishBiz;
+
+    @Resource
+    private PermissionBiz permissionBiz;
 
 
     /**
@@ -183,7 +185,10 @@ public class NewsController extends BaseController {
         }
         newsBiz.saveNews(news);
         if(autoPublish!=null && autoPublish == AutoPublishEnum.YES.getType() && news.getTimer() == null){
-            publish(request, news.getId());
+
+            if(permissionBiz.checkPermission(userID, "news:publish")) {
+                publish(request, news.getId());
+            }
         }
         return ApiResponse.returnSuccess();
     }
@@ -260,7 +265,9 @@ public class NewsController extends BaseController {
         }
         newsBiz.updateNews(news);
         if(autoPublish!=null && autoPublish == AutoPublishEnum.YES.getType() && news.getTimer() == null){
-            publish(request, id);
+            if(permissionBiz.checkPermission(userID, "news:publish")) {
+                publish(request, id);
+            }
         }
         return ApiResponse.returnSuccess();
     }

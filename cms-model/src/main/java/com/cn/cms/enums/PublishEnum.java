@@ -7,8 +7,9 @@ import lombok.Getter;
  */
 public enum PublishEnum {
 
-    YES("YES", 1),
-    NO("NO", 0);
+    YES("已发布", 1),
+    NO("未发布", 0),
+    draft("草稿", 2);
 
     @Getter
     private int type;

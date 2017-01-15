@@ -1,33 +1,77 @@
-define(function(){
-	return [ //表单
+define(['../data/getData','../moduls/Tool'], function(Data, Tool){
+	var list = [ //表单
+		{
+			title : 'channelId',
+			selectName : [
+				'channelId'
+			],
+			name : '选择频道',
+			type : 'select',
+			verify : 'select',
+			select : [
+				[
+					{name:'请选择频道',title:'channelId'}
+				]
+			]
+		},
 		{
 			title : 'fragmentClassifyId',
-			name : '碎片分类ID',
-			type : 'text', //text textarea radio checkbox edit
-			placeholder : '请输入专题标题',
-			verify : 'title'
-		},
+			selectName : [
+				'fragmentClassifyId'
+			],
+			name : '选择碎片分类',
+			type : 'select',
+			verify : 'select',
+			select : [
+				[
+					{name:'请选择碎片',title:'fragmentClassifyId'}
+				]
+			]
+		},		
 		{
 			title : 'fragmentName',
 			name : '碎片名称',
-			placeholder : '请输入视频标题',
+			placeholder : '请输入碎片名称',
 			type : 'text', //text textarea radio checkbox edit
 			verify : 'title'
+		},
+
+		{
+			title : 'fragmentModel',
+			name : '碎片模版',					
+			type : 'textarea' //text textarea radio checkbox edit			
 		},
 		{
 			title : 'sortNum',
 			name : '排序值',
 			type : 'text',
 			verify : 'number'
-		},
-		{
-			title : 'fragmentModel',
-			name : '上传碎片模版',
-			cls : 'uploadFragment',
-			fileType : 'file',
-			ext : 'html|htm|shtml',
-			type : 'upload', //text textarea radio checkbox edit
-			verify : 'upload'
-		}
-	]
+		}		
+	];
+
+	function getList(callback){
+		Data.channel.listChannel({//部门
+			callback : function(_data){							
+				$.each(list, function(i, obj){
+					if (obj.title == 'channelId'){
+						obj.select[0] = obj.select[0].concat(Tool.changeObjectName(_data.data,[{name:'channelName',newName:'name'}]));
+					}
+				})
+
+				callback(list);
+			}			
+		});
+
+		Data.fragment.listClassify({
+			callback : function(_data){							
+				$.each(list, function(i, obj){
+					if (obj.title == 'fragmentClassifyId'){
+						obj.select[0] = obj.select[0].concat(Tool.changeObjectName(_data.data,[{name:'classifyName',newName:'name'}]));	
+					}
+				})
+				callback(list);
+			}
+		})
+	}	
+	return getList;	
 })
