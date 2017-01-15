@@ -231,7 +231,7 @@ public class PermissionController extends BaseController {
     @RequestMapping(value = "/currentMenuPermission",method = RequestMethod.GET)
     public String currentMenuPermission(HttpServletRequest request){
         String userID = getCurrentUserId(request);
-        List<Permission> list = permissionBiz.getMenuPermission(userID);
+        List<PermissionBean> list = permissionBiz.getMenuPermission(userID);
         return ApiResponse.returnSuccess(list);
     }
 
