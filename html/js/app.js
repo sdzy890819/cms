@@ -116,21 +116,22 @@ define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-b
             }))            
 
             //频道管理
-            .state('column', angularAMD.route({
-                url: '/column',
-                templateUrl: 'template/common/index.html',
-                controllerUrl: 'column/index'
-            }))
-            .state('column.list', angularAMD.route({
-                url: '/list',
-                template: '<column-list></column-list>',
-                controllerUrl: 'column/list'
-            }))
-            .state('column.edit', angularAMD.route({
-                url: '/edit',
-                template: '<column-edit></column-edit>',
-                controllerUrl: 'column/edit'
-            }))
+            //TODO  下面有一个频道管理 
+            // .state('userchannel', angularAMD.route({
+            //     url: '/userchannel',
+            //     templateUrl: 'template/common/index.html',
+            //     controllerUrl: 'userchannel/index'
+            // }))
+            // .state('userchannel.list', angularAMD.route({
+            //     url: '/list',
+            //     template: '<userchannel-list></userchannel-list>',
+            //     controllerUrl: 'userchannel/list'
+            // }))
+            // .state('userchannel.add', angularAMD.route({
+            //     url: '/add',
+            //     template: '<userchannel-add></userchannel-add>',
+            //     controllerUrl: 'userchannel/add'
+            // }))
 
             //用户管理系统
             .state('user', angularAMD.route({
@@ -251,7 +252,7 @@ define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-b
                 controllerUrl: 'userchannel/index'
             }))
             .state('userchannel.list', angularAMD.route({ 
-                url: '/userchannel',
+                url: '/list',
                 template: '<userchannel-list></userchannel-list>',
                 controllerUrl: 'userchannel/list'
             }))
