@@ -334,6 +334,18 @@ define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-b
                 controllerUrl: 'fragment/classList'
             }))
 
+            //统计管理
+            .state('statistics', angularAMD.route({
+                url: '/statistics',
+                templateUrl: 'template/common/index.html',
+                controllerUrl: 'statistics/index'
+            }))
+            .state('statistics.list', angularAMD.route({
+                url: '/list',
+                template: '<statistics-list></statistics-list>',
+                controllerUrl: 'statistics/list'
+            }))
+
     }]);
 
     layui.config({
