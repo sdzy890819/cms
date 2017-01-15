@@ -91,9 +91,6 @@ define(["app",'jquery', '../data/getData', './addForm','form', 'position', 'fixe
 							 	}
 							 })
 						},
-						cancel : function( arr ){ //取消
-							alert(arr)
-						},
 					  	close : function () {
 						   	$uibModalInstance.dismiss('cancel');
 					  	}

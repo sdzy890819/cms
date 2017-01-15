@@ -61,14 +61,15 @@ define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-b
                 url: "/home",
                 templateUrl: "template/main.html",
                 controllerUrl: "home/homeCtrl",
-                css: {href: 'style/stylesheets/home.css'}
+                css: {href: 'js/stylesheets/home.css'}
             }))
 
             //登录
             .state('login', angularAMD.route({
                 url: '/login',
                 templateUrl: 'template/login/index.html',
-                controllerUrl: 'login/index'
+                controllerUrl: 'login/index',
+                css: {href: 'js/plug/layui/css/layui.css'}
             }))
 
             //新闻

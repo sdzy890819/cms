@@ -82,15 +82,14 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 			}
 		},
 		user : {
-			currentUser : function( callback ){ //当前登录用户信息接口
-				T.ajax({
+			currentUser : function( obj ){ //当前登录用户信息接口
+				$.ajax({
 					url : URL.user.currentUser , 
 					type : 'get',
-					data : {},
+					dataType : 'json',
 					success : function(_data){												
-						callback(_data);
-					},
-					error : function(){}
+						obj.callback(_data);
+					}
 				})
 			},
 			userlist : function( obj ){ //栏目列表

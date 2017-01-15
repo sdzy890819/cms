@@ -97,15 +97,23 @@ input:focus{ border: 1px solid #bbb !important;} */
 ::-ms-input-placeholder{ font-size:12px; }
 ::-moz-input-placeholder{ font-size:12px; }
 
-
+#Wapper{ width:100%; height:100%;}
 .banner{ background:url(../../images/banner.png) center 0 no-repeat; @include size(height,550px,1080); background-size:contain; }
 .loadding{ height:200px; background:url(../../images/loadding.gif) center center no-repeat;}
 .container{ padding:0 20px;}
 
 /* login */
 .login{
-    background: #000;
-    
+   position: fixed; left:0; top:0; width:100%; height:100%; background: #000; overflow:hidden;
+   display: box; display:-webkit-box; display:-ms-box; display:-moz-box;
+   box-align:center; box-pack:center; -webkit-box-align:center; -webkit-box-pack:center; -moz-box-align:center; -moz-box-pack:center; -ms-box-align:center; -ms-box-pack:center;
+    .content{
+         min-width:300px; margin:100px auto;
+         .login-icon{ text-align:center; padding:15px 0;}
+         .form{
+              padding:25px 50px; border:1px solid #ccc; border-radius:10px; background:#fff;
+         }
+    }
 }
 
 /*header*/
