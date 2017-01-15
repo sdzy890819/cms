@@ -106,7 +106,7 @@ define(function(require){
 			createTemplate : url+'/template/createTemplate',//创建新模版
 			uploadTemplate : url+'/template/uploadTemplate',//模版上传
 			downTemplate : url+'/template/downTemplate',//模版上传
-			relation : url+'/template/relation',//模版上传
+			relation : url+'/template/relation',//读取所有的模版对应的关系列表 接口
 			updateRelations : url+'/template/updateRelations',//根据relationType 修改模版对应关系
 			createRelation : url+'/template/createRelation',//新增模版关系
 			delRelation : url+'/template/delRelation',//模版关系删除

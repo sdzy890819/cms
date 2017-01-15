@@ -11,6 +11,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 				$.ajax({
 					url : obj.url , 
 					type : obj.type,
+					dataType : obj.dataType,
 					data : obj.data,
 					success : function( _data ){
 						layer.close(loadding);
@@ -34,15 +35,16 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 		},
 		ajax : function( obj ){
 			obj.type = obj.type || 'get';
-			if(!quanjing.user){
+			obj.dataType = obj.dataType || 'json';
+			/*if(!quanjing.user){
 				initInfo.getUserInfo({
 					callback : function(){
 						T.getdata(obj);
 					}
 				})
-			}else{				
+			}else{	*/			
 				T.getdata(obj);
-			}
+			//}
 		}
 	};
 	var public = {
@@ -83,8 +85,6 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 			currentUser : function( obj ){ //当前登录用户信息接口
 				$.ajax({
 					url : URL.user.currentUser , 
-					type : 'get',
-					dataType : 'json',
 					success : function(_data){												
 						obj.callback(_data);
 					}
@@ -93,7 +93,6 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 			userlist : function( obj ){ //栏目列表
 				T.ajax({
 					url : URL.user.userlist , 
-					type : 'get',
 					data : {page: obj.page, pageSize: obj.pageSize},
 					success : function( _data ){
 						obj.callback(_data);
@@ -103,6 +102,14 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 			}
 		},
 		data : {//基础接口
+			all : function( obj ){ //当前登录用户信息接口
+				$.ajax({
+					url : URL.data.all , 
+					success : function(_data){												
+						obj.callback(_data);
+					}
+				})
+			},
 			compress : function(callback){//图片是否压缩选项列表接口
 				T.ajax({
 					url : URL.data.compress , 
@@ -187,8 +194,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					data : {},
 					success : function( _data ){
 						callback(_data)
-					},
-					error : function(){}
+					}
 				})
 			},
 			watermark : function(callback){//图片是否水印选项列表
@@ -555,15 +561,43 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 			}
 		},
 		template : { //模版
-			listTemplate : function( callback ){//模版列表［分页］ 接口
+			listTemplate : function( obj ){//模版列表［分页］ 接口
 				T.ajax({
 					url : URL.template.listTemplate , 
-					type : 'get',
-					data : {},
 					success : function( _data ){
-						callback(_data);
+						obj.callback(_data);
+					}
+				});
+			},
+			template : function( obj ){//读取所有的模版对应的关系列表 接口
+				T.ajax({
+					url : URL.template.listTemplate , 
+					data : {
+						"templateId":obj.templateId,
+						"relationType":obj.relationType //默认0 
 					},
-					error : function(){}
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});
+			},
+			createTemplate : function( obj ){//读取所有的模版对应的关系列表 接口
+				T.ajax({
+					url : URL.template.createTemplate , 
+					data : {
+						"templateName":obj.templateName,
+						"templateDesc":obj.templateDesc,
+						"filename":obj.filename,
+						"path":obj.path,
+						"templateClassify":obj.templateClassify,
+						"job":obj.job, //是否定时生成。1是定时生成。0是触发生成
+						"encoded":obj.encoded,
+						"channelId":obj.channelId,//频道ID
+						"sortNum":obj.sortNum,//排序值
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
 				});
 			}
 		},

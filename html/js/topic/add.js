@@ -70,7 +70,7 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 					});
 					//debugger;
 					$scope.formdata = { //确认按钮
-						title : '新增新闻',
+						title : $scope.title,
 						list : list,
 						submit : [
 							{
