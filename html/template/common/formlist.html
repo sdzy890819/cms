@@ -19,8 +19,9 @@
 						<td ng-if='data.table.select' class='select'>
 							<input type="checkbox">
 						</td>
-						<td ng-repeat='(key,item) in obj.list' class='{{item.class}}'>
-							<span ng-if='item.name'>{{item.name}}</span>
+						<td ng-repeat='item in obj.list' class='{{item.class}}'>
+							<span ng-if='item.name && !item.href'>{{item.name}}</span>
+							<a ng-if='item.name && item.href' href="{{item.href}}" target="_blank">{{item.name}}</a>
 							<img  ng-if='item.image' class="img" src='{{item.image}}'>
 						</td>
 						<td class="edits">

@@ -1061,20 +1061,28 @@ input:focus{ border: 1px solid #bbb !important;} */
 .table td.edits {
   text-align: center;
 }
-/* line 328, ../sass/global.scss */
+/* line 326, ../sass/global.scss */
+.table td a {
+  color: #488be7;
+}
+/* line 327, ../sass/global.scss */
+.table td a:hover {
+  text-decoration: underline;
+}
+/* line 331, ../sass/global.scss */
 .table tr:nth-child(odd) {
   background: #f8f8f8;
 }
-/* line 329, ../sass/global.scss */
+/* line 332, ../sass/global.scss */
 .table tr:hover {
   background: #f2f2f2;
 }
-/* line 331, ../sass/global.scss */
+/* line 334, ../sass/global.scss */
 .table .select {
   width: 20px;
   text-align: center;
 }
-/* line 333, ../sass/global.scss */
+/* line 336, ../sass/global.scss */
 .table .btn {
   display: inline-block;
   margin-left: 1px;
@@ -1089,70 +1097,70 @@ input:focus{ border: 1px solid #bbb !important;} */
   -o-transition-duration: 0.3s;
   -ms-transition-duration: 0.3s;
 }
-/* line 334, ../sass/global.scss */
+/* line 337, ../sass/global.scss */
 .table .btn i {
   margin-right: 3px;
 }
-/* line 335, ../sass/global.scss */
+/* line 338, ../sass/global.scss */
 .table .btn.add {
   background: #35aa47;
   color: #fff;
 }
-/* line 336, ../sass/global.scss */
+/* line 339, ../sass/global.scss */
 .table .btn.add:hover {
   background: #1e9831;
 }
-/* line 338, ../sass/global.scss */
+/* line 341, ../sass/global.scss */
 .table .btn.del {
   background: #f24400;
   color: #fff;
 }
-/* line 339, ../sass/global.scss */
+/* line 342, ../sass/global.scss */
 .table .btn.del:hover {
   background: #da0000;
 }
-/* line 342, ../sass/global.scss */
+/* line 345, ../sass/global.scss */
 .table .btn.edit {
   background: #4d90fe;
   color: #fff;
 }
-/* line 343, ../sass/global.scss */
+/* line 346, ../sass/global.scss */
 .table .btn.edit:hover {
   background: #2673f1;
 }
 
-/* line 347, ../sass/global.scss */
+/* line 350, ../sass/global.scss */
 .tablist {
   margin-top: 0;
 }
-/* line 349, ../sass/global.scss */
+/* line 352, ../sass/global.scss */
 .tablist .submit {
   padding-left: 25px;
 }
 
-/* line 352, ../sass/global.scss */
+/* line 355, ../sass/global.scss */
 .page .paginationjs {
   padding-top: 20px;
   text-align: right;
   font-size: 0;
 }
-/* line 353, ../sass/global.scss */
+/* line 356, ../sass/global.scss */
 .page .paginationjs .paginationjs-pages {
   display: inline-block;
   vertical-align: top;
 }
-/* line 355, ../sass/global.scss */
+/* line 358, ../sass/global.scss */
 .page .paginationjs .paginationjs-pages ul {
   display: inline-block;
   height: 30px;
   border-radius: 4px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
-/* line 356, ../sass/global.scss */
+/* line 359, ../sass/global.scss */
 .page .paginationjs .paginationjs-pages li {
   display: inline-block;
 }
-/* line 357, ../sass/global.scss */
+/* line 360, ../sass/global.scss */
 .page .paginationjs .paginationjs-pages li a {
   float: left;
   padding: 4px 12px;
@@ -1163,36 +1171,36 @@ input:focus{ border: 1px solid #bbb !important;} */
   font-size: 12px;
   color: #999;
 }
-/* line 358, ../sass/global.scss */
+/* line 361, ../sass/global.scss */
 .page .paginationjs .paginationjs-pages li a:hover {
   background: #eee;
 }
-/* line 360, ../sass/global.scss */
+/* line 363, ../sass/global.scss */
 .page .paginationjs .paginationjs-pages li:not(:first-child) a {
   border-left: none;
 }
-/* line 361, ../sass/global.scss */
+/* line 364, ../sass/global.scss */
 .page .paginationjs .paginationjs-pages li.active a {
   background: #eee;
 }
-/* line 364, ../sass/global.scss */
+/* line 367, ../sass/global.scss */
 .page .paginationjs .paginationjs-go-input {
   display: inline-block;
   vertical-align: top;
   padding-left: 10px;
 }
-/* line 365, ../sass/global.scss */
+/* line 368, ../sass/global.scss */
 .page .paginationjs .paginationjs-go-input input[type='text'] {
   width: 30px;
   height: 16px;
   line-height: 16px;
 }
-/* line 367, ../sass/global.scss */
+/* line 370, ../sass/global.scss */
 .page .paginationjs .paginationjs-go-button {
   display: inline-block;
   vertical-align: top;
 }
-/* line 368, ../sass/global.scss */
+/* line 371, ../sass/global.scss */
 .page .paginationjs .paginationjs-go-button .J-paginationjs-go-button {
   height: 30px;
   line-height: 30px;
@@ -1203,17 +1211,17 @@ input:focus{ border: 1px solid #bbb !important;} */
   background: #fff;
   cursor: pointer;
 }
-/* line 369, ../sass/global.scss */
+/* line 372, ../sass/global.scss */
 .page .paginationjs .paginationjs-go-button .J-paginationjs-go-button:hover {
   background: #eee;
 }
 
-/* line 377, ../sass/global.scss */
+/* line 380, ../sass/global.scss */
 .news.edit .boxtab {
   margin-top: 0;
 }
 
-/* line 381, ../sass/global.scss */
+/* line 384, ../sass/global.scss */
 .iframe {
   border: none;
   margin: 0;

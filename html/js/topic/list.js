@@ -1,9 +1,9 @@
 define(['require',"app",'jquery'
 	,'../data/getData' , './addForm'
-	,'../common/editPop'
+	,'../common/editPop','../moduls/Tool'
 	,'formlist','fixedNav','position'
 	,'../moduls/service','../moduls/factory'
-], function ( require , app , $ , getData , list , editPop ) {
+], function ( require , app , $ , getData , list , editPop , Tool ) {
 	app.directive('topicList',function(){
 		return {
 	    	restrict : 'E',
@@ -28,6 +28,8 @@ define(['require',"app",'jquery'
 							getData.topic.topicInfo({
 								id : obj.id,
 								callback : function(_data){
+									_data.data.releaseTime = new Date(_data.data.releaseTime).format('yyyy-MM-dd h:m:s');
+									
 									callback(_data);
 								}
 							})
@@ -54,6 +56,7 @@ define(['require',"app",'jquery'
 									}
 								});
 								getData.topic.updateTopic({
+									id : _detail.id,
 									"topicTitle":obj.topicTitle,
 									"topicContent":obj.topicContent,
 									"topicPath":obj.topicPath,
@@ -69,32 +72,69 @@ define(['require',"app",'jquery'
 										layui.use(['layer'], function(){
 											var layer = layui.layer;
 											layer.msg(_data.message);
+											setTimeout(function(){
+												location.reload();
+											},300)
 										});
 									}
 								});
         					},
         					callback : function( list , callback ){ //返回获取的数据 用于操作
+        						$.each(list,function( i , obj){
+									if(obj.title == 'content'){
+										obj.width = '800px';
+									}
+									if(obj.type=='select'){
+										obj.callback = function( _object ){
+											if(_object.title == 'categoryId'){
+												getData.channel.currentChannelList({
+													categoryId : _object.obj.id,
+													callback : function(_data){
+														var arr = [obj.select[1][0]];
+														obj.select[1] = arr;
+														obj.select[1] = obj.select[1].concat(Tool.changeObjectName(_data.data,[{name:'channelName',newName:'name'}]));
+									
+														$scope.$apply();
+														_object.callback();
+													}
+												})
+											}
+										}
+									}
+								});
 								callback(list);
         					},
         					$uibModal :$uibModal 
         				});
 					},
-					del : function( id ){ //删除
+					del : function( obj ){ //删除
+						obj.callback = function(_data){//删除成功
+							layui.use(['layer'], function(){
+								var layer = layui.layer;
+								layer.msg(_data.message);
+								setTimeout(function(){
+									location.reload();
+								},300)
+							});
+						};
 						pop.alert({
-							 text:'你的ID为：'+id
-							,btn : ['确定','取消']
-							,fn : function(index){//确定
-								layer.close(index)
+	 						 text:'您确定要删除"'+obj.topicTitle+'"吗'
+	 						,btn : ['确定','取消']
+	 						,fn : function(){
+	 							getData.topic.delTopic(obj);
 							}
-						})
+	 					})
 					}
 				});
 				getData.topic.listTopic(function(_data){
 					$.each(_data.data.list,function( i , obj){ //时间格示化
 						obj.releaseTime = new Date(obj.releaseTime).format('yyyy-MM-dd h:m:s');
+						if(obj.publish==1){//需要加链接 把topicUrl值 复制到 href 生成新的 href
+							Tool.changeObjectName(_data.data.list,[{name:'topicUrl',newName:'href'}])
+						}
 					});
 					var th = [
-						{name:'专题标题' , key:'topicTitle' , width : '200'},
+						{name:'专题标题' , key:'topicTitle' , changeObjectName : [{name:'topicUrl',newName:'href'}] , width : '200'},
 						//{name:'专题内容' , key:'topicContent' },
 						{name:'专题相对路径' , key:'topicPath' },
 						{name:'专题文件名' , key:'topicFilename' },

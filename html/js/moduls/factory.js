@@ -76,8 +76,17 @@ define(['app','jquery'],function(app,$){
 						showArr = [];
 						$.each(th,function(_k , _thobj ){
 							$.each(obj,function( objkey , objval ){
+								var newObj = {};
 								if( objkey == _thobj.key ){
-									showArr.push({name:objval});
+									if(_thobj.changeObjectName){
+										$.each(_thobj.changeObjectName,function( j , item ){
+											if(obj[item.name]){
+												newObj[item.newName] = obj[item.name];
+											}
+										})
+									}
+									newObj.name = objval;
+									showArr.push(newObj);
 								}
 							});	
 						});

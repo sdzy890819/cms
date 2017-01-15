@@ -18,9 +18,8 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 							obj.success(_data);
 						}else{
 							if(_data.code == -1 ){//未登录
-								initInfo.getUserInfo({callback:function(){
-
-								}});
+								window.location.href = '/#/login';
+								return;
 							}else if(_data.code == -111 ){ //无权限
 
 							}
@@ -668,9 +667,37 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					}
 				});
 			},
+			delTopic : function( obj ){//删除分类栏目列表
+				T.ajax({
+					url : URL.topic.delTopic ,
+					data : {id:obj.id}, 
+					success : function( _data ){
+						obj.callback(_data)
+					}
+				});
+			},
+			delTopicClassify : function( obj ){//删除专题分类 
+				T.ajax({
+					url : URL.topic.delTopicClassify ,
+					data : {id:obj.id}, 
+					success : function( _data ){
+						obj.callback(_data)
+					}
+				});
+			},
 			updateTopicColumn: function( obj ){//删除分类栏目列表
 				T.ajax({
 					url : URL.topic.updateTopicColumn ,
+					type : 'POST',
+					data : {id:obj.id,name:obj.name}, 
+					success : function( _data ){
+						obj.callback(_data)
+					}
+				});
+			},
+			updateTopicClassify: function( obj ){//删除分类栏目列表
+				T.ajax({
+					url : URL.topic.updateTopicClassify ,
 					type : 'POST',
 					data : {id:obj.id,name:obj.name}, 
 					success : function( _data ){
