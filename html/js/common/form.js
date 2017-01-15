@@ -147,8 +147,8 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 					  	//自定义验证规则
 						form.verify({
 							title: function(value){
-							  if(value.length < 5){
-							    return '内容至少得5个字符啊';
+							  if(value.length < 1){
+							    return '内容至少得1个字符啊';
 							  }
 							}
 							,http : function( value ){

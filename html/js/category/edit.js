@@ -111,13 +111,13 @@ define(["app",'jquery', '../data/getData', './addForm','form', 'position', 'fixe
 										name : '更新',
 										evt : 'save',
 										icon_cls : 'save'
-									},
+									}/*,
 									{
 										name:'清空',
 										evt : 'cancel',
 										icon_cls : 'cancel',
 										cls : 'cancel'
-									}
+									}*/
 								]
 							}
 							$scope.$apply();
