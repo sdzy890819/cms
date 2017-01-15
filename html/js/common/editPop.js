@@ -12,6 +12,7 @@ define(["app",'jquery','form'],function (app,$) {
 				templateUrl: '../template/common/addAndEdit.html',
 				size: 'lg',
 				controller: function($scope,$uibModalInstance,$css) {
+					$scope.data = null;
 					obj.updateData(function(_data){
 						$scope.data = _data.data;
 					});
