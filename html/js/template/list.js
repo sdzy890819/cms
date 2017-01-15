@@ -1,8 +1,9 @@
 define(['require',"app",'jquery'
 	,'../data/getData' , './addForm', './editForm'
+	,'../moduls/Tool'
 	,'formlist','fixedNav','position'
 	,'../moduls/service','../moduls/factory'
-], function ( require , app , $ , data , list , editForm ) {
+], function ( require , app , $ , getData , list , editForm , Tool ) {
 	app.directive('templateList',function(){
 		return {
 	    	restrict : 'E',
@@ -12,57 +13,6 @@ define(['require',"app",'jquery'
 	        controller : function($scope , pop , $uibModal , $css,GenerateArrList){
 	        	$scope.title = "模版列表";
 				$scope.$parent.menu.push({name:$scope.title}); //栏目
-				angular.extend($scope,{
-					add : function( id ){ //保存
-						pop.alert({
-							 text:'你的ID为：'+id
-							,btn : ['确定','取消']
-							,fn : function(index){//确定
-								layer.close(index)
-							}
-						})
-					},
-					edit : function( obj ){ //保存
-						require(['../common/editPop'], function(pop) {
-	        				pop.init({
-	        					obj : obj,
-	        					list : list,
-	        					$uibModal :$uibModal 
-	        				});
-	  					});
-					},
-					del : function( id ){ //删除
-						pop.alert({
-							 text:'你的ID为：'+id
-							,btn : ['确定','取消']
-							,fn : function(index){//确定
-								layer.close(index)
-							}
-						})
-					},
-					down : function( id ){ //删除
-						pop.alert({
-							 text:'你的ID为：'+id
-							,btn : ['确定','取消']
-							,fn : function(index){//确定
-								layer.close(index)
-							}
-						})
-					},
-					relation : function( obj ){
-						require(['../common/editPop'], function(pop) {
-	        				pop.init({
-	        					obj : obj,
-	        					list : editForm,
-	        					$uibModal :$uibModal 
-	        				});
-	  					});
-					},
-					filter : [ //过滤不需要展示的
-						'id','channelId','templateClassify','userId',
-						'job','align','alignindex'
-					]
-				});
 				
 				$scope.navEdit = { //导航操作按钮
 					nav : [{
@@ -89,55 +39,166 @@ define(['require',"app",'jquery'
 						}
 					]
 				}
-				data.template.listTemplate(function(_data){
-					$scope.listdata = { //确认按钮
-						title : $scope.title,
-						table : {
-							select : true,
-							th : [
-								{name:'模版名称' , width : '200'},
-								{name:'模版说明' },
-								{name:'文件名',width:'90'},
-								{name:'发布目录',width:'100'},
-								{name:'模版分类',width:'200'},
-								{name:'编码',width:'80',class:'center'},
-								{name:'排序值', width:'90',class:'center'},
-								{name:'操作' , width : '250',class:'center'}
-							],
-							td : GenerateArrList.arr(_data.data.list,$scope.filter) ,
-							edit : [
-								{cls : 'down', name : '下载',evt:$scope.down},
-								{cls : 'add', name : '关联',evt:$scope.relation},
-								{cls : 'edit' , name : '编辑',evt:$scope.edit},
-								{cls : 'del' , name : '删除',evt:$scope.del}
-							]
-						},
-						submit : [
-							{
-								name : '关联',
-								evt : function(id , scope , evt){
-									scope.getSelect(function( ids ){
-										$scope.relation(ids)
-									});
-								},
-								icon_cls : 'plus'
+				angular.extend($scope,{
+					add : function( id ){ //保存
+						pop.alert({
+							 text:'你的ID为：'+id
+							,btn : ['确定','取消']
+							,fn : function(index){//确定
+								layer.close(index)
 							}
-						]
+						})
+					},
+					edit : function( obj ){ //保存
+						function updateData(callback){ //填充数据
+							getData.topic.topicInfo({
+								id : obj.id,
+								callback : function(_data){
+									_data.data.releaseTime = new Date(_data.data.releaseTime).format('yyyy-MM-dd h:m:s');
+									
+									callback(_data);
+								}
+							})
+						}										
+
+        				editPop.init({
+        					obj : obj,
+        					list : list,
+        					updateData : updateData,
+        					save : function(obj , _detail ){ //保存 新增 确认 等
+        						var channelId , topicColumnId , categoryId , topicClassifyId;
+								$.each(obj.selects,function(){
+									if(this.title == 'channelId'){
+										channelId = this.id;
+									}
+									if(this.title == 'topicColumnId'){
+										topicColumnId = this.id;
+									}
+									if(this.title == 'categoryId'){
+										categoryId = this.id;
+									}
+									if(this.title == 'topicClassifyId'){
+										topicClassifyId = this.id;
+									}
+								});
+								getData.topic.updateTopic({
+									id : _detail.id,
+									"topicTitle":obj.topicTitle,
+									"topicContent":obj.topicContent,
+									"topicPath":obj.topicPath,
+									"topicFilename":obj.topicFilename,
+									"topicClassifyId":topicClassifyId,//专题分类ID
+									"categoryId":categoryId,//部门类别ID
+									"channelId":channelId, //频道ID
+									"releaseTime":obj.releaseTime, //发布时间
+									"keyword":obj.keyword,
+									"description":obj.description,
+									"topicColumnId":topicColumnId, //专题栏目ID(做系列专题使用)
+									callback : function(_data){
+										layui.use(['layer'], function(){
+											var layer = layui.layer;
+											layer.msg(_data.message);
+											setTimeout(function(){
+												location.reload();
+											},300)
+										});
+									}
+								});
+        					},
+        					callback : function( list , callback ){ //返回获取的数据 用于操作
+        						$.each(list,function( i , obj){
+									if(obj.title == 'content'){
+										obj.width = '800px';
+									}
+									if(obj.type=='select'){
+										obj.callback = function( _object ){
+											if(_object.title == 'categoryId'){
+												getData.channel.currentChannelList({
+													categoryId : _object.obj.id,
+													callback : function(_data){
+														var arr = [obj.select[1][0]];
+														obj.select[1] = arr;
+														obj.select[1] = obj.select[1].concat(Tool.changeObjectName(_data.data,[{name:'channelName',newName:'name'}]));
+									
+														$scope.$apply();
+														_object.callback();
+													}
+												})
+											}
+										}
+									}
+								});
+								callback(list);
+        					},
+        					$uibModal :$uibModal 
+        				});
+					},
+					del : function( obj ){ //删除
+						obj.callback = function(_data){//删除成功
+							layui.use(['layer'], function(){
+								var layer = layui.layer;
+								layer.msg(_data.message);
+								setTimeout(function(){
+									location.reload();
+								},300)
+							});
+						};
+						pop.alert({
+	 						 text:'您确定要删除"'+obj.templateName+'"吗'
+	 						,btn : ['确定','取消']
+	 						,fn : function(){
+	 							getData.topic.delTopic(obj);
+							}
+	 					})
 					}
-					GenerateArrList.extendType($scope.listdata.table.td,$scope.listdata.table.th,['width','name']); //把TH 中的出name属性以外的属性合传给td
-		        	GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
-		        	$.each($scope.listdata.table.td,function( i , item ){
-		        		if(item.job==1){//1是定时生成。0是触发生成
-		        			var arr = [];
-		        			$.each(item.list.edit,function( j , obj ){
-		        				if(obj.name!='关联'){
-		        					arr.push(obj);
-		        				}
-		        			});
-		        			item.list.edit = arr;
-		        		}
-		        	});
-	        		$scope.$apply();
+				});
+				getData.template.listTemplate({
+					callback : function(_data){
+						$.each(_data.data.list,function( i , obj){ //时间格示化
+							obj.releaseTime = new Date(obj.releaseTime).format('yyyy-MM-dd h:m:s');
+							if(obj.publish==1){//需要加链接 把topicUrl值 复制到 href 生成新的 href
+								Tool.changeObjectName(_data.data.list,[{name:'topicUrl',newName:'href'}])
+							}
+						});
+						var th = [
+							{name:'模版名称' , key:'templateName', width : '200'},
+							{name:'模版说明' , key:'templateDesc' },
+							{name:'文件名',width:'90' , key:'filename'},
+							{name:'发布目录',width:'100' , key:'path'},
+							{name:'模版分类',width:'200' , key:'templateClassifyStr'},
+							{name:'编码',width:'80',class:'center' , key:'encoded'},
+							{name:'排序值', width:'90',class:'center' , key:'sortNum'},
+							{name:'操作' , width : '250',class:'center'}
+						];
+						$scope.listdata = { //确认按钮
+							title : $scope.title,
+							table : {
+								select : true,
+								th : th,
+								td : GenerateArrList.setArr(_data.data.list,th) ,
+								edit : [
+									{cls : 'down', name : '下载',evt:$scope.down},
+									{cls : 'add', name : '关联',evt:$scope.relation},
+									{cls : 'edit' , name : '编辑',evt:$scope.edit},
+									{cls : 'del' , name : '删除',evt:$scope.del}
+								]
+							}
+						}
+						GenerateArrList.extendType($scope.listdata.table.td,$scope.listdata.table.th,['width','name']); //把TH 中的出name属性以外的属性合传给td
+			        	GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
+			        	$.each($scope.listdata.table.td,function( i , item ){
+			        		if(item.job==1){//1是定时生成。0是触发生成
+			        			var arr = [];
+			        			$.each(item.list.edit,function( j , obj ){
+			        				if(obj.name!='关联'){
+			        					arr.push(obj);
+			        				}
+			        			});
+			        			item.list.edit = arr;
+			        		}
+			        	});
+			        	$scope.$apply();
+			        }
 				});
 				
 	        }

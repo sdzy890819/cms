@@ -9,23 +9,22 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 	        	$scope.title = '新增模版';
 	        	$scope.$parent.menu.push({name:$scope.title});
 	        	$scope.rlease = function( obj ){ //发布
-					var templateClassify , channelId;
+					var templateClassify  , channelId;
 					$.each(obj.selects,function(){
 						if(this.title == 'templateClassify'){
-							templateClassify = this.id;
+							templateClassify = this.type;
 						}
 						if(this.title == 'channelId'){
-							channelId = this.id;
+							channelId = this.type;
 						}
 					});
-					debugger;
 					getData.template.createTemplate({
 						"templateName":obj.templateName,
 						"templateDesc":obj.templateDesc,
 						"filename":obj.filename,
 						"path":obj.path,
 						"templateClassify":templateClassify,
-						"job":obj.job, //是否定时生成。1是定时生成。0是触发生成
+						"job":(obj.job=='定时生成'?1:0), //是否定时生成。1是定时生成。0是触发生成
 						"encoded":obj.encoded,
 						"channelId":channelId,//频道ID
 						"sortNum":obj.sortNum,//排序值

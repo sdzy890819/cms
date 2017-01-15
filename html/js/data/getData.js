@@ -584,6 +584,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 			createTemplate : function( obj ){//读取所有的模版对应的关系列表 接口
 				T.ajax({
 					url : URL.template.createTemplate , 
+					type : 'POST',
 					data : {
 						"templateName":obj.templateName,
 						"templateDesc":obj.templateDesc,
@@ -594,6 +595,17 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						"encoded":obj.encoded,
 						"channelId":obj.channelId,//频道ID
 						"sortNum":obj.sortNum,//排序值
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});
+			},
+			delTemplate  : function( obj ){//删除模版
+				T.ajax({
+					url : URL.template.delTemplate , 
+					data : {
+						id : obj.id
 					},
 					success : function( _data ){
 						obj.callback(_data);
