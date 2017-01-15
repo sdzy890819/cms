@@ -93,7 +93,7 @@ define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-b
             //新闻栏目
             .state('newscolumn', angularAMD.route({
                 url: '/newscolumn',
-                template : 'template/common/index.html',
+                templateUrl : 'template/common/index.html',
                 controllerUrl: 'newscolumn/index'
             }))
             .state('newscolumn.add', angularAMD.route({
