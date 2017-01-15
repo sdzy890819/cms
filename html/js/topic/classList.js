@@ -66,7 +66,7 @@ define(['require',"app",'jquery'
 	 						 text:'您确定要删除"'+obj.columnName+'"吗'
 	 						,btn : ['确定','取消']
 	 						,fn : function(){
-	 							getData.topic.delTopicColumn(obj);
+	 							getData.topic.delTopicClassify(obj);
 							}
 	 					})
 					}
