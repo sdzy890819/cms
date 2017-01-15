@@ -158,7 +158,8 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 								};
 							}
 							,path : function( value ){
-								var reg = /^([A-Za-z]{1}\/[\w\/]*)?\w+\/{1}[a-zA-Z]+$/;
+								//var reg = /^\/+([A-Za-z]{1}\/[\w\/]*)?\w+\/{1}[a-zA-Z]+$/;
+								var reg = /^\/+[\w|\d]+\/{1}[\w|\d]?$/;
 								if(value.search(reg)<0){
 									return '请输入正确的路经（例：xy/xy）';
 								};

@@ -668,6 +668,15 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					}
 				});
 			},
+			delTopic : function( obj ){//删除分类栏目列表
+				T.ajax({
+					url : URL.topic.delTopic ,
+					data : {id:obj.id}, 
+					success : function( _data ){
+						obj.callback(_data)
+					}
+				});
+			},
 			updateTopicColumn: function( obj ){//删除分类栏目列表
 				T.ajax({
 					url : URL.topic.updateTopicColumn ,

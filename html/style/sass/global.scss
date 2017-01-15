@@ -323,6 +323,9 @@ $leftWidth : 225px;
     td{ text-align:left; padding:5px; font-size:14px;  border-right:1px solid #ddd; border-bottom:1px solid #ddd; 
         &.center{ text-align:center;}
         &.edits{ text-align:center; }
+        a{ color:#488be7;
+            &:hover{ text-decoration:underline;}
+        }
     }
     tr{
         &:nth-child(odd){ background:#f8f8f8;}
