@@ -11,7 +11,12 @@ define(function(){
 				})
 			});
 			return extend;
-		}
+		},
+      	getQueryString : function ( name ){
+            var reg = new RegExp("(^|&|/?)" + name + "=([^&]+)(&|$)", "i");
+            var r = decodeURIComponent(window.location.search||window.location.href||window.location.hash).substr(1).match(reg);
+            if (r != null) return unescape(r[2]); return null;
+        }
 	};
 	return T;
 })

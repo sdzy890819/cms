@@ -1,5 +1,5 @@
-define(function(){
-	return [ //表单
+define(['../data/getData','../moduls/Tool'],function(getData,Tool){
+	var list = [ //表单
 		{
 			title : 'topicTitle',
 			name : '专题标题',
@@ -31,58 +31,36 @@ define(function(){
 			{
 				title : 'topicClassifyId',
 				name : '专题分类',
+				selectName : ['topicClassifyId'],
 				type : 'select',
 				verify : 'select',
 				select : [
 					[
-						{name:'请选择专题分类'},
-						{name:'碎片频道'},
-						{name:'新闻频道'},
-						{name:'专题频道'}
+						{name:'请选择专题分类',title : 'topicClassifyId'}
 					]
 				]
 			},
 			{
-				title : 'categoryId',
-				name : '部门类别',
-				type : 'select',
-				verify : 'select',
-				select : [
-					[
-						{name:'请选择部门类别'},
-						{name:'碎片频道'},
-						{name:'新闻频道'},
-						{name:'专题频道'}
-					]
-				]
-			}
-		],
-		[
-			{
 				title : 'topicColumnId',
 				name : '专题栏目',
+				selectName : ['topicColumnId'],
 				type : 'select',
 				verify : 'select',
 				select : [
 					[
-						{name:'请选择专题栏目'},
-						{name:'碎片频道'},
-						{name:'新闻频道'},
-						{name:'专题频道'}
+						{name:'请选择专题栏目',title : 'topicColumnId'}
 					]
 				]
 			},
 			{
 				title : 'channelId',
 				name : '频道类别',
+				selectName : ['channelId'],
 				type : 'select',
 				verify : 'select',
 				select : [
 					[
-						{name:'请选择频道类别'},
-						{name:'碎片频道'},
-						{name:'新闻频道'},
-						{name:'专题频道'}
+						{name:'请选择频道类别',title : 'channelId'}
 					]
 				]
 			}
@@ -107,5 +85,22 @@ define(function(){
 			placeholder : '请输入关键字以“,”间隔',
 			type : 'text'
 		}
-	]
+	];
+	function getList(callback){
+		debugger;
+		getData.topic.topicClassifyList({//专题分类
+			callback:function(_data){
+				$.each(list,function(i , obj){
+					if(obj.type=='select'){
+						if(obj.select[0][0].title=='topicClassifyId'){
+							obj.select[0] = obj.select[0].concat(Tool.changeObjectName(_data.data,[{name:'categoryName',newName:'name'}]));
+							debugger;
+							callback(list);
+						}
+					}
+				})
+			}
+		});
+	}
+	return getList;
 })

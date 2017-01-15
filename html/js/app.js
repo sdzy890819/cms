@@ -61,14 +61,15 @@ define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-b
                 url: "/home",
                 templateUrl: "template/main.html",
                 controllerUrl: "home/homeCtrl",
-                css: {href: 'style/stylesheets/home.css'}
+                css: {href: 'js/stylesheets/home.css'}
             }))
 
             //登录
             .state('login', angularAMD.route({
                 url: '/login',
                 templateUrl: 'template/login/index.html',
-                controllerUrl: 'login/index'
+                controllerUrl: 'login/index',
+                css: {href: 'js/plug/layui/css/layui.css'}
             }))
 
             //新闻
@@ -139,6 +140,7 @@ define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-b
                 template: '<channel-add></channel-add>',
                 controllerUrl: 'channel/add'
             }))
+
 
             //用户管理系统
             .state('user', angularAMD.route({
@@ -287,14 +289,14 @@ define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-b
                 controllerUrl: 'topic/columnList'
             }))
 
-            //频道管理
+            //用户组
             .state('userchannel', angularAMD.route({
                 url: '/userchannel',
                 templateUrl: 'template/common/index.html',
                 controllerUrl: 'userchannel/index'
             }))
             .state('userchannel.list', angularAMD.route({ 
-                url: '/userchannel',
+                url: '/list',
                 template: '<userchannel-list></userchannel-list>',
                 controllerUrl: 'userchannel/list'
             }))

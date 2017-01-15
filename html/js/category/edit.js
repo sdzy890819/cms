@@ -68,7 +68,7 @@ define(["app",'jquery', '../data/getData', './addForm','form', 'position', 'fixe
 				//template : 'asdfsadf',
 				templateUrl: '../template/common/addAndEdit.html',
 				size: 'lg',
-				controller: function($scope,$uibModalInstance,$css) {
+				controller: function($scope,$uibModalInstance,$css, $state) {
 					obj.updateData(function(_data){						
 						$scope.data = _data.data;
 					});
@@ -87,12 +87,11 @@ define(["app",'jquery', '../data/getData', './addForm','form', 'position', 'fixe
 									layui.use(['layer'], function(){
 										var layer = layui.layer;
 										layer.msg(_data.message);
+
+										$state.reload();
 									});							 		
 							 	}
 							 })
-						},
-						cancel : function( arr ){ //取消
-							alert(arr)
 						},
 					  	close : function () {
 						   	$uibModalInstance.dismiss('cancel');

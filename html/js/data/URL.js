@@ -59,7 +59,7 @@ define(function(require){
 			delNews : url+'/news/delNews',//删除新闻
 			createNews : url+'/news/createNews',//创建新闻
 			updateNews : url+'/news/updateNews',//修改新闻
-			updateNewsColumn : url+'/news/updateNewsColumn',//修改新闻
+			updateNewsColumn : url+'/newscolumn/updateNewsColumn',//修改新闻
 			publish : url+'/news/publish'//新闻发布
 		},
 		category : {//部门分类

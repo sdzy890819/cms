@@ -34,8 +34,10 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 		ajax : function( obj ){
 			obj.type = obj.type || 'get';
 			if(!quanjing.user){
-				initInfo.getUserInfo(function(){
-					T.getdata(obj);
+				initInfo.getUserInfo({
+					callback : function(){
+						T.getdata(obj);
+					}
 				})
 			}else{				
 				T.getdata(obj);
@@ -56,41 +58,35 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					error : function(){}
 				})
 			},
-			currentMenuPermission : function ( callback ){
+			currentMenuPermission : function ( obj ){
 				T.ajax({
 					url : URL.permission.currentMenuPermission ,
-					type : 'get',
-					data : {},
 					success : function(_data){						
-						callback(_data);
-					},
-					error : function(){}
+						obj.callback(_data);
+					}
 				})
 			},
-			currentButtonPermission : function( id, callback ){ //获取用户Menu下的Button权限
+			currentButtonPermission : function( obj ){ //获取用户Menu下的Button权限
 				T.ajax({
 					url : URL.permission.currentButtonPermission , 
-					type : 'get',
 					data : {
-						id : id
+						id : obj.id
 					},
 					success : function(_data){
-						callback(_data);
-					},
-					error : function(){}
+						obj.callback(_data);
+					}
 				})
 			}
 		},
 		user : {
-			currentUser : function( callback ){ //当前登录用户信息接口
-				T.ajax({
+			currentUser : function( obj ){ //当前登录用户信息接口
+				$.ajax({
 					url : URL.user.currentUser , 
 					type : 'get',
-					data : {},
+					dataType : 'json',
 					success : function(_data){												
-						callback(_data);
-					},
-					error : function(){}
+						obj.callback(_data);
+					}
 				})
 			},
 			userlist : function( obj ){ //栏目列表
@@ -526,13 +522,19 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					}
 				});
 			},
-			topicClassifyList : function( callback ){//模版列表［分页］ 接口
+			topicClassifyList : function( obj ){//模版列表［分页］ 接口
 				T.ajax({
 					url : URL.topic.topicClassifyList , 
-					type : 'get',
-					data : {},
 					success : function( _data ){
-						callback(_data)
+						obj.callback(_data)
+					}
+				});
+			},
+			topicColumnList : function( obj ){//专题分类列表 接口
+				T.ajax({
+					url : URL.topic.topicColumnList , 
+					success : function( _data ){
+						obj.callback(_data)
 					}
 				});
 			}

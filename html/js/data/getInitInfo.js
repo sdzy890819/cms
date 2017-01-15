@@ -1,4 +1,4 @@
-define(['./URL','./loginAndOut','jquery','./getData'],function(URL , user ,$ , data){
+define(['./URL','./loginAndOut','jquery','./getData'],function(URL , user ,$ , getData){
 	if(!window.quanjing){
 		var quanjing = {
 			user : null //登录信息
@@ -9,14 +9,30 @@ define(['./URL','./loginAndOut','jquery','./getData'],function(URL , user ,$ , d
 		init : function(){
 			info.getAllInfo();
 		},
-		login : function(callback){
-			info.getUserInfo(callback);
-		},
-		getUserInfo : function( callback ){
-			user.getUserInfo(function(_data){
-				quanjing.user = _data;
-				callback && callback(_data);
+		login : function( obj ){
+			user.login({
+				data : obj.data,
+				callback : function(_data){
+					$.ajax({ //当前登录用户信息接口
+						url : URL.user.currentUser , 
+						type : 'get',
+						dataType : 'json',
+						success : function(_data){												
+							quanjing.user = _data;
+							obj.callback(_data);
+						}
+					})
+				}
 			});
+		},
+		getUserInfo : function( obj ){
+			return obj.callback && obj.callback();
+			if(!quanjing.user){
+				window.location.href = '/#/login';
+			}else{
+				obj.callback && obj.callback();
+				return quanjing.user;
+			}
 		},
 		getPublicData : function(callback){
 			$.ajax({
