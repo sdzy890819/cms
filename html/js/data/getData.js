@@ -472,7 +472,62 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						obj.callback(_data);
 					}
 				})
-			}
+			},
+
+			createChannel : function( obj ){
+				T.ajax({
+					url : URL.channel.createChannel , 
+					type : 'post',
+					data : { 
+						categoryId   : obj.categoryId,
+						channelName  : obj.channelName,
+						channelUrl   : obj.channelUrl,
+						channelPath  : obj.channelPath,
+						templatePath : obj.templatePath,
+						channelDesc  : obj.channelDesc						
+					},
+					success : function( _data ){						
+						obj.callback(_data);
+					},
+
+					error : function() {						
+					}
+				})
+			},
+
+			updateChannel : function( obj ){
+				T.ajax({
+					url : URL.channel.updateChannel , 
+					type : 'post',
+					data : { 
+						id 					 : obj.id,
+						categoryId   : obj.categoryId,
+						channelName  : obj.channelName,
+						channelUrl   : obj.channelUrl,
+						channelPath  : obj.channelPath,
+						templatePath : obj.templatePath,
+						channelDesc  : obj.channelDesc						
+					},
+					success : function( _data ){						
+						obj.callback(_data);
+					},
+
+					error : function() {						
+					}
+				})
+			},		
+			delChannel : function( obj ){ //栏目列表
+				T.ajax({
+					url     : URL.channel.delChannel , 
+					data    : {
+						id : obj.id
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				})
+			}				
+
 		},
 		image : {
 			imageslist : function( callback ){ //栏目列表
