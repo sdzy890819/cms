@@ -3,7 +3,7 @@ define(['require',"app",'jquery'
 	,'formlist','fixedNav','position'
 	,'../moduls/service','../moduls/factory'
 ], function ( require , app , $ , list , editPop ,getData , Tool  ) {
-	app.directive('newsNewslist',function(){
+	app.directive('newsList',function(){
 		return {
 	    	restrict : 'E',
 	    	replace : true,
