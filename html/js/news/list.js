@@ -14,20 +14,54 @@ define(["app",'jquery','./columnForm'
 				$scope.$parent.menu.push({name:$scope.title}); //栏目
 				angular.extend($scope,{
 					edit : function( obj ){ //保存
+						var detail = null;
 						function getAddForm(callback){ //填充数据
 							getData.news.newscolumn({
 								id : obj.id,
 								callback : function(_data){
 									//_data.data.writeTime = new Date(_data.data.writeTime).format('yyyy-MM-dd h:m:s');
 									callback(_data);
+									detail = _data;
 								}
 							})
 						}
-						
         				editPop.init({
         					obj : obj,
         					list : list,
         					updateData : getAddForm,
+        					save : function(obj , _detail){ //保存或新增
+        						var channelId =_detail.channelId  , 
+        							listTemplate2Id = _detail.listTemplate2Id , 
+        							detailTemplate2Id = _detail.detailTemplate2Id;
+								$.each(obj.selects,function(){
+									if(this.title == 'channelId'){
+										channelId = this.id;
+									}
+									if(this.title == 'listTemplate2Id'){
+										listTemplate2Id = this.id;
+									}
+									if(this.title == 'detailTemplate2Id'){
+										detailTemplate2Id = this.id;
+									}
+								});
+								getData.news.updateNewsColumn({
+									id:_detail.id,
+									channelId:channelId,//频道ID
+									columnName:obj.columnName,
+									listId:obj.listId,//预模版list接口返回的预模版ID. 不是必须
+									detailId:obj.detailId,//预模版detail接口返回的预模版ID. 不是必须
+									listTemplate2Id:listTemplate2Id, //第二套模版接口模版ID，不是必须。如果选择则传参。参考B19文档
+									detailTemplate2Id:detailTemplate2Id,//第二套模版接口模版ID，不是必须。如果选择则传参。参考B19文档
+									keywords:obj.keywords, //不是必须
+									description:obj.description, //不是必须
+									callback : function(_data){
+										layui.use(['layer'], function(){
+											var layer = layui.layer;
+											layer.msg(_data.message);
+										});
+									}
+								})
+        					},
         					callback : function( list , callback ){ //返回获取的数据 用于操作
 								callback(list);
         					},

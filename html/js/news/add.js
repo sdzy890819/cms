@@ -36,6 +36,11 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 						"content":obj.html,
 						"autoPublish":(obj.show=='yes'?1:0), //1 是自动发布。0是不自动发布.默认不自动发布
 						"timer":obj.buildTime, //定时发布。//可不传
+						"field1":obj.field1,
+						"field2":obj.field2,
+						"field3":obj.field3,
+						"field4":obj.field4,
+						"field5":obj.field5,
 						callback : function(_data){
 							layui.use(['layer'], function(){
 								var layer = layui.layer;
@@ -93,7 +98,7 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 												    }]											
 												}*/
 											obj.select[1] = obj.select[1].concat(Tool.changeObjectName(_data.data,[{name:'channelName',newName:'name'}]));
-											
+						
 											$scope.$apply();
 											_object.callback();
 										}

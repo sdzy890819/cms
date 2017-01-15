@@ -22,12 +22,54 @@ define(['require',"app",'jquery'
 									callback(_data);
 								}
 							})
-						}
-						
+						}													
+
         				editPop.init({
         					obj : obj,
         					list : list,
         					updateData : getAddForm,
+        					save : function(obj , _detail ){ //保存 新增 确认 等
+        						var channelId = _detail.channelId , 
+        							columnId = _detail.columnId , 
+        							categoryId = _detail.categoryId;
+								$.each(obj.selects,function(){
+									if(this.title == 'channelId'){
+										channelId = this.id;
+									}
+									if(this.title == 'columnId'){
+										columnId = this.id;
+									}
+									if(this.title == 'categoryId'){
+										categoryId = this.id;
+									}
+								})
+								getData.news.updateNews({
+									"id":_detail.id,
+									"title":obj.title,
+									"subTitle":obj.subTitle,
+									"keyword":obj.keyword,
+									"description":obj.description,
+									"source":obj.source,
+									"author":obj.author,
+									"channelId":channelId,//频道ID
+									"columnId":columnId,//栏目ID
+									"categoryId": categoryId, //部门分类ID
+									"content":obj.html,
+									"autoPublish":(obj.show=='yes'?1:0), //1 是自动发布。0是不自动发布.默认不自动发布
+									"timer":obj.writeTime, //定时发布。//可不传
+									"field1":obj.field1,
+									"field2":obj.field2,
+									"field3":obj.field3,
+									"field4":obj.field4,
+									"field5":obj.field5,
+									callback : function(_data){
+										layui.use(['layer'], function(){
+											var layer = layui.layer;
+											layer.msg(_data.message);
+										});
+									}
+								});
+        					},
         					callback : function( list , callback ){ //返回获取的数据 用于操作
 								$.each(list,function( i , obj){
 									if(obj.title == 'content'){
@@ -41,19 +83,6 @@ define(['require',"app",'jquery'
 													callback : function(_data){
 														var arr = [obj.select[1][0]];
 														obj.select[1] = arr;
-														/*var _data = {
-															data : [{
-															      "categoryId": 10001,
-															      "channelDesc": "世界频道，带你看世界",
-															      "channelName": "世界频道",
-															      "channelPath": "/data/publish/",
-															      "channelUrl": "http://120.77.220.11/publish/",
-															      "delTag": 1,
-															      "id": 10001,
-															      "lastModifyUserId": "14840345528522311094",
-															      "templatePath": "/data/template/"
-															    }]											
-															}*/
 														obj.select[1] = obj.select[1].concat(Tool.changeObjectName(_data.data,[{name:'channelName',newName:'name'}]));
 														
 														$scope.$apply();
@@ -92,7 +121,7 @@ define(['require',"app",'jquery'
 								var layer = layui.layer;
 								layer.msg(_data.message);
 								setTimeout(function(){
-									location.reload()
+									location.reload();
 								},300)
 							});
 						};
@@ -123,8 +152,9 @@ define(['require',"app",'jquery'
 
 
 				var page = 1;
-				function getDataList(){
-					console.log("start*********************");
+
+				function getDataList(){					
+
 					getData.news.newslist({
 						page : page,
 						pageSize : 5,
@@ -137,8 +167,7 @@ define(['require',"app",'jquery'
 									getDataList();
 								}
 							}
-
-							console.log("step0.1*********************");
+							
 							//end 分页
 
 							var th = [
@@ -149,8 +178,7 @@ define(['require',"app",'jquery'
 								{name:'平台名称',key:'platformStr'},
 								{name:'操作' , width : '200' , class: 'center'}
 							];
-
-							console.log("step0.2*********************");
+							
 							$scope.listdata = { //确认按钮
 								title : $scope.title,
 								table : {
@@ -179,13 +207,10 @@ define(['require',"app",'jquery'
 								]*/
 							}
 
-							console.log("step0.3*********************");
 							GenerateArrList.extendType($scope.listdata.table.td,th,['width','name','key']); //把TH 中的出name,key,width属性以外的属性合传给td
-							console.log("step0.4*********************");
-			        		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
-			        		console.log("step2*********************");
-			        		$scope.$apply();
-			        		console.log("finished*********************");
+							
+			        		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');			        		
+			        		$scope.$apply();			        		
 						}
 					});
 				};

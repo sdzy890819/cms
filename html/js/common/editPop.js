@@ -12,6 +12,7 @@ define(["app",'jquery','form'],function (app,$) {
 				templateUrl: '../template/common/addAndEdit.html',
 				size: 'lg',
 				controller: function($scope,$uibModalInstance,$css) {
+					$scope.data = null;
 					obj.updateData(function(_data){
 						$scope.data = _data.data;
 					});
@@ -20,10 +21,10 @@ define(["app",'jquery','form'],function (app,$) {
 					  		close : true
 					  	},
 						save : function( arr ){ //保存
-							alert(arr)
+							obj.save(arr,$scope.data)
 						},
 						cancel : function( arr ){ //取消
-							alert(arr)
+							obj.cancel(arr,$scope.data)
 						},
 					  	close : function () {
 						   	$uibModalInstance.dismiss('cancel');
@@ -31,6 +32,7 @@ define(["app",'jquery','form'],function (app,$) {
 					});
 
 					getList(function(list){
+						
 						obj.callback(list,function(_list){
 							$scope.formdata = { //确认按钮
 								title : '编辑',
@@ -41,13 +43,13 @@ define(["app",'jquery','form'],function (app,$) {
 										name : '确定',
 										evt : 'save',
 										icon_cls : 'save'
-									},
+									}/*,
 									{
 										name:'清空',
 										evt : 'cancel',
 										icon_cls : 'cancel',
 										cls : 'cancel'
-									}
+									}*/
 								]
 							}
 							$scope.$apply();

@@ -1,23 +1,35 @@
 define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 	var T = {
 		getdata : function( obj ){
-			$.ajax({
-				url : obj.url , 
-				type : obj.type,
-				data : obj.data,
-				success : function( _data ){
-					if(_data.code == 0 ){
-						obj.success(_data);
-					}else{
-						if(_data.code == -1 ){//未登录
-							initInfo.login();
-						}else if(_data.code == -111 ){ //无权限
+			layui.use(['layer'], function(){
+				var loadding;
+				if(obj.loadding!=false){
+					loadding = layer.load(1,{
+						shade : 0.3
+					});
+				}
+				$.ajax({
+					url : obj.url , 
+					type : obj.type,
+					data : obj.data,
+					success : function( _data ){
+						layer.close(loadding);
+						if(_data.code == 0 ){
+							obj.success(_data);
+						}else{
+							if(_data.code == -1 ){//未登录
+								initInfo.login();
+							}else if(_data.code == -111 ){ //无权限
 
+							}
+							layer.confirm(_data.message, {icon: 2, title:'提示'}, function(index){
+							  layer.close(index);
+							});
 						}
-					}
-				},
-				error : function(){}
-			})
+					},
+					error : function(){}
+				})
+			});
 		},
 		ajax : function( obj ){
 			obj.type = obj.type || 'get';
@@ -75,8 +87,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					url : URL.user.currentUser , 
 					type : 'get',
 					data : {},
-					success : function(_data){						
-						console.log(_data);
+					success : function(_data){												
 						callback(_data);
 					},
 					error : function(){}
@@ -333,12 +344,38 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 			delNews : function( obj ){ //删除新闻
 				T.ajax({
 					url : URL.news.delNews , 
-					type : 'get',
 					data : {id:obj.id},
 					success : function( _data ){
 						obj.callback(_data);
+					}
+				})
+			},
+			updateNews : function( obj ){ //修改新闻
+				T.ajax({
+					url : URL.news.updateNews , 
+					type : 'POST',
+					data : {
+						"title":obj.title,
+						"subTitle":obj.subTitle,
+						"keyword":obj.keyword,
+						"description":obj.description,
+						"source":obj.source,
+						"author":obj.author,
+						"channelId":obj.channelId,//频道ID
+						"columnId":obj.columnId,//栏目ID
+						"content":obj.content,
+						"id":obj.id,
+						"field1":obj.field1,
+						"field2":obj.field2,
+						"field3":obj.field3,
+						"field4":obj.field4,
+						"field5":obj.field5,
+						"autoPublish":obj.autoPublish, //1 是自动发布。0是不自动发布.默认不自动发布
+						"timer":obj.timer //定时发布。
 					},
-					error : function(){}
+					success : function( _data ){
+						obj.callback(_data);
+					}
 				})
 			},
 			delNewsColumn : function( obj ){ //删除新闻栏目
@@ -349,10 +386,30 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						obj.callback(_data);
 					}
 				})
+			},
+			updateNewsColumn  : function( obj ){ //修改栏目
+				T.ajax({
+					url : URL.news.updateNewsColumn , 
+					type : 'post',
+					data : {
+						id:obj.id,
+						channelId:obj.channelId,//频道ID //不是必须
+						columnName:obj.columnName,//不是必须
+						listId:obj.listId,//预模版list接口返回的预模版ID. 不是必须
+						detailId:obj.detailId,//预模版detail接口返回的预模版ID. 不是必须
+						listTemplate2Id:obj.listTemplate2Id, //第二套模版接口模版ID，不是必须。如果选择则传参。参考B19文档
+						detailTemplate2Id:obj.detailTemplate2Id,//第二套模版接口模版ID，不是必须。如果选择则传参。参考B19文档
+						keywords:obj.keywords, //不是必须
+						description:obj.description //不是必须
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				})
 			}
 		},
 		category : { //部门分类
-			listCategory : function( obj ){ //栏目列表
+			listCategory : function( obj ){ // 部门分类列表
 				T.ajax({
 					url : URL.category.listCategory , 
 					type : 'get',
@@ -360,6 +417,44 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						obj.callback(_data);
 					}
 				});
+			},
+
+			delCategory : function( obj ) { // 删除部门
+				T.ajax({
+
+					url : URL.category.delCategory ,
+					type : 'get',
+					data : {id : obj.id},
+					success : function(_data) {						
+						obj.callback(_data);
+					}
+				})
+			},
+
+			createCategory : function(obj) { //创建分类
+				T.ajax({
+					url : URL.category.createCategory,
+					type : 'post',
+					data : {categoryName: obj.categoryName, categoryDesc: obj.categoryDesc},
+					success : function(_data) {
+						obj.callback(_data);
+					}
+				})
+			},
+
+			updateCategory : function(obj) {				
+				T.ajax({
+					url : URL.category.updateCategory,
+					type : 'post',
+					data : {
+						id : obj.id,
+						categoryName: obj.categoryName, 
+						categoryDesc: obj.categoryDesc
+					},
+					success : function(_data) {
+						obj.callback(_data);
+					}
+				})
 			}
 		},
 		channel : {//取频道分类管理

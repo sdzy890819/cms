@@ -109,6 +109,11 @@ define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-b
                 template : '<category-list></category-list>',
                 controllerUrl: 'category/list'
             }))
+            .state('category.add', angularAMD.route({
+                url: '/add',
+                template : '<category-add></category-add>',
+                controllerUrl: 'category/add'
+            }))            
 
             //频道管理
             .state('column', angularAMD.route({

@@ -15,7 +15,7 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 		},
 		{
 			title : 'description',
-			name : '关键字',
+			name : '描述',
 			placeholder : '描述',
 			type : 'textarea' //text textarea radio checkbox edit
 		},

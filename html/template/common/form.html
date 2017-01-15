@@ -10,7 +10,6 @@
 		<div class="content clearfix">
 			<form class="layui-form clearfix">
 				<position-nav edit='edit' submit='submit' isadd='isadd'></position-nav>
-				<div ng-if='!formdata' class="loadding"></div>
 				<div ng-if='formdata' class="layui-form-item" ng-repeat="obj in formdata.list">
 					<label ng-if='!isArray(obj)' class="layui-form-label"><em ng-show='obj.check!=false&&obj.verify'>*</em>{{obj.name}}</label>
 					<div class="layui-input-block" ng-if='!isArray(obj)' repeat-finish='formRepeat'>
@@ -30,14 +29,14 @@
 						<textarea ng-if="obj.type=='textarea'" class="layui-textarea text w80 {{obj.cls}}" name="{{obj.title}}" lay-verify="content" placeholder="{{obj.placeholder}}">{{data[obj.title]}}</textarea>
 
 						<!-- 富文本编辑器 -->
-						<div ng-if="obj.type=='edit'" style="width:{{obj.width}}; max-width:{{obj.maxWidth}}; min-width:{{obj.minWidth}}">
+						<div ng-if="obj.type=='edit'" class='wangEditor {{obj.cls}}' data-html='{{data.newsDetail.content}}' style="width:{{obj.width}}; max-width:{{obj.maxWidth}}; min-width:{{obj.minWidth}}">
 							<div ng-model="text" contenteditable="true" name="{{obj.title}}" style="height:{{obj.height}};"></div>
 						</div>
 
 						<!-- select -->
 					    <div ng-if="obj.type=='select'" class="layui-input-inline {{obj.cls}}" ng-repeat="select in obj.select">
 					      <select name="{{obj.selectName[$index]}}">
-					        <option lay-verify="{{obj.verify}}" ng-repeat="option in select">{{option.name}}</option>
+					        <option lay-verify="{{obj.verify}}" ng-repeat="option in select" ng-selected="option.id==data[select[0].title]" >{{option.name}}</option>
 					      </select>
 					    </div>
 
@@ -79,7 +78,7 @@
 							<!-- select -->
 						    <div ng-if="item.type=='select'" class="layui-input-inline {{item.cls}}" ng-repeat="select in item.select">
 						      <select name="{{item.selectName[$index]}}">
-						        <option lay-verify="{{item.verify}}" ng-repeat="option in select">{{option.name}}</option>
+						        <option lay-verify="{{item.verify}}" ng-repeat="option in select" ng-selected="option.id==data[select[0].title]">{{option.name}}</option>
 						      </select>
 						    </div>
 

@@ -5,10 +5,12 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$,userInfo){
 				type: 'POST',				
 				url : URL.user.login , 
 				data : {userName: obj.userName, pwd: obj.pwd},
-				success : function(_data){					
+				success : function(_data){										
 					obj.callback(_data);
 				},
 				error : function(_data){
+
+					getUserInfo();
 					alert('登录请求异常');				
 				}
 			})
@@ -24,7 +26,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$,userInfo){
 				error : function(){}
 			})
 		},
-		getUserInfo : function( callback ){
+		getUserInfo : function( callback ){			
 			user.login({
 				userName: 'admin', 
 				pwd: '1234qwer',
