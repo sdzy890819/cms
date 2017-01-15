@@ -139,13 +139,17 @@ public class PermissionBiz extends BaseBiz{
         List<Permission> permissions = userService.findPermissionForPositionIds(userId);
         if(StringUtils.isNotEmpty(permissions)) {
             Map<String, Double> map = new HashMap<>();
-            List<Permission> permissionList = new ArrayList<>();
+            //List<Permission> permissionList = new ArrayList<>();
+            List<PermissionBean> permissionBeenList = new ArrayList<>();
             Map<Long, List<Permission>> childMap = new HashMap<>();
             for (int i = 0; i < permissions.size(); i++) {
                 Permission permission = permissions.get(i);
                 map.put(permission.getPermission(), new Double((double)permission.getSort()));
                 if(permission.getType() == PermissionTypeEnum.MENU.getType()){
-                    permissionList.add(permission);
+                    //permissionList.add(permission);
+                    PermissionBean permissionBean = new PermissionBean();
+                    permissionBean.setPermission(permission);
+                    permissionBeenList.add(permissionBean);
                 }else if(permission.getType() == PermissionTypeEnum.BUTTON.getType()){
                     List<Permission> tmp = childMap.get(permission.getParentId());
                     if(StringUtils.isEmpty(tmp)){
@@ -157,18 +161,22 @@ public class PermissionBiz extends BaseBiz{
                     childMap.put(permission.getParentId() ,tmp);
                 }
             }
-            Iterator<Map.Entry<Long,List<Permission>>> it = childMap.entrySet().iterator();
-            Map<String,String> redisMap = new HashMap<>();
-            while(it.hasNext()){
-                Map.Entry<Long,List<Permission>> entry = it.next();
-                redisMap.put(RedisKeyContants.getButtonParentPermission(userId ,entry.getKey()), JSONArray.toJSONString(entry.getValue()));
+            for(int i=0;i<permissionBeenList.size();i++){
+                PermissionBean permissionBean = permissionBeenList.get(i);
+                permissionBean.setPermissions(childMap.get(permissionBean.getPermission().getId()));
             }
+//            Iterator<Map.Entry<Long,List<Permission>>> it = childMap.entrySet().iterator();
+//            Map<String,String> redisMap = new HashMap<>();
+//            while(it.hasNext()){
+//                Map.Entry<Long,List<Permission>> entry = it.next();
+//                redisMap.put(RedisKeyContants.getButtonParentPermission(userId ,entry.getKey()), JSONArray.toJSONString(entry.getValue()));
+//            }
             delPermissionRedis(userId);
             //验证用户权限
             jedisClient.zadd(RedisKeyContants.getPermission(userId), map, StaticContants.DEFAULT_SECONDS);
             //获取MENU列表
-            jedisClient.set(RedisKeyContants.getMenuPermission(userId), JSONArray.toJSONString(permissionList), StaticContants.DEFAULT_SECONDS);
-            jedisClient.set(redisMap,StaticContants.DEFAULT_SECONDS); //根据父权限获取子权限的列表
+            jedisClient.set(RedisKeyContants.getMenuPermission(userId), JSONArray.toJSONString(permissionBeenList), StaticContants.DEFAULT_SECONDS);
+            //jedisClient.set(redisMap,StaticContants.DEFAULT_SECONDS); //根据父权限获取子权限的列表
         }
     }
 
@@ -200,10 +208,10 @@ public class PermissionBiz extends BaseBiz{
      * @param userId
      * @return
      */
-    public List<Permission> getMenuPermission(String userId){
+    public List<PermissionBean> getMenuPermission(String userId){
         String result = jedisClient.get(RedisKeyContants.getMenuPermission(userId));
         if(StringUtils.isNotBlank(result)) {
-            return JSONArray.parseArray(result, Permission.class);
+            return JSONArray.parseArray(result, PermissionBean.class);
         }
         return null;
     }
