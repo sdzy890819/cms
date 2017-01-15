@@ -51,6 +51,10 @@ public class PositionBiz extends BaseBiz {
         return null;
     }
 
+    public List<Position> listPosition(){
+        return userService.findPositionListAll();
+    }
+
     /**
      * 新建用户组
      * @param lastModifyUserId

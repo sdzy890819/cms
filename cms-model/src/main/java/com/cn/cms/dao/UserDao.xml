@@ -38,7 +38,7 @@
     </select>
 
     <select id="queryUserList" resultMap="user">
-        select <include refid="all_column" /> from user <include refid="delTag" />
+        select <include refid="all_column" /> from user <include refid="delTag" />  order by update_time desc
         limit ${page.start},${page.pageSize};
     </select>
 

@@ -94,7 +94,7 @@
     </select>
 
     <select id="queryImagesList" resultMap="images">
-        select <include refid="sql_column" /> from images <include refid="delTag" /> limit ${page.start},${page.pageSize}
+        select <include refid="sql_column" /> from images <include refid="delTag" />  order by update_time desc limit ${page.start},${page.pageSize}
     </select>
 
 </mapper>
