@@ -3,7 +3,7 @@ define(["app",'jquery','./columnForm'
 		,'position','fixedNav'
 		,'../moduls/service','../moduls/factory',
 ], function ( app , $ , list , getData , editPop) {
-	app.directive('newsList',function(){
+	app.directive('newscolumnList',function(){
 		return {
 	    	restrict : 'E',
 	    	replace : true,
@@ -59,6 +59,9 @@ define(["app",'jquery','./columnForm'
 													layui.use(['layer'], function(){
 														var layer = layui.layer;
 														layer.msg(_data.message);
+														setTimeout(function(){
+															location.reload()
+														},300)
 													});
 												}
 											})
