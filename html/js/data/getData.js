@@ -578,6 +578,28 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						obj.callback(_data)
 					}
 				});
+			},
+			createTopic : function( obj ){//新建专题分类
+				T.ajax({
+					url : URL.topic.createTopic , 
+					type : 'POST',
+					data : {
+						"topicTitle":obj.topicTitle,
+						"topicContent":obj.topicContent,
+						"topicPath":obj.topicPath,
+						"topicFilename":obj.topicFilename,
+						"topicClassifyId":obj.topicClassifyId,//专题分类ID
+						"categoryId":obj.categoryId,//部门类别ID
+						"channelId":obj.channelId, //频道ID
+						"releaseTime":obj.releaseTime, //发布时间
+						"keyword":obj.keyword,
+						"description":obj.description,
+						"topicColumnId":obj.topicColumnId, //专题栏目ID(做系列专题使用)
+					},
+					success : function( _data ){
+						obj.callback(_data)
+					}
+				});
 			}
 			,listTopic : function( callback ){//模版列表［分页］ 接口
 				T.ajax({
