@@ -18,7 +18,9 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 							obj.success(_data);
 						}else{
 							if(_data.code == -1 ){//未登录
-								initInfo.login();
+								initInfo.getUserInfo({callback:function(){
+									
+								}});
 							}else if(_data.code == -111 ){ //无权限
 
 							}
