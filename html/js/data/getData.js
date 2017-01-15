@@ -34,8 +34,10 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 		ajax : function( obj ){
 			obj.type = obj.type || 'get';
 			if(!quanjing.user){
-				initInfo.getUserInfo(function(){
-					T.getdata(obj);
+				initInfo.getUserInfo({
+					callback : function(){
+						T.getdata(obj);
+					}
 				})
 			}else{				
 				T.getdata(obj);
@@ -64,17 +66,15 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					}
 				})
 			},
-			currentButtonPermission : function( id, callback ){ //获取用户Menu下的Button权限
+			currentButtonPermission : function( obj ){ //获取用户Menu下的Button权限
 				T.ajax({
 					url : URL.permission.currentButtonPermission , 
-					type : 'get',
 					data : {
-						id : id
+						id : obj.id
 					},
 					success : function(_data){
-						callback(_data);
-					},
-					error : function(){}
+						obj.callback(_data);
+					}
 				})
 			}
 		},

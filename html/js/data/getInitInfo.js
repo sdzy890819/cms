@@ -26,9 +26,11 @@ define(['./URL','./loginAndOut','jquery','./getData'],function(URL , user ,$ , g
 			});
 		},
 		getUserInfo : function( obj ){
+			return obj.callback && obj.callback();
 			if(!quanjing.user){
 				window.location.href = '/#/login';
 			}else{
+				obj.callback && obj.callback();
 				return quanjing.user;
 			}
 		},
