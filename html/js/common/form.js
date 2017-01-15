@@ -123,7 +123,13 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 								});
 							}else if(this.type=='edit'){ //富文本
 								var html = $('.wangEditor').attr('data-html');
-								window.wangEditor.$txt.html(html);
+								(function setHtml(){
+									if(window.Editor){
+										window.Editor.$txt.html(html);
+									}else{
+										setTimeout(setHtml,100);
+									}
+								})();
 							}
 					  	}
 

@@ -96,7 +96,7 @@ define(["app",'jquery','require','wangEditor'], function ( app,$,require ) {
 		                })
 		                editor.create();
 		                $scope.editor = editor;
-		                window.wangEditor = editor;
+		                window.Editor = editor;
 	                	editor.$txt.html('<p>请输入内容</p>');
 		            }
 			    };
