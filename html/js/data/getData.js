@@ -19,7 +19,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						}else{
 							if(_data.code == -1 ){//未登录
 								initInfo.getUserInfo({callback:function(){
-									
+
 								}});
 							}else if(_data.code == -111 ){ //无权限
 
@@ -531,6 +531,15 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					data : {},
 					success : function( _data ){
 						callback(_data)
+					}
+				});
+			},
+			topicInfo : function( obj ){//专题详情 接口
+				T.ajax({
+					url : URL.topic.topicInfo , 
+					data : {id:obj.id},
+					success : function( _data ){
+						obj.callback(_data)
 					}
 				});
 			},
