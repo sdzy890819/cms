@@ -42,7 +42,7 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 			{
 				title : 'topicColumnId',
 				selectName : ['topicColumnId'],
-				name : '专题栏目',
+				name : '系列专题',
 				type : 'select',
 				verify : 'select',
 				select : [
@@ -50,20 +50,23 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 						{name:'请选择专题栏目',title:'topicColumnId'}
 					]
 				]
-			},
-			{
-				title : 'channelId',
-				selectName : ['channelId'],
-				name : '频道类别',
-				type : 'select',
-				verify : 'select',
-				select : [
-					[
-						{name:'请选择频道类别',title:'channelId'}
-					]
-				]
 			}
 		],
+		{
+			title : 'channelId',
+			selectName : ['categoryId','channelId'],
+			name : '请选择分类',
+			type : 'select',
+			verify : 'select',
+			select : [
+				[
+					{name:'请选择部门类别',title:'categoryId'}
+				],
+				[
+					{name:'请选择频道类别',title:'channelId'}
+				]
+			]
+		},
 		[
 			{
 				title : 'releaseTime',
@@ -85,18 +88,40 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 			type : 'text'
 		}
 	];
+	function setData(obj,name,_data){
+		if(obj.type=='select'){
+			if(obj.select[0][0].title==name){
+				obj.select[0] = obj.select[0].concat(Tool.changeObjectName(_data.data,[{name:'columnName',newName:'name'}]));
+			}
+		}
+	}
 	function getList(callback){
-		getData.topic.topicColumnList({//部门
+		getData.topic.topicColumnList({//系列专题是。topicColumn
 			callback:function(_data){
 				$.each(list,function(i , obj){
-					if(obj.type=='select'){
-						if(obj.select[0][0].title=='topicClassifyId'){
-							obj.select[0] = obj.select[0].concat(Tool.changeObjectName(_data.data,[{name:'categoryName',newName:'name'}]));
-
-						}
+					if($.type(obj)=='array'){
+						$.each(obj,function(){
+							setData(this,'topicColumnId',_data);
+						})
+					}else{
+						setData(obj,'topicColumnId',_data);
 					}
-				})
-				callback(list);
+				});
+				getData.topic.topicClassifyList({//专题分类 topicClassifyId
+					callback : function( _data1 ){
+						$.each(list,function(i , obj){
+							if($.type(obj)=='array'){
+								$.each(obj,function(){
+									setData(this,'topicClassifyId',_data1);
+								})
+							}else{
+								setData(obj,'topicClassifyId',_data1);
+							}
+						})
+						callback(list);
+					}
+				});
+
 			}
 		});
 	}
