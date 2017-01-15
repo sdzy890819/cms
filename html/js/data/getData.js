@@ -512,7 +512,17 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 			}
 		},
 		topic : { //专题
-			listTopic : function( callback ){//模版列表［分页］ 接口
+			createTopicColumn : function( obj ){//新建专题分类
+				T.ajax({
+					url : URL.topic.createTopicColumn , 
+					type : 'POST',
+					data : {name:obj.name},
+					success : function( _data ){
+						obj.callback(_data)
+					}
+				});
+			}
+			,listTopic : function( callback ){//模版列表［分页］ 接口
 				T.ajax({
 					url : URL.topic.listTopic , 
 					type : 'get',
