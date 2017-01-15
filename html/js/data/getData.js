@@ -686,6 +686,16 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						obj.callback(_data)
 					}
 				});
+			},
+			updateTopicClassify: function( obj ){//删除分类栏目列表
+				T.ajax({
+					url : URL.topic.updateTopicClassify ,
+					type : 'POST',
+					data : {id:obj.id,name:obj.name}, 
+					success : function( _data ){
+						obj.callback(_data)
+					}
+				});
 			}
 		},
 		userchannel : { //用户频道编辑权限

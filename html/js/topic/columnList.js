@@ -4,19 +4,19 @@ define(['require',"app",'jquery'
 	,'formlist','fixedNav','position'
 	,'../moduls/service','../moduls/factory'
 ], function ( require , app , $ , getData , list ,editPop ) {
-	app.directive('topicClassList',function(){
+	app.directive('topicColumnList',function(){
 		return {
 	    	restrict : 'E',
 	    	replace : true,
 	    	transclude : true,
 	        templateUrl : '../template/common/list.html',
 	        controller : function($scope , pop , $uibModal , $css,GenerateArrList){
-	        	$scope.title = "专题分类列表";
+	        	$scope.title = "系列专题分类列表";
 				$scope.$parent.menu.push({name:$scope.title}); //栏目
 				angular.extend($scope,{
 					edit : function( obj ){ //保存 obj为原始数据
 						function updateData(callback){ //填充数据
-							GenerateArrList.changeTypeName([obj],[{name:'classifyName',newName:'name'}])
+							GenerateArrList.changeTypeName([obj],[{name:'columnName',newName:'name'}])
 							callback({data:obj})
 							/*getData.topic.topicInfo({
 								id : obj.id,
@@ -32,7 +32,7 @@ define(['require',"app",'jquery'
         					list : list,
         					updateData : updateData,
         					save : function(_obj , _detail ){ //保存 新增 确认 等 _obj为修改后的数据 _detail等于updateData 
-								getData.topic.updateTopicClassify({
+								getData.topic.updateTopicColumn({
 									id : obj.id,
 									name : _obj.name,
 									callback : function(_data){
@@ -71,10 +71,10 @@ define(['require',"app",'jquery'
 	 					})
 					}
 				});
-				getData.topic.topicClassifyList({
+				getData.topic.topicColumnList({
 					callback : function(_data){
 						var th = [
-							{name:'专题分类名称' , key:'classifyName'},
+							{name:'专题分类名称' , key:'columnName'},
 							{name:'操作' , width : '120', class:'center'}
 						];
 						$scope.listdata = { //确认按钮
