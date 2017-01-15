@@ -28,7 +28,7 @@ define(["app",'jquery','./columnForm'
         					list : list,
         					updateData : getAddForm,
         					callback : function( list , callback ){ //返回获取的数据 用于操作
-								callback(list);
+										callback(list);
         					},
         					$uibModal :$uibModal 
         				});

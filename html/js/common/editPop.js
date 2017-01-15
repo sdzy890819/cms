@@ -32,6 +32,7 @@ define(["app",'jquery','form'],function (app,$) {
 					});
 
 					getList(function(list){
+						
 						obj.callback(list,function(_list){
 							$scope.formdata = { //确认按钮
 								title : '编辑',

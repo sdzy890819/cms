@@ -22,60 +22,61 @@ define(['require',"app",'jquery'
 									callback(_data);
 								}
 							})
-						}
-						
+						}													
+
         				editPop.init({
         					obj : obj,
         					list : list,
         					updateData : getAddForm,
         					callback : function( list , callback ){ //返回获取的数据 用于操作
-								$.each(list,function( i , obj){
-									if(obj.title == 'content'){
-										obj.width = '650px';
-									}
-									if(obj.type=='select'){
-										obj.callback = function( _object ){
-											if(_object.title == 'categoryId'){
-												getData.channel.currentChannelList({
-													categoryId : _object.obj.id,
-													callback : function(_data){
-														var arr = [obj.select[1][0]];
-														obj.select[1] = arr;
-														/*var _data = {
-															data : [{
-															      "categoryId": 10001,
-															      "channelDesc": "世界频道，带你看世界",
-															      "channelName": "世界频道",
-															      "channelPath": "/data/publish/",
-															      "channelUrl": "http://120.77.220.11/publish/",
-															      "delTag": 1,
-															      "id": 10001,
-															      "lastModifyUserId": "14840345528522311094",
-															      "templatePath": "/data/template/"
-															    }]											
-															}*/
-														obj.select[1] = obj.select[1].concat(Tool.changeObjectName(_data.data,[{name:'channelName',newName:'name'}]));
-														
-														$scope.$apply();
-														_object.callback();
-													}
-												})
-											}else if(_object.title == 'channelId'){
-												getData.news.newscolumnlist({
-													channelId : _object.obj.id,
-													callback : function(_data){
-														var arr = [obj.select[2][0]];
-														obj.select[2] = arr;
-														obj.select[2] = obj.select[2].concat(Tool.changeObjectName(_data.data,[{name:'columnName',newName:'name'}]));
-														$scope.$apply();
-														_object.callback();
-													}
-												})
+
+										$.each(list,function( i , obj){
+											if(obj.title == 'content'){
+												obj.width = '650px';
 											}
-										}
-									}
-								});
-								callback(list);
+											if(obj.type=='select'){
+												obj.callback = function( _object ){
+													if(_object.title == 'categoryId'){
+														getData.channel.currentChannelList({
+															categoryId : _object.obj.id,
+															callback : function(_data){
+																var arr = [obj.select[1][0]];
+																obj.select[1] = arr;
+																/*var _data = {
+																	data : [{
+																	      "categoryId": 10001,
+																	      "channelDesc": "世界频道，带你看世界",
+																	      "channelName": "世界频道",
+																	      "channelPath": "/data/publish/",
+																	      "channelUrl": "http://120.77.220.11/publish/",
+																	      "delTag": 1,
+																	      "id": 10001,
+																	      "lastModifyUserId": "14840345528522311094",
+																	      "templatePath": "/data/template/"
+																	    }]											
+																	}*/
+																obj.select[1] = obj.select[1].concat(Tool.changeObjectName(_data.data,[{name:'channelName',newName:'name'}]));
+																
+																$scope.$apply();
+																_object.callback();
+															}
+														})
+													}else if(_object.title == 'channelId'){
+														getData.news.newscolumnlist({
+															channelId : _object.obj.id,
+															callback : function(_data){
+																var arr = [obj.select[2][0]];
+																obj.select[2] = arr;
+																obj.select[2] = obj.select[2].concat(Tool.changeObjectName(_data.data,[{name:'columnName',newName:'name'}]));
+																$scope.$apply();
+																_object.callback();
+															}
+														})
+													}
+												}
+											}
+										});
+										callback(list);
         					},
         					$uibModal :$uibModal 
         				});
@@ -92,7 +93,7 @@ define(['require',"app",'jquery'
 								var layer = layui.layer;
 								layer.msg(_data.message);
 								setTimeout(function(){
-									location.reload()
+									location.reload();
 								},300)
 							});
 						};
@@ -123,7 +124,9 @@ define(['require',"app",'jquery'
 
 
 				var page = 1;
-				function getDataList(){
+
+				function getDataList(){					
+
 					getData.news.newslist({
 						page : page,
 						pageSize : 5,

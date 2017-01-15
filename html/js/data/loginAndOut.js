@@ -9,6 +9,8 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$,userInfo){
 					obj.callback(_data);
 				},
 				error : function(_data){
+
+					getUserInfo();
 					alert('登录请求异常');				
 				}
 			})
@@ -26,7 +28,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$,userInfo){
 		},
 		getUserInfo : function( callback ){			
 			user.login({
-				userName: 'admin3', 
+				userName: 'admin', 
 				pwd: '1234qwer',
 				callback : callback
 			})
