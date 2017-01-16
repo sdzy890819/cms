@@ -48,11 +48,18 @@ define(function(){
 			},
 			{
 				title : 'size',
-				name : '宽/高尺寸',
-				placeholder : '请填写尺寸',
+				name : '图片宽度',
+				placeholder : '请填写图片宽度',
 				type : 'text', //text textarea radio checkbox edit
 				verify : 'number'
-			}
+			},
+			{
+				title : 'size',
+				name : '图片高度',
+				placeholder : '请填写图片高度',
+				type : 'text', //text textarea radio checkbox edit
+				verify : 'number'
+			}			
 		]
 	];
 })
