@@ -134,13 +134,13 @@ public class PermissionController extends BaseController {
         if(StringUtils.isNotBlank(permission)){
             old.setPermission(permission);
         }
-        if(showFlag >= 0 ){
+        if(showFlag!=null && showFlag >= 0 ){
             old.setShowFlag(showFlag);
         }
-        if(sort >= 0){
+        if(sort!=null && sort >= 0){
             old.setSort(sort);
         }
-        if(type >= 0){
+        if(type!=null && type >= 0){
             old.setType(type);
         }
         if(StringUtils.isNotBlank(url)){

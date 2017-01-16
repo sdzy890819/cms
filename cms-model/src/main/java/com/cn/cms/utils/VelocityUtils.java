@@ -129,8 +129,7 @@ public class VelocityUtils {
      */
     public static void main(String[] args){
         Map<String, Object> objectMap = new HashMap<>();
-        objectMap.put("page", 1);
-        parse(objectMap, "#TAGList() ABC #end");
+        parse(objectMap, "#TAGDETAIL(\"test\",1,\"shi\") ${test} #end");
     }
 
 }

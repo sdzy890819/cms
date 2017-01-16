@@ -23,6 +23,11 @@ public class RedisKeyContants {
 
     public static final String REDIS_USER_KEY = "CMS_USER_";
 
+    public static final String REDIS_CATEGORY_KEY = "CMS_CATEGORY_KEY";
+
+    public static final String REDIS_CHANNEL_LIST_KEY = "CMS_CHANNEL_LIST_KEY";
+
+
     public static String getUserKey(String userId){
         return REDIS_USER_KEY.concat(userId);
     }

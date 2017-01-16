@@ -21,4 +21,9 @@ public class OtherServiceImpl implements OtherService {
     public List<Map<String, Object>> execSql(String sql) {
         return otherDao.execSql(sql);
     }
+
+    @Override
+    public Map<String, Object> execSqlOne(String sql) {
+        return otherDao.execSqlOne(sql);
+    }
 }

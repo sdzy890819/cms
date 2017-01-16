@@ -35,7 +35,7 @@
     <select id="findChannelByUserId" resultMap="channel">
         SELECT <include refid="sql_column" /> from channel <include refid="delTag" />
         <if test="categoryId != null">
-            and category_id = ${categoryId}
+            and category_id = #{categoryId}
         </if>
          and id in (
         select channel_id from user_channel <include refid="delTag" /> and user_id = #{userId}
@@ -46,7 +46,7 @@
     <insert id="saveChannel" useGeneratedKeys="true" keyProperty="p1.id">
         insert into channel ( <include refid="sql_column"/> ) values (
         null, #{p1.lastModifyUserId}, #{p1.channelName}, #{p1.channelUrl}, #{p1.channelPath},
-        #{p1.channelDesc}, ${p1.categoryId},#{p1.templatePath}
+        #{p1.channelDesc}, #{p1.categoryId},#{p1.templatePath}
         );
 
     </insert>
@@ -67,34 +67,34 @@
         channel_desc = #{p1.channelDesc},
         </if>
         <if test="p1.categoryId != null">
-        category_id = ${p1.categoryId},
+        category_id = #{p1.categoryId},
         </if>
         <if test="p1.templatePath != null">
         template_path = #{p1.templatePath},
         </if>
         last_modify_user_id = #{p1.lastModifyUserId}
         </set>
-        where id = ${p1.id};
+        where id = #{p1.id};
     </update>
     
     <update id="delChannel">
-        update channel set last_modify_user_id = #{lastModifyUserId}, del_tag = 0 where id = ${id};
+        update channel set last_modify_user_id = #{lastModifyUserId}, del_tag = 0 where id = #{id};
     </update>
 
     <select id="findChannel" resultMap="channel">
-        SELECT <include refid="sql_column" /> from channel <include refid="delTag" /> and id = ${id};
+        SELECT <include refid="sql_column" /> from channel <include refid="delTag" /> and id = #{id};
     </select>
 
     <select id="getChannelList" resultMap="channel">
         SELECT <include refid="sql_column" /> from channel <include refid="delTag" /> and id in
         <foreach collection="list" item="item" open="(" close=")" separator=",">
-            ${item}
+            #{item}
         </foreach>
         order by update_time desc;
     </select>
 
     <select id="findChannelList" resultMap="channel">
-        SELECT <include refid="sql_column" /> from channel <include refid="delTag" /> and category_id = ${categoryId}  order by update_time desc;
+        SELECT <include refid="sql_column" /> from channel <include refid="delTag" /> and category_id = #{categoryId}  order by update_time desc;
     </select>
     
 </mapper>
