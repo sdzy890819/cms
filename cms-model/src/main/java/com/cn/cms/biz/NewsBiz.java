@@ -4,9 +4,7 @@ import com.cn.cms.bo.RelationColumn;
 import com.cn.cms.enums.AutoPublishEnum;
 import com.cn.cms.enums.PublishEnum;
 import com.cn.cms.enums.TemplateClassifyEnum;
-import com.cn.cms.po.Channel;
-import com.cn.cms.po.News;
-import com.cn.cms.po.NewsColumn;
+import com.cn.cms.po.*;
 import com.cn.cms.service.NewsService;
 import com.cn.cms.utils.Page;
 import com.cn.cms.utils.StringUtils;
@@ -140,10 +138,19 @@ public class NewsBiz extends BaseBiz {
     }
 
     public List<News> listNews(Page page){
-        Integer count = newsService.queryNewsCount();
+        Integer count = newsService.queryNewsCount(null, null);
         page.setCount(count);
         if(page.isQuery()) {
-            return newsService.queryNewsList(page);
+            return newsService.queryNewsList(null, null, page);
+        }
+        return null;
+    }
+
+    public List<News> myNewsList(String userId, Integer publish, Page page){
+        Integer count = newsService.queryNewsCount(userId, publish);
+        page.setCount(count);
+        if(page.isQuery()) {
+            return newsService.queryNewsList(userId, publish, page);
         }
         return null;
     }
@@ -216,6 +223,27 @@ public class NewsBiz extends BaseBiz {
      */
     public News findNews(Long id){
         return newsService.findNews(id);
+    }
+
+
+    public NewsRecommend findNewsRecommend(Long id){
+        return newsService.findNewsRecommend(id);
+    }
+
+    public void recommendNews(NewsRecommend newsRecommend){
+        newsService.updateNewsRecommend(newsRecommend);
+    }
+
+    public List<RecommendColumn> listRecommendColumn(){
+        return newsService.findAll();
+    }
+
+    public void saveRecommendColumn(RecommendColumn p1){
+        if(p1.getId()!=null && p1.getId()>0){
+            newsService.createRecommendColumn(p1);
+        }else{
+            newsService.updateRecommendColumn(p1);
+        }
     }
 
 }

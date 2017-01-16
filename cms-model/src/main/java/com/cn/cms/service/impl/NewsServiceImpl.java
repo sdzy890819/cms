@@ -3,15 +3,13 @@ package com.cn.cms.service.impl;
 import com.cn.cms.dao.NewsColumnDao;
 import com.cn.cms.dao.NewsDao;
 import com.cn.cms.dao.NewsDetailDao;
+import com.cn.cms.dao.RecommendColumnDao;
 import com.cn.cms.enums.AutoPublishEnum;
 import com.cn.cms.enums.ESSearchTypeEnum;
 import com.cn.cms.enums.IndexOperEnum;
 import com.cn.cms.enums.PublishEnum;
 import com.cn.cms.job.IndexThread;
-import com.cn.cms.po.Base;
-import com.cn.cms.po.News;
-import com.cn.cms.po.NewsColumn;
-import com.cn.cms.po.NewsDetail;
+import com.cn.cms.po.*;
 import com.cn.cms.service.NewsService;
 import com.cn.cms.utils.Page;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -35,6 +33,9 @@ public class NewsServiceImpl implements NewsService {
 
     @Resource
     private NewsDetailDao newsDetailDao;
+
+    @Resource
+    private RecommendColumnDao recommendColumnDao;
 
     @Resource(name = "threadTaskExecutor")
     private ThreadPoolTaskExecutor threadTaskExecutor;
@@ -76,12 +77,12 @@ public class NewsServiceImpl implements NewsService {
         newsColumnDao.delNewsColumn(lastModifyUserId, id);
     }
 
-    public List<News> queryNewsList(Page page) {
-        return newsDao.queryNewsList(page);
+    public List<News> queryNewsList(String userId, Integer publish ,Page page) {
+        return newsDao.queryNewsList(userId, publish, page);
     }
 
-    public Integer queryNewsCount() {
-        return newsDao.queryNewsCount();
+    public Integer queryNewsCount(String userId, Integer publish) {
+        return newsDao.queryNewsCount(userId, publish);
     }
 
     public News findNewsAndDetail(Long id) {
@@ -161,5 +162,30 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public News findNews(Long id) {
         return newsDao.findNewsAndDetail(id);
+    }
+
+    @Override
+    public NewsRecommend findNewsRecommend(Long id) {
+        return newsDao.findNewsRecommend(id);
+    }
+
+    @Override
+    public void updateNewsRecommend(NewsRecommend newsRecommend) {
+        newsDao.updateNewsRecommend(newsRecommend);
+    }
+
+    @Override
+    public List<RecommendColumn> findAll() {
+        return recommendColumnDao.findAll();
+    }
+
+    @Override
+    public void createRecommendColumn(RecommendColumn recommendColumn) {
+        recommendColumnDao.createRecommendColumn(recommendColumn);
+    }
+
+    @Override
+    public void updateRecommendColumn(RecommendColumn recommendColumn) {
+        recommendColumnDao.updateRecommendColumn(recommendColumn);
     }
 }
