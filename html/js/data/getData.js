@@ -49,14 +49,13 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 	};
 	var public = {
 		permission : {//权限
-			listPermission:function( callback ){ //权限列表接口
+			listPermission:function( obj ){ //权限列表接口
 				T.ajax({
 					url : URL.permission.listPermission , 
 					type : 'get',
-
 					data : {},
 					success : function( _data ){
-							callback(_data);
+						obj.callback(_data);
 					},
 					error : function(){}
 				})
@@ -79,6 +78,18 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						obj.callback(_data);
 					}
 				})
+			},
+
+			delPermission : function(obj) {
+				T.ajax({
+					url : URL.permission.delPermission , 
+					data : {
+						id : obj.id
+					},
+					success : function(_data){
+						obj.callback(_data);
+					}
+				})				
 			}
 		},
 		user : {
