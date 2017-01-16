@@ -35,7 +35,7 @@
 
     <insert id="createPermission" useGeneratedKeys="true" keyProperty="p1.id">
         insert into permission (<include refid="sql_column" /> ) value(null,#{p1.lastModifyUserId},#{p1.name},#{p1.description},${p1.type},#{p1.url}
-        ,${p1.sort},${p1.parentId},${p1.showFlag},#{p1.permission});
+        ,#{p1.sort},#{p1.parentId},#{p1.showFlag},#{p1.permission});
     </insert>
 
     <update id="updatePermission">
