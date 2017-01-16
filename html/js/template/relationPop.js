@@ -27,21 +27,26 @@ define(["app",'jquery','../data/getData'],function (app,$,getData) {
 					getData.news.relationColumnList({//新闻栏目
 						callback : function(_data){
 							$scope.relationColumnListData = _data.data;
+							$scope.$apply();
 						}
 					})
 					getData.topic.topicClassifyList({//专题分类列表 接口
 						callback : function(_data1){
 							$scope.topicClassifyListData = _data1.data;
+							$scope.$apply();
 						}
 					})
 					getData.fragment.list({ //所有碎片列表
 						callback : function(_data2){
 							$scope.fragmentListData = _data2.data;
+							$scope.$apply();
 						}
 					})
 					getData.news.recommendColumnlist({//新闻推荐栏目列表 接口
+						alert : false,
 						callback : function(_data3){
 							$scope.recommendColumnlistData = _data3.data;
+							$scope.$apply();
 						}
 					})
 				}
