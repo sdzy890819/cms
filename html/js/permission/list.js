@@ -22,13 +22,14 @@ define(['require',"app",'jquery'
 									}
 								})
 							},
-							edit : function( obj ){ //保存
+							edit : function( obj, _detail ){ //保存
 								require(['../common/editPop'], function(pop) {
                   
                   function getAddForm (callback) {
 										var _data = {
 											data: obj
 										};
+																				
 										callback(_data);
                   }
 
@@ -37,32 +38,43 @@ define(['require',"app",'jquery'
 	        					list       : list,
 	        					$uibModal  : $uibModal,
 	        					updateData : getAddForm,
-	        					save : function(obj, _detail) {
+	        					save : function(obj, _detail) {	
+	        						var type, showFlag;  
 
-	        						var categoryId;
-											$.each(obj.selects,function(){
-												if(this.title == 'categoryId'){
-													categoryId = this.id;
-												}
-											});
+	        						if (obj.type == 'BUTTON') {
+	        							type = 2;
+	        						}else {
+	        							type = 1;
+	        						}
 
-	        						data.channel.updateChannel({
-	        							id           : _detail.id,
-												categoryId   : categoryId,
-												channelName  : obj.channelName,
-												channelUrl   : obj.channelUrl,
-												channelPath  : obj.channelPath,
-												templatePath : obj.templatePath,
-												channelDesc  : obj.channelDesc,
+	        						if (obj.showFlag == 'YES') {
+	        							showFlag = 1;
+	        						}else {
+	        							showFlag = 0;
+	        						}
 
+											data.permission.updatePermission({
+												id : _detail.id,
+												name : obj.name,
+												description : obj.description,
+												type : type,
+												url : obj.url,
+												sort : obj.sort,
+												parentId : obj.parentId,
+												showFlag : showFlag,
+												permission : obj.permission,
 												callback : function(_data){
+
 													layui.use(['layer'], function(){
 														var layer = layui.layer;
-														layer.msg(_data.message);
-														$state.reload();
+														layer.msg(_data.message);														
+														if (_data.code == 0){
+															$state.reload();
+														}
 													});
 												}
-	        						})
+											});  
+
 	        					},
 								  	close : function () {
 									   	$uibModal.dismiss('cancel');
@@ -74,6 +86,75 @@ define(['require',"app",'jquery'
 	        				});
 	        				
 			  				});
+							},
+
+							addChildPermission : function(obj, _detail) {
+								require(['../common/editPop'], function(pop) {
+                  
+                  function getAddForm (callback) {
+
+										var _data = {
+										  data : {
+										  	parentId : obj.id
+										  }
+										}
+
+										callback(_data);
+                  }
+
+	        				pop.init({
+	        					obj        : obj,
+	        					list       : list,
+	        					$uibModal  : $uibModal,
+	        					updateData : getAddForm,
+	        					save : function(obj, _detail) {	
+	        						var type, showFlag;  
+
+	        						if (obj.type == 'BUTTON') {
+	        							type = 2;
+	        						}else {
+	        							type = 1;
+	        						}
+
+	        						if (obj.showFlag == 'YES') {
+	        							showFlag = 1;
+	        						}else {
+	        							showFlag = 0;
+	        						}
+
+											data.permission.createPermission({												
+												name : obj.name,
+												description : obj.description,
+												type : type,
+												url : obj.url,
+												sort : obj.sort,
+												parentId : obj.parentId,
+												showFlag : showFlag,
+												permission : obj.permission,
+												callback : function(_data){
+
+													layui.use(['layer'], function(){
+														var layer = layui.layer;
+														layer.msg(_data.message);
+														console.log(_data);
+														if (_data.code == 0){
+															$state.reload();
+														}
+													});
+												}
+											});  
+
+	        					},
+								  	close : function () {
+									   	$uibModal.dismiss('cancel');
+								  	},  					
+	        					callback : function(list, callback){
+	        						callback(list);
+	        					}
+
+	        				});
+	        				
+			  				});								
 							},
     					del   : function (obj) {
 								pop.alert({
@@ -105,18 +186,18 @@ define(['require',"app",'jquery'
 													{name:'权限名', key: 'name' },
 													{name:'父类ID', key: 'parentId'},
 													{name:'权限代码', key: 'permission'},
-													{name:'类型', key: 'type'},
-													{name:'操作' , width : '120', class:'center'}
+													{name:'类型', key: 'typeStr'},
+													{name:'操作' , width : '200', class:'center'}
 									];
 
 									var newData = [];
 									$.each(_data.data, function(index, value){
 										value.permission.parentId = '';
-										value.permission.type = 'MENU';
+										value.permission.typeStr = 'MENU';
 										newData.push(value.permission);
 
 										$.each(value.permissions, function(i, j){
-											j.type = 'BUTTON';											
+											j.typeStr = 'BUTTON';											
 											newData.push(j);
 										})
 									})
@@ -124,7 +205,7 @@ define(['require',"app",'jquery'
 									$scope.listdata = { //确认按钮
 											title : $scope.title,
 											table : {
-												select : true,
+												select : true,												
 												th : th,
 												td : GenerateArrList.setArr(newData,th),											
 												edit : [
@@ -135,7 +216,21 @@ define(['require',"app",'jquery'
 										}
 								// GenerateArrList.extendType($scope.listdata.table.td,$scope.listdata.table.th,['width','name']); //把TH 中的出name属性以外的属性合传给td
 				        		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
-				        		
+				        						        		
+					        	$.each($scope.listdata.table.td,function( i , item ){					        		
+				        			var arr = [];
+			        				if(item.typeStr == 'MENU'){			        					
+			        					arr.push({cls : 'add' , name : '新增子权限',evt:$scope.addChildPermission});			        					
+			        					item.cls = 'special';			        					
+			        				}
+			        				arr.push(
+			        					{cls : 'edit' , name : '编辑',evt:$scope.edit},
+			        					{cls : 'del' , name : '删除',evt:$scope.del}
+			        				);
+
+				        			item.list.edit = arr;
+
+					        	});
 				        		$scope.$apply();
 									}
 								});
@@ -145,8 +240,7 @@ define(['require',"app",'jquery'
 						getDataList();
 				
 	     	}
-	        ,link : function($scope , element ){
-	        	
+	        ,link : function($scope , element ){	        	
 	        }
 	    };
 	});

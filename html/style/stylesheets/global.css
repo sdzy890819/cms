@@ -976,6 +976,11 @@ input:focus{ border: 1px solid #bbb !important;} */
   vertical-align: middle;
 }
 
+.form-horizontal table tr.special {
+  background: #999;
+  color: #fff;
+}
+
 /*layui相关*/
 /* line 302, ../sass/global.scss */
 .layui-form {

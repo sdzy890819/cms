@@ -58,6 +58,7 @@ define(['../data/getData','../moduls/Tool'], function(Data, Tool){
 					}
 				})
 
+				console.log(_data);
 				callback(list);
 			}			
 		});
