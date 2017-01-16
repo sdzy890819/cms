@@ -1,12 +1,13 @@
-define(["app",'./addForm','form','position','fixedNav'], function ( app , list ) {
-	app.directive('imageAdd',function(){
+define(["app",'./form','form','position','fixedNav'], function ( app , list ) {
+	app.directive('imageBaseAdd',function(){
 		return {
 	    	restrict : 'E',
 	    	replace : true,
 	    	transclude : true,
-        templateUrl : '../template/common/addAndEdit.html',
-        controller : function($scope){
-        	$scope.title = '新增图片';
+        templateUrl : '../../template/common/addAndEdit.html',
+        controller : function($scope){        	
+        	$scope.title = '图片基础信息';
+
         	$scope.$parent.menu.push({name:$scope.title});
         	angular.extend($scope,{
 						save : function( arr ){ //保存
@@ -15,11 +16,8 @@ define(["app",'./addForm','form','position','fixedNav'], function ( app , list )
 						cancel : function( arr ){ //取消
 							alert(arr)
 						}
-
-						
-						
-						
 					});
+
 					$scope.edit = { //导航操作按钮
 						list : [
 							{
@@ -29,8 +27,6 @@ define(["app",'./addForm','form','position','fixedNav'], function ( app , list )
 							}
 						]
 					}
-
-					
 					$scope.formdata = { //确认按钮
 						title : $scope.title,
 						list : list,

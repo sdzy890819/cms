@@ -21,7 +21,7 @@ define(["app",'require','../data/getInitInfo'], function ( app , require , dataI
 		  	dataInfo.login({
 		  		data : data.field , 
 		  		callback : function(_data){
-		  			$state.go('home');
+		  			$state.go('home.main');
 		  		}
 		  	});
 		    return false;
