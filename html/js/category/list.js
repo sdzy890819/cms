@@ -53,8 +53,7 @@ define(["app",'jquery','require',
 				function getDataList(){
 					data.category.listCategory({
 
-						callback : function(_data){
-
+						callback : function(_data){							
 							var th = [
 								{name:'分类名' , key: 'categoryName', width : '200'},
 								{name:'分类说明', key: 'categoryDesc' },
