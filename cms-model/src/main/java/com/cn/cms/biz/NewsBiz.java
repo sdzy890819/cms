@@ -230,6 +230,10 @@ public class NewsBiz extends BaseBiz {
         return newsService.findNewsRecommend(id);
     }
 
+    public List<NewsRecommend> findListByRecommedColumnId(Long recommendColumnId, Page page){
+        return newsService.findListByRecommedColumnId(recommendColumnId, page);
+    }
+
     public void recommendNews(NewsRecommend newsRecommend){
         newsService.updateNewsRecommend(newsRecommend);
     }

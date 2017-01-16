@@ -86,6 +86,12 @@ public class BuildBiz extends BaseBiz {
                 base = fragment;
                 break;
             }
+            case RECOMMEND: {
+                NewsRecommend newsRecommend = newsBiz.findNewsRecommend(body.getId());
+                templates = templateBiz.findTemplateListByRelation(newsRecommend.getRecommendColumnId(), RelationTypeEnum.recommend.getType());
+                base = newsRecommend;
+                break;
+            }
             default: {
                 log.info("无相关对应类型，不作处理!");
                 return;

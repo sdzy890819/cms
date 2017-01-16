@@ -367,6 +367,7 @@ public class NewsController extends BaseController {
         newsRecommend.setRecommendUserId(getCurrentUserId(request));
         newsRecommend.setSort(sort);
         newsBiz.recommendNews(newsRecommend);
+        publishBiz.publish(id, getCurrentUserId(request), CommonMessageSourceEnum.RECOMMEND);
         return ApiResponse.returnSuccess();
     }
 

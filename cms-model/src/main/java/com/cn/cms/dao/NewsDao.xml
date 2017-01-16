@@ -59,7 +59,7 @@
     </sql>
 
     <sql id="recommend_sql_column">
-        id, title, description, recommend_title, recommend_description, recommend_images, recommend_column_id, recommend, recommend_user_id
+        id, title, description, recommend_title, recommend_description, recommend_images, recommend_column_id, recommend, recommend_user_id, url
     </sql>
 
     <sql id="sql_column_simple">
@@ -193,7 +193,7 @@
     </select>
 
     <select id="findNewsRecommend" resultMap="newsRecommend">
-      select <include refid="recommend_sql_column" /> from news where id = ${id} ;
+      select <include refid="recommend_sql_column" /> from news <include refid="delTag"/> and id = ${id} ;
     </select>
 
     <update id="updateNewsRecommend">
@@ -219,5 +219,10 @@
         </set>
         where id = ${p1.id} ;
     </update>
+
+    <select id="findListByRecommedColumnId" resultMap="newsRecommend">
+        select <include refid="recommend_sql_column" /> from news <include refid="delTag"/> and recommend_column_id = ${recommendColumnId}
+        order by update_time desc limit ${page.start}, ${page.pageSize};
+    </select>
 
 </mapper>

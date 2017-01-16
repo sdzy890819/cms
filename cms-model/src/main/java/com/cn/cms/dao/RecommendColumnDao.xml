@@ -37,9 +37,8 @@
         </set> where id = ${p1.id};
     </update>
 
-    <select id="sel_sql_column" resultMap="recommendColumn">
-        select <include refid="sql_column" /> from recommend_column <include refid="delTag" /> order by update_time desc;
+    <select id="findAll" resultMap="recommendColumn">
+        select <include refid="sel_sql_column" /> from recommend_column <include refid="delTag" /> order by update_time desc;
     </select>
-
 
 </mapper>

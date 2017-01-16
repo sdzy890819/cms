@@ -113,6 +113,7 @@ public class DataController extends BaseController {
         map.put("buildMode", BuildModeEnum.values());
         map.put("watermark", WatermarkEnum.values());
         map.put("templateClassify", TemplateClassifyEnum.values());
+        map.put("template2Classify", Template2ClassifyEnum.values());
         map.put("showFlag", ShowFlagEnum.values());
         map.put("relationType", RelationTypeEnum.values());
         map.put("permissionType", PermissionTypeEnum.values());

@@ -11,7 +11,8 @@ public enum TAGListTypeEnum {
     NEWCOLUMN("NEWCOLUMN", 1),
     TOPICCOLUMN("TOPICCOLUMN", 2),
     TOPICCLASSIFY("TOPICCLASSIFY", 3),
-    SQL("SQL", 4);
+    RECOMMENDCOLUMN("RECOMMENDCOLUMN", 4),
+    SQL("SQL", 5);
 
     @Getter
     private int type;

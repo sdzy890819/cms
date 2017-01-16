@@ -1,10 +1,6 @@
 package com.cn.cms.biz;
 
 import com.cn.cms.bo.Template2Search;
-import com.cn.cms.bo.TemplateSearch;
-import com.cn.cms.enums.TemplateClassifyEnum;
-import com.cn.cms.po.PreTemplateBase;
-import com.cn.cms.po.Template;
 import com.cn.cms.po.Template2;
 import com.cn.cms.po.Template2Base;
 import com.cn.cms.service.Template2Service;

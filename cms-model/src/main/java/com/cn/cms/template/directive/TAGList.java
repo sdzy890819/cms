@@ -31,7 +31,7 @@ import java.util.List;
 /**
  *
  * resultObjName:"返回的对象名"
- * type:1-新闻栏目、2-系列专题、3-专题分类、4-SQL
+ * type:1-新闻栏目、2-系列专题、3-专题分类、4、新闻推荐栏目. 5-SQL
  * content:如果新闻栏目就是栏目号，如果是系列专题就是系列专题号、如果是专题分类名就是专题分类名、依次类推
  * count:总数。需要的总数
  * size:20
@@ -156,6 +156,10 @@ public class TAGList extends Directive {
             }
             case TOPICCLASSIFY:{
                 list = topicBiz.findTopicByClassify(Long.parseLong(content), pageObj);
+                break;
+            }
+            case RECOMMENDCOLUMN:{
+                list = newsBiz.findListByRecommedColumnId(Long.parseLong(content), pageObj);
                 break;
             }
             case SQL:{
