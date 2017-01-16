@@ -1,4 +1,4 @@
-define(["app",'jquery','form'],function (app,$) {
+define(["app",'jquery','../data/getData'],function (app,$,getData) {
     return {
     	init : function( obj ){
 			var $uibModal = obj.$uibModal , 
@@ -10,7 +10,6 @@ define(["app",'jquery','form'],function (app,$) {
 				templateUrl: '../template/template/relationPop.html',
 				windowClass : 'relationPopsuper',
 				controller: function($scope,$uibModalInstance,$css) {
-					$scope.data = null;
 					angular.extend($scope,{
 						titelement : {
 					  		close : true
@@ -25,6 +24,26 @@ define(["app",'jquery','form'],function (app,$) {
 						   	$uibModalInstance.dismiss('cancel');
 					  	}
 					});
+					getData.news.relationColumnList({//新闻栏目
+						callback : function(_data){
+							$scope.relationColumnListData = _data.data;
+						}
+					})
+					getData.topic.topicClassifyList({//专题分类列表 接口
+						callback : function(_data1){
+							$scope.topicClassifyListData = _data1.data;
+						}
+					})
+					getData.fragment.list({ //所有碎片列表
+						callback : function(_data2){
+							$scope.fragmentListData = _data2.data;
+						}
+					})
+					getData.news.recommendColumnlist({//新闻推荐栏目列表 接口
+						callback : function(_data3){
+							$scope.recommendColumnlistData = _data3.data;
+						}
+					})
 				}
 			});
     	}

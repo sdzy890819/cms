@@ -401,6 +401,14 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					}
 				})
 			},
+			recommendColumnlist : function( obj ){
+				T.ajax({
+					url : URL.news.recommendColumnlist , 
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				})
+			},
 			updateNewsColumn  : function( obj ){ //修改栏目
 				T.ajax({
 					url : URL.news.updateNewsColumn , 
@@ -416,6 +424,14 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						keywords:obj.keywords, //不是必须
 						description:obj.description //不是必须
 					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				})
+			}
+			,relationColumnList : function( obj ){
+				T.ajax({
+					url : URL.news.relationColumnList , 
 					success : function( _data ){
 						obj.callback(_data);
 					}
@@ -846,6 +862,14 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 			}
 		},
 		fragment : {
+			list : function( obj ){ //获取碎片列表
+				T.ajax({
+					url : URL.fragment.list , 
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});
+			},
 			listFragment : function( obj ){ //获取碎片列表
 				T.ajax({
 					url : URL.fragment.listFragment , 

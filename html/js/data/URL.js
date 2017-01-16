@@ -60,7 +60,9 @@ define(function(require){
 			createNews : url+'/news/createNews',//创建新闻
 			updateNews : url+'/news/updateNews',//修改新闻
 			updateNewsColumn : url+'/newscolumn/updateNewsColumn',//修改新闻
-			publish : url+'/news/publish'//新闻发布
+			publish : url+'/news/publish',//新闻发布
+			relationColumnList : url+'/newscolumn/relationColumnList',
+			recommendColumnlist : url+'/news/recommendColumnlist'
 		},
 		category : {//部门分类
 			listCategory : url+'/category/listCategory', //获取部门分类列表
@@ -136,6 +138,7 @@ define(function(require){
 		},
 		fragment : {
 			listFragment : url+'/fragment/listFragment', //获取碎片列表
+			list : url+'/fragment/list', //获取碎片列表
 			findFragment : url+'/fragment/findFragment', //获取碎片详细信息
 			delFragment : url+'/fragment/delFragment', //删除碎片
 			editFragment : url+'/fragment/editFragment', //编辑碎片
