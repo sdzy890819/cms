@@ -55,4 +55,9 @@ public class NewsSearch {
      * 结束时间
      */
     private Long endTimeMillis;
+
+    /**
+     * 排序值
+     */
+    private Integer sort;
 }

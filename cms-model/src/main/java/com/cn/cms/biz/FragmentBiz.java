@@ -35,6 +35,10 @@ public class FragmentBiz extends BaseBiz {
         return null;
     }
 
+    public List<Fragment> findAll(){
+        return fragmentService.findAll();
+    }
+
     public List<Fragment> searchFragement(FragmentSearch fragmentSearch, Page page){
         Integer count = fragmentService.searchFragementCount(fragmentSearch);
         page.setCount(count);

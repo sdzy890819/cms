@@ -118,6 +118,7 @@ public class DataController extends BaseController {
         map.put("relationType", RelationTypeEnum.values());
         map.put("permissionType", PermissionTypeEnum.values());
         map.put("job", JobEnum.values());
+        map.put("sort", SortEnum.values());
         map.put("encoded", EncodedEnum.values());
         map.put("compressMode", CompressModeEnum.values());
         map.put("compress", CompressEnum.values());

@@ -49,10 +49,18 @@ public class FragmentController extends BaseController {
                                @RequestParam(value="pageSize",required = false)Integer pageSize){
         Page pageObj = new Page(page, pageSize);
         List<Fragment> list = fragmentBiz.listFragment(pageObj);
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
         map.put("page", pageObj);
         map.put("list", list);
         return ApiResponse.returnSuccess(map);
+    }
+
+    @CheckToken
+    @CheckAuth( name = "fragment:read" )
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public String list(){
+        List<Fragment> list = fragmentBiz.findAll();
+        return ApiResponse.returnSuccess();
     }
 
 

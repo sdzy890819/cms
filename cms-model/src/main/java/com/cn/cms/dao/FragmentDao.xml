@@ -108,4 +108,8 @@
         ${p1.sortNum}, #{p1.fragmentModel},${p1.channelId});
     </insert>
 
+    <select id="findAll" resultMap="fragment">
+        select <include refid="sql_column_1" /> from fragment order by update_time desc;
+    </select>
+
 </mapper>

@@ -12,11 +12,6 @@ import lombok.Setter;
 public class NewsRecommend extends News {
 
     /**
-     * 推荐排序
-     */
-    private Integer sort = 1000;
-
-    /**
      * 推荐标题
      */
     private String recommendTitle;

@@ -40,6 +40,11 @@ public class FragmentServiceImpl implements FragmentService {
     }
 
     @Override
+    public List<Fragment> findAll() {
+        return fragmentDao.findAll();
+    }
+
+    @Override
     public Integer searchFragementCount(FragmentSearch fragmentSearch) {
         return fragmentDao.searchFragementCount(fragmentSearch);
     }

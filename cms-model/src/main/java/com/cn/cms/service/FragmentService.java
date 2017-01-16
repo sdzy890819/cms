@@ -17,6 +17,8 @@ public interface FragmentService {
 
     List<Fragment> queryFragmentList(Page page);
 
+    List<Fragment> findAll();
+
     Integer searchFragementCount(FragmentSearch fragmentSearch);
 
     List<Fragment> searchFragement(FragmentSearch fragmentSearch, Page page);

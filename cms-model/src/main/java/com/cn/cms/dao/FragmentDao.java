@@ -17,6 +17,8 @@ public interface FragmentDao {
 
     List<Fragment> queryFragmentList(@Param(value = "page") Page page);
 
+    List<Fragment> findAll();
+
     Integer searchFragementCount(@Param(value = "p1") FragmentSearch fragmentSearch);
 
     List<Fragment> searchFragement(@Param(value = "p1") FragmentSearch fragmentSearch,

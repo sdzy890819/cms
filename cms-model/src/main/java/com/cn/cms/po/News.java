@@ -152,6 +152,11 @@ public class News extends Base{
 
     private String publishStr;
 
+    /**
+     * 推荐排序
+     */
+    private Integer sort = 1000;
+
     public String getPublishStr(){
         PublishEnum publishEnum = PublishEnum.get(publish);
         if(publishEnum!=null){

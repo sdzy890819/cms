@@ -80,6 +80,7 @@ public class SearchController extends BaseController {
                            @RequestParam(value = "platform", required = false) Integer platform,
                            @RequestParam(value = "startTime", required = false) String startTime,
                            @RequestParam(value = "endTime", required = false) String endTime,
+                             @RequestParam(value = "sort", required = false) Integer sort,
                            @RequestParam(value = "page", required = false) Integer page,
                            @RequestParam(value = "pageSize", required = false) Integer pageSize){
 
@@ -92,6 +93,7 @@ public class SearchController extends BaseController {
         newsSearch.setChannelId(channelId);
         newsSearch.setColumnId(columnId);
         newsSearch.setPlatform(platform);
+        newsSearch.setSort(sort);
         try {
             if (StringUtils.isNotBlank(startTime)) {
                 newsSearch.setStartTimeMillis(sdf.parse(startTime).getTime());

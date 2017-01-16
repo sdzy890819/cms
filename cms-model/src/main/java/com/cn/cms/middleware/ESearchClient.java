@@ -3,6 +3,7 @@ package com.cn.cms.middleware;
 import com.alibaba.fastjson.JSONObject;
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.enums.ESSearchTypeEnum;
+import com.cn.cms.enums.SortEnum;
 import com.cn.cms.logfactory.CommonLog;
 import com.cn.cms.logfactory.CommonLogFactory;
 import com.cn.cms.middleware.bo.ImagesSearch;
@@ -18,6 +19,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.index.IndexResponse;
+import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.client.transport.TransportClient;
@@ -95,15 +97,19 @@ public class ESearchClient {
         if(newsSearch.getEndTimeMillis()!=null && newsSearch.getEndTimeMillis()>0){
             qb = qb.must(QueryBuilders.rangeQuery(StaticContants.FIELD_CREATE_TIME).lte(newsSearch.getEndTimeMillis()));
         }
-        SearchResponse response = this.client.prepareSearch(ESSearchTypeEnum.news.getIndex())
+        SearchRequestBuilder builder = this.client.prepareSearch(ESSearchTypeEnum.news.getIndex())
                 .setTypes(ESSearchTypeEnum.news.getName())
                 .setFrom(page.getStart())
                 .setSize(page.getPageSize())
                 .setQuery(qb)
                 .setSearchType(SearchType.DEFAULT)
-                .setExplain(false)
-                .addSort("id", SortOrder.DESC)
-                .execute().actionGet();
+                .setExplain(false);
+        if(newsSearch.getSort()!=null && newsSearch.getSort() > 0){
+            builder = builder.addSort(SortEnum.get(newsSearch.getSort()).getSort(), SortOrder.DESC);
+        }else {
+            builder = builder.addSort("id", SortOrder.DESC);
+        }
+        SearchResponse response = builder.execute().actionGet();
         SearchHits hits = response.getHits();
         page.setCount((int)hits.getTotalHits());
 
