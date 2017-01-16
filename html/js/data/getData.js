@@ -18,6 +18,10 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						if(_data.code == 0 ){
 							obj.success(_data);
 						}else{
+							if(obj.alert==false){
+								obj.success(_data);
+								return;
+							};
 							if(_data.code == -110 ){//未登录
 								window.location.href = '/#/login';
 								return;
@@ -403,6 +407,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 			},
 			recommendColumnlist : function( obj ){
 				T.ajax({
+					alert : obj.alert,
 					url : URL.news.recommendColumnlist , 
 					success : function( _data ){
 						obj.callback(_data);

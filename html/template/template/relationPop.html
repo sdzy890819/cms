@@ -8,40 +8,8 @@
 		</ul>
 	</div>
 	<div class="content">
-		<div class="option">
+		<div class="option" ng-if='relationColumnListData'>
 			<table class="table" width='100%' cellpadding="0" cellspacing="0">
-				<tr>
-					<th width='30' class="center">选择</th>
-					<th>频道名称</th>
-				</tr>
-				<tr>
-					<td class="center"><input type='checkbox'></td>
-					<td>频道名称</td>
-				</tr>
-				<tr>
-					<td class="center"><input type='checkbox'></td>
-					<td>频道名称</td>
-				</tr>
-			</table>
-		</div>
-		<div class="option">
-			<table class="table" width='100%' cellpadding="0" cellspacing="0">
-				<tr>
-					<th width='30' class="center">选择</th>
-					<th>频道名称</th>
-				</tr>
-				<tr>
-					<td class="center"><input type='checkbox'></td>
-					<td>频道名称</td>
-				</tr>
-				<tr>
-					<td class="center"><input type='checkbox'></td>
-					<td>频道名称</td>
-				</tr>
-			</table>
-		</div>
-		<div class="option">
-			<table ng-if='relationColumnListData' class="table" width='100%' cellpadding="0" cellspacing="0">
 				<tr>
 					<th width='30' class="center">选择</th>
 					<th>频道名称</th>
@@ -49,6 +17,30 @@
 				<tr ng-repeat='item in relationColumnListData'>
 					<td class="center"><input type='checkbox'></td>
 					<td>{{item.channel.channelName}}</td>
+				</tr>
+			</table>
+		</div>
+		<div class="option" ng-if='topicClassifyListData'>
+			<table class="table" width='100%' cellpadding="0" cellspacing="0">
+				<tr>
+					<th width='30' class="center">选择</th>
+					<th>频道名称</th>
+				</tr>
+				<tr ng-repeat='item in topicClassifyListData'>
+					<td class="center"><input type='checkbox'></td>
+					<td>{{item.classifyName}}</td>
+				</tr>
+			</table>
+		</div>
+		<div class="option" ng-if='fragmentListData'>
+			<table class="table" width='100%' cellpadding="0" cellspacing="0">
+				<tr>
+					<th width='30' class="center">选择</th>
+					<th>频道名称</th>
+				</tr>
+				<tr ng-repeat='item in topicClassifyListData'>
+					<td class="center"><input type='checkbox'></td>
+					<td>{{item.fragmentName}}</td>
 				</tr>
 			</table>
 		</div>
