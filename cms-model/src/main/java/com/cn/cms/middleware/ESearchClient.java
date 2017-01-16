@@ -135,6 +135,7 @@ public class ESearchClient {
             news.setColumnId(convertLong(hit.getSource().get("columnId")));
             news.setPlatform(convertInteger(hit.getSource().get("platform")));
             news.setRelativePath((String)hit.getSource().get("relativePath"));
+            news.setUpdateTime(convertLongAndDate(hit.getSource().get("updateTime")));
             newses.add(news);
         }
         queryResult.setList(newses);
@@ -381,6 +382,13 @@ public class ESearchClient {
             builder = builder.field("field5", news.getField5());
             builder = builder.field("autoPublish", news.getAutoPublish());
             builder = builder.field("timer", DateUtils.convertDateToMillis(news.getTimer()));
+            builder = builder.field("sort", news.getSort());
+            builder = builder.field("recommendTitle",news.getRecommendTitle());
+            builder = builder.field("recommendDescription", news.getRecommendDescription());
+            builder = builder.field("recommendImages", news.getRecommendImages());
+            builder = builder.field("recommendColumnId", news.getRecommendColumnId());
+            builder = builder.field("recommendUserId", news.getRecommendUserId());
+            builder = builder.field("recommend", news.getRecommend());
             builder = builder.field("createTime", DateUtils.convertDateToMillis(news.getCreateTime()));
             builder = builder.field("updateTime", DateUtils.convertDateToMillis(news.getUpdateTime()));
             builder = builder.field("delTag", news.getDelTag());

@@ -184,7 +184,7 @@ public class StaticContants {
 
     public static final Integer SORT_DETAIL_NUM = 1000;
 
-    public static String[] CONDITION_FIELD = new String[]{"title","title.pinyin","subTitle","keyword","description","content"};
+    public static String[] CONDITION_FIELD = new String[]{"title","title.pinyin","subTitle","keyword","description","content","recommendTitle","recommendDescription"};
 
     public static String[] FIELDS_SEARCH_FIELD = new String[]{"field1","field2","field3","field4","field5"};
 

@@ -155,7 +155,38 @@ public class News extends Base{
     /**
      * 推荐排序
      */
-    private Integer sort = 1000;
+    protected Integer sort = 1000;
+
+    /**
+     * 推荐标题
+     */
+    protected String recommendTitle;
+
+    /**
+     * 推荐内容
+     */
+    protected String recommendDescription;
+
+    /**
+     * 推荐图片地址
+     */
+    protected String recommendImages;
+
+    /**
+     * 推荐栏目ID
+     */
+    protected Long recommendColumnId;
+
+    /**
+     * 推荐人
+     */
+    protected String recommendUserId;
+
+    /**
+     * 是否推荐
+     */
+    protected Integer recommend = RecommendEnum.NO.getType();
+
 
     public String getPublishStr(){
         PublishEnum publishEnum = PublishEnum.get(publish);
