@@ -641,7 +641,31 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						obj.callback(_data);
 					}
 				});
-			}
+			},
+			downTemplate  : function( obj ){//模版下载
+				T.ajax({
+					url : URL.template.downTemplate , 
+					data : {
+						id : obj.id
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});
+			},
+			createRelation : function( obj ){//新增模版关系 接口
+				T.ajax({
+					url : URL.template.createRelation , 
+					data : {
+						"templateId":obj.templateId,
+						"relationId":obj.relationId,
+						"relationType":obj.relationType
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});
+			} 
 		},
 		topic : { //专题
 			createTopicColumn : function( obj ){//新建专题分类

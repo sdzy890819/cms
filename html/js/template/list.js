@@ -1,9 +1,9 @@
 define(['require',"app",'jquery'
 	,'../data/getData' , './addForm', './editForm'
-	,'../moduls/Tool','../common/editPop'
+	,'../moduls/Tool','../common/editPop' , './relationPop'
 	,'formlist','fixedNav','position'
 	,'../moduls/service','../moduls/factory'
-], function ( require , app , $ , getData , list , editForm , Tool , editPop ) {
+], function ( require , app , $ , getData , list , editForm , Tool , editPop,relationPop ) {
 	app.directive('templateList',function(){
 		return {
 	    	restrict : 'E',
@@ -116,9 +116,26 @@ define(['require',"app",'jquery'
 	 						 text:'您确定要删除"'+obj.templateName+'"吗'
 	 						,btn : ['确定','取消']
 	 						,fn : function(){
-	 							getData.topic.delTopic(obj);
+	 							getData.template.delTemplate(obj);
 							}
 	 					})
+					},
+					down : function( obj ){
+						getData.template.downTemplate({
+							id : obj.id,
+							callback : function(){
+
+							}
+						})
+					},
+					relation : function( obj ){ //关联
+						relationPop.init({
+        					obj : obj,
+        					callback : function( list , callback ){ //返回获取的数据 用于操作
+								callback(list);
+        					},
+        					$uibModal :$uibModal 
+        				});
 					}
 				});
 				getData.template.listTemplate({
