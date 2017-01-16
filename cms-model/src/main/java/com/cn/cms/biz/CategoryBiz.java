@@ -1,7 +1,12 @@
 package com.cn.cms.biz;
 
+import com.alibaba.fastjson.JSONArray;
+import com.cn.cms.contants.RedisKeyContants;
+import com.cn.cms.contants.StaticContants;
+import com.cn.cms.middleware.JedisClient;
 import com.cn.cms.po.Category;
 import com.cn.cms.service.CategoryService;
+import com.cn.cms.utils.StringUtils;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -16,13 +21,22 @@ public class CategoryBiz extends BaseBiz {
     @Resource
     private CategoryService categoryService;
 
+    @Resource
+    private JedisClient jedisClient;
 
     /**
      * 获取部门列表
      * @return
      */
     public List<Category> listCategory(){
-        return categoryService.findCategoryAll();
+        String result = jedisClient.get(RedisKeyContants.REDIS_CATEGORY_KEY);
+        if(StringUtils.isNotBlank(result)){
+            return JSONArray.parseArray(result, Category.class);
+        } else {
+            List<Category> list = categoryService.findCategoryAll();
+            jedisClient.set(RedisKeyContants.REDIS_CATEGORY_KEY, JSONArray.toJSONString(list), StaticContants.DEFAULT_SECONDS);
+            return list;
+        }
     }
 
     /**
@@ -31,6 +45,7 @@ public class CategoryBiz extends BaseBiz {
      */
     public void saveCategory(Category category) {
         categoryService.saveCategory(category);
+        jedisClient.del(RedisKeyContants.REDIS_CATEGORY_KEY);
     }
 
     /**
@@ -39,6 +54,7 @@ public class CategoryBiz extends BaseBiz {
      */
     public void updateCategory(Category category) {
         categoryService.updateCategory(category);
+        jedisClient.del(RedisKeyContants.REDIS_CATEGORY_KEY);
     }
 
     /**
@@ -48,6 +64,7 @@ public class CategoryBiz extends BaseBiz {
      */
     public void delCategory(String lastModifyUserId, Long id) {
         categoryService.delCategory(lastModifyUserId, id);
+        jedisClient.del(RedisKeyContants.REDIS_CATEGORY_KEY);
     }
 
 }
