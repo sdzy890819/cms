@@ -69,7 +69,9 @@ public class NewsBiz extends BaseBiz {
             RelationColumn relationColumn = new RelationColumn();
             relationColumn.setChannel(channel);
             relationColumn.setList(map.get(channel.getId()));
-            result.add(relationColumn);
+            if(StringUtils.isNotEmpty(relationColumn.getList())) {
+                result.add(relationColumn);
+            }
         }
         return result;
     }
