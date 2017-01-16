@@ -196,8 +196,12 @@ define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-b
                 template: '<image-add></image-add>',
                 controllerUrl: 'image/add'
             }))
+            .state('image.base', angularAMD.route({
+                url: '/base',            
+                controllerUrl: 'image/base/index'
+            }))            
             .state('image.base.add', angularAMD.route({
-                url: '/base/add',
+                url: '/add',
                 template: '<image-base-add></image-base-add>',
                 controllerUrl: 'image/base/add'
             }))

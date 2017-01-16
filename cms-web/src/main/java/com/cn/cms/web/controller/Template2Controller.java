@@ -2,6 +2,7 @@ package com.cn.cms.web.controller;
 
 import com.cn.cms.biz.Template2Biz;
 import com.cn.cms.contants.StaticContants;
+import com.cn.cms.enums.Template2ClassifyEnum;
 import com.cn.cms.enums.TemplateClassifyEnum;
 import com.cn.cms.exception.BizException;
 import com.cn.cms.po.Template2;
@@ -67,7 +68,7 @@ public class Template2Controller extends BaseController  {
     @CheckAuth( name = "newscolumn:read")
     @RequestMapping(value = "/listTemplate2/list", method = RequestMethod.GET)
     public String listTemplate2ByList(){
-        List<Template2> list = template2Biz.queryTemplate2ByClassify(TemplateClassifyEnum.list.getType());
+        List<Template2> list = template2Biz.queryTemplate2ByClassify(Template2ClassifyEnum.list.getType());
         return ApiResponse.returnSuccess(list);
     }
 
@@ -79,7 +80,7 @@ public class Template2Controller extends BaseController  {
     @CheckAuth( name = "newscolumn:read")
     @RequestMapping(value = "/listTemplate2/detail", method = RequestMethod.GET)
     public String listTemplate2ByDetail(){
-        List<Template2> list = template2Biz.queryTemplate2ByClassify(TemplateClassifyEnum.detail.getType());
+        List<Template2> list = template2Biz.queryTemplate2ByClassify(Template2ClassifyEnum.detail.getType());
         return ApiResponse.returnSuccess(list);
     }
 

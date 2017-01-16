@@ -11,7 +11,8 @@ public enum CommonMessageSourceEnum {
     NEWS("NEWS", 1),
     TOPIC("TOPIC", 2),
     FRAGMENT("FRAGMENT", 3),
-    OTHER("OTHER", 4);
+    RECOMMEND("RECOMMEND", 4),
+    OTHER("OTHER", 5);
 
     @Getter
     private Integer type;
@@ -33,6 +34,6 @@ public enum CommonMessageSourceEnum {
                 return b;
             }
         }
-        return CommonMessageSourceEnum.NEWS;
+        return null;
     }
 }

@@ -2,6 +2,7 @@ package com.cn.cms.po;
 
 import com.cn.cms.enums.PlatformEnum;
 import com.cn.cms.enums.PublishEnum;
+import com.cn.cms.enums.RecommendEnum;
 import lombok.Getter;
 import lombok.Setter;
 

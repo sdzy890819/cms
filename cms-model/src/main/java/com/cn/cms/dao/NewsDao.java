@@ -1,6 +1,7 @@
 package com.cn.cms.dao;
 
 import com.cn.cms.po.News;
+import com.cn.cms.po.NewsRecommend;
 import com.cn.cms.utils.Page;
 import org.apache.ibatis.annotations.Param;
 
@@ -13,9 +14,9 @@ import java.util.List;
  */
 public interface NewsDao {
 
-    List<News> queryNewsList(@Param(value = "page") Page page);
+    List<News> queryNewsList(@Param(value = "userId") String userId, @Param(value = "publish") Integer publish ,@Param(value = "page") Page page);
 
-    Integer queryNewsCount();
+    Integer queryNewsCount(@Param(value = "userId") String userId, @Param(value = "publish") Integer publish);
 
     News findNewsAndDetail(@Param(value = "id") Long id);
 
@@ -33,4 +34,10 @@ public interface NewsDao {
                                      @Param(value = "autoPublish") Integer autoPublish,
                                      @Param(value = "timer") Date timer);
     List<News> findNewsByIds(@Param(value = "list") List<Long> ids);
+
+    NewsRecommend findNewsRecommend(@Param(value = "id") Long id);
+
+    List<NewsRecommend> findListByRecommedColumnId(@Param(value = "recommendColumnId") Long recommendColumnId, @Param(value = "page") Page page);
+
+    void updateNewsRecommend(@Param(value = "p1") NewsRecommend newsRecommend);
 }
