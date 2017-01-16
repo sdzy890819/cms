@@ -48,13 +48,13 @@ define(["app",'jquery','./data/getData','./moduls/directive'], function ( app,$,
 			        			clearMenu( i );
 			        			if(this.parentclas){
 			        				this.parentclas = false;
-			        				$(this).parent().removeClass('open')
-					        			.find('.arrow').removeClass('cur');
+			        				self.parent().removeClass('open')
+					        		self.find('.arrow').removeClass('cur');
 					        		self.next().slideUp("fast");
 			        			}else{
 			        				this.parentclas=true;
-					        		$(this).parent().addClass('open')
-					        			.find('.arrow').addClass('cur');
+					        		self.parent().addClass('open')
+					        		self.find('.arrow').addClass('cur');
 					        		self.next().slideDown("fast");
 			        			}
 				        	}
