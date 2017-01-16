@@ -19,7 +19,7 @@
 							class="text layui-input {{obj.cls||'w320'}}" 
 							type="{{obj.type}}" 
 							name="{{obj.title}}" 
-							value="{{data[obj.title]}}"
+							ng-value="data[obj.title]"
 							lay-verify="{{obj.verify}}" 
 							placeholder="{{obj.placeholder}}" 
 							ng-pattern="{{obj.pattern}}"
@@ -34,14 +34,12 @@
 						</div>
 
 						<!-- select -->
-					    <div ng-if="obj.type=='select'" class="layui-input-inline {{obj.cls}}" ng-repeat="select in obj.select">
-					      <select name="{{obj.selectName[$index]}}">
-					        <option lay-verify="{{obj.verify}}" ng-repeat="option in select" ng-selected="option.id && option.id==data[select[0].title]" >{{option.name}}</option>
-					      </select>
-					    </div>
+						<select ng-if="obj.type=='select'" name="{{obj.selectName[$index]}}" ng-repeat="select in obj.select" repeat-finish='selectRpeatDone'>
+							<option lay-verify="{{obj.verify}}" ng-repeat="option in select" ng-selected="option.id && option.id==data[select[0].title]">{{option.name}}</option>
+						</select>
 
 					    <!-- 时间 -->
-					    <input ng-if="obj.type=='date'" value="{{data[obj.title]}}" type="text" name="{{obj.title}}" id="date"placeholder="{{obj.placeholder}}" readonly='readonly' autocomplete="off" class="layui-input date {{obj.cls||'w220'}}" ng-click="selectDate($event)"><!--  lay-verify="date"  -->
+					    <input ng-if="obj.type=='date'" ng-value="data[obj.title]" type="text" name="{{obj.title}}" id="date"placeholder="{{obj.placeholder}}" readonly='readonly' autocomplete="off" class="layui-input date {{obj.cls||'w220'}}" ng-click="selectDate($event)"><!--  lay-verify="date"  -->
 
 					    <!-- 上传按钮 并不能上传需要点击事件 -->
 					    <div ng-if="obj.type=='file'" class="layui-box layui-upload-button" style="cursor:pointer">
@@ -52,10 +50,10 @@
 					    <input ng-if="obj.type=='upload'" type="file" name="{{obj.title}}" class="layui-upload-file {{obj.cls}}">
 
 						<!-- radio -->
-					    <input ng-if="obj.type=='radio'" ng-repeat="item in obj.radio"  type="radio" name="{{obj.title}}" title="{{item.name}}" value='{{item.title}}' ng-checked="{{item.name==data[obj.title]}}">
+					    <input ng-if="obj.type=='radio'" ng-repeat="item in obj.radio" ng-value='item.title' type="radio" title="{{item.name}}" name="{{obj.title}}"  ng-checked="(item.name==data[obj.title])?true:false" repeat-finish='radioRpeatDone'>
 
 					    <!-- checkbox -->
-					    <input ng-if="obj.type=='checkbox'" ng-repeat="item in obj.checkbox"  type="checkbox" name="{{obj.title}}" title="{{item.name}}" value='{{item.title}}' ng-checked="{{item.checked}}">
+					    <input ng-if="obj.type=='checkbox'" ng-repeat="item in obj.checkbox" type="checkbox" name="{{obj.title}}" ng-value='{{item.title}}' ng-checked="{{item.checked}}" repeat-finish='checkboxRpeatDone'>
 
 					</div>
 					<!-- 不换行 -->
@@ -67,7 +65,7 @@
 								class="text layui-input {{item.cls||'w100'}}" 
 								type="{{item.type=='text'?'text':'password'}}" 
 								name="{{item.title}}" 
-								value="{{data[item.title]}}"
+								ng-value="data[item.title]"
 								lay-verify="{{item.verify}}" 
 								placeholder="{{item.placeholder}}" 
 								autocomplete="off">
@@ -75,19 +73,18 @@
 							<!-- 多文本 -->
 							<textarea ng-if="item.type=='textarea'" class="layui-textarea text w80 {{item.cls}}" name="{{item.title}}" lay-verify="content" placeholder="{{item.placeholder}}">{{data[item.title]}}</textarea>
 
-							<!-- select -->
-						    <div ng-if="item.type=='select'" class="layui-input-inline {{item.cls}}" ng-repeat="select in item.select">
-						      <select name="{{item.selectName[$index]}}">
-						        <option lay-verify="{{item.verify}}" ng-repeat="option in select" ng-selected="option.id && option.id==data[select[0].title]">{{option.name}}</option>
-						      </select>
-						    </div>
+						    <!-- select -->
+					      	<select ng-if="item.type=='select'" name="{{item.selectName[$index]}}" ng-repeat="select in item.select"  repeat-finish='selectRpeatDone'>
+					        	<option lay-verify="{{item.verify}}" ng-repeat="option in select" ng-selected="option.id && option.id==data[select[0].title]">{{option.name}}</option>
+					     	</select>
+
 						    <!-- 时间 -->
-						    <input ng-if="item.type=='date'" value="{{data[item.title]}}" type="text" name="{{item.title}}" id="date"placeholder="{{item.placeholder}}" readonly='readonly' autocomplete="off" class="layui-input date {{item.cls||'w220'}}" ng-click="selectDate($event)"><!--  lay-verify="date"  -->
+						    <input ng-if="item.type=='date'" ng-value="data[item.title]" type="text" name="{{item.title}}" id="date"placeholder="{{item.placeholder}}" readonly='readonly' autocomplete="off" class="layui-input date {{item.cls||'w220'}}" ng-click="selectDate($event)"><!--  lay-verify="date"  -->
 
 					    	<button ng-if='item.type=="button"' class="layui-btn layui-btn-normal" ng-click='submit(item.evt,item,$event)'>{{item.name}}</button>
 
 					    	<!-- radio -->
-					    	<input ng-if="item.type=='radio'" ng-repeat="ob in item.radio"  type="radio" name="{{item.title}}" title="{{ob.name}}">
+					    	<input ng-if="item.type=='radio'" ng-repeat="ob in item.radio" ng-value='ob.title' type="radio" name="{{item.title}}" title='{{ob.name}}' ng-checked="(ob.name==data[item.title])?true:false" repeat-finish='radioRpeatDone'>
 					    </div>
 					</div>
 				</div>
