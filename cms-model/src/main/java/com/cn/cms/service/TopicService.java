@@ -46,4 +46,8 @@ public interface TopicService {
 
     void publishTopic(Topic topic);
 
+    TopicClassify getTopicClassify(Long id);
+
+    TopicColumn getTopicColumn(Long id);
+
 }

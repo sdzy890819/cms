@@ -158,4 +158,12 @@ public class TopicBiz extends BaseBiz {
         topicService.publishTopic(topic);
     }
 
+    public TopicClassify getTopicClassify(Long id){
+        return topicService.getTopicClassify(id);
+    }
+
+    public TopicColumn getTopicColumn(Long id){
+        return topicService.getTopicColumn(id);
+    }
+
 }

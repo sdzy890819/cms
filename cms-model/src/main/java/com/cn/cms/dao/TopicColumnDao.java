@@ -18,4 +18,6 @@ public interface TopicColumnDao {
     void delTopicColumn(@Param(value = "lastModifyUserId") String lastModifyUserId, @Param(value = "id") Long id);
 
     void updateTopicColumn(@Param(value = "p1") TopicColumn topicColumn);
+
+    TopicColumn getTopicColumn(@Param(value = "id") Long id);
 }

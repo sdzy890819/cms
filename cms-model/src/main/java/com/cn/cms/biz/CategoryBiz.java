@@ -39,6 +39,10 @@ public class CategoryBiz extends BaseBiz {
         }
     }
 
+    public Category getCategory(Long id){
+        return categoryService.findCategory(id);
+    }
+
     /**
      * 新增部门
      * @param category

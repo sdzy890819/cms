@@ -37,5 +37,9 @@
     <update id="updateTopicColumn">
         update topic_column set last_modify_user_id = #{p1.lastModifyUserId}, `column_name` = #{p1.columnName} where id = ${p1.id} ;
     </update>
+
+    <select id="getTopicColumn" resultMap="topicColumn">
+        select <include refid="sql_column" /> from topic_column <include refid="delTag" /> and id = ${id};
+    </select>
     
 </mapper>
