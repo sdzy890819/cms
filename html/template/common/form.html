@@ -34,9 +34,12 @@
 						</div>
 
 						<!-- select -->
-						<select ng-if="obj.type=='select'" name="{{obj.selectName[$index]}}" ng-repeat="select in obj.select" repeat-finish='selectRpeatDone'>
-							<option lay-verify="{{obj.verify}}" ng-repeat="option in select" ng-selected="option.id && option.id==data[select[0].title]">{{option.name}}</option>
-						</select>
+						<div ng-if="obj.type=='select'" class="layui-input-inline {{obj.cls}}" ng-repeat="select in obj.select" repeat-finish='selectRpeatDone'>
+							<select ng-if="obj.type=='select'" name="{{obj.selectName[$index]}}">
+								<option lay-verify="{{obj.verify}}" ng-repeat="option in select" ng-selected="option.id && option.id==data[select[0].title]">{{option.name}}</option>
+							</select>
+                        </div>
+
 
 					    <!-- 时间 -->
 					    <input ng-if="obj.type=='date'" ng-value="data[obj.title]" type="text" name="{{obj.title}}" id="date"placeholder="{{obj.placeholder}}" readonly='readonly' autocomplete="off" class="layui-input date {{obj.cls||'w220'}}" ng-click="selectDate($event)"><!--  lay-verify="date"  -->
