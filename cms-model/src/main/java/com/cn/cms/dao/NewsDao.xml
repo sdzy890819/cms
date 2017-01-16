@@ -36,6 +36,17 @@
         <result column="field5" property="field5" />
         <result column="auto_publish" property="autoPublish" />
         <result column="timer" property="timer" />
+
+    </resultMap>
+
+    <resultMap id="newsRecommend" type="com.cn.cms.po.NewsRecommend" extends="news">
+        <result column="sort" property="sort" />
+        <result column="recommend_title" property="recommendTitle" />
+        <result column="recommend_description" property="recommendDescription" />
+        <result column="recommend_images" property="recommendImages" />
+        <result column="recommend_column_id" property="recommendColumnId" />
+        <result column="recommend" property="recommend" />
+        <result column="recommend_user_id" property="recommendUserId" />
     </resultMap>
 
 
@@ -45,6 +56,10 @@
         id,last_modify_user_id,title,sub_title,keyword
         ,description,source,author,build_time,write_time,channel_id,column_id,write_user_id,build_user_id,platform,url,relative_path,publish,
         field1,field2,field3,field4,field5,auto_publish,timer,category_id
+    </sql>
+
+    <sql id="recommend_sql_column">
+        id, title, description, recommend_title, recommend_description, recommend_images, recommend_column_id, recommend, recommend_user_id
     </sql>
 
     <sql id="sql_column_simple">
@@ -57,11 +72,24 @@
 
 
     <select id="queryNewsCount" resultType="java.lang.Integer">
-        select count(1) from news <include refid="delTag" /> ;
+        select count(1) from news <include refid="delTag" />
+        <if test="userId != null" >
+            and write_user_id = #{userId}
+        </if>
+        <if test="publish != null" >
+            and publish = ${publish}
+        </if>;
     </select>
     
     <select id="queryNewsList" resultMap="news">
-        select <include refid="sql_column_simple" /> from news <include refid="delTag" />  order by update_time desc limit ${page.start},${page.pageSize};
+        select <include refid="sql_column_simple" /> from news <include refid="delTag" />
+        <if test="userId != null" >
+           and write_user_id = #{userId}
+        </if>
+        <if test="publish != null" >
+            and publish = ${publish}
+        </if>
+        order by update_time desc limit ${page.start},${page.pageSize};
     </select>
     
     <select id="findNewsAndDetail" resultMap="news">
@@ -163,5 +191,33 @@
             ${item}
         </foreach>
     </select>
+
+    <select id="findNewsRecommend" resultMap="newsRecommend">
+      select <include refid="recommend_sql_column" /> from news where id = ${id} ;
+    </select>
+
+    <update id="updateNewsRecommend">
+        update news
+        <set>
+              <if test="p1.sort != null">
+                sort = ${p1.sort},
+              </if>
+            <if test="p1.recommendTitle != null">
+                recommend_title = #{p1.recommendTitle},
+            </if>
+            <if test="p1.recommendDescription != null">
+                recommend_description = #{p1.recommendDescription},
+            </if>
+            <if test="p1.recommendImages != null">
+                recommend_images = #{p1.recommendImages},
+            </if>
+            <if test="p1.recommendColumnId != null">
+                recommend_column_id = ${p1.recommendColumnId},
+            </if>
+            recommend = ${p1.recommend},
+            recommend_user_id = #{p1.recommendUserId}
+        </set>
+        where id = ${p1.id} ;
+    </update>
 
 </mapper>

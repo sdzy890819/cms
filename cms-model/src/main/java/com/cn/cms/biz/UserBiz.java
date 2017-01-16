@@ -1,5 +1,7 @@
 package com.cn.cms.biz;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.cn.cms.bo.UserBean;
 import com.cn.cms.contants.RedisKeyContants;
 import com.cn.cms.contants.StaticContants;
@@ -34,6 +36,7 @@ public class UserBiz extends BaseBiz{
 
     @Resource
     private JedisClient jedisClient;
+
 
 
     public UserBean test(){
@@ -74,7 +77,7 @@ public class UserBiz extends BaseBiz{
      * @return
      */
     public UserBean getUserBean(String userId){
-        User user = userService.findUser(userId);
+        User user = this.getUserCache(userId);
         UserBean userBean = new UserBean(user);
         return userBean;
     }
@@ -85,13 +88,45 @@ public class UserBiz extends BaseBiz{
      * @return
      */
     public List<UserBean> getUserBean(List<String> userIds){
-        List<User> list = userService.findUserList(userIds);
-        return toBean(list);
+        return toBean(getUserCacheList(userIds));
     }
 
+    /**
+     * 返回Map
+     * @param userIds
+     * @return
+     */
     public Map<String, UserBean> getUserBeanMap(List<String> userIds){
-        List<User> list = userService.findUserList(userIds);
-        return toBeanMap(list);
+        return toBeanMap(getUserCacheList(userIds));
+    }
+
+
+    /**
+     * 缓存中获取用户信息
+     * @param userIds
+     * @return
+     */
+    public List<User> getUserCacheList(List<String> userIds){
+        Map<String, String> map = new HashMap<>();
+        for(int i=0;i<userIds.size();i++){
+            map.put(userIds.get(i), RedisKeyContants.getUserKey(userIds.get(i)));
+        }
+        List<String> list = jedisClient.mget(map.values().toArray(new String[map.size()]));
+        List<User> result = new ArrayList<>();
+        for(int i=0; i <list.size();i++){
+            if(StringUtils.isNotBlank(list.get(i))) {
+                result.add(JSONObject.parseObject(list.get(i), User.class));
+            }
+        }
+        return result;
+    }
+
+    public User getUserCache(String userId){
+        String str = jedisClient.get(RedisKeyContants.getUserKey(userId));
+        if(StringUtils.isNotBlank(str)){
+            return JSONObject.parseObject(str, User.class);
+        }
+        return null;
     }
 
     /**
@@ -110,6 +145,19 @@ public class UserBiz extends BaseBiz{
         user.setRealName(realName);
         user.setLastModifyUserId(lastModifyUserId);
         userService.createUser(user);
+        refreshUserCache(user);
+    }
+
+    /**
+     * refresh用户缓存
+     * @param user
+     */
+    public void refreshUserCache(User user){
+        this.jedisClient.set(RedisKeyContants.getUserKey(user.getUserId()), JSONObject.toJSONString(user));
+    }
+
+    public void delUserCache(String userId){
+        this.jedisClient.del(RedisKeyContants.getUserKey(userId));
     }
 
     /**
@@ -128,6 +176,7 @@ public class UserBiz extends BaseBiz{
      */
     public void delUser(String lastModifyUserId, String userId){
         userService.delUser(lastModifyUserId, userId);
+        delUserCache(userId);
     }
 
     /**
@@ -146,6 +195,7 @@ public class UserBiz extends BaseBiz{
         user.setHeadImage(headImage);
         user.setPwd(EncryptUtil.encryptPwd(user.getUserName(),pwd));
         userService.updateUser(user);
+        refreshUserCache(user);
     }
 
     /**
@@ -210,6 +260,7 @@ public class UserBiz extends BaseBiz{
         if( user != null ){
             if(user.getPwd().equals(pwd)){
                 setCookie(response,user);
+                refreshUserCache(user);
                 return ApiResponse.returnSuccess(StaticContants.SUCCESS_LOGIN);
             }else{
                 return ApiResponse.returnFail(StaticContants.ERROR_PWD);

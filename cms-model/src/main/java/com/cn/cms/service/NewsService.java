@@ -4,6 +4,7 @@ import com.cn.cms.enums.AutoPublishEnum;
 import com.cn.cms.enums.PublishEnum;
 import com.cn.cms.po.News;
 import com.cn.cms.po.NewsColumn;
+import com.cn.cms.po.NewsRecommend;
 import com.cn.cms.utils.Page;
 
 import java.util.Date;
@@ -30,9 +31,9 @@ public interface NewsService {
 
     void delNewsColumn(String lastModifyUserId, Long id);
 
-    List<News> queryNewsList(Page page);
+    List<News> queryNewsList(String userId, Integer publish, Page page);
 
-    Integer queryNewsCount();
+    Integer queryNewsCount(String userId, Integer publish);
 
     News findNewsAndDetail(Long id);
 
@@ -51,5 +52,9 @@ public interface NewsService {
     List<News> findNewsAndDetailList(List<Long> ids);
 
     News findNews(Long id);
+
+    NewsRecommend findNewsRecommend(Long id);
+
+    void updateNewsRecommend(NewsRecommend newsRecommend);
 
 }

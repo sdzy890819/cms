@@ -8,8 +8,11 @@ import com.cn.cms.bo.UserBean;
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.enums.AutoPublishEnum;
 import com.cn.cms.enums.CommonMessageSourceEnum;
+import com.cn.cms.enums.PublishEnum;
+import com.cn.cms.enums.RecommendEnum;
 import com.cn.cms.po.News;
 import com.cn.cms.po.NewsDetail;
+import com.cn.cms.po.NewsRecommend;
 import com.cn.cms.utils.Page;
 import com.cn.cms.utils.StringUtils;
 import com.cn.cms.web.ann.CheckAuth;
@@ -59,7 +62,7 @@ public class NewsController extends BaseController {
     @CheckAuth( name = "news:read" )
     @RequestMapping(value = "/newslist",method = RequestMethod.GET)
     public String list(@RequestParam(value = "page",required = false) Integer page,
-                       @RequestParam(value="pageSize",required = false)Integer pageSize){
+                       @RequestParam(value="pageSize",required = false) Integer pageSize){
         Page page1 = new Page(page, pageSize);
         List<News> list = newsBiz.listNews(page1);
 
@@ -71,6 +74,33 @@ public class NewsController extends BaseController {
             Map<String, UserBean> map = userBiz.getUserBeanMap(userIds);
             for (int i = 0; i < list.size(); i++) {
                 list.get(i).setWriteUserName(map.get(list.get(i).getWriteUserId()).getRealName());
+            }
+        }
+        Map<String, Object> result = new HashMap<>();
+        result.put("page", page1);
+        result.put("list", list);
+        return ApiResponse.returnSuccess(result);
+    }
+
+    /**
+     * 我的新闻列表
+     * @param page
+     * @param pageSize
+     * @return
+     */
+    @CheckToken
+    @CheckAuth( name = "news:read" )
+    @RequestMapping(value = "/mynewslist",method = RequestMethod.GET)
+    public String mynewslist(HttpServletRequest request,
+                             @RequestParam(value = "publish" ,required = false) Integer publish,
+                             @RequestParam(value = "page" ,required = false) Integer page,
+                             @RequestParam(value="pageSize" ,required = false) Integer pageSize){
+        Page page1 = new Page(page, pageSize);
+        List<News> list = newsBiz.myNewsList(getCurrentUserId(request), publish, page1);
+        if(StringUtils.isNotEmpty(list)) {
+            UserBean userBean = userBiz.getUserBean(getCurrentUserId(request));
+            for (int i = 0; i < list.size(); i++) {
+                list.get(i).setWriteUserName(userBean.getRealName());
             }
         }
         Map<String, Object> result = new HashMap<>();
@@ -108,7 +138,7 @@ public class NewsController extends BaseController {
 
 
     /**
-     * 创建新闻
+     * 创建新闻 保存草稿。
      * @param request
      * @param title
      * @param subTitle
@@ -148,7 +178,8 @@ public class NewsController extends BaseController {
                              @RequestParam(value = "field4", required = false) String field4,
                              @RequestParam(value = "field5", required = false) String field5,
                              @RequestParam(value = "autoPublish") Integer autoPublish,
-                             @RequestParam(value = "timer", required = false) String timer){
+                             @RequestParam(value = "timer", required = false) String timer,
+                             @RequestParam(value = "publish", required = false, defaultValue = "0") Integer publish){
         String userID = getCurrentUserId(request);
         News news = new News();
         news.setTitle(title);
@@ -172,6 +203,7 @@ public class NewsController extends BaseController {
         news.setField3(field3);
         news.setField4(field4);
         news.setField5(field5);
+        news.setPublish(publish);
         news.setAutoPublish(autoPublish);
         if(StringUtils.isNotBlank(timer)) {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -184,7 +216,7 @@ public class NewsController extends BaseController {
             }
         }
         newsBiz.saveNews(news);
-        if(autoPublish!=null && autoPublish == AutoPublishEnum.YES.getType() && news.getTimer() == null){
+        if(autoPublish!=null && autoPublish == AutoPublishEnum.YES.getType() && news.getTimer() == null && publish != PublishEnum.draft.getType()){
 
             if(permissionBiz.checkPermission(userID, "news:publish")) {
                 publish(request, news.getId());
@@ -229,7 +261,8 @@ public class NewsController extends BaseController {
                              @RequestParam(value = "field4",required = false) String field4,
                              @RequestParam(value = "field5",required = false) String field5,
                              @RequestParam(value = "autoPublish",required = false) Integer autoPublish,
-                             @RequestParam(value = "timer",required = false) String timer){
+                             @RequestParam(value = "timer",required = false) String timer,
+                             @RequestParam(value = "publish", required = false, defaultValue = "0") Integer publish){
         String userID = getCurrentUserId(request);
         News news = new News();
         news.setTitle(title);
@@ -253,6 +286,7 @@ public class NewsController extends BaseController {
         news.setField4(field4);
         news.setField5(field5);
         news.setAutoPublish(autoPublish);
+        news.setPublish(publish);
         if(StringUtils.isNotBlank(timer)) {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(StaticContants.YYYY_MM_DD_HH_MM);
             try {
@@ -264,13 +298,14 @@ public class NewsController extends BaseController {
             }
         }
         newsBiz.updateNews(news);
-        if(autoPublish!=null && autoPublish == AutoPublishEnum.YES.getType() && news.getTimer() == null){
+        if(autoPublish!=null && autoPublish == AutoPublishEnum.YES.getType() && news.getTimer() == null && publish != PublishEnum.draft.getType()){
             if(permissionBiz.checkPermission(userID, "news:publish")) {
                 publish(request, id);
             }
         }
         return ApiResponse.returnSuccess();
     }
+
 
 
     /**
@@ -284,11 +319,54 @@ public class NewsController extends BaseController {
     @RequestMapping(value = "/publish", method = RequestMethod.GET)
     public String publish(HttpServletRequest request,
                           @RequestParam(value = "id") Long id){
-
         publishBiz.publish(id, getCurrentUserId(request), CommonMessageSourceEnum.NEWS);
         return ApiResponse.returnSuccess();
     }
 
+    /**
+     * 获取推荐信息
+     * @param id
+     * @return
+     */
+    @CheckToken
+    @CheckAuth( name = "newsrecommend:read" )
+    @RequestMapping(value = "/recommendNewsInfo", method = RequestMethod.GET)
+    public String recommendInfo(@RequestParam(value = "id") Long id){
+        NewsRecommend newsRecommend = newsBiz.findNewsRecommend(id);
+        if(newsRecommend.getRecommend() == RecommendEnum.NO.getType()){
+            newsRecommend.setRecommendDescription(newsRecommend.getDescription());
+            newsRecommend.setRecommendTitle(newsRecommend.getTitle());
+        }
+        return ApiResponse.returnSuccess(newsRecommend);
+    }
 
+
+    /**
+     * 推荐
+     * @param id
+     * @return
+     */
+    @CheckToken
+    @CheckAuth( name = "newsrecommend:write" )
+    @RequestMapping(value = "/recommend", method = RequestMethod.GET)
+    public String recommend(HttpServletRequest request ,
+                            @RequestParam(value = "id") Long id,
+                            @RequestParam(value = "recommendTitle") String recommendTitle,
+                            @RequestParam(value = "recommendDescription") String recommendDescription,
+                            @RequestParam(value = "recommendImages") String recommendImages,
+                            @RequestParam(value = "recommendColumnId") Long recommendColumnId,
+                            @RequestParam(value = "sort") Integer sort){
+        NewsRecommend newsRecommend = new NewsRecommend();
+        newsRecommend.setId(id);
+        newsRecommend.setRecommendTitle(recommendTitle);
+        newsRecommend.setRecommend(RecommendEnum.YES.getType());
+        newsRecommend.setRecommendDescription(recommendDescription);
+        newsRecommend.setRecommendColumnId(recommendColumnId);
+        newsRecommend.setRecommendImages(recommendImages);
+        newsRecommend.setRecommendUserId(getCurrentUserId(request));
+        newsRecommend.setSort(sort);
+        newsBiz.recommendNews(newsRecommend);
+        return ApiResponse.returnSuccess();
+    }
 
 }
