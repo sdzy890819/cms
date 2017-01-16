@@ -78,7 +78,7 @@
 							<!-- select -->
 						    <div ng-if="item.type=='select'" class="layui-input-inline {{item.cls}}" ng-repeat="select in item.select">
 						      <select name="{{item.selectName[$index]}}">
-						        <option lay-verify="{{item.verify}}" ng-repeat="option in select" ng-selected="{{option.id && option.id==data[select[0].title]}}">{{option.name}}</option>
+						        <option lay-verify="{{item.verify}}" ng-repeat="option in select" ng-selected="option.id && option.id==data[select[0].title]">{{option.name}}</option>
 						      </select>
 						    </div>
 						    <!-- 时间 -->
@@ -87,7 +87,7 @@
 					    	<button ng-if='item.type=="button"' class="layui-btn layui-btn-normal" ng-click='submit(item.evt,item,$event)'>{{item.name}}</button>
 
 					    	<!-- radio -->
-					    	<input ng-if="item.type=='radio'" ng-repeat="ob in item.radio"  type="radio" name="{{item.title}}" title="{{ob.name}}" value='{{ob.title}}' ng-checked="{{ob.name==data[item.title]}}">
+					    	<input ng-if="item.type=='radio'" ng-repeat="ob in item.radio"  type="radio" name="{{item.title}}" title="{{ob.name}}">
 					    </div>
 					</div>
 				</div>

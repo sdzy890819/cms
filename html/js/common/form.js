@@ -81,6 +81,14 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 						return;
 					};
 				},true);
+				/*$scope.$watch(function(){
+						return $scope.data;
+					},function(){ 
+						if($scope.data){
+							
+						}
+					}
+				);*/
 			},
 			link : function($scope , element , arrt , controller){
 				var ele = $(element[0]);
