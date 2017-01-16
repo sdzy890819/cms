@@ -387,9 +387,9 @@ public class JedisClient {
      * @param member
      * @return
      */
-    public long zrank(String key, String member){
+    public Long zrank(String key, String member){
         Jedis client = null;
-        long p = 0;
+        Long p = 0L;
         try{
             client = jedisPool.getResource();
             p = client.zrank(key, member);

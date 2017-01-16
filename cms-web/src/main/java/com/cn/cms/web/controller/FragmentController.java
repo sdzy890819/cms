@@ -60,7 +60,7 @@ public class FragmentController extends BaseController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(){
         List<Fragment> list = fragmentBiz.findAll();
-        return ApiResponse.returnSuccess();
+        return ApiResponse.returnSuccess(list);
     }
 
 
