@@ -22,4 +22,6 @@ public interface VideoDao {
 
     List<Video> queryVideoList(@Param(value = "page") Page page);
 
+    Video findVideo(@Param(value = "id") Long id);
+
 }

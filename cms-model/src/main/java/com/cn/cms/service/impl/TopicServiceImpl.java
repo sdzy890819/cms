@@ -114,7 +114,7 @@ public class TopicServiceImpl implements TopicService {
 
     private void sendIndex(Base base){
         IndexThread indexThread = new IndexThread();
-        indexThread.setBase(base);
+        indexThread.setBase(getTopic(base.getId()));
         indexThread.setIndexOperEnum(IndexOperEnum.update);
         indexThread.setEsSearchTypeEnum(ESSearchTypeEnum.topic);
         threadTaskExecutor.execute(indexThread);

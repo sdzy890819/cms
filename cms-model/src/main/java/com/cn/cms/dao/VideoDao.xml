@@ -74,4 +74,9 @@
     <select id="queryVideoList" resultMap="video">
         select <include refid="sql_column" /> from video <include refid="delTag" />  order by update_time desc limit ${page.start},${page.pageSize};
     </select>
+
+    <select id="findVideo" resultMap="video">
+        select <include refid="sql_column" /> from video <include refid="delTag" /> and id = ${id};
+    </select>
+
 </mapper>

@@ -97,4 +97,8 @@
         select <include refid="sql_column" /> from images <include refid="delTag" />  order by update_time desc limit ${page.start},${page.pageSize}
     </select>
 
+    <select id="findImages" resultMap="images">
+        select <include refid="sql_column" /> from images <include refid="delTag" /> and id = ${id};
+    </select>
+
 </mapper>
