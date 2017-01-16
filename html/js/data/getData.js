@@ -18,7 +18,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						if(_data.code == 0 ){
 							obj.success(_data);
 						}else{
-							if(_data.code == -1 ){//未登录
+							if(_data.code == -110 ){//未登录
 								window.location.href = '/#/login';
 								return;
 							}else if(_data.code == -111 ){ //无权限

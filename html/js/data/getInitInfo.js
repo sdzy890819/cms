@@ -25,6 +25,9 @@ define(['./URL','./loginAndOut','jquery','./getData'],function(URL , user ,$ , g
 				}
 			});
 		},
+		loginOut : function(){
+			user.loginOut();
+		},
 		getUserInfo : function( obj ){
 			return obj.callback && obj.callback();
 			if(!quanjing.user){

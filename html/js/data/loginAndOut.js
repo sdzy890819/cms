@@ -1,4 +1,4 @@
-define(['./URL','jquery','./getInitInfo' , '../moduls/Tool'],function(URL,$,userInfo,Tool){
+define(['./URL','jquery', '../moduls/Tool'],function(URL,$,Tool){
 	var user = {
 		login : function( obj ){
 			$.ajax({
@@ -18,29 +18,23 @@ define(['./URL','jquery','./getInitInfo' , '../moduls/Tool'],function(URL,$,user
 					}								
 				},
 				error : function(_data){
-
-					getUserInfo();
-					alert('登录请求异常');				
+					layer.confirm(_data.message, {icon: 2, title:'提示'}, function(index){
+					  	layer.close(index);
+					  	location.reload();
+					});			
 				}
 			})
 		},
 		loginOut : function(){ //栏目列表
 			$.ajax({
 				url : URL.user.loginOut , 
-				data : {},
+				type : 'POST',
 				success : function(){
-					
-					window.initInfo = null;
-				},
-				error : function(){}
+					window.location.href = '/#/login';
+				}
 			})
 		},
-		getUserInfo : function( callback ){			
-			user.login({
-				userName: 'admin', 
-				pwd: '1234qwer',
-				callback : callback
-			})
+		getUserInfo : function( callback ){	
 		}
 	}	
 	return user;
