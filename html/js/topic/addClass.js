@@ -1,4 +1,4 @@
-define(["app",'./classForm','form','position','fixedNav'], function ( app , list ) {
+define(["app",'./classForm','../data/getData','form','position','fixedNav'], function ( app , list , getData ) {
 	app.directive('topicAddClass',function(){
 		return {
 	    	restrict : 'E',
@@ -9,10 +9,15 @@ define(["app",'./classForm','form','position','fixedNav'], function ( app , list
 	        	$scope.title = "新增分类";
 	        	$scope.$parent.menu.push({name:$scope.title})
 				$scope.save = function( obj ){ //保存
-					alert(obj)
-				}
-				$scope.cancel = function( obj ){ //取消
-					alert(obj)
+					getData.topic.createTopicColumn({
+						name : obj.name,
+						callback : function(_data){
+							layui.use(['layer'], function(){
+								var layer = layui.layer;
+								layer.msg(_data.message);
+							});
+						}
+					})
 				}
 				$scope.formdata = { //确认按钮
 					title : $scope.title,

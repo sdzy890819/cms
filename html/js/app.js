@@ -46,7 +46,7 @@ require.config({
 });
 
 // bootstrap
-define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-bootstrap','layui'], function ( angular, angularAMD) {
+define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-bootstrap','layui','moduls/prototype'], function ( angular, angularAMD) {
 
     //临时登录 需要删除
     // module
@@ -54,21 +54,26 @@ define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-b
     // config
     app.config(["$stateProvider", '$urlRouterProvider','$locationProvider', function($stateProvider, $urlRouterProvider,$locationProvider){
         /*$locationProvider.html5Mode(true);*/
-        $urlRouterProvider.otherwise('/home');
+        $urlRouterProvider.otherwise('/home/main');
 
         $stateProvider
             .state("home", angularAMD.route({
                 url: "/home",
                 templateUrl: "template/main.html",
-                controllerUrl: "home/homeCtrl",
-                css: {href: 'style/stylesheets/home.css'}
+                css: {href: 'js/stylesheets/home.css'}
+            }))
+            .state('home.main', angularAMD.route({
+                url: '/main',
+                template : '<home-main></home-main>',
+                controllerUrl: 'home/index'
             }))
 
             //登录
             .state('login', angularAMD.route({
                 url: '/login',
                 templateUrl: 'template/login/index.html',
-                controllerUrl: 'login/index'
+                controllerUrl: 'login/index',
+                css: {href: 'js/plug/layui/css/layui.css'}
             }))
 
             //新闻
@@ -77,25 +82,33 @@ define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-b
                 templateUrl: 'template/common/index.html',
                 controllerUrl: 'news/index'
             }))
+
             .state('news.add', angularAMD.route({
                 url: '/add',
                 template : '<news-add></news-add>',
                 controllerUrl: 'news/add'
             }))
-            .state('news.list', angularAMD.route({
-                url: '/list',
-                template : '<news-list></news-list>',
-                controllerUrl: 'news/list'
-            }))
-            .state('news.edit', angularAMD.route({
-                url: '/edit',
-                template : '<news-edit></news-edit>',
-                controllerUrl: 'news/edit'
-            }))
             .state('news.newslist', angularAMD.route({
                 url: '/newslist',
-                template : '<news-newslist></news-newslist>',
+                template : '<news-list></news-list>',
                 controllerUrl: 'news/newslist'
+            }))
+
+            //新闻栏目
+            .state('newscolumn', angularAMD.route({
+                url: '/newscolumn',
+                templateUrl : 'template/common/index.html',
+                controllerUrl: 'newscolumn/index'
+            }))
+            .state('newscolumn.add', angularAMD.route({
+                url: '/add',
+                template : '<newscolumn-add></newscolumn-add>',
+                controllerUrl: 'newscolumn/add'
+            }))
+            .state('newscolumn.list', angularAMD.route({
+                url: '/list',
+                template : '<newscolumn-list></newscolumn-list>',
+                controllerUrl: 'newscolumn/list'
             }))
 
             //部门
@@ -109,23 +122,29 @@ define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-b
                 template : '<category-list></category-list>',
                 controllerUrl: 'category/list'
             }))
+            .state('category.add', angularAMD.route({
+                url: '/add',
+                template : '<category-add></category-add>',
+                controllerUrl: 'category/add'
+            }))            
 
             //频道管理
-            .state('column', angularAMD.route({
-                url: '/column',
+            .state('channel', angularAMD.route({
+                url: '/channel',
                 templateUrl: 'template/common/index.html',
-                controllerUrl: 'column/index'
+                controllerUrl: 'channel/index'
             }))
-            .state('column.list', angularAMD.route({
+            .state('channel.list', angularAMD.route({
                 url: '/list',
-                template: '<column-list></column-list>',
-                controllerUrl: 'column/list'
+                template: '<channel-list></channel-list>',
+                controllerUrl: 'channel/list'
             }))
-            .state('column.edit', angularAMD.route({
-                url: '/edit',
-                template: '<column-edit></column-edit>',
-                controllerUrl: 'column/edit'
+            .state('channel.add', angularAMD.route({
+                url: '/add',
+                template: '<channel-add></channel-add>',
+                controllerUrl: 'channel/add'
             }))
+
 
             //用户管理系统
             .state('user', angularAMD.route({
@@ -145,20 +164,20 @@ define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-b
             }))
 
             //权限管理系统
-            .state('jurisdiction', angularAMD.route({
-                url: '/jurisdiction',
+            .state('permission', angularAMD.route({
+                url: '/permission',
                 templateUrl: 'template/common/index.html',
-                controllerUrl: 'jurisdiction/index'
+                controllerUrl: 'permission/index'
             }))
-            .state('jurisdiction.add', angularAMD.route({ //新增
+            .state('permission.add', angularAMD.route({ //新增
                 url: '/add',
-                template: '<jurisdiction-add></jurisdiction-add>',
-                controllerUrl: 'jurisdiction/add'
+                template: '<permission-add></permission-add>',
+                controllerUrl: 'permission/add'
             }))
-            .state('jurisdiction.list', angularAMD.route({ //list
+            .state('permission.list', angularAMD.route({ //list
                 url: '/list',
-                template: '<jurisdiction-list></jurisdiction-list>',
-                controllerUrl: 'jurisdiction/list'
+                template: '<permission-list></permission-list>',
+                controllerUrl: 'permission/list'
             }))
 
             //图片管理系统
@@ -177,6 +196,11 @@ define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-b
                 template: '<image-add></image-add>',
                 controllerUrl: 'image/add'
             }))
+            .state('image.base.add', angularAMD.route({
+                url: '/base/add',
+                template: '<image-base-add></image-base-add>',
+                controllerUrl: 'image/base/add'
+            }))
 
             //视频上传功能
             .state('video', angularAMD.route({
@@ -194,6 +218,11 @@ define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-b
                 template: '<video-add></video-add>',
                 controllerUrl: 'video/add'
             }))
+            .state('video.base.add', angularAMD.route({
+                url: '/base/add',
+                template: '<video-base-add></video-base-add>',
+                controllerUrl: 'video/base/add'
+            }))
 
             //模版管理
             .state('template', angularAMD.route({
@@ -210,6 +239,21 @@ define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-b
                 url: '/add',
                 template: '<template-add></template-add>',
                 controllerUrl: 'template/add'
+            }))
+            .state('template2.list', angularAMD.route({
+                url: '/list',
+                template: '<template2-list></template2-list>',
+                controllerUrl: 'template2/list'
+            }))
+            .state('template2.add', angularAMD.route({
+                url: '/add',
+                template: '<template2-add></template2-add>',
+                controllerUrl: 'template2/add'
+            }))
+            .state('template2.base.add', angularAMD.route({
+                url: '/add',
+                template: '<template2base-add></template2base-add>',
+                controllerUrl: 'template2/base/add'
             }))
 
             //专题管理
@@ -238,33 +282,34 @@ define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-b
                 template: '<topic-class-list></topic-class-list>',
                 controllerUrl: 'topic/classList'
             }))
+            .state('topic.addColumn', angularAMD.route({
+                url: '/addColumn',
+                template: '<topic-add-column></topic-add-column>',
+                controllerUrl: 'topic/addColumn'
+            }))
+            .state('topic.columnList', angularAMD.route({
+                url: '/columnList',
+                template: '<topic-column-list></topic-column-list>',
+                controllerUrl: 'topic/columnList'
+            }))
 
-            //频道管理
-            .state('userchannel', angularAMD.route({
-                url: '/userchannel',
+            //用户组
+            .state('position', angularAMD.route({
+                url: '/position',
                 templateUrl: 'template/common/index.html',
-                controllerUrl: 'userchannel/index'
+                controllerUrl: 'position/index'
             }))
-            .state('userchannel.list', angularAMD.route({ 
-                url: '/userchannel',
-                template: '<userchannel-list></userchannel-list>',
-                controllerUrl: 'userchannel/list'
+            .state('position.list', angularAMD.route({
+                url: '/list',
+                template: '<position-list></position-list>',
+                controllerUrl: 'position/list'
             }))
-            .state('userchannel.add', angularAMD.route({ 
+            .state('position.add', angularAMD.route({
                 url: '/add',
-                template: '<userchannel-add></userchannel-add>',
-                controllerUrl: 'userchannel/add'
+                template: '<position-add></position-add>',
+                controllerUrl: 'position/add'
             }))
-            .state('userchannel.userList', angularAMD.route({ 
-                url: '/userList',
-                template: '<userchannel-user-list></userchannel-user-list>',
-                controllerUrl: 'userchannel/userList'
-            }))
-            .state('userchannel.addUser', angularAMD.route({ 
-                url: '/addUser',
-                template: '<userchannel-add-user></userchannel-add-user>',
-                controllerUrl: 'userchannel/addUser'
-            }))
+
 
             //碎片管理
             .state('fragment', angularAMD.route({
@@ -292,11 +337,19 @@ define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-b
                 template: '<fragment-class-list></fragment-class-list>',
                 controllerUrl: 'fragment/classList'
             }))
-            .state('fragment.listHistory', angularAMD.route({ 
-                url: '/listHistory',
-                template: '<fragment-list-history></fragment-list-history>',
-                controllerUrl: 'fragment/listHistory'
+
+            //统计管理
+            .state('statistics', angularAMD.route({
+                url: '/statistics',
+                templateUrl: 'template/common/index.html',
+                controllerUrl: 'statistics/index'
             }))
+            .state('statistics.list', angularAMD.route({
+                url: '/list',
+                template: '<statistics-list></statistics-list>',
+                controllerUrl: 'statistics/list'
+            }))
+
     }]);
 
     layui.config({

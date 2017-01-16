@@ -1,14 +1,25 @@
-define(['./URL','jquery','./getInitInfo'],function(URL,$,userInfo){
+define(['./URL','jquery','./getInitInfo' , '../moduls/Tool'],function(URL,$,userInfo,Tool){
 	var user = {
 		login : function( obj ){
 			$.ajax({
 				type: 'POST',				
 				url : URL.user.login , 
-				data : {userName: obj.userName, pwd: obj.pwd},
-				success : function(_data){
-					obj.callback(_data);
+				data : {userName: obj.data.username, pwd: obj.data.password},
+				success : function(_data){	
+                    var url = Tool.getQueryString('returnUrl');
+					if(obj.callback){
+						obj.callback(_data);
+					}else{
+	                    if(void 0!= url && url.length>5){
+	                        window.location.href = decodeURIComponent(url);
+	                    }else{
+	                    	window.history.back();
+	                    }
+					}								
 				},
 				error : function(_data){
+
+					getUserInfo();
 					alert('登录请求异常');				
 				}
 			})
@@ -24,14 +35,13 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$,userInfo){
 				error : function(){}
 			})
 		},
-		getUserInfo : function( callback ){
+		getUserInfo : function( callback ){			
 			user.login({
-				userName: 'admin3', 
+				userName: 'admin', 
 				pwd: '1234qwer',
 				callback : callback
 			})
 		}
-	}
-
+	}	
 	return user;
 });

@@ -1,5 +1,5 @@
-define(function(){
-	return [ //表单
+define(['../data/getData','../moduls/Tool'],function(getData,Tool){
+	var list = [ //表单
 		{
 			title : 'title',
 			name : '标题',
@@ -46,39 +46,36 @@ define(function(){
 		},
 		{
 			title : 'channelId',
+			selectName : [
+				'categoryId',
+				'channelId',
+				'columnId'
+			],
 			name : '选择频道栏目',
 			type : 'select',
 			verify : 'select',
 			select : [
 				[
-					{name:'请选择部门'},
-					{name:'请选择部门1'},
-					{name:'请选择部门2'},
-					{name:'请选择部门3'},
-					{name:'请选择部门4'}
+					{name:'请选择部门',title:'categoryId'}
 				],
 				[
-					{name:'请选择频道'},
-					{name:'请选择频道1'},
-					{name:'请选择频道2'}
+					{name:'请选择频道',title:'channelId'}
 				],
 				[
-					{name:'请选择栏目'},
-					{name:'请选择栏目1'},
-					{name:'请选择栏目2'},
-					{name:'请选择栏目3'}
+					{name:'请选择栏目',title:'columnId'}
 				]
 			]
 		},
 		{
 			title : 'content',
+			cls : 'newsEdit',
 			name : '内容',
 			width : '800px',
 			height : '200px',
 			type : 'edit'
 		},
 		{
-			title : 'buildTime',
+			title : 'writeTime',
 			name : '定时发布',
 			placeholder : '请选择时间 年/月/日 时:分:秒',
 			type : 'date',
@@ -100,5 +97,21 @@ define(function(){
 				}
 			]
 		}
-	]
+	];
+	function getList(callback){
+		getData.category.listCategory({//部门
+			callback:function(_data){
+				$.each(list,function(i , obj){
+					if(obj.type=='select'){
+						if(obj.select[0][0].title=='categoryId'){
+							obj.select[0] = obj.select[0].concat(Tool.changeObjectName(_data.data,[{name:'categoryName',newName:'name'}]));
+
+							callback(list);
+						}
+					}
+				})
+			}
+		});
+	}
+	return getList;
 })

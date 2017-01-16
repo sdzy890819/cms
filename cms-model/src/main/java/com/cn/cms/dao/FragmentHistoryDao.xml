@@ -35,7 +35,7 @@
     </insert>
 
     <select id="queryHistoryList" resultMap="fragmentHistory" >
-      select <include refid="sql_column" /> from fragment_history <include refid="delTag" /> and fragment_id = ${fid} limit ${page.start},${page.pageSize};
+      select <include refid="sql_column" /> from fragment_history <include refid="delTag" /> and fragment_id = ${fid}  order by update_time desc limit ${page.start},${page.pageSize};
     </select>
     
     <select id="queryHistoryCount" resultType="java.lang.Integer">

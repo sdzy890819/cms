@@ -45,6 +45,7 @@ public class EncryptUtil {
         return pwd.toString();
     }
 
+
     /**
      * 根据时间戳＋随机数生成用户ID
      * @return
@@ -130,9 +131,7 @@ public class EncryptUtil {
     }
 
     public static void main(String[] args){
-        System.out.println(EncryptUtil.encryptPwd("admin3","1234qwer"));
-        System.out.println(EncryptUtil.encryptPwd("admin2","1234qwer"));
-        System.out.println(EncryptUtil.encryptPwd("admin","1234qwer"));
+        System.out.println(randomPwd(12));
     }
 
 

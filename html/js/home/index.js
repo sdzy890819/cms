@@ -1,5 +1,5 @@
 define(["app",'require','head','menu'], function ( app , require ) {
-	app.directive('contentRouter',function(){
+	app.directive('homeMain',function(){
 		return {
 	    	restrict : 'E',
 	    	replace : true,

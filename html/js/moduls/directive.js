@@ -6,7 +6,7 @@ define(['app'],function(app){
 			  if (scope.$last === true) {
 			    $timeout(function () {
                	 	scope.$eval( scope.$parent[attr.repeatFinish] )
-               	 	scope.$emit(attr.repeatFinish);
+               	 	scope.$emit(attr.repeatFinish, element, attr);
 			    });
 			  }
 			}

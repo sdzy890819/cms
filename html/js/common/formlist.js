@@ -50,7 +50,6 @@ define(["app",'jquery','./moduls/directive'], function ( app , $ ) {
 			link : function($scope , element , arrt , controller){
 				var ele = $(element[0]) ,
 					thSelect ,
-					select ,
 					len,
 					index = 0 , 
 					selectIcon;

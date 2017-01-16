@@ -37,14 +37,14 @@
 
     <select id="queryListForPage" resultMap="newsColumn">
         select <include refid="sql_column" /> from news_column <include refid="delTag" />
-        limit ${page.start}, ${page.pageSize};
+        order by update_time desc limit ${page.start}, ${page.pageSize};
     </select>
 
     <select id="queryList" resultMap="newsColumn">
         select <include refid="sql_column"/> from news_column <include refid="delTag" />
         <if test="channelId != null ">
             and channel_id = ${channelId}
-        </if>
+        </if>  order by update_time desc
     </select>
 
     <select id="getListForChannelIds" resultMap="newsColumn">
@@ -81,10 +81,10 @@
                 detail_template2_id = ${p1.detailTemplate2Id},
             </if>
             <if test="p1.keywords != null">
-                keywords = ${p1.keywords},
+                keywords = #{p1.keywords},
             </if>
             <if test="p1.description != null">
-                description = ${p1.description},
+                description = #{p1.description},
             </if>
             last_modify_user_id = #{p1.lastModifyUserId}
         </set>

@@ -4,6 +4,7 @@ import com.cn.cms.biz.PositionBiz;
 import com.cn.cms.biz.UserPositionBiz;
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.po.Position;
+import com.cn.cms.po.UserPosition;
 import com.cn.cms.utils.Page;
 import com.cn.cms.web.ann.CheckAuth;
 import com.cn.cms.web.ann.CheckToken;
@@ -88,21 +89,14 @@ public class PositionController extends BaseController{
 
     /**
      * 分页获取用户组列表
-     * @param page
-     * @param pageSize
      * @return
      */
     @CheckToken
     @CheckAuth( name = "position:read" )
     @RequestMapping(value = "/listPosition",method = RequestMethod.GET)
-    public String listPosition(@RequestParam(value = "page",defaultValue = "1") Integer page,
-                       @RequestParam(value="pageSize",required = false)Integer pageSize){
-        Page pageObj = new Page(page, pageSize);
-        List<Position> positions = positionBiz.listPosition(pageObj);
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("page", pageObj);
-        map.put("list", positions);
-        return ApiResponse.returnSuccess(map);
+    public String listPosition(){
+        List<Position> list = positionBiz.listPosition();
+        return ApiResponse.returnSuccess(list);
     }
 
 
@@ -128,4 +122,39 @@ public class PositionController extends BaseController{
         userPositionBiz.insertUserPositon(userID,userId,position);
         return ApiResponse.returnSuccess();
     }
+
+
+    /**
+     * 删除用户组权限
+     * @param request
+     * @param userId
+     * @param positionId
+     * @return
+     */
+    @CheckToken
+    @CheckAuth( name = "userposition:delete" )
+    @RequestMapping(value = "/delUserPosition",method = RequestMethod.GET)
+    public String delUserPosition(HttpServletRequest request,
+                                  @RequestParam("userId")String userId,
+                                  @RequestParam("positionId")Long positionId
+    ){
+        String userID = this.getCurrentUserId(request);
+        userPositionBiz.delUserPosition(userID, userId, positionId);
+        return ApiResponse.returnSuccess();
+    }
+
+
+    /**
+     * 查询用户用户组权限
+     * @param userId
+     * @return
+     */
+    @CheckToken
+    @CheckAuth( name = "userposition:read" )
+    @RequestMapping(value = "/listUserPosition",method = RequestMethod.GET)
+    public String listUserPosition(@RequestParam("userId")String userId){
+        List<UserPosition> list = userPositionBiz.findUserPositionByUserId(userId);
+        return ApiResponse.returnSuccess(list);
+    }
+
 }

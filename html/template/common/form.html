@@ -10,36 +10,38 @@
 		<div class="content clearfix">
 			<form class="layui-form clearfix">
 				<position-nav edit='edit' submit='submit' isadd='isadd'></position-nav>
-				<div class="layui-form-item" ng-repeat="obj in formdata.list">
+				<div ng-if='formdata' class="layui-form-item" ng-repeat="obj in formdata.list">
 					<label ng-if='!isArray(obj)' class="layui-form-label"><em ng-show='obj.check!=false&&obj.verify'>*</em>{{obj.name}}</label>
 					<div class="layui-input-block" ng-if='!isArray(obj)' repeat-finish='formRepeat'>
+
 						<!-- 输入匡 或 密码 -->
 						<input ng-if="obj.type=='text'||obj.type=='password'" 
 							class="text layui-input {{obj.cls||'w320'}}" 
 							type="{{obj.type}}" 
 							name="{{obj.title}}" 
+							value="{{data[obj.title]}}"
 							lay-verify="{{obj.verify}}" 
 							placeholder="{{obj.placeholder}}" 
 							ng-pattern="{{obj.pattern}}"
 							autocomplete="off">
 
 						<!-- 多文本 -->
-						<textarea ng-if="obj.type=='textarea'" class="layui-textarea text w80 {{obj.cls}}" name="{{obj.title}}" lay-verify="content" placeholder="{{obj.placeholder}}"></textarea>
+						<textarea ng-if="obj.type=='textarea'" class="layui-textarea text w80 {{obj.cls}}" name="{{obj.title}}" style="height:{{obj.height}}px" lay-verify="content" placeholder="{{obj.placeholder}}">{{data[obj.title]}}</textarea>
 
 						<!-- 富文本编辑器 -->
-						<div ng-if="obj.type=='edit'" style="width:{{obj.width}}; max-width:{{obj.maxWidth}}; min-width:{{obj.minWidth}}">
+						<div ng-if="obj.type=='edit'" class='wangEditor {{obj.cls}}' data-html='{{data.newsDetail.content}}' style="width:{{obj.width}}; max-width:{{obj.maxWidth}}; min-width:{{obj.minWidth}}">
 							<div ng-model="text" contenteditable="true" name="{{obj.title}}" style="height:{{obj.height}};"></div>
 						</div>
 
 						<!-- select -->
 					    <div ng-if="obj.type=='select'" class="layui-input-inline {{obj.cls}}" ng-repeat="select in obj.select">
-					      <select name="{{obj.title}}{{$index}}">
-					        <option lay-verify="{{obj.verify}}" ng-repeat="option in select">{{option.name}}</option>
+					      <select name="{{obj.selectName[$index]}}">
+					        <option lay-verify="{{obj.verify}}" ng-repeat="option in select" ng-selected="option.id==data[select[0].title]" >{{option.name}}</option>
 					      </select>
 					    </div>
 
 					    <!-- 时间 -->
-					    <input ng-if="obj.type=='date'" type="text" name="{{obj.title}}" id="date"placeholder="{{obj.placeholder}}" readonly='readonly' autocomplete="off" class="layui-input date {{obj.cls||'w220'}}" ng-click="selectDate($event)"><!--  lay-verify="date"  -->
+					    <input ng-if="obj.type=='date'" value="{{data[obj.title]}}" type="text" name="{{obj.title}}" id="date"placeholder="{{obj.placeholder}}" readonly='readonly' autocomplete="off" class="layui-input date {{obj.cls||'w220'}}" ng-click="selectDate($event)"><!--  lay-verify="date"  -->
 
 					    <!-- 上传按钮 并不能上传需要点击事件 -->
 					    <div ng-if="obj.type=='file'" class="layui-box layui-upload-button" style="cursor:pointer">
@@ -61,20 +63,27 @@
 						<label ng-if='item.type!="button"' class="layui-form-label {{$index!==0?'inline':''}}"><em ng-show='item.check!=false&&item.verify'>*</em>{{item.name}}</label>
 					    <div class="layui-input-inline"> <!-- 不换行 -->
 					        <!-- 输入匡 或 密码 -->
-							<input ng-if="item.type=='text'||item.type=='password'" class="text layui-input {{item.cls||'w100'}}" type="{{item.type=='text'?'text':'password'}}" name="{{item.title}}" lay-verify="{{item.verify}}" placeholder="{{item.placeholder}}" autocomplete="off">
+							<input ng-if="item.type=='text'||item.type=='password'" 
+								class="text layui-input {{item.cls||'w100'}}" 
+								type="{{item.type=='text'?'text':'password'}}" 
+								name="{{item.title}}" 
+								value="{{data[item.title]}}"
+								lay-verify="{{item.verify}}" 
+								placeholder="{{item.placeholder}}" 
+								autocomplete="off">
 
 							<!-- 多文本 -->
-							<textarea ng-if="item.type=='textarea'" class="layui-textarea text w80 {{item.cls}}" name="{{item.title}}" lay-verify="content" placeholder="{{item.placeholder}}"></textarea>
+							<textarea ng-if="item.type=='textarea'" class="layui-textarea text w80 {{item.cls}}" name="{{item.title}}" lay-verify="content" placeholder="{{item.placeholder}}">{{data[item.title]}}</textarea>
 
 							<!-- select -->
 						    <div ng-if="item.type=='select'" class="layui-input-inline {{item.cls}}" ng-repeat="select in item.select">
-						      <select name="{{item.title}}{{$index}}">
-						        <option lay-verify="{{item.verify}}" ng-repeat="option in select">{{option.name}}</option>
+						      <select name="{{item.selectName[$index]}}">
+						        <option lay-verify="{{item.verify}}" ng-repeat="option in select" ng-selected="option.id && option.id==data[select[0].title]">{{option.name}}{{option.id && option.id==data[select[0].title]}}</option>
 						      </select>
 						    </div>
 
 						    <!-- 时间 -->
-						    <input ng-if="item.type=='date'" type="text" name="{{item.title}}" id="date"placeholder="{{item.placeholder}}" readonly='readonly' autocomplete="off" class="layui-input date {{item.cls||'w220'}}" ng-click="selectDate($event)"><!--  lay-verify="date"  -->
+						    <input ng-if="item.type=='date'" value="{{data[item.title]}}" type="text" name="{{item.title}}" id="date"placeholder="{{item.placeholder}}" readonly='readonly' autocomplete="off" class="layui-input date {{item.cls||'w220'}}" ng-click="selectDate($event)"><!--  lay-verify="date"  -->
 
 					    	<button ng-if='item.type=="button"' class="layui-btn layui-btn-normal" ng-click='submit(item.evt,item,$event)'>{{item.name}}</button>
 
@@ -83,7 +92,7 @@
 					    </div>
 					</div>
 				</div>
-				<div class="submit">
+				<div class="submit" ng-if='formdata'>
 					<div class='btn {{obj.cls}}' lay-submit="" lay-filter="demo1" ng-repeat='obj in formdata.submit' data-event='{{obj.evt}}' ng-if='obj.evt!="cancel"'>
 						<i class="icon-{{obj.icon_cls}}"></i>
 						<span>{{obj.name}}</span>

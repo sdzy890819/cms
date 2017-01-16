@@ -76,8 +76,17 @@ define(['app','jquery'],function(app,$){
 						showArr = [];
 						$.each(th,function(_k , _thobj ){
 							$.each(obj,function( objkey , objval ){
+								var newObj = {};
 								if( objkey == _thobj.key ){
-									showArr.push({name:objval});
+									if(_thobj.changeObjectName){
+										$.each(_thobj.changeObjectName,function( j , item ){
+											if(obj[item.name]){
+												newObj[item.newName] = obj[item.name];
+											}
+										})
+									}
+									newObj.name = objval;
+									showArr.push(newObj);
 								}
 							});	
 						});
@@ -127,11 +136,12 @@ define(['app','jquery'],function(app,$){
 				},
 				changeTypeName : function( extend , array ){ // 把 extend 中的 typeName == array[0] 的名字换成 array[1] 
 					$.each(array,function( i , obj ){
-						$.each(extend,function( j , _obj ){
-							$.each(_obj,function( key , value ){
-								if(key == obj.name){
+						$.each(extend,function( j , _obj ){														
+							$.each(_obj,function( key , value ){													
+								if(key == obj.name){									
 									_obj[obj.newName] = value;
 								}
+																
 							});
 						})
 					})

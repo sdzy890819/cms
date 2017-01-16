@@ -26,4 +26,6 @@ public interface PositionDao {
     Integer queryPositionCount();
 
     List<Position> findPositionList(@Param(value = "page") Page page);
+
+    List<Position> findPositionListAll();
 }

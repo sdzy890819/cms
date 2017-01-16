@@ -35,8 +35,23 @@ define(function(require){
 			currentMenuPermission : url+'/permission/currentMenuPermission',//获取用户拥有的菜单栏权限 接口
 			currentButtonPermission : url+'/permission/currentButtonPermission'//用户Menu下的Button权限
 		},
+		pretemplate:{//预模版加载
+			listPreTemplate : url+'/pretemplate/listPreTemplate',
+			list : url+'/pretemplate/list',
+			detail : url+'/pretemplate/detail',
+			save : url+'/pretemplate/save',
+			update : url+'/pretemplate/update',
+			delete : url+'/pretemplate/delete',
+			preTemplateBase : url+'/pretemplate/preTemplateBase',
+			baseUpdate : url+'/pretemplate/base/update',
+			listTemplate2 : url+'/template2/listTemplate2',
+			listTemplate2detail : url+'/template2/listTemplate2/detail',
+			listTemplate2list : url+'/template2/listTemplate2/list'
+		},
 		news : {
+			newscolumn : url+'/newscolumn/newscolumn', //获取栏目信息
 			newscolumnlist : url+'/newscolumn/newscolumnlist', //栏目列表
+			newscolumn_list : url+'/newscolumn/list', //栏目列表分页
 			createNewsColumn : url+'/newscolumn/createNewsColumn',//创建栏目
 			delNewsColumn : url+'/newscolumn/delNewsColumn',//删除栏目
 			newslist : url+'/news/newslist',//新闻列表
@@ -44,6 +59,7 @@ define(function(require){
 			delNews : url+'/news/delNews',//删除新闻
 			createNews : url+'/news/createNews',//创建新闻
 			updateNews : url+'/news/updateNews',//修改新闻
+			updateNewsColumn : url+'/newscolumn/updateNewsColumn',//修改新闻
 			publish : url+'/news/publish'//新闻发布
 		},
 		category : {//部门分类
@@ -90,14 +106,14 @@ define(function(require){
 			createTemplate : url+'/template/createTemplate',//创建新模版
 			uploadTemplate : url+'/template/uploadTemplate',//模版上传
 			downTemplate : url+'/template/downTemplate',//模版上传
-			relation : url+'/template/relation',//模版上传
+			relation : url+'/template/relation',//读取所有的模版对应的关系列表 接口
 			updateRelations : url+'/template/updateRelations',//根据relationType 修改模版对应关系
 			createRelation : url+'/template/createRelation',//新增模版关系
 			delRelation : url+'/template/delRelation',//模版关系删除
 			redirect : url+'/template/redirect'//模版跳转
 		},
 		topic : { //专题
-			topic:url+'/topic/listTopic',//
+			listTopic:url+'/topic/listTopic',//分页专题列表 接口
 			topicInfo:url+'/topic/topicInfo',//
 			delTopic:url+'/topic/delTopic',//
 			publish:url+'/topic/publish',//

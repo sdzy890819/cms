@@ -1,6 +1,6 @@
 define(["app",'jquery','require','wangEditor'], function ( app,$,require ) {
 	return {
-		init : function( $scope ){
+		init : function( $scope , obj ){
 			app.directive('contenteditable',function(){
 				return {
 			    	restrict : 'A',
@@ -66,7 +66,6 @@ define(["app",'jquery','require','wangEditor'], function ( app,$,require ) {
 					    ];*/
 		                // 创建编辑器
 		                var editor = new wangEditor(element);
-		                $scope.editor = editor;
 
 		                editor.config.menus = $.map(wangEditor.config.menus, function(item, key) {
 							if (item === 'insertcode') {
@@ -91,11 +90,14 @@ define(["app",'jquery','require','wangEditor'], function ( app,$,require ) {
 					        'Accept' : 'text/x-json'
 					    };
 					    //editor.config.hideLinkImg = true;
-
-					    console.dir(editor.config);
-
+		                	
+		                editor.ready(function(){
+		                	obj.callback(editor);
+		                })
 		                editor.create();
-		                editor.$txt.html('<p>请输入内容</p>');
+		                $scope.editor = editor;
+		                window.Editor = editor;
+	                	editor.$txt.html('<p>请输入内容</p>');
 		            }
 			    };
 			});

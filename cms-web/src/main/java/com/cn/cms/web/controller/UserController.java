@@ -3,10 +3,12 @@ package com.cn.cms.web.controller;
 import com.cn.cms.biz.UserBiz;
 import com.cn.cms.bo.UserBean;
 import com.cn.cms.enums.ErrorCodeEnum;
+import com.cn.cms.utils.EncryptUtil;
 import com.cn.cms.utils.Page;
 import com.cn.cms.web.ann.CheckAuth;
 import com.cn.cms.web.ann.CheckToken;
 import com.cn.cms.web.result.ApiResponse;
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -163,6 +165,17 @@ public class UserController extends BaseController{
     }
 
 
+    /**
+     * 随机生成12位密码
+     * @return
+     */
+    @CheckToken
+    @RequestMapping(value = "/randomPwd",method = RequestMethod.GET)
+    public String randomPwd(){
+        Map<String ,Object> map = new HashMap();
+        map.put("pwd", EncryptUtil.randomPwd(12));
+        return ApiResponse.returnSuccess(map);
+    }
 
 
 
