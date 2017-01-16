@@ -13,6 +13,7 @@ import com.cn.cms.enums.RecommendEnum;
 import com.cn.cms.po.News;
 import com.cn.cms.po.NewsDetail;
 import com.cn.cms.po.NewsRecommend;
+import com.cn.cms.po.RecommendColumn;
 import com.cn.cms.utils.Page;
 import com.cn.cms.utils.StringUtils;
 import com.cn.cms.web.ann.CheckAuth;
@@ -369,4 +370,54 @@ public class NewsController extends BaseController {
         return ApiResponse.returnSuccess();
     }
 
+    /**
+     * 推荐栏目列表
+     * @return
+     */
+    @CheckToken
+    @CheckAuth( name = "recommendcolumn:read" )
+    @RequestMapping(value = "/recommendColumnlist", method = RequestMethod.GET)
+    public String recommendColumnlist(){
+        List<RecommendColumn> recommendColumns = newsBiz.listRecommendColumn();
+        return ApiResponse.returnSuccess(recommendColumns);
+    }
+
+    /**
+     * 推荐栏目创建
+     * @param request
+     * @param columnName
+     * @return
+     */
+    @CheckToken
+    @CheckAuth( name = "recommendcolumn:write" )
+    @RequestMapping(value = "/createRecommendColumn", method = RequestMethod.POST)
+    public String createRecommendColumn(HttpServletRequest request,
+                                        @RequestParam(value = "columnName") String columnName){
+        RecommendColumn p1 = new RecommendColumn();
+        p1.setColumnName(columnName);
+        p1.setLastModifyUserId(getCurrentUserId(request));
+        newsBiz.saveRecommendColumn(p1);
+        return ApiResponse.returnSuccess();
+    }
+
+    /**
+     * 推荐栏目修改
+     * @param request
+     * @param id
+     * @param columnName
+     * @return
+     */
+    @CheckToken
+    @CheckAuth( name = "recommendcolumn:update" )
+    @RequestMapping(value = "/updateRecommendColumn", method = RequestMethod.POST)
+    public String updateRecommendColumn(HttpServletRequest request,
+                                        @RequestParam(value = "id") Long id,
+                                        @RequestParam(value = "columnName") String columnName){
+        RecommendColumn p1 = new RecommendColumn();
+        p1.setId(id);
+        p1.setColumnName(columnName);
+        p1.setLastModifyUserId(getCurrentUserId(request));
+        newsBiz.saveRecommendColumn(p1);
+        return ApiResponse.returnSuccess();
+    }
 }

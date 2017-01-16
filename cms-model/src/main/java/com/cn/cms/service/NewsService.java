@@ -5,6 +5,7 @@ import com.cn.cms.enums.PublishEnum;
 import com.cn.cms.po.News;
 import com.cn.cms.po.NewsColumn;
 import com.cn.cms.po.NewsRecommend;
+import com.cn.cms.po.RecommendColumn;
 import com.cn.cms.utils.Page;
 
 import java.util.Date;
@@ -56,5 +57,11 @@ public interface NewsService {
     NewsRecommend findNewsRecommend(Long id);
 
     void updateNewsRecommend(NewsRecommend newsRecommend);
+
+    List<RecommendColumn> findAll();
+
+    void createRecommendColumn(RecommendColumn recommendColumn);
+
+    void updateRecommendColumn(RecommendColumn recommendColumn);
 
 }

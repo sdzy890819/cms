@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cn.cms.dao.RecommendColumnDao" >
+
+    <resultMap id="base" type="com.cn.cms.po.Base">
+        <id column="id" property="id" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="del_tag" property="delTag" />
+        <result column="last_modify_user_id" property="lastModifyUserId" />
+    </resultMap>
+    <resultMap type="com.cn.cms.po.RecommendColumn" id="recommendColumn" extends="base">
+        <result column="column_name" property="columnName" />
+    </resultMap>
+
+    <sql id="delTag"> where del_tag = 1 </sql>
+
+    <sql id="sql_column">
+        id,last_modify_user_id,`column_name`
+    </sql>
+
+    <sql id="sel_sql_column">
+        id,last_modify_user_id,`column_name`,update_time,create_time
+    </sql>
+
+    <insert id="createRecommendColumn" useGeneratedKeys="true" keyProperty="p1.id">
+        insert into recommend_column ( <include refid="sql_column" /> )
+        values (null, #{p1.lastModifyUserId}, #{p1.columnName});
+    </insert>
+
+    <update id="updateRecommendColumn">
+        update recommend_column
+        <set>
+            `column_name` = #{p1.columnName},
+            last_modify_user_id = #{p1.lastModifyUserId}
+        </set> where id = ${p1.id};
+    </update>
+
+    <select id="sel_sql_column" resultMap="recommendColumn">
+        select <include refid="sql_column" /> from recommend_column <include refid="delTag" /> order by update_time desc;
+    </select>
+
+
+</mapper>

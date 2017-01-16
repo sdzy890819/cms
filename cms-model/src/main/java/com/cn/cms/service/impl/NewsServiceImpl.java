@@ -3,6 +3,7 @@ package com.cn.cms.service.impl;
 import com.cn.cms.dao.NewsColumnDao;
 import com.cn.cms.dao.NewsDao;
 import com.cn.cms.dao.NewsDetailDao;
+import com.cn.cms.dao.RecommendColumnDao;
 import com.cn.cms.enums.AutoPublishEnum;
 import com.cn.cms.enums.ESSearchTypeEnum;
 import com.cn.cms.enums.IndexOperEnum;
@@ -32,6 +33,9 @@ public class NewsServiceImpl implements NewsService {
 
     @Resource
     private NewsDetailDao newsDetailDao;
+
+    @Resource
+    private RecommendColumnDao recommendColumnDao;
 
     @Resource(name = "threadTaskExecutor")
     private ThreadPoolTaskExecutor threadTaskExecutor;
@@ -168,5 +172,20 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public void updateNewsRecommend(NewsRecommend newsRecommend) {
         newsDao.updateNewsRecommend(newsRecommend);
+    }
+
+    @Override
+    public List<RecommendColumn> findAll() {
+        return recommendColumnDao.findAll();
+    }
+
+    @Override
+    public void createRecommendColumn(RecommendColumn recommendColumn) {
+        recommendColumnDao.createRecommendColumn(recommendColumn);
+    }
+
+    @Override
+    public void updateRecommendColumn(RecommendColumn recommendColumn) {
+        recommendColumnDao.updateRecommendColumn(recommendColumn);
     }
 }

@@ -4,10 +4,7 @@ import com.cn.cms.bo.RelationColumn;
 import com.cn.cms.enums.AutoPublishEnum;
 import com.cn.cms.enums.PublishEnum;
 import com.cn.cms.enums.TemplateClassifyEnum;
-import com.cn.cms.po.Channel;
-import com.cn.cms.po.News;
-import com.cn.cms.po.NewsColumn;
-import com.cn.cms.po.NewsRecommend;
+import com.cn.cms.po.*;
 import com.cn.cms.service.NewsService;
 import com.cn.cms.utils.Page;
 import com.cn.cms.utils.StringUtils;
@@ -235,6 +232,18 @@ public class NewsBiz extends BaseBiz {
 
     public void recommendNews(NewsRecommend newsRecommend){
         newsService.updateNewsRecommend(newsRecommend);
+    }
+
+    public List<RecommendColumn> listRecommendColumn(){
+        return newsService.findAll();
+    }
+
+    public void saveRecommendColumn(RecommendColumn p1){
+        if(p1.getId()!=null && p1.getId()>0){
+            newsService.createRecommendColumn(p1);
+        }else{
+            newsService.updateRecommendColumn(p1);
+        }
     }
 
 }
