@@ -97,7 +97,6 @@ define(['require',"app",'jquery'
 								});
         					},
         					callback : function( list , callback ){ //返回获取的数据 用于操作
-        						debugger;
 								callback(list);
         					},
         					$uibModal :$uibModal 

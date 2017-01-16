@@ -142,14 +142,13 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 								setType.call(this);
 							}
 						});
-/*
-						$scope.$watch(
+
+						/*$scope.$watch(
 							function(){
 								return $scope.data;
 							},function(){ 
 								if($scope.data){
-									form.render(); //更新全部
-									console.log
+									form.render(); 
 								}
 							}
 						);*/
