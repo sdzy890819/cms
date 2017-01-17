@@ -1,0 +1,34 @@
+<div class="boxtab tablist">
+	<div class="title">
+		<i class="icon-reorder"></i>
+		{{title}}
+	</div>
+	<div class="content">
+		<div class="permissions-pop">
+			<div class="content">
+				<div class="option" ng-if='listPermissionData'>
+					<table class="table" width='100%' cellpadding="0" cellspacing="0">
+						<tbody>
+							<tr class="current">
+								<th width='30' class="center">
+									<input type='checkbox' ng-checked="isCheckedAll()" ng-click="checkedAll()">
+								</th>
+								<th>权限名称</th>
+								<th>权限TYPE</th>
+							</tr>
+
+							<tr ng-repeat='item in listPermissionData' class='permission-list'>
+								<td class="center">
+									<input type='checkbox' ng-value="{{item.id}}" ng-checked="isChecked(item.id)" ng-click="">
+								</td>
+								<td>{{item.name}}</td>
+								<td>{{item.typeStr}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>

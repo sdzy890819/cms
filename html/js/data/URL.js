@@ -10,6 +10,15 @@ define(function(require){
 			updateUser : url+'/user/updateUser',//用户修改接口
 			delUser : url+'/user/delUser'//逻辑删除
 		},
+		position : {
+			listPosition : url + '/position/listPosition',
+			createPosition : url + '/position/createPosition',
+			updatePosition : url + '/position/updatePosition',
+			delPosition : url + '/position/delPosition',
+			setUserPosition : url + '/position/setUserPosition',
+			delUserPosition : url + '/position/delUserPosition'
+
+		},
 		data : { //基础接口
 			all : url+'/data/all',
 			compress : url+'/data/compress',//图片是否压缩选项列表接口

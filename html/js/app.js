@@ -298,20 +298,20 @@ define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-b
             }))
 
             //用户组
-            .state('position', angularAMD.route({
-                url: '/position',
+            .state('userposition', angularAMD.route({
+                url: '/userposition',
                 templateUrl: 'template/common/index.html',
-                controllerUrl: 'position/index'
+                controllerUrl: 'userposition/index'
             }))
-            .state('position.list', angularAMD.route({
+            .state('userposition.list', angularAMD.route({
                 url: '/list',
-                template: '<position-list></position-list>',
-                controllerUrl: 'position/list'
+                template: '<userposition-list></userposition-list>',
+                controllerUrl: 'userposition/list'
             }))
-            .state('position.add', angularAMD.route({
+            .state('userposition.add', angularAMD.route({
                 url: '/add',
-                template: '<position-add></position-add>',
-                controllerUrl: 'position/add'
+                template: '<userposition-add></userposition-add>',
+                controllerUrl: 'userposition/add'
             }))
 
 
