@@ -6,7 +6,8 @@ define(["app",'jquery','../data/getData', '../moduls/Tool'],function (app,$,getD
 				animation: true,
 				ariaLabelledBy: 'modal-title',
 				ariaDescribedBy: 'modal-body',
-				templateUrl: '../template/template/permissionsPop.html',				
+				templateUrl: '../template/template/permissionsPop.html',
+
 				controller: function($scope, $uibModalInstance,$css) {
 					angular.extend($scope,{
 						titelement : {
@@ -24,7 +25,7 @@ define(["app",'jquery','../data/getData', '../moduls/Tool'],function (app,$,getD
 				  	close : function () {
 					   	$uibModalInstance.dismiss('cancel');
 				  	},
-				  	recommendColumnlistDone : function(){ //加载完
+				  	recommendColumnlistDone : function(){ //加载完				  		
 				  		setTimeout(function(){
 				  			debugger;
 				  		},200)
@@ -71,16 +72,13 @@ define(["app",'jquery','../data/getData', '../moduls/Tool'],function (app,$,getD
 						);
 					}
 					
-					$scope.isCheckedAll = function(){
-						var a = $.find('.permission-list');
-						console.log($(a).find('input[type=checkbox]'));
-						console.log(1);
+					$scope.isCheckedAll = function(){						
 					}
 
-					$scope.checkedAll = function() {
-						
+					$scope.checkedAll = function(obj, _detail) {
+						// console.log($scope.listPermissionData);
 					}
-				}
+				}			
 
 			});
     	}

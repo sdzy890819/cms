@@ -68,8 +68,7 @@ define(['require',"app",'jquery'
                   
 	        				pop.init({
 	        					obj        : obj,	        					
-	        					$uibModal  : $uibModal,
-	        						        					   					
+	        					$uibModal  : $uibModal,	        				  
 	        					save : function(obj, _detail) {
 	        						
 	        					},
