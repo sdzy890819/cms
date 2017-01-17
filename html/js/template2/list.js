@@ -1,17 +1,17 @@
 define(['require',"app",'jquery'
-	,'../data/getData' , './addForm', './editForm'
-	,'../moduls/Tool','../common/editPop' , './relationPop'
+	,'../data/getData' , './addForm'
+	,'../moduls/Tool','../common/editPop' , '../template/relationPop'
 	,'formlist','fixedNav','position'
 	,'../moduls/service','../moduls/factory'
-], function ( require , app , $ , getData , list , editForm , Tool , editPop,relationPop ) {
-	app.directive('templateList',function(){
+], function ( require , app , $ , getData , list , Tool , editPop,relationPop ) {
+	app.directive('template2List',function(){
 		return {
 	    	restrict : 'E',
 	    	replace : true,
 	    	transclude : true,
 	        templateUrl : '../template/common/list.html',
 	        controller : function($scope , pop , $uibModal , $css,GenerateArrList){
-	        	$scope.title = "模版列表";
+	        	$scope.title = "第二套模版列表";
 				$scope.$parent.menu.push({name:$scope.title}); //栏目
 				
 				/*$scope.navEdit = { //导航操作按钮
@@ -138,7 +138,7 @@ define(['require',"app",'jquery'
         				});
 					}
 				});
-				getData.template.listTemplate({
+				getData.template.listTemplate2({
 					callback : function(_data){
 						$.each(_data.data.list,function( i , obj){ //时间格示化
 							obj.releaseTime = new Date(obj.releaseTime).format('yyyy-MM-dd h:m:s');
@@ -164,6 +164,18 @@ define(['require',"app",'jquery'
 								td : GenerateArrList.setArr(_data.data.list,th) ,
 								edit : [
 									{cls : 'down', name : '下载',evt:$scope.down},
+									{	
+										cls : 'upload', 
+										name : '上传',
+										url : URL.template.uploadTemplate,
+										ext: 'exe|dmg',
+										success : function(_data){
+											layui.use(['layer'], function(){
+												var layer = layui.layer;
+												layer.msg(_data.message);
+											});
+										}
+									},
 									{cls : 'add', name : '关联',evt:$scope.relation},
 									{cls : 'edit' , name : '编辑',evt:$scope.edit},
 									{cls : 'del' , name : '删除',evt:$scope.del}

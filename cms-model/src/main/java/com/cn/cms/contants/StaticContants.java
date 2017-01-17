@@ -75,6 +75,8 @@ public class StaticContants {
 
     public static final String ERROR_DATE_PARSE = "时间格式不对.";
 
+    public static final String ERROR_VIDEO = "视频上传失败!";
+
     public static final String ERROR_TEMPLATE_NOT_FOUND = "找不到频道、栏目对应的模版";
 
     public static final String ERROR_CHANNEL_NOT_FOUND = "找不到新闻对应的频道";

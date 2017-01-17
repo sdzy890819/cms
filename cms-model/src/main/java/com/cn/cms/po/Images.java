@@ -70,6 +70,16 @@ public class Images extends Base{
     private Integer compress;
 
     /**
+     * fid
+     */
+    private String fid;
+
+    /**
+     * 大小
+     */
+    private Integer size;
+
+    /**
      * 平台
      */
     private Integer platform = PlatformEnum.CMS.getType();

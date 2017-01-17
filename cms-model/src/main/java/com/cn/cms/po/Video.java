@@ -45,6 +45,11 @@ public class Video extends Base {
     private String videoPath;
 
     /**
+     * 文件名
+     */
+    private String fileName;
+
+    /**
      * 平台
      */
     private Integer platform = PlatformEnum.CMS.getType();

@@ -19,19 +19,20 @@
         <result column="video_url" property="videoUrl" />
         <result column="video_path" property="videoPath" />
         <result column="platform" property="platform" />
+        <result column="file_name" property="fileName" />
     </resultMap>
 
     <sql id="delTag"> where del_tag = 1 </sql>
 
     <sql id="sql_column">
         id,last_modify_user_id,
-        video_title,video_desc,upload_user_id,upload_time,video_url,video_path,platform
+        video_title,video_desc,upload_user_id,upload_time,video_url,video_path,platform,file_name
     </sql>
 
     <insert id="saveVideo" useGeneratedKeys="true" keyProperty="p1.id">
     insert into video ( <include refid="sql_column"/> ) values (
         null,#{p1.lastModifyUserId},#{p1.videoTitle},#{p1.videoDesc},#{p1.uploadUserId},
-        #{p1.uploadTime},#{p1.videoUrl},#{p1.videoPath},#{p1.platform} );
+        #{p1.uploadTime},#{p1.videoUrl},#{p1.videoPath},#{p1.platform},#{p1.fileName} );
     </insert>
 
     <update id="updateVideo">
@@ -57,6 +58,9 @@
            </if>
            <if test="p1.platform != null">
            platform = #{p1.platform},
+           </if>
+           <if test="p1.fileName != null">
+               file_name=#{p1.fileName},
            </if>
            last_modify_user_id=#{p1.lastModifyUserId}
        </set>
