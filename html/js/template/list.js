@@ -1,9 +1,9 @@
 define(['require',"app",'jquery'
-	,'../data/getData' , './addForm', './editForm'
+	,'../data/getData' , './addForm'
 	,'../moduls/Tool','../common/editPop' , './relationPop'
 	,'formlist','fixedNav','position'
 	,'../moduls/service','../moduls/factory'
-], function ( require , app , $ , getData , list , editForm , Tool , editPop,relationPop ) {
+], function ( require , app , $ , getData , list , Tool , editPop,relationPop ) {
 	app.directive('templateList',function(){
 		return {
 	    	restrict : 'E',
@@ -120,7 +120,15 @@ define(['require',"app",'jquery'
 							}
 	 					})
 					},
-					down : function( obj ){
+					upload : function( obj ){ // 上传
+						getData.template.uploadTemplate({
+							id : obj.id,
+							callback : function(){
+
+							}
+						})
+					},
+					down : function( obj ){ // 下载
 						getData.template.downTemplate({
 							id : obj.id,
 							callback : function(){
@@ -164,6 +172,7 @@ define(['require',"app",'jquery'
 								td : GenerateArrList.setArr(_data.data.list,th) ,
 								edit : [
 									{cls : 'down', name : '下载',evt:$scope.down},
+									{cls : 'upload', name : '上传',evt:$scope.upload},
 									{cls : 'add', name : '关联',evt:$scope.relation},
 									{cls : 'edit' , name : '编辑',evt:$scope.edit},
 									{cls : 'del' , name : '删除',evt:$scope.del}

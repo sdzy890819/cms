@@ -833,9 +833,38 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					}
 				});
 			},
+			uploadTemplate : function( obj ){//上传模板 接口
+				T.ajax({
+					url : URL.template.uploadTemplate , 
+					type:'post',
+					data : {
+						"baseCode":"文件Base64Code",
+						"id":1
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});
+			},
 			createTemplate2 : function( obj ){
 				T.ajax({
 					url : URL.template.createTemplate2 , 
+					type:'post',
+					data : {
+						"templateName":obj.templateName,
+						"filename":obj.filename,
+						"path":obj.path,
+						"templateClassify":obj.templateClassify,
+						"encoded":obj.encoded
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});
+			},
+			listTemplate2 : function( obj ){
+				T.ajax({
+					url : URL.template.listTemplate2 , 
 					type:'post',
 					data : {
 						"templateName":obj.templateName,
