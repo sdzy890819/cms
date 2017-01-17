@@ -44,13 +44,22 @@ public abstract class BaseTask implements Runnable, Serializable {
     public void run() {
         try{
             start();
-            this.execute();
-            end();
+            if(exec()) {
+                this.execute();
+            }
         }catch (Exception e){
             exceptionEnd();
             log.error("任务出现错误,当前线程：".concat(getCurrentName()), e);
+        }finally {
+            end();
         }
     }
+
+
+    protected boolean exec(){
+        return true;
+    }
+
 
     /**
      * 执行结束

@@ -27,6 +27,11 @@ public class RedisKeyContants {
 
     public static final String REDIS_CHANNEL_LIST_KEY = "CMS_CHANNEL_LIST_KEY";
 
+    public static final String REDIS_LOCK_KEY = "CMS_LOCK_";
+
+    public static String getRedisLockKey(String key){
+        return REDIS_LOCK_KEY.concat(key);
+    }
 
     public static String getUserKey(String userId){
         return REDIS_USER_KEY.concat(userId);
