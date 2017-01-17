@@ -133,4 +133,12 @@ public class ResourceBiz {
         }
         return null;
     }
+
+    public Images getImages(Long id){
+        return resourceService.findImages(id);
+    }
+
+    public Video getVideo(Long id){
+        return resourceService.findVideo(id);
+    }
 }

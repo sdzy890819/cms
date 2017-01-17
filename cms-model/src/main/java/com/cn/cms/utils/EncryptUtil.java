@@ -130,6 +130,11 @@ public class EncryptUtil {
         return sbf.toString();
     }
 
+    public static String base64(byte[] bytes){
+        BASE64Encoder base64Encoder = new BASE64Encoder();
+        return base64Encoder.encodeBuffer(bytes);
+    }
+
     public static void main(String[] args){
         System.out.println(randomPwd(12));
     }

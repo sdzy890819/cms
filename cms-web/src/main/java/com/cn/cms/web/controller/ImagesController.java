@@ -2,6 +2,7 @@ package com.cn.cms.web.controller;
 
 import com.cn.cms.biz.ResourceBiz;
 import com.cn.cms.bo.UserBean;
+import com.cn.cms.middleware.WeedfsClient;
 import com.cn.cms.po.Images;
 import com.cn.cms.po.ImagesBase;
 import com.cn.cms.utils.Page;
@@ -28,6 +29,9 @@ public class ImagesController extends BaseController{
 
     @Resource
     private ResourceBiz resourceBiz;
+
+    @Resource
+    private WeedfsClient weedfsClient;
 
     /**
      * 图片基础信息查询
@@ -112,7 +116,9 @@ public class ImagesController extends BaseController{
                                @RequestParam("imageTitle") String imageTitle,
                                @RequestParam("imagePath") String imagePath,
                                @RequestParam("watermark") Integer watermark,
-                               @RequestParam("compress") Integer compress){
+                               @RequestParam("compress") Integer compress,
+                               @RequestParam("fid") String fid,
+                               @RequestParam("size") Integer size){
         Images images = new Images();
         images.setLastModifyUserId(getCurrentUserId(request));
         images.setCompress(compress);
@@ -126,6 +132,8 @@ public class ImagesController extends BaseController{
         images.setOrgWidthPixel(orgWidthPixel);
         images.setWatermark(watermark);
         images.setUploadTime(new Date());
+        images.setSize(size);
+        images.setFid(fid);
         resourceBiz.saveImages(images);
         return ApiResponse.returnSuccess();
     }
@@ -157,7 +165,9 @@ public class ImagesController extends BaseController{
                                @RequestParam(value = "imageTitle",required = false) String imageTitle,
                                @RequestParam(value = "imagePath",required = false) String imagePath,
                                @RequestParam(value = "watermark",required = false) Integer watermark,
-                               @RequestParam(value = "compress",required = false) Integer compress){
+                               @RequestParam(value = "compress",required = false) Integer compress,
+                               @RequestParam(value = "fid",required = false) String fid,
+                               @RequestParam(value = "size",required = false) Integer size){
         Images images = new Images();
         images.setLastModifyUserId(getCurrentUserId(request));
         images.setCompress(compress);
@@ -171,6 +181,8 @@ public class ImagesController extends BaseController{
         images.setOrgWidthPixel(orgWidthPixel);
         images.setWatermark(watermark);
         images.setUploadTime(new Date());
+        images.setSize(size);
+        images.setFid(fid);
         images.setId(id);
         resourceBiz.saveImages(images);
         return ApiResponse.returnSuccess();
@@ -186,8 +198,12 @@ public class ImagesController extends BaseController{
     @CheckAuth( name = "images:delete" )
     @RequestMapping(value = "/delImages", method = RequestMethod.GET)
     public String delImages(HttpServletRequest request,
-                               @RequestParam("id") Long id){
-        resourceBiz.delImages(getCurrentUserId(request), id);
+                               @RequestParam("id") Long id) throws Exception{
+        Images images = resourceBiz.getImages(id);
+        if(images!=null) {
+            resourceBiz.delImages(getCurrentUserId(request), id);
+            //weedfsClient.delete(images.getFid());
+        }
         return ApiResponse.returnSuccess();
     }
 
