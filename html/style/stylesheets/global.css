@@ -1088,7 +1088,7 @@ input:focus{ border: 1px solid #bbb !important;} */
   margin-left: 1px;
   padding: 2px 10px;
   font-size: 12px;
-  background: #35aa47;
+  background: #4d90fe;
   cursor: pointer;
   color: #fff;
   transition-duration: 0.3s;
@@ -1103,12 +1103,12 @@ input:focus{ border: 1px solid #bbb !important;} */
 }
 /* line 338, ../sass/global.scss */
 .table .btn.add {
-  background: #35aa47;
+  background: #f24400;
   color: #fff;
 }
 /* line 339, ../sass/global.scss */
 .table .btn.add:hover {
-  background: #1e9831;
+  background: #da0000;
 }
 /* line 341, ../sass/global.scss */
 .table .btn.del {

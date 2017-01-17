@@ -333,10 +333,10 @@ $leftWidth : 225px;
     }
     .select{ width:20px; text-align:center;}
     .edits{ }
-    .btn{ display:inline-block; margin-left:1px; padding:2px 10px; font-size:12px; background:#35aa47; cursor:pointer; color:#fff; @include transition-duration(.3s);
+    .btn{ display:inline-block; margin-left:1px; padding:2px 10px; font-size:12px; background:#4d90fe; cursor:pointer; color:#fff; @include transition-duration(.3s);
         i{ margin-right:3px; }
-        &.add{ background:#35aa47; color:#fff;
-            &:hover{background:#1e9831; }
+        &.add{ background:#f24400; color:#fff;
+            &:hover{background:#da0000; }
         }
         &.del{ background:#f24400; color:#fff;
             &:hover{ background:#da0000;}

@@ -148,12 +148,12 @@ define(['require',"app",'jquery'
 						});
 						var th = [
 							{name:'模版名称' , key:'templateName', width : '200'},
-							{name:'模版说明' , key:'templateDesc' },
-							{name:'文件名',width:'90' , key:'filename'},
-							{name:'发布目录',width:'100' , key:'path'},
+							//{name:'模版说明' , key:'templateDesc' },
+							//{name:'文件名',width:'90' , key:'filename'},
+							//{name:'发布目录',width:'100' , key:'path'},
 							{name:'模版分类',width:'200' , key:'templateClassifyStr'},
 							{name:'编码',width:'80',class:'center' , key:'encoded'},
-							{name:'排序值', width:'90',class:'center' , key:'sortNum'},
+							//{name:'排序值', width:'90',class:'center' , key:'sortNum'},
 							{name:'操作' , width : '250',class:'center'}
 						];
 						$scope.listdata = { //确认按钮

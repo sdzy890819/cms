@@ -1,4 +1,4 @@
-define(["app",'jquery','../data/getData'],function (app,$,getData) {
+define(["app",'jquery','../data/getData','../moduls/directive'],function (app,$,getData) {
     return {
     	init : function( obj ){
 			var $uibModal = obj.$uibModal , 
@@ -9,7 +9,7 @@ define(["app",'jquery','../data/getData'],function (app,$,getData) {
 				ariaDescribedBy: 'modal-body',
 				templateUrl: '../template/template/relationPop.html',
 				windowClass : 'relationPopsuper',
-				controller: function($scope,$uibModalInstance,$css) {
+				controller: function($scope,$uibModalInstance,$css,attributes) {
 					angular.extend($scope,{
 						titelement : {
 					  		close : true
@@ -22,6 +22,11 @@ define(["app",'jquery','../data/getData'],function (app,$,getData) {
 						},
 					  	close : function () {
 						   	$uibModalInstance.dismiss('cancel');
+					  	},
+					  	recommendColumnlistDone : function(){ //加载完
+					  		setTimeout(function(){
+					  			debugger;
+					  		},200)
 					  	}
 					});
 					getData.news.relationColumnList({//新闻栏目
@@ -48,7 +53,9 @@ define(["app",'jquery','../data/getData'],function (app,$,getData) {
 							$scope.recommendColumnlistData = _data3.data;
 							$scope.$apply();
 						}
-					})
+					});
+
+
 				}
 			});
     	}
