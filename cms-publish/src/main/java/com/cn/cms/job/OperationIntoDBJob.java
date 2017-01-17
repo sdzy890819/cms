@@ -3,6 +3,7 @@ package com.cn.cms.job;
 import com.cn.cms.biz.OperationHistoryBiz;
 import com.cn.cms.middleware.JedisClient;
 import com.cn.cms.po.Base;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -16,9 +17,6 @@ public class OperationIntoDBJob extends JobTask {
     @Resource
     private OperationHistoryBiz operationHistoryBiz;
 
-    @Resource
-    protected JedisClient jedisClient;
-
     protected String KEY = "operationIntoDBJob";
 
     @Override
@@ -30,5 +28,10 @@ public class OperationIntoDBJob extends JobTask {
     @Override
     protected String getJobName() {
         return "Operation历史入库Job";
+    }
+
+    @Override
+    protected String getKEY() {
+        return KEY;
     }
 }

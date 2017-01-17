@@ -188,6 +188,11 @@ public class ChannelBiz extends BaseBiz {
         return null;
     }
 
+
+    public List<Long> findUserChannelIdsByUserId(String userId){
+        return channelService.findUserChannelIdsByUserId(userId);
+    }
+
     public void saveUserChannel(UserChannel userChannel){
         List<UserChannel> list = new ArrayList<UserChannel>();
         list.add(userChannel);

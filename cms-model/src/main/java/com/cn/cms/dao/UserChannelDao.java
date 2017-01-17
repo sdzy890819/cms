@@ -25,4 +25,6 @@ public interface UserChannelDao {
 
     void delUserChannel(@Param(value = "userId") String userId, @Param(value = "channelId") Long channelId);
 
+    List<Long> findUserChannelIdsByUserId(@Param(value = "userId") String userId);
+
 }

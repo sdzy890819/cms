@@ -16,9 +16,6 @@ public class AutoPublishEntryJob extends JobTask {
     @Resource
     private BuildBiz buildBiz;
 
-    @Resource
-    protected JedisClient jedisClient;
-
     protected String KEY = "autoPublishEntryJob";
 
     @Override
@@ -30,5 +27,10 @@ public class AutoPublishEntryJob extends JobTask {
     @Override
     protected String getJobName() {
         return "自动生成JOB";
+    }
+
+    @Override
+    protected String getKEY() {
+        return KEY;
     }
 }

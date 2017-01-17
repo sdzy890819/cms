@@ -51,5 +51,8 @@
         delete from user_channel where user_id = #{userId} and channel_id = ${channelId};
     </update>
 
+    <select id="findUserChannelIdsByUserId" resultType="java.lang.Long">
+        select channel_id from user_channel where user_id = #{userId};
+    </select>
     
 </mapper>

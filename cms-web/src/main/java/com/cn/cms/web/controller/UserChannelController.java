@@ -87,6 +87,20 @@ public class UserChannelController extends BaseController {
     }
 
     /**
+     * 根据用户ID获取频道ID列表
+     * @param userId
+     * @return
+     */
+    @CheckToken
+    @CheckAuth( name = "userchannel:read" )
+    @RequestMapping(value = "/userchannelIds")
+    public String userchannelIds( @RequestParam(value = "userId") String userId){
+        List<Long> list = channelBiz.findUserChannelIdsByUserId(userId);
+        return ApiResponse.returnSuccess(list);
+    }
+
+
+    /**
      * 创建用户权限
      * @param request
      * @param userId

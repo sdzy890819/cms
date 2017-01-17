@@ -40,4 +40,6 @@ public interface ChannelService {
     void saveUserChannel(List<UserChannel> list);
 
     void delUserChannel(String userId, Long channelId);
+
+    List<Long> findUserChannelIdsByUserId(String userId);
 }

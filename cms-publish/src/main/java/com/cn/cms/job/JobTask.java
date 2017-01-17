@@ -1,29 +1,31 @@
 package com.cn.cms.job;
 
 import com.cn.cms.contants.RedisKeyContants;
-import com.cn.cms.contants.StaticContants;
 import com.cn.cms.middleware.JedisClient;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
 
 /**
  * Created by zhangyang on 17/1/17.
  */
 public abstract class JobTask extends BaseTask {
 
-    protected JedisClient jedisClient;
-
-    protected String KEY = "KEY";
-
+    @Resource
+    private JedisClient jedisClient;
 
     @Override
     protected void execute() {}
 
+
+    protected abstract String getKEY();
 
     /**
      * 锁
      * @return
      */
     protected boolean lock(){
-        Long p = jedisClient.setnx(RedisKeyContants.getRedisLockKey(KEY));
+        Long p = jedisClient.setnx(RedisKeyContants.getRedisLockKey(getKEY()));
         if( p!=null && p >0){
             return true;
         }
@@ -31,7 +33,7 @@ public abstract class JobTask extends BaseTask {
     }
 
     protected void unlock(){
-        jedisClient.del(RedisKeyContants.getRedisLockKey(KEY));
+        jedisClient.del(RedisKeyContants.getRedisLockKey(getKEY()));
     }
 
     @Override
