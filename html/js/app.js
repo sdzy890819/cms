@@ -244,6 +244,13 @@ define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-b
                 template: '<template-add></template-add>',
                 controllerUrl: 'template/add'
             }))
+
+            //模版管理 2
+            .state('template2', angularAMD.route({
+                url: '/template2',
+                templateUrl: 'template/common/index.html',
+                controllerUrl: 'template/index'
+            }))
             .state('template2.list', angularAMD.route({
                 url: '/list',
                 template: '<template2-list></template2-list>',

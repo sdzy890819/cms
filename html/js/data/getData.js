@@ -313,8 +313,6 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 			templateClassify : function(callback){//模版类型选项列表
 				T.ajax({
 					url : URL.data.templateClassify , 
-					type : 'get',
-					data : {},
 					success : function( _data ){
 						callback(_data)
 					}
