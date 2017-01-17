@@ -23,6 +23,7 @@ public class OperationIntoDBJob extends JobTask {
 
     @Override
     protected void execute() {
+        super.execute();
         operationHistoryBiz.recordInsertDB();
     }
 

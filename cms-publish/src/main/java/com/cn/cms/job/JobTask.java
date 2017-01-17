@@ -14,6 +14,10 @@ public abstract class JobTask extends BaseTask {
     protected String KEY = "KEY";
 
 
+    @Override
+    protected void execute() {}
+
+
     /**
      * 锁
      * @return

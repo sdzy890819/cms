@@ -22,6 +22,7 @@ public class AutoPublishJob extends JobTask {
 
     @Override
     protected void execute() {
+        super.execute();
         buildBiz.buildAutoPublish();
     }
 
