@@ -383,27 +383,32 @@ $leftWidth : 225px;
 
 .relationPopsuper{ //关联弹窗
     .modal-dialog{width:500px;}
-    
     .relation-pop{
-        margin:20px; border:1px solid #ccc; overflow:hidden;
-        .title{ 
-            padding-bottom:35px; border-bottom:1px solid #ccc;
-            li{ float:left; width:113px; height:35px; line-height:35px; cursor:pointer; text-align:center; border-right:1px solid #ccc;
-                &:last-child,.last{ border-right:none;}
-                &.current{ background:#3597f2; color:#fff; }
-            }
+        .relation-title{
+            background:#488be7; height:35px; line-height:35px; padding-left:15px; color:#fff;
+            .close{ float:right; padding:0 5px; padding-right:10px; color:#fff; cursor:pointer;}
         }
-        .content{
-            padding:20px;
-            .table{ border-left:1px solid #ccc; border-top:1px solid #ccc;
-                th,td{ padding:5px; border-right:1px solid #ccc; border-bottom:1px solid #ccc; }
-                td{}
+        .container{
+            margin:20px; overflow:hidden;
+            .title{ 
+                padding-bottom:35px; border-bottom:1px solid #ccc;
+                li{ float:left; width:103px; height:35px; line-height:35px; cursor:pointer; text-align:center; border-right:1px solid #ccc;
+                    &:last-child,.last{ border-right:none;}
+                    &.current{ background:#3597f2; color:#fff; }
+                }
             }
+            .content{
+                padding-top:20px;
+                .table{ border-left:1px solid #ccc; border-top:1px solid #ccc;
+                    th,td{ padding:5px; border-right:1px solid #ccc; border-bottom:1px solid #ccc; }
+                    td{}
+                }
 
-        }
-        .submit{
-             padding:0 20px 20px;
-            .btn{ display:inline-block; height:25px; line-height:25px; padding:0 20px; border-radius:2px; background:#4d90fe; cursor:pointer; color:#fff; }
+            }
+            .submit{
+                 padding:0 20px 20px;
+                .btn{ display:inline-block; height:25px; line-height:25px; padding:0 20px; border-radius:2px; background:#4d90fe; cursor:pointer; color:#fff; }
+            }
         }
     }
 }

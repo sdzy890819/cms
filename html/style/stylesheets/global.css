@@ -1047,47 +1047,60 @@ input:focus{ border: 1px solid #bbb !important;} */
 .relationPopsuper .modal-dialog {
   width: 500px; }
 /* line 387, ../sass/global.scss */
-.relationPopsuper .relation-pop {
-  margin: 20px;
-  border: 1px solid #ccc;
-  overflow: hidden; }
+.relationPopsuper .relation-pop .relation-title {
+  background: #488be7;
+  height: 35px;
+  line-height: 35px;
+  padding-left: 15px;
+  color: #fff; }
   /* line 389, ../sass/global.scss */
-  .relationPopsuper .relation-pop .title {
+  .relationPopsuper .relation-pop .relation-title .close {
+    float: right;
+    padding: 0 5px;
+    padding-right: 10px;
+    color: #fff;
+    cursor: pointer; }
+/* line 391, ../sass/global.scss */
+.relationPopsuper .relation-pop .container {
+  margin: 20px;
+  overflow: hidden; }
+  /* line 393, ../sass/global.scss */
+  .relationPopsuper .relation-pop .container .title {
     padding-bottom: 35px;
     border-bottom: 1px solid #ccc; }
-    /* line 391, ../sass/global.scss */
-    .relationPopsuper .relation-pop .title li {
+    /* line 395, ../sass/global.scss */
+    .relationPopsuper .relation-pop .container .title li {
       float: left;
-      width: 113px;
+      width: 103px;
       height: 35px;
       line-height: 35px;
       cursor: pointer;
       text-align: center;
       border-right: 1px solid #ccc; }
-      /* line 392, ../sass/global.scss */
-      .relationPopsuper .relation-pop .title li:last-child, .relationPopsuper .relation-pop .title li .last {
+      /* line 396, ../sass/global.scss */
+      .relationPopsuper .relation-pop .container .title li:last-child, .relationPopsuper .relation-pop .container .title li .last {
         border-right: none; }
-      /* line 393, ../sass/global.scss */
-      .relationPopsuper .relation-pop .title li.current {
+      /* line 397, ../sass/global.scss */
+      .relationPopsuper .relation-pop .container .title li.current {
         background: #3597f2;
         color: #fff; }
-  /* line 396, ../sass/global.scss */
-  .relationPopsuper .relation-pop .content {
-    padding: 20px; }
-    /* line 398, ../sass/global.scss */
-    .relationPopsuper .relation-pop .content .table {
+  /* line 400, ../sass/global.scss */
+  .relationPopsuper .relation-pop .container .content {
+    padding-top: 20px; }
+    /* line 402, ../sass/global.scss */
+    .relationPopsuper .relation-pop .container .content .table {
       border-left: 1px solid #ccc;
       border-top: 1px solid #ccc; }
-      /* line 399, ../sass/global.scss */
-      .relationPopsuper .relation-pop .content .table th, .relationPopsuper .relation-pop .content .table td {
+      /* line 403, ../sass/global.scss */
+      .relationPopsuper .relation-pop .container .content .table th, .relationPopsuper .relation-pop .container .content .table td {
         padding: 5px;
         border-right: 1px solid #ccc;
         border-bottom: 1px solid #ccc; }
-  /* line 404, ../sass/global.scss */
-  .relationPopsuper .relation-pop .submit {
+  /* line 408, ../sass/global.scss */
+  .relationPopsuper .relation-pop .container .submit {
     padding: 0 20px 20px; }
-    /* line 406, ../sass/global.scss */
-    .relationPopsuper .relation-pop .submit .btn {
+    /* line 410, ../sass/global.scss */
+    .relationPopsuper .relation-pop .container .submit .btn {
       display: inline-block;
       height: 25px;
       line-height: 25px;

@@ -1,62 +1,68 @@
 <div class="relation-pop">
-	<div class="title">
-		<ul>
-			<li ng-repeat='item in tabs' ng-class='$index==0?"current":""' ng-click="setTab(item,$index,$event)">{{item.name}}</li>
-		</ul>
+	<div class="relation-title">
+		<div class="close" ng-click='close()'>&times;</div>
+		模板关联
 	</div>
-	<div class="content">
-		<div class="option" ng-if='relationColumnListData'>
-			<table class="table" width='100%' cellpadding="0" cellspacing="0">
-				<tbody ng-repeat='item in relationColumnListData'>
+	<div class="container">
+		<div class="title">
+			<ul>
+				<li ng-repeat='item in tabs' ng-class='$index==0?"current":""' ng-click="setTab(item,$index,$event)">{{item.name}}</li>
+			</ul>
+		</div>
+		<div class="content">
+			<div class="option" ng-if='relationColumnListData'>
+				<table class="table" width='100%' cellpadding="0" cellspacing="0">
+					<tbody ng-repeat='item in relationColumnListData'>
+						<tr>
+							<th width='30' class="center">&nbsp;</th>
+							<th>{{item.channel.channelName}}</th>
+						</tr>
+						<tr ng-repeat='obj in item.list'>
+							<td class="center"><input type='checkbox' ng-click='selectBox($event,obj,1)' ng-checked="initData['1_'+obj.id].relationId == obj.id"></td>
+							<td>{{obj.columnName}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="option" ng-if='topicClassifyListData'>
+				<table class="table" width='100%' cellpadding="0" cellspacing="0">
 					<tr>
-						<th width='30' class="center">&nbsp;</th>
-						<th>{{item.channel.channelName}}</th>
+						<th width='30' class="center">选择</th>
+						<th>专题名称</th>
 					</tr>
-					<tr ng-repeat='obj in item.list'>
-						<td class="center"><input type='checkbox' ng-click='selectBox($event,obj,1)' ng-checked="initData['1_'+obj.id].relationId == obj.id"></td>
-						<td>{{obj.columnName}}</td>
+					<tr ng-repeat='item in topicClassifyListData'>
+						<td class="center"><input type='checkbox' ng-click='selectBox($event,item,2)' ng-checked="initData['2_'+item.id].relationId == item.id"></td>
+						<td>{{item.classifyName}}</td>
 					</tr>
-				</tbody>
-			</table>
+				</table>
+			</div>
+			<div class="option" ng-if='fragmentListData'>
+				<table class="table" width='100%' cellpadding="0" cellspacing="0">
+					<tr>
+						<th width='30' class="center">选择</th>
+						<th>碎片名称</th>
+					</tr>
+					<tr ng-repeat='item in fragmentListData'>
+						<td class="center"><input type='checkbox' ng-click='selectBox($event,item,3)' ng-checked="initData['3_'+item.id].relationId == item.id"></td>
+						<td>{{item.fragmentName}}</td>
+					</tr>
+				</table>
+			</div>
+			<div class="option" ng-if='recommendColumnlistData'>
+				<table class="table" width='100%' cellpadding="0" cellspacing="0">
+					<tr>
+						<th width='30' class="center">选择</th>
+						<th>推荐栏目名称</th>
+					</tr>
+					<tr ng-repeat='item in recommendColumnlistData' repeat-finish='recommendColumnlistDone'>
+						<td class="center"><input type='checkbox' ng-click='selectBox($event,item,4)' ng-checked="initData['4_'+item.id].relationId == item.id"></td>
+						<td>{{item.columnName}}</td>
+					</tr>
+				</table>
+			</div>
 		</div>
-		<div class="option" ng-if='topicClassifyListData'>
-			<table class="table" width='100%' cellpadding="0" cellspacing="0">
-				<tr>
-					<th width='30' class="center">选择</th>
-					<th>专题名称</th>
-				</tr>
-				<tr ng-repeat='item in topicClassifyListData'>
-					<td class="center"><input type='checkbox' ng-click='selectBox($event,item,2)' ng-checked="initData['2_'+item.id].relationId == item.id"></td>
-					<td>{{item.classifyName}}</td>
-				</tr>
-			</table>
-		</div>
-		<div class="option" ng-if='fragmentListData'>
-			<table class="table" width='100%' cellpadding="0" cellspacing="0">
-				<tr>
-					<th width='30' class="center">选择</th>
-					<th>碎片名称</th>
-				</tr>
-				<tr ng-repeat='item in fragmentListData'>
-					<td class="center"><input type='checkbox' ng-click='selectBox($event,item,3)' ng-checked="initData['3_'+item.id].relationId == item.id"></td>
-					<td>{{item.fragmentName}}</td>
-				</tr>
-			</table>
-		</div>
-		<div class="option" ng-if='recommendColumnlistData'>
-			<table class="table" width='100%' cellpadding="0" cellspacing="0">
-				<tr>
-					<th width='30' class="center">选择</th>
-					<th>推荐栏目名称</th>
-				</tr>
-				<tr ng-repeat='item in recommendColumnlistData' repeat-finish='recommendColumnlistDone'>
-					<td class="center"><input type='checkbox' ng-click='selectBox($event,item,4)' ng-checked="initData['4_'+item.id].relationId == item.id"></td>
-					<td>{{item.columnName}}</td>
-				</tr>
-			</table>
-		</div>
+		<!-- <div class="submit">
+			<div class="btn">确定</div>
+		</div> -->
 	</div>
-	<!-- <div class="submit">
-		<div class="btn">确定</div>
-	</div> -->
 </div>
