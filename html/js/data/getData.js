@@ -310,11 +310,11 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					error : function(){}
 				})
 			},
-			templateClassify : function(callback){//模版类型选项列表
+			templateClassify : function( obj ){//模版类型选项列表
 				T.ajax({
 					url : URL.data.templateClassify , 
 					success : function( _data ){
-						callback(_data)
+						obj.callback(_data)
 					}
 				})
 			},
@@ -832,7 +832,23 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						obj.callback(_data);
 					}
 				});
-			} 
+			},
+			createTemplate2 : function( obj ){
+				T.ajax({
+					url : URL.template.createTemplate2 , 
+					type:'post',
+					data : {
+						"templateName":obj.templateName,
+						"filename":obj.filename,
+						"path":obj.path,
+						"templateClassify":obj.templateClassify,
+						"encoded":obj.encoded
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});
+			}
 		},
 		topic : { //专题
 			createTopicColumn : function( obj ){//新建专题分类

@@ -53,7 +53,7 @@
 					    <input ng-if="obj.type=='upload'" type="file" name="{{obj.title}}" class="layui-upload-file {{obj.cls}}">
 
 						<!-- radio -->
-					    <input ng-if="obj.type=='radio'" ng-repeat="item in obj.radio" ng-value='item.title' type="radio" title="{{item.name}}" name="{{obj.title}}"  ng-checked="(item.name==data[obj.title])?true:false" repeat-finish='radioRpeatDone'>
+					    <input ng-if="obj.type=='radio'" ng-repeat="item in obj.radio" ng-value='item.title' type="radio" title="{{item.name}}" name="{{obj.title}}"  ng-checked="data[obj.title]?(item.name==data[obj.title])?true:false:item.checked" repeat-finish='radioRpeatDone'>
 
 					    <!-- checkbox -->
 					    <input ng-if="obj.type=='checkbox'" ng-repeat="item in obj.checkbox" type="checkbox" name="{{obj.title}}" ng-value='{{item.title}}' ng-checked="{{item.checked}}" repeat-finish='checkboxRpeatDone'>
@@ -87,7 +87,7 @@
 					    	<button ng-if='item.type=="button"' class="layui-btn layui-btn-normal" ng-click='submit(item.evt,item,$event)'>{{item.name}}</button>
 
 					    	<!-- radio -->
-					    	<input ng-if="item.type=='radio'" ng-repeat="ob in item.radio" ng-value='ob.title' type="radio" name="{{item.title}}" title='{{ob.name}}' ng-checked="(ob.name==data[item.title])?true:false" repeat-finish='radioRpeatDone'>
+					    	<input ng-if="item.type=='radio'" ng-repeat="ob in item.radio" ng-value='ob.title' type="radio" name="{{item.title}}" title='{{ob.name}}' ng-checked="data[item.title]?(ob.name==data[item.title])?true:false:ob.checked" repeat-finish='radioRpeatDone'>
 					    </div>
 					</div>
 				</div>

@@ -121,7 +121,8 @@ define(function(require){
 			updateRelations : url+'/template/updateRelations',//根据relationType 修改模版对应关系
 			createRelation : url+'/template/createRelation',//新增模版关系
 			delRelation : url+'/template/delRelation',//模版关系删除
-			redirect : url+'/template/redirect'//模版跳转
+			redirect : url+'/template/redirect',//模版跳转
+			createTemplate2 : url+'/template2/createTemplate2'//创建第二新模板
 		},
 		topic : { //专题
 			listTopic:url+'/topic/listTopic',//分页专题列表 接口
