@@ -1109,3 +1109,8 @@ input:focus{ border: 1px solid #bbb !important;} */
       background: #4d90fe;
       cursor: pointer;
       color: #fff; }
+
+table tr.special td {
+  background: #FF9900;
+  color : #fff;
+}

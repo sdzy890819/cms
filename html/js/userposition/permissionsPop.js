@@ -6,9 +6,8 @@ define(["app",'jquery','../data/getData', '../moduls/Tool'],function (app,$,getD
 				animation: true,
 				ariaLabelledBy: 'modal-title',
 				ariaDescribedBy: 'modal-body',
-				templateUrl: '../template/template/permissionsPop.html',
-
-				controller: function($scope, $uibModalInstance,$css) {
+				templateUrl: '../template/template/permissionsPop.html',				
+				controller: function($scope, $state, $uibModalInstance,$css) {
 					angular.extend($scope,{
 						titelement : {
 					  		close : true
@@ -22,16 +21,85 @@ define(["app",'jquery','../data/getData', '../moduls/Tool'],function (app,$,getD
 							obj.cancel(arr,$scope.data)
 						},
 
+						select : function(event){
+							var currentTarget = event.currentTarget;
+							var	permissionId  = currentTarget.dataset.id;
+							var selectAllInput = $('.selectAllInput')				
+
+							if (currentTarget.checked) {
+								currentTarget.checked = true;
+
+								getData.permission.createPositionPermission({
+									positionId : obj.obj.id,
+									permissionId : permissionId,
+									callback : function(_data) {
+										layui.use(['layer'], function(){
+											var layer = layui.layer;
+											layer.msg(_data.message);										
+										});										
+									}
+								})		
+
+							}else{
+								currentTarget.checked = false;								
+								$.each(selectAllInput, function(i, obj){
+									obj.checked = false;
+								})
+
+								getData.permission.delPositionPermission({
+									positionId : obj.obj.id,
+									permissionId : permissionId,
+									callback : function(_data) {										
+										layui.use(['layer'], function(){
+											var layer = layui.layer;											
+											layer.msg(_data.message);	
+
+										});								
+									}
+								})		
+
+							}							
+						},
+						
+						selectAll : function(event) {							
+							var currentTarget = event.currentTarget;
+						  var dom = $('.permissions-pop');
+						  var checkboxs = dom.find('input[name=permission]');
+
+						  var permissionIds = [];
+							if (currentTarget.checked){								
+								$.each(checkboxs, function(i, obj){
+									obj.checked = true;
+									permissionIds.push(obj.dataset.id);
+								})
+																								
+							}else {								
+								$.each(checkboxs, function(i, obj){
+									obj.checked = false;
+									
+								})
+							}
+
+							getData.permission.setPositionPermissions({
+								positionId : obj.obj.id,
+								permissionIds : permissionIds.join(','),
+
+								callback : function(_data) {
+									layui.use(['layer'], function(){
+										var layer = layui.layer;
+										layer.msg(_data.message);										
+									});										
+								}
+							})							
+														
+						},
+
 				  	close : function () {
 					   	$uibModalInstance.dismiss('cancel');
-				  	},
-				  	recommendColumnlistDone : function(){ //加载完				  		
-				  		setTimeout(function(){
-				  			debugger;
-				  		},200)
-				  	}
+				  	}			  			  	
 					});
-        	
+
+
         	var currentPermissionIds = [];
         	getData.permission.listPositionPermission({
         		positionId : obj.obj.id,
@@ -48,15 +116,27 @@ define(["app",'jquery','../data/getData', '../moduls/Tool'],function (app,$,getD
         		}
         	}
 
+        	$scope.allchecked = true;
 					getData.permission.listPermission({//新闻栏目
 						callback : function(_data){
 							var data = [];													
 							$.each(_data.data, function(i, obj){								
 								obj.permission.typeStr = typeStr(obj.permission.type);
+								obj.permission.ischecked = ($.inArray(obj.permission.id, currentPermissionIds) != -1);
+								obj.permission.specialCls = true;
+								if (!obj.permission.ischecked){												
+									$scope.allchecked = false;
+								}
+
 								data.push(obj.permission);
 
 								$.each(obj.permissions, function(j, ps){
 									ps.typeStr = typeStr(ps.type);
+									ps.ischecked = $.inArray(ps.id, currentPermissionIds) != -1;
+
+									if (!ps.ischecked){																	
+										$scope.allchecked = false;
+									}									
 									data.push(ps);
 								})
 							})
