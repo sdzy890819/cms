@@ -1,7 +1,9 @@
 package com.cn.cms.biz;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.cn.cms.contants.RedisKeyContants;
+import com.cn.cms.contants.StaticContants;
 import com.cn.cms.middleware.JedisClient;
 import com.cn.cms.po.Channel;
 import com.cn.cms.po.UserChannel;
@@ -12,7 +14,9 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zhangyang on 16/12/7.
@@ -31,7 +35,15 @@ public class ChannelBiz extends BaseBiz {
      * @return
      */
     public List<Channel> listChannel(){
-        return channelService.findChannelAll();
+        String result = jedisClient.get(RedisKeyContants.REDIS_CHANNEL_LIST_KEY);
+        if(StringUtils.isNotBlank(result)){
+            return JSONArray.parseArray(result, Channel.class);
+        }else {
+            List<Channel> list = channelService.findChannelAll();
+            jedisClient.set(RedisKeyContants.REDIS_CHANNEL_LIST_KEY, JSONArray.toJSONString(list), StaticContants.DEFAULT_SECONDS);
+            return list;
+        }
+
     }
 
     /**
@@ -58,6 +70,7 @@ public class ChannelBiz extends BaseBiz {
      */
     private void cleanRedis(Long id){
         jedisClient.del(RedisKeyContants.getRedisChannelDetailKey(id));
+        jedisClient.del(RedisKeyContants.REDIS_CHANNEL_LIST_KEY);
     }
 
     /**
@@ -67,6 +80,7 @@ public class ChannelBiz extends BaseBiz {
     private void setRedis(Long id){
         Channel channel = channelService.doFindChannel(id);
         jedisClient.set(RedisKeyContants.getRedisChannelDetailKey(id), JSONObject.toJSONString(channel));
+        jedisClient.del(RedisKeyContants.REDIS_CHANNEL_LIST_KEY);
     }
 
     /**
@@ -110,14 +124,39 @@ public class ChannelBiz extends BaseBiz {
         return null;
     }
 
+
     /**
      * 根据ID列表获取频道列表
      * @param ids
      * @return
      */
     public List<Channel> getChannelList(List<Long> ids){
-        return channelService.getChannelList(ids);
+        Map<Long, String> map = new HashMap<>();
+        for(int i=0;i<ids.size();i++){
+            map.put(ids.get(i), RedisKeyContants.getRedisChannelDetailKey(ids.get(i)));
+        }
+        List<String> result = jedisClient.mget(map.values().toArray(new String[map.size()]));
+        List<Channel> channels = new ArrayList<>();
+        for(int i=0; i < result.size();i++){
+            channels.add(JSONObject.parseObject(result.get(i),Channel.class));
+        }
+        return channels;
     }
+
+    public Map<Long, Channel> getChannelMap(List<Long> ids){
+        Map<Long, String> map = new HashMap<>();
+        for(int i=0;i<ids.size();i++){
+            map.put(ids.get(i), RedisKeyContants.getRedisChannelDetailKey(ids.get(i)));
+        }
+        List<String> result = jedisClient.mget(map.values().toArray(new String[map.size()]));
+        Map<Long, Channel> resultMap = new HashMap<>();
+        for(int i=0; i < result.size();i++){
+            Channel tmp = JSONObject.parseObject(result.get(i),Channel.class);
+            resultMap.put(tmp.getId(), tmp);
+        }
+        return resultMap;
+    }
+
 
     /**
      * 分页获取用户频道权限

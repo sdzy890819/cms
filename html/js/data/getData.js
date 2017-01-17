@@ -94,7 +94,47 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						obj.callback(_data);
 					}
 				})				
-			}
+			},
+
+			createPermission : function(obj) {
+				T.ajax({
+					url : URL.permission.createPermission , 
+					type : 'post',
+					data : {
+						name : obj.name,
+						description : obj.description,
+						type : obj.type,
+						url : obj.url,
+						sort : obj.sort,
+						parentId : obj.parentId,
+						showFlag : obj.showFlag,
+						permission : obj.permission
+					},
+					success : function(_data){
+						obj.callback(_data);
+					}
+				})					
+			},
+			updatePermission : function(obj) {
+				T.ajax({
+					url : URL.permission.updatePermission , 
+					type : 'post',
+					data : {
+						id : obj.id,
+						name : obj.name,
+						description : obj.description,
+						type : obj.type,
+						url : obj.url,
+						sort : obj.sort,
+						parentId : obj.parentId,
+						showFlag : obj.showFlag,
+						permission : obj.permission
+					},
+					success : function(_data){
+						obj.callback(_data);
+					}
+				})					
+			}			
 		},
 		user : {
 			currentUser : function( obj ){ //当前登录用户信息接口

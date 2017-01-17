@@ -14,4 +14,7 @@ public interface OtherDao {
 
     @Select("${sql}")
     List<Map<String,Object>> execSql(@Param(value = "sql") String sql);
+
+    @Select("${sql}")
+    Map<String, Object> execSqlOne(String sql);
 }

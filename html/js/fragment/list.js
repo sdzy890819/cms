@@ -33,7 +33,6 @@ define(['require',"app",'jquery'
 											}
 										})										
 									}
-
 	        				pop.init({
 	        					obj : obj,
 	        					list : list,

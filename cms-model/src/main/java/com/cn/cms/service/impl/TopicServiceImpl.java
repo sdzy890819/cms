@@ -130,4 +130,14 @@ public class TopicServiceImpl implements TopicService {
         indexThread.setEsSearchTypeEnum(ESSearchTypeEnum.topic);
         threadTaskExecutor.execute(indexThread);
     }
+
+    @Override
+    public TopicClassify getTopicClassify(Long id) {
+        return topicClassifyDao.getTopicClassify(id);
+    }
+
+    @Override
+    public TopicColumn getTopicColumn(Long id) {
+        return topicColumnDao.getTopicColumn(id);
+    }
 }

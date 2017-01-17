@@ -15,7 +15,7 @@
 							{{obj.name}}
 						</th>
 					</tr>
-					<tr ng-repeat='obj in data.table.td' repeat-finish='tdFinish' data-id='{{obj.id}}'>
+					<tr ng-repeat='obj in data.table.td' repeat-finish='tdFinish' data-id='{{obj.id}}' class="{{obj.cls}}">
 						<td ng-if='data.table.select' class='select'>
 							<input type="checkbox">
 						</td>

@@ -17,8 +17,15 @@ public class OtherBiz {
     @Resource
     private OtherService otherService;
 
+    /**
+     * 查询分页数据
+     * @param content
+     * @param page
+     * @return
+     */
     public List<Map<String,Object>> getList(String content , Page page){
         String tmp = content.toUpperCase().trim();
+        content = content.trim();
         if(tmp.startsWith("SELECT ") && tmp.indexOf("UPDATE ") < 0 &&
                 tmp.indexOf("DELETE ") < 0 && tmp.indexOf("INSERT ") < 0 && tmp.indexOf("CREATE ") < 0 &&
                 tmp.indexOf("SHOW ") < 0){
@@ -27,6 +34,26 @@ public class OtherBiz {
             }
             content = content.concat(" LIMIT ").concat(String.valueOf(page.getStart())).concat(",").concat(String.valueOf(page.getPageSize()));
             return otherService.execSql(content);
+        }
+        return null;
+    }
+
+    /**
+     * 查询一条数据
+     * @param content
+     * @return
+     */
+    public Map<String, Object> getMap(String content){
+        String tmp = content.toUpperCase().trim();
+        content = content.trim();
+        if(tmp.startsWith("SELECT ") && tmp.indexOf("UPDATE ") < 0 &&
+                tmp.indexOf("DELETE ") < 0 && tmp.indexOf("INSERT ") < 0 && tmp.indexOf("CREATE ") < 0 &&
+                tmp.indexOf("SHOW ") < 0){
+            if(tmp.indexOf("LIMIT")>0){
+                content = content.substring(0,tmp.indexOf("LIMIT"));
+            }
+            content = content.concat(" LIMIT 1 ");
+            return otherService.execSqlOne(content);
         }
         return null;
     }

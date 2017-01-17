@@ -19,4 +19,6 @@ public interface TopicClassifyDao {
 
     void updateTopicClassify(@Param(value = "p1") TopicClassify topicClassify);
 
+    TopicClassify getTopicClassify(@Param(value = "id") Long id);
+
 }
