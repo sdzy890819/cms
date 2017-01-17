@@ -1,14 +1,14 @@
 package com.cn.cms.middleware;
 
 import com.alibaba.fastjson.JSONObject;
-import com.cn.cms.contants.StaticContants;
 import com.cn.cms.middleware.bean.FileResponse;
 import com.cn.cms.middleware.bean.WeedfsAssignResponse;
 import com.cn.cms.middleware.bean.WeedfsResponse;
 import com.cn.cms.utils.StringUtils;
 import com.cn.cms.utils.UrlUtils;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,13 +17,12 @@ import java.io.InputStream;
 /**
  * Created by zhangyang on 17/1/17.
  */
-@Component
+@Getter
+@Setter
 public class WeedfsClient {
 
-    @Value("${weedfs.master.host}")
     private String masterHost;
 
-    @Value("${weedfs.assign}")
     private String assign;
 
 

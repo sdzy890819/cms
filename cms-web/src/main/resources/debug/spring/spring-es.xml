@@ -13,4 +13,36 @@
             </list>
         </property>
     </bean>
+
+    <!-- Import Weedfs -->
+    <bean id="weedfsClient" class="com.cn.cms.middleware.WeedfsClient">
+        <property name="masterHost">
+            <value>${weedfs.master.host}</value>
+        </property>
+        <property name="assign">
+            <value>${weedfs.assign}</value>
+        </property>
+    </bean>
+
+    <!-- Import mssVideo -->
+    <bean id="mssVideoClient" class="com.cn.cms.middleware.MSSVideoClient">
+        <property name="accessId">
+            <value>${mss.video.accessId}</value>
+        </property>
+        <property name="accessKey">
+            <value>${mss.video.accessKey}</value>
+        </property>
+        <property name="finishUrl">
+            <value>${mss.video.finish}</value>
+        </property>
+        <property name="interruptUrl">
+            <value>${mss.video.interrupt}</value>
+        </property>
+        <property name="queryUrl">
+            <value>${mss.video.query}</value>
+        </property>
+        <property name="uploadUrl">
+            <value>${mss.video.upload}</value>
+        </property>
+    </bean>
 </beans>
