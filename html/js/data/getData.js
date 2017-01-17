@@ -662,6 +662,18 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					}
 				});
 			},
+			relation : function( obj ){//模版详细信息 接口
+				T.ajax({
+					url : URL.template.relation , 
+					data : {
+						"templateId":obj.templateId,
+						"relationType":obj.relationType //默认0 
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});
+			},
 			createTemplate : function( obj ){//读取所有的模版对应的关系列表 接口
 				T.ajax({
 					url : URL.template.createTemplate , 
@@ -728,6 +740,23 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 			createRelation : function( obj ){//新增模版关系 接口
 				T.ajax({
 					url : URL.template.createRelation , 
+					loadding : false,
+					type : 'post',
+					data : {
+						"templateId":obj.templateId,
+						"relationId":obj.relationId,
+						"relationType":obj.relationType
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});
+			},
+			delRelation : function( obj ){//新增模版关系 接口
+				T.ajax({
+					url : URL.template.delRelation , 
+					loadding : false,
+					type:'post',
 					data : {
 						"templateId":obj.templateId,
 						"relationId":obj.relationId,

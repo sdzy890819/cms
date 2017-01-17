@@ -14,7 +14,7 @@ define(['require',"app",'jquery'
 	        	$scope.title = "模版列表";
 				$scope.$parent.menu.push({name:$scope.title}); //栏目
 				
-				$scope.navEdit = { //导航操作按钮
+				/*$scope.navEdit = { //导航操作按钮
 					nav : [{
 						name : '下载模版',
 						event : function(obj , scope , evt){
@@ -38,7 +38,7 @@ define(['require',"app",'jquery'
 							cls : 'del'
 						}
 					]
-				}
+				}*/
 				angular.extend($scope,{
 					add : function( id ){ //保存
 						pop.alert({

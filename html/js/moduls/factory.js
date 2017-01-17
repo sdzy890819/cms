@@ -147,6 +147,47 @@ define(['app','jquery'],function(app,$){
 					})
 				}
 			}
+		},
+		DataService : function($q){
+			return {
+				data : function( fn ){
+					var deferred = $q.defer();
+					fn({
+						callback : function(_data){
+							deferred.resolve(_data);
+						},
+						error : function(reason){
+							deferred.reject(reason);
+						}
+					})
+					return deferred.promise;
+				},
+				datas : function( repos ){
+					var d = $q.defer() , 
+						percentComplete = 0 ,
+						output = [];
+
+					$.each(repos,function( i ,fn ){
+						fn({
+							callback : function(_data){
+								output.push(_data);
+								d.notify(output)
+							},
+							error : function(reason){
+								d.reject(reason);
+							}
+						})
+					})
+					d.resolve(output);
+					return d.promise;
+				}
+			}
 		}
 	});
+	/*app.factory('DataService',['$q',function($q){
+		getPullRequres = function(){
+			var deferred = $q.defer();
+			$http.get()
+		}
+	}]);*/
 });

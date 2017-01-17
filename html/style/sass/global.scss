@@ -401,5 +401,9 @@ $leftWidth : 225px;
             }
 
         }
+        .submit{
+             padding:0 20px 20px;
+            .btn{ display:inline-block; height:25px; line-height:25px; padding:0 20px; border-radius:2px; background:#4d90fe; cursor:pointer; color:#fff; }
+        }
     }
 }
