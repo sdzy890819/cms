@@ -104,7 +104,8 @@ public class VideoController extends BaseController{
                               @RequestParam(value = "videoTitle") String videoTitle,
                               @RequestParam(value = "videoDesc") String videoDesc,
                               @RequestParam(value = "videoUrl") String videoUrl,
-                              @RequestParam(value = "videoPath", required = false) String videoPath
+                              @RequestParam(value = "videoPath", required = false) String videoPath,
+                              @RequestParam(value = "fileName",required = false) String fileName
                               ){
         String userID = getCurrentUserId(request);
         Video video = new Video();
@@ -115,6 +116,7 @@ public class VideoController extends BaseController{
         video.setVideoPath(videoPath);
         video.setVideoTitle(videoTitle);
         video.setVideoUrl(videoUrl);
+        video.setFileName(fileName);
         resourceBiz.saveVideo(video);
         return ApiResponse.returnSuccess();
     }
@@ -136,7 +138,8 @@ public class VideoController extends BaseController{
                               @RequestParam(value = "videoTitle",required = false) String videoTitle,
                               @RequestParam(value = "videoDesc",required = false) String videoDesc,
                               @RequestParam(value = "videoUrl",required = false) String videoUrl,
-                              @RequestParam(value = "videoPath",required = false) String videoPath
+                              @RequestParam(value = "videoPath",required = false) String videoPath,
+                              @RequestParam(value = "fileName",required = false) String fileName
     ){
         String userID = getCurrentUserId(request);
         Video video = new Video();
@@ -148,6 +151,7 @@ public class VideoController extends BaseController{
         video.setVideoPath(videoPath);
         video.setVideoTitle(videoTitle);
         video.setVideoUrl(videoUrl);
+        video.setFileName(fileName);
         resourceBiz.saveVideo(video);
         return ApiResponse.returnSuccess();
     }
