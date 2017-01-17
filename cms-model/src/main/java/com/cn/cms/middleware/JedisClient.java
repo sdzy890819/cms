@@ -403,4 +403,25 @@ public class JedisClient {
         return p;
     }
 
+    /**
+     * 锁
+     * @param key
+     * @return
+     */
+    public Long setnx(String key){
+        Jedis client = null;
+        Long p = 0L;
+        try{
+            client = jedisPool.getResource();
+            p = client.setnx(key, key);
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            if(client!=null){
+                client.close();
+            }
+        }
+        return p;
+    }
+
 }

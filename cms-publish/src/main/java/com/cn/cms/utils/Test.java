@@ -3,6 +3,7 @@ package com.cn.cms.utils;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
+import com.cn.cms.contants.StaticContants;
 import com.cn.cms.logfactory.CommonLog;
 import com.cn.cms.logfactory.CommonLogFactory;
 import com.cn.cms.po.Channel;
@@ -62,10 +63,11 @@ public class Test {
     }
 
     public static void main(String []args) {
-        String str = "{\"data\":{\"channelName\":\"aaaaaa\"}}";
-        A<Channel> a = JSONObject.parseObject(str ,new TypeReference<A<Channel>>(){});
-        Channel channel = a.getData();
-        System.out.println(channel.getChannelName());
+//        String str = "{\"data\":{\"channelName\":\"aaaaaa\"}}";
+//        A<Channel> a = JSONObject.parseObject(str ,new TypeReference<A<Channel>>(){});
+//        Channel channel = a.getData();
+//        System.out.println(channel.getChannelName());
+//        System.out.println(StaticContants.OS_NAME);
     }
 
 

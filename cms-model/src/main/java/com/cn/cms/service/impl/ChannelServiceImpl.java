@@ -96,4 +96,9 @@ public class ChannelServiceImpl implements ChannelService {
     public void delUserChannel(String userId, Long channelId) {
         userChannelDao.delUserChannel(userId, channelId);
     }
+
+    @Override
+    public List<Long> findUserChannelIdsByUserId(String userId) {
+        return userChannelDao.findUserChannelIdsByUserId(userId);
+    }
 }

@@ -43,7 +43,7 @@ public class UserChannelController extends BaseController {
      */
     @CheckToken
     @CheckAuth( name = "userchannel:read" )
-    @RequestMapping(value = "/list/channelId")
+    @RequestMapping(value = "/list/channelId", method = RequestMethod.GET)
     public String userchannel(HttpServletRequest request, @RequestParam(value = "page",required = false) Integer page,
                               @RequestParam(value="pageSize",required = false)Integer pageSize,
                               @RequestParam(value = "channelId") Long channelId){
@@ -69,7 +69,7 @@ public class UserChannelController extends BaseController {
      */
     @CheckToken
     @CheckAuth( name = "userchannel:read" )
-    @RequestMapping(value = "/list/userId")
+    @RequestMapping(value = "/list/userId", method = RequestMethod.GET)
     public String userchannel_2(@RequestParam(value = "page",required = false) Integer page,
                               @RequestParam(value="pageSize",required = false)Integer pageSize,
                               @RequestParam(value = "userId") String userId){
@@ -85,6 +85,20 @@ public class UserChannelController extends BaseController {
         result.put("list",channels);
         return ApiResponse.returnSuccess(result);
     }
+
+    /**
+     * 根据用户ID获取频道ID列表
+     * @param userId
+     * @return
+     */
+    @CheckToken
+    @CheckAuth( name = "userchannel:read" )
+    @RequestMapping(value = "/userchannelIds", method = RequestMethod.GET)
+    public String userchannelIds( @RequestParam(value = "userId") String userId){
+        List<Long> list = channelBiz.findUserChannelIdsByUserId(userId);
+        return ApiResponse.returnSuccess(list);
+    }
+
 
     /**
      * 创建用户权限
