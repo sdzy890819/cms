@@ -272,6 +272,7 @@ $leftWidth : 225px;
                 &:hover{ background:#c80000; };
             }
         }
+
     }
     &.popedit{ margin-top:0; }
     .w100{ width:100%;}
@@ -345,6 +346,13 @@ $leftWidth : 225px;
         &.edit{ background:#4d90fe; color:#fff;
             &:hover{  background:#2673f1;}
         }
+    }
+    .layui-upload-button{
+        border:none; height:25px; line-height:25px; margin:0 5px;
+        &:hover{ border:none;}
+        &.layui-box{ border:1px solid #ccc;}
+        .layui-box{ border:none;}
+        .btn{ background:none; height:auto; line-height:auto; padding:0;}
     }
 }
 .tablist{
