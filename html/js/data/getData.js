@@ -134,7 +134,21 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						obj.callback(_data);
 					}
 				})					
-			}			
+			},
+
+			listPositionPermission : 	function(obj) {
+				T.ajax({
+					url : URL.permission.listPositionPermission , 
+					type : 'get',
+					data : {
+						positionId : obj.positionId
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					},
+					error : function(){}
+				})				
+			}
 		},
 		user : {
 			currentUser : function( obj ){ //当前登录用户信息接口
@@ -155,6 +169,60 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					error : function(){}
 				})
 			}
+		},
+
+		position : {
+			listPosition : function(obj){
+				T.ajax({
+					url : URL.position.listPosition , 
+					data : {},
+					success : function( _data ){
+						obj.callback(_data);
+					},
+					error : function(){}
+				})				
+			},
+
+			updatePosition : function(obj) {
+				T.ajax({
+					url : URL.position.updatePosition , 
+					type : 'post',
+					data : {
+						id : obj.id,
+						positionName : obj.positionName
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					},
+					error : function(){}
+				})					
+			},
+			createPosition : function(obj) {
+				T.ajax({
+					url : URL.position.createPosition , 
+					type : 'post',
+					data : {						
+						positionName : obj.positionName
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					},
+					error : function(){}
+				})					
+			},
+			delPosition : function(obj) {
+				T.ajax({
+					url : URL.position.delPosition , 
+					type : 'get',
+					data : {						
+						id : obj.id
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					},
+					error : function(){}
+				})					
+			}				
 		},
 		data : {//基础接口
 			all : function( obj ){ //当前登录用户信息接口
