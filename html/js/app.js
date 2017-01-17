@@ -244,6 +244,13 @@ define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-b
                 template: '<template-add></template-add>',
                 controllerUrl: 'template/add'
             }))
+
+            //模版管理 2
+            .state('template2', angularAMD.route({
+                url: '/template2',
+                templateUrl: 'template/common/index.html',
+                controllerUrl: 'template2/index'
+            }))
             .state('template2.list', angularAMD.route({
                 url: '/list',
                 template: '<template2-list></template2-list>',
@@ -254,10 +261,10 @@ define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-b
                 template: '<template2-add></template2-add>',
                 controllerUrl: 'template2/add'
             }))
-            .state('template2.base.add', angularAMD.route({
+            .state('template2.baseAdd', angularAMD.route({
                 url: '/add',
                 template: '<template2base-add></template2base-add>',
-                controllerUrl: 'template2/base/add'
+                controllerUrl: 'template2/baseAdd'
             }))
 
             //专题管理
