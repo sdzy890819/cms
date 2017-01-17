@@ -1,6 +1,7 @@
 package com.cn.cms.job;
 
 import com.cn.cms.contants.RedisKeyContants;
+import com.cn.cms.contants.StaticContants;
 import com.cn.cms.middleware.JedisClient;
 
 /**
@@ -36,6 +37,12 @@ public abstract class JobTask extends BaseTask {
 
     @Override
     protected boolean exec() {
+        boolean bool = lock();
+        if(!bool) {
+            log.info(this.getCurrentName().concat(" 未抢到执行权，执行失败。"));
+        }else{
+            log.info(this.getCurrentName().concat(" 抢到执行权，开始执行。"));
+        }
         return lock();
     }
 
