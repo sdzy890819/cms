@@ -6,38 +6,31 @@ import com.cn.cms.exception.BizException;
 import com.cn.cms.middleware.bean.VideoFinishResponse;
 import com.cn.cms.middleware.bean.VideoPartResponse;
 import com.cn.cms.middleware.bean.VideoResponse;
-import com.cn.cms.utils.EncryptUtil;
 import com.cn.cms.utils.StringUtils;
 import com.cn.cms.utils.UrlUtils;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-
-import java.io.*;
-import java.net.URLEncoder;
 
 /**
  * Created by zhangyang on 17/1/17.
  */
-@Component
+@Getter
+@Setter
 public class MSSVideoClient {
 
-    @Value("${mss.video.upload}")
     private String uploadUrl;
 
-    @Value("${mss.video.query}")
     private String queryUrl;
 
-    @Value("${mss.video.finish}")
     private String finishUrl;
 
-    @Value("${mss.video.interrupt}")
     private String interruptUrl;
 
-    @Value("${mss.video.accessKey}")
     private String accessKey;
 
-    @Value("${mss.video.accessId}")
     private String accessId;
+
 
     public VideoResponse upload(String baseCode, String fileName, int partNum, int finish) throws BizException {
         VideoResponse videoResponse = null;
