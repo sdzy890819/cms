@@ -137,7 +137,7 @@ define(["app",'jquery','./moduls/directive'], function ( app , $ ) {
 						});
 					},
 					submit : function( callback , obj ,$event){
-						callback(obj,$scope,$event);
+						callback && callback(obj,$scope,$event);
 					}
 					
 				})

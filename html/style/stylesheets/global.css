@@ -1128,65 +1128,65 @@ input:focus{ border: 1px solid #bbb !important;} */
 .table .btn.edit:hover {
   background: #2673f1;
 }
-/* line 350, ../sass/global.scss */
+/* line 349, ../sass/global.scss */
+.table .btn.upload {
+  background: none;
+  height: auto;
+  line-height: auto;
+  padding: 0;
+}
+/* line 353, ../sass/global.scss */
 .table .layui-upload-button {
   border: none;
   height: 25px;
   line-height: 25px;
   margin: 0 5px;
 }
-/* line 352, ../sass/global.scss */
+/* line 355, ../sass/global.scss */
 .table .layui-upload-button:hover {
   border: none;
 }
-/* line 353, ../sass/global.scss */
+/* line 356, ../sass/global.scss */
 .table .layui-upload-button.layui-box {
   border: 1px solid #ccc;
 }
-/* line 354, ../sass/global.scss */
+/* line 357, ../sass/global.scss */
 .table .layui-upload-button .layui-box {
   border: none;
 }
-/* line 355, ../sass/global.scss */
-.table .layui-upload-button .btn {
-  background: none;
-  height: auto;
-  line-height: auto;
-  padding: 0;
-}
 
-/* line 358, ../sass/global.scss */
+/* line 360, ../sass/global.scss */
 .tablist {
   margin-top: 0;
 }
-/* line 360, ../sass/global.scss */
+/* line 362, ../sass/global.scss */
 .tablist .submit {
   padding-left: 25px;
 }
 
-/* line 363, ../sass/global.scss */
+/* line 365, ../sass/global.scss */
 .page .paginationjs {
   padding-top: 20px;
   text-align: right;
   font-size: 0;
 }
-/* line 364, ../sass/global.scss */
+/* line 366, ../sass/global.scss */
 .page .paginationjs .paginationjs-pages {
   display: inline-block;
   vertical-align: top;
 }
-/* line 366, ../sass/global.scss */
+/* line 368, ../sass/global.scss */
 .page .paginationjs .paginationjs-pages ul {
   display: inline-block;
   height: 30px;
   border-radius: 4px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
-/* line 367, ../sass/global.scss */
+/* line 369, ../sass/global.scss */
 .page .paginationjs .paginationjs-pages li {
   display: inline-block;
 }
-/* line 368, ../sass/global.scss */
+/* line 370, ../sass/global.scss */
 .page .paginationjs .paginationjs-pages li a {
   float: left;
   padding: 4px 12px;
@@ -1197,36 +1197,36 @@ input:focus{ border: 1px solid #bbb !important;} */
   font-size: 12px;
   color: #999;
 }
-/* line 369, ../sass/global.scss */
+/* line 371, ../sass/global.scss */
 .page .paginationjs .paginationjs-pages li a:hover {
   background: #eee;
 }
-/* line 371, ../sass/global.scss */
+/* line 373, ../sass/global.scss */
 .page .paginationjs .paginationjs-pages li:not(:first-child) a {
   border-left: none;
 }
-/* line 372, ../sass/global.scss */
+/* line 374, ../sass/global.scss */
 .page .paginationjs .paginationjs-pages li.active a {
   background: #eee;
 }
-/* line 375, ../sass/global.scss */
+/* line 377, ../sass/global.scss */
 .page .paginationjs .paginationjs-go-input {
   display: inline-block;
   vertical-align: top;
   padding-left: 10px;
 }
-/* line 376, ../sass/global.scss */
+/* line 378, ../sass/global.scss */
 .page .paginationjs .paginationjs-go-input input[type='text'] {
   width: 30px;
   height: 16px;
   line-height: 16px;
 }
-/* line 378, ../sass/global.scss */
+/* line 380, ../sass/global.scss */
 .page .paginationjs .paginationjs-go-button {
   display: inline-block;
   vertical-align: top;
 }
-/* line 379, ../sass/global.scss */
+/* line 381, ../sass/global.scss */
 .page .paginationjs .paginationjs-go-button .J-paginationjs-go-button {
   height: 30px;
   line-height: 30px;
@@ -1237,28 +1237,28 @@ input:focus{ border: 1px solid #bbb !important;} */
   background: #fff;
   cursor: pointer;
 }
-/* line 380, ../sass/global.scss */
+/* line 382, ../sass/global.scss */
 .page .paginationjs .paginationjs-go-button .J-paginationjs-go-button:hover {
   background: #eee;
 }
 
-/* line 387, ../sass/global.scss */
+/* line 389, ../sass/global.scss */
 .news.edit .boxtab {
   margin-top: 0;
 }
 
-/* line 390, ../sass/global.scss */
+/* line 392, ../sass/global.scss */
 .iframe {
   border: none;
   margin: 0;
   padding: 0;
 }
 
-/* line 393, ../sass/global.scss */
+/* line 395, ../sass/global.scss */
 .relationPopsuper .modal-dialog {
   width: 500px;
 }
-/* line 395, ../sass/global.scss */
+/* line 397, ../sass/global.scss */
 .relationPopsuper .relation-pop .relation-title {
   background: #488be7;
   height: 35px;
@@ -1266,7 +1266,7 @@ input:focus{ border: 1px solid #bbb !important;} */
   padding-left: 15px;
   color: #fff;
 }
-/* line 397, ../sass/global.scss */
+/* line 399, ../sass/global.scss */
 .relationPopsuper .relation-pop .relation-title .close {
   float: right;
   padding: 0 5px;
@@ -1274,17 +1274,17 @@ input:focus{ border: 1px solid #bbb !important;} */
   color: #fff;
   cursor: pointer;
 }
-/* line 399, ../sass/global.scss */
+/* line 401, ../sass/global.scss */
 .relationPopsuper .relation-pop .container {
   margin: 20px;
   overflow: hidden;
 }
-/* line 401, ../sass/global.scss */
+/* line 403, ../sass/global.scss */
 .relationPopsuper .relation-pop .container .title {
   padding-bottom: 35px;
   border-bottom: 1px solid #ccc;
 }
-/* line 403, ../sass/global.scss */
+/* line 405, ../sass/global.scss */
 .relationPopsuper .relation-pop .container .title li {
   float: left;
   width: 103px;
@@ -1294,35 +1294,35 @@ input:focus{ border: 1px solid #bbb !important;} */
   text-align: center;
   border-right: 1px solid #ccc;
 }
-/* line 404, ../sass/global.scss */
+/* line 406, ../sass/global.scss */
 .relationPopsuper .relation-pop .container .title li:last-child, .relationPopsuper .relation-pop .container .title li .last {
   border-right: none;
 }
-/* line 405, ../sass/global.scss */
+/* line 407, ../sass/global.scss */
 .relationPopsuper .relation-pop .container .title li.current {
   background: #3597f2;
   color: #fff;
 }
-/* line 408, ../sass/global.scss */
+/* line 410, ../sass/global.scss */
 .relationPopsuper .relation-pop .container .content {
   padding-top: 20px;
 }
-/* line 410, ../sass/global.scss */
+/* line 412, ../sass/global.scss */
 .relationPopsuper .relation-pop .container .content .table {
   border-left: 1px solid #ccc;
   border-top: 1px solid #ccc;
 }
-/* line 411, ../sass/global.scss */
+/* line 413, ../sass/global.scss */
 .relationPopsuper .relation-pop .container .content .table th, .relationPopsuper .relation-pop .container .content .table td {
   padding: 5px;
   border-right: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
 }
-/* line 416, ../sass/global.scss */
+/* line 418, ../sass/global.scss */
 .relationPopsuper .relation-pop .container .submit {
   padding: 0 20px 20px;
 }
-/* line 418, ../sass/global.scss */
+/* line 420, ../sass/global.scss */
 .relationPopsuper .relation-pop .container .submit .btn {
   display: inline-block;
   height: 25px;
