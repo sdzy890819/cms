@@ -134,7 +134,21 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						obj.callback(_data);
 					}
 				})					
-			}			
+			},
+
+			listPositionPermission : 	function(obj) {
+				T.ajax({
+					url : URL.permission.listPositionPermission , 
+					type : 'get',
+					data : {
+						positionId : obj.positionId
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					},
+					error : function(){}
+				})				
+			}
 		},
 		user : {
 			currentUser : function( obj ){ //当前登录用户信息接口
@@ -155,6 +169,60 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					error : function(){}
 				})
 			}
+		},
+
+		position : {
+			listPosition : function(obj){
+				T.ajax({
+					url : URL.position.listPosition , 
+					data : {},
+					success : function( _data ){
+						obj.callback(_data);
+					},
+					error : function(){}
+				})				
+			},
+
+			updatePosition : function(obj) {
+				T.ajax({
+					url : URL.position.updatePosition , 
+					type : 'post',
+					data : {
+						id : obj.id,
+						positionName : obj.positionName
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					},
+					error : function(){}
+				})					
+			},
+			createPosition : function(obj) {
+				T.ajax({
+					url : URL.position.createPosition , 
+					type : 'post',
+					data : {						
+						positionName : obj.positionName
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					},
+					error : function(){}
+				})					
+			},
+			delPosition : function(obj) {
+				T.ajax({
+					url : URL.position.delPosition , 
+					type : 'get',
+					data : {						
+						id : obj.id
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					},
+					error : function(){}
+				})					
+			}				
 		},
 		data : {//基础接口
 			all : function( obj ){ //当前登录用户信息接口
@@ -242,13 +310,11 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					error : function(){}
 				})
 			},
-			templateClassify : function(callback){//模版类型选项列表
+			templateClassify : function( obj ){//模版类型选项列表
 				T.ajax({
 					url : URL.data.templateClassify , 
-					type : 'get',
-					data : {},
 					success : function( _data ){
-						callback(_data)
+						obj.callback(_data)
 					}
 				})
 			},
@@ -662,6 +728,18 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					}
 				});
 			},
+			relation : function( obj ){//模版详细信息 接口
+				T.ajax({
+					url : URL.template.relation , 
+					data : {
+						"templateId":obj.templateId,
+						"relationType":obj.relationType //默认0 
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});
+			},
 			createTemplate : function( obj ){//读取所有的模版对应的关系列表 接口
 				T.ajax({
 					url : URL.template.createTemplate , 
@@ -728,6 +806,8 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 			createRelation : function( obj ){//新增模版关系 接口
 				T.ajax({
 					url : URL.template.createRelation , 
+					loadding : false,
+					type : 'post',
 					data : {
 						"templateId":obj.templateId,
 						"relationId":obj.relationId,
@@ -737,7 +817,67 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						obj.callback(_data);
 					}
 				});
-			} 
+			},
+			delRelation : function( obj ){//新增模版关系 接口
+				T.ajax({
+					url : URL.template.delRelation , 
+					loadding : false,
+					type:'post',
+					data : {
+						"templateId":obj.templateId,
+						"relationId":obj.relationId,
+						"relationType":obj.relationType
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});
+			},
+			uploadTemplate : function( obj ){//上传模板 接口
+				T.ajax({
+					url : URL.template.uploadTemplate , 
+					type:'post',
+					data : {
+						"baseCode":"文件Base64Code",
+						"id":1
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});
+			},
+			createTemplate2 : function( obj ){
+				T.ajax({
+					url : URL.template.createTemplate2 , 
+					type:'post',
+					data : {
+						"templateName":obj.templateName,
+						"filename":obj.filename,
+						"path":obj.path,
+						"templateClassify":obj.templateClassify,
+						"encoded":obj.encoded
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});
+			},
+			listTemplate2 : function( obj ){
+				T.ajax({
+					url : URL.template.listTemplate2 , 
+					type:'post',
+					data : {
+						"templateName":obj.templateName,
+						"filename":obj.filename,
+						"path":obj.path,
+						"templateClassify":obj.templateClassify,
+						"encoded":obj.encoded
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});
+			}
 		},
 		topic : { //专题
 			createTopicColumn : function( obj ){//新建专题分类

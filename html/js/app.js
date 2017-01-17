@@ -244,6 +244,13 @@ define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-b
                 template: '<template-add></template-add>',
                 controllerUrl: 'template/add'
             }))
+
+            //模版管理 2
+            .state('template2', angularAMD.route({
+                url: '/template2',
+                templateUrl: 'template/common/index.html',
+                controllerUrl: 'template2/index'
+            }))
             .state('template2.list', angularAMD.route({
                 url: '/list',
                 template: '<template2-list></template2-list>',
@@ -254,10 +261,10 @@ define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-b
                 template: '<template2-add></template2-add>',
                 controllerUrl: 'template2/add'
             }))
-            .state('template2.base.add', angularAMD.route({
+            .state('template2.baseAdd', angularAMD.route({
                 url: '/add',
                 template: '<template2base-add></template2base-add>',
-                controllerUrl: 'template2/base/add'
+                controllerUrl: 'template2/baseAdd'
             }))
 
             //专题管理
@@ -298,20 +305,20 @@ define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-b
             }))
 
             //用户组
-            .state('position', angularAMD.route({
-                url: '/position',
+            .state('userposition', angularAMD.route({
+                url: '/userposition',
                 templateUrl: 'template/common/index.html',
-                controllerUrl: 'position/index'
+                controllerUrl: 'userposition/index'
             }))
-            .state('position.list', angularAMD.route({
+            .state('userposition.list', angularAMD.route({
                 url: '/list',
-                template: '<position-list></position-list>',
-                controllerUrl: 'position/list'
+                template: '<userposition-list></userposition-list>',
+                controllerUrl: 'userposition/list'
             }))
-            .state('position.add', angularAMD.route({
+            .state('userposition.add', angularAMD.route({
                 url: '/add',
-                template: '<position-add></position-add>',
-                controllerUrl: 'position/add'
+                template: '<userposition-add></userposition-add>',
+                controllerUrl: 'userposition/add'
             }))
 
 

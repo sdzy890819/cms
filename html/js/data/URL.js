@@ -10,6 +10,15 @@ define(function(require){
 			updateUser : url+'/user/updateUser',//用户修改接口
 			delUser : url+'/user/delUser'//逻辑删除
 		},
+		position : {
+			listPosition : url + '/position/listPosition',
+			createPosition : url + '/position/createPosition',
+			updatePosition : url + '/position/updatePosition',
+			delPosition : url + '/position/delPosition',
+			setUserPosition : url + '/position/setUserPosition',
+			delUserPosition : url + '/position/delUserPosition'
+
+		},
 		data : { //基础接口
 			all : url+'/data/all',
 			compress : url+'/data/compress',//图片是否压缩选项列表接口
@@ -112,7 +121,9 @@ define(function(require){
 			updateRelations : url+'/template/updateRelations',//根据relationType 修改模版对应关系
 			createRelation : url+'/template/createRelation',//新增模版关系
 			delRelation : url+'/template/delRelation',//模版关系删除
-			redirect : url+'/template/redirect'//模版跳转
+			redirect : url+'/template/redirect',//模版跳转
+			createTemplate2 : url+'/template2/createTemplate2',//创建第二新模板
+			listTemplate2 : url+'/template2/listTemplate2'//创建第二新模板
 		},
 		topic : { //专题
 			listTopic:url+'/topic/listTopic',//分页专题列表 接口

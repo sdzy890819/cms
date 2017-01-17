@@ -18,6 +18,7 @@ define(["app",'jquery','./moduls/directive'], function ( app , $ ) {
 					add:'plus',//添加
 					edit:'pencil',//编辑
 					down:'download-alt',// 下载
+					upload : 'upload-alt',//上传
 					del:'trash',//删除
 				};
 
