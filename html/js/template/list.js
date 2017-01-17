@@ -171,7 +171,10 @@ define(['require',"app",'jquery'
 										url : URL.template.uploadTemplate,
 										ext: 'exe|dmg',
 										success : function(_data){
-											debugger;
+											layui.use(['layer'], function(){
+												var layer = layui.layer;
+												layer.msg(_data.message);
+											});
 										}
 									},
 									{cls : 'add', name : '关联',evt:$scope.relation},
