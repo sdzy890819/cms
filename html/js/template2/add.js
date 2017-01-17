@@ -1,5 +1,5 @@
 define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','fixedNav'], function ( app , getList , getData , Tool ) {
-	app.directive('templateAdd',function(){
+	app.directive('template2Add',function(){
 		return {
 	    	restrict : 'E',
 	    	replace : true,
