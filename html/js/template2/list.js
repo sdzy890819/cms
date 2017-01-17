@@ -164,6 +164,18 @@ define(['require',"app",'jquery'
 								td : GenerateArrList.setArr(_data.data.list,th) ,
 								edit : [
 									{cls : 'down', name : '下载',evt:$scope.down},
+									{	
+										cls : 'upload', 
+										name : '上传',
+										url : URL.template.uploadTemplate,
+										ext: 'exe|dmg',
+										success : function(_data){
+											layui.use(['layer'], function(){
+												var layer = layui.layer;
+												layer.msg(_data.message);
+											});
+										}
+									},
 									{cls : 'add', name : '关联',evt:$scope.relation},
 									{cls : 'edit' , name : '编辑',evt:$scope.edit},
 									{cls : 'del' , name : '删除',evt:$scope.del}

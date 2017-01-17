@@ -148,7 +148,51 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					},
 					error : function(){}
 				})				
-			}
+			},
+
+			setPositionPermissions : function(obj) {
+				T.ajax({
+					url : URL.permission.setPositionPermissions , 
+					type : 'post',
+					data : {
+						positionId : obj.positionId,
+						permissionIds : obj.permissionIds
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					},
+					error : function(){}
+				})					
+			},
+			createPositionPermission : function(obj) {
+				T.ajax({
+					url : URL.permission.createPositionPermission , 
+					type : 'post',
+					data : {
+						positionId : obj.positionId,
+						permissionId : obj.permissionId
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					},
+					error : function(){}
+				})					
+			},
+
+			delPositionPermission : function(obj) {
+				T.ajax({
+					url : URL.permission.delPositionPermission , 
+					type : 'post',
+					data : {
+						positionId : obj.positionId,
+						permissionId : obj.permissionId
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					},
+					error : function(){}
+				})					
+			}					
 		},
 		user : {
 			currentUser : function( obj ){ //当前登录用户信息接口

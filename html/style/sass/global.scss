@@ -272,6 +272,7 @@ $leftWidth : 225px;
                 &:hover{ background:#c80000; };
             }
         }
+
     }
     &.popedit{ margin-top:0; }
     .w100{ width:100%;}
@@ -331,6 +332,11 @@ $leftWidth : 225px;
         &:nth-child(odd){ background:#f8f8f8;}
         &:hover{ background:#f2f2f2}
     }
+
+    tr.special td {
+      background: #FF9900;
+      color : #fff;
+    }
     .select{ width:20px; text-align:center;}
     .edits{ }
     .btn{ display:inline-block; margin-left:1px; padding:2px 10px; font-size:12px; background:#4d90fe; cursor:pointer; color:#fff; @include transition-duration(.3s);
@@ -345,6 +351,15 @@ $leftWidth : 225px;
         &.edit{ background:#4d90fe; color:#fff;
             &:hover{  background:#2673f1;}
         }
+        &.upload{
+            background:none; height:auto; line-height:auto; padding:0;
+        }
+    }
+    .layui-upload-button{
+        border:none; height:25px; line-height:25px; margin:0 5px;
+        &:hover{ border:none;}
+        &.layui-box{ border:1px solid #ccc;}
+        .layui-box{ border:none;}
     }
 }
 .tablist{

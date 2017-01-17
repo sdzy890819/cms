@@ -1,9 +1,10 @@
 define(['require',"app",'jquery'
 	,'../data/getData' , './addForm'
 	,'../moduls/Tool','../common/editPop' , './relationPop'
+	,'../data/URL'
 	,'formlist','fixedNav','position'
 	,'../moduls/service','../moduls/factory'
-], function ( require , app , $ , getData , list , Tool , editPop,relationPop ) {
+], function ( require , app , $ , getData , list , Tool , editPop,relationPop , URL ) {
 	app.directive('templateList',function(){
 		return {
 	    	restrict : 'E',
@@ -120,14 +121,6 @@ define(['require',"app",'jquery'
 							}
 	 					})
 					},
-					upload : function( obj ){ // 上传
-						getData.template.uploadTemplate({
-							id : obj.id,
-							callback : function(){
-
-							}
-						})
-					},
 					down : function( obj ){ // 下载
 						getData.template.downTemplate({
 							id : obj.id,
@@ -172,7 +165,18 @@ define(['require',"app",'jquery'
 								td : GenerateArrList.setArr(_data.data.list,th) ,
 								edit : [
 									{cls : 'down', name : '下载',evt:$scope.down},
-									{cls : 'upload', name : '上传',evt:$scope.upload},
+									{	
+										cls : 'upload', 
+										name : '上传',
+										url : URL.template.uploadTemplate,
+										ext: 'exe|dmg',
+										success : function(_data){
+											layui.use(['layer'], function(){
+												var layer = layui.layer;
+												layer.msg(_data.message);
+											});
+										}
+									},
 									{cls : 'add', name : '关联',evt:$scope.relation},
 									{cls : 'edit' , name : '编辑',evt:$scope.edit},
 									{cls : 'del' , name : '删除',evt:$scope.del}

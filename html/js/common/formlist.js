@@ -34,19 +34,6 @@ define(["app",'jquery','./moduls/directive'], function ( app , $ ) {
 				},true);
 
 
-				/*angular.extend($scope,{
-					filterTd : function( val ){ //过滤没用的ID
-						var b = true;
-						for(var i=0,len=$scope.filter.length;i<len;i++){
-							if($scope.filter[i]==val){
-								b = false;
-								break;
-							}
-						}
-						return b;
-					}
-				})*/
-
 			},
 			link : function($scope , element , arrt , controller){
 				var ele = $(element[0]) ,
@@ -101,43 +88,64 @@ define(["app",'jquery','./moduls/directive'], function ( app , $ ) {
 						})
 					})
 				}
-				$scope.thFinish = function(){
-					if($scope.data.table.select){
-						thSelect = ele.find('th.select');
-						check(thSelect,function(checked){
-							$scope.selectEdit();
-						})
-					}
-				}
-				$scope.tdFinish = function(){
-					if($scope.data.table.select){
-						select = ele.find('td.select');
-						len = select.length;
-						check(select,function(checked){
-							if(checked){
-								index++
-							}else{
-								index--;
+				angular.extend($scope,{
+					thFinish : function(){
+						if($scope.data.table.select){
+							thSelect = ele.find('th.select');
+							check(thSelect,function(checked){
+								$scope.selectEdit();
+							})
+						}
+					},
+					tdFinish : function(){
+						if($scope.data.table.select){
+							select = ele.find('td.select');
+							len = select.length;
+							check(select,function(checked){
+								if(checked){
+									index++
+								}else{
+									index--;
+								}
+								if(index>=len){
+									$scope.isSelectAll = true;
+								}else if(index<=0){
+									$scope.isSelectAll = false;
+								}else{
+									$scope.isSelectAll = 2;
+								}
+								$scope.$apply();
+							});
+						}
+					},
+					editsFinish : function(){
+						$.each($scope.data.table.edit,function( i , obj ){
+							if(obj.cls == 'upload'){
+								layui.use('upload', function(){
+									layui.upload({
+										elem : '.'+(obj.class||'layui-upload-file'),
+										url : obj.url,
+										title: obj.name||'',
+										type : obj.type||'file',
+										ext : obj.ext||'',
+										method : obj.method||'POST',
+										before : obj.before,
+										success : obj.success
+									});
+								});
 							}
-							if(index>=len){
-								$scope.isSelectAll = true;
-							}else if(index<=0){
-								$scope.isSelectAll = false;
-							}else{
-								$scope.isSelectAll = 2;
-							}
-							$scope.$apply();
 						});
+					},
+					submit : function( callback , obj ,$event){
+						callback && callback(obj,$scope,$event);
 					}
-				}
+					
+				})
 				$scope.selectEdit = function( ){ //全选或取消全选
 					$scope.isSelectAll = $scope.isSelectAll===true?false:true;
 					if ($scope.$root.$$phase != '$apply' && $scope.$root.$$phase != '$digest') {
 					    $scope.$apply();
 					}
-				}
-				$scope.submit = function( callback , obj ,$event){
-					callback(obj,$scope,$event);
 				}
 
 				$scope.selectAll = function( evt ){
