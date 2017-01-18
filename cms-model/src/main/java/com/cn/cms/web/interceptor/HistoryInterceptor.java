@@ -64,8 +64,8 @@ public class HistoryInterceptor extends HandlerInterceptorAdapter {
                 operationHistory.setDescription(checkAuth.name());
             }
         }
-        operationHistory.setUrl(request.getContextPath().concat(request.getServletPath()).concat("?")
-                .concat(request.getQueryString()));
+        operationHistory.setUrl(request.getContextPath() + request.getServletPath() + "?" +
+                request.getQueryString());
         boolean bool = true;
         if(handler instanceof HandlerMethod){
             HandlerMethod hm = (HandlerMethod) handler;
