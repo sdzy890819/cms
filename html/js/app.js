@@ -14,6 +14,10 @@ require.config({
         'ui-bootstrap':'plug/ui-bootstrap-tpls-2.3.2.min',
         'angularFileUpload':'plug/angular-file-upload.min',
 
+        //upload
+        'ngFileUpload-shim' : 'plug/ng-file-upload/dist/ng-file-upload-shim.min',
+        'ngFileUpload' : 'plug/ng-file-upload/dist/ng-file-upload.min',
+
         'layui' : 'plug/layui/layui',
         'jcrop' : 'plug/jcrop/jquery.Jcrop.min',
 
@@ -41,18 +45,19 @@ require.config({
         },
         'ui-bootstrap': ["angular"],
         "angularAMD": ["angular"],
-        "angularFileUpload": ["angular"],
+        "ngFileUpload-shim": ["angular"],
+        "ngFileUpload": ["angular"],
         "ngload": ["angularAMD"]
     }
     ,urlArgs: "bust=" +  (new Date()).getTime()
 });
 
 // bootstrap
-define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-bootstrap','layui','moduls/prototype'], function ( angular, angularAMD) {
+define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-bootstrap','layui','ngFileUpload-shim','ngFileUpload','moduls/prototype'], function ( angular, angularAMD) {
 
     //临时登录 需要删除
     // module
-    var app = angular.module("app", ["ui.router",'angularCSS','ui.bootstrap','angularFileUpload']);
+    var app = angular.module("app", ["ui.router",'angularCSS','ui.bootstrap','ngFileUpload']);
     // config
     app.config(["$stateProvider", '$urlRouterProvider','$locationProvider', function($stateProvider, $urlRouterProvider,$locationProvider){
         /*$locationProvider.html5Mode(true);*/
