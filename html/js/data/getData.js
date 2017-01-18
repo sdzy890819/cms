@@ -952,15 +952,16 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 				});
 			},
 			downTemplate  : function( obj ){//模版下载
-				T.ajax({
-					url : URL.template.downTemplate , 
-					data : {
-						id : obj.id
-					},
-					success : function( _data ){
-						obj.callback(_data);
-					}
-				});
+				window.location.href = URL.template.downTemplate + "?id=" + obj.id;
+				// T.ajax({
+				// 	url : URL.template.downTemplate , 
+				// 	data : {
+				// 		id : obj.id
+				// 	},
+				// 	success : function( _data ){
+				// 		obj.callback(_data);
+				// 	}
+				// });
 			},
 			createRelation : function( obj ){//新增模版关系 接口
 				T.ajax({
@@ -1047,16 +1048,30 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					}
 				});
 			},
-			downTemplate2 : function( obj ){
+			uploadTemplate2 : function( obj ){//上传模板 接口
 				T.ajax({
-					url : URL.template.downTemplate2 ,
+					url : URL.template.uploadTemplate2 , 
+					type:'post',
 					data : {
-						id : obj.id
+						"baseCode":obj.baseCode,
+						"id":obj.id
 					},
 					success : function( _data ){
 						obj.callback(_data);
 					}
 				});
+			},			
+			downTemplate2 : function( obj ){
+				window.location.href = URL.template.downTemplate2 + "?id=" + obj.id;
+				// T.ajax({
+				// 	url : URL.template.downTemplate2 ,
+				// 	data : {
+				// 		id : obj.id
+				// 	},
+				// 	success : function( _data ){
+				// 		obj.callback(_data);
+				// 	}
+				// });
 			},
 			template2Info : function( obj ){
 				T.ajax({
@@ -1068,6 +1083,28 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						obj.callback(_data);
 					}
 				});
+			},
+			template2base : function(obj){
+				T.ajax({
+					url : URL.template.template2base ,
+					data : {},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});				
+			},
+			updateTemplate2base : function(obj) {
+				T.ajax({
+					url : URL.template.updateTemplate2base ,
+					type : 'post',
+					data : {
+						id : obj.id,
+						basePath : obj.basePath
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});				
 			}
 		},
 		topic : { //专题

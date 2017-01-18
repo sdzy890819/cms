@@ -131,8 +131,11 @@ define(function(require){
 			createTemplate2 : url+'/template2/createTemplate2',//创建第二新模板
 			listTemplate2 : url+'/template2/listTemplate2',//创建第二新模板
 			delTemplate2 : url+'/template2/delTemplate2',//删除
+			uploadTemplate2 : url+'/template2/uploadTemplate2',//模版上传
 			downTemplate2 : url+'/template2/downTemplate2',//下载
-			template2Info : url+'/template2/template2Info'//第二模版详细信息 接口
+			template2Info : url+'/template2/template2Info',//第二模版详细信息 接口
+			template2base : url + '/template2/template2Base', //第二模板基础信息
+			updateTemplate2base : url + '/template2/base/update' //第二模板基础信息
 		},
 		topic : { //专题
 			listTopic:url+'/topic/listTopic',//分页专题列表 接口

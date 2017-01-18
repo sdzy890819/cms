@@ -2,7 +2,7 @@
 
   ngFileUpload.service('UploadDataUrl', ['UploadBase', '$timeout', '$q', function (UploadBase, $timeout, $q) {
     var upload = UploadBase;
-    upload.base64DataUrl = function (file) {
+    upload.base64DataUrl = function (file) {      
       if (angular.isArray(file)) {
         var d = $q.defer(), count = 0;
         angular.forEach(file, function (f) {
@@ -16,9 +16,9 @@
               d.resolve(urls, file);
             }
           });
-        });
+        });        
         return d.promise;
-      } else {
+      } else {        
         return upload.dataUrl(file, true);
       }
     };

@@ -284,7 +284,7 @@ define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-b
                 controllerUrl: 'template2/add'
             }))
             .state('template2.baseAdd', angularAMD.route({
-                url: '/add',
+                url: '/baseAdd',
                 template: '<template2base-add></template2base-add>',
                 controllerUrl: 'template2/baseAdd'
             }))

@@ -11,7 +11,7 @@ define(['require',"app",'jquery'
 	    	replace : true,
 	    	transclude : true,
 	        templateUrl : '../template/common/list.html',
-	        controller : function($scope , pop , $uibModal , $css,GenerateArrList){
+	        controller : function($scope , pop , $uibModal , $css,GenerateArrList, Upload){
 	        	$scope.title = "第二套模版列表";
 				$scope.$parent.menu.push({name:$scope.title}); //栏目
 				
@@ -137,8 +137,9 @@ define(['require',"app",'jquery'
 	        					name : '请选择文件',
 	        					type : 'file',
 	        					event : function(file , $uibModalInstance){
-	        						Upload.base64DataUrl(file).then(function(urls){
-	        							getData.template.uploadTemplate({
+	        						Upload.base64DataUrl(file).then(function(urls){	   
+	        							urls = urls.split(',')[1];     								        							
+	        							getData.template.uploadTemplate2({
 	        								baseCode : urls,
 	        								id : obj.id,
 	        								callback : function(_data){
