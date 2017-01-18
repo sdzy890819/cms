@@ -89,14 +89,17 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 							callback : function( _data2 ){
 								$.each(list,function(i , obj){
 									if(obj.title=='column'){ //填充select
+										obj.select[0] = [obj.select[0][0]];
 										obj.select[0] = obj.select[0].concat(Tool.changeObjectName(_data.data,[{name:'channelName',newName:'name'}]));
 									}
 									if( $.type(obj) == 'array' ){
 										$.each(obj,function(j,_obj){ //填充select
 											if(_obj.title=='listTemplate2Id'){
+												_obj.select[0] = [_obj.select[0][0]];
 												_obj.select[0] = _obj.select[0].concat(Tool.changeObjectName(_data1.data,[{name:'templateName',newName:'name'}]));
 											}
 											else if(_obj.title=='detailTemplate2Id'){ //填充select
+												_obj.select[0] = [_obj.select[0][0]];
 												_obj.select[0] = _obj.select[0].concat(Tool.changeObjectName(_data2.data,[{name:'templateName',newName:'name'}]));
 											}
 										})

@@ -45,6 +45,7 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 	function setData(obj){
 		var self = obj.self;
 		if(self.type=='select'){
+			self.select[0] = [self.select[0][0]];
 			self.select[0] = self.select[0].concat(Tool.changeObjectName(obj.data.templateClassify,[{name:'type',newName:'id'}]));
 		}else if(self.type=='radio'){
 			self.radio = Tool.changeObjectName(obj.data.encoded,[{name:'name',newName:'title'}]);

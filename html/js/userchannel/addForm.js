@@ -87,14 +87,13 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 		}
 	];
 	function getList(callback){
-		debugger;
 		getData.topic.topicClassifyList({//专题分类
 			callback:function(_data){
 				$.each(list,function(i , obj){
 					if(obj.type=='select'){
 						if(obj.select[0][0].title=='topicClassifyId'){
+							obj.select[0] = [obj.select[0][0]];
 							obj.select[0] = obj.select[0].concat(Tool.changeObjectName(_data.data,[{name:'categoryName',newName:'name'}]));
-							debugger;
 							callback(list);
 						}
 					}

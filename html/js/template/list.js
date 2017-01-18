@@ -136,7 +136,7 @@ define(['require',"app",'jquery'
 	        					title : '上传文件',
 	        					name : '请选择文件',
 	        					type : 'file',
-	        					event : function(file){
+	        					event : function(file , $uibModalInstance){
 	        						Upload.base64DataUrl(file).then(function(urls){
 	        							getData.template.uploadTemplate({
 	        								baseCode : urls,
@@ -146,15 +146,15 @@ define(['require',"app",'jquery'
 													var layer = layui.layer;
 													layer.msg(_data.message);
 												});
+												setTimeout(function(){
+													$uibModalInstance.dismiss('cancel');
+												},400)
 	        								}
 	        							})
 	        						});
 	        					}
         					},
-        					$uibModal :$uibModal,
-        					callback : function(){
-        						
-        					},
+        					$uibModal :$uibModal
         				});
 					},
 					relation : function( obj ){ //关联

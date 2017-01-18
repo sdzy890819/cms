@@ -53,7 +53,8 @@ define(['../data/getData','../moduls/Tool'], function(Data, Tool){
 		Data.channel.listChannel({//部门
 			callback : function(_data){							
 				$.each(list, function(i, obj){
-					if (obj.title == 'channelId'){						
+					if (obj.title == 'channelId'){			
+						obj.select[0] = [obj.select[0][0]];			
 						obj.select[0] = obj.select[0].concat(Tool.changeObjectName(_data.data,[{name:'channelName',newName:'name'}]));
 					}
 				})
@@ -66,6 +67,7 @@ define(['../data/getData','../moduls/Tool'], function(Data, Tool){
 			callback : function(_data){							
 				$.each(list, function(i, obj){
 					if (obj.title == 'fragmentClassifyId'){
+						obj.select[0] = [obj.select[0][0]];
 						obj.select[0] = obj.select[0].concat(Tool.changeObjectName(_data.data,[{name:'classifyName',newName:'name'}]));	
 					}
 				})
