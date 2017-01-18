@@ -36,4 +36,4 @@ if [[ $ABC2 > 0 ]]
 then
 	kill -9 $ABC2
 fi
-java -jar cms-publish.jar >/data/logs/cms-publish/catalina.out &
+java -jar cms-publish.jar >> /data/logs/cms-publish/catalina.out 2>&1 &
