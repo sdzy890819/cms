@@ -44,6 +44,7 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 			verify : 'number'
 		}
 	];
+	
 	function getList(callback){
 		getData.news.recommendColumnlist({//部门
 			callback:function(_data){

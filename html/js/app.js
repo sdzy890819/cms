@@ -100,6 +100,21 @@ define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-b
                 template : '<news-list></news-list>',
                 controllerUrl: 'news/newslist'
             }))
+            .state('news.mynewslist', angularAMD.route({
+                url: '/mynewslist',
+                template : '<mynews-list></mynews-list>',
+                controllerUrl: 'news/mynewslist'
+            }))     
+            .state('news.recommendcolumnlist', angularAMD.route({
+                url: '/recommendcolumnlist',
+                template : '<recommendcolumn-list></recommendcolumn-list>',
+                controllerUrl: 'news/recommendcolumnlist'
+            }))     
+            .state('news.recommendcolumnadd', angularAMD.route({
+                url: '/recommendcolumnadd',
+                template : '<recommendcolumn-add></recommendcolumn-add>',
+                controllerUrl: 'news/recommendcolumnadd'
+            }))                          
 
             //新闻栏目
             .state('newscolumn', angularAMD.route({

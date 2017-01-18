@@ -3,16 +3,17 @@ define(['require',"app",'jquery'
 	,'formlist','fixedNav','position'
 	,'../moduls/service','../moduls/factory'
 ], function ( require , app , $ , list , editPop ,getData , Tool  ) {
-	app.directive('newsList',function(){
+	app.directive('mynewsList',function(){
 		return {
 	    	restrict : 'E',
 	    	replace : true,
 	    	transclude : true,
 	        templateUrl : '../template/common/list.html',
-	        controller : function($scope,pop,$uibModal , $css , GenerateArrList, $state){
-				$scope.title = "新闻列表";
+	        controller : function($scope,pop,$uibModal , $css , GenerateArrList){
+				$scope.title = "我的新闻列表";
 				$scope.$parent.menu.push({name:$scope.title}); //栏目
 				angular.extend($scope,{
+
 					edit : function( obj ){ //保存
 						function getAddForm(callback){ //填充数据
 							getData.news.newsdetail({
@@ -120,8 +121,8 @@ define(['require',"app",'jquery'
 							function getAddForm(callback){
 								getData.news.recommendNewsInfo({
 									id : obj.id,
-									callback : function(_data){										
-										callback(_data);
+									callback : function(_data){
+										callback(_data)
 									}
 								})
 							}
@@ -131,8 +132,7 @@ define(['require',"app",'jquery'
 								list : recommendFormList,
 								updateData : getAddForm,
 
-								save : function(obj){		
-
+								save : function(obj){				
 									var 	recommendColumnId;									
 									$.each(obj.selects,function(){										
 										if(this.title == 'recommendColumnId'){
@@ -143,8 +143,8 @@ define(['require',"app",'jquery'
 									if(recommendColumnId == undefined) {											
 										alert('请选择推荐栏目');
 										return;
-									}							
-									
+									}				
+
 									getData.news.recommend({
 										id : newsId,
 										recommendTitle : obj.recommendTitle,
@@ -165,7 +165,7 @@ define(['require',"app",'jquery'
 									})						
 								},
 
-								callback : function(list, callback){									
+								callback : function(list, callback){
 									callback(list);
 								}
 
@@ -216,6 +216,7 @@ define(['require',"app",'jquery'
 							}
 	 					})						
 					}
+
 				});
 				/*$scope.navEdit = { //导航操作按钮
 					//nav : [selectAll],
@@ -238,7 +239,7 @@ define(['require',"app",'jquery'
 
 				function getDataList(){					
 
-					getData.news.newslist({
+					getData.news.mynewslist({
 						page : page,
 						pageSize : 20,
 						callback : function(_data){

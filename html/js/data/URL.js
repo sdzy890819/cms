@@ -72,9 +72,12 @@ define(function(require){
 			updateNewsColumn : url+'/newscolumn/updateNewsColumn',//修改新闻
 			publish : url+'/news/publish',//新闻发布
 			relationColumnList : url+'/newscolumn/relationColumnList',
+			mynewslist : url+'/news/mynewslist',//新闻列表
 			recommendColumnlist : url+'/news/recommendColumnlist',
 			recommend : url + '/news/recommend',
-			recommendNewsInfo : url + '/news/recommendNewsInfo'
+			recommendNewsInfo : url + '/news/recommendNewsInfo',
+			createRecommendColumn : url + '/news/createRecommendColumn',
+			updateRecommendColumn : url + '/news/updateRecommendColumn'			
 		},
 		category : {//部门分类
 			listCategory : url+'/category/listCategory', //获取部门分类列表

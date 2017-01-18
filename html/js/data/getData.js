@@ -595,6 +595,19 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					}
 				})
 			},
+			mynewslist : function( obj ){ //我的新闻栏目列表
+				T.ajax({
+					url : URL.news.mynewslist , 
+					type : 'get',
+					data : {
+						page:obj.page,
+						pageSize:obj.pageSize
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				})
+			},			
 			recommendColumnlist : function( obj ){
 				T.ajax({					
 					url : URL.news.recommendColumnlist , 
@@ -606,7 +619,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 			recommend : function( obj ){
 				T.ajax({					
 					url : URL.news.recommend ,
-					type : 'get' ,
+					type : 'post' ,
 					data : {
 						id : obj.id,
 						recommendTitle : obj.recommendTitle,
@@ -659,7 +672,41 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						obj.callback(_data);
 					}
 				})
-			}
+			},
+			createRecommendColumn : function(obj) {
+				T.ajax({
+					url : URL.news.createRecommendColumn , 
+					type : 'post',
+					data : {						
+						columnName:obj.columnName
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				})	
+			},
+			updateRecommendColumn : function (obj) {
+				T.ajax({
+					url : URL.news.updateRecommendColumn , 
+					type : 'post',
+					data : {
+						id:obj.id,
+						columnName:obj.columnName
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				})				
+			},
+			publish : function( obj ){
+				T.ajax({
+					url : URL.news.publish , 
+					data : {id:obj.id},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				})
+			},			
 		},
 		category : { //部门分类
 			listCategory : function( obj ){ // 部门分类列表
@@ -977,7 +1024,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 			listTemplate2 : function( obj ){
 				T.ajax({
 					url : URL.template.listTemplate2 , 
-					type:'post',
+					
 					data : {
 						"templateName":obj.templateName,
 						"filename":obj.filename,
