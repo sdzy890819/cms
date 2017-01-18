@@ -288,6 +288,7 @@ public class NewsController extends BaseController {
         news.setField5(field5);
         news.setAutoPublish(autoPublish);
         news.setPublish(publish);
+        news.setId(id);
         if(StringUtils.isNotBlank(timer)) {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(StaticContants.YYYY_MM_DD_HH_MM);
             try {
