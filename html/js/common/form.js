@@ -83,8 +83,8 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 						  		var self = this;
 						  		if(this.type=='date'){ //日期
 									layui.use('laydate', function(){});
-								}else if(this.type=='file'){
-									$scope.$css.add('../../style/stylesheets/pop.css');
+								}else if(this.type=='file'){ //上传文件
+									/*$scope.$css.add('../../style/stylesheets/pop.css');
 									require(['../js/plug/upload/upload'], function(upload) {
 				        				upload.init({
 				        					elem : '.layui-upload-button',
@@ -92,7 +92,7 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 				        					$css : $scope.$css , 
 				        					typeName : self.typeName
 				        				});
-				  					});
+				  					});*/
 								}else if(this.type=='upload'){
 									layui.use('upload', function(){
 										layui.upload({

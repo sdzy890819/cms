@@ -7,7 +7,7 @@ define(['app'],function(app){
 			    $timeout(function () {
                	 	scope.$eval( scope.$parent[attr.repeatFinish] )
                	 	scope.$emit(attr.repeatFinish, element, attr);
-			    });
+			    },200);
 			  }
 			}
 		};

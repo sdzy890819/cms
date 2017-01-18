@@ -3,7 +3,7 @@
         <div class="boxtab">
             <div class="title">
                 <div class="right-sider">
-                    <button ng-if='titelement.close==true' type="button" class="close" ng-click='close()'>&times;</button>
+                    <button type="button" class="close" ng-click='close()'>&times;</button>
                 </div>
                 <i class="icon-reorder"></i>
                 {{dataList.title}}
@@ -18,14 +18,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="layui-form-item">
-                        <label class="layui-form-label">请输入名称</label>
-                        <div class="layui-input-block">
-                            <div class="layui-input-inline">
-                                <input type="text" class="text layui-input w320" name="userName" ng-model="username" size="31" required>
-                            </div>
-                        </div>
-                    </div> -->
                     <div class="layui-form-item">
                         <div class="layui-input-block">
                             <img ng-show="myForm.file.$valid" ngf-thumbnail="picFile" class="thumb">
@@ -33,7 +25,11 @@
                         </div>
                     </div>
                     <div class="submit">
-                        <button class='btn' ng-click="uploadPic(picFile)">确定</button>
+                        <button class='btn' ng-click="uploadPic(picFile)"><i class="icon-save"></i> 确定</button>
+                        <button type="reset" class="btn cancel" ng-click='close()'>
+                            <i class="icon-minus-sign"></i>
+                            <span class="ng-binding">取消</span>
+                        </button>
                     </div>
                 </form>
             </div>

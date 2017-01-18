@@ -1442,6 +1442,24 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					}
 				});	
 			}
+		},
+		upload : {
+			uploadImage : function( obj ){ //发布
+				T.ajax({
+					url : URL.upload.uploadImage , 
+					type : 'post',
+					data : {
+						"baseCode":obj.baseCode,
+						"suffix":obj.suffix,//"文件后缀png|jpg"
+						"watermark":obj.watermark, //是否水印
+						"width":obj.width, //需要压缩的长度 可不传
+						"height":obj.height //需要压缩的高度  可不传
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});	
+			}
 		}
 	}
 	return public;
