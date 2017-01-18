@@ -1,9 +1,10 @@
 define(['require',"app",'jquery'
 	,'../data/getData' , './addForm'
 	,'../moduls/Tool','../common/editPop' , '../template/relationPop'
+	,'../upload/index'
 	,'formlist','fixedNav','position'
 	,'../moduls/service','../moduls/factory'
-], function ( require , app , $ , getData , list , Tool , editPop,relationPop ) {
+], function ( require , app , $ , getData , list , Tool , editPop,relationPop,upload ) {
 	app.directive('template2List',function(){
 		return {
 	    	restrict : 'E',
@@ -51,7 +52,7 @@ define(['require',"app",'jquery'
 					},
 					edit : function( obj ){ //保存
 						function updateData(callback){ //填充数据
-							getData.template.templateInfo({
+							getData.template.template2Info({
 								id : obj.id,
 								callback : function(_data){
 									//_data.data.releaseTime = new Date(_data.data.releaseTime).format('yyyy-MM-dd h:m:s');
@@ -116,17 +117,45 @@ define(['require',"app",'jquery'
 	 						 text:'您确定要删除"'+obj.templateName+'"吗'
 	 						,btn : ['确定','取消']
 	 						,fn : function(){
-	 							getData.template.delTemplate(obj);
+	 							getData.template.delTemplate2(obj);
 							}
 	 					})
 					},
 					down : function( obj ){
-						getData.template.downTemplate({
+						getData.template.downTemplate2({
 							id : obj.id,
 							callback : function(){
 
 							}
 						})
+					},
+					upload : function( obj ){
+						upload.init({
+        					obj : obj,
+        					data : {
+	        					title : '上传文件',
+	        					name : '请选择文件',
+	        					type : 'file',
+	        					event : function(file , $uibModalInstance){
+	        						Upload.base64DataUrl(file).then(function(urls){
+	        							getData.template.uploadTemplate({
+	        								baseCode : urls,
+	        								id : obj.id,
+	        								callback : function(_data){
+	        									layui.use(['layer'], function(){
+													var layer = layui.layer;
+													layer.msg(_data.message);
+												});
+												setTimeout(function(){
+													$uibModalInstance.dismiss('cancel');
+												},400)
+	        								}
+	        							})
+	        						});
+	        					}
+        					},
+        					$uibModal :$uibModal
+        				});
 					},
 					relation : function( obj ){ //关联
 						relationPop.init({
@@ -164,18 +193,7 @@ define(['require',"app",'jquery'
 								td : GenerateArrList.setArr(_data.data.list,th) ,
 								edit : [
 									{cls : 'down', name : '下载',evt:$scope.down},
-									{	
-										cls : 'upload', 
-										name : '上传',
-										url : URL.template.uploadTemplate,
-										ext: 'exe|dmg',
-										success : function(_data){
-											layui.use(['layer'], function(){
-												var layer = layui.layer;
-												layer.msg(_data.message);
-											});
-										}
-									},
+									{cls : 'upload', name : '上传',evt:$scope.upload}, //'exe|dmg'
 									{cls : 'add', name : '关联',evt:$scope.relation},
 									{cls : 'edit' , name : '编辑',evt:$scope.edit},
 									{cls : 'del' , name : '删除',evt:$scope.del}
@@ -200,7 +218,7 @@ define(['require',"app",'jquery'
 				});
 				
 	        }
-	        ,link : function($scope , element ){
+	        ,link : function($scope , element ,attr ){
 	        	
 	        }
 	    };

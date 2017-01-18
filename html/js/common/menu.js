@@ -44,15 +44,16 @@ define(["app",'jquery','./data/getData','./moduls/directive'], function ( app,$,
 				        		});
 				        	}
 				        	scope.menuClick = function(  i , obj , $event ){
-			        			var self = $($event.currentTarget);
+			        			var tag = $event.currentTarget,
+			        				self = $(tag);
 			        			clearMenu( i );
-			        			if(this.parentclas){
-			        				this.parentclas = false;
+			        			if(tag.parentclas){
+			        				tag.parentclas = false;
 			        				self.parent().removeClass('open')
 					        		self.find('.arrow').removeClass('cur');
 					        		self.next().slideUp("fast");
 			        			}else{
-			        				this.parentclas=true;
+			        				tag.parentclas=true;
 					        		self.parent().addClass('open')
 					        		self.find('.arrow').addClass('cur');
 					        		self.next().slideDown("fast");
@@ -65,7 +66,7 @@ define(["app",'jquery','./data/getData','./moduls/directive'], function ( app,$,
 					        	submenu.each(function( i ){ //展开当前页
 					        		var aName = $(this).attr('ui-sref'),
 					        			nameAr = name.split('.'),
-					        			len = nameAr.length-1,
+					        			len = nameAr.length-1,  //总长度
 					        			parent = $(this).parent();
 
 					        		parent.removeClass('cur');
