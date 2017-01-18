@@ -39,6 +39,7 @@ public class OperationHistoryBiz extends BaseBiz {
         Set<String> set = jedisClient.zrevrangeByScore(RedisKeyContants.REDIS_RECORD_KEY,current,0);
         List<OperationHistory> list = new ArrayList<>();
         Iterator<String> it = set.iterator();
+        log.info("获取到操作纪录条数：" + set.size());
         int a = 0;
         while(it.hasNext()){
             a ++ ;

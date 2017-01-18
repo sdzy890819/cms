@@ -26,6 +26,7 @@ public abstract class JobTask extends BaseTask {
      */
     protected boolean lock(){
         Long p = jedisClient.setnx(RedisKeyContants.getRedisLockKey(getKEY()));
+        log.info(this.getCurrentName().concat( "LOCK=" + p) );
         if( p!=null && p >0){
             return true;
         }
@@ -49,7 +50,7 @@ public abstract class JobTask extends BaseTask {
         }else{
             log.info(this.getCurrentName().concat(" 抢到执行权，开始执行。"));
         }
-        return lock();
+        return bool;
     }
 
     @Override
