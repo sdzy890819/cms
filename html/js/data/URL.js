@@ -16,7 +16,8 @@ define(function(require){
 			updatePosition : url + '/position/updatePosition',
 			delPosition : url + '/position/delPosition',
 			setUserPosition : url + '/position/setUserPosition',
-			delUserPosition : url + '/position/delUserPosition'
+			delUserPosition : url + '/position/delUserPosition',
+			listUserPosition : url + '/position/listUserPosition'//获取用户所属用户组列表
 
 		},
 		data : { //基础接口

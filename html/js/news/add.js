@@ -20,6 +20,7 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 							categoryId = this.id;
 						}
 					})
+					console.log(obj);
 					getData.news.createNews({
 						"title":obj.title,
 						"subTitle":obj.subTitle,
@@ -32,7 +33,7 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 						"categoryId": categoryId, //部门分类ID
 						"content":obj.html,
 						"autoPublish":(obj.show=='yes'?1:0), //1 是自动发布。0是不自动发布.默认不自动发布
-						"timer":obj.buildTime, //定时发布。//可不传
+						"timer":obj.writeTime, //定时发布。//可不传
 						"field1":obj.field1,
 						"field2":obj.field2,
 						"field3":obj.field3,

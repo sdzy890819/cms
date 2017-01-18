@@ -266,7 +266,46 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					},
 					error : function(){}
 				})					
-			}				
+			},
+
+			listUserPosition : function(obj){
+				T.ajax({
+					url : URL.position.listUserPosition , 
+					data : {
+						userId : obj.userId
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					},
+					error : function(){}
+				})					
+			},
+			setUserPosition : function(obj) {
+				T.ajax({
+					url : URL.position.setUserPosition , 
+					data : {
+						userId : obj.userId,
+						positionId : obj.positionId
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					},
+					error : function(){}
+				})					
+			},
+			delUserPosition : function(obj) {
+				T.ajax({
+					url : URL.position.delUserPosition, 
+					data : {
+						userId : obj.userId,
+						positionId : obj.positionId
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					},
+					error : function(){}
+				})					
+			}			
 		},
 		data : {//基础接口
 			all : function( obj ){ //当前登录用户信息接口
@@ -420,7 +459,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 			}
 		},
 		news : {
-			createNews : function( obj ){
+			createNews : function( obj ){				
 				T.ajax({
 					url : URL.news.createNews , 
 					type : 'POST',
@@ -436,7 +475,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						"categoryId": obj.categoryId, //部门分类ID
 						"content":obj.content,
 						"autoPublish":obj.autoPublish, //1 是自动发布。0是不自动发布.默认不自动发布
-						"timer":obj.timer, //定时发布。//可不传,
+						"timer":obj.timer //定时发布。//可不传,
 					},
 					success : function( _data ){
 						obj.callback(_data);
@@ -531,6 +570,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						"author":obj.author,
 						"channelId":obj.channelId,//频道ID
 						"columnId":obj.columnId,//栏目ID
+						"categoryId" : obj.categoryId,
 						"content":obj.content,
 						"id":obj.id,
 						"field1":obj.field1,

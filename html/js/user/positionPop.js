@@ -7,13 +7,13 @@ define(["app",'jquery','../data/getData', '../moduls/Tool'],function (app,$,getD
 				ariaLabelledBy: 'modal-title',
 				ariaDescribedBy: 'modal-body',
 
-				templateUrl: '../template/template/channelPop.html',				
+				templateUrl: '../template/template/positionPop.html',				
 				controller: function($scope, $state, $uibModalInstance,$css) {
 					angular.extend($scope,{
 						titelement : {
 					  		close : true
 					  	},
-					  title : '编辑用户频道列表',					  
+					  title : '编辑所属用户组',					  
 						save : function( arr ){ //保存
 							obj.save(arr,$scope.data)
 						},
@@ -25,9 +25,9 @@ define(["app",'jquery','../data/getData', '../moduls/Tool'],function (app,$,getD
 							var currentTarget = event.currentTarget;														
 
 							if (currentTarget.checked) {
-								getData.userchannel.createUserChannel({
+								getData.position.setUserPosition({
 									userId : obj.obj.userId,
-									channelId : currentTarget.dataset.id,
+									positionId : currentTarget.dataset.id,
 									callback : function(_data){
 										layui.use(['layer'], function(){
 											var layer = layui.layer;
@@ -36,9 +36,9 @@ define(["app",'jquery','../data/getData', '../moduls/Tool'],function (app,$,getD
 									}
 								})
 							}else{
-								getData.userchannel.delUserChannel({
+								getData.position.delUserPosition({
 									userId : obj.obj.userId,
-									channelId : currentTarget.dataset.id,
+									positionId : currentTarget.dataset.id,
 									callback : function(_data){
 										layui.use(['layer'], function(){
 											var layer = layui.layer;
@@ -55,18 +55,20 @@ define(["app",'jquery','../data/getData', '../moduls/Tool'],function (app,$,getD
 				  	}  			  	
 					});
 
-        	var currentUserChannelIds = [];        	
-        	getData.userchannel.userChannelIds({
+        	var currentPositionIds = [];        	
+        	getData.position.listUserPosition({        		
         		userId : obj.obj.userId,
         		callback : function(_data){        			
-        			currentUserChannelIds = _data.data;  
+        			$.each(_data.data, function(i, o){
+        				currentPositionIds.push(o.positionId);
+        			})
 
-							getData.channel.listChannel({//频道列表
+							getData.position.listPosition({
 								callback : function(_data){
 									$.each(_data.data, function(i, obj){										
-										obj.ischecked = ($.inArray(obj.id, currentUserChannelIds) != -1);										
+										obj.ischecked = ($.inArray(obj.id, currentPositionIds) != -1);										
 									})
-									$scope.listChannelData = _data.data;
+									$scope.listPositionData = _data.data;
 									
 									$scope.$apply();
 								}
