@@ -1388,9 +1388,9 @@ ngFileUpload.directive('ngfSelect', ['$parse', '$timeout', '$compile', 'Upload',
               d.resolve(urls, file);
             }
           });
-        });
+        });        
         return d.promise;
-      } else {
+      } else {                
         return upload.dataUrl(file, true);
       }
     };
@@ -1454,8 +1454,8 @@ ngFileUpload.directive('ngfSelect', ['$parse', '$timeout', '$compile', 'Upload',
                 file.$ngfDataUrl = '';
                 deferred.reject();
               });
-            };
-            fileReader.readAsDataURL(file);
+            };            
+            fileReader.readAsDataURL(file);            
           }
         } else {
           $timeout(function () {

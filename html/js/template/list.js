@@ -137,7 +137,8 @@ define(['require',"app",'jquery'
 	        					name : '请选择文件',
 	        					type : 'file',
 	        					event : function(file , $uibModalInstance){
-	        						Upload.base64DataUrl(file).then(function(urls){
+	        						Upload.base64DataUrl(file).then(function(urls){	 
+	        							urls = urls.split(',')[1];  //不要BASE64 CODE 的前缀
 	        							getData.template.uploadTemplate({
 	        								baseCode : urls,
 	        								id : obj.id,

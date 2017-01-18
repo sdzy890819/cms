@@ -966,9 +966,9 @@ ngFileUpload.directive('ngfSelect', ['$parse', '$timeout', '$compile', 'Upload',
               d.resolve(urls, file);
             }
           });
-        });
+        });               
         return d.promise;
-      } else {
+      } else {        
         return upload.dataUrl(file, true);
       }
     };
