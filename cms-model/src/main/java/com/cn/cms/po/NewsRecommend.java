@@ -41,4 +41,13 @@ public class NewsRecommend extends News {
      */
     private Integer recommend = RecommendEnum.NO.getType();
 
+    @Override
+    public Integer getSort(){
+        return super.sort;
+    }
+
+    @Override
+    public void setSort(Integer sort){
+        super.sort = sort;
+    }
 }
