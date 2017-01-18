@@ -95,7 +95,7 @@ define(function(require){
 			currentChannelList : url+'/channel/currentChannelList' 
 		},
 		upload : {//上传相关
-			uploadImage : '/upload/uploadImage' //上传图片接口
+			uploadImage : url+'/upload/uploadImage' //上传图片接口
 		},
 		images : {//图片
 			imageslist : url+'/images/imageslist',

@@ -26,7 +26,7 @@ define(["app",'./addForm','../upload/index','../data/getData','form','position',
 						Upload.base64DataUrl($scope.imageInfo).then(function(urls){
 							if( urls && ( isSize=='no' || (isSize=='yes' && selectSize=='yes' && width ) ||  (isSize=='yes' && selectSize=='no' && height)) ){
 								getData.upload.uploadImage({
-									"baseCode":urls,
+									"baseCode":urls.split(',')[1],
 									"suffix":suffix,//"文件后缀png|jpg"
 									"watermark":watermark, //是否水印
 									"width":width, //需要压缩的长度 可不传
