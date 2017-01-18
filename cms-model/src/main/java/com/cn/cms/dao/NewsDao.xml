@@ -66,11 +66,11 @@
     </sql>
 
     <sql id="recommend_sql_column">
-        id, title, description, recommend_title, recommend_description, recommend_images, recommend_column_id, recommend, recommend_user_id, url
+        id, title, description, recommend_title, recommend_description, recommend_images, recommend_column_id, recommend, recommend_user_id, url, sort
     </sql>
 
     <sql id="sql_column_simple">
-        id,title,source,author,channel_id,column_id,write_user_id,platform,category_id,publish,update_time,build_time
+        id,title,source,author,channel_id,column_id,write_user_id,platform,category_id,publish,update_time,build_time, sort
     </sql>
 
     <sql id="sql_column_simple_1">
