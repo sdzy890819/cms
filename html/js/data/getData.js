@@ -1083,11 +1083,43 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					}
 				});
 			},
-			createUserChannel:function( callback ){
-
+			createUserChannel:function( obj ){
+				T.ajax({
+					url : URL.userchannel.createUserChannel , 
+					type : 'post',
+					data : {
+						userId : obj.userId,
+						channelId : obj.channelId
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});				
 			},
-			delUserChannel:function( callback ){
-
+			delUserChannel:function( obj ){
+				T.ajax({
+					url : URL.userchannel.delUserChannel , 
+					type : 'post',
+					data : {
+						userId : obj.userId,
+						channelId : obj.channelId
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});				
+			},
+			userChannelIds : function(obj) {
+				T.ajax({
+					url : URL.userchannel.userChannelIds , 
+					type : 'get',
+					data : {
+						userId : obj.userId			
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});						
 			}
 		},
 		fragment : {

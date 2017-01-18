@@ -12,6 +12,7 @@ require.config({
         'angular-ui-router': 'plug/angular-ui-router.min',
         'angular-css':'plug/angular-css.min',
         'ui-bootstrap':'plug/ui-bootstrap-tpls-2.3.2.min',
+        'angularFileUpload':'plug/angular-file-upload.min',
 
         'layui' : 'plug/layui/layui',
         'jcrop' : 'plug/jcrop/jquery.Jcrop.min',
@@ -40,6 +41,7 @@ require.config({
         },
         'ui-bootstrap': ["angular"],
         "angularAMD": ["angular"],
+        "angularFileUpload": ["angular"],
         "ngload": ["angularAMD"]
     }
     ,urlArgs: "bust=" +  (new Date()).getTime()
@@ -50,7 +52,7 @@ define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-b
 
     //临时登录 需要删除
     // module
-    var app = angular.module("app", ["ui.router",'angularCSS','ui.bootstrap']);
+    var app = angular.module("app", ["ui.router",'angularCSS','ui.bootstrap','angularFileUpload']);
     // config
     app.config(["$stateProvider", '$urlRouterProvider','$locationProvider', function($stateProvider, $urlRouterProvider,$locationProvider){
         /*$locationProvider.html5Mode(true);*/

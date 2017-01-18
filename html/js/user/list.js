@@ -31,6 +31,15 @@ define(['require',"app",'jquery',
 	        				});
 	  					});
 					},
+
+					editUserChannel : function(obj) {
+						require(['./channelPop'], function(pop) {
+        				pop.init({
+        					obj : obj,        					
+        					$uibModal :$uibModal 
+        				});
+	  				});						
+					},
 					del : function( id ){ //删除
 						pop.alert({
 							 text:'你的ID为：'+id
@@ -50,7 +59,7 @@ define(['require',"app",'jquery',
 				function getDataList(){
 					data.user.userlist({
 						page : page,
-						pageSize: 1,
+						pageSize: 5,
 
 						callback : function(_data){
 							//分页
@@ -67,7 +76,7 @@ define(['require',"app",'jquery',
 										{name:'头像' ,  key: 'headImage', width : '200'},										
 										{name:'真实名称', key: 'realName' },
 										{name: '用户ID', key: 'userId'},
-										{name:'操作' , width : '120' , class:'center'}
+										{name:'操作' , width : '300' , class:'center'}
 							];					
 
 							$scope.listdata = { //确认按钮
@@ -77,6 +86,7 @@ define(['require',"app",'jquery',
 									th : th,
 									td : GenerateArrList.setArr(_data.data.list,th),
 									edit : [
+										{cls : 'edit' , name : '所属频道',evt:$scope.editUserChannel},
 										{cls : 'edit' , name : '编辑',evt:$scope.edit},
 										{cls : 'del' , name : '删除',evt:$scope.del}
 									]
@@ -85,9 +95,13 @@ define(['require',"app",'jquery',
 
 
 							// GenerateArrList.extendType($scope.listdata.table.td,$scope.listdata.table.th,['width','name']); //把TH 中的出name属性以外的属性合传给td							
-			        // GenerateArrList.changeTypeName($scope.listdata.table.td,[{name:'headImage',newName:'image'}]);
+			        GenerateArrList.changeTypeName($scope.listdata.table.td,[{name:'headImage',newName:'image'}]);
 			        
-			        console.log($scope.listdata.table.td);
+			        $.each($scope.listdata.table.td, function(i, obj){
+			        	obj.list[0].image = obj.headImage;
+			        	obj.list[0].name = false;
+			        })
+
 	        		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
 	        		$scope.$apply();							
 						}

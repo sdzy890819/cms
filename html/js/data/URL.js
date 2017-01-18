@@ -144,8 +144,9 @@ define(function(require){
 		userchannel : { //用户频道编辑权限
 			channelId:url+'/userchannel/list/channelId',//根据频道ID获取用户列表 
 			userId:url+'/userchannel/list/userId',//根据用户ID获取频道列表 
-			createUserChannel:url+'/userchannel/list/createUserChannel',//创建用户权限 
-			delUserChannel:url+'/userchannel/list/delUserChannel'//删除用户权限 
+			createUserChannel:url+'/userchannel/createUserChannel',//创建用户权限 
+			delUserChannel:url+'/userchannel/delUserChannel',//删除用户权限 
+			userChannelIds : url + '/userchannel/userchannelIds' // 当前用户拥有的频道
 		},
 		fragment : {
 			listFragment : url+'/fragment/listFragment', //获取碎片列表
