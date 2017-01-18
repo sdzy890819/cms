@@ -1,0 +1,57 @@
+<div class="upload">
+    <div class="boxtab">
+        <div class="title">
+            <div class="right-sider">
+                <button ng-if='titelement.close==true' type="button" class="close" ng-click='close()'>&times;</button>
+            </div>
+            <i class="icon-reorder"></i>
+            {{dataList.title}}
+        </div>
+        <div class="content clearfix">
+            <form class="layui-form clearfix">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">{{dataList.name}}</label>
+                    <div class="layui-input-block">
+                        <div class="layui-input-inline">
+                            <div class="layui-box layui-upload-button" style="cursor:pointer">
+                                <span class="layui-upload-icon"><i class="layui-icon"></i>{{dataList.title}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="submit">
+                    <div class='btn'>
+                    <i class="icon-save"></i>
+                    <span>确定</span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <form name="myForm">
+    <fieldset>
+      <legend>Upload on form submit</legend>
+      Username:
+      <input type="text" name="userName" ng-model="username" size="31" required>
+      <i ng-show="myForm.userName.$error.required">*required</i>
+      <br>Photo:
+      <input type="file" ngf-select ng-model="picFile" name="file"    
+             accept="image/*" ngf-max-size="2MB" required
+             ngf-model-invalid="errorFile">
+      <i ng-show="myForm.file.$error.required">*required</i><br>
+      <i ng-show="myForm.file.$error.maxSize">File too large 
+          {{errorFile.size / 1000000|number:1}}MB: max 2M</i>
+      <img ng-show="myForm.file.$valid" ngf-thumbnail="picFile" class="thumb"> <button ng-click="picFile = null" ng-show="picFile">Remove</button>
+      <br>
+      <button ng-disabled="!myForm.$valid" 
+              ng-click="uploadPic(picFile)">Submit</button>
+      <span class="progress" ng-show="picFile.progress >= 0">
+        <div style="width:{{picFile.progress}}%" 
+            ng-bind="picFile.progress + '%'"></div>
+      </span>
+      <span ng-show="picFile.result">Upload Successful</span>
+      <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
+    </fieldset>
+    <br>
+  </form>
+</div>
