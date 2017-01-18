@@ -1,5 +1,6 @@
 package com.cn.cms.web.interceptor;
 
+import com.alibaba.fastjson.JSONObject;
 import com.cn.cms.biz.OperationHistoryBiz;
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.logfactory.CommonLog;
@@ -19,6 +20,7 @@ import javax.servlet.http.Part;
 import java.io.BufferedReader;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Map;
 
 /**
  * 历史纪录
@@ -64,8 +66,7 @@ public class HistoryInterceptor extends HandlerInterceptorAdapter {
                     operationHistory.setDescription(checkAuth.name());
                 }
             }
-            operationHistory.setUrl(request.getContextPath() + request.getServletPath() + "?" +
-                    request.getQueryString());
+            operationHistory.setUrl(request.getRequestURL().toString());
             boolean bool = true;
             if (handler instanceof HandlerMethod) {
                 HandlerMethod hm = (HandlerMethod) handler;
@@ -75,13 +76,8 @@ public class HistoryInterceptor extends HandlerInterceptorAdapter {
                 }
             }
             if (bool) {
-                BufferedReader bufferedReader = request.getReader();
-                StringBuffer sbf = new StringBuffer();
-                String tmp = null;
-                while ((tmp = bufferedReader.readLine()) != null) {
-                    sbf.append(tmp);
-                }
-                operationHistory.setBody(sbf.toString());
+                operationHistory.setBody(JSONObject.toJSONString(request.getParameterMap()));
+
             }
             operationHistory.setUserId(CookieUtil.getCookieVal(request, StaticContants.COOKIE_USER_ID));
             operationHistoryBiz.recordRedis(operationHistory);
@@ -92,7 +88,6 @@ public class HistoryInterceptor extends HandlerInterceptorAdapter {
 
     /**
      * This implementation is empty.
-     * 纪录所有的操作纪录
      */
     @Override
     public void afterCompletion(
