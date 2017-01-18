@@ -420,4 +420,13 @@ $leftWidth : 225px;
 }
 .upload{ //上传功能
     .boxtab{ margin-top:0; }
+    .upload-file{ margin-top:6px; }
+    .layui-form-label{ width:120px; }
+    .layui-input-block{ margin-left:150px;}
+    .content{
+        padding-top:20px;
+        img{
+            &.thumb{ max-width:200px; max-height:200px;}
+        }
+    }
 }

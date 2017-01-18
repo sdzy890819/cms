@@ -1317,3 +1317,24 @@ input:focus{ border: 1px solid #bbb !important;} */
 .upload .boxtab {
   margin-top: 0;
 }
+/* line 423, ../sass/global.scss */
+.upload .upload-file {
+  margin-top: 6px;
+}
+/* line 424, ../sass/global.scss */
+.upload .layui-form-label {
+  width: 120px;
+}
+/* line 425, ../sass/global.scss */
+.upload .layui-input-block {
+  margin-left: 150px;
+}
+/* line 426, ../sass/global.scss */
+.upload .content {
+  padding-top: 20px;
+}
+/* line 429, ../sass/global.scss */
+.upload .content img.thumb {
+  max-width: 200px;
+  max-height: 200px;
+}
