@@ -246,9 +246,9 @@ public class NewsBiz extends BaseBiz {
 
     public void saveRecommendColumn(RecommendColumn p1){
         if(p1.getId()!=null && p1.getId()>0){
-            newsService.createRecommendColumn(p1);
-        }else{
             newsService.updateRecommendColumn(p1);
+        }else{
+            newsService.createRecommendColumn(p1);
         }
     }
 
