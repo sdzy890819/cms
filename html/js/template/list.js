@@ -11,7 +11,7 @@ define(['require',"app",'jquery'
 	    	replace : true,
 	    	transclude : true,
 	        templateUrl : '../template/common/list.html',
-	        controller : function($scope , pop , $uibModal , $css,GenerateArrList){
+	        controller : function($scope , pop , $uibModal , $css,GenerateArrList , Upload){
 	        	$scope.title = "模版列表";
 				$scope.$parent.menu.push({name:$scope.title}); //栏目
 				
@@ -136,9 +136,42 @@ define(['require',"app",'jquery'
 	        					title : '上传文件',
 	        					name : '请选择文件',
 	        					type : 'file',
-	        					ext : 'exe|dmg',
-	        					event : function(){
+	        					event : function(file){
+	        						Upload.base64DataUrl(file).then(function(urls){
+	        							debugger;
+	        							if(void 0 != urls ){
+			        						file.upload = Upload.upload({
+												url: 'https://angular-file-upload-cors-srv.appspot.com/upload',
+												data: {username: $scope.username, file: file},
+											});
+											file.upload.then(function (response) {
+												debugger;
+												$timeout(function () {
+													file.result = response.data;
+												});
+											}, function (response) {
+												debugger;
+												if (response.status > 0)
+													$scope.errorMsg = response.status + ': ' + response.data;
+											}, function (evt) {
+												debugger;
+												// Math.min is to fix IE which reports 200% sometimes
+												file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+											});
+	        							}else{
+	        								pop.alert({
+	        									 title : '上传失败'
+												,text:'正确的格示为：html、htm、shtml、vm、js、css、jpg、jpeg、gif、png'
+												,btn : ['确定']
+												,fn : function(index){//确定
+													layer.close(index)
+												}
+											})
+											
+	        							}
+	        						});
 	        						
+
 	        					}
         					},
         					$uibModal :$uibModal,
@@ -170,10 +203,10 @@ define(['require',"app",'jquery'
 							//{name:'模版说明' , key:'templateDesc' },
 							//{name:'文件名',width:'90' , key:'filename'},
 							//{name:'发布目录',width:'100' , key:'path'},
-							{name:'模版分类',width:'200' , key:'templateClassifyStr'},
+							{name:'模版分类', key:'templateClassifyStr'},
 							{name:'编码',width:'80',class:'center' , key:'encoded'},
 							//{name:'排序值', width:'90',class:'center' , key:'sortNum'},
-							{name:'操作' , width : '250',class:'center'}
+							{name:'操作' , width : '350',class:'center'}
 						];
 						$scope.listdata = { //确认按钮
 							title : $scope.title,

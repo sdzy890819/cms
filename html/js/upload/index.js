@@ -11,25 +11,28 @@ define(["app",'jquery','form'],function (app,$) {
 				//template : 'asdfsadf',
 				templateUrl: '../template/upload/pop.html',
 				size: 'lg',
-				controller: function($scope,$uibModalInstance,$css,Upload) {
+				controller: function($scope,$uibModalInstance,$css,Upload , $timeout) {
 					$scope.dataList = obj.data;
+					var reg = /\.(exe|rar|zip|tar|gz|dll)$/;
 					$scope.uploadPic = function(file) {
-						file.upload = Upload.upload({
-							url: 'https://angular-file-upload-cors-srv.appspot.com/upload',
-							data: {username: $scope.username, file: file},
-						});
-
-						file.upload.then(function (response) {
-							$timeout(function () {
-								file.result = response.data;
+						if(file && file.name.search(reg)<0){
+							obj.data.event(file)
+						}else{
+							layui.use(['layer'], function(){
+								var layer = layui.layer;
+								layer.alert('请上传正确的文件格示。',
+									{
+									  skin: 'layui-layer-molv' //样式类名
+									  ,title : '上传失败'
+									  ,anim: 1
+									  ,btn : ['确定']
+									  ,shadeClose : true
+									}, function(index){//确定
+										layer.close(index)
+									}
+								);
 							});
-						}, function (response) {
-							if (response.status > 0)
-								$scope.errorMsg = response.status + ': ' + response.data;
-						}, function (evt) {
-							// Math.min is to fix IE which reports 200% sometimes
-							file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-						});
+						}
 				    }
 				}
 			});
