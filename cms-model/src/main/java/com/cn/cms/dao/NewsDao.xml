@@ -170,7 +170,7 @@
                 timer=#{p1.timer},
             </if>
             <if test="p1.categoryId != null" >
-                category_id = ${p1.categoryId}
+                category_id = ${p1.categoryId},
             </if>
         last_modify_user_id=#{p1.lastModifyUserId}
         </set>

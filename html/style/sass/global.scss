@@ -351,15 +351,6 @@ $leftWidth : 225px;
         &.edit{ background:#4d90fe; color:#fff;
             &:hover{  background:#2673f1;}
         }
-        &.upload{
-            background:none; height:auto; line-height:auto; padding:0;
-        }
-    }
-    .layui-upload-button{
-        border:none; height:25px; line-height:25px; margin:0 5px;
-        &:hover{ border:none;}
-        &.layui-box{ border:1px solid #ccc;}
-        .layui-box{ border:none;}
     }
 }
 .tablist{
@@ -426,4 +417,7 @@ $leftWidth : 225px;
             }
         }
     }
+}
+.upload{ //上传功能
+    .boxtab{ margin-top:0; }
 }
