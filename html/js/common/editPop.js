@@ -18,7 +18,7 @@ define(["app",'jquery','form'],function (app,$) {
 				templateUrl: '../template/common/addAndEdit.html',
 				size: 'lg',
 				controller: function($scope,$uibModalInstance,$css) {
-					$scope.data = null;
+					$scope.data = null;					
 					angular.extend($scope,{
 						titelement : {
 					  		close : true
@@ -35,7 +35,7 @@ define(["app",'jquery','form'],function (app,$) {
 					});
 
 					getList(function(list){
-						obj.callback(list,function(_list){
+						obj.callback(list,function(_list){	
 							$scope.formdata = { //确认按钮
 								title : '编辑',
 								cls : 'popedit',

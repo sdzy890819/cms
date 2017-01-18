@@ -92,7 +92,7 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 			},
 			link : function($scope , element , arrt , controller){
 				var ele = $(element[0]);
-			  	$scope.selects = [];
+			      $scope.selects = [];
 				layui.use(['form', 'layedit', 'laydate'], function(){
 					var form = layui.form()
 				 		,layer = layui.layer
@@ -142,8 +142,8 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 						  	}
 
 						  	$.each($scope.formdata.list,function( i , obj ){
-								if($.type(obj) == 'array'){
-									$.each(obj,function(){
+								if($.type(obj) == 'array'){									
+									$.each(obj,function(){										
 										setType.call(this);
 									})
 								}else{
@@ -211,7 +211,7 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 
 							function getSelect(_obj){ //获取选择匡的option
 								var self = this;
-								$.each(self.select,function(j,arr){
+								$.each(self.select,function(j,arr){									
 									if(arr[0].title==_obj.elem.name){//请选择部门
 										var obj = arr[_obj.elem.selectedIndex];
 										//obj.elem = _obj;

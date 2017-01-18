@@ -9,7 +9,7 @@ define(function(){
 						}
 					});
 				})
-			});
+			});			
 			return extend;
 		},
       	getQueryString : function ( name ){
