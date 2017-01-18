@@ -19,8 +19,7 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 						if(this.title == 'categoryId'){
 							categoryId = this.id;
 						}
-					})
-					console.log(obj);
+					})					
 					getData.news.createNews({
 						"title":obj.title,
 						"subTitle":obj.subTitle,

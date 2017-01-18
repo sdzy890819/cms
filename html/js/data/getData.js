@@ -25,11 +25,11 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 							if(_data.code == -110 ){//未登录
 								window.location.href = '/#/login';
 								return;
-							}else if(_data.code == -111 ){ //无权限
-
+							}else if(_data.code == -111 ){ //无权限								
 							}
 							layer.confirm(_data.message, {icon: 2, title:'提示'}, function(index){
 							  layer.close(index);
+							  location.reload();
 							});
 						}
 					},
@@ -596,13 +596,41 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 				})
 			},
 			recommendColumnlist : function( obj ){
-				T.ajax({
-					alert : obj.alert,
+				T.ajax({					
 					url : URL.news.recommendColumnlist , 
 					success : function( _data ){
 						obj.callback(_data);
 					}
 				})
+			},
+			recommend : function( obj ){
+				T.ajax({					
+					url : URL.news.recommend ,
+					type : 'get' ,
+					data : {
+						id : obj.id,
+						recommendTitle : obj.recommendTitle,
+						recommendDescription : obj.recommendDescription,
+						recommendImages : obj.recommendImages,
+						recommendColumnId : obj.recommendColumnId,
+						sort : obj.sort	
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				})				
+			},
+			recommendNewsInfo : function(obj){
+				T.ajax({					
+					url : URL.news.recommendNewsInfo ,
+					type : 'get' ,
+					data : {
+						id : obj.id
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				})					
 			},
 			updateNewsColumn  : function( obj ){ //修改栏目
 				T.ajax({
