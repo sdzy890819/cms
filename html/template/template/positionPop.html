@@ -1,0 +1,33 @@
+<div class="boxtab tablist">
+	<div class="title">
+		<i class="icon-reorder"></i>
+		{{title}}
+	</div>
+	<div class="content">
+		<div class="position-pop">
+			<div class="content">
+				<div class="option" ng-if='listPositionData'>
+					<table width='100%' cellpadding="0" cellspacing="0" class="table" lay-skin="line">
+						<thead>
+							<tr class="current">
+								<th width='50' class="center">
+								选择
+								</th>
+								<th class="center" width="200">用户组名称</th>								
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat='item in listPositionData' class='position-list'>
+								<td class="center">
+									<input type='checkbox' name="position" data-id="{{item.id}}" ng-value="{{item.id}}" ng-checked="{{item.ischecked}}" ng-click='select($event)'>
+								</td>
+								<td class="center">{{item.positionName}}</td>								
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>

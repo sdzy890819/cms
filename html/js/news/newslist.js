@@ -43,6 +43,7 @@ define(['require',"app",'jquery'
 										categoryId = this.id;
 									}
 								})
+
 								getData.news.updateNews({
 									"id":_detail.id,
 									"title":obj.title,
@@ -80,7 +81,7 @@ define(['require',"app",'jquery'
 									}
 									if(obj.type=='select'){
 										obj.callback = function( _object ){
-											if(_object.title == 'categoryId'){
+											if(_object.title == 'categoryId'){												
 												getData.channel.currentChannelList({
 													categoryId : _object.obj.id,
 													callback : function(_data){
@@ -112,6 +113,52 @@ define(['require',"app",'jquery'
         					$uibModal :$uibModal 
         				});
 					},
+
+					recommend : function (obj) {
+						require(['./recommendForm'], function(recommendFormList){
+							function getAddForm(callback){
+								getData.news.recommendNewsInfo({
+									id : obj.id,
+									callback : function(_data){
+										callback(_data.data)
+									}
+								})
+							}
+							editPop.init({
+								obj : obj,
+								$uibModal : $uibModal,
+								list : recommendFormList,
+								updateData : getAddForm,
+
+								save : function(obj){									
+									getData.news.recommend({
+										id : obj.id,
+										recommendTitle : obj.recommendTitle,
+										recommendDescription : obj.recommendDescription,
+										recommendImages : obj.recommendImages,
+										recommendColumnId : obj.recommendColumnId,
+										sort : obj.sort,
+
+										callback : function(_data){
+											layui.use(['layer'], function(){
+												var layer = layui.layer;
+												layer.msg(_data.message);
+												setTimeout(function(){
+													location.reload();
+												},300);
+											});											
+										}
+									})						
+								},
+
+								callback : function(list, callback){
+									callback(list);
+								}
+
+							})
+						})
+					},
+
 					info : function( obj ){ //详情
 						pop.alert({
 	 						 text:'去相关页面，因为还没有页面所以这样提示：<br>ID为：'+obj.id
@@ -123,9 +170,11 @@ define(['require',"app",'jquery'
 							layui.use(['layer'], function(){
 								var layer = layui.layer;
 								layer.msg(_data.message);
-								setTimeout(function(){
-									location.reload();
-								},300)
+																								
+								if(_data.code == 0) {									
+									$('table').find("tr[data-id=" + obj.id + "]").hide();
+								}
+
 							});
 						};
 						pop.alert({
@@ -177,11 +226,14 @@ define(['require',"app",'jquery'
 								{name:'标题' , key:'title' , width : '200'},
 								{name:'来源' , key:'source', width : '100' , class: 'center'},
 								{name:'作者' , key:'author' , class: 'center'},
-								{name:'撰稿人' , key:'writeUserName' , class: 'center'},
+								{name:'状态' , key:'publishStr' , class: 'center'},
 								{name:'平台名称',key:'platformStr'},
-								{name:'操作' , width : '200' , class: 'center'}
+								{name:'发布时间' , key:'buildTimeStr' , class: 'center'},
+								{name:'更新时间' , key:'updateTimeStr' , class: 'center'},
+								{name:'操作' , width : '300' , class: 'center'}
 							];
-							
+
+
 							$scope.listdata = { //确认按钮
 								title : $scope.title,
 								table : {
@@ -189,6 +241,7 @@ define(['require',"app",'jquery'
 									th : th,
 									td : GenerateArrList.setArr(_data.data.list,th) ,
 									edit : [
+										{cls : 'edit' , name : ' 推荐',evt:$scope.recommend},
 										{cls : 'edit' , name : '编辑',evt:$scope.edit},
 										{cls : 'del' , name : '删除',evt:$scope.del},
 										{cls : '' , name : '详情',evt:$scope.info},
