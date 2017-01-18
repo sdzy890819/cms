@@ -12,6 +12,7 @@ import com.cn.cms.utils.Page;
 import com.cn.cms.utils.StringUtils;
 import com.cn.cms.web.ann.CheckAuth;
 import com.cn.cms.web.ann.CheckToken;
+import com.cn.cms.web.ann.NotSaveBody;
 import com.cn.cms.web.result.ApiResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -188,6 +189,7 @@ public class Template2Controller extends BaseController  {
      * @return
      * @throws BizException
      */
+    @NotSaveBody
     @CheckToken
     @CheckAuth( name = "template2:upload" )
     @RequestMapping(value = "/uploadTemplate2", method = RequestMethod.POST)
