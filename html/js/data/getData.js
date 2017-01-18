@@ -950,8 +950,8 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					url : URL.template.uploadTemplate , 
 					type:'post',
 					data : {
-						"baseCode":"文件Base64Code",
-						"id":1
+						"baseCode":obj.baseCode,
+						"id":obj.id
 					},
 					success : function( _data ){
 						obj.callback(_data);
