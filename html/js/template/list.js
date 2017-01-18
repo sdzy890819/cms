@@ -1,10 +1,10 @@
 define(['require',"app",'jquery'
 	,'../data/getData' , './addForm'
 	,'../moduls/Tool','../common/editPop' , './relationPop'
-	,'../data/URL'
+	,'../data/URL' , '../upload/index'
 	,'formlist','fixedNav','position'
 	,'../moduls/service','../moduls/factory'
-], function ( require , app , $ , getData , list , Tool , editPop,relationPop , URL ) {
+], function ( require , app , $ , getData , list , Tool , editPop,relationPop , URL , upload ) {
 	app.directive('templateList',function(){
 		return {
 	    	restrict : 'E',
@@ -129,6 +129,24 @@ define(['require',"app",'jquery'
 							}
 						})
 					},
+					upload : function( obj ){
+						upload.init({
+        					obj : obj,
+        					data : {
+	        					title : '上传文件',
+	        					name : '请选择文件',
+	        					type : 'file',
+	        					ext : 'exe|dmg',
+	        					event : function(){
+	        						
+	        					}
+        					},
+        					$uibModal :$uibModal,
+        					callback : function(){
+        						
+        					},
+        				});
+					},
 					relation : function( obj ){ //关联
 						relationPop.init({
         					obj : obj,
@@ -165,18 +183,7 @@ define(['require',"app",'jquery'
 								td : GenerateArrList.setArr(_data.data.list,th) ,
 								edit : [
 									{cls : 'down', name : '下载',evt:$scope.down},
-									{	
-										cls : 'upload', 
-										name : '上传',
-										url : URL.template.uploadTemplate,
-										ext: 'exe|dmg',
-										success : function(_data){
-											layui.use(['layer'], function(){
-												var layer = layui.layer;
-												layer.msg(_data.message);
-											});
-										}
-									},
+									{cls : 'upload', name : '上传',evt:$scope.upload}, //'exe|dmg'
 									{cls : 'add', name : '关联',evt:$scope.relation},
 									{cls : 'edit' , name : '编辑',evt:$scope.edit},
 									{cls : 'del' , name : '删除',evt:$scope.del}
