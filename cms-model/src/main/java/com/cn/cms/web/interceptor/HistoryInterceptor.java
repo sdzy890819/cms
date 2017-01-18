@@ -37,7 +37,7 @@ public class HistoryInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
-        record(request, response, handler);
+
         return true;
     }
 
@@ -48,6 +48,7 @@ public class HistoryInterceptor extends HandlerInterceptorAdapter {
     public void postHandle(
             HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView)
             throws Exception {
+        record(request, response, handler);
     }
 
 
