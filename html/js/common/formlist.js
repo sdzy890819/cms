@@ -33,7 +33,6 @@ define(["app",'jquery','./moduls/directive'], function ( app , $ ) {
 					};
 				},true);
 
-
 			},
 			link : function($scope , element , arrt , controller){
 				var ele = $(element[0]) ,
@@ -121,18 +120,7 @@ define(["app",'jquery','./moduls/directive'], function ( app , $ ) {
 					editsFinish : function(){
 						$.each($scope.data.table.edit,function( i , obj ){
 							if(obj.cls == 'upload'){
-								layui.use('upload', function(){
-									layui.upload({
-										elem : '.'+(obj.class||'layui-upload-file'),
-										url : obj.url,
-										title: obj.name||'',
-										type : obj.type||'file',
-										ext : obj.ext||'',
-										method : obj.method||'POST',
-										before : obj.before,
-										success : obj.success
-									});
-								});
+								
 							}
 						});
 					},

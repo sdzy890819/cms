@@ -28,7 +28,7 @@
 							<div ng-repeat='item in obj.list.edit' ng-click='submit(item.evt,obj,$event)' class="btn {{item.cls}}" repeat-finish='editsFinish'>
 
 								<!-- 上传 -->
-								<input ng-if='item.cls=="upload"' type="file" name="{{obj.title}}" class="layui-upload-file {{obj.class}}">
+								<input ng-if='item.cls=="upload"' type="file" name="{{obj.title}}" class="{{obj.class}}" nv-file-select="" uploader="uploader">
 
 								<span ng-if='item.cls!="upload"'>
 									<i class='icon-{{item.icon}}'></i>{{item.name}}
