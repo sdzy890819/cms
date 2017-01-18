@@ -350,7 +350,7 @@ public class NewsController extends BaseController {
      */
     @CheckToken
     @CheckAuth( name = "newsrecommend:write" )
-    @RequestMapping(value = "/recommend", method = RequestMethod.GET)
+    @RequestMapping(value = "/recommend", method = RequestMethod.POST)
     public String recommend(HttpServletRequest request ,
                             @RequestParam(value = "id") Long id,
                             @RequestParam(value = "recommendTitle") String recommendTitle,
