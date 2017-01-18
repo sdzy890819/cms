@@ -1,10 +1,10 @@
 define(['require',"app",'jquery'
 	,'../data/getData' , './addForm'
 	,'../moduls/Tool','../common/editPop' , './relationPop'
-	,'../data/URL' , '../upload/index'
+	,'../upload/index'
 	,'formlist','fixedNav','position'
 	,'../moduls/service','../moduls/factory'
-], function ( require , app , $ , getData , list , Tool , editPop,relationPop , URL , upload ) {
+], function ( require , app , $ , getData , list , Tool , editPop,relationPop , upload ) {
 	app.directive('templateList',function(){
 		return {
 	    	restrict : 'E',
@@ -136,48 +136,25 @@ define(['require',"app",'jquery'
 	        					title : '上传文件',
 	        					name : '请选择文件',
 	        					type : 'file',
-	        					event : function(file){
+	        					event : function(file , $uibModalInstance){
 	        						Upload.base64DataUrl(file).then(function(urls){
-	        							debugger;
-	        							if(void 0 != urls ){
-			        						file.upload = Upload.upload({
-												url: 'https://angular-file-upload-cors-srv.appspot.com/upload',
-												data: {username: $scope.username, file: file},
-											});
-											file.upload.then(function (response) {
-												debugger;
-												$timeout(function () {
-													file.result = response.data;
+	        							getData.template.uploadTemplate({
+	        								baseCode : urls,
+	        								id : obj.id,
+	        								callback : function(_data){
+	        									layui.use(['layer'], function(){
+													var layer = layui.layer;
+													layer.msg(_data.message);
 												});
-											}, function (response) {
-												debugger;
-												if (response.status > 0)
-													$scope.errorMsg = response.status + ': ' + response.data;
-											}, function (evt) {
-												debugger;
-												// Math.min is to fix IE which reports 200% sometimes
-												file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-											});
-	        							}else{
-	        								pop.alert({
-	        									 title : '上传失败'
-												,text:'正确的格示为：html、htm、shtml、vm、js、css、jpg、jpeg、gif、png'
-												,btn : ['确定']
-												,fn : function(index){//确定
-													layer.close(index)
-												}
-											})
-											
-	        							}
+												setTimeout(function(){
+													$uibModalInstance.dismiss('cancel');
+												},400)
+	        								}
+	        							})
 	        						});
-	        						
-
 	        					}
         					},
-        					$uibModal :$uibModal,
-        					callback : function(){
-        						
-        					},
+        					$uibModal :$uibModal
         				});
 					},
 					relation : function( obj ){ //关联

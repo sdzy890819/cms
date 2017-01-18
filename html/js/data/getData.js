@@ -950,8 +950,8 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					url : URL.template.uploadTemplate , 
 					type:'post',
 					data : {
-						"baseCode":"文件Base64Code",
-						"id":1
+						"baseCode":obj.baseCode,
+						"id":obj.id
 					},
 					success : function( _data ){
 						obj.callback(_data);
@@ -976,14 +976,46 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 			},
 			listTemplate2 : function( obj ){
 				T.ajax({
-					url : URL.template.listTemplate2 , 
-					type:'post',
+					url : URL.template.listTemplate2 ,
 					data : {
 						"templateName":obj.templateName,
 						"filename":obj.filename,
 						"path":obj.path,
 						"templateClassify":obj.templateClassify,
 						"encoded":obj.encoded
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});
+			},
+			delTemplate2 : function( obj ){
+				T.ajax({
+					url : URL.template.delTemplate2 ,
+					data : {
+						id : obj.id
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});
+			},
+			downTemplate2 : function( obj ){
+				T.ajax({
+					url : URL.template.downTemplate2 ,
+					data : {
+						id : obj.id
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});
+			},
+			template2Info : function( obj ){
+				T.ajax({
+					url : URL.template.template2Info ,
+					data : {
+						id : obj.id
 					},
 					success : function( _data ){
 						obj.callback(_data);

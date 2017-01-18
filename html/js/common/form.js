@@ -61,19 +61,6 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 					        	$css.add('../../wangEditor/dist/css/wangEditor.min.css');
 					        	textEdit.init($scope,{
 					        		callback : function(editor){
-
-					        			/*if($scope.data){
-					        				//debugger;
-								        	$timeout(function(){
-								        		try{
-								        			$scope.editor.$txt.html($scope.data.newsDetail.content||'请输入内容');
-								        		}catch(e){}
-								        	},400);
-										}else{
-											$timeout(function(){
-												$scope.editor.$txt.html('请输入内容');
-											},400)
-										}*/
 					        		}
 					        	});
 							}
@@ -81,14 +68,6 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 						return;
 					};
 				},true);
-				/*$scope.$watch(function(){
-						return $scope.data;
-					},function(){ 
-						if($scope.data){
-							
-						}
-					}
-				);*/
 			},
 			link : function($scope , element , arrt , controller){
 				var ele = $(element[0]);

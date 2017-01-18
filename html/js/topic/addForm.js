@@ -96,6 +96,7 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 		var self = obj.self;
 		if(self.type=='select'){
 			if(self.select[0][0].title==obj.title){
+				self.select[0] = [self.select[0][0]];
 				self.select[0] = self.select[0].concat(Tool.changeObjectName(obj.data.data,[{name:obj.changeName,newName:'name'}]));
 			}
 		}
