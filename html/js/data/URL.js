@@ -113,7 +113,8 @@ define(function(require){
 			createVideo : url+'/video/createVideo',//创建Video 接口
 			updateVideo : url+'/video/updateVideo',//修改Video 接口
 			delVideo : url+'/video/delVideo',//删除视频 接口
-			videolist : url+'/video/videolist'//获取视频列表 接口
+			videolist : url+'/video/videolist',//获取视频列表 接口
+			uploadVideo : url+'/video/uploadVideo'//视频上传
 		},
 		template : {
 			listTemplate : url+'/template/listTemplate',//模版列表［分页］

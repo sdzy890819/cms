@@ -95,7 +95,8 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 				  					});*/
 								}else if(this.type=='upload'){
 									layui.use('upload', function(){
-										layui.upload({
+										self.callback && self.callback(layui);
+										/*layui.upload({
 											elem : '.'+self.cls,
 											url : '/upload/uploadFile',
 											title: self.name||'',
@@ -106,7 +107,7 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 											success : function(){
 
 											}
-										});
+										});*/
 									});
 								}else if(this.type=='edit'){ //富文本
 									var html = $('.wangEditor').attr('data-html');
