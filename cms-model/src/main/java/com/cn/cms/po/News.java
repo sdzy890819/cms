@@ -1,11 +1,13 @@
 package com.cn.cms.po;
 
+import com.cn.cms.contants.StaticContants;
 import com.cn.cms.enums.PlatformEnum;
 import com.cn.cms.enums.PublishEnum;
 import com.cn.cms.enums.RecommendEnum;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -181,6 +183,26 @@ public class News extends Base{
      * 推荐人
      */
     protected String recommendUserId;
+
+    protected String updateTimeStr;
+
+    protected String buildTimeStr;
+
+    public String getUpdateTimeStr(){
+        if(updateTime!=null){
+            SimpleDateFormat sdf = new SimpleDateFormat(StaticContants.YYYY_MM_DD_HH_MM_SS);
+            return sdf.format(updateTime);
+        }
+        return " ";
+    }
+
+    public String getBuildTimeStr(){
+        if(buildTime!=null){
+            SimpleDateFormat sdf = new SimpleDateFormat(StaticContants.YYYY_MM_DD_HH_MM_SS);
+            return sdf.format(buildTime);
+        }
+        return " ";
+    }
 
     /**
      * 是否推荐

@@ -16,7 +16,8 @@ define(function(require){
 			updatePosition : url + '/position/updatePosition',
 			delPosition : url + '/position/delPosition',
 			setUserPosition : url + '/position/setUserPosition',
-			delUserPosition : url + '/position/delUserPosition'
+			delUserPosition : url + '/position/delUserPosition',
+			listUserPosition : url + '/position/listUserPosition'//获取用户所属用户组列表
 
 		},
 		data : { //基础接口
@@ -71,7 +72,9 @@ define(function(require){
 			updateNewsColumn : url+'/newscolumn/updateNewsColumn',//修改新闻
 			publish : url+'/news/publish',//新闻发布
 			relationColumnList : url+'/newscolumn/relationColumnList',
-			recommendColumnlist : url+'/news/recommendColumnlist'
+			recommendColumnlist : url+'/news/recommendColumnlist',
+			recommend : url + '/news/recommend',
+			recommendNewsInfo : url + '/news/recommendNewsInfo'
 		},
 		category : {//部门分类
 			listCategory : url+'/category/listCategory', //获取部门分类列表

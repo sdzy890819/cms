@@ -23,13 +23,6 @@ define(['require',"app",'jquery',
 						})
 					},
 					edit : function( obj ){ //保存
-						require(['../common/editPop'], function(pop) {
-	        				pop.init({
-	        					obj : obj,
-	        					list : list,
-	        					$uibModal :$uibModal 
-	        				});
-	  					});
 					},
 
 					editUserChannel : function(obj) {
@@ -40,6 +33,15 @@ define(['require',"app",'jquery',
         				});
 	  				});						
 					},
+					editUserPosition : function(obj) {
+						require(['./positionPop'], function(pop) {
+        				pop.init({
+        					obj : obj,        					
+        					$uibModal :$uibModal 
+        				});
+	  				});	
+					},
+
 					del : function( id ){ //删除
 						pop.alert({
 							 text:'你的ID为：'+id
@@ -87,7 +89,7 @@ define(['require',"app",'jquery',
 									td : GenerateArrList.setArr(_data.data.list,th),
 									edit : [
 										{cls : 'edit' , name : '所属频道',evt:$scope.editUserChannel},
-										{cls : 'edit' , name : '编辑',evt:$scope.edit},
+										{cls : 'edit' , name : '用户组',evt:$scope.editUserPosition},
 										{cls : 'del' , name : '删除',evt:$scope.del}
 									]
 								}
