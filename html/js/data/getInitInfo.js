@@ -1,4 +1,4 @@
-define(['./URL','./loginAndOut','jquery','./getData'],function(URL , user ,$ , getData){
+define(['./URL','./loginAndOut','jquery','./getData'],function(URL , user ,$ , getData){	
 	if(!window.quanjing){
 		var quanjing = {
 			user : null //登录信息
@@ -6,7 +6,7 @@ define(['./URL','./loginAndOut','jquery','./getData'],function(URL , user ,$ , g
 		window.quanjing = quanjing;
 	}
 	var info = {
-		init : function(){
+		init : function(){			
 			info.getAllInfo();
 		},
 		login : function( obj ){

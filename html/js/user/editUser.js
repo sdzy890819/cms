@@ -26,8 +26,7 @@ define(["app",'jquery', '../upload/index', '../data/getData','form'],function (a
 							if (_obj.headImage){
 								var	suffix = _obj.headImage.split('.')[1];	
 							}
-							
-							console.log(_obj);
+														
 							function alert(content){
 								layui.use(['layer'], function(){
 									var layer = layui.layer;

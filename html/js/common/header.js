@@ -1,4 +1,4 @@
-define(["app",'require','./data/getInitInfo'], function ( app , require , dataInfo ) {
+define(["app",'require','./data/getInitInfo', './data/getData'], function ( app , require , dataInfo, data ) {
 	app.directive('headerNav',function(){
 		return {
 	    	restrict : 'E',
@@ -6,6 +6,14 @@ define(["app",'require','./data/getInitInfo'], function ( app , require , dataIn
 	    	transclude : true,
 	        templateUrl : '../template/common/header.html',
 	        controller : function($scope, $uibModal){
+
+						data.user.currentUser({
+							callback : function(_data){
+								$scope.currentUser =_data;								
+								console.log($scope.currentUser);
+							}
+						})	 	        	
+	        	
 	        	angular.extend($scope,{
 	        		loginOut : function(){
 	        			dataInfo.loginOut();
@@ -13,14 +21,10 @@ define(["app",'require','./data/getInitInfo'], function ( app , require , dataIn
 
 	        		editUser : function(obj){
         				
-        				require([ './user/editUser', './user/addForm', './data/getData'], function(pop, list, data){
+        				require([ './user/editUser', './user/addForm'], function(pop, list){
 	        					        				
 	        				function getAddForm(callback){
-										data.user.currentUser({
-											callback : function(_data){
-												callback(_data);
-											}
-										})	        					
+       							callback($scope.currentUser);
 	        				}
 
 	        				pop.init({	  
