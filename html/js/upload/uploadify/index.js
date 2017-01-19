@@ -25,6 +25,7 @@ define(["app",'jquery','../../data/URL'],function (app,$,URL) {
 				setTimeout(function(){
 				    $('#file_upload').uploadify({
 				        'swf'      : '/js/upload/uploadify/uploadify.swf',
+				        "fileObjName" : 'file',
 				        'uploader' : URL.video.uploadVideo2
 				        // Put your options here
 				    });
