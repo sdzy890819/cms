@@ -242,7 +242,7 @@ public class TongjiClient {
             data.setSumIp(sum.getJSONArray(0).getLong(3));
             String[] keys = new String[result.getJSONArray("items").getJSONArray(0).size()];
             for(int i=0;i<keys.length;i++){
-                keys[i] = result.getJSONArray("items").getJSONArray(0).getString(i);
+                keys[i] = result.getJSONArray("items").getJSONArray(0).getJSONArray(0).getString(i);
             }
             data.setKey(keys);
             JSONArray tmp = result.getJSONArray("items").getJSONArray(1);
