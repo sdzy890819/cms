@@ -193,7 +193,8 @@ public class UserBiz extends BaseBiz{
         user.setLastModifyUserId(lastModifyUserId);
         user.setRealName(realName);
         user.setHeadImage(headImage);
-        user.setPwd(EncryptUtil.encryptPwd(user.getUserName(),pwd));
+        User old = userService.findUser(userId);
+        user.setPwd(EncryptUtil.encryptPwd(old.getUserName(),pwd));
         userService.updateUser(user);
         refreshUserCache(user);
     }
