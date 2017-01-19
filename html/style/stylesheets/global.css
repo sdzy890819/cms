@@ -861,42 +861,49 @@ input:focus{ border: 1px solid #bbb !important;} */
   background: #c80000;
 }
 /* line 277, ../sass/global.scss */
+.boxtab .uploadify-button {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: #3d82e1;
+  color: #fff;
+}
+/* line 278, ../sass/global.scss */
 .boxtab.popedit {
   margin-top: 0;
 }
-/* line 278, ../sass/global.scss */
+/* line 279, ../sass/global.scss */
 .boxtab .w100 {
   width: 100%;
 }
-/* line 279, ../sass/global.scss */
+/* line 280, ../sass/global.scss */
 .boxtab .w120 {
   width: 120px;
 }
-/* line 280, ../sass/global.scss */
+/* line 281, ../sass/global.scss */
 .boxtab .w220 {
   width: 220px;
 }
-/* line 281, ../sass/global.scss */
+/* line 282, ../sass/global.scss */
 .boxtab .w320 {
   width: 320px;
 }
 
-/* line 283, ../sass/global.scss */
+/* line 284, ../sass/global.scss */
 .form-horizontal {
   padding: 20px;
 }
-/* line 284, ../sass/global.scss */
+/* line 285, ../sass/global.scss */
 .form-horizontal .control-group {
   margin-bottom: 20px;
   overflow: hidden;
 }
-/* line 285, ../sass/global.scss */
+/* line 286, ../sass/global.scss */
 .form-horizontal .control-group:before {
   display: table;
   line-height: 0;
   content: "";
 }
-/* line 286, ../sass/global.scss */
+/* line 287, ../sass/global.scss */
 .form-horizontal .control-group .control-label {
   float: left;
   width: 160px;
@@ -909,16 +916,16 @@ input:focus{ border: 1px solid #bbb !important;} */
   margin-bottom: 5px;
   margin-top: 2px;
 }
-/* line 287, ../sass/global.scss */
+/* line 288, ../sass/global.scss */
 .form-horizontal .control-group .controls {
   margin-left: 180px;
   font-size: 13px;
 }
-/* line 288, ../sass/global.scss */
+/* line 289, ../sass/global.scss */
 .form-horizontal .control-group input.text {
   border: 1px solid #e5e5e5;
 }
-/* line 289, ../sass/global.scss */
+/* line 290, ../sass/global.scss */
 .form-horizontal .control-group .help-inline {
   display: inline-block;
   margin-left: 5px;
@@ -927,7 +934,7 @@ input:focus{ border: 1px solid #bbb !important;} */
   font-size: 13px;
   color: #595959;
 }
-/* line 290, ../sass/global.scss */
+/* line 291, ../sass/global.scss */
 .form-horizontal .control-group select {
   padding: 4px 6px;
   display: inline-block;
@@ -942,34 +949,34 @@ input:focus{ border: 1px solid #bbb !important;} */
   font-size: 14px;
   vertical-align: top;
 }
-/* line 291, ../sass/global.scss */
+/* line 292, ../sass/global.scss */
 .form-horizontal .control-group select:not(:nth-child(1)) {
   margin-left: 10px;
 }
-/* line 293, ../sass/global.scss */
+/* line 294, ../sass/global.scss */
 .form-horizontal .control-group textarea {
   width: 80%;
   max-width: 500px;
   min-height: 50px;
 }
-/* line 294, ../sass/global.scss */
+/* line 295, ../sass/global.scss */
 .form-horizontal .control-group .clear {
   clear: both;
   overflow: hidden;
 }
-/* line 295, ../sass/global.scss */
+/* line 296, ../sass/global.scss */
 .form-horizontal .control-group .item {
   float: left;
 }
-/* line 296, ../sass/global.scss */
+/* line 297, ../sass/global.scss */
 .form-horizontal .control-group .item .control-label.next {
   width: 80px;
 }
-/* line 297, ../sass/global.scss */
+/* line 298, ../sass/global.scss */
 .form-horizontal .control-group .item .controls.next {
   margin-left: 100px;
 }
-/* line 299, ../sass/global.scss */
+/* line 300, ../sass/global.scss */
 .form-horizontal .control-group em {
   padding-right: 5px;
   color: #e50000;
@@ -977,44 +984,44 @@ input:focus{ border: 1px solid #bbb !important;} */
 }
 
 /*layui相关*/
-/* line 303, ../sass/global.scss */
+/* line 304, ../sass/global.scss */
 .layui-form {
   padding-top: 20px;
 }
-/* line 304, ../sass/global.scss */
+/* line 305, ../sass/global.scss */
 .layui-form textarea.w80 {
   width: 80%;
   max-width: 600px;
   min-height: 50px;
 }
-/* line 305, ../sass/global.scss */
+/* line 306, ../sass/global.scss */
 .layui-form em {
   padding-right: 5px;
   color: #e50000;
   vertical-align: middle;
 }
-/* line 306, ../sass/global.scss */
+/* line 307, ../sass/global.scss */
 .layui-form .layui-form-label {
   width: 120px;
 }
-/* line 307, ../sass/global.scss */
+/* line 308, ../sass/global.scss */
 .layui-form .layui-input-block {
   margin-left: 150px;
 }
-/* line 308, ../sass/global.scss */
+/* line 309, ../sass/global.scss */
 .layui-form .date {
   cursor: pointer;
 }
-/* line 310, ../sass/global.scss */
+/* line 311, ../sass/global.scss */
 .layui-form .layui-form-item .layui-input-inline {
   width: auto;
 }
-/* line 314, ../sass/global.scss */
+/* line 315, ../sass/global.scss */
 .layui-form .layui-inline .layui-form-label.inline {
   width: auto;
 }
 
-/* line 319, ../sass/global.scss */
+/* line 320, ../sass/global.scss */
 .table table {
   width: 100%;
   border-left: 1px solid #ddd;
@@ -1025,14 +1032,14 @@ input:focus{ border: 1px solid #bbb !important;} */
   -o-box-sizing: border-box;
   -ms-box-sizing: border-box;
 }
-/* line 320, ../sass/global.scss */
+/* line 321, ../sass/global.scss */
 .table img.img {
   vertical-align: middle;
   width: 20px;
   height: 20px;
   border-radius: 100%;
 }
-/* line 321, ../sass/global.scss */
+/* line 322, ../sass/global.scss */
 .table th {
   text-align: left;
   padding: 5px;
@@ -1041,11 +1048,11 @@ input:focus{ border: 1px solid #bbb !important;} */
   border-right: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
 }
-/* line 322, ../sass/global.scss */
+/* line 323, ../sass/global.scss */
 .table th.center {
   text-align: center;
 }
-/* line 324, ../sass/global.scss */
+/* line 325, ../sass/global.scss */
 .table td {
   text-align: left;
   padding: 5px;
@@ -1053,41 +1060,41 @@ input:focus{ border: 1px solid #bbb !important;} */
   border-right: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
 }
-/* line 325, ../sass/global.scss */
+/* line 326, ../sass/global.scss */
 .table td.center {
   text-align: center;
 }
-/* line 326, ../sass/global.scss */
+/* line 327, ../sass/global.scss */
 .table td.edits {
   text-align: center;
 }
-/* line 327, ../sass/global.scss */
+/* line 328, ../sass/global.scss */
 .table td a {
   color: #488be7;
 }
-/* line 328, ../sass/global.scss */
+/* line 329, ../sass/global.scss */
 .table td a:hover {
   text-decoration: underline;
 }
-/* line 332, ../sass/global.scss */
+/* line 333, ../sass/global.scss */
 .table tr:nth-child(odd) {
   background: #f8f8f8;
 }
-/* line 333, ../sass/global.scss */
+/* line 334, ../sass/global.scss */
 .table tr:hover {
   background: #f2f2f2;
 }
-/* line 336, ../sass/global.scss */
+/* line 337, ../sass/global.scss */
 .table tr.special td {
   background: #FF9900;
   color: #fff;
 }
-/* line 340, ../sass/global.scss */
+/* line 341, ../sass/global.scss */
 .table .select {
   width: 20px;
   text-align: center;
 }
-/* line 342, ../sass/global.scss */
+/* line 343, ../sass/global.scss */
 .table .btn {
   display: inline-block;
   margin-left: 1px;
@@ -1102,70 +1109,70 @@ input:focus{ border: 1px solid #bbb !important;} */
   -o-transition-duration: 0.3s;
   -ms-transition-duration: 0.3s;
 }
-/* line 343, ../sass/global.scss */
+/* line 344, ../sass/global.scss */
 .table .btn i {
   margin-right: 3px;
 }
-/* line 344, ../sass/global.scss */
+/* line 345, ../sass/global.scss */
 .table .btn.add {
   background: #f24400;
   color: #fff;
 }
-/* line 345, ../sass/global.scss */
+/* line 346, ../sass/global.scss */
 .table .btn.add:hover {
   background: #da0000;
 }
-/* line 347, ../sass/global.scss */
+/* line 348, ../sass/global.scss */
 .table .btn.del {
   background: #f24400;
   color: #fff;
 }
-/* line 348, ../sass/global.scss */
+/* line 349, ../sass/global.scss */
 .table .btn.del:hover {
   background: #da0000;
 }
-/* line 351, ../sass/global.scss */
+/* line 352, ../sass/global.scss */
 .table .btn.edit {
   background: #4d90fe;
   color: #fff;
 }
-/* line 352, ../sass/global.scss */
+/* line 353, ../sass/global.scss */
 .table .btn.edit:hover {
   background: #2673f1;
 }
 
-/* line 356, ../sass/global.scss */
+/* line 357, ../sass/global.scss */
 .tablist {
   margin-top: 0;
 }
-/* line 358, ../sass/global.scss */
+/* line 359, ../sass/global.scss */
 .tablist .submit {
   padding-left: 25px;
 }
 
-/* line 361, ../sass/global.scss */
+/* line 362, ../sass/global.scss */
 .page .paginationjs {
   padding-top: 20px;
   text-align: right;
   font-size: 0;
 }
-/* line 362, ../sass/global.scss */
+/* line 363, ../sass/global.scss */
 .page .paginationjs .paginationjs-pages {
   display: inline-block;
   vertical-align: top;
 }
-/* line 364, ../sass/global.scss */
+/* line 365, ../sass/global.scss */
 .page .paginationjs .paginationjs-pages ul {
   display: inline-block;
   height: 30px;
   border-radius: 4px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
-/* line 365, ../sass/global.scss */
+/* line 366, ../sass/global.scss */
 .page .paginationjs .paginationjs-pages li {
   display: inline-block;
 }
-/* line 366, ../sass/global.scss */
+/* line 367, ../sass/global.scss */
 .page .paginationjs .paginationjs-pages li a {
   float: left;
   padding: 4px 12px;
@@ -1176,36 +1183,36 @@ input:focus{ border: 1px solid #bbb !important;} */
   font-size: 12px;
   color: #999;
 }
-/* line 367, ../sass/global.scss */
+/* line 368, ../sass/global.scss */
 .page .paginationjs .paginationjs-pages li a:hover {
   background: #eee;
 }
-/* line 369, ../sass/global.scss */
+/* line 370, ../sass/global.scss */
 .page .paginationjs .paginationjs-pages li:not(:first-child) a {
   border-left: none;
 }
-/* line 370, ../sass/global.scss */
+/* line 371, ../sass/global.scss */
 .page .paginationjs .paginationjs-pages li.active a {
   background: #eee;
 }
-/* line 373, ../sass/global.scss */
+/* line 374, ../sass/global.scss */
 .page .paginationjs .paginationjs-go-input {
   display: inline-block;
   vertical-align: top;
   padding-left: 10px;
 }
-/* line 374, ../sass/global.scss */
+/* line 375, ../sass/global.scss */
 .page .paginationjs .paginationjs-go-input input[type='text'] {
   width: 30px;
   height: 16px;
   line-height: 16px;
 }
-/* line 376, ../sass/global.scss */
+/* line 377, ../sass/global.scss */
 .page .paginationjs .paginationjs-go-button {
   display: inline-block;
   vertical-align: top;
 }
-/* line 377, ../sass/global.scss */
+/* line 378, ../sass/global.scss */
 .page .paginationjs .paginationjs-go-button .J-paginationjs-go-button {
   height: 30px;
   line-height: 30px;
@@ -1216,28 +1223,28 @@ input:focus{ border: 1px solid #bbb !important;} */
   background: #fff;
   cursor: pointer;
 }
-/* line 378, ../sass/global.scss */
+/* line 379, ../sass/global.scss */
 .page .paginationjs .paginationjs-go-button .J-paginationjs-go-button:hover {
   background: #eee;
 }
 
-/* line 385, ../sass/global.scss */
+/* line 386, ../sass/global.scss */
 .news.edit .boxtab {
   margin-top: 0;
 }
 
-/* line 388, ../sass/global.scss */
+/* line 389, ../sass/global.scss */
 .iframe {
   border: none;
   margin: 0;
   padding: 0;
 }
 
-/* line 391, ../sass/global.scss */
+/* line 392, ../sass/global.scss */
 .relationPopsuper .modal-dialog {
   width: 500px;
 }
-/* line 393, ../sass/global.scss */
+/* line 394, ../sass/global.scss */
 .relationPopsuper .relation-pop .relation-title {
   background: #488be7;
   height: 35px;
@@ -1245,7 +1252,7 @@ input:focus{ border: 1px solid #bbb !important;} */
   padding-left: 15px;
   color: #fff;
 }
-/* line 395, ../sass/global.scss */
+/* line 396, ../sass/global.scss */
 .relationPopsuper .relation-pop .relation-title .close {
   float: right;
   padding: 0 5px;
@@ -1253,17 +1260,17 @@ input:focus{ border: 1px solid #bbb !important;} */
   color: #fff;
   cursor: pointer;
 }
-/* line 397, ../sass/global.scss */
+/* line 398, ../sass/global.scss */
 .relationPopsuper .relation-pop .container {
   margin: 20px;
   overflow: hidden;
 }
-/* line 399, ../sass/global.scss */
+/* line 400, ../sass/global.scss */
 .relationPopsuper .relation-pop .container .title {
   padding-bottom: 35px;
   border-bottom: 1px solid #ccc;
 }
-/* line 401, ../sass/global.scss */
+/* line 402, ../sass/global.scss */
 .relationPopsuper .relation-pop .container .title li {
   float: left;
   width: 103px;
@@ -1273,35 +1280,35 @@ input:focus{ border: 1px solid #bbb !important;} */
   text-align: center;
   border-right: 1px solid #ccc;
 }
-/* line 402, ../sass/global.scss */
+/* line 403, ../sass/global.scss */
 .relationPopsuper .relation-pop .container .title li:last-child, .relationPopsuper .relation-pop .container .title li .last {
   border-right: none;
 }
-/* line 403, ../sass/global.scss */
+/* line 404, ../sass/global.scss */
 .relationPopsuper .relation-pop .container .title li.current {
   background: #3597f2;
   color: #fff;
 }
-/* line 406, ../sass/global.scss */
+/* line 407, ../sass/global.scss */
 .relationPopsuper .relation-pop .container .content {
   padding-top: 20px;
 }
-/* line 408, ../sass/global.scss */
+/* line 409, ../sass/global.scss */
 .relationPopsuper .relation-pop .container .content .table {
   border-left: 1px solid #ccc;
   border-top: 1px solid #ccc;
 }
-/* line 409, ../sass/global.scss */
+/* line 410, ../sass/global.scss */
 .relationPopsuper .relation-pop .container .content .table th, .relationPopsuper .relation-pop .container .content .table td {
   padding: 5px;
   border-right: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
 }
-/* line 414, ../sass/global.scss */
+/* line 415, ../sass/global.scss */
 .relationPopsuper .relation-pop .container .submit {
   padding: 0 20px 20px;
 }
-/* line 416, ../sass/global.scss */
+/* line 417, ../sass/global.scss */
 .relationPopsuper .relation-pop .container .submit .btn {
   display: inline-block;
   height: 25px;
@@ -1313,27 +1320,27 @@ input:focus{ border: 1px solid #bbb !important;} */
   color: #fff;
 }
 
-/* line 422, ../sass/global.scss */
+/* line 423, ../sass/global.scss */
 .upload .boxtab {
   margin-top: 0;
 }
-/* line 423, ../sass/global.scss */
+/* line 424, ../sass/global.scss */
 .upload .upload-file {
   margin-top: 6px;
 }
-/* line 424, ../sass/global.scss */
+/* line 425, ../sass/global.scss */
 .upload .layui-form-label {
   width: 120px;
 }
-/* line 425, ../sass/global.scss */
+/* line 426, ../sass/global.scss */
 .upload .layui-input-block {
   margin-left: 150px;
 }
-/* line 426, ../sass/global.scss */
+/* line 427, ../sass/global.scss */
 .upload .content {
   padding-top: 20px;
 }
-/* line 429, ../sass/global.scss */
+/* line 430, ../sass/global.scss */
 .upload .content img.thumb {
   max-width: 200px;
   max-height: 200px;
