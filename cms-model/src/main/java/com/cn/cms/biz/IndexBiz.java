@@ -15,21 +15,7 @@ import java.util.Calendar;
 @Component
 public class IndexBiz extends BaseBiz {
 
-    @Resource
-    private TongjiClient tongjiClient;
 
 
-    public TongjiData indexData() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-        Calendar calendar = Calendar.getInstance();
-        String endDate = sdf.format(calendar.getTime());
-        calendar.add(Calendar.DAY_OF_MONTH, -14);
-        String startDate = sdf.format(calendar.getTime());
-        try {
-            return tongjiClient.getDate(startDate, endDate);
-        } catch (Exception e) {
-            log.error("获取统计数据失败. ", e);
-        }
-        return null;
-    }
+
 }

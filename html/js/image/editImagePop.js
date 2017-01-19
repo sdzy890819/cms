@@ -15,7 +15,7 @@ define(["app",'jquery', '../upload/index', '../data/getData','form'],function (a
 				ariaDescribedBy: 'modal-body',
 				templateUrl: '../template/common/addAndEdit.html',
 				size: 'lg',
-				controller: function($scope,$uibModalInstance,$css, Upload) {
+				controller: function($scope,$uibModalInstance,$css, Upload, $state) {
 					$scope.data = null;					
 					angular.extend($scope,{
 						titelement : {
@@ -48,7 +48,8 @@ define(["app",'jquery', '../upload/index', '../data/getData','form'],function (a
 									callback : function(_data){
 										layui.use(['layer'], function(){
 											var layer = layui.layer;
-											layer.msg(_data.message);												
+											layer.msg(_data.message);		
+											$state.reload();										
 										});												
 									}
 								})								
@@ -83,6 +84,7 @@ define(["app",'jquery', '../upload/index', '../data/getData','form'],function (a
 														layui.use(['layer'], function(){
 															var layer = layui.layer;
 															layer.msg(_data.message);												
+															$state.reload();
 														});												
 													}
 												})

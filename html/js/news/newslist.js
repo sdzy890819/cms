@@ -263,13 +263,13 @@ define(['require',"app",'jquery'
 								{name:'更新时间' , key:'updateTimeStr' , class: 'center'},
 								{name:'操作' , width : '300' , class: 'center'}
 							];
-
-
+							
+					
 							$scope.listdata = { //确认按钮
 								title : $scope.title,
 								table : {
 									select : true,
-									th : th,
+									th : th,									
 									td : GenerateArrList.setArr(_data.data.list, th) ,
 									edit : [
 										{cls : 'edit' , name : ' 推荐',evt:$scope.recommend},
@@ -294,6 +294,7 @@ define(['require',"app",'jquery'
 									}
 								]*/
 							}
+
 
 							GenerateArrList.extendType($scope.listdata.table.td,th,['width','name','key']); //把TH 中的出name,key,width属性以外的属性合传给td
 							
