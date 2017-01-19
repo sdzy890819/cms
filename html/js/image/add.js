@@ -79,8 +79,8 @@ define(["app",'./addForm','../upload/index','../data/getData','form','position',
 	        					event : function(file , $uibModalInstance){	        						
 	        						$scope.imageInfo = file;	     
 											Upload.base64DataUrl($scope.imageInfo).then(function(urls){	        						   						
-		        						var image = "<img src='" + file.$ngfDataUrl + "' width='100'>";	        						
-		        						$('.layui-upload-icon').empty().append(image);												
+		        						var image = "<img src='" + file.$ngfDataUrl + "'width='100px' class='thumb'>";	        						
+		        						$('.layui-upload-button').empty().append(image);												
 											})
 	        						
 	        						$uibModalInstance.dismiss('cancel');

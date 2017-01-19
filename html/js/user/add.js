@@ -22,6 +22,7 @@ define(["app",'./addForm', '../upload/index', '../data/getData','form','position
 										getData.upload.uploadImage({
 											"baseCode":urls.split(',')[1],
 											"suffix":suffix,//"文件后缀png|jpg"
+											"width" : 100,											
 
 											callback : function(_data) {
 												var data = _data.data;
@@ -93,8 +94,8 @@ define(["app",'./addForm', '../upload/index', '../data/getData','form','position
 			        					event : function(file , $uibModalInstance){	        						
 			        						$scope.imageInfo = file;	     
 													Upload.base64DataUrl($scope.imageInfo).then(function(urls){	        						   						
-				        						var image = "<img src='" + file.$ngfDataUrl + "' width='100'>";	        						
-				        						$('.layui-upload-icon').empty().append(image);												
+				        						var image = "<img src='" + file.$ngfDataUrl + "'width='100px' class='thumb'>";	        						
+				        						$('.layui-upload-button').empty().append(image);												
 													})
 			        						
 			        						$uibModalInstance.dismiss('cancel');

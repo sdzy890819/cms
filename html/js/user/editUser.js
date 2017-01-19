@@ -22,16 +22,11 @@ define(["app",'jquery', '../upload/index', '../data/getData','form'],function (a
 					  		close : true
 					  	},
 						save : function( newData ){ //保存
-							var _obj = obj.obj
-
-							var watermark = (_obj.watermark=='yes'?1:0), //水印
-								isSize = newData.isSize , //是否等比缩放
-								selectSize = newData.selectSize , //选择宽还是高
-								width = newData.imageWidth , 
-								height = newData.imageHeight,
-								title = newData.title,
-								suffix = _obj.imageUrl.split('.')[1];
-
+							var _obj = $scope.data;
+							if (_obj.headImage){
+								var	suffix = _obj.headImage.split('.')[1];	
+							}
+														
 							function alert(content){
 								layui.use(['layer'], function(){
 									var layer = layui.layer;
@@ -40,51 +35,41 @@ define(["app",'jquery', '../upload/index', '../data/getData','form'],function (a
 							}
 
 							if($scope.imageInfo == undefined){
-								getData.image.updateImages({
-									id : _obj.id,
-									imageUrl : _obj.imageUrl,
-									imageTitle : newData.title,									
+								console.log(_obj.userId);
+								getData.user.updateUser({
+									userId : _obj.userId,
+									headImage : _obj.headImage,
+									realName : newData.realName,
+									pwd : newData.pwd,						
 								
 									callback : function(_data){
 										layui.use(['layer'], function(){
 											var layer = layui.layer;
-											layer.msg(_data.message);		
-											$state.reload();										
+											layer.msg(_data.message);										
 										});												
 									}
 								})								
 							}else{ //图片有变动就继续走上传
 								var suffix = $scope.imageInfo.name.match(/\w+$/)[0];
 								Upload.base64DataUrl($scope.imageInfo).then(function(urls){
-									if( urls && ( isSize=='no' || (isSize=='yes' && selectSize=='yes' && width ) ||  (isSize=='yes' && selectSize=='no' && height)) ){
+									if( urls ){
 										getData.upload.uploadImage({
 											"baseCode":urls.split(',')[1],
-											"suffix":suffix,//"文件后缀png|jpg"
-											"watermark":watermark, //是否水印
-											"width":width, //需要压缩的长度 可不传
-											"height":height, //需要压缩的高度  可不传
+											"suffix":suffix,//"文件后缀png|jpg"											
+											"width": 100, //需要压缩的长度 可不传											
 
 											callback : function(_data) {
 												var data = _data.data;
-												getData.image.updateImages({
-													id : _obj.id,
-													imageUrl : data.imageUrl,
-													imageWidthPixel : data.imageWidthPixel, 
-													imageHeightPixel : data.imageHeightPixel, // 图片宽像素  图片上传接口返回
-													orgWidthPixel : data.orgWidthPixel, //原始长像素  图片上传接口返回
-													orgHeightPixel : data.orgHeightPixel, //原始宽像素  图片上传接口返回
-													imageTitle : title,
-													imagePath : data.imagePath,
-													watermark : data.watermark, //是否水印 1、0
-													compress : data.compress, //是否压缩
-													fid : data.fid, //图片上传接口返回
-													size : data.size, //图片上传接口返回
+												getData.user.updateUser({													
+													headImage : data.imageUrl,
+													realName : newData.realName,
+													pwd : newData.pwd,
+													userId : _obj.userId,
 
 													callback : function(_data){
 														layui.use(['layer'], function(){
 															var layer = layui.layer;
-															layer.msg(_data.message);												
-															$state.reload();
+															layer.msg(_data.message);																											
 														});												
 													}
 												})
@@ -148,7 +133,7 @@ define(["app",'jquery', '../upload/index', '../data/getData','form'],function (a
 		        						console.log(file)     ;
 												Upload.base64DataUrl($scope.imageInfo).then(function(urls){	        						   						
 			        						var image = "<img src='" + file.$ngfDataUrl + "'width='100px' class='thumb'>";	        						
-			        						$('.layui-upload-button').empty().append(image);											
+			        						$('.layui-upload-button').empty().append(image);												
 												})
 		        						
 		        						$uibModalInstance.dismiss('cancel');
