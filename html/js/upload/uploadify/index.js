@@ -1,4 +1,6 @@
 define(["app",'jquery','../../data/URL'],function (app,$,URL) {
+/*	在页面定义个隐藏域<input id="sessionId" type="hidden" value="${pageContext.session.id}"/> 
+然后上传的url写成'uploader' : contextPath + '/userfileuploading/uploadFile;jsessionid=' + $("#sessionId").val(),// 这个地方写后台java路径*/
     return {
     	init : function( obj ){
 			var $uibModal = obj.$uibModal;
