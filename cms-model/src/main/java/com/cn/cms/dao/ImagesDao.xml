@@ -80,13 +80,13 @@
           compress=${p1.compress},
           </if>
           <if test="p1.platform != null ">
-          platform=${p1.platform},
+          platform=#{p1.platform},
           </if>
           <if test="p1.fid != null ">
-              fid=${p1.fid},
+              fid=#{p1.fid},
           </if>
           <if test="p1.size != null ">
-              `size`=${p1.size},
+              `size`=#{p1.size},
           </if>
           last_modify_user_id=#{p1.lastModifyUserId}
       </set>
