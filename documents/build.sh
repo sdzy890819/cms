@@ -33,4 +33,4 @@ echo "----------------------------------------------------"
 cd /data/projects/cms-publish/
 kill -9 $(ps -ef|grep "java -jar cms-publish.jar"|gawk '$0 !~/grep/ {print $2}' |tr -s '\n' ' ')
 
-java -jar -Xms1500m -Xmx1500m -Xmn700m cms-publish.jar >> /data/logs/cms-publish/catalina.out 2>&1 &
+java -Xms1500m -Xmx1500m -Xmn700m -XX:+HeapDumpOnOutOfMemoryError -jar  cms-publish.jar >> /data/logs/cms-publish/catalina.out 2>&1 &
