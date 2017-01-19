@@ -26,6 +26,7 @@ define(["app",'jquery','../../data/URL'],function (app,$,URL) {
 				        "buttonText" : '请选择视频文件',
 				        'buttonClass' : 'layui-upload-icon',
 				        'uploader' : URL.video.uploadVideo2,
+				        'uploadScript' : URL.video.uploadVideo2,
 				        'onError' : function(){
 				        	alert('视频上传错误，不支持破损视频')
 				        },
