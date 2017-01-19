@@ -108,7 +108,7 @@ input:focus{ border: 1px solid #bbb !important;} */
    display: box; display:-webkit-box; display:-ms-box; display:-moz-box;
    box-align:center; box-pack:center; -webkit-box-align:center; -webkit-box-pack:center; -moz-box-align:center; -moz-box-pack:center; -ms-box-align:center; -ms-box-pack:center;
     .content{
-         min-width:300px; margin:100px auto;
+         max-width:500px; min-width:300px; margin:100px auto;
          .login-icon{ text-align:center; padding:15px 0;}
          .form{
               padding:25px 50px; border:1px solid #ccc; border-radius:10px; background:#fff;

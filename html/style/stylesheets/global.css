@@ -264,6 +264,7 @@ input:focus{ border: 1px solid #bbb !important;} */
 }
 /* line 110, ../sass/global.scss */
 .login .content {
+  max-width: 500px;
   min-width: 300px;
   margin: 100px auto;
 }

@@ -29,7 +29,7 @@ define(["app",'jquery','../../data/URL'],function (app,$,URL) {
 				        onError : function(){
 				        	alert('视频上传错误，不支持破损视频')
 				        },
-				        onProgress   : function(file, e) {
+				        onProgress : function(file, e) {
 				            if (e.lengthComputable) {
 				                var percent = Math.round((e.loaded / e.total) * 100);
 				            }
