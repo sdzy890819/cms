@@ -29,6 +29,10 @@ public class RedisKeyContants {
 
     public static final String REDIS_LOCK_KEY = "CMS_LOCK_";
 
+    public static final String REDIS_BAIDU_SITE_KEY = "CMS_BAIDU_SITE";
+
+    public static final String REDIS_BAIDU_TONGJI_DATA_KEY = "CMS_BAIDU_INDEX_TONGJI";
+
     public static String getRedisLockKey(String key){
         return REDIS_LOCK_KEY.concat(key);
     }

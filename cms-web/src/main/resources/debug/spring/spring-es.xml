@@ -45,4 +45,38 @@
             <value>${mss.video.upload}</value>
         </property>
     </bean>
+
+    <bean id="tongjiClient" class="com.cn.cms.middleware.TongjiClient">
+        <property name="accountType">
+            <value>${baidu.tongji.accountType}</value>
+        </property>
+        <property name="userName">
+            <value>${baidu.tongji.userName}</value>
+        </property>
+        <property name="pwd">
+            <value>${baidu.tongji.pwd}</value>
+        </property>
+        <property name="token">
+            <value>${baidu.tongji.token}</value>
+        </property>
+        <property name="uuid">
+            <value>${baidu.tongji.uuid}</value>
+        </property>
+        <property name="loginUrl">
+            <value>${baidu.tongji.loginUrl}</value>
+        </property>
+        <property name="apiUrl">
+            <value>${baidu.tongji.apiUrl}</value>
+        </property>
+        <property name="apiSiteUrl">
+            <value>${baidu.tongji.apiSiteUrl}</value>
+        </property>
+        <property name="apiDataUrl">
+            <value>${baidu.tongji.apiDataUrl}</value>
+        </property>
+        <property name="publicKey">
+            <value>${baidu.tongji.publicKey}</value>
+        </property>
+    </bean>
+
 </beans>

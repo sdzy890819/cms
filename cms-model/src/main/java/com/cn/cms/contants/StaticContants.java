@@ -97,6 +97,8 @@ public class StaticContants {
 
     public static final int DEFAULT_SECONDS = 24*60*60;
 
+    public static final int BAIDU_DATA_SECONDS = 20*60;
+
     public static final String WATERMARK_TEXT = "全景网";
 
     /**
