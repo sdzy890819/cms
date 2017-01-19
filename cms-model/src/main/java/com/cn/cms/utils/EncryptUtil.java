@@ -4,11 +4,17 @@ import com.cn.cms.contants.StaticContants;
 import com.cn.cms.logfactory.CommonLog;
 import com.cn.cms.logfactory.CommonLogFactory;
 import org.apache.commons.codec.digest.DigestUtils;
+import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
+import javax.crypto.*;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import java.security.*;
+import java.security.interfaces.RSAPrivateKey;
+import java.security.interfaces.RSAPublicKey;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.X509EncodedKeySpec;
 import java.util.Date;
 import java.util.Random;
 
@@ -23,6 +29,8 @@ public class EncryptUtil {
     private static final String[] str ={"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"};
     private static final String[] str1 = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
     private static final String[] str2 = {"0","1","2","3","4","5","6","7","8","9"};
+
+    public static final String KEY_ALGORITHM = "RSA";
 
     /**
      * 随时生成length长度的密码串
@@ -135,9 +143,126 @@ public class EncryptUtil {
         return base64Encoder.encodeBuffer(bytes);
     }
 
+    public static byte[] decode64(String string) throws IOException {
+        BASE64Decoder base64Encoder = new BASE64Decoder();
+        return base64Encoder.decodeBuffer(string);
+    }
+
     public static void main(String[] args){
         System.out.println(randomPwd(12));
     }
 
+
+
+
+    /**
+     * 加载公式
+     * @param publicKeyStr
+     * @return
+     * @throws Exception
+     */
+    public static RSAPublicKey loadPublicKeyByStr(String publicKeyStr)
+            throws Exception {
+        try {
+            byte[] buffer = decode64(publicKeyStr);
+            KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+            X509EncodedKeySpec keySpec = new X509EncodedKeySpec(buffer);
+            return (RSAPublicKey) keyFactory.generatePublic(keySpec);
+        } catch (NoSuchAlgorithmException e) {
+            throw new Exception("无此算法");
+        } catch (InvalidKeySpecException e) {
+            throw new Exception("公钥非法");
+        } catch (NullPointerException e) {
+            throw new Exception("公钥数据为空");
+        }
+    }
+
+    /**
+     * RSA加密
+     * @param publicKey
+     * @param plainTextData
+     * @return
+     * @throws Exception
+     */
+    public static byte[] encrypt(RSAPublicKey publicKey, byte[] plainTextData)
+            throws Exception {
+        if (publicKey == null) {
+            throw new Exception("加密公钥为空, 请设置");
+        }
+        Cipher cipher = null;
+        try {
+            // 使用默认RSA
+            cipher = Cipher.getInstance("RSA");
+            // cipher= Cipher.getInstance("RSA", new BouncyCastleProvider());
+            cipher.init(Cipher.ENCRYPT_MODE, publicKey);
+            byte[] output = cipher.doFinal(plainTextData);
+            return output;
+        } catch (NoSuchAlgorithmException e) {
+            throw new Exception("无此加密算法");
+        } catch (NoSuchPaddingException e) {
+            e.printStackTrace();
+            return null;
+        } catch (InvalidKeyException e) {
+            throw new Exception("加密公钥非法,请检查");
+        } catch (IllegalBlockSizeException e) {
+            e.printStackTrace();
+            throw new Exception("明文长度非法");
+        } catch (BadPaddingException e) {
+            throw new Exception("明文数据已损坏");
+        }
+    }
+
+    public static byte[] encrypt(RSAPrivateKey privateKey, byte[] plainTextData)
+            throws Exception {
+        if (privateKey == null) {
+            throw new Exception("加密私钥为空, 请设置");
+        }
+        Cipher cipher = null;
+        try {
+            // 使用默认RSA
+            cipher = Cipher.getInstance("RSA");
+            cipher.init(Cipher.ENCRYPT_MODE, privateKey);
+            byte[] output = cipher.doFinal(plainTextData);
+            return output;
+        } catch (NoSuchAlgorithmException e) {
+            throw new Exception("无此加密算法");
+        } catch (NoSuchPaddingException e) {
+            e.printStackTrace();
+            return null;
+        } catch (InvalidKeyException e) {
+            throw new Exception("加密私钥非法,请检查");
+        } catch (IllegalBlockSizeException e) {
+            throw new Exception("明文长度非法");
+        } catch (BadPaddingException e) {
+            throw new Exception("明文数据已损坏");
+        }
+    }
+
+    public static Key getPublicKey(String key) throws NoSuchAlgorithmException, UnsupportedEncodingException, InvalidKeySpecException {
+        // 解密由base64编码的公钥
+        byte[] keyBytes = Base64.decode(key);
+
+        // 构造X509EncodedKeySpec对象
+        X509EncodedKeySpec keySpec = new X509EncodedKeySpec(keyBytes);
+
+        // KEY_ALGORITHM 指定的加密算法
+        KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
+
+        // 取公钥匙对象
+        return keyFactory.generatePublic(keySpec);
+    }
+
+    public static byte[] encryptByPublicKey(byte[] data, Key publicKey) throws NoSuchAlgorithmException, InvalidKeySpecException,
+            InvalidKeyException, SignatureException, UnsupportedEncodingException, NoSuchPaddingException,
+            IllegalBlockSizeException, BadPaddingException, ShortBufferException {
+        // 取得公钥
+        KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
+
+        // 对数据加密
+        Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());
+        cipher.init(Cipher.ENCRYPT_MODE, publicKey);
+
+        return CipherUtil.process(cipher, 117, data);
+    }
 
 }
