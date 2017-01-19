@@ -10,7 +10,6 @@ import com.cn.cms.utils.StringUtils;
 import com.cn.cms.utils.UrlUtils;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Value;
 
 /**
  * Created by zhangyang on 17/1/17.

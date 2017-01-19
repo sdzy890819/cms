@@ -10,6 +10,7 @@ import com.cn.cms.middleware.WeedfsClient;
 import com.cn.cms.middleware.bean.VideoPartResponse;
 import com.cn.cms.middleware.bean.VideoResponse;
 import com.cn.cms.po.ImagesBase;
+import com.cn.cms.utils.EncryptUtil;
 import com.cn.cms.utils.FileUtil;
 import com.cn.cms.utils.StringUtils;
 import com.cn.cms.web.ann.CheckAuth;
@@ -18,11 +19,14 @@ import com.cn.cms.web.ann.NotSaveBody;
 import com.cn.cms.web.result.ApiResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Map;
 
 /**
@@ -38,6 +42,8 @@ public class UploadController extends BaseController {
 
     @Resource
     private WeedfsClient weedfsClient;
+
+    private int size = 4*1024*1024;
 
     @Resource
     private MSSVideoClient mssVideoClient;
@@ -98,6 +104,39 @@ public class UploadController extends BaseController {
         }
         return ApiResponse.returnSuccess(videoResponse);
     }
+
+    @NotSaveBody
+    @CheckToken
+    @CheckAuth( name = "video:upload" )
+    @RequestMapping(value="/uploadVideo2",method = RequestMethod.POST)
+    public String uploadVide(@RequestParam(value = "file", required = false) MultipartFile file) throws IOException, BizException {
+        String fileName = file.getOriginalFilename();
+        InputStream in = file.getInputStream();
+        int length = (in.available()-1)/size + 1;
+        byte[] bytes = null ;
+        int finish = 0;
+        for(int i=1;i<=length;i++) {
+            if(length > i) {
+                bytes = new byte[size];
+            }else{
+                bytes = new byte[in.available()- (length-1)*size];
+                finish = 1;
+            }
+            in.read(bytes);
+
+            VideoResponse videoResponse = mssVideoClient.upload(EncryptUtil.base64(bytes), fileName, i, finish);
+            if( videoResponse == null) {
+                return ApiResponse.returnFail(StaticContants.ERROR_VIDEO);
+            }
+            if(videoResponse.getFlag() != 100) {
+                return ApiResponse.returnFail(videoResponse.getFlagString(), videoResponse);
+            }else{
+                return ApiResponse.returnSuccess(videoResponse);
+            }
+        }
+        return ApiResponse.returnFail(StaticContants.ERROR_VIDEO_SIZE_0);
+    }
+
 
 
 
