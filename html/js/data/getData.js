@@ -832,16 +832,43 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 
 		},
 		image : {
-			imageslist : function( callback ){ //栏目列表
+			imageslist : function( obj ){ //栏目列表
 				T.ajax({
-					url : URL.category.listCategory , 
+					url : URL.images.imageslist , 
 					type : 'get',
-					data : {},
+					data : {
+						page : obj.page,
+						pageSize : obj.pageSize
+					},
 					success : function( _data ){
-						callback(_data);
+						obj.callback(_data);
 					},
 					error : function(){}
 				})
+			},
+
+			createImages : function(obj) {
+				T.ajax({
+					url : URL.images.createImages , 
+					type : 'post',
+					data : {
+						imageUrl : obj.imageUrl,
+						imageWidthPixel : obj.imageWidthPixel, 
+						imageHeightPixel : obj.imageHeightPixel, // 图片宽像素  图片上传接口返回
+						orgWidthPixel : obj.orgWidthPixel, //原始长像素  图片上传接口返回
+						orgHeightPixel : obj.orgHeightPixel, //原始宽像素  图片上传接口返回
+						imageTitle : obj.imageTitle,
+						imagePath : obj.imagePath,
+						watermark : obj.watermark, //是否水印 1、0
+						compress : obj.compress, //是否压缩
+						fid : obj.fid, //图片上传接口返回
+						size : obj.size, //图片上传接口返回
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					},
+					error : function(){}
+				})				
 			}
 		},
 		video : {

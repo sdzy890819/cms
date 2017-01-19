@@ -1,11 +1,17 @@
 define(function(){
 	return [ //表单
 		{
-			title : 'title',
+			title : 'imageUrl',
 			name : '上传图片',
 			type : 'file', //text textarea radio checkbox edit
 			typeName : 'images'
 		},
+		{
+			title : 'title',
+			name : '图片标题',
+			placeholder : '请填写图片标题',
+			type : 'text' 
+		},		
 		{
 			title : 'watermark',
 			name : '是否水印',
@@ -61,7 +67,7 @@ define(function(){
 			type : 'text' //text textarea radio checkbox edit
 		},
 		{
-			title : 'height',
+			title : 'heigh',
 			name : '图片高度',
 			placeholder : '请填写图片高度',
 			type : 'text' //text textarea radio checkbox edit

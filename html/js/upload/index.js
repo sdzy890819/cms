@@ -14,8 +14,8 @@ define(["app",'jquery','form'],function (app,$) {
 					$scope.dataList = obj.data;
 					var reg = /\.(exe|rar|zip|tar|gz|dll)$/;
 					angular.extend($scope,{
-						uploadPic : function(file) {
-							if(file && file.name.search(reg)<0){
+						uploadPic : function(file) {							
+							if(file && file.name.search(reg)<0){								
 								obj.data.event(file,$uibModalInstance)
 							}else{
 								layui.use(['layer'], function(){

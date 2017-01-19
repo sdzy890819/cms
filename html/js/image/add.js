@@ -14,7 +14,9 @@ define(["app",'./addForm','../upload/index','../data/getData','form','position',
 							isSize = obj.isSize , //是否等比缩放
 							selectSize = obj.selectSize , //选择宽还是高
 							width = obj.width , 
-							height = obj.height;
+							height = obj.heigh,
+							title = obj.title;
+						
 
 						function alert(content){
 							layui.use(['layer'], function(){
@@ -30,7 +32,31 @@ define(["app",'./addForm','../upload/index','../data/getData','form','position',
 									"suffix":suffix,//"文件后缀png|jpg"
 									"watermark":watermark, //是否水印
 									"width":width, //需要压缩的长度 可不传
-									"height":height //需要压缩的高度  可不传
+									"height":height, //需要压缩的高度  可不传
+
+									callback : function(_data) {
+										var data = _data.data;
+										getData.image.createImages({
+											imageUrl : data.imageUrl,
+											imageWidthPixel : data.imageWidthPixel, 
+											imageHeightPixel : data.imageHeightPixel, // 图片宽像素  图片上传接口返回
+											orgWidthPixel : data.orgWidthPixel, //原始长像素  图片上传接口返回
+											orgHeightPixel : data.orgHeightPixel, //原始宽像素  图片上传接口返回
+											imageTitle : title,
+											imagePath : data.imagePath,
+											watermark : data.watermark, //是否水印 1、0
+											compress : data.compress, //是否压缩
+											fid : data.fid, //图片上传接口返回
+											size : data.size, //图片上传接口返回
+
+											callback : function(_data){
+											layui.use(['layer'], function(){
+												var layer = layui.layer;
+												layer.msg(_data.message);												
+											});												
+											}
+										})
+									}
 								})
 							}else if(!urls){
 								alert('请上传图片')
@@ -50,8 +76,11 @@ define(["app",'./addForm','../upload/index','../data/getData','form','position',
 	        					title : '上传图片',
 	        					name : '请选择图片',
 	        					type : 'image',
-	        					event : function(file , $uibModalInstance){
-	        						$scope.imageInfo = file;
+	        					event : function(file , $uibModalInstance){	        						
+	        						$scope.imageInfo = file;	        						
+	        						var image = "<img src='" + file.$ngfDataUrl + "' width='100'>";	        						
+	        						$('.layui-upload-icon').empty().append(image);
+	        						
 	        						$uibModalInstance.dismiss('cancel');
 	        					}
         					},
