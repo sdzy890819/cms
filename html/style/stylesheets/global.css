@@ -817,7 +817,7 @@ input:focus{ border: 1px solid #bbb !important;} */
 }
 /* line 252, ../sass/global.scss */
 .boxtab > .title {
-  background-color: #488be7;
+  background-color: #777;
   margin-bottom: 0px;
   padding: 8px 10px 8px 10px;
   color: #fff !important;
@@ -841,7 +841,7 @@ input:focus{ border: 1px solid #bbb !important;} */
 }
 /* line 259, ../sass/global.scss */
 .boxtab > .content {
-  border: 1px solid #488be7;
+  border: 1px solid #777;
 }
 /* line 262, ../sass/global.scss */
 .boxtab .submit {
@@ -859,7 +859,7 @@ input:focus{ border: 1px solid #bbb !important;} */
   padding: 0 15px;
   color: #fff;
   border: none;
-  background: #488be7;
+  background: #999;
   cursor: pointer;
   transition-duration: 0.3s;
   -webkit-transition-duration: 0.3s;
@@ -1159,7 +1159,7 @@ input:focus{ border: 1px solid #bbb !important;} */
 }
 /* line 351, ../sass/global.scss */
 .table .btn.edit {
-  background: #4d90fe;
+  background: #999;
   color: #fff;
 }
 /* line 352, ../sass/global.scss */
@@ -1272,7 +1272,7 @@ input:focus{ border: 1px solid #bbb !important;} */
 }
 /* line 393, ../sass/global.scss */
 .relationPopsuper .relation-pop .relation-title {
-  background: #488be7;
+  background: #777;
   height: 35px;
   line-height: 35px;
   padding-left: 15px;
@@ -1312,7 +1312,7 @@ input:focus{ border: 1px solid #bbb !important;} */
 }
 /* line 403, ../sass/global.scss */
 .relationPopsuper .relation-pop .container .title li.current {
-  background: #3597f2;
+  background: #777;
   color: #fff;
 }
 /* line 406, ../sass/global.scss */
