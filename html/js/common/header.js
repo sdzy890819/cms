@@ -5,12 +5,48 @@ define(["app",'require','./data/getInitInfo'], function ( app , require , dataIn
 	    	replace : true,
 	    	transclude : true,
 	        templateUrl : '../template/common/header.html',
-	        controller : function($scope){
+	        controller : function($scope, $uibModal){
 	        	angular.extend($scope,{
 	        		loginOut : function(){
 	        			dataInfo.loginOut();
-	        		}
+	        		},
+
+	        		editUser : function(obj){
+        				
+        				require([ './user/editUser', './user/addForm', './data/getData'], function(pop, list, data){
+	        					        				
+	        				function getAddForm(callback){
+										data.user.currentUser({
+											callback : function(_data){
+												callback(_data);
+											}
+										})	        					
+	        				}
+
+	        				pop.init({	  
+	        					obj : obj,      					
+	        					list       : list,
+	        					$uibModal  : $uibModal,
+	        					updateData : getAddForm,
+
+	        					callback : function(list, callback){
+	        						var newlist = [];
+	        						$.each(list, function(i, obj){
+	        							if (obj.title != 'userName'){
+	        								newlist.push(obj);
+	        							}
+	        						})
+	        						callback(newlist);
+	        					}
+	        				})  
+        				})
+
+	        		}	
+
 	        	})
+
+
+	
 	        },
 			link : function($scope , element ){
 				var ele = $(element[0])
