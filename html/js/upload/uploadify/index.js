@@ -26,6 +26,8 @@ define(["app",'jquery','../../data/URL'],function (app,$,URL) {
 				    $('#file_upload').uploadify({
 				        'swf'      : '/js/upload/uploadify/uploadify.swf',
 				        "fileObjName" : 'file',
+				        "buttonText" : '请选择视频文件',
+				        'buttonClass' : 'layui-upload-icon',
 				        'uploader' : URL.video.uploadVideo2
 				        // Put your options here
 				    });
