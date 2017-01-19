@@ -11,7 +11,11 @@ define(["app",'jquery','../../data/URL'],function (app,$,URL) {
 				templateUrl: '../template/upload/videoPop.html',
 				size: 'lg',
 				controller: function($scope,$uibModalInstance,$css,Upload , $timeout) {
-					
+					angular.extend($scope,{
+					    close : function(){
+					    	$uibModalInstance.dismiss('cancel');
+					    }
+					})
 				}
 			});
 			pop.opened.then(function (selectedItem) {
@@ -26,7 +30,6 @@ define(["app",'jquery','../../data/URL'],function (app,$,URL) {
 				        	alert('视频上传错误，不支持破损视频')
 				        },
 				        onProgress   : function(file, e) {
-				        	debugger;
 				            if (e.lengthComputable) {
 				                var percent = Math.round((e.loaded / e.total) * 100);
 				            }
