@@ -212,7 +212,22 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					},
 					error : function(){}
 				})
-			}
+			},
+			createUser : function( obj ){ //当前登录用户信息接口
+				$.ajax({
+					url : URL.user.createUser ,
+					type : 'post' ,
+					data : {
+						userName: obj.userName,
+						realName: obj.realName,
+						pwd:  obj.pwd,
+						headImage: obj.headImage						
+					},
+					success : function(_data){												
+						obj.callback(_data);
+					}
+				})
+			}		
 		},
 
 		position : {
