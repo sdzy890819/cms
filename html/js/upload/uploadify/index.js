@@ -26,19 +26,26 @@ define(["app",'jquery','../../data/URL'],function (app,$,URL) {
 				        "buttonText" : '请选择视频文件',
 				        'buttonClass' : 'layui-upload-icon',
 				        'uploader' : URL.video.uploadVideo2,
-				        onError : function(){
+				        'onError' : function(){
 				        	alert('视频上传错误，不支持破损视频')
 				        },
-				        onProgress : function(file, e) {
+				        'onProgress' : function(file, e) {
 				            if (e.lengthComputable) {
 				                var percent = Math.round((e.loaded / e.total) * 100);
 				            }
-				            file.queueItem.find('.fileinfo').html(' - ' + percent + '%');
-				            file.queueItem.find('.progress-bar').css('width', percent + '%');
+				           /* file.queueItem.find('.fileinfo').html(' - ' + percent + '%');
+				            file.queueItem.find('.progress-bar').css('width', percent + '%');*/
+				            $('.progress-bar').html(percent + '%');
 				        },
 				        'onUploadProgress' : function(file, bytesUploaded, bytesTotal, totalBytesUploaded, totalBytesTotal) {
 				            $('.progress-bar').html(totalBytesUploaded + ' bytes uploaded of ' + totalBytesTotal + ' bytes.');
-				        }
+				        },
+				        'onUploadSuccess' : function(file, data, response) {
+				        	layui.use(['layer'], function(){
+								var layer = layui.layer;
+								layer.msg(_data.message);
+							});
+						}
 				        // Put your options here
 				    });
 				},300);
