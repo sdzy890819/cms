@@ -44,7 +44,7 @@ define(["app",'jquery','../../data/URL'],function (app,$,URL) {
 				        'onUploadSuccess' : function(file, data, response) {
 				        	layui.use(['layer'], function(){
 								var layer = layui.layer;
-								layer.msg(_data.message);
+								layer.msg('上传成功！');
 							});
 						}
 				        // Put your options here
