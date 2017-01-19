@@ -46,10 +46,12 @@
 
 					    <!-- 上传按钮 并不能上传需要点击事件 -->
 					    <div ng-if="obj.type=='file'" class="layui-box layui-upload-button" style="cursor:pointer">
-					    	<span ng-if="data['imageUrl']"  class="layui-upload-icon">
-					    	  <img ng-src="{{data['imageUrl']}}" width="300" />
-					    	</span>
-					    	<span ng-if="!data['imageUrl']"  class="layui-upload-icon">					    	
+					    	
+					    	  <img ng-if="data['imageUrl']" ng-src="{{data['imageUrl']}}" width="100px" />
+					    						    	
+					    	  <img ng-if="data['headImage']" ng-src="{{data['headImage']}}" width="100px" />
+					    	
+					    	<span ng-if="!data['imageUrl'] && !data['headImage']"  class="layui-upload-icon">    	
 					    		<i class="layui-icon"></i>{{obj.name}}
 					    	</span>
 					    </div>
