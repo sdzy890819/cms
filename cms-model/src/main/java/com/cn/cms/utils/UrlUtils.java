@@ -151,6 +151,44 @@ public class UrlUtils {
     }
 
 
+    public static String getConnStrForPOSTVideo(String urlPath,String encoding,String param) throws BizException{
+        HttpURLConnection urlconn = null;
+        StringBuffer sbf  = new StringBuffer();
+        try{
+            URL url = new URL(urlPath);
+            urlconn = (HttpURLConnection)url.openConnection();
+            urlconn.setRequestMethod("POST");
+            urlconn.setDoOutput(true);
+            urlconn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            urlconn.connect();
+            OutputStreamWriter osw = new OutputStreamWriter(urlconn.getOutputStream(),encoding);
+            osw.write(param);
+            osw.flush();
+            osw.close();
+            if(urlconn.getResponseCode() == 200){
+                BufferedReader br = new BufferedReader(new
+                        InputStreamReader(urlconn.getInputStream(),encoding));
+                while(br.ready()){
+                    sbf.append(br.readLine());
+                }
+                br.close();
+                urlconn.disconnect();
+            }
+            log.info("请求的接口地址：".concat(urlPath).concat(sbf.toString()));
+            return sbf.toString();
+        }catch(Exception e){
+            log.error("获取URL:"+urlPath+"错误:"+e.getMessage());
+            e.printStackTrace();
+            throw new BizException(e);
+        }finally{
+            if(urlconn!=null){
+                urlconn.disconnect();
+            }
+            log.info("请求的接口地址："+urlPath+"    输出内容为："+sbf.toString());
+        }
+    }
+
+
 
     /**
      * GET url

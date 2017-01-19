@@ -3,6 +3,8 @@ package com.cn.cms.middleware;
 import com.alibaba.fastjson.JSONObject;
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.exception.BizException;
+import com.cn.cms.logfactory.CommonLog;
+import com.cn.cms.logfactory.CommonLogFactory;
 import com.cn.cms.middleware.bean.VideoFinishResponse;
 import com.cn.cms.middleware.bean.VideoPartResponse;
 import com.cn.cms.middleware.bean.VideoResponse;
@@ -23,6 +25,8 @@ import java.io.IOException;
 @Setter
 public class MSSVideoClient {
 
+    private CommonLog log = CommonLogFactory.getLog(MSSVideoClient.class);
+
     private String uploadUrl;
 
     private String queryUrl;
@@ -41,11 +45,13 @@ public class MSSVideoClient {
         try {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("fileName", fileName);
-            jsonObject.put("access_id", accessId);
-            jsonObject.put("access_key", accessKey);
+            jsonObject.put("access_id", this.getAccessId());
+            jsonObject.put("access_key", this.getAccessKey());
             jsonObject.put("part", baseCode);
             jsonObject.put("partNum", partNum);
-            String result = UrlUtils.getConnStrForPOST(uploadUrl, StaticContants.UTF8, jsonObject.toJSONString());
+            log.info("access_id" + accessId + "--"+getAccessId());
+            log.info("access_key" + accessKey + "--"+getAccessKey());
+            String result = UrlUtils.getConnStrForPOSTVideo(uploadUrl, StaticContants.UTF8, jsonObject.toJSONString());
             if (StringUtils.isNotBlank(result)) {
                 videoResponse = JSONObject.parseObject(result, VideoPartResponse.class);
                 if(videoResponse!=null && videoResponse.getFlag()==100) {
@@ -68,9 +74,9 @@ public class MSSVideoClient {
         VideoResponse videoResponse = null;
         JSONObject obj1 = new JSONObject();
         obj1.put("fileName", fileName);
-        obj1.put("access_id", accessId);
-        obj1.put("access_key", accessKey);
-        String finishResult = UrlUtils.getConnStrForPOST(finishUrl, StaticContants.UTF8, obj1.toJSONString());
+        obj1.put("access_id", this.getAccessId());
+        obj1.put("access_key", getAccessKey());
+        String finishResult = UrlUtils.getConnStrForPOSTVideo(finishUrl, StaticContants.UTF8, obj1.toJSONString());
         videoResponse = JSONObject.parseObject(finishResult, VideoFinishResponse.class);
         return videoResponse;
     }
@@ -78,9 +84,9 @@ public class MSSVideoClient {
     private void interrupt(String fileName) throws BizException {
         JSONObject obj1 = new JSONObject();
         obj1.put("fileName", fileName);
-        obj1.put("access_id", accessId);
-        obj1.put("access_key", accessKey);
-        UrlUtils.getConnStrForPOST(interruptUrl, StaticContants.UTF8, obj1.toJSONString());
+        obj1.put("access_id", this.getAccessId());
+        obj1.put("access_key", getAccessKey());
+        UrlUtils.getConnStrForPOSTVideo(interruptUrl, StaticContants.UTF8, obj1.toJSONString());
     }
 
     public static void main(String[] args) throws IOException, BizException {
