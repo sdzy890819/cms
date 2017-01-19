@@ -6,9 +6,9 @@ define(["app",'jquery','./moduls/directive'], function ( app , $ ) {
 	    	transclude : true,
 	        templateUrl : '../template/common/formlist.html',
 			scope : {
-	            data : '=data',
+	            data : '=data',	            
 	            edit : '=edit',
-	            filter : '=filter',
+	            filter : '=filter',	  	            
 	            page : '=page'
 	        },
 	        controller : function($scope , $state , $element , $rootScope){
