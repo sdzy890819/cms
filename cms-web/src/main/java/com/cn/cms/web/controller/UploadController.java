@@ -122,7 +122,7 @@ public class UploadController extends BaseController {
                 bytes = new byte[in.available()- (length-1)*size];
                 finish = 1;
             }
-            in.read(bytes);
+            in.read(bytes, 0, bytes.length);
 
             VideoResponse videoResponse = mssVideoClient.upload(EncryptUtil.base64(bytes).replaceAll("\\r|\\n", ""), fileName, i, finish);
             if( videoResponse == null) {
