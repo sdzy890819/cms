@@ -124,7 +124,7 @@ public class UploadController extends BaseController {
             }
             in.read(bytes);
 
-            VideoResponse videoResponse = mssVideoClient.upload(EncryptUtil.base64(bytes), fileName, i, finish);
+            VideoResponse videoResponse = mssVideoClient.upload(EncryptUtil.base64(bytes).replaceAll("\\r|\\n", ""), fileName, i, finish);
             if( videoResponse == null) {
                 return ApiResponse.returnFail(StaticContants.ERROR_VIDEO);
             }
