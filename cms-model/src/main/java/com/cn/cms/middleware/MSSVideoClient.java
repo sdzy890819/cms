@@ -6,11 +6,15 @@ import com.cn.cms.exception.BizException;
 import com.cn.cms.middleware.bean.VideoFinishResponse;
 import com.cn.cms.middleware.bean.VideoPartResponse;
 import com.cn.cms.middleware.bean.VideoResponse;
+import com.cn.cms.utils.EncryptUtil;
 import com.cn.cms.utils.StringUtils;
 import com.cn.cms.utils.UrlUtils;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Value;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 /**
  * Created by zhangyang on 17/1/17.
@@ -79,18 +83,18 @@ public class MSSVideoClient {
         UrlUtils.getConnStrForPOST(interruptUrl, StaticContants.UTF8, obj1.toJSONString());
     }
 
-//    public static void main(String[] args) throws IOException {
-//        MSSVideoClient m = new MSSVideoClient();
-//        File file = new File("/Users/zhangyang/Documents/abc.flv");
-//        FileInputStream fileInputStream = new FileInputStream(file);
-//        System.out.println(fileInputStream.available());
-//        byte[] bytes = new byte[fileInputStream.available()];
-//        fileInputStream.read(bytes);
-//        String baseCode =EncryptUtil.base64(bytes).replaceAll("\\r|\\n", "");
-//        System.out.println(baseCode.length());
-//        fileInputStream.close();
-//        m.upload(baseCode, file.getName());
-//    }
+    public static void main(String[] args) throws IOException, BizException {
+        MSSVideoClient m = new MSSVideoClient();
+        File file = new File("/Users/zhangyang/Documents/a.WMV");
+        FileInputStream fileInputStream = new FileInputStream(file);
+        System.out.println(fileInputStream.available());
+        byte[] bytes = new byte[fileInputStream.available()];
+        fileInputStream.read(bytes);
+        String baseCode = EncryptUtil.base64(bytes).replaceAll("\\r|\\n", "");
+        System.out.println(baseCode.length());
+        fileInputStream.close();
+        m.upload(baseCode, file.getName(), 1, 1);
+    }
 
 
 }

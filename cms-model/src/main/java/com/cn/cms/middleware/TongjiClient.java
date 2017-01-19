@@ -72,13 +72,13 @@ public class TongjiClient {
         HttpURLConnection httpURLConnection = baiduLoginInfo.initLogin();
         OutputStream outputStream = baiduLoginInfo.openStream(httpURLConnection, baiduLoginInfo.getHead());
         String json = JSONObject.toJSONString(baiduLoginInfo.getPreLoginData());
-        System.out.println("预登录信息：".concat(json));
+        log.info("预登录信息：".concat(json));
         byte[] bytes = GzipUtils.gzipString(json);
         outputStream.write(EncryptUtil.encryptByPublicKey(bytes, EncryptUtil.getPublicKey(publicKey)));
         outputStream.flush();
         outputStream.close();
         JSONObject jsonObject = baiduLoginInfo.getResponse(httpURLConnection);
-        System.out.println(jsonObject.toJSONString());
+        log.info(jsonObject.toJSONString());
         if(!jsonObject.getBoolean("needAuthCode")){
             return true;
         }
@@ -100,13 +100,13 @@ public class TongjiClient {
         HttpURLConnection httpURLConnection = baiduLoginInfo.initLogin();
         OutputStream outputStream = baiduLoginInfo.openStream(httpURLConnection, baiduLoginInfo.getHead());
         String json = JSONObject.toJSONString(baiduLoginInfo.getLoginData());
-        System.out.println("登录信息：".concat(json));
+        log.info("登录信息：".concat(json));
         byte[] bytes = GzipUtils.gzipString(json);
         outputStream.write(EncryptUtil.encryptByPublicKey(bytes, EncryptUtil.getPublicKey(publicKey)));
         outputStream.flush();
         outputStream.close();
         JSONObject jsonObject = baiduLoginInfo.getResponse(httpURLConnection);
-        System.out.println(jsonObject.toJSONString());
+        log.info(jsonObject.toJSONString());
         if(jsonObject.getInteger("retcode") == 0){
             baiduLoginInfo.setLoginKeyMap(BaiduLoginInfo.UCID_KEY, jsonObject.getString(BaiduLoginInfo.UCID_KEY));
             baiduLoginInfo.setLoginKeyMap(BaiduLoginInfo.ST_KEY, jsonObject.getString(BaiduLoginInfo.ST_KEY));
@@ -122,12 +122,12 @@ public class TongjiClient {
             HttpURLConnection httpURLConnection = baiduLoginInfo.initApi(apiSiteUrl);
             OutputStream outputStream = baiduLoginInfo.openStream(httpURLConnection, baiduLoginInfo.getApiHead());
             String json = JSONObject.toJSONString(baiduLoginInfo.getSiteData());
-            System.out.println("SITE信息：".concat(json));
+            log.info("SITE信息：".concat(json));
             outputStream.write(json.getBytes("UTF-8"));
             outputStream.flush();
             outputStream.close();
             JSONObject jsonObject = baiduLoginInfo.getJsonResponse(httpURLConnection);
-            System.out.println(jsonObject.toJSONString());
+            log.info(jsonObject.toJSONString());
         }
     }
 
@@ -141,12 +141,12 @@ public class TongjiClient {
             HttpURLConnection httpURLConnection = baiduLoginInfo.initApiData(apiDataUrl, paramter);
             OutputStream outputStream = baiduLoginInfo.openStream(httpURLConnection, baiduLoginInfo.getApiHead());
             String json = JSONObject.toJSONString(baiduLoginInfo.getSearchData());
-            System.out.println("DATA SEARCH信息：".concat(json));
+            log.info("DATA SEARCH信息：".concat(json));
             outputStream.write(json.getBytes("UTF-8"));
             outputStream.flush();
             outputStream.close();
             JSONObject jsonObject = baiduLoginInfo.getJsonResponse(httpURLConnection);
-            System.out.println(jsonObject.toJSONString());
+            log.info(jsonObject.toJSONString());
             return jsonObject;
         }
         return null;
@@ -185,13 +185,13 @@ public class TongjiClient {
         HttpURLConnection httpURLConnection = baiduLoginInfo.initLogin();
         OutputStream outputStream = baiduLoginInfo.openStream(httpURLConnection, baiduLoginInfo.getHead());
         String json = JSONObject.toJSONString(baiduLoginInfo.getLoginOutData());
-        System.out.println("登出信息：".concat(json));
+        log.info("登出信息：".concat(json));
         byte[] bytes = GzipUtils.gzipString(json);
         outputStream.write(EncryptUtil.encryptByPublicKey(bytes, EncryptUtil.getPublicKey(publicKey)));
         outputStream.flush();
         outputStream.close();
         JSONObject jsonObject = baiduLoginInfo.getResponse(httpURLConnection);
-        System.out.println(jsonObject.toJSONString());
+        log.info(jsonObject.toJSONString());
         if(jsonObject.getInteger("retcode") == 0){
             return true;
         }
@@ -242,7 +242,7 @@ public class TongjiClient {
             data.setSumIp(sum.getJSONArray(0).getLong(3));
             String[] keys = new String[result.getJSONArray("items").getJSONArray(0).size()];
             for(int i=0;i<keys.length;i++){
-                keys[i] = result.getJSONArray("items").getJSONArray(0).getString(i);
+                keys[i] = result.getJSONArray("items").getJSONArray(0).getJSONArray(0).getString(i);
             }
             data.setKey(keys);
             JSONArray tmp = result.getJSONArray("items").getJSONArray(1);
@@ -271,10 +271,10 @@ public class TongjiClient {
                 doLogin();
                 JSONObject object = new JSONObject();
                 object.put("site_id", 1075604);
-                object.put("method", "visit/toppage/a");
+                object.put("method", "trend/time/a");
                 object.put("start_date", startDate);
                 object.put("end_date", endDate);
-                object.put("metrics", "pv_count,visitor_count,ip_count,outward_count");
+                object.put("metrics", "pv_count,visitor_count,new_visitor_count,ip_count");
                 object.put("max_results", 0);
                 object.put("gran", "day");
                 JSONObject result = getData(object);
