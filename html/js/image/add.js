@@ -13,8 +13,8 @@ define(["app",'./addForm','../upload/index','../data/getData','form','position',
 						var watermark = (obj.watermark=='yes'?1:0), //水印
 							isSize = obj.isSize , //是否等比缩放
 							selectSize = obj.selectSize , //选择宽还是高
-							width = obj.width , 
-							height = obj.heigh,
+							width = obj.imageWidth , 
+							height = obj.imageHeight,
 							title = obj.title;
 						
 
@@ -77,9 +77,11 @@ define(["app",'./addForm','../upload/index','../data/getData','form','position',
 	        					name : '请选择图片',
 	        					type : 'image',
 	        					event : function(file , $uibModalInstance){	        						
-	        						$scope.imageInfo = file;	        						
-	        						var image = "<img src='" + file.$ngfDataUrl + "' width='100'>";	        						
-	        						$('.layui-upload-icon').empty().append(image);
+	        						$scope.imageInfo = file;	     
+											Upload.base64DataUrl($scope.imageInfo).then(function(urls){	        						   						
+		        						var image = "<img src='" + file.$ngfDataUrl + "' width='100'>";	        						
+		        						$('.layui-upload-icon').empty().append(image);												
+											})
 	        						
 	        						$uibModalInstance.dismiss('cancel');
 	        					}
@@ -92,9 +94,9 @@ define(["app",'./addForm','../upload/index','../data/getData','form','position',
 						size = form.find('input[name="isSize"]'),
 						selectSize = form.find('input[name="selectSize"]'),
 						selectSize_parent = selectSize.parent().parent(),
-						width = form.find('input[name="width"]'),
+						width = form.find('input[name="imageWidth"]'),
 						width_parent = width.parent().parent(),
-						height = form.find('input[name="height"]'),
+						height = form.find('input[name="imageHeight"]'),
 						height_parent = height.parent().parent() , 
 						iswidth = true;
 

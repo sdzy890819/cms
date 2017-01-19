@@ -102,8 +102,7 @@ define(['require',"app",'jquery',
 			        $.each($scope.listdata.table.td, function(i, obj){
 			        	obj.list[0].image = obj.headImage;
 			        	obj.list[0].name = false;
-			        })
-
+			        })							
 	        		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
 	        		$scope.$apply();							
 						}
