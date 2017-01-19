@@ -271,10 +271,10 @@ public class TongjiClient {
                 doLogin();
                 JSONObject object = new JSONObject();
                 object.put("site_id", 1075604);
-                object.put("method", "visit/toppage/a");
+                object.put("method", "trend/time/a");
                 object.put("start_date", startDate);
                 object.put("end_date", endDate);
-                object.put("metrics", "pv_count,visitor_count,ip_count,outward_count");
+                object.put("metrics", "pv_count,visitor_count,new_visitor_count,ip_count");
                 object.put("max_results", 0);
                 object.put("gran", "day");
                 JSONObject result = getData(object);
