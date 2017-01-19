@@ -115,26 +115,29 @@ public class UploadController extends BaseController {
         int length = (in.available()-1)/size + 1;
         byte[] bytes = null ;
         int finish = 0;
-        for(int i=1;i<=length;i++) {
-            if(length > i) {
-                bytes = new byte[size];
-            }else{
-                bytes = new byte[in.available()- (length-1)*size];
-                finish = 1;
-            }
-            in.read(bytes);
+        VideoResponse videoResponse = null;
+        if(in.available() > 0 ) {
+            for (int i = 1; i <= length; i++) {
+                if (length > i) {
+                    bytes = new byte[size];
+                } else {
+                    bytes = new byte[in.available() - (length - 1) * size];
+                    finish = 1;
+                }
+                in.read(bytes, 0, bytes.length);
 
-            VideoResponse videoResponse = mssVideoClient.upload(EncryptUtil.base64(bytes).replaceAll("\\r|\\n", ""), fileName, i, finish);
-            if( videoResponse == null) {
-                return ApiResponse.returnFail(StaticContants.ERROR_VIDEO);
+                videoResponse = mssVideoClient.upload(EncryptUtil.base64(bytes).replaceAll("\\r|\\n", ""), fileName, i, finish);
+                if (videoResponse == null) {
+                    return ApiResponse.returnFail(StaticContants.ERROR_VIDEO);
+                }
+                if (videoResponse.getFlag() != 100) {
+                    return ApiResponse.returnFail(videoResponse.getFlagString(), videoResponse);
+                }
             }
-            if(videoResponse.getFlag() != 100) {
-                return ApiResponse.returnFail(videoResponse.getFlagString(), videoResponse);
-            }else{
-                return ApiResponse.returnSuccess(videoResponse);
-            }
+        }else{
+            return ApiResponse.returnFail(StaticContants.ERROR_VIDEO_SIZE_0);
         }
-        return ApiResponse.returnFail(StaticContants.ERROR_VIDEO_SIZE_0);
+        return ApiResponse.returnSuccess(videoResponse);
     }
 
 
