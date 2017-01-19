@@ -54,7 +54,7 @@
         ;
     </select>
 
-    <insert id="createUser" useGeneratedKeys="true" keyProperty="p1.id">
+    <insert id="createUser" useGeneratedKeys="true" keyProperty="user.id">
         insert into user (<include refid="all_column" />) value (null,
         #{user.lastModifyUserId},#{user.userName},#{user.headImage},#{user.realName}
         ,#{user.pwd},#{user.userId});
@@ -82,7 +82,7 @@
              </if>
              last_modify_user_id = #{user.lastModifyUserId}
          </set>
-         where user_id = #{userId};
+         where user_id = #{user.userId};
     </update>
 
     <select id="findUserName" resultMap="user">
