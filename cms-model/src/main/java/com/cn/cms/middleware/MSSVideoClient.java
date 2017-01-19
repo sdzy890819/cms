@@ -51,7 +51,7 @@ public class MSSVideoClient {
             jsonObject.put("partNum", partNum);
             log.info("access_id" + accessId + "--"+getAccessId());
             log.info("access_key" + accessKey + "--"+getAccessKey());
-            String result = UrlUtils.getConnStrForPOST(uploadUrl, StaticContants.UTF8, jsonObject.toJSONString());
+            String result = UrlUtils.getConnStrForPOSTVideo(uploadUrl, StaticContants.UTF8, jsonObject.toJSONString());
             if (StringUtils.isNotBlank(result)) {
                 videoResponse = JSONObject.parseObject(result, VideoPartResponse.class);
                 if(videoResponse!=null && videoResponse.getFlag()==100) {
@@ -76,7 +76,7 @@ public class MSSVideoClient {
         obj1.put("fileName", fileName);
         obj1.put("access_id", this.getAccessId());
         obj1.put("access_key", getAccessKey());
-        String finishResult = UrlUtils.getConnStrForPOST(finishUrl, StaticContants.UTF8, obj1.toJSONString());
+        String finishResult = UrlUtils.getConnStrForPOSTVideo(finishUrl, StaticContants.UTF8, obj1.toJSONString());
         videoResponse = JSONObject.parseObject(finishResult, VideoFinishResponse.class);
         return videoResponse;
     }
@@ -86,7 +86,7 @@ public class MSSVideoClient {
         obj1.put("fileName", fileName);
         obj1.put("access_id", this.getAccessId());
         obj1.put("access_key", getAccessKey());
-        UrlUtils.getConnStrForPOST(interruptUrl, StaticContants.UTF8, obj1.toJSONString());
+        UrlUtils.getConnStrForPOSTVideo(interruptUrl, StaticContants.UTF8, obj1.toJSONString());
     }
 
     public static void main(String[] args) throws IOException, BizException {
