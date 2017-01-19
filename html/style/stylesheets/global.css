@@ -1172,7 +1172,7 @@ input:focus{ border: 1px solid #bbb !important;} */
 }
 /* line 353, ../sass/global.scss */
 .table .btn.edit:hover {
-  background: #2673f1;
+  background: #777;
 }
 
 /* line 357, ../sass/global.scss */
