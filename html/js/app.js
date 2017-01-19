@@ -14,9 +14,12 @@ require.config({
         'ui-bootstrap':'plug/ui-bootstrap-tpls-2.3.2.min',
         'angularFileUpload':'plug/angular-file-upload.min',
 
-        //upload
+        //upload img
         'ngFileUpload-shim' : 'plug/ng-file-upload/dist/ng-file-upload-shim.min',
         'ngFileUpload' : 'plug/ng-file-upload/dist/ng-file-upload.min',
+
+        //upload video
+        'uploadify' : 'upload/uploadify/jquery.uploadify.min',
 
         'layui' : 'plug/layui/layui',
         'jcrop' : 'plug/jcrop/jquery.Jcrop.min',
@@ -32,6 +35,7 @@ require.config({
         'jquery': {exports: '$'},
         //'jquery-migrate': ['jquery'],
         'jcrop': ['jquery'],
+        "uploadify": ["jquery"],
 
 
         'angular': {exports: 'angular'},

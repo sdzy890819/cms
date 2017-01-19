@@ -1,4 +1,4 @@
-define(["app",'./addForm','../upload/index','../data/getData','../data/URL','form','position','fixedNav'], function ( app , list , upload , getData , URL ) {
+define(["app",'./addForm','../upload/index','../data/getData','../upload/uploadify/index','../data/URL','form','position','fixedNav','uploadify'], function ( app , list , upload , getData , uploadify , URL ) {
 	app.directive('videoAdd',function(){
 		return {
 	    	restrict : 'E',
@@ -31,30 +31,30 @@ define(["app",'./addForm','../upload/index','../data/getData','../data/URL','for
 						}
 					]
 				}
-				$.each($scope.formdata.list,function( i , obj ){
+				/*$.each($scope.formdata.list,function( i , obj ){
 					if(this.type=='upload'){
 						this.callback = function(layui){
 							layui.upload({
 								elem : '.'+this.cls,
-								url : URL.video.uploadVideo,
+								url : URL.video.uploadVideo2,
 								title: "视频上传",
 								type : 'video',
-								ext : 'mp4|wmv|flv',
 								data : {
 									fileName : 'asfsf'
 								},
 								method : 'POST',
-								before : function(){},
+								before : function(e){
+								},
 								success : function(){
 
 								}
 							});
 						}
 					}	
-				});
+				});*/
 				$scope.$on('formRepeat',function(){
-					/*$('.layui-upload-button').unbind().click(function(){
-						upload.init({
+					$('.layui-upload-button').unbind().click(function(){
+						uploadify.init({
         					data : {
         						obj : {},
 	        					title : '上传视频',
@@ -67,7 +67,7 @@ define(["app",'./addForm','../upload/index','../data/getData','../data/URL','for
         					},
         					$uibModal :$uibModal
         				});
-					});*/
+					});
 				});
 	        }
 	    };

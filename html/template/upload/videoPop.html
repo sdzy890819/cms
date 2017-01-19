@@ -1,0 +1,38 @@
+<div class="upload">
+    <form name="myForm">
+        <div class="boxtab">
+            <div class="title">
+                <div class="right-sider">
+                    <button type="button" class="close" ng-click='close()'>&times;</button>
+                </div>
+                <i class="icon-reorder"></i>
+                视频上传
+            </div>
+            <div class="content clearfix">
+                <form class="layui-form clearfix">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">请选择视频</label>
+                        <div class="layui-input-block">
+                            <div class="layui-input-inline">
+                                <input type="file" name="file" id="file_upload">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <img ng-show="myForm.file.$valid" ngf-thumbnail="picFile" class="thumb">
+                            <button ng-click="picFile = null" ng-show="picFile">移除</button>
+                        </div>
+                    </div> -->
+                    <div class="submit">
+                        <button class='btn' ng-click="uploadPic(picFile)"><i class="icon-save"></i> 确定</button>
+                        <button type="reset" class="btn cancel" ng-click='close()'>
+                            <i class="icon-minus-sign"></i>
+                            <span class="ng-binding">取消</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,11 +1,17 @@
 define(function(){
 	return [ //表单
-		{
+		/*{
 			title : 'upload',
 			name : '上传视频',
 			cls : 'uploadVideo',
 			fileType : 'video',
 			type : 'upload' //text textarea radio checkbox edit
+		},*/
+		{
+			title : 'upload',
+			name : '上传视频',
+			type : 'file', //text textarea radio checkbox edit
+			typeName : 'video'
 		},
 		{
 			title : 'fileName',
