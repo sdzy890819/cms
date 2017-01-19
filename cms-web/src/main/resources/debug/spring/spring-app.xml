@@ -67,4 +67,15 @@
 			<bean class="java.util.concurrent.ThreadPoolExecutor$CallerRunsPolicy" />
 		</property>
 	</bean>
+
+	<bean id="multipartResolver"
+		  class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- set the max upload size100MB -->
+		<property name="maxUploadSize">
+			<value>3048576</value>
+		</property>
+		<property name="maxInMemorySize">
+			<value>1024</value>
+		</property>
+	</bean>
 </beans>
