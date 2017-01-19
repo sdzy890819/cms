@@ -1,5 +1,5 @@
 define(function(){
-	return [ //表单
+	var list = [ //表单
 		{
 			title : 'imageUrl',
 			name : '上传图片',
@@ -61,16 +61,21 @@ define(function(){
 			]
 		},
 		{
-			title : 'width',
+			title : 'imageWidth',
 			name : '图片宽度',
 			placeholder : '请填写图片宽度',
 			type : 'text' //text textarea radio checkbox edit
 		},
 		{
-			title : 'heigh',
+			title : 'imageHeight',
 			name : '图片高度',
 			placeholder : '请填写图片高度',
 			type : 'text' //text textarea radio checkbox edit
 		}
 	];
+
+	// function getList(callback){
+	// 	callback(list);
+	// }
+	return list;
 })

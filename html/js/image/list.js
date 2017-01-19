@@ -12,6 +12,7 @@ define(['require',"app",'jquery'
 	        controller : function($scope , pop , $uibModal , $css,GenerateArrList){
 	        	$scope.title = "图片列表";
 				$scope.$parent.menu.push({name:$scope.title}); //栏目
+
 				angular.extend($scope,{
 					add : function( id ){ //保存
 						pop.alert({
@@ -23,28 +24,56 @@ define(['require',"app",'jquery'
 						})
 					},
 					edit : function( obj ){ //保存
-						require(['../common/editPop'], function(pop) {
+						require(['./editImagePop'], function(pop) {
 
 							function getAddForm(callback) {
 								var data = {};								
-								// data.
+								data.imageUrl = obj.imageUrl;
+								data.title = obj.imageTitle;
+								if (obj.watermark == 0){
+									data.watermark = '否';
+								}else {
+									data.watermark = '是';
+								}
+								data.imageWidth = obj.imageWidthPixel;
+								data.imageHeight = obj.imageHeightPixel;
+								
+								var _data = {
+									data : data
+								};
+								callback(_data);
 							}
 
       				pop.init({
       					obj : obj,
       					list : list,
-      					$uibModal :$uibModal 
+      					$uibModal :$uibModal,
+      					updateData : getAddForm,
+      					callback : function(list, callback){
+      						callback(list);
+      					}
       				});
 	  				});
+
 					},
-					del : function( id ){ //删除
+					del : function( obj ){ //删除
 						pop.alert({
-							 text:'你的ID为：'+id
+							 text:'你确定删除：'+ obj.imageTitle
 							,btn : ['确定','取消']
 							,fn : function(index){//确定
-								layer.close(index)
+								data.image.delImage(obj);
 							}
 						})
+
+	 					obj.callback = function(_data) {
+							layui.use(['layer'], function(){
+								var layer = layui.layer;
+								layer.msg(_data.message);													
+								if(_data.code == 0) {									
+									$('table').find("tr[data-id=" + obj.id + "]").hide();
+								}
+							});					
+	 					}
 					},
 					filter : [ //过滤不需要展示的
 						'id','uploadUserId'
@@ -81,6 +110,10 @@ define(['require',"app",'jquery'
 								}
 							}	
 						// GenerateArrList.extendType($scope.listdata.table.td,$scope.listdata.table.th,['width','name']); //把TH 中的出name属性以外的属性合传给td
+			        $.each($scope.listdata.table.td, function(i, obj){
+			        	obj.list[2].image = obj.imageUrl;
+			        	obj.list[2].name = false;
+			        })							
 		        		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
 		        		$scope.$apply();													
 						}

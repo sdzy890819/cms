@@ -869,7 +869,83 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					},
 					error : function(){}
 				})				
-			}
+			},
+			updateImages : function(obj) {
+				T.ajax({
+					url : URL.images.updateImages , 
+					type : 'post',
+					data : {
+						id : obj.id,
+						imageUrl : obj.imageUrl,
+						imageWidthPixel : obj.imageWidthPixel, 
+						imageHeightPixel : obj.imageHeightPixel, // 图片宽像素  图片上传接口返回
+						orgWidthPixel : obj.orgWidthPixel, //原始长像素  图片上传接口返回
+						orgHeightPixel : obj.orgHeightPixel, //原始宽像素  图片上传接口返回
+						imageTitle : obj.imageTitle,
+						imagePath : obj.imagePath,
+						watermark : obj.watermark, //是否水印 1、0
+						compress : obj.compress, //是否压缩
+						fid : obj.fid, //图片上传接口返回
+						size : obj.size, //图片上传接口返回
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					},
+					error : function(){}
+				})				
+			},
+			delImage : function( obj ){ //栏目列表
+				T.ajax({
+					url : URL.images.delImages , 
+					type : 'get',
+					data : {
+						id : obj.id
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					},
+					error : function(){}
+				})
+			},					
+			imageBase : function( obj ){ //栏目列表
+				T.ajax({
+					url : URL.images.imagesBase , 
+					type : 'get',
+					success : function( _data ){
+						obj.callback(_data);
+					},
+					error : function(){}
+				})
+			},		
+			createImageBase : function( obj ){ //栏目列表
+				T.ajax({
+					url : URL.images.createImagesBase , 
+					type : 'post',
+					data : {
+						baseUrl : obj.baseUrl,
+						basePath : obj.basePath
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					},
+					error : function(){}
+				})
+			},	
+			updateImageBase : function( obj ){ //栏目列表
+				T.ajax({
+					url : URL.images.updateImagesBase , 
+					type : 'post',
+					data : {
+						id : obj.id,
+						baseUrl : obj.baseUrl,
+						basePath : obj.basePath
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					},
+					error : function(){}
+				})
+			}								
 		},
 		video : {
 			videolist : function( callback ){ //获取视频列表
