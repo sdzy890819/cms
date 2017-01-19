@@ -121,7 +121,8 @@ public class UploadController extends BaseController {
                 if (length > i) {
                     bytes = new byte[size];
                 } else {
-                    bytes = new byte[in.available() - (length - 1) * size];
+                    log.info("in.available():" + in.available());
+                    bytes = new byte[in.available()];
                     finish = 1;
                 }
                 in.read(bytes, 0, bytes.length);
