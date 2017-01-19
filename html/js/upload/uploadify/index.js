@@ -35,6 +35,9 @@ define(["app",'jquery','../../data/URL'],function (app,$,URL) {
 				            }
 				            file.queueItem.find('.fileinfo').html(' - ' + percent + '%');
 				            file.queueItem.find('.progress-bar').css('width', percent + '%');
+				        },
+				        'onUploadProgress' : function(file, bytesUploaded, bytesTotal, totalBytesUploaded, totalBytesTotal) {
+				            $('.progress-bar').html(totalBytesUploaded + ' bytes uploaded of ' + totalBytesTotal + ' bytes.');
 				        }
 				        // Put your options here
 				    });
