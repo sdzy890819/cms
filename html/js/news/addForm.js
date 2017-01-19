@@ -75,28 +75,28 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 			type : 'edit'
 		},
 		{
-			title : 'writeTime',
-			name : '定时发布',
-			placeholder : '请选择时间 年/月/日 时:分:秒',
-			type : 'date',
-			check : false
-		},
-		{
 			title : 'show',
 			name : '是否发布',
 			type : 'radio',
 			radio : [
 				{
+					title : 'no',
+					name : '否'
+				},
+				{
 					title : 'yes',
 					name : '是' , 
 					checked : true
-				},
-				{
-					title : 'no',
-					name : '否'
 				}
 			]
-		}
+		},
+		{
+			title : 'writeTime',
+			name : '定时发布',
+			placeholder : '请选择时间 年/月/日 时:分:秒',
+			type : 'date',
+			check : false
+		}		
 	];
 	function getList(callback){
 		getData.category.listCategory({//部门
