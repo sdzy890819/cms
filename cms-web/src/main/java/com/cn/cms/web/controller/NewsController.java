@@ -79,8 +79,8 @@ public class NewsController extends BaseController {
             for (int i = 0; i < list.size(); i++) {
                 list.get(i).setWriteUserName(map.get(list.get(i).getWriteUserId()).getRealName());
                 list.get(i).setLastModifyUserName(map.get(list.get(i).getLastModifyUserId()).getRealName());
-                list.get(i).setChannelName(channelMap.get(list.get(i).getChannelId()).getChannelName());
-                list.get(i).setColumnName(newsColumnMap.get(list.get(i).getColumnId()).getColumnName());
+                list.get(i).setChannelName(channelMap.get(list.get(i).getChannelId()).getChannelName()!=null?channelMap.get(list.get(i).getChannelId()).getChannelName():"");
+                list.get(i).setColumnName(newsColumnMap.get(list.get(i).getColumnId())!=null?newsColumnMap.get(list.get(i).getColumnId()).getColumnName():"");
             }
         }
         Map<String, Object> result = new HashMap<>();
