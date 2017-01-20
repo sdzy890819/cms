@@ -25,9 +25,9 @@
                     </div>
                     <div class="submit" ng-repeat="item in uploader.queue">
                         <button class='btn' ng-click="submit(item)"><i class="icon-save"></i> 确定</button>
-                        <button type="reset" class="btn cancel" ng-click='close()'>
+                        <button type="reset" class="btn cancel" ng-click='cancel()'>
                             <i class="icon-minus-sign"></i>
-                            <span class="ng-binding">取消</span>
+                            <span class="ng-binding">取消上传</span>
                         </button>
                     </div>
                 </form>

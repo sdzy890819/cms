@@ -22,6 +22,9 @@ define(["app",'jquery','../../data/URL'],function (app,$,URL) {
 					    		isUpload = false;
 					    		obj.upload();
 					    	}
+					    },
+					    cancel : function(){
+					    	
 					    }
 					})
 					var uploader = $scope.uploader = new FileUploader({
