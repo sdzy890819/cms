@@ -9,11 +9,10 @@ define(["app",'require','../data/getInitInfo'], function ( app , require , dataI
 		  //自定义验证规则
 		  form.verify({
 		    title: function(value){
-		      if(value.length < 5){
-		        return '用户名至少得5个字符啊';
+		      if(value.length < 1){
+		        return '请输入用户名';
 		      }
-		    }
-		    ,pass: [/(.+){6,12}$/, '密码必须6到12位']
+		    }		    
 		  });
 
 		  //监听提交
@@ -21,7 +20,12 @@ define(["app",'require','../data/getInitInfo'], function ( app , require , dataI
 		  	dataInfo.login({
 		  		data : data.field , 
 		  		callback : function(_data){
-		  			$state.go('home.main');
+		  			if (_data.code == 0){
+		  				$state.go('home.main');	
+		  			}else{
+		  				layer.msg("登录失败，请检查用户名密码");
+		  			}
+		  			
 		  		}
 		  	});
 		    return false;
