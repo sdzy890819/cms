@@ -374,7 +374,7 @@ input:focus{ border: 1px solid #bbb !important;} */
   height: 30px;
   line-height: 30px;
   padding-left: 40px;
-  background:url("../../images/logo.png") no-repeat 60px -2px;
+  background:url("../../images/login_logo.png") no-repeat 60px -2px;
   background-size: 30px;  
 }
 
