@@ -102,6 +102,45 @@ input:focus{ border: 1px solid #bbb !important;} */
 .loadding{ height:200px; background:url(../../images/loadding.gif) center center no-repeat;}
 .container{ padding:0 20px;}
 
+.hc-container {
+  width: 48%;
+  padding: 10px;  
+  background: #eef1f5;
+}
+
+.dashboard-header {
+  border-bottom: 1px solid #ccc;  
+  margin-bottom: 15px;
+}
+
+.dashboard-header h3 {
+  color: #777;
+}
+
+.dashboard-btn {
+  display: inline-block;
+  height: 50px;
+  line-height: 50px;
+  padding: 0 30px;  
+  color: #fff;
+  white-space: nowrap;
+  text-align: center;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  opacity: 0.9;   
+
+}
+
+.sumBtn {
+  background-color: #1E9FFF;
+}
+
+.todayBtn {
+  background-color: #FF5722;
+  
+}
+
 /* login */
 .login{
    position: fixed; left:0; top:0; width:100%; height:100%; background: #000; overflow:hidden;
@@ -250,14 +289,14 @@ $leftWidth : 225px;
          position:absolute; top:-45px; right:0; 
     }
     >.title{
-        background-color: #488be7;margin-bottom: 0px;padding: 8px 10px 8px 10px;color: #fff !important;
+        background-color: #4b5d6e;margin-bottom: 0px;padding: 8px 10px 8px 10px;color: #fff !important;
         .right-sider{ float:right; }
         .close{ padding:0 5px; border:none; background:none; color:#fff; font-size:18px; cursor:pointer;
             &:hover{ color:#fff000;}
         }
     }
     >.content{
-        border:1px solid #488be7;
+        border:2px solid #4b5d6e;
     }
     .submit{
         height:60px; line-height: 60px; padding-left: 150px; background: #f5f5f5; border-top:1px solid #e5e5e5;
@@ -292,7 +331,7 @@ $leftWidth : 225px;
             &:not(:nth-child(1)){ margin-left:10px; };
         }
         textarea{ width:80%; max-width:500px; min-height:50px; }
-        .clear{ clear:both; overflow:hidden;}
+        .clear{ clear:both; overflow:hidden; }
         .item{ float:left; 
             .control-label.next{ width:80px;}
             .controls.next{ margin-left:100px; }
@@ -319,10 +358,10 @@ $leftWidth : 225px;
 .table{
     table{ width:100%; border-left:1px solid #ddd; border-top:1px solid #ddd; @include box-sizing;}
     img.img{ vertical-align:middle; width:20px; height:20px; border-radius:100%;}
-    th{ text-align:left; padding:5px; font-size:14px; font-weight:normal; border-right:1px solid #ddd; border-bottom:1px solid #ddd; 
+    th{ text-align:left; padding:8px; font-size:14px; font-weight:bold; border-bottom:1px solid #ddd; 
         &.center{ text-align:center;}
     }
-    td{ text-align:left; padding:5px; font-size:14px;  border-right:1px solid #ddd; border-bottom:1px solid #ddd; 
+    td{ text-align:left; padding:0 8px 0 8px; height: 42px; font-size:14px;  border-bottom:1px solid #ddd; 
         &.center{ text-align:center;}
         &.edits{ text-align:center; }
         a{ color:#488be7;
@@ -380,7 +419,7 @@ $leftWidth : 225px;
             }
         }
     }
-}
+
 .news{
     &.edit{
         .boxtab{ margin-top:0; }
@@ -392,7 +431,7 @@ $leftWidth : 225px;
     .modal-dialog{width:500px;}
     .relation-pop{
         .relation-title{
-            background:#488be7; height:35px; line-height:35px; padding-left:15px; color:#fff;
+            background:#4b5d6e; height:35px; line-height:35px; padding-left:15px; color:#fff;
             .close{ float:right; padding:0 5px; padding-right:10px; color:#fff; cursor:pointer;}
         }
         .container{
@@ -419,7 +458,7 @@ $leftWidth : 225px;
         }
     }
 }
-.upload{ //上传功能
+.upload{ //上传功能 
     .boxtab{ margin-top:0; }
     .upload-file{ margin-top:6px; }
     .layui-form-label{ width:120px; }
@@ -428,6 +467,14 @@ $leftWidth : 225px;
         padding-top:20px;
         img{
             &.thumb{ max-width:200px; max-height:200px;}
+        }
+    }
+    &.videoPop{ 
+        .progress{ width:500px; padding-top:10px;}
+        .progress-bar{ clear:both; float:left; width:.01%; height:20px; margin-bottom:5px; border-radius:5px; background-color: #428bca; 
+            box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.15) inset;color: #fff; float:left; font-size: 12px; text-align: center; 
+            transition: width 0.6s ease 0s; -ms-transition: width 0.6s ease 0s; -moz-transition: width 0.6s ease 0s;
+            &.progress2{ background:green;}
         }
     }
 }

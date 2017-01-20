@@ -1,4 +1,4 @@
-define(["app",'./addForm','../upload/index','../data/getData','../upload/uploadify/index','../data/URL','form','position','fixedNav','uploadify'], function ( app , list , upload , getData , uploadify , URL ) {
+define(["app",'./addForm','../upload/index','../data/getData','../upload/angular-file-upload/index','../data/URL','form','position','fixedNav','uploadify'], function ( app , list , upload , getData , uploadify , URL ) {
 	app.directive('videoAdd',function(){
 		return {
 	    	restrict : 'E',

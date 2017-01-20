@@ -254,11 +254,10 @@ define(['require',"app",'jquery'
 							//end 分页
 
 							var th = [
-								{name:'标题' , key:'title' , width : '200'},
-								{name:'来源' , key:'source', width : '100' , class: 'center'},
-								{name:'作者' , key:'author' , class: 'center'},
+								{name:'标题' , key:'title' , width : '300'},								
+								{name:'作者' , key:'author' , width: '50', class: 'center'},
 								{name:'状态' , key:'publishStr' , class: 'center'},
-								{name:'平台名称',key:'platformStr'},
+								
 								{name:'发布时间' , key:'buildTimeStr' , class: 'center'},
 								{name:'更新时间' , key:'updateTimeStr' , class: 'center'},
 								{name:'操作' , width : '300' , class: 'center'}
@@ -275,8 +274,7 @@ define(['require',"app",'jquery'
 										{cls : 'edit' , name : ' 推荐',evt:$scope.recommend},
 										{cls : 'edit' , name : '发布',evt:$scope.publish},
 										{cls : 'edit' , name : '编辑',evt:$scope.edit},
-										{cls : 'del' , name : '删除',evt:$scope.del},
-										{cls : '' , name : '详情',evt:$scope.info},
+										{cls : 'del' , name : '删除',evt:$scope.del}										
 									]
 
 								},
