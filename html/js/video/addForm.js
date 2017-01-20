@@ -14,11 +14,18 @@ define(function(){
 			typeName : 'video'
 		},
 		{
-			title : 'fileName',
+			title : 'videoTitle',
 			name : '视频标题',
 			placeholder : '请输入视频标题',
 			type : 'text', //text textarea radio checkbox edit
 			verify : 'title'
-		}
+		},
+		{
+			title : 'videoDesc',
+			name : '视频描述',
+			placeholder : '请输入视频描述',
+			type : 'textarea', //text textarea radio checkbox edit
+			verify : 'title'
+		}		
 	]
 })

@@ -1078,6 +1078,7 @@ input:focus{ border: 1px solid #bbb !important;} */
   height: 20px;
   border-radius: 100%;
 }
+
 /* line 322, ../sass/global.scss */
 .table th {
   text-align: left;
@@ -1094,8 +1095,9 @@ input:focus{ border: 1px solid #bbb !important;} */
 /* line 325, ../sass/global.scss */
 .table td {
   text-align: left;
-  padding: 8px;
+  padding: 0 8px 0 8px;  
   font-size: 14px;
+  height: 42px;
   /*border-right: 1px solid #ddd;*/
   border-bottom: 1px solid #ddd;
 }
