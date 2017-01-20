@@ -1,6 +1,9 @@
 define(function(require){
 	var url = '/webapi';
 	return {
+		index : {
+			index : url + '/index'
+		},
 		user : {
 			login : url+'/user/login',
 			loginOut : url+'/user/loginOut',
