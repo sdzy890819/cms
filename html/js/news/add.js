@@ -53,20 +53,20 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 					alert(obj)
 				}
 				
-				$scope.edit = { //导航操作按钮
-					nav : [{
-						name : '保存',
-						evt : $scope.save,
-						cls : 'save'
-					}],
-					list : [
-						{
-							name:'发布',
-							evt : $scope.rlease,
-							cls : 'add'
-						}
-					]
-				}
+				// $scope.edit = { //导航操作按钮
+				// 	nav : [{
+				// 		name : '保存',
+				// 		evt : $scope.save,
+				// 		cls : 'save'
+				// 	}],
+				// 	list : [
+				// 		{
+				// 			name:'发布',
+				// 			evt : $scope.rlease,
+				// 			cls : 'add'
+				// 		}
+				// 	]
+				// }
 
 				getList(function(list){
 					$.each(list,function( i , obj){
@@ -131,7 +131,7 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 								icon_cls : 'view'
 							},*/
 							{
-								name:'确认发布',
+								name:'提交',
 								evt : 'rlease',
 								icon_cls : 'ok'
 							},
