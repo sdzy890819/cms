@@ -251,7 +251,7 @@ public class TongjiClient {
             Long[] nuvs = new Long[tmp.size()];
             Long[] ips = new Long[tmp.size()];
 
-            for(int i = (tmp.size()-1),j = 0; i >= 0 ; i++, j++){
+            for(int i = (tmp.size()-1),j = 0; i >= 0 ;i--, j++){
                 pvs[j] = tmp.getJSONArray(i).getLong(0);
                 uvs[j] = tmp.getJSONArray(i).getLong(1);
                 nuvs[j] = tmp.getJSONArray(i).getLong(2);
