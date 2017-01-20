@@ -202,6 +202,34 @@ input:focus{ border: 1px solid #bbb !important;} */
   width: 100%;
   height: 100%;
 }
+.hc-container {
+  width: 48%;
+  padding: 12px;  
+  background: #eef1f5;
+}
+
+.dashboard-btn {
+  display: inline-block;
+  height: 50px;
+  line-height: 50px;
+  padding: 0 30px;  
+  color: #fff;
+  white-space: nowrap;
+  text-align: center;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  opacity: 0.9;   
+
+}
+
+.sumBtn {
+  background-color: #FF5722;
+}
+
+.todayBtn {
+  background-color: #1E9FFF;
+}
 
 /* line 101, ../sass/global.scss */
 .banner {
@@ -1043,10 +1071,10 @@ input:focus{ border: 1px solid #bbb !important;} */
 /* line 322, ../sass/global.scss */
 .table th {
   text-align: left;
-  padding: 5px;
+  padding: 8px;
   font-size: 14px;
-  font-weight: normal;
-  border-right: 1px solid #ddd;
+  font-weight: bold;
+  /*border-right: 1px solid #ddd;*/
   border-bottom: 1px solid #ddd;
 }
 /* line 323, ../sass/global.scss */
@@ -1056,9 +1084,9 @@ input:focus{ border: 1px solid #bbb !important;} */
 /* line 325, ../sass/global.scss */
 .table td {
   text-align: left;
-  padding: 5px;
+  padding: 8px;
   font-size: 14px;
-  border-right: 1px solid #ddd;
+  /*border-right: 1px solid #ddd;*/
   border-bottom: 1px solid #ddd;
 }
 /* line 326, ../sass/global.scss */
