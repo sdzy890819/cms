@@ -850,7 +850,7 @@ input:focus{ border: 1px solid #bbb !important;} */
 }
 /* line 252, ../sass/global.scss */
 .boxtab > .title {
-  background-color: #777;
+  background-color: #4B5D67;
   margin-bottom: 0px;
   padding: 8px 10px 8px 10px;
   color: #fff !important;
@@ -874,7 +874,7 @@ input:focus{ border: 1px solid #bbb !important;} */
 }
 /* line 259, ../sass/global.scss */
 .boxtab > .content {
-  border: 1px solid #777;
+  border: 3px solid #4B5D67;
 }
 /* line 262, ../sass/global.scss */
 .boxtab .submit {
@@ -892,7 +892,7 @@ input:focus{ border: 1px solid #bbb !important;} */
   padding: 0 15px;
   color: #fff;
   border: none;
-  background: #999;
+  background: #4d90fe;
   cursor: pointer;
   transition-duration: 0.3s;
   -webkit-transition-duration: 0.3s;
@@ -1108,10 +1108,11 @@ input:focus{ border: 1px solid #bbb !important;} */
 /* line 322, ../sass/global.scss */
 .table th {
   text-align: left;
-  padding: 5px;
+  padding: 10px;  
   font-size: 14px;
-  font-weight: normal;
-  border-right: 1px solid #ddd;
+  font-weight: bold;
+  color : #303030;  
+  /*border-right: 1px solid #ddd;*/
   border-bottom: 1px solid #ddd;
 }
 /* line 323, ../sass/global.scss */
@@ -1121,9 +1122,10 @@ input:focus{ border: 1px solid #bbb !important;} */
 /* line 325, ../sass/global.scss */
 .table td {
   text-align: left;
-  padding: 5px;
+  padding: 8px;
+
   font-size: 14px;
-  border-right: 1px solid #ddd;
+  /*border-right: 1px solid #ddd;*/
   border-bottom: 1px solid #ddd;
 }
 /* line 326, ../sass/global.scss */
@@ -1199,12 +1201,12 @@ input:focus{ border: 1px solid #bbb !important;} */
 }
 /* line 352, ../sass/global.scss */
 .table .btn.edit {
-  background: #999;
+  background: #4d90fe;
   color: #fff;
 }
 /* line 353, ../sass/global.scss */
 .table .btn.edit:hover {
-  background: #777;
+  background: #1e9fff;
 }
 
 /* line 357, ../sass/global.scss */
@@ -1247,7 +1249,7 @@ input:focus{ border: 1px solid #bbb !important;} */
   border: 1px solid #ddd;
   text-decoration: none;
   font-size: 12px;
-  color: #999;
+  color: #4d90fe;
 }
 /* line 368, ../sass/global.scss */
 .page .paginationjs .paginationjs-pages li a:hover {
