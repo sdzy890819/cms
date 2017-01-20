@@ -11,17 +11,17 @@ define(["app",'jquery','../../data/URL'],function (app,$,URL) {
 				templateUrl: '../template/upload/videoPop.html',
 				size: 'lg',
 				controller: function($scope,$uibModalInstance,$css, $timeout,FileUploader) {
-					$scope.isUpload = true;
+					var isUpload = true , 
+						size = 0;
 					angular.extend($scope,{
 					    close : function(){
 					    	$uibModalInstance.dismiss('cancel');
 					    },
-					    uploadSubmit : function(){
-					    	debugger;
-					    },
 					    submit : function( obj ){
-					    	debugger;
-
+					    	if(isUpload==true){
+					    		isUpload = false;
+					    		obj.upload();
+					    	}
 					    }
 					})
 					var uploader = $scope.uploader = new FileUploader({
@@ -33,15 +33,11 @@ define(["app",'jquery','../../data/URL'],function (app,$,URL) {
 
 			        uploader.filters.push({
 			            name: 'customFilter',
-			            fn: function(item /*{File|FileLikeObject}*/, options) {
-
+			            fn: function( item , options) {
+			            	size = item.size;
 			                return this.queue.length < 10;
 			            }
 					});
-
-			        uploader.onAfterAddingFile = function(fileItem) {
-			            $scope.$apply();
-			        };
 
 			        uploader.onProgressItem = function(fileItem, progress) { //进行中
 			        	$('.videoPop .progress1').css({width:progress+'%'});
@@ -63,7 +59,7 @@ define(["app",'jquery','../../data/URL'],function (app,$,URL) {
 			            layui.use(['layer'], function(){
 							var layer = layui.layer;
 							layer.msg('上传成功！');
-							isSubmit = true;
+							isUpload = true;
 							setTimeout(function(){
 								$scope.close();
 							},300);
@@ -72,42 +68,6 @@ define(["app",'jquery','../../data/URL'],function (app,$,URL) {
 
 				}
 			});
-			/*pop.opened.then(function (selectedItem) {
-				return;
-				setTimeout(function(){
-				    $('#file_upload').uploadify({
-				        'swf' : '/js/upload/uploadify/uploadify.swf',
-				        "fileObjName" : 'file',
-				        "buttonText" : '请选择视频文件',
-				        'buttonClass' : 'layui-upload-icon',
-				        'uploader' : URL.video.uploadVideo2,
-				        'onError' : function(){
-				        	alert('视频上传错误，不支持破损视频')
-				        },
-				        'onProgress' : function(file, e) {
-				            if (e.lengthComputable) {
-				                var percent = Math.round((e.loaded / e.total) * 100);
-				            }
-				            file.queueItem.find('.fileinfo').html(' - ' + percent + '%');
-				            file.queueItem.find('.progress-bar').css('width', percent + '%');
-				            $('.progress-bar').html(percent + '%');
-				        },
-				        'onUploadProgress' : function(file, bytesUploaded, bytesTotal, totalBytesUploaded, totalBytesTotal) {
-				            $('.progress-bar').html(totalBytesUploaded + ' bytes uploaded of ' + totalBytesTotal + ' bytes.');
-				        },
-				        'onUploadSuccess' : function(file, data, response){
-
-				        	layui.use(['layer'], function(){
-								var layer = layui.layer;
-								layer.msg('上传成功！');
-							});
-						}
-				        // Put your options here
-				    });
-				},300);
-		    }, function () {
-
-		    });*/
     	}
     }
 });
