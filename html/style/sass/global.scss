@@ -292,7 +292,7 @@ $leftWidth : 225px;
             &:not(:nth-child(1)){ margin-left:10px; };
         }
         textarea{ width:80%; max-width:500px; min-height:50px; }
-        .clear{ clear:both; overflow:hidden;}
+        .clear{ clear:both; overflow:hidden; }
         .item{ float:left; 
             .control-label.next{ width:80px;}
             .controls.next{ margin-left:100px; }
@@ -428,6 +428,14 @@ $leftWidth : 225px;
         padding-top:20px;
         img{
             &.thumb{ max-width:200px; max-height:200px;}
+        }
+    }
+    &.videoPop{
+        .progress{ width:500px; padding-top:10px;}
+        .progress-bar{ clear:both; float:left; width:.01%; height:20px; margin-bottom:5px; border-radius:5px; background-color: #428bca; 
+            box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.15) inset;color: #fff; float:left; font-size: 12px; text-align: center; 
+            transition: width 0.6s ease 0s; -ms-transition: width 0.6s ease 0s; -moz-transition: width 0.6s ease 0s;
+            &.progress2{ background:green;}
         }
     }
 }
