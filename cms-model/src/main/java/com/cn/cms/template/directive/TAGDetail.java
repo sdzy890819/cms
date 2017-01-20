@@ -3,6 +3,8 @@ package com.cn.cms.template.directive;
 import com.cn.cms.biz.*;
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.enums.TAGDetailTypeEnum;
+import com.cn.cms.logfactory.CommonLog;
+import com.cn.cms.logfactory.CommonLogFactory;
 import com.cn.cms.po.Fragment;
 import com.cn.cms.po.News;
 import com.cn.cms.utils.ContextUtil;
@@ -31,6 +33,8 @@ import java.io.Writer;
 @Getter
 @Setter
 public class TAGDetail extends Directive {
+
+    private CommonLog log = CommonLogFactory.getLog(TAGDetail.class);
 
     private NewsBiz newsBiz = ContextUtil.getContextUtil().getBean(NewsBiz.class);
 
@@ -72,25 +76,29 @@ public class TAGDetail extends Directive {
     @Override
     public boolean render(InternalContextAdapter context, Writer writer, Node node)
             throws IOException, ResourceNotFoundException, ParseErrorException, MethodInvocationException {
-
-        for(int i=0; i<node.jjtGetNumChildren(); i++) {
-            if (node.jjtGetChild(i) != null ) {
-                if(!(node.jjtGetChild(i) instanceof ASTBlock)) {
-                    if( i == 0 ) {
-                        resultObjName = (String) node.jjtGetChild(0).value(context);
-                    }else if( i == 1 ){
-                        type = (Integer) node.jjtGetChild(1).value(context);
-                    }else if( i == 2 ){
-                        content = (String) node.jjtGetChild(2).value(context);
+        try {
+            for (int i = 0; i < node.jjtGetNumChildren(); i++) {
+                if (node.jjtGetChild(i) != null) {
+                    if (!(node.jjtGetChild(i) instanceof ASTBlock)) {
+                        if (i == 0) {
+                            resultObjName = (String) node.jjtGetChild(0).value(context);
+                        } else if (i == 1) {
+                            type = (Integer) node.jjtGetChild(1).value(context);
+                        } else if (i == 2) {
+                            content = (String) node.jjtGetChild(2).value(context);
+                        }
+                    } else {
+                        parse(context);
+                        node.jjtGetChild(i).render(context, writer);
+                        break;
                     }
-                } else {
-                    parse(context);
-                    node.jjtGetChild(i).render(context, writer);
-                    break;
                 }
             }
+            return true;
+        }catch (Exception e){
+            log.error("TAGDETAIL 标签提取数据错误. ", e);
         }
-        return true;
+        return false;
     }
 
     public void parse(InternalContextAdapter context){

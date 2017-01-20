@@ -8,6 +8,8 @@ import com.cn.cms.enums.PublishJobTypeEnum;
 import com.cn.cms.enums.TAGListTypeEnum;
 import com.cn.cms.job.TemplatePublishJob;
 import com.cn.cms.job.TopicPublishJob;
+import com.cn.cms.logfactory.CommonLog;
+import com.cn.cms.logfactory.CommonLogFactory;
 import com.cn.cms.po.Base;
 import com.cn.cms.po.Template;
 import com.cn.cms.po.Topic;
@@ -42,6 +44,8 @@ import java.util.List;
 @Getter
 @Setter
 public class TAGList extends Directive {
+
+    private CommonLog log = CommonLogFactory.getLog(TAGList.class);
 
     private ThreadPoolTaskExecutor threadTaskExecutor = ContextUtil.getContextUtil().getBean("threadTaskExecutor",ThreadPoolTaskExecutor.class);
 
@@ -103,33 +107,38 @@ public class TAGList extends Directive {
     @Override
     public boolean render(InternalContextAdapter context, Writer writer, Node node)
             throws IOException, ResourceNotFoundException, ParseErrorException, MethodInvocationException {
-        page = (Integer) context.get(StaticContants.TEMPLATE_KEY_PAGE);
-        data = (Base) context.get(StaticContants.TEMPLATE_KEY_DATA);
-        template = (Template) context.get(StaticContants.TEMPLATE_KEY_TEMPLATE);
-        channelId = (Long) context.get(StaticContants.TEMPLATE_KEY_CHANNELID);
-        model = (Integer) context.get(StaticContants.TEMPLATE_KEY_PUBLISH_JOB_TYPE);
-        for(int i=0; i<node.jjtGetNumChildren(); i++) {
-            if (node.jjtGetChild(i) != null ) {
-                if(!(node.jjtGetChild(i) instanceof ASTBlock)) {
-                    if( i == 0 ) {
-                        resultObjName = (String) node.jjtGetChild(0).value(context);
-                    }else if( i == 1 ){
-                        type = (Integer) node.jjtGetChild(1).value(context);
-                    }else if( i == 2 ){
-                        content = (String) node.jjtGetChild(2).value(context);
-                    }else if( i == 3 ){
-                        count = (Integer) node.jjtGetChild(3).value(context);
-                    }else if( i == 4 ){
-                        size = (Integer) node.jjtGetChild(4).value(context);
+        try {
+            page = (Integer) context.get(StaticContants.TEMPLATE_KEY_PAGE);
+            data = (Base) context.get(StaticContants.TEMPLATE_KEY_DATA);
+            template = (Template) context.get(StaticContants.TEMPLATE_KEY_TEMPLATE);
+            channelId = (Long) context.get(StaticContants.TEMPLATE_KEY_CHANNELID);
+            model = (Integer) context.get(StaticContants.TEMPLATE_KEY_PUBLISH_JOB_TYPE);
+            for (int i = 0; i < node.jjtGetNumChildren(); i++) {
+                if (node.jjtGetChild(i) != null) {
+                    if (!(node.jjtGetChild(i) instanceof ASTBlock)) {
+                        if (i == 0) {
+                            resultObjName = (String) node.jjtGetChild(0).value(context);
+                        } else if (i == 1) {
+                            type = (Integer) node.jjtGetChild(1).value(context);
+                        } else if (i == 2) {
+                            content = (String) node.jjtGetChild(2).value(context);
+                        } else if (i == 3) {
+                            count = (Integer) node.jjtGetChild(3).value(context);
+                        } else if (i == 4) {
+                            size = (Integer) node.jjtGetChild(4).value(context);
+                        }
+                    } else {
+                        parse(context);
+                        node.jjtGetChild(i).render(context, writer);
+                        break;
                     }
-                } else {
-                    parse(context);
-                    node.jjtGetChild(i).render(context, writer);
-                    break;
                 }
             }
+            return true;
+        }catch(Exception e){
+            log.error("TAGLIST 标签数据提取错误。" ,e);
         }
-        return true;
+        return false;
     }
 
     public void parse(InternalContextAdapter context){
