@@ -241,8 +241,8 @@ public class TongjiClient {
             data.setNewSumUv(sum.getJSONArray(0).getLong(2));
             data.setSumIp(sum.getJSONArray(0).getLong(3));
             String[] keys = new String[result.getJSONArray("items").getJSONArray(0).size()];
-            for(int i=0;i<keys.length;i++){
-                keys[i] = result.getJSONArray("items").getJSONArray(0).getJSONArray(i).getString(0);
+            for(int i=(keys.length-1),j = 0;i >= 0;i--,j ++){
+                keys[j] = result.getJSONArray("items").getJSONArray(0).getJSONArray(i).getString(0);
             }
             data.setKey(keys);
             JSONArray tmp = result.getJSONArray("items").getJSONArray(1);
@@ -250,16 +250,17 @@ public class TongjiClient {
             Long[] uvs = new Long[tmp.size()];
             Long[] nuvs = new Long[tmp.size()];
             Long[] ips = new Long[tmp.size()];
-            for(int i=0;i<tmp.size();i++){
-                pvs[i] = tmp.getJSONArray(i).getLong(0);
-                uvs[i] = tmp.getJSONArray(i).getLong(1);
-                nuvs[i] = tmp.getJSONArray(i).getLong(2);
-                ips[i] = tmp.getJSONArray(i).getLong(3);
-                if(i + 1 == tmp.size()){
-                    data.setTodayIp(ips[i]);
-                    data.setTodayNewUv(nuvs[i]);
-                    data.setTodayPv(pvs[i]);
-                    data.setTodayUv(uvs[i]);
+
+            for(int i = (tmp.size()-1),j = 0; i >= 0 ; i++, j++){
+                pvs[j] = tmp.getJSONArray(i).getLong(0);
+                uvs[j] = tmp.getJSONArray(i).getLong(1);
+                nuvs[j] = tmp.getJSONArray(i).getLong(2);
+                ips[j] = tmp.getJSONArray(i).getLong(3);
+                if(i == 0){
+                    data.setTodayIp(ips[j]);
+                    data.setTodayNewUv(nuvs[j]);
+                    data.setTodayPv(pvs[j]);
+                    data.setTodayUv(uvs[j]);
                 }
             }
             data.setPvArray(pvs);
