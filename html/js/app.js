@@ -1,8 +1,8 @@
-define(["angular", "angularAMD","angular-ui-router",'angular-css','jquery','ui-bootstrap','layui','ngFileUpload-shim','ngFileUpload','moduls/prototype'], function ( angular, angularAMD) {
+define(["angular", "angularAMD","angularFileUpload","angular-ui-router",'angular-css','jquery','ui-bootstrap','layui','ngFileUpload-shim','ngFileUpload','moduls/prototype'], function ( angular, angularAMD) {
 
     //临时登录 需要删除
     // module
-    var app = angular.module("app", ["ui.router",'angularCSS','ui.bootstrap','ngFileUpload']);
+    var app = angular.module("app", ["ui.router",'angularCSS','ui.bootstrap','ngFileUpload','angularFileUpload']);
     // config
     app.config(["$stateProvider", '$urlRouterProvider','$locationProvider', function($stateProvider, $urlRouterProvider,$locationProvider){
         /*$locationProvider.html5Mode(true);*/

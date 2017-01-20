@@ -12,7 +12,6 @@ require.config({
         'angular-ui-router': 'plug/angular-ui-router.min',
         'angular-css':'plug/angular-css.min',
         'ui-bootstrap':'plug/ui-bootstrap-tpls-2.3.2.min',
-        'angularFileUpload':'plug/angular-file-upload.min',
 
         //upload img
         'ngFileUpload-shim' : 'plug/ng-file-upload/dist/ng-file-upload-shim.min',
@@ -20,6 +19,7 @@ require.config({
 
         //upload video
         'uploadify' : 'upload/uploadify/jquery.uploadify.min',
+        'angularFileUpload' : 'upload/angular-file-upload/dist/angular-file-upload.min',
 
         'layui' : 'plug/layui/layui',
         'jcrop' : 'plug/jcrop/jquery.Jcrop.min',
@@ -51,6 +51,7 @@ require.config({
         "angularAMD": ["angular"],
         "ngFileUpload-shim": ["angular"],
         "ngFileUpload": ["angular"],
+        "angularFileUpload": ["angular"],
         "ngload": ["angularAMD"]
     },
     deps:['app'],
