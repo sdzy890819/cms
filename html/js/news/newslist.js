@@ -254,6 +254,8 @@ define(['require',"app",'jquery'
 							//end 分页
 
 							var th = [
+								{name:'Id' , key:'id' , width : '50'},		
+								{name:'所属频道栏目' , key:'channelAndColumnName' , width : '200'},					
 								{name:'标题' , key:'title' , width : '300'},								
 								{name:'作者' , key:'author' , width: '50', class: 'center'},
 								{name:'状态' , key:'publishStr' , class: 'center'},
@@ -263,6 +265,9 @@ define(['require',"app",'jquery'
 								{name:'操作' , width : '300' , class: 'center'}
 							];
 							
+							$.each(_data.data.list, function(i, obj){
+								obj.channelAndColumnName = [obj.channelName, obj.columnName].join('-');
+							})
 					
 							$scope.listdata = { //确认按钮
 								title : $scope.title,
@@ -293,6 +298,12 @@ define(['require',"app",'jquery'
 								]*/
 							}
 
+							$.each($scope.listdata.table.td, function(i, obj){
+
+								if (obj.publish) {
+									obj.list[2].href = obj.url;
+								}
+							})
 
 							GenerateArrList.extendType($scope.listdata.table.td,th,['width','name','key']); //把TH 中的出name,key,width属性以外的属性合传给td
 							

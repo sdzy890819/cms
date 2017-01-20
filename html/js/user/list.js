@@ -42,14 +42,25 @@ define(['require',"app",'jquery',
 	  				});	
 					},
 
-					del : function( id ){ //删除
+					del : function( obj ){ //删除
+						console.log(obj);
 						pop.alert({
-							 text:'你的ID为：'+id
+							 text:'你确定删除：'+ obj.realName
 							,btn : ['确定','取消']
 							,fn : function(index){//确定
-								layer.close(index)
+								data.user.delUser(obj);
 							}
 						})
+
+	 					obj.callback = function(_data) {
+							layui.use(['layer'], function(){
+								var layer = layui.layer;
+								layer.msg(_data.message);													
+								if(_data.code == 0) {									
+									$('table').find("tr[data-id=" + obj.id + "]").hide();
+								}
+							});					
+	 					}
 					},
 					filter : [ //过滤不需要展示的
 						'id','userId','lastModifyUserId'

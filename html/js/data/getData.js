@@ -255,7 +255,17 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						obj.callback(_data);
 					}
 				})
-			}				
+			},
+			delUser : function( obj ){ //删除用户
+				T.ajax({
+					url : URL.user.delUser , 
+					data : {userId: obj.userId},
+					success : function( _data ){
+						obj.callback(_data);
+					},
+					error : function(){}
+				})
+			}					
 		},
 
 		position : {
@@ -991,17 +1001,70 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 			}								
 		},
 		video : {
-			videolist : function( callback ){ //获取视频列表
+			videolist : function( obj ){ //获取视频列表
 				T.ajax({
 					url : URL.video.videolist , 
 					type : 'get',
-					data : {},
+					data : {
+						page : obj.page,
+						pageSize : obj.pageSize
+					},
 					success : function( _data ){
-						callback(_data);
+						obj.callback(_data);
 					},
 					error : function(){}
 				})
-			}
+			},
+
+			delVideo : function( obj ){ //获取视频列表
+				T.ajax({
+					url : URL.video.delVideo , 
+					type : 'get',
+					data : {
+						id : obj.id
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					},
+					error : function(){}
+				})
+			},
+			createVideo : function( obj ){ //获取视频列表
+				T.ajax({
+					url : URL.video.createVideo , 
+					type : 'post',
+					data : {
+						videoTitle: obj.videoTitle,
+					  videoDesc: obj.videoDesc,
+					  videoUrl: obj.videoUrl,
+					  videoPath: obj.videoPath,
+					  fileName: obj.fileName				
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					},
+					error : function(){}
+				})
+			},
+			updateVideo : function( obj ){ //获取视频列表
+				T.ajax({
+					url : URL.video.updateVideo , 
+					type : 'post',
+					data : {
+						id : obj.id,
+						videoTitle: obj.videoTitle,
+					  videoDesc: obj.videoDesc,
+					  videoUrl: obj.videoUrl,
+					  videoPath: obj.videoPath,
+					  fileName: obj.fileName				
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					},
+					error : function(){}
+				})
+			}							
+
 		},
 		template : { //模版
 			listTemplate : function( obj ){//模版列表［分页］ 接口
