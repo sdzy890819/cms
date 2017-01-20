@@ -1,18 +1,22 @@
 <div class='home-page'>
-
-	<div style="margin-bottom: 10px">
-    <button class="dashboard-btn sumBtn">总IP: {{sumIp}}</button>
-    <button class="dashboard-btn sumBtn">总PV: {{sumPv}}</button>
-    <button class="dashboard-btn sumBtn">总UV: {{sumUv}}</button>    
-    <button class="dashboard-btn sumBtn">总新增UV: {{newSumUv}}</button>   
-  </div>
-
-	<div style="margin-bottom: 10px">
-    <button class="dashboard-btn todayBtn">今日IP: {{todayIp}}</button>
+	<div class="dashboard-header">
+		<h3>趋势分析报告</h3>
+	</div>
+	<div style="margin-bottom: 10px">    
     <button class="dashboard-btn todayBtn">今日PV: {{todayPv}}</button>
     <button class="dashboard-btn todayBtn">今日UV: {{todayUv}}</button>
     <button class="dashboard-btn todayBtn">今日新增UV: {{todayNewUv}}</button>
-  </div>  
+    <button class="dashboard-btn todayBtn">今日IP: {{todayIp}}</button>
+  </div>
+
+	<div style="margin-bottom: 10px">    
+    <button class="dashboard-btn sumBtn">近两周总PV: {{sumPv}}</button>
+    <button class="dashboard-btn sumBtn">近两周总UV: {{sumUv}}</button>    
+    <button class="dashboard-btn sumBtn">近两周总新增UV: {{newSumUv}}</button>   
+    <button class="dashboard-btn sumBtn">近两周总IP: {{sumIp}}</button>
+  </div>
+
+
 
 	<div class="public">
 		<div class="clearfix"> 
