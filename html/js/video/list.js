@@ -23,13 +23,24 @@ define(['require',"app",'jquery'
 								})
 							},
 							edit : function( obj ){ //保存
-								require(['../common/editPop'], function(pop) {
-			        				pop.init({
-			        					obj : obj,
-			        					list : list,
-			        					$uibModal :$uibModal 
-			        				});
-			  					});
+								require(['./editVideoPop'], function(pop) {
+									function getAddForm(callback){
+										var _data = {
+											data : obj
+										}										
+										callback(_data);
+									}
+
+	        				pop.init({
+	        					obj : obj,
+	        					list : list,
+	        					$uibModal :$uibModal,
+	        					updateData : getAddForm,
+	        					callback : function(list, callback){
+	        						callback(list);
+	        					}
+	        				});
+			  				});
 							},
 							del : function( obj ){ //删除
 								pop.alert({

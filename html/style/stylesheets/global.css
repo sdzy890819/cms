@@ -46,6 +46,40 @@ i {
   height: 0;
 }
 
+.file {
+    padding: 4px 10px;
+    height: 20px;
+    line-height: 20px;
+    position: relative;
+    cursor: pointer;
+    color: #888;
+    background: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+    display: inline-block;
+    *display: inline;
+    *zoom: 1
+}
+
+.file  input {
+    position: absolute;
+    font-size: 100px;
+    right: 0;
+    top: 0;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    cursor: pointer
+}
+
+.file:hover {
+    color: #444;
+    background: #eee;
+    border-color: #ccc;
+    text-decoration: none
+}
+
+
 /* line 50, ../sass/global.scss */
 .clearfix {
   display: inline-block;
@@ -285,7 +319,11 @@ input:focus{ border: 1px solid #bbb !important;} */
   top: 0;
   width: 100%;
   height: 100%;
-  background: #000;
+  text-align: center;
+  /*background: #4b5d6e;*/
+  background: url('../../images/login_bg.jpg');
+  background-repeat: no-repeat;
+  background-size: 100%;
   overflow: hidden;
   display: box;
   display: -webkit-box;
@@ -303,21 +341,58 @@ input:focus{ border: 1px solid #bbb !important;} */
 /* line 110, ../sass/global.scss */
 .login .content {
   max-width: 500px;
-  min-width: 300px;
+  min-width: 400px;
   margin: 100px auto;
 }
 /* line 112, ../sass/global.scss */
-.login .content .login-icon {
-  text-align: center;
-  padding: 15px 0;
+.login .content .login-icon {  
+  text-align: center;  
+  padding: 15px 0 15px 70px;
 }
 /* line 113, ../sass/global.scss */
 .login .content .form {
-  padding: 25px 50px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  background: #fff;
+  width: 100%;
+  padding: 25px 50px;  
+  border-radius: 10px; 
+  border: 1px solid #777; 
 }
+
+.login .company {
+  position: absolute;
+  bottom:  10px;
+  left: 50px;
+  line-height: 40px;  
+  width: 100%;
+  font-size: 14px;
+  color: #aaaaaa;
+  text-align: center;
+}
+
+.login .content .form .title {
+  color:#777;
+  font-size:16px;
+  height: 30px;
+  line-height: 30px;
+  padding-left: 40px;
+  background:url("../../images/logo.png") no-repeat 60px -2px;
+  background-size: 30px;  
+}
+
+.login .content .form .title .version {
+  font-size: 12px;
+}
+
+.login .content .form .copyright {
+  color:#999;
+  font-size:12px;
+}
+
+.login .content .form .opacity {
+  background: #777;
+  opacity: 0.5;
+  color : #fff;
+}
+
 
 /*header*/
 /* line 120, ../sass/global.scss */

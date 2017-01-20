@@ -1001,6 +1001,46 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 			}								
 		},
 		video : {
+			videoBase : function(obj) {
+				T.ajax({
+					url : URL.video.videoBase , 
+					type : 'get',
+					data : {},
+					success : function( _data ){
+						obj.callback(_data);
+					},
+					error : function(){}
+				})				
+			},
+			updateVideoBase : function(obj){
+				T.ajax({
+					url : URL.video.updateVideoBase , 
+					type : 'post',
+					data : {
+						id : obj.id,
+						baseUrl : obj.baseUrl,
+						basePath : obj.basePath
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					},
+					error : function(){}
+				})	
+			},
+			createVideoBase : function(obj){
+				T.ajax({
+					url : URL.video.createVideoBase , 
+					type : 'post',
+					data : {						
+						baseUrl : obj.baseUrl,
+						basePath : obj.basePath
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					},
+					error : function(){}
+				})	
+			},			
 			videolist : function( obj ){ //获取视频列表
 				T.ajax({
 					url : URL.video.videolist , 

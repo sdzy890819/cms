@@ -185,10 +185,10 @@ define(["angular", "angularAMD","angularFileUpload","angular-ui-router",'angular
                 template: '<video-add></video-add>',
                 controllerUrl: 'video/add'
             }))
-            .state('video.base.add', angularAMD.route({
-                url: '/base/add',
-                template: '<video-base-add></video-base-add>',
-                controllerUrl: 'video/base/add'
+            .state('video.base', angularAMD.route({
+                url: '/base',
+                template: '<video-base></video-base>',
+                controllerUrl: 'video/base'
             }))
 
             //模版管理

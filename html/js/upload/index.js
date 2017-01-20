@@ -9,7 +9,7 @@ define(["app",'jquery','form'],function (app,$) {
 				//windowTemplateUrl : '../../template/common/window.html',
 				//template : 'asdfsadf',
 				templateUrl: '../template/upload/pop.html',
-				size: 'lg',
+				size: 'normal',
 				controller: function($scope,$uibModalInstance,$css,Upload , $timeout) {
 					$scope.dataList = obj.data;
 					var reg = /\.(exe|rar|zip|tar|gz|dll)$/;
