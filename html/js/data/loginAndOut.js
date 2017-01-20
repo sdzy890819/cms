@@ -18,7 +18,7 @@ define(['./URL','jquery', '../moduls/Tool'],function(URL,$,Tool){
 					}								
 				},
 				error : function(_data){
-					layer.confirm(_data.message, {icon: 2, title:'提示'}, function(index){
+					layer.confirm('登录失败，请联系技术人员', {icon: 2, title:'提示'}, function(index){
 					  	layer.close(index);
 					  	location.reload();
 					});			

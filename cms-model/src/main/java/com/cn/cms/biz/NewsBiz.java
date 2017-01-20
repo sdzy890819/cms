@@ -1,9 +1,12 @@
 package com.cn.cms.biz;
 
+import com.alibaba.fastjson.JSONObject;
 import com.cn.cms.bo.RelationColumn;
+import com.cn.cms.contants.RedisKeyContants;
 import com.cn.cms.enums.AutoPublishEnum;
 import com.cn.cms.enums.PublishEnum;
 import com.cn.cms.enums.TemplateClassifyEnum;
+import com.cn.cms.middleware.JedisClient;
 import com.cn.cms.po.*;
 import com.cn.cms.service.NewsService;
 import com.cn.cms.utils.Page;
@@ -27,6 +30,9 @@ public class NewsBiz extends BaseBiz {
 
     @Resource
     private TemplateBiz templateBiz;
+
+    @Resource
+    private JedisClient jedisClient;
 
     @Resource
     private ChannelBiz channelBiz;
@@ -82,6 +88,7 @@ public class NewsBiz extends BaseBiz {
      */
     public void saveNewsColumn(NewsColumn newsColumn){
         newsService.saveNewsColumn(newsColumn);
+        this.jedisClient.set(RedisKeyContants.getRedisNewcolumnId(newsColumn.getId()), JSONObject.toJSONString(newsColumn));
 //        作废
 //        if(newsColumn.getListId()!=null){
 //            preTemplateBiz.buildListTemplate(newsColumn, newsColumn.getListId(), TemplateClassifyEnum.list);
@@ -92,6 +99,29 @@ public class NewsBiz extends BaseBiz {
     }
 
     /**
+     * 返回NewsColumnMap
+     * @param list
+     * @return
+     */
+    public Map<Long, NewsColumn> getNewsColumnMap(List<Long> list){
+        Map<Long, String> map = new HashMap<>();
+        for(int i=0;i<list.size();i++){
+            map.put(list.get(i), RedisKeyContants.getRedisNewcolumnId(list.get(i)));
+        }
+        Map<Long, NewsColumn> result = new HashMap<>();
+        List<String> tmp = jedisClient.mget(map.values().toArray(new String[map.size()]));
+        if(StringUtils.isNotEmpty(tmp)){
+            for(int i=0;i<tmp.size();i++){
+                NewsColumn newsColumn = JSONObject.parseObject(tmp.get(i), NewsColumn.class);
+                if(newsColumn!=null) {
+                    result.put(newsColumn.getId(), newsColumn);
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
      * 修改新闻栏目
      * @param newsColumn
      */
@@ -99,6 +129,7 @@ public class NewsBiz extends BaseBiz {
 //        作废
 //        NewsColumn old = newsService.getNewsColumn(newsColumn.getId());
         newsService.updateNewsColumn(newsColumn);
+        this.jedisClient.set(RedisKeyContants.getRedisNewcolumnId(newsColumn.getId()), JSONObject.toJSONString(newsColumn));
 //        if(old.getListId() != newsColumn.getListId() && newsColumn.getListId()!=null){
 //            if(old.getListTemplateId()!=null){
 //                preTemplateBiz.destroyListTemplate(old.getId(), old.getListTemplateId(), newsColumn.getLastModifyUserId());

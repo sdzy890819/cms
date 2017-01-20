@@ -1,4 +1,4 @@
-define(["app",'jquery','../../data/URL'],function (app,$,URL) {
+define(["app",'jquery','../../data/URL' , '../../data/getData'],function (app,$,URL,getData) {
     return {
     	init : function( obj ){
 			var $uibModal = obj.$uibModal;
@@ -11,7 +11,7 @@ define(["app",'jquery','../../data/URL'],function (app,$,URL) {
 				templateUrl: '../template/upload/videoPop.html',
 				size: 'lg',
 				controller: function($scope,$uibModalInstance,$css, $timeout,FileUploader) {
-					var isUpload = true , 
+					var isUpload = true , fileName = null,
 						size = 0;
 					angular.extend($scope,{
 					    close : function(){
@@ -22,6 +22,17 @@ define(["app",'jquery','../../data/URL'],function (app,$,URL) {
 					    		isUpload = false;
 					    		obj.upload();
 					    	}
+					    },
+					    cancel : function(){
+			    			$('.fileUpload').val('');
+					    	if(isUpload) return;
+					    	getData.upload.cancelVideo({
+					    		fileName : fileName , 
+					    		callback : function( _data ){
+					    			$('.videoPop .progress1').css({width:'0.01%'});
+			        				$('.videoPop .progress2').css({width:'0.01%',transitionDuration:'.3s'});
+					    		}
+					    	})
 					    }
 					})
 					var uploader = $scope.uploader = new FileUploader({
@@ -34,7 +45,9 @@ define(["app",'jquery','../../data/URL'],function (app,$,URL) {
 			        uploader.filters.push({
 			            name: 'customFilter',
 			            fn: function( item , options) {
+			            	fileName = item.name;
 			            	size = item.size;
+			            	uploader.queue.shift();
 			                return this.queue.length < 10;
 			            }
 					});

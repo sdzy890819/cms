@@ -33,6 +33,12 @@ public class RedisKeyContants {
 
     public static final String REDIS_BAIDU_TONGJI_DATA_KEY = "CMS_BAIDU_INDEX_TONGJI";
 
+    public static final String REDIS_NEWCOLUMN_ID = "CMS_NEWCOLUMN_";
+
+    public static String getRedisNewcolumnId(Long columnId){
+        return REDIS_NEWCOLUMN_ID.concat(String.valueOf(columnId));
+    }
+
     public static String getRedisLockKey(String key){
         return REDIS_LOCK_KEY.concat(key);
     }

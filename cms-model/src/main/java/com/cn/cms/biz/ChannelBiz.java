@@ -83,6 +83,24 @@ public class ChannelBiz extends BaseBiz {
         jedisClient.del(RedisKeyContants.REDIS_CHANNEL_LIST_KEY);
     }
 
+    public Map<Long, Channel> getChannelsMap(List<Long> list){
+        Map<Long, String> map = new HashMap<>();
+        for(int i=0;i<list.size();i++){
+            map.put(list.get(i), RedisKeyContants.getRedisChannelDetailKey(list.get(i)));
+        }
+        List<String> tmp= jedisClient.mget(map.values().toArray(new String[map.size()]));
+        Map<Long, Channel> result = new HashMap<>();
+        if(StringUtils.isNotEmpty(tmp)) {
+            for (int i = 0; i < tmp.size(); i++) {
+                Channel channel = JSONObject.parseObject(tmp.get(i), Channel.class);
+                if(channel!=null) {
+                    result.put(channel.getId(), channel);
+                }
+            }
+        }
+        return result;
+    }
+
     /**
      * 修改频道
      * @param channel

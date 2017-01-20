@@ -69,9 +69,19 @@ public class News extends Base{
     private Long channelId;
 
     /**
+     * 频道名
+     */
+    private String channelName;
+
+    /**
      * 栏目ID
      */
     private Long columnId;
+
+    /**
+     * 栏目名称
+     */
+    private String columnName;
 
     /**
      * 撰稿人

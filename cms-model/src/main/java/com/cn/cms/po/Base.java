@@ -39,4 +39,7 @@ public class Base implements Serializable{
      * 最后修改人ID
      */
     protected String lastModifyUserId;
+
+    protected String lastModifyUserName;
+
 }

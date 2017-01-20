@@ -70,7 +70,7 @@
     </sql>
 
     <sql id="sql_column_simple">
-        id,title,source,author,channel_id,column_id,write_user_id,platform,category_id,publish,update_time,build_time, sort
+        id,title,source,author,channel_id,column_id,write_user_id,platform,category_id,publish,update_time,build_time, sort, url ,last_modify_user_id
     </sql>
 
     <sql id="sql_column_simple_1">

@@ -13,8 +13,8 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">请选择视频</label>
                         <div class="layui-input-block">
-                            <div class="layui-input-inline">
-                                <input type="file" nv-file-select name='file' uploader="uploader"/>
+                            <div class="layui-input-inline" style="padding-top:7px;">
+                                <input type="file" class="fileUpload" nv-file-select name='file' uploader="uploader"/>
                                 <span class="fileinfo" ng-bind="item.file.name"></span>
                                 <div class="progress">
                                     <span class="progress-bar progress1" width></span>
@@ -25,9 +25,9 @@
                     </div>
                     <div class="submit" ng-repeat="item in uploader.queue">
                         <button class='btn' ng-click="submit(item)"><i class="icon-save"></i> 确定</button>
-                        <button type="reset" class="btn cancel" ng-click='close()'>
+                        <button type="button" class="btn cancel" ng-click='cancel()'>
                             <i class="icon-minus-sign"></i>
-                            <span class="ng-binding">取消</span>
+                            <span class="ng-binding">取消上传</span>
                         </button>
                     </div>
                 </form>

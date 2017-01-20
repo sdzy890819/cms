@@ -1705,6 +1705,18 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						obj.callback(_data);
 					}
 				});	
+			},
+			cancelVideo : function( obj ){ //视频取消
+				T.ajax({
+					url : URL.upload.cancelVideo , 
+					type : 'post',
+					data : {
+						"fileName":obj.fileName
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});	
 			}
 		}
 	}

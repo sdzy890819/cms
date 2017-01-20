@@ -1,19 +1,13 @@
 package com.cn.cms.web.controller;
 
-import com.cn.cms.biz.NewsBiz;
-import com.cn.cms.biz.PermissionBiz;
-import com.cn.cms.biz.PublishBiz;
-import com.cn.cms.biz.UserBiz;
+import com.cn.cms.biz.*;
 import com.cn.cms.bo.UserBean;
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.enums.AutoPublishEnum;
 import com.cn.cms.enums.CommonMessageSourceEnum;
 import com.cn.cms.enums.PublishEnum;
 import com.cn.cms.enums.RecommendEnum;
-import com.cn.cms.po.News;
-import com.cn.cms.po.NewsDetail;
-import com.cn.cms.po.NewsRecommend;
-import com.cn.cms.po.RecommendColumn;
+import com.cn.cms.po.*;
 import com.cn.cms.utils.Page;
 import com.cn.cms.utils.StringUtils;
 import com.cn.cms.web.ann.CheckAuth;
@@ -52,6 +46,9 @@ public class NewsController extends BaseController {
     @Resource
     private PermissionBiz permissionBiz;
 
+    @Resource
+    private ChannelBiz channelBiz;
+
 
     /**
      * 新闻列表
@@ -66,15 +63,24 @@ public class NewsController extends BaseController {
                        @RequestParam(value="pageSize",required = false) Integer pageSize){
         Page page1 = new Page(page, pageSize);
         List<News> list = newsBiz.listNews(page1);
-
         List<String> userIds = new ArrayList<>();
+        List<Long> channelIds = new ArrayList<>();
+        List<Long> columnIds = new ArrayList<>();
         if(StringUtils.isNotEmpty(list)) {
             for (int i = 0; i < list.size(); i++) {
                 userIds.add(list.get(i).getWriteUserId());
+                userIds.add(list.get(i).getLastModifyUserId());
+                channelIds.add(list.get(i).getChannelId());
+                columnIds.add(list.get(i).getColumnId());
             }
             Map<String, UserBean> map = userBiz.getUserBeanMap(userIds);
+            Map<Long ,Channel> channelMap = channelBiz.getChannelsMap(channelIds);
+            Map<Long, NewsColumn> newsColumnMap = newsBiz.getNewsColumnMap(columnIds);
             for (int i = 0; i < list.size(); i++) {
                 list.get(i).setWriteUserName(map.get(list.get(i).getWriteUserId()).getRealName());
+                list.get(i).setLastModifyUserName(map.get(list.get(i).getLastModifyUserId()).getRealName());
+                list.get(i).setChannelName(channelMap.get(list.get(i).getChannelId()).getChannelName()!=null?channelMap.get(list.get(i).getChannelId()).getChannelName():"");
+                list.get(i).setColumnName(newsColumnMap.get(list.get(i).getColumnId())!=null?newsColumnMap.get(list.get(i).getColumnId()).getColumnName():"");
             }
         }
         Map<String, Object> result = new HashMap<>();
