@@ -30,6 +30,38 @@ ul, li, ul li {
   list-style: none;
 }
 
+
+
+.hc-container {
+  width: 48%;
+  padding: 12px;  
+  background: #eef1f5;
+}
+
+.dashboard-btn {
+  display: inline-block;
+  height: 50px;
+  line-height: 50px;
+  padding: 0 30px;  
+  color: #fff;
+  white-space: nowrap;
+  text-align: center;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  opacity: 0.9;   
+
+}
+
+.sumBtn {
+  background-color: #FF5722;
+}
+
+.todayBtn {
+  background-color: #1E9FFF;
+}
+
+
 .file {
     padding: 4px 10px;
     height: 20px;
