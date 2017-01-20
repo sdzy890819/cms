@@ -52,6 +52,19 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 		}
 	};
 	var public = {
+		index : {
+			index : function(obj){
+				T.ajax({
+					url : URL.index.index , 
+					type : 'get',
+					data : {},
+					success : function( _data ){
+						obj.callback(_data);
+					},
+					error : function(){}
+				})				
+			}
+		},
 		permission : {//权限
 			listPermission:function( obj ){ //权限列表接口
 				T.ajax({

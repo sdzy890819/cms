@@ -12,9 +12,20 @@
                 <form class="layui-form clearfix">
                     <div class="layui-form-item">
                         <label class="layui-form-label">请选择视频</label>
-                        <div class="layui-input-block">
+                       <!--  <div class="layui-input-block">
                             <div class="layui-input-inline">
                                 <input type="file" name="file" id="file_upload">
+                            </div>
+                        </div> -->
+                        <div class="layui-input-block">
+                            <div class="layui-input-inline">
+                                <input type="file" nv-file-select name='file' uploader="uploader"/><br/>
+                                <ul>
+                                    <li ng-repeat="item in uploader.queue">
+                                        Name: <span ng-bind="item.file.name"></span><br/>
+                                        <button ng-click="item.upload()">upload</button>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
