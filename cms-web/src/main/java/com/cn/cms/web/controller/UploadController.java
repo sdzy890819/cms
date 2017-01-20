@@ -109,7 +109,7 @@ public class UploadController extends BaseController {
     @CheckToken
     @CheckAuth( name = "video:upload" )
     @RequestMapping(value="/uploadVideo2",method = RequestMethod.POST)
-    public String uploadVide(@RequestParam(value = "file", required = false) MultipartFile file) throws IOException, BizException {
+    public String uploadVideo2(@RequestParam(value = "file", required = false) MultipartFile file) throws IOException, BizException {
         String fileName = file.getOriginalFilename();
         InputStream in = file.getInputStream();
         int length = (in.available()-1)/size + 1;
@@ -142,6 +142,21 @@ public class UploadController extends BaseController {
     }
 
 
+    /**
+     * 取消视频上传
+     * @param fileName
+     * @return
+     * @throws IOException
+     * @throws BizException
+     */
+    @NotSaveBody
+    @CheckToken
+    @CheckAuth( name = "video:upload" )
+    @RequestMapping(value="/cancelVideo",method = RequestMethod.POST)
+    public String cancel(@RequestParam(value = "fileName", required = false) String fileName) throws IOException, BizException {
+        mssVideoClient.interrupt(fileName);
+        return ApiResponse.returnSuccess();
+    }
 
 
 

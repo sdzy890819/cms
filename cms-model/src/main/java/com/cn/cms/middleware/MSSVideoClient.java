@@ -81,7 +81,7 @@ public class MSSVideoClient {
         return videoResponse;
     }
 
-    private void interrupt(String fileName) throws BizException {
+    public void interrupt(String fileName) throws BizException {
         JSONObject obj1 = new JSONObject();
         obj1.put("fileName", fileName);
         obj1.put("access_id", this.getAccessId());
