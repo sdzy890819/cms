@@ -93,7 +93,9 @@ public class ChannelBiz extends BaseBiz {
         if(StringUtils.isNotEmpty(tmp)) {
             for (int i = 0; i < tmp.size(); i++) {
                 Channel channel = JSONObject.parseObject(tmp.get(i), Channel.class);
-                result.put(channel.getId(), channel);
+                if(channel!=null) {
+                    result.put(channel.getId(), channel);
+                }
             }
         }
         return result;

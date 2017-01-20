@@ -113,7 +113,9 @@ public class NewsBiz extends BaseBiz {
         if(StringUtils.isNotEmpty(tmp)){
             for(int i=0;i<tmp.size();i++){
                 NewsColumn newsColumn = JSONObject.parseObject(tmp.get(i), NewsColumn.class);
-                result.put(newsColumn.getId(), newsColumn);
+                if(newsColumn!=null) {
+                    result.put(newsColumn.getId(), newsColumn);
+                }
             }
         }
         return result;
