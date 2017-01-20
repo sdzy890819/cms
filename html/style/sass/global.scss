@@ -419,7 +419,7 @@ $leftWidth : 225px;
         }
     }
 }
-.upload{ //上传功能
+.upload{ //上传功能 
     .boxtab{ margin-top:0; }
     .upload-file{ margin-top:6px; }
     .layui-form-label{ width:120px; }
@@ -430,7 +430,7 @@ $leftWidth : 225px;
             &.thumb{ max-width:200px; max-height:200px;}
         }
     }
-    &.videoPop{
+    &.videoPop{ 
         .progress{ width:500px; padding-top:10px;}
         .progress-bar{ clear:both; float:left; width:.01%; height:20px; margin-bottom:5px; border-radius:5px; background-color: #428bca; 
             box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.15) inset;color: #fff; float:left; font-size: 12px; text-align: center; 
