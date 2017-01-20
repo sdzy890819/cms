@@ -813,7 +813,7 @@ input:focus{ border: 1px solid #bbb !important;} */
 }
 /* line 252, ../sass/global.scss */
 .boxtab > .title {
-  background-color: #488be7;
+  background-color: #4b5d6e;
   margin-bottom: 0px;
   padding: 8px 10px 8px 10px;
   color: #fff !important;
@@ -837,7 +837,7 @@ input:focus{ border: 1px solid #bbb !important;} */
 }
 /* line 259, ../sass/global.scss */
 .boxtab > .content {
-  border: 1px solid #488be7;
+  border: 2px solid #4b5d6e;
 }
 /* line 262, ../sass/global.scss */
 .boxtab .submit {
@@ -1275,7 +1275,7 @@ input:focus{ border: 1px solid #bbb !important;} */
 }
 /* line 394, ../sass/global.scss */
 .relationPopsuper .relation-pop .relation-title {
-  background: #488be7;
+  background: #4b5d6e;
   height: 35px;
   line-height: 35px;
   padding-left: 15px;
