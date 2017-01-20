@@ -9,8 +9,7 @@ define(["app",'require','./data/getInitInfo', './data/getData'], function ( app 
 
 						data.user.currentUser({
 							callback : function(_data){
-								$scope.currentUser =_data;								
-								console.log($scope.currentUser);
+								$scope.currentUser =_data;																
 							}
 						})	 	        	
 	        	

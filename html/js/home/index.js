@@ -14,6 +14,7 @@ define(["app",'require', '../data/getData' ,'head','menu', '../plug/highcharts']
 	        			$scope.sumIp = data.sumIp;
 	        			$scope.sumPv = data.sumPv;
 	        			$scope.sumUv = data.sumUv;
+	        			$scope.newSumUv = data.newSumUv;
 	        			$scope.todayIp = data.todayIp;
 	        			$scope.todayNewUv = data.todayNewUv;
 	        			$scope.todayPv = data.todayPv;
