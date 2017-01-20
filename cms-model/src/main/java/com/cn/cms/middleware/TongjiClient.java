@@ -255,6 +255,12 @@ public class TongjiClient {
                 uvs[i] = tmp.getJSONArray(i).getLong(1);
                 nuvs[i] = tmp.getJSONArray(i).getLong(2);
                 ips[i] = tmp.getJSONArray(i).getLong(3);
+                if(i + 1 == tmp.size()){
+                    data.setTodayIp(ips[i]);
+                    data.setTodayNewUv(nuvs[i]);
+                    data.setTodayPv(pvs[i]);
+                    data.setTodayUv(uvs[i]);
+                }
             }
             data.setPvArray(pvs);
             data.setUvArray(uvs);

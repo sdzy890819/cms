@@ -18,19 +18,27 @@ public class TongjiData {
 
     private Long sumPv;
 
-    private String sumPvName = "PV";
+    private Long todayPv;
+
+    private String sumPvName = "PV数";
 
     private Long sumUv;
 
-    private String sumUvName = "UV";
+    private Long todayUv;
+
+    private String sumUvName = "UV数";
 
     private Long newSumUv;
 
-    private String newSumUvName = "NEW-UV";
+    private Long todayNewUv;
+
+    private String newSumUvName = "NEW-UV数";
 
     private Long sumIp;
 
-    private String sumIpName = "NEW-IP";
+    private Long todayIp;
+
+    private String sumIpName = "IP数";
 
     private String[] key;
 
