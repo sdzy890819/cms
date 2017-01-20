@@ -874,7 +874,7 @@ input:focus{ border: 1px solid #bbb !important;} */
 }
 /* line 259, ../sass/global.scss */
 .boxtab > .content {
-  border: 3px solid #4B5D67;
+  border: 2px solid #4B5D67;
 }
 /* line 262, ../sass/global.scss */
 .boxtab .submit {
