@@ -10,24 +10,37 @@ define(["app",'jquery','../../data/URL'],function (app,$,URL) {
 				//template : 'asdfsadf',
 				templateUrl: '../template/upload/videoPop.html',
 				size: 'lg',
-				controller: function($scope,$uibModalInstance,$css,Upload , $timeout) {
+				controller: function($scope,$uibModalInstance,$css, $timeout,FileUploader) {
 					angular.extend($scope,{
 					    close : function(){
 					    	$uibModalInstance.dismiss('cancel');
 					    }
 					})
+					var uploader = $scope.uploader = new FileUploader({
+				            url: URL.video.uploadVideo2,
+				            method : 'post'
+				        });
+
+					        // FILTERS
+
+			        uploader.filters.push({
+			            name: 'customFilter',
+			            fn: function(item /*{File|FileLikeObject}*/, options) {
+			                return this.queue.length < 10;
+			            }
+					});
+					//var uploader = new FileUploader(); // NOW
 				}
 			});
 			pop.opened.then(function (selectedItem) {
+				return;
 				setTimeout(function(){
 				    $('#file_upload').uploadify({
-				        'swf'      : '/js/upload/uploadify/uploadify.swf',
+				        'swf' : '/js/upload/uploadify/uploadify.swf',
 				        "fileObjName" : 'file',
 				        "buttonText" : '请选择视频文件',
 				        'buttonClass' : 'layui-upload-icon',
 				        'uploader' : URL.video.uploadVideo2,
-				        'uploadScript' : URL.video.uploadVideo2,
-				        'script' : URL.video.uploadVideo2,
 				        'onError' : function(){
 				        	alert('视频上传错误，不支持破损视频')
 				        },
