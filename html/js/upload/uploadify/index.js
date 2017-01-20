@@ -1,6 +1,4 @@
 define(["app",'jquery','../../data/URL'],function (app,$,URL) {
-/*	在页面定义个隐藏域<input id="sessionId" type="hidden" value="${pageContext.session.id}"/> 
-然后上传的url写成'uploader' : contextPath + '/userfileuploading/uploadFile;jsessionid=' + $("#sessionId").val(),// 这个地方写后台java路径*/
     return {
     	init : function( obj ){
 			var $uibModal = obj.$uibModal;
@@ -29,6 +27,7 @@ define(["app",'jquery','../../data/URL'],function (app,$,URL) {
 				        'buttonClass' : 'layui-upload-icon',
 				        'uploader' : URL.video.uploadVideo2,
 				        'uploadScript' : URL.video.uploadVideo2,
+				        'script' : URL.video.uploadVideo2,
 				        'onError' : function(){
 				        	alert('视频上传错误，不支持破损视频')
 				        },
@@ -43,7 +42,8 @@ define(["app",'jquery','../../data/URL'],function (app,$,URL) {
 				        'onUploadProgress' : function(file, bytesUploaded, bytesTotal, totalBytesUploaded, totalBytesTotal) {
 				            $('.progress-bar').html(totalBytesUploaded + ' bytes uploaded of ' + totalBytesTotal + ' bytes.');
 				        },
-				        'onUploadSuccess' : function(file, data, response) {
+				        'onUploadSuccess' : function(file, data, response){
+
 				        	layui.use(['layer'], function(){
 								var layer = layui.layer;
 								layer.msg('上传成功！');
