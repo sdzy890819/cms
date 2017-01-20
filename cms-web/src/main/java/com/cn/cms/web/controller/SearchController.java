@@ -1,9 +1,6 @@
 package com.cn.cms.web.controller;
 
-import com.cn.cms.biz.FragmentBiz;
-import com.cn.cms.biz.Template2Biz;
-import com.cn.cms.biz.TemplateBiz;
-import com.cn.cms.biz.UserBiz;
+import com.cn.cms.biz.*;
 import com.cn.cms.bo.FragmentSearch;
 import com.cn.cms.bo.Template2Search;
 import com.cn.cms.bo.TemplateSearch;
@@ -27,7 +24,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zhangyang on 17/1/7.
@@ -52,6 +51,12 @@ public class SearchController extends BaseController {
 
     @Resource
     private UserBiz userBiz;
+
+    @Resource
+    private ChannelBiz channelBiz;
+
+    @Resource
+    private NewsBiz newsBiz;
 
     /**
      * 全文检索新闻
@@ -107,7 +112,32 @@ public class SearchController extends BaseController {
         }
         Page pageObj = new Page(page, pageSize);
         QueryResult<News> queryResult = eSearchClient.searchNews(newsSearch,pageObj);
+        List<News> list = queryResult.getList();
+        dataInit(list);
         return ApiResponse.returnSuccess(queryResult);
+    }
+
+    public void dataInit(List<News> list ){
+        List<String> userIds = new ArrayList<>();
+        List<Long> channelIds = new ArrayList<>();
+        List<Long> columnIds = new ArrayList<>();
+        if(StringUtils.isNotEmpty(list)) {
+            for (int i = 0; i < list.size(); i++) {
+                userIds.add(list.get(i).getWriteUserId());
+                userIds.add(list.get(i).getLastModifyUserId());
+                channelIds.add(list.get(i).getChannelId());
+                columnIds.add(list.get(i).getColumnId());
+            }
+            Map<String, UserBean> map = userBiz.getUserBeanMap(userIds);
+            Map<Long ,Channel> channelMap = channelBiz.getChannelsMap(channelIds);
+            Map<Long, NewsColumn> newsColumnMap = newsBiz.getNewsColumnMap(columnIds);
+            for (int i = 0; i < list.size(); i++) {
+                list.get(i).setWriteUserName(map.get(list.get(i).getWriteUserId()).getRealName());
+                list.get(i).setLastModifyUserName(map.get(list.get(i).getLastModifyUserId()).getRealName());
+                list.get(i).setChannelName(channelMap.get(list.get(i).getChannelId()).getChannelName());
+                list.get(i).setColumnName(newsColumnMap.get(list.get(i).getColumnId()).getColumnName());
+            }
+        }
     }
 
 
