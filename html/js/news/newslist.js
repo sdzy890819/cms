@@ -1,8 +1,8 @@
-define(['require',"app",'jquery','search'
+define(['require',"app",'jquery','search','./searchForm'
 	,'./addForm','../common/editPop','../data/getData','../moduls/Tool'
 	,'formlist','fixedNav','position'
 	,'../moduls/service','../moduls/factory'
-], function ( require , app , $ , search , list , editPop ,getData , Tool  ) {
+], function ( require , app , $ , search , searchForm , list , editPop ,getData , Tool  ) {
 	app.directive('newsList',function(){
 		return {
 	    	restrict : 'E',
@@ -233,6 +233,19 @@ define(['require',"app",'jquery','search'
 					]
 				}*/
 
+				//搜索
+				function search(){
+					searchForm(function(data){
+						$scope.searchform = {
+							list : data,
+							submit : function( data , obj ){
+								alert(1)
+							}
+						}
+					});
+				}
+				search();
+				//end search
 
 				var page = 1;
 

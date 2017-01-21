@@ -8,12 +8,12 @@ define(["app",'jquery','./moduls/directive'], function ( app , $ ) {
 			scope : {
 	            data : '=data',	            
 	            edit : '=edit',
-	            filter : '=filter',	  	            
+	            filter : '=filter',	
+	            searchform : '=searchform', //搜索  	            
 	            page : '=page'
 	        },
 	        controller : function($scope , $state , $element , $rootScope){
 	        	layui.link('js/plug/layui/css/layui.css');
-
 				var icon = {
 					add:'plus',//添加
 					edit:'pencil',//编辑

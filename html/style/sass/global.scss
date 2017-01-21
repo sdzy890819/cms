@@ -390,9 +390,13 @@ $leftWidth : 225px;
     .w320{ width:320px; }
 
     &.search{
+        z-index: 99;
         margin-bottom:20px;
         .title{ border-bottom:1px solid #ccc; background:#f66200;}
         .content{ border:1px solid #ccc;}
+        .submit{ padding-top:0; padding-bottom:10px; height:auto; line-height:normal;
+           border-top:none; background:none;
+        }
     }
 }
 .form-horizontal{ padding:20px;
