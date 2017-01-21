@@ -45,13 +45,19 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 					submit : function( evt , obj ,$event ){
 						evt(obj,$event.target);
 					},
+					inputNum : 1,
 					addInput : function( obj , index ){ //新增输入匡
-						var firstArr = $scope.formdata.list.slice(0,index+1) , 
-							lastArr = $scope.formdata.list.slice(index+1) , 
+						var firstArr, lastArr, num = $scope.inputNum+1;
 							name = obj.name.match(/\d+$/) , 
-							title = obj.title.replace(obj.title.match(/\d+$/)[0],''),
-							num =  obj.num+1;
-						if(num<=obj.inputNum){
+							title = obj.title.replace(obj.title.match(/\d+$/)[0],'');
+
+						$.each($scope.formdata.list,function( i , _obj ){
+							if(_obj.num==$scope.inputNum){
+								firstArr = $scope.formdata.list.slice(0,i+1) 
+								lastArr = $scope.formdata.list.slice(i+1) 
+							}
+						})
+						if($scope.inputNum<obj.inputMaxNum){
 							if(name){
 								name = obj.name.replace(name[0],'');
 							}else{
@@ -63,19 +69,18 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 								name : name+num,
 								placeholder : '请输入扩展字段内容',
 								num : num, //当前为第1条
-								inputNum : obj.inputNum,
+								inputMaxNum : obj.inputMaxNum,
 								type : obj.type
 							})
 
 							$scope.formdata.list = firstArr.concat(lastArr);
-
 							if ($scope.$root.$$phase != '$apply' && $scope.$root.$$phase != '$digest') {
 								$scope.$apply();
 		  					}
 		  					return;
 						}
 						layui.use('layer', function(){
-						  layui.layer.msg('扩展之段只能添加'+num+'条',{icon: 2,anim:6});
+						  layui.layer.msg('扩展字段只能添加'+num+'条',{icon: 2,anim:6});
 						}); 
 					},
 					delInput : function( obj , index ){ //删除输入匡
@@ -92,9 +97,11 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 						}
 						firstArr.pop();
 						$.each(lastArr,function( i , _obj ){
-							this.num--;
-							this.title = title+this.num;
-							this.name = name+this.num;
+							if(this.inputMaxNum){
+								this.num--;
+								this.title = title+this.num;
+								this.name = name+this.num;
+							}
 						})
 
 						$scope.formdata.list = firstArr.concat(lastArr);
@@ -104,7 +111,6 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 	  					}
 					}
 				});
-
 				$scope.$watch(function(){
 					return $scope.formdata;
 				},function(){ 
@@ -112,6 +118,7 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 						$.each($scope.formdata.submit,function(){
 							this.icon_cls = icon[this.icon_cls]
 						});
+						var inputNum = 0;
 						$.each($scope.formdata.list,function(){
 							var self = this;
 							if(this.type=='edit'){
@@ -121,8 +128,11 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 					        		callback : function(editor){
 					        		}
 					        	});
+							}else if(this.inputMaxNum){
+								inputNum++;
 							}
 						});
+						$scope.inputNum = inputNum;
 						return;
 					};
 				},true);

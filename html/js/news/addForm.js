@@ -79,7 +79,7 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 			name : '扩展字段',
 			placeholder : '请输入扩展字段内容',
 			num : 1, //当前为第1条
-			inputNum : 5,
+			inputMaxNum : 5,
 			type : 'text'
 		},
 		{
