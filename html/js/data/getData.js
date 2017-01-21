@@ -528,7 +528,12 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						"categoryId": obj.categoryId, //部门分类ID
 						"content":obj.content,
 						"autoPublish":obj.autoPublish, //1 是自动发布。0是不自动发布.默认不自动发布
-						"timer":obj.timer //定时发布。//可不传,
+						"timer":obj.timer, //定时发布。//可不传,
+						"field1":obj.field1,
+						"field2":obj.field2,
+						"field3":obj.field3,
+						"field4":obj.field4,
+						"field5":obj.field5
 					},
 					success : function( _data ){
 						obj.callback(_data);
