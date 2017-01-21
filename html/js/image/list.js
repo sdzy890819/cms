@@ -1,5 +1,5 @@
 define(['require',"app",'jquery'
-	,'../data/getData' , './addForm',
+	,'../data/getData' , './addForm'
 	,'formlist','fixedNav','position'
 	,'../moduls/service','../moduls/factory'
 ], function ( require , app , $ , data , list ) {
