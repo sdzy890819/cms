@@ -17,6 +17,7 @@ import com.cn.cms.utils.Page;
 import com.cn.cms.utils.StringUtils;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.http.client.methods.RequestBuilder;
 import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequestBuilder;
@@ -109,6 +110,7 @@ public class ESearchClient {
         }else {
             builder = builder.addSort("id", SortOrder.DESC);
         }
+        log.info(builder.toString());
         SearchResponse response = builder.execute().actionGet();
         SearchHits hits = response.getHits();
         page.setCount((int)hits.getTotalHits());
@@ -217,15 +219,16 @@ public class ESearchClient {
         }
 
 
-        SearchResponse response = this.client.prepareSearch(ESSearchTypeEnum.topic.getIndex())
+        SearchRequestBuilder builder = this.client.prepareSearch(ESSearchTypeEnum.topic.getIndex())
                 .setTypes(ESSearchTypeEnum.topic.getName())
                 .setFrom(page.getStart())
                 .setSize(page.getPageSize())
                 .setQuery(qb)
                 .setSearchType(SearchType.DEFAULT)
                 .setExplain(false)
-                .addSort("id", SortOrder.DESC)
-                .execute().actionGet();
+                .addSort("id", SortOrder.DESC);
+        log.info(builder.toString());
+        SearchResponse response = builder.execute().actionGet();
         SearchHits hits = response.getHits();
         page.setCount((int)hits.getTotalHits());
         QueryResult<Topic> queryResult = new QueryResult<>();
@@ -266,18 +269,18 @@ public class ESearchClient {
             qb = qb.must(QueryBuilders.multiMatchQuery(imagesSearch.getCondition(), new String[]{"imageTitle","imageTitle.pinyin"}));
         }
 
-        SearchResponse response = this.client.prepareSearch(ESSearchTypeEnum.images.getIndex())
+        SearchRequestBuilder builder = this.client.prepareSearch(ESSearchTypeEnum.images.getIndex())
                 .setTypes(ESSearchTypeEnum.images.getName())
                 .setFrom(page.getStart())
                 .setSize(page.getPageSize())
                 .setQuery(qb)
                 .setSearchType(SearchType.DEFAULT)
                 .setExplain(false)
-                .addSort("id", SortOrder.DESC)
-                .execute().actionGet();
+                .addSort("id", SortOrder.DESC);
+        log.info(builder.toString());
+        SearchResponse response = builder.execute().actionGet();
         SearchHits hits = response.getHits();
         page.setCount((int)hits.getTotalHits());
-        Calendar calendar = Calendar.getInstance();
         QueryResult<Images> queryResult = new QueryResult<>();
         List<Images> imagesList = new ArrayList<>();
         for(SearchHit hit : hits){
@@ -315,15 +318,16 @@ public class ESearchClient {
             qb = qb.must(QueryBuilders.multiMatchQuery(videoSearch.getCondition(), new String[]{"videoTitle","videoTitle.pinyin","videoDesc"}));
         }
 
-        SearchResponse response = this.client.prepareSearch(ESSearchTypeEnum.video.getIndex())
+        SearchRequestBuilder builder = this.client.prepareSearch(ESSearchTypeEnum.video.getIndex())
                 .setTypes(ESSearchTypeEnum.video.getName())
                 .setFrom(page.getStart())
                 .setSize(page.getPageSize())
                 .setQuery(qb)
                 .setSearchType(SearchType.DEFAULT)
                 .setExplain(false)
-                .addSort("id", SortOrder.DESC)
-                .execute().actionGet();
+                .addSort("id", SortOrder.DESC);
+        log.info(builder.toString());
+        SearchResponse response = builder.execute().actionGet();
         SearchHits hits = response.getHits();
         page.setCount((int)hits.getTotalHits());
         Calendar calendar = Calendar.getInstance();
