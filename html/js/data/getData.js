@@ -1806,6 +1806,21 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						obj.callback(_data);
 					}
 				});
+			},
+			searchImages : function( obj ){
+				T.ajax({
+					url : URL.search.searchImages , 
+					type : 'post',
+					data : {
+						//所有参数都不是必传项
+						"condition":obj.condition,
+						"page":obj.page,
+						"pageSize":obj.pageSize
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});
 			}
 		}
 	}

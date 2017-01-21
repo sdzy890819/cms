@@ -185,7 +185,13 @@ define(function(require){
 		},
 		search : {
 			searchNew : url+'/search/searchNew', // post
-			searchTopic : url+'/search/searchTopic' // post
+			searchTopic : url+'/search/searchTopic', // post
+			searchImages : url+'/search/searchImages', // post
+			searchVideo : url+'/search/searchVideo', // post
+			searchFragment : url+'/search/searchFragment', // post
+			searchTemplate : url+'/search/searchTemplate', // post
+			searchTemplate2 : url+'/search/searchTemplate2', // post
+			searchUser : url+'/search/searchUser' // post
 		}
 	}
 })
