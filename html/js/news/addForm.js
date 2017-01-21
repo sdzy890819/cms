@@ -78,7 +78,7 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 			title : 'field1',
 			name : '扩展字段',
 			placeholder : '请输入扩展字段内容',
-			typeName : 'addInput',
+			num : 1, //当前为第1条
 			inputNum : 5,
 			type : 'text'
 		},

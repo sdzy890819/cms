@@ -44,6 +44,42 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 					},
 					submit : function( evt , obj ,$event ){
 						evt(obj,$event.target);
+					},
+					addInput : function( obj , index ){ //新增输入匡
+						var firstArr = $scope.formdata.list.slice(0,index+1) , 
+							lastArr = $scope.formdata.list.slice(index+1) , 
+							name = obj.name.match(/\d+$/) , 
+							title = obj.title.replace(obj.title.match(/\d+$/)[0],''),
+							num =  obj.num+1;
+						if(num<=obj.inputNum){
+							if(name){
+								name = obj.name.replace(name[0],'');
+							}else{
+								name = obj.name;
+							}
+							obj.name = name+obj.num;
+							firstArr.push({
+								title : title+num,
+								name : name+num,
+								placeholder : '请输入扩展字段内容',
+								num : num, //当前为第1条
+								inputNum : obj.inputNum,
+								type : obj.type
+							})
+
+							$scope.formdata.list = firstArr.concat(lastArr);
+
+							if ($scope.$root.$$phase != '$apply' && $scope.$root.$$phase != '$digest') {
+								$scope.$apply();
+		  					}
+		  					return;
+						}
+						layui.use('layer', function(){
+						  layui.layer.msg('扩展之段只能添加'+num+'条',{icon: 2,anim:6});
+						}); 
+					},
+					delInput : function( obj , index ){ //删除输入匡
+
 					}
 				});
 
