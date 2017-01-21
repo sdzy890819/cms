@@ -1,4 +1,4 @@
-define(['require',"app",'jquery','search','./searchForm'
+define(['require',"app",'jquery','/js/search/index.js','./searchForm'
 	,'../data/getData' , './addForm',
 	,'formlist','fixedNav','position'
 	,'../moduls/service','../moduls/factory'
