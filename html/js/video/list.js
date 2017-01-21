@@ -1,8 +1,8 @@
 define(['require',"app",'jquery'
-	,'../data/getData' , './addForm',
+	,'../data/getData' , './addForm', 'search', './searchForm'
 	,'formlist','fixedNav','position'
 	,'../moduls/service','../moduls/factory'
-], function ( require , app , $ , data , list ) {
+], function ( require , app , $ , getData , list, search, searchForm ) {
 	app.directive('videoList',function(){
 		return {
 	    	restrict : 'E',
@@ -47,7 +47,7 @@ define(['require',"app",'jquery'
 									 text:'你确定删除：'+ obj.videoTitle
 									,btn : ['确定','取消']
 									,fn : function(index){//确定
-										data.video.delVideo(obj);
+										getData.video.delVideo(obj);
 									}
 								})
 
@@ -66,10 +66,35 @@ define(['require',"app",'jquery'
 								'id','uploadUserId'
 							]
 						});
+
+						function setList(_data){
+							var th = [
+										{name:'ID' , key: 'id', width : '50'},
+										{name:'视频标题' , key: 'videoTitle', width : '200'},												
+										{name:'视频链接URL', key: 'videoUrl' },
+										{name:'操作' , width : '120', class:'center'}
+									];		
+							$scope.listdata = { //确认按钮
+								title : $scope.title,
+								table : {
+									select : true,
+									th : th,
+									td : GenerateArrList.setArr(_data.data.list, th) ,
+									edit : [
+										{cls : 'edit' , name : '编辑',evt:$scope.edit},
+										{cls : 'del' , name : '删除',evt:$scope.del}
+									]
+								}
+							}
+							// GenerateArrList.extendType($scope.listdata.table.td,$scope.listdata.table.th,['width','name']); //把TH 中的出name属性以外的属性合传给td
+	        		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
+	        		$scope.$apply();									
+																					
+						}
 						
 						var page = 1
 						function getDataList(){
-							data.video.videolist({
+							getData.video.videolist({
 								page : page,
 								pageSize: 5,
 								callback : function(_data){
@@ -81,34 +106,59 @@ define(['require',"app",'jquery'
 											getDataList();
 										}
 									}
-									//end 分页
-									var th = [
-												{name:'ID' , key: 'id', width : '50'},
-												{name:'视频标题' , key: 'videoTitle', width : '200'},												
-												{name:'视频链接URL', key: 'videoUrl' },
-												{name:'操作' , width : '120', class:'center'}
-											];
-
-									$scope.listdata = { //确认按钮
-										title : $scope.title,
-										table : {
-											select : true,
-											th : th,
-											td : GenerateArrList.setArr(_data.data.list, th) ,
-											edit : [
-												{cls : 'edit' , name : '编辑',evt:$scope.edit},
-												{cls : 'del' , name : '删除',evt:$scope.del}
-											]
-										}
-									}
-									// GenerateArrList.extendType($scope.listdata.table.td,$scope.listdata.table.th,['width','name']); //把TH 中的出name属性以外的属性合传给td
-					        		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
-					        		$scope.$apply();									
-									}								
-
+									setList(_data);	
+								}
 							});
 						}
 						getDataList();
+
+						//搜索
+						function search(){
+							var searchPage = 1;
+							searchForm(function(data){
+								$scope.searchform = {
+									list : data,
+									return : function(){ //返回列表
+										getDataList();
+										$scope.searchform.search = null;
+										page = 1;
+										searchPage = 1;
+										$scope.$$childHead.current = 1;
+									},
+									submit : function( obj , data ){
+										function getSearchList(){											
+											getData.search.searchVideo({
+												"condition":obj.condition,
+												page : searchPage,
+												pageSize : 20,
+												callback : function(_data){
+													//分页
+													$scope.page = _data.data.page;
+													$scope.page.jump = function( obj ){
+														if(searchPage != obj.curr){
+															searchPage = obj.curr;
+															getSearchList();
+														}
+													}
+													$scope.searchform.search = {
+														count : _data.data.page.count , 
+														name : obj.condition
+													}
+													setList(_data);
+												}
+											})
+										};
+										getSearchList();
+									}
+								}
+								if(!$scope.$$phase) { 
+									$scope.$apply();
+								}
+							});
+						}
+						search();
+						//end 搜索			
+
 				
 	        }
 	        ,link : function($scope , element ){
