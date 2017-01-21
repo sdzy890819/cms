@@ -64,6 +64,16 @@ define(['require',"app",'jquery','./moduls/Tool'
 								//required（必填项）phone（手机号）email（邮箱）url（网址）number（数字）date（日期）identity（身份证）
 							});
 							form.on('submit(demo1)', function(data){
+								var b = false;
+								$.each(data.field,function( key , value ){
+									if(value.length && value!='请选择'){
+										b = true;
+									}
+								})
+								if(!b){
+
+									return false;
+								}
 								$scope.list.submit(data.field,data);
 							    return false;
 						  	});
