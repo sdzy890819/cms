@@ -136,6 +136,7 @@ public class ESearchClient {
             news.setPlatform(convertInteger(hit.getSource().get("platform")));
             news.setRelativePath((String)hit.getSource().get("relativePath"));
             news.setUpdateTime(convertLongAndDate(hit.getSource().get("updateTime")));
+            news.setLastModifyUserId((String) hit.getSource().get("lastModifyUserId"));
             newses.add(news);
         }
         queryResult.setList(newses);
