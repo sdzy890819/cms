@@ -236,16 +236,85 @@ define(['require',"app",'jquery','search','./searchForm'
 				//搜索
 				function search(){
 					searchForm(function(data){
+						$.each(data,function( i , obj){
+							if(obj.type=='select'){
+								obj.callback = function( _object ){
+									if(_object.title == 'categoryId'){
+										getData.channel.currentChannelList({
+											categoryId : _object.obj.id,
+											callback : function(_data){
+												var arr = [obj.select[1][0]];
+												obj.select[1] = arr;
+												obj.select[1] = obj.select[1].concat(Tool.changeObjectName(_data.data,[{name:'channelName',newName:'name'}]));
+							
+												$scope.$apply();
+												_object.callback();
+											}
+										})
+									}else if(_object.title == 'channelId'){
+										getData.news.newscolumnlist({
+											channelId : _object.obj.id,
+											callback : function(_data){
+												var arr = [obj.select[2][0]];
+												obj.select[2] = arr;
+												obj.select[2] = obj.select[2].concat(Tool.changeObjectName(_data.data,[{name:'columnName',newName:'name'}]));
+												$scope.$apply();
+												_object.callback();
+											}
+										})
+									}
+								}
+							}
+						});
 						$scope.searchform = {
 							list : data,
-							submit : function( data , obj ){
-								alert(1)
+							submit : function( obj , data ){
+								var page = 1 , channelId , columnId , categoryId;
+								$.each(obj.selects,function(){
+									if(this.title == 'channelId'){
+										channelId = this.id;
+									}
+									if(this.title == 'columnId'){
+										columnId = this.id;
+									}
+									if(this.title == 'categoryId'){
+										categoryId = this.id;
+									}
+								});
+								function getSearchList(){
+									getData.search.searchNew({
+										"condition":obj.condition,
+										"author":obj.author,
+										"source":obj.source,
+										"categoryId":categoryId,//部门分类ID
+										"channelId":channelId,//频道ID
+										"columnId":columnId,//栏目ID
+										"platform":obj.platform, //平台,
+										"startTime":obj.startTime,//创建时间
+										"endTime":obj.endTime,//创建时间
+										page : page,
+										pageSize : 20,
+										callback : function(_data){
+											//分页
+											$scope.page = _data.data.page;
+											$scope.page.jump = function( obj ){
+												if(page != obj.curr){
+													page = obj.curr;
+													getSearchList();
+												}
+											}
+											$scope.listdata.table.td = [];
+											$scope.$apply();
+										}
+									})
+								};
+								getSearchList();
 							}
 						}
 					});
 				}
 				search();
-				//end search
+				//end 搜索
 
 				var page = 1;
 

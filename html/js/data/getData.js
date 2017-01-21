@@ -1759,28 +1759,30 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 				});	
 			}
 		},
-		search : function( obj ){
-			T.ajax({
-				url : URL.search.searchNew , 
-				type : 'post',
-				data : {
-					//所有参数都不是必传项
-					"condition":obj.condition,
-					"author":obj.author,
-					"source":obj.source,
-					"categoryId":obj.categoryId,//部门分类ID
-					"channelId":obj.channelId,//频道ID
-					"columnId":obj.columnId,//栏目ID
-					"platform":obj.platform, //平台,
-					"startTime":obj.startTime,//创建时间
-					"endTime":obj.endTime,//创建时间
-					"page":obj.page,
-					"pageSize":obj.pageSize
-				},
-				success : function( _data ){
-					obj.callback(_data);
-				}
-			});
+		search : {
+			searchNew: function( obj ){
+				T.ajax({
+					url : URL.search.searchNew , 
+					type : 'post',
+					data : {
+						//所有参数都不是必传项
+						"condition":obj.condition,
+						"author":obj.author,
+						"source":obj.source,
+						"categoryId":obj.categoryId,//部门分类ID
+						"channelId":obj.channelId,//频道ID
+						"columnId":obj.columnId,//栏目ID
+						"platform":obj.platform, //平台,
+						"startTime":obj.startTime,//创建时间
+						"endTime":obj.endTime,//创建时间
+						"page":obj.page,
+						"pageSize":obj.pageSize
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});
+			}
 		}
 	}
 	return public;

@@ -12,6 +12,7 @@ define(['require',"app",'jquery','./moduls/Tool'
 	        controller : function($scope,pop,$uibModal , $css , GenerateArrList, $state){
 	        }
 	        ,link : function($scope , element ){
+	        	$scope.selects = [];
 	        	layui.use(['form', 'layedit', 'laydate'], function(){
 					var form = layui.form()
 				 		,layer = layui.layer
@@ -63,23 +64,69 @@ define(['require',"app",'jquery','./moduls/Tool'
 								}
 								//required（必填项）phone（手机号）email（邮箱）url（网址）number（数字）date（日期）identity（身份证）
 							});
-							form.on('submit(demo1)', function(data){
+							form.on('submit(searchForm)', function(data){
 								var b = false;
 								$.each(data.field,function( key , value ){
-									if(value.length && value!='请选择'){
+									if(value.length && value.indexOf('请选择')<0){
 										b = true;
 									}
 								})
-								if(!b){
 
+								if(!b){
+									layui.use('layer', function(){
+									  var layer = layui.layer;
+									  
+									  layer.msg('请至少填写一项',{icon: 2,anim:6});
+									});   
 									return false;
 								}
+								data.field.selects = $scope.selects;
 								$scope.list.submit(data.field,data);
 							    return false;
 						  	});
 
+							function getSelect(_obj){ //获取选择匡的option
+								var self = this;
+								$.each(self.select,function(j,arr){									
+									if(arr[0].title==_obj.elem.name){//请选择部门
+										var obj = arr[_obj.elem.selectedIndex];
+										//obj.elem = _obj;
+										obj.title = _obj.elem.name;
+										if($scope.selects.length){
+											var b = false;
+											$.each($scope.selects,function( k , select ){
+												var name = _obj.elem.name;
+												if(select.title == _obj.elem.name){
+													b = true;
+													$scope.selects[k] = obj;
+												}else{
+													//$scope.selects.push(obj);
+												}
+											});
+											if(!b){
+												$scope.selects.push(obj);
+											}
+										}else{
+											$scope.selects.push(obj);
+										}
+										self.callback && self.callback({
+											obj : obj,
+											index : _obj.elem.selectedIndex,
+											title : _obj.elem.name,
+											name : _obj.name,
+											callback : function(){
+												form.render();
+											}
+										});
+									} 
+								});
+							}
 						  	form.on('select',function( _obj ){ //select点击时，需单独处理，可能会存在多个select
-						  		
+						  		$.each($scope.list.list,function( i , obj ){
+						  			if(this.type =='select'){
+										getSelect.call(this,_obj);
+									}
+								})
 						  	});
 
 						},
