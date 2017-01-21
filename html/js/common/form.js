@@ -79,7 +79,29 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 						}); 
 					},
 					delInput : function( obj , index ){ //删除输入匡
+						var firstArr = $scope.formdata.list.slice(0,index+1) , 
+							lastArr = $scope.formdata.list.slice(index+1) , 
+							name = obj.name.match(/\d+$/) , 
+							title = obj.title.replace(obj.title.match(/\d+$/)[0],''),
+							num =  obj.num;
 
+						if(name){
+							name = obj.name.replace(name[0],'');
+						}else{
+							name = obj.name;
+						}
+						firstArr.pop();
+						$.each(lastArr,function( i , _obj ){
+							this.num--;
+							this.title = title+this.num;
+							this.name = name+this.num;
+						})
+
+						$scope.formdata.list = firstArr.concat(lastArr);
+
+						if ($scope.$root.$$phase != '$apply' && $scope.$root.$$phase != '$digest') {
+							$scope.$apply();
+	  					}
 					}
 				});
 
