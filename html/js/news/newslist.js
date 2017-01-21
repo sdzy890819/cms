@@ -14,12 +14,45 @@ define(['require',"app",'jquery','search','./searchForm'
 				$scope.$parent.menu.push({name:$scope.title}); //栏目
 				angular.extend($scope,{
 					edit : function( obj ){ //保存
-						function getAddForm(callback){ //填充数据
+						function getAddForm(callback , formList){ //填充数据
 							getData.news.newsdetail({
 								id : obj.id,
 								callback : function(_data){
 									_data.data.writeTime = new Date(_data.data.writeTime).format('yyyy-MM-dd h:m:s');
-									callback(_data);
+									
+									if(formList){ //发果有1条以上的字段则显示
+										var maxNum , index = 2 , 
+											title , name, inputMaxNum,type,
+											firstArr, lastArr;
+										$.each(formList,function(i,obj){
+											if(obj.title=='field1'){
+												title = obj.title.replace(obj.title.match(/\d+$/)[0],'');
+												name = obj.name;
+												inputMaxNum = obj.inputMaxNum;
+												type = obj.type;
+												firstArr = formList.slice(0,i+1) 
+												lastArr = formList.slice(i+1) 
+												maxNum = obj.inputMaxNum+1;
+											}
+										});
+										for(;index<maxNum;index++){
+											var value = _data.data['field'+index];
+											if(value){
+												firstArr.push({
+													title : title+index,
+													name : name+index,
+													placeholder : '请输入扩展字段内容',
+													num : index, //当前为第1条
+													inputMaxNum : inputMaxNum,
+													type : type
+												})
+											}
+										}
+										callback(firstArr.concat(lastArr));
+									}else{
+										callback(_data);
+									}
+
 								}
 							})
 						}													
@@ -108,7 +141,9 @@ define(['require',"app",'jquery','search','./searchForm'
 										}
 									}
 								});
-								callback(list);
+								getAddForm(function( data){
+									callback(data);
+								},list)
         					},
         					$uibModal :$uibModal 
         				});

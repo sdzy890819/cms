@@ -8,7 +8,6 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 	        controller : function($scope){
 	        	$scope.$parent.menu.push({name:"新增新闻"});
 				$scope.rlease = function( obj ){ //发布
-					debugger;
 					var channelId , columnId , categoryId;
 					$.each(obj.selects,function(){
 						if(this.title == 'channelId'){
