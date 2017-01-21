@@ -5,7 +5,7 @@ define(['app'],function(app){
 			link: function (scope, element, attr ) {
 			  if (scope.$last === true) {
 			    $timeout(function () {
-               	 	scope.$eval( scope.$parent[attr.repeatFinish] )
+               	 	scope.$parent && scope.$eval( scope.$parent[attr.repeatFinish] )
                	 	scope.$emit(attr.repeatFinish, element, attr);
 			    },200);
 			  }
