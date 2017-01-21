@@ -1,9 +1,9 @@
-define(['require',"app",'jquery'
+define(['require',"app",'jquery','search','./searchForm'
 	,'../data/getData' , './addForm'
 	,'../common/editPop','../moduls/Tool'
 	,'formlist','fixedNav','position'
 	,'../moduls/service','../moduls/factory'
-], function ( require , app , $ , getData , list , editPop , Tool ) {
+], function ( require , app , $ , search , searchForm  , getData , list , editPop , Tool ) {
 	app.directive('topicList',function(){
 		return {
 	    	restrict : 'E',
@@ -126,6 +126,77 @@ define(['require',"app",'jquery'
 	 					})
 					}
 				});
+				//搜索
+				function search(){
+					searchForm(function(data){
+						$.each(data,function( i , obj){
+							obj.callback = function( _object ){
+								if(_object.title == 'categoryId'){
+									getData.channel.currentChannelList({
+										categoryId : _object.obj.id,
+										callback : function(_data){
+											var arr = [obj.select[1][0]];
+											obj.select[1] = arr;
+											obj.select[1] = obj.select[1].concat(Tool.changeObjectName(_data.data,[{name:'channelName',newName:'name'}]));
+						
+											$scope.$apply();
+											_object.callback();
+										}
+									})
+								}
+							}
+						});
+						$scope.searchform = {
+							list : data,
+							submit : function( obj , data ){
+								var page = 1 , channelId , topicColumnId , categoryId , topicClassifyId;
+								$.each(obj.selects,function(){
+									if(this.title == 'channelId'){
+										channelId = this.id;
+									}
+									if(this.title == 'topicColumnId'){
+										topicColumnId = this.id;
+									}
+									if(this.title == 'categoryId'){
+										categoryId = this.id;
+									}
+									if(this.title == 'topicClassifyId'){
+										topicClassifyId = this.id;
+									}
+								});
+								function getSearchList(){
+									getData.search.searchNew({
+										"condition":obj.condition,
+										"topicClassifyId":topicClassifyId,//专题分类ID
+										"categoryId":categoryId,//部门分类ID
+										"channelId":channelId,//频道ID
+										"topicColumnId":topicColumnId,//系列专题类型ID
+										"releaseTime":obj.releaseTime, //发布时间,
+										"startTime":obj.startTime,//创建时间
+										"endTime":obj.endTime,//创建时间
+										page : page,
+										pageSize : 20,
+										callback : function(_data){
+											//分页
+											$scope.page = _data.data.page;
+											$scope.page.jump = function( obj ){
+												if(page != obj.curr){
+													page = obj.curr;
+													getSearchList();
+												}
+											}
+											$scope.listdata.table.td = [];
+											$scope.$apply();
+										}
+									})
+								};
+								getSearchList();
+							}
+						}
+					});
+				}
+				search();
+				//end 搜索
 				getData.topic.listTopic(function(_data){
 					$.each(_data.data.list,function( i , obj){ //时间格示化
 						obj.releaseTime = new Date(obj.releaseTime).format('yyyy-MM-dd h:m:s');

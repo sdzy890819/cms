@@ -185,6 +185,7 @@ define(function(require){
 		},
 		search : {
 			searchNew : url+'/search/searchNew' // post
+			searchTopic : url+'/search/searchTopic' // post
 		}
 	}
 })

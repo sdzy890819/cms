@@ -1782,6 +1782,28 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						obj.callback(_data);
 					}
 				});
+			},
+			searchTopic : function( obj ){
+				T.ajax({
+					url : URL.search.searchTopic , 
+					type : 'post',
+					data : {
+						//所有参数都不是必传项
+						"condition":obj.condition,
+						"topicClassifyId":obj.topicClassifyId,//专题分类ID
+						"categoryId":obj.categoryId,//部门分类ID
+						"channelId":obj.channelId,//频道ID
+						"topicColumnId":obj.topicColumnId,//系列专题类型ID
+						"releaseTime":obj.releaseTime, //发布时间,
+						"startTime":obj.startTime,//创建时间
+						"endTime":obj.endTime,//创建时间
+						"page":obj.page,
+						"pageSize":obj.pageSize
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});
 			}
 		}
 	}
