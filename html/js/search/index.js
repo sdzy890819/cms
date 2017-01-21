@@ -1,4 +1,4 @@
-define(['require',"app",'jquery','./moduls/Tool'
+define(['require',"app",'jquery','/js/moduls/Tool.js'
 ], function ( require , app , $ , Tool  ) {
 	app.directive('search',function(){
 		return {

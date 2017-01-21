@@ -1,8 +1,8 @@
-define(['require',"app",'jquery'
-	,'../data/getData' , './addForm'
+define(['require',"app",'jquery','search','./searchForm'
+	,'../data/getData' , './addForm',
 	,'formlist','fixedNav','position'
 	,'../moduls/service','../moduls/factory'
-], function ( require , app , $ , data , list ) {
+], function ( require , app , $ , search , searchForm , getData , list ) {
 	app.directive('imageList',function(){
 		return {
 	    	restrict : 'E',
@@ -61,7 +61,7 @@ define(['require',"app",'jquery'
 							 text:'你确定删除：'+ obj.imageTitle
 							,btn : ['确定','取消']
 							,fn : function(index){//确定
-								data.image.delImage(obj);
+								getData.image.delImage(obj);
 							}
 						})
 
@@ -80,47 +80,96 @@ define(['require',"app",'jquery'
 					]
 				});
 
-				var page = 1;
-				function getDataList(){
-					data.image.imageslist({
-						page : page,
-						pageSize : 20,
-
-						callback : function(_data){
-							
-							var th = [
-										{name:'图片ID', key: 'id' },
-										{name:'图片标题', key: 'imageTitle' },
-										{name:'图片地址' , key: 'imageUrl', width : '200'},										
-										{name:'图片宽度', key: 'imageWidthPixel' },
-										{name:'图片高度', key: 'imageHeightPixel' },
-										{name:'操作' , width : '150' , class:'center' }
-								];
-
-							$scope.listdata = { //确认按钮
-								title : $scope.title,
-								table : {
-									select : true,
-									th : th,
-									td : GenerateArrList.setArr(_data.data.list, th) ,
-									edit : [
-										{cls : 'edit' , name : '编辑',evt:$scope.edit},
-										{cls : 'del' , name : '删除',evt:$scope.del}
-									]
-								}
-							}	
-						// GenerateArrList.extendType($scope.listdata.table.td,$scope.listdata.table.th,['width','name']); //把TH 中的出name属性以外的属性合传给td
+				function setList(_data){ //设置要显示的列表
+					var th = [
+							{name:'图片ID', key: 'id' },
+							{name:'图片标题', key: 'imageTitle' },
+							{name:'图片地址' , key: 'imageUrl', width : '200'},										
+							{name:'图片宽度', key: 'imageWidthPixel' },
+							{name:'图片高度', key: 'imageHeightPixel' },
+							{name:'操作' , width : '150' , class:'center' }
+					];
+					$scope.listdata = { //确认按钮
+						title : $scope.title,
+						table : {
+							select : true,
+							th : th,
+							td : GenerateArrList.setArr(_data.data.list, th) ,
+							edit : [
+								{cls : 'edit' , name : '编辑',evt:$scope.edit},
+								{cls : 'del' , name : '删除',evt:$scope.del}
+							]
+						}
+					}	
+					// GenerateArrList.extendType($scope.listdata.table.td,$scope.listdata.table.th,['width','name']); //把TH 中的出name属性以外的属性合传给td
 			        $.each($scope.listdata.table.td, function(i, obj){
 			        	obj.list[2].image = obj.imageUrl;
 			        	obj.list[2].name = false;
 			        })							
-		        		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
-		        		$scope.$apply();													
-						}
-
+	        		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
+	        		if(!$scope.$$phase) { 
+						$scope.$apply();
+					}
+  								
+				}
+				//显示列表
+				var page = 1;
+				function getDataList(){
+					getData.image.imageslist({
+						page : page,
+						pageSize : 20,
+						callback : setList
 					});
 				}
-					getDataList();
+				getDataList();
+				//end 显示列表
+
+				//搜索
+				function search(){
+					var searchPage = 1;
+					searchForm(function(data){
+						$scope.searchform = {
+							list : data,
+							return : function(){ //返回列表
+								getDataList();
+								$scope.searchform.search = null;
+								page = 1;
+								searchPage = 1;
+								$scope.$$childHead.current = 1;
+							},
+							submit : function( obj , data ){
+								function getSearchList(){
+									getData.search.searchImages({
+										"condition":obj.condition,
+										page : searchPage,
+										pageSize : 20,
+										callback : function(_data){
+											//分页
+											$scope.page = _data.data.page;
+											$scope.page.jump = function( obj ){
+												if(searchPage != obj.curr){
+													searchPage = obj.curr;
+													getSearchList();
+												}
+											}
+											$scope.searchform.search = {
+												count : _data.data.page.count , 
+												name : obj.condition
+											}
+											setList(_data);
+										}
+									})
+								};
+								getSearchList();
+							}
+						}
+						if(!$scope.$$phase) { 
+							$scope.$apply();
+						}
+					});
+				}
+				search();
+				//end 搜索
 	        }
 	        ,link : function($scope , element ){
 	        	
