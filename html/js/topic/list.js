@@ -160,6 +160,7 @@ define(['require',"app",'jquery','search','./searchForm'
 	        		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
 	        		$scope.$apply();
 				}
+				//显示列表
 				var page = 1;
 				function getDataList(){
 					getData.topic.listTopic({
@@ -179,6 +180,7 @@ define(['require',"app",'jquery','search','./searchForm'
 					});
 				};
 				getDataList();
+				//end 显示列表
 				//搜索
 				function search(){
 					searchForm(function(data){
