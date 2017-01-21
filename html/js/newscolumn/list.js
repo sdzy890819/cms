@@ -125,6 +125,7 @@ define(["app",'jquery','./columnForm'
 							//end 分页
 
 							var th = [
+								{name:'ID' , key:'id' , width : '50'},
 								{name:'栏目名' , key:'columnName' , width : '200'},
 								{name:'频道ID' , key:'channelId' },
 								{name:'操作' , width : '200' , class:'center'}

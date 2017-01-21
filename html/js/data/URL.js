@@ -182,6 +182,10 @@ define(function(require){
 			updateClassify : url+'/fragment/updateClassify', //分类修改
 			delClassify : url+'/fragment/delClassify', //删除分类
 			publish : url+'/fragment/publish' //发布
+		},
+		search : {
+			searchNew : url+'/search/searchNew', // post
+			searchTopic : url+'/search/searchTopic' // post
 		}
 	}
 })

@@ -255,7 +255,17 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						obj.callback(_data);
 					}
 				})
-			}				
+			},
+			delUser : function( obj ){ //删除用户
+				T.ajax({
+					url : URL.user.delUser , 
+					data : {userId: obj.userId},
+					success : function( _data ){
+						obj.callback(_data);
+					},
+					error : function(){}
+				})
+			}					
 		},
 
 		position : {
@@ -991,17 +1001,110 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 			}								
 		},
 		video : {
-			videolist : function( callback ){ //获取视频列表
+			videoBase : function(obj) {
 				T.ajax({
-					url : URL.video.videolist , 
+					url : URL.video.videoBase , 
 					type : 'get',
 					data : {},
 					success : function( _data ){
-						callback(_data);
+						obj.callback(_data);
+					},
+					error : function(){}
+				})				
+			},
+			updateVideoBase : function(obj){
+				T.ajax({
+					url : URL.video.updateVideoBase , 
+					type : 'post',
+					data : {
+						id : obj.id,
+						baseUrl : obj.baseUrl,
+						basePath : obj.basePath
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					},
+					error : function(){}
+				})	
+			},
+			createVideoBase : function(obj){
+				T.ajax({
+					url : URL.video.createVideoBase , 
+					type : 'post',
+					data : {						
+						baseUrl : obj.baseUrl,
+						basePath : obj.basePath
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					},
+					error : function(){}
+				})	
+			},			
+			videolist : function( obj ){ //获取视频列表
+				T.ajax({
+					url : URL.video.videolist , 
+					type : 'get',
+					data : {
+						page : obj.page,
+						pageSize : obj.pageSize
+					},
+					success : function( _data ){
+						obj.callback(_data);
 					},
 					error : function(){}
 				})
-			}
+			},
+
+			delVideo : function( obj ){ //获取视频列表
+				T.ajax({
+					url : URL.video.delVideo , 
+					type : 'get',
+					data : {
+						id : obj.id
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					},
+					error : function(){}
+				})
+			},
+			createVideo : function( obj ){ //获取视频列表
+				T.ajax({
+					url : URL.video.createVideo , 
+					type : 'post',
+					data : {
+						videoTitle: obj.videoTitle,
+					  videoDesc: obj.videoDesc,
+					  videoUrl: obj.videoUrl,
+					  videoPath: obj.videoPath,
+					  fileName: obj.fileName				
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					},
+					error : function(){}
+				})
+			},
+			updateVideo : function( obj ){ //获取视频列表
+				T.ajax({
+					url : URL.video.updateVideo , 
+					type : 'post',
+					data : {
+						id : obj.id,
+						videoTitle: obj.videoTitle,
+					  videoDesc: obj.videoDesc,
+					  videoUrl: obj.videoUrl,
+					  videoPath: obj.videoPath,
+					  fileName: obj.fileName				
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					},
+					error : function(){}
+				})
+			}							
+
 		},
 		template : { //模版
 			listTemplate : function( obj ){//模版列表［分页］ 接口
@@ -1309,13 +1412,15 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					}
 				});
 			}
-			,listTopic : function( callback ){//模版列表［分页］ 接口
+			,listTopic : function( obj ){//模版列表［分页］ 接口
 				T.ajax({
 					url : URL.topic.listTopic , 
-					type : 'get',
-					data : {},
+					data : {
+						"pageSize":obj.pageSize,
+			            "page":obj.page,
+					},
 					success : function( _data ){
-						callback(_data)
+						obj.callback(_data)
 					}
 				});
 			},
@@ -1654,6 +1759,53 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						obj.callback(_data);
 					}
 				});	
+			}
+		},
+		search : {
+			searchNew: function( obj ){
+				T.ajax({
+					url : URL.search.searchNew , 
+					type : 'post',
+					data : {
+						//所有参数都不是必传项
+						"condition":obj.condition,
+						"author":obj.author,
+						"source":obj.source,
+						"categoryId":obj.categoryId,//部门分类ID
+						"channelId":obj.channelId,//频道ID
+						"columnId":obj.columnId,//栏目ID
+						"platform":obj.platform, //平台,
+						"startTime":obj.startTime,//创建时间
+						"endTime":obj.endTime,//创建时间
+						"page":obj.page,
+						"pageSize":obj.pageSize
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});
+			},
+			searchTopic : function( obj ){
+				T.ajax({
+					url : URL.search.searchTopic , 
+					type : 'post',
+					data : {
+						//所有参数都不是必传项
+						"condition":obj.condition,
+						"topicClassifyId":obj.topicClassifyId,//专题分类ID
+						"categoryId":obj.categoryId,//部门分类ID
+						"channelId":obj.channelId,//频道ID
+						"topicColumnId":obj.topicColumnId,//系列专题类型ID
+						"releaseTime":obj.releaseTime, //发布时间,
+						"startTime":obj.startTime,//创建时间
+						"endTime":obj.endTime,//创建时间
+						"page":obj.page,
+						"pageSize":obj.pageSize
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});
 			}
 		}
 	}

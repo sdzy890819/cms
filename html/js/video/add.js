@@ -10,9 +10,24 @@ define(["app",'./addForm','../upload/index','../data/getData','../upload/angular
 	        	$scope.$parent.menu.push({name:$scope.title});
 
 	        	angular.extend($scope,{
-					save : function( obj ){ //保存
+						save : function( obj ){ //保存
 
-					}
+							var $dom = $('.layui-box.layui-upload-button');
+							var videoUrl = $dom.attr('video-url'),
+									fileName = $dom.attr('filename');
+							getData.video.createVideo({
+								videoTitle: obj.videoTitle,
+							  videoDesc: obj.videoDesc,
+							  videoUrl: videoUrl,								  
+							  fileName: fileName,
+							  callback : function(_data){
+									layui.use(['layer'], function(){
+										var layer = layui.layer;
+										layer.msg(_data.message);											
+									});								  	
+							  }
+							})							
+						}
 				});
 				$scope.formdata = { //确认按钮
 					title : $scope.title,
@@ -60,13 +75,16 @@ define(["app",'./addForm','../upload/index','../data/getData','../upload/angular
 	        					title : '上传视频',
 	        					name : '请选择视频',
 	        					type : 'video',
-	        					event : function(file , $uibModalInstance){
-	        						$scope.imageInfo = file;
+	        					event : function(file , $uibModalInstance){	        						
+	        						$scope.imageInfo = file;	        						
 	        						$uibModalInstance.dismiss('cancel');
 	        					}
         					},
         					$uibModal :$uibModal
         				});
+
+						console.log(uploadify);
+						
 					});
 				});
 	        }

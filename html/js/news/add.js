@@ -81,19 +81,6 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 										callback : function(_data){
 											var arr = [obj.select[1][0]];
 											obj.select[1] = arr;
-											/*var _data = {
-												data : [{
-												      "categoryId": 10001,
-												      "channelDesc": "世界频道，带你看世界",
-												      "channelName": "世界频道",
-												      "channelPath": "/data/publish/",
-												      "channelUrl": "http://120.77.220.11/publish/",
-												      "delTag": 1,
-												      "id": 10001,
-												      "lastModifyUserId": "14840345528522311094",
-												      "templatePath": "/data/template/"
-												    }]											
-												}*/
 											obj.select[1] = obj.select[1].concat(Tool.changeObjectName(_data.data,[{name:'channelName',newName:'name'}]));
 						
 											$scope.$apply();

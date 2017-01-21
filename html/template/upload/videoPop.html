@@ -11,10 +11,12 @@
             <div class="content clearfix">
                 <form class="layui-form clearfix">
                     <div class="layui-form-item">
-                        <label class="layui-form-label">请选择视频</label>
-                        <div class="layui-input-block">
+                        <!-- <label class="layui-form-label">请选择视频</label> -->
+                        <div class="layui-input-block" style="margin-left:10px;">
                             <div class="layui-input-inline" style="padding-top:7px;">
+                                <a href="javascript:;" class="file">请选择视频
                                 <input type="file" class="fileUpload" nv-file-select name='file' uploader="uploader"/>
+                                </a>
                                 <span class="fileinfo" ng-bind="item.file.name"></span>
                                 <div class="progress">
                                     <span class="progress-bar progress1" width></span>

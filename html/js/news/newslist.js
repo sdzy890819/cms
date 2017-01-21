@@ -1,8 +1,8 @@
-define(['require',"app",'jquery'
+define(['require',"app",'jquery','search','./searchForm'
 	,'./addForm','../common/editPop','../data/getData','../moduls/Tool'
 	,'formlist','fixedNav','position'
 	,'../moduls/service','../moduls/factory'
-], function ( require , app , $ , list , editPop ,getData , Tool  ) {
+], function ( require , app , $ , search , searchForm , list , editPop ,getData , Tool  ) {
 	app.directive('newsList',function(){
 		return {
 	    	restrict : 'E',
@@ -233,6 +233,88 @@ define(['require',"app",'jquery'
 					]
 				}*/
 
+				//搜索
+				function search(){
+					searchForm(function(data){
+						$.each(data,function( i , obj){
+							if(obj.type=='select'){
+								obj.callback = function( _object ){
+									if(_object.title == 'categoryId'){
+										getData.channel.currentChannelList({
+											categoryId : _object.obj.id,
+											callback : function(_data){
+												var arr = [obj.select[1][0]];
+												obj.select[1] = arr;
+												obj.select[1] = obj.select[1].concat(Tool.changeObjectName(_data.data,[{name:'channelName',newName:'name'}]));
+							
+												$scope.$apply();
+												_object.callback();
+											}
+										})
+									}else if(_object.title == 'channelId'){
+										getData.news.newscolumnlist({
+											channelId : _object.obj.id,
+											callback : function(_data){
+												var arr = [obj.select[2][0]];
+												obj.select[2] = arr;
+												obj.select[2] = obj.select[2].concat(Tool.changeObjectName(_data.data,[{name:'columnName',newName:'name'}]));
+												$scope.$apply();
+												_object.callback();
+											}
+										})
+									}
+								}
+							}
+						});
+						$scope.searchform = {
+							list : data,
+							submit : function( obj , data ){
+								var page = 1 , channelId , columnId , categoryId;
+								$.each(obj.selects,function(){
+									if(this.title == 'channelId'){
+										channelId = this.id;
+									}
+									if(this.title == 'columnId'){
+										columnId = this.id;
+									}
+									if(this.title == 'categoryId'){
+										categoryId = this.id;
+									}
+								});
+								function getSearchList(){
+									getData.search.searchNew({
+										"condition":obj.condition,
+										"author":obj.author,
+										"source":obj.source,
+										"categoryId":categoryId,//部门分类ID
+										"channelId":channelId,//频道ID
+										"columnId":columnId,//栏目ID
+										"platform":obj.platform, //平台,
+										"startTime":obj.startTime,//创建时间
+										"endTime":obj.endTime,//创建时间
+										page : page,
+										pageSize : 20,
+										callback : function(_data){
+											//分页
+											$scope.page = _data.data.page;
+											$scope.page.jump = function( obj ){
+												if(page != obj.curr){
+													page = obj.curr;
+													getSearchList();
+												}
+											}
+											$scope.listdata.table.td = [];
+											$scope.$apply();
+										}
+									})
+								};
+								getSearchList();
+							}
+						}
+					});
+				}
+				search();
+				//end 搜索
 
 				var page = 1;
 
@@ -254,6 +336,8 @@ define(['require',"app",'jquery'
 							//end 分页
 
 							var th = [
+								{name:'Id' , key:'id' , width : '50'},		
+								{name:'所属频道栏目' , key:'channelAndColumnName' , width : '200'},					
 								{name:'标题' , key:'title' , width : '300'},								
 								{name:'作者' , key:'author' , width: '50', class: 'center'},
 								{name:'状态' , key:'publishStr' , class: 'center'},
@@ -263,6 +347,9 @@ define(['require',"app",'jquery'
 								{name:'操作' , width : '300' , class: 'center'}
 							];
 							
+							$.each(_data.data.list, function(i, obj){
+								obj.channelAndColumnName = [obj.channelName, obj.columnName].join('-');
+							})
 					
 							$scope.listdata = { //确认按钮
 								title : $scope.title,
@@ -293,6 +380,12 @@ define(['require',"app",'jquery'
 								]*/
 							}
 
+							$.each($scope.listdata.table.td, function(i, obj){
+
+								if (obj.publish) {
+									obj.list[2].href = obj.url;
+								}
+							})
 
 							GenerateArrList.extendType($scope.listdata.table.td,th,['width','name','key']); //把TH 中的出name,key,width属性以外的属性合传给td
 							

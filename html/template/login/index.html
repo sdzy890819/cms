@@ -1,27 +1,35 @@
 <div class="login">
     <div class="content">
-        <div class="login-icon">
+<!--         <div class="login-icon">
             <img src="/images/logo.png" width="100" height="34" />
-        </div>
+        </div>   -->      
         <div class="form">
-            <form class="layui-form layui-form-pane" action="">
+
+            <div class="title">
+              CMS 全景网内容管理系统 
+              <span class="version">V1.0</span>
+            </div>
+            <form class="layui-form" action="">
+
               <div class="layui-form-item">
-                <label class="layui-form-label">用户名</label>
-                <div class="layui-input-inline">
-                  <input type="text" name="username" lay-verify="title" placeholder="请输入用户名" autocomplete="off" class="layui-input">
-                </div>
+                <!-- <label class="layui-form-label">用户名</label> -->
+                
+                  <input type="text" name="username" lay-verify="title" placeholder="请输入用户名" autocomplete="off" class="layui-input opacity">
+                
               </div>
               <div class="layui-form-item">
-                <label class="layui-form-label">密码</label>
-                <div class="layui-input-inline">
-                  <input type="password" name="password" lay-verify='pass' placeholder="请输入密码" autocomplete="off" class="layui-input">
-                </div>
+                
+                
+                  <input type="password" name="password" lay-verify='pass' placeholder="请输入密码" autocomplete="off" class="layui-input opacity">
+
               </div>
 
               <div class="layui-form-item ">
                     <button class="layui-btn layui-btn-danger" style="width:100%;" lay-submit="" lay-filter="demo2">登录</button>
                     <!-- <button type="reset" class="layui-btn layui-btn-primary">重置</button> -->
               </div>
+
+              <div class="copyright">版权所有© 深圳市全景网络有限公司 ️</div>
             </form>
             <!-- <form role="form" action="" method="post" class="login-form">
                 <div class="form-group">
@@ -35,5 +43,7 @@
                 <button type="submit" class="btn btn-danger">登录</button>
             </form> -->
         </div>
+
     </div>
+    <div class="company">在线支持: 潍坊华盛信息科技有限公司</div>
 </div>

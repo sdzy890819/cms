@@ -554,7 +554,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	         */
 	
 	
-	        FileUploader.prototype.onCompleteAll = function onCompleteAll() {};
+	        FileUploader.prototype.onCompleteAll = function onCompleteAll() {	};	        
 	        /**********************
 	         * PRIVATE
 	         **********************/
