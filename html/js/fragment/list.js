@@ -1,8 +1,8 @@
 define(['require',"app",'jquery'
-	,'../data/getData' , './addForm',
+	,'../data/getData' , './addForm', 'search', './searchform'
 	,'formlist','fixedNav','position'
 	,'../moduls/service','../moduls/factory'
-], function ( require , app , $ , data , list ) {
+], function ( require , app , $ , getData , list, search, searchForm ) {
 	app.directive('fragmentList',function(){
 		return {
 	    	restrict : 'E',
@@ -26,7 +26,7 @@ define(['require',"app",'jquery'
 								require(['../common/editPop'], function(pop) {
 
 									function getAddForm(callback){
-										data.fragment.findFragment({
+										getData.fragment.findFragment({
 											id:  obj.id,
 											callback : function(_data) {												
 												callback(_data);
@@ -51,7 +51,7 @@ define(['require',"app",'jquery'
 												}
 											})
 
-	        						data.fragment.updateFragment({
+	        						getData.fragment.updateFragment({
 	        							id : _detail.id,
 												channelId : channelId,
 												fragmentClassifyId : fragmentClassifyId,
@@ -79,7 +79,7 @@ define(['require',"app",'jquery'
 								require(['../common/editPop'], function(pop) {
 
 									function getAddForm(callback){
-										data.fragment.fragmentMap({
+										getData.fragment.fragmentMap({
 											id:  obj.id,
 											callback : function(_data) {																												
 												_data.data.id = obj.id;												
@@ -90,7 +90,7 @@ define(['require',"app",'jquery'
 
 									function getList(callback){			
 										var list = [];
-										data.fragment.fragmentMap({
+										getData.fragment.fragmentMap({
 											id:  obj.id,
 											callback : function(_data) {																
 												$.each(_data.data, function(k , v){
@@ -123,7 +123,7 @@ define(['require',"app",'jquery'
 	        							}
 	        						})
 
-	        						data.fragment.editFragment({
+	        						getData.fragment.editFragment({
 	        							id : _detail.id,
 	        							values : values,	        							
 	        							callback : function(_data) {
@@ -147,7 +147,7 @@ define(['require',"app",'jquery'
 									text:'你确定删除' + obj.fragmentName + '吗',
 									btn : ['确定','取消'],
 								  fn : function(index){//确定
-										data.fragment.delFragment(obj)
+										getData.fragment.delFragment(obj)
 									}
 								})
 
@@ -165,7 +165,7 @@ define(['require',"app",'jquery'
 									text: '确认发布' + obj.fragmentName,
 									btn : ['确定', '取消'],
 									fn  : function(index) {
-										data.fragment.publish(obj);
+										getData.fragment.publish(obj);
 									}
 								})
 
@@ -180,14 +180,39 @@ define(['require',"app",'jquery'
 								'id','fragmentClassifyId'
 							]
 						});
+						
+						function setList(_data){
+							var th = [							
+										{name: '碎片ID', key: 'id'},
+										{name:'碎片名称', key: 'fragmentName' },												
+										{name:'操作' , width : '400', class:'center'}
+							];
+
+							$scope.listdata = { //确认按钮
+								title : $scope.title,
+								table : {
+									select : true,
+									th : th,
+									td : GenerateArrList.setArr(_data.data.list,th) ,
+									edit : [
+										{cls : 'edit' , name : '编辑',evt:$scope.edit},
+										{cls : 'edit' , name : '修改碎片对应关系',evt:$scope.editFragmentMap},
+										{cls : 'del'  , name : '删除',evt:$scope.del},
+										{cls : 'edit'  , name : '发布',evt:$scope.release}
+									]
+								}
+							}
+							GenerateArrList.extendType($scope.listdata.table.td,$scope.listdata.table.th,['width','name']); //把TH 中的出name属性以外的属性合传给td
+	        		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
+	        		$scope.$apply();								
+						}
 
 						var page = 1
 						function getDataList(){
-							data.fragment.listFragment({
+							getData.fragment.listFragment({
 								page : page,
 								pageSize : 5,
-
-								callback : function(_data)	{
+								callback : function(_data){
 									//分页
 									$scope.page = _data.data.page;
 									$scope.page.jump = function( obj ){
@@ -196,37 +221,76 @@ define(['require',"app",'jquery'
 											getDataList();
 										}
 									}
-									//end 分页
-									
-									var th = [							
-												{name: '碎片ID', key: 'id'},
-												{name:'碎片名称', key: 'fragmentName' },												
-												{name:'操作' , width : '400', class:'center'}
-									];
-
-									$scope.listdata = { //确认按钮
-										title : $scope.title,
-										table : {
-											select : true,
-											th : th,
-											td : GenerateArrList.setArr(_data.data.list,th) ,
-											edit : [
-												{cls : 'edit' , name : '编辑',evt:$scope.edit},
-												{cls : 'edit' , name : '修改碎片对应关系',evt:$scope.editFragmentMap},
-												{cls : 'del'  , name : '删除',evt:$scope.del},
-												{cls : 'edit'  , name : '发布',evt:$scope.release}
-											]
-										}
-									}
-									GenerateArrList.extendType($scope.listdata.table.td,$scope.listdata.table.th,['width','name']); //把TH 中的出name属性以外的属性合传给td
-			        		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
-			        		$scope.$apply();															
+									setList(_data);	
 								}
 
 							});							
 						}
 						
 						getDataList();
+
+
+
+						//搜索
+						function search(){
+							var searchPage = 1;
+							searchForm(function(data){
+
+								$scope.searchform = {
+									list : data,
+									return : function(){ //返回列表
+										getDataList();
+										$scope.searchform.search = null;
+										page = 1;
+										searchPage = 1;
+										$scope.$$childHead.current = 1;
+									},
+									submit : function( obj , data ){
+										var fragmentClassifyId , channelId;
+										$.each(obj.selects,function(){
+											if(this.title == 'fragmentClassifyId'){
+												fragmentClassifyId = this.id;
+											}
+											if(this.title == 'channelId'){
+												channelId = this.id;
+											}
+
+										});
+										function getSearchList(){
+											getData.search.searchFragment({
+												"condition":obj.condition,
+												"fragmentClassifyId":fragmentClassifyId,												
+												"channelId":channelId,//频道ID
+												page : searchPage,
+												pageSize : 20,
+												callback : function(_data){
+													//分页
+													$scope.page = _data.data.page;
+													$scope.page.jump = function( obj ){
+														if(searchPage != obj.curr){
+															searchPage = obj.curr;
+															getSearchList();
+														}
+													}
+													$scope.searchform.search = {
+														count : _data.data.page.count , 
+														name : obj.condition
+													}
+													setList(_data);
+												}
+											})
+										};
+										getSearchList();
+									}
+								}
+								$scope.$apply();
+							});
+						}
+						search();
+						//end 搜索
+						
+
+
 	        }
 	        ,link : function($scope , element ){
 	        	

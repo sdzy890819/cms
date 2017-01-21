@@ -1109,7 +1109,11 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 		template : { //模版
 			listTemplate : function( obj ){//模版列表［分页］ 接口
 				T.ajax({
-					url : URL.template.listTemplate , 
+					url : URL.template.listTemplate ,
+					data : {
+						page : obj.page,
+						pageSize : obj.pageSize,
+					},
 					success : function( _data ){
 						obj.callback(_data);
 					}
@@ -1273,13 +1277,10 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 			},
 			listTemplate2 : function( obj ){
 				T.ajax({
-					url : URL.template.listTemplate2 ,
+					url : URL.template.listTemplate2 ,										
 					data : {
-						"templateName":obj.templateName,
-						"filename":obj.filename,
-						"path":obj.path,
-						"templateClassify":obj.templateClassify,
-						"encoded":obj.encoded
+						page : obj.page,
+						pageSize : obj.pageSize
 					},
 					success : function( _data ){
 						obj.callback(_data);
@@ -1821,7 +1822,85 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						obj.callback(_data);
 					}
 				});
-			}
+			},
+			searchVideo : function( obj ){
+				T.ajax({
+					url : URL.search.searchVideo , 
+					type : 'post',
+					data : {
+						//所有参数都不是必传项
+						"condition":obj.condition,
+						"page":obj.page,
+						"pageSize":obj.pageSize
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});
+			},			
+			searchUser : function( obj ){
+				T.ajax({
+					url : URL.search.searchUser , 	
+					type : 'post',				
+					data : {
+						//所有参数都不是必传项
+						"condition":obj.condition,
+						"page":obj.page,
+						"pageSize":obj.pageSize
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});
+			},	
+			searchFragment : function( obj ){
+				T.ajax({
+					url : URL.search.searchFragment , 	
+					type : 'post',				
+					data : {
+						//所有参数都不是必传项
+						"condition":obj.condition,
+						"fragmentClassifyId" : obj.fragmentClassifyId,
+						"channelId" : obj.channelId,
+						"page":obj.page,
+						"pageSize":obj.pageSize
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});
+			},
+			searchTemplate : function( obj ){
+				T.ajax({
+					url : URL.search.searchTemplate , 	
+					type : 'post',				
+					data : {
+						//所有参数都不是必传项
+						"condition":obj.condition,						
+						"channelId" : obj.channelId,
+						"page":obj.page,
+						"pageSize":obj.pageSize
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});
+			},	
+			searchTemplate2 : function( obj ){
+				T.ajax({
+					url : URL.search.searchTemplate2 , 	
+					type : 'post',				
+					data : {
+						//所有参数都不是必传项
+						"condition":obj.condition,						
+						"page":obj.page,
+						"pageSize":obj.pageSize
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});
+			}								
 		}
 	}
 	return public;

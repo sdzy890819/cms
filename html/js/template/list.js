@@ -1,10 +1,10 @@
 define(['require',"app",'jquery'
 	,'../data/getData' , './addForm'
 	,'../moduls/Tool','../common/editPop' , './relationPop'
-	,'../upload/index'
+	,'../upload/index', 'search', './searchForm'
 	,'formlist','fixedNav','position'
 	,'../moduls/service','../moduls/factory'
-], function ( require , app , $ , getData , list , Tool , editPop,relationPop , upload ) {
+], function ( require , app , $ , getData , list , Tool , editPop,relationPop , upload, search, searchForm ) {
 	app.directive('templateList',function(){
 		return {
 	    	restrict : 'E',
@@ -168,55 +168,142 @@ define(['require',"app",'jquery'
         				});
 					}
 				});
-				getData.template.listTemplate({
-					callback : function(_data){
-						$.each(_data.data.list,function( i , obj){ //时间格示化
-							obj.releaseTime = new Date(obj.releaseTime).format('yyyy-MM-dd h:m:s');
-							if(obj.publish==1){//需要加链接 把topicUrl值 复制到 href 生成新的 href
-								Tool.changeObjectName(_data.data.list,[{name:'topicUrl',newName:'href'}])
-							}
-						});
-						var th = [
-							{name:'模版名称' , key:'templateName', width : '200'},
-							//{name:'模版说明' , key:'templateDesc' },
-							//{name:'文件名',width:'90' , key:'filename'},
-							//{name:'发布目录',width:'100' , key:'path'},
-							{name:'模版分类', key:'templateClassifyStr'},
-							{name:'编码',width:'80',class:'center' , key:'encoded'},
-							//{name:'排序值', width:'90',class:'center' , key:'sortNum'},
-							{name:'操作' , width : '350',class:'center'}
-						];
-						$scope.listdata = { //确认按钮
-							title : $scope.title,
-							table : {
-								select : true,
-								th : th,
-								td : GenerateArrList.setArr(_data.data.list,th) ,
-								edit : [
-									{cls : 'down', name : '下载',evt:$scope.down},
-									{cls : 'upload', name : '上传',evt:$scope.upload}, //'exe|dmg'
-									{cls : 'add', name : '关联',evt:$scope.relation},
-									{cls : 'edit' , name : '编辑',evt:$scope.edit},
-									{cls : 'del' , name : '删除',evt:$scope.del}
-								]
-							}
+
+				
+				function setList(_data){					
+					$.each(_data.data.list,function( i , obj){ //时间格示化
+						obj.releaseTime = new Date(obj.releaseTime).format('yyyy-MM-dd h:m:s');
+						if(obj.publish==1){//需要加链接 把topicUrl值 复制到 href 生成新的 href
+							Tool.changeObjectName(_data.data.list,[{name:'topicUrl',newName:'href'}])
 						}
-						GenerateArrList.extendType($scope.listdata.table.td,$scope.listdata.table.th,['width','name']); //把TH 中的出name属性以外的属性合传给td
-			        	GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
-			        	$.each($scope.listdata.table.td,function( i , item ){
-			        		if(item.job==1){//1是定时生成。0是触发生成
-			        			var arr = [];
-			        			$.each(item.list.edit,function( j , obj ){
-			        				if(obj.name!='关联'){
-			        					arr.push(obj);
-			        				}
-			        			});
-			        			item.list.edit = arr;
-			        		}
-			        	});
-			        	$scope.$apply();
-			        }
-				});
+					});
+
+					var th = [
+						{name:'模版名称' , key:'templateName', width : '200'},
+						//{name:'模版说明' , key:'templateDesc' },
+						//{name:'文件名',width:'90' , key:'filename'},
+						//{name:'发布目录',width:'100' , key:'path'},
+						{name:'模版分类', key:'templateClassifyStr'},
+						{name:'编码',width:'80',class:'center' , key:'encoded'},
+						//{name:'排序值', width:'90',class:'center' , key:'sortNum'},
+						{name:'操作' , width : '350',class:'center'}
+					];
+					$scope.listdata = { //确认按钮
+						title : $scope.title,
+						table : {
+							select : true,
+							th : th,
+							td : GenerateArrList.setArr(_data.data.list,th) ,
+							edit : [
+								{cls : 'down', name : '下载',evt:$scope.down},
+								{cls : 'upload', name : '上传',evt:$scope.upload}, //'exe|dmg'
+								{cls : 'add', name : '关联',evt:$scope.relation},
+								{cls : 'edit' , name : '编辑',evt:$scope.edit},
+								{cls : 'del' , name : '删除',evt:$scope.del}
+							]
+						}
+					}
+					GenerateArrList.extendType($scope.listdata.table.td,$scope.listdata.table.th,['width','name']); //把TH 中的出name属性以外的属性合传给td
+        	GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
+        	$.each($scope.listdata.table.td,function( i , item ){
+        		if(item.job==1){//1是定时生成。0是触发生成
+        			var arr = [];
+        			$.each(item.list.edit,function( j , obj ){
+        				if(obj.name!='关联'){
+        					arr.push(obj);
+        				}
+        			});
+        			item.list.edit = arr;
+        		}
+        	});
+        	$scope.$apply();
+
+				}
+
+				var page =1;
+				function getDataList(){
+					getData.template.listTemplate({
+						page : page,
+						pageSize : 20,
+						callback : function(_data){
+							//分页
+							$scope.page = _data.data.page;
+							$scope.page.jump = function( obj ){
+								if(page != obj.curr){
+									page = obj.curr;
+									getDataList();
+								}
+							}
+							setList(_data);	
+						}
+					});					
+				}
+
+				getDataList();
+
+
+
+						//搜索
+						function search(){
+							var searchPage = 1;
+							searchForm(function(data){
+
+								$scope.searchform = {
+									list : data,
+									return : function(){ //返回列表
+										getDataList();
+										$scope.searchform.search = null;
+										page = 1;
+										searchPage = 1;
+										$scope.$$childHead.current = 1;
+									},
+									submit : function( obj , data ){
+										var  channelId;
+										$.each(obj.selects,function(){
+
+											if(this.title == 'channelId'){
+												channelId = this.id;
+											}
+
+										});
+										function getSearchList(){
+											getData.search.searchTemplate({
+												"condition":obj.condition,																								
+												"channelId":channelId,//频道ID
+												page : searchPage,
+												pageSize : 20,
+												callback : function(_data){
+													//分页
+													$scope.page = _data.data.page;
+													$scope.page.jump = function( obj ){
+														if(searchPage != obj.curr){
+															searchPage = obj.curr;
+															getSearchList();
+														}
+													}
+													$scope.searchform.search = {
+														count : _data.data.page.count , 
+														name : obj.condition
+													}							
+
+													if(_data.data.list == undefined){
+														_data.data.list = [];
+													}						
+													setList(_data);
+												}
+											})
+										};
+										getSearchList();
+									}
+								}
+								$scope.$apply();
+							});
+						}
+						search();
+						//end 搜索
+						
+
+
 				
 	        }
 	        ,link : function($scope , element ){
