@@ -184,7 +184,7 @@ define(function(require){
 			publish : url+'/fragment/publish' //发布
 		},
 		search : {
-			searchNew : url+'/search/searchNew' // post
+			searchNew : url+'/search/searchNew', // post
 			searchTopic : url+'/search/searchTopic' // post
 		}
 	}

@@ -11,7 +11,6 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 			selectName : ['topicClassifyId'],
 			name : '专题分类',
 			type : 'select',
-			verify : 'select',
 			select : [
 				[
 					{name:'请选择专题分类',title:'topicClassifyId'}
@@ -23,7 +22,6 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 			selectName : ['categoryId','channelId'],
 			name : '请选择分类',
 			type : 'select',
-			verify : 'select',
 			select : [
 				[
 					{name:'请选择部门类别',title:'categoryId'}
@@ -38,7 +36,6 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 			selectName : ['topicColumnId'],
 			name : '系列专题',
 			type : 'select',
-			verify : 'select',
 			select : [
 				[
 					{name:'请选择专题栏目',title:'topicColumnId'}

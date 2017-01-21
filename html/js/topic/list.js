@@ -126,6 +126,40 @@ define(['require',"app",'jquery','search','./searchForm'
 	 					})
 					}
 				});
+				function setList(_data){ //设置要显示的列表
+					$.each(_data.data.list,function( i , obj){ //时间格示化
+						obj.releaseTime = new Date(obj.releaseTime).format('yyyy-MM-dd h:m:s');
+						if(obj.publish==1){//需要加链接 把topicUrl值 复制到 href 生成新的 href
+							Tool.changeObjectName(_data.data.list,[{name:'topicUrl',newName:'href'}])
+						}
+					});
+					var th = [
+						{name:'专题标题' , key:'topicTitle' , changeObjectName : [{name:'topicUrl',newName:'href'}] , width : '200'},
+						//{name:'专题内容' , key:'topicContent' },
+						{name:'专题相对路径' , key:'topicPath' },
+						{name:'专题文件名' , key:'topicFilename' },
+						{name:'发布时间' , key:'releaseTime' },
+						//{name:'关键字' , key:'keyword' },
+						//{name:'描述、SEO标准' , key:'description' },
+						//{name:'URL' , key:'topicUrl' },
+						{name:'操作' , width : '120', class:'center'}
+					];
+					$scope.listdata = { //确认按钮
+						title : $scope.title,
+						table : {
+							select : true,
+							th : th,
+							td : GenerateArrList.setArr(_data.data.list,th) ,
+							edit : [
+								{cls : 'edit' , name : '编辑',evt:$scope.edit},
+								{cls : 'del' , name : '删除',evt:$scope.del}
+							]
+						}
+					}
+					// GenerateArrList.extendType($scope.listdata.table.td,$scope.listdata.table.th,['width','name']); //把TH 中的出name属性以外的属性合传给td
+	        		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
+	        		$scope.$apply();
+				}
 				//搜索
 				function search(){
 					searchForm(function(data){
@@ -165,7 +199,7 @@ define(['require',"app",'jquery','search','./searchForm'
 									}
 								});
 								function getSearchList(){
-									getData.search.searchNew({
+									getData.search.searchTopic({
 										"condition":obj.condition,
 										"topicClassifyId":topicClassifyId,//专题分类ID
 										"categoryId":categoryId,//部门分类ID
@@ -185,53 +219,37 @@ define(['require',"app",'jquery','search','./searchForm'
 													getSearchList();
 												}
 											}
-											$scope.listdata.table.td = [];
-											$scope.$apply();
+											setList(_data);
 										}
 									})
 								};
 								getSearchList();
 							}
 						}
+						$scope.$apply();
 					});
 				}
 				search();
 				//end 搜索
-				getData.topic.listTopic(function(_data){
-					$.each(_data.data.list,function( i , obj){ //时间格示化
-						obj.releaseTime = new Date(obj.releaseTime).format('yyyy-MM-dd h:m:s');
-						if(obj.publish==1){//需要加链接 把topicUrl值 复制到 href 生成新的 href
-							Tool.changeObjectName(_data.data.list,[{name:'topicUrl',newName:'href'}])
+				var page = 1;
+				function getDataList(){
+					getData.topic.listTopic({
+						page : page,
+						pageSize : 20,
+						callback : function(_data){
+							//分页
+							$scope.page = _data.data.page;
+							$scope.page.jump = function( obj ){
+								if(page != obj.curr){
+									page = obj.curr;
+									getDataList();
+								}
+							}
+							setList(_data);	
 						}
 					});
-					var th = [
-						{name:'专题标题' , key:'topicTitle' , changeObjectName : [{name:'topicUrl',newName:'href'}] , width : '200'},
-						//{name:'专题内容' , key:'topicContent' },
-						{name:'专题相对路径' , key:'topicPath' },
-						{name:'专题文件名' , key:'topicFilename' },
-						{name:'发布时间' , key:'releaseTime' },
-						//{name:'关键字' , key:'keyword' },
-						//{name:'描述、SEO标准' , key:'description' },
-						//{name:'URL' , key:'topicUrl' },
-						{name:'操作' , width : '120', class:'center'}
-					];
-					$scope.listdata = { //确认按钮
-						title : $scope.title,
-						table : {
-							select : true,
-							th : th,
-							td : GenerateArrList.setArr(_data.data.list,th) ,
-							edit : [
-								{cls : 'edit' , name : '编辑',evt:$scope.edit},
-								{cls : 'del' , name : '删除',evt:$scope.del}
-							]
-						}
-					}
-					
-					// GenerateArrList.extendType($scope.listdata.table.td,$scope.listdata.table.th,['width','name']); //把TH 中的出name属性以外的属性合传给td
-	        		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
-	        		$scope.$apply();
-				});
+				};
+				getDataList();
 				
 	        }
 	        ,link : function($scope , element ){

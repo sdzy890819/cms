@@ -1412,13 +1412,15 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					}
 				});
 			}
-			,listTopic : function( callback ){//模版列表［分页］ 接口
+			,listTopic : function( obj ){//模版列表［分页］ 接口
 				T.ajax({
 					url : URL.topic.listTopic , 
-					type : 'get',
-					data : {},
+					data : {
+						"pageSize":obj.pageSize,
+			            "page":obj.page,
+					},
 					success : function( _data ){
-						callback(_data)
+						obj.callback(_data)
 					}
 				});
 			},
