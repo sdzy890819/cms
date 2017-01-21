@@ -227,7 +227,6 @@ public class ESearchClient {
                 .execute().actionGet();
         SearchHits hits = response.getHits();
         page.setCount((int)hits.getTotalHits());
-        Calendar calendar = Calendar.getInstance();
         QueryResult<Topic> queryResult = new QueryResult<>();
         List<Topic> topics = new ArrayList<>();
         for(SearchHit hit : hits){
@@ -235,7 +234,7 @@ public class ESearchClient {
             topic.setId(convertLong(hit.getSource().get("id")));
             topic.setTopicTitle((String)hit.getSource().get("topicTitle"));
             topic.setTopicPath((String)hit.getSource().get("topicPath"));
-            topic.setTopicFilename((String)hit.getSource().get("topicFileName"));
+            topic.setTopicFilename((String)hit.getSource().get("topicFilename"));
             topic.setTopicClassifyId(convertLong(hit.getSource().get("topicClassifyId")));
             topic.setCategoryId(convertLong(hit.getSource().get("categoryId")));
             topic.setChannelId(convertLong(hit.getSource().get("channelId")));

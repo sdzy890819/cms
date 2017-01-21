@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>html</groupId>
+    <artifactId>html</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    </properties>
+
+    <build>
+        <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <warSourceExcludes>**/*.js,**/*.css</warSourceExcludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <!-- YUI Compressor Maven压缩插件 -->
+                <groupId>net.alchim31.maven</groupId>
+                <artifactId>yuicompressor-maven-plugin</artifactId>
+                <version>1.3.0</version>
+                <configuration>
+                    <!-- 读取js,css文件采用UTF-8编码 -->
+                    <encoding>UTF-8</encoding>
+                    <!-- 不显示js可能的错误 -->
+                    <jswarn>true</jswarn>
+                    <!-- 若存在已压缩的文件，会先对比源文件是否有改动
+                        有改动便压缩，无改动就不压缩 -->
+                    <force>false</force>
+                    <!-- 在指定的列号后插入新行 -->
+                    <linebreakpos>-1</linebreakpos>
+                    <!-- 压缩之前先执行聚合文件操作 -->
+                    <preProcessAggregates>false</preProcessAggregates>
+                    <!-- 压缩后保存文件后缀 -->
+                    <suffix></suffix>
+                    <!-- 源目录，即需压缩的根目录 -->
+                    <sourceDirectory>${basedir}</sourceDirectory>
+                    <!-- 压缩js和css文件 -->
+                    <includes>
+                        <include>**/*.js</include>
+                        <include>**/*.css</include>
+                    </includes>
+                    <!-- 以下目录和文件不会被压缩 -->
+                    <excludes>
+                        <exclude>**/*.min.js</exclude>
+                        <exclude>**/*.min.css</exclude>
+                    </excludes>
+                    <!-- 压缩后输出文件目录 -->
+                    <outputDirectory>${basedir}/min</outputDirectory>
+                    <!-- 聚合文件 -->
+                    <!--<aggregations>-->
+                    <!--<aggregation>-->
+                    <!--&lt;!&ndash; 合并每一个文件后插入一新行 &ndash;&gt;-->
+                    <!--<insertNewLine>true</insertNewLine>-->
+                    <!--&lt;!&ndash; 需合并文件的根文件夹 &ndash;&gt;-->
+                    <!--<inputDir>${basedir}/mobile/scripts</inputDir>-->
+                    <!--&lt;!&ndash; 最终合并的输出文件 &ndash;&gt;-->
+                    <!--<output>${basedir}/mobile/scripts/app/app.js</output>-->
+                    <!--&lt;!&ndash; 把以下js文件合并成一个js文件，是按顺序合并的 &ndash;&gt;-->
+                    <!--<includes>-->
+                    <!--<include>app/core.js</include>-->
+                    <!--<include>app/mlmanager.js</include>-->
+                    <!--<include>app/tmpl.js</include>-->
+                    <!--<include>app/ui.js</include>-->
+                    <!--</includes>-->
+                    <!--</aggregation>-->
+                    <!--</aggregations>-->
+                </configuration>
+            </plugin>
+        </plugins>
+
+    </build>
+</project>

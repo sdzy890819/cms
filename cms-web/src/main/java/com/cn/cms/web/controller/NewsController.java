@@ -63,26 +63,7 @@ public class NewsController extends BaseController {
                        @RequestParam(value="pageSize",required = false) Integer pageSize){
         Page page1 = new Page(page, pageSize);
         List<News> list = newsBiz.listNews(page1);
-        List<String> userIds = new ArrayList<>();
-        List<Long> channelIds = new ArrayList<>();
-        List<Long> columnIds = new ArrayList<>();
-        if(StringUtils.isNotEmpty(list)) {
-            for (int i = 0; i < list.size(); i++) {
-                userIds.add(list.get(i).getWriteUserId());
-                userIds.add(list.get(i).getLastModifyUserId());
-                channelIds.add(list.get(i).getChannelId());
-                columnIds.add(list.get(i).getColumnId());
-            }
-            Map<String, UserBean> map = userBiz.getUserBeanMap(userIds);
-            Map<Long ,Channel> channelMap = channelBiz.getChannelsMap(channelIds);
-            Map<Long, NewsColumn> newsColumnMap = newsBiz.getNewsColumnMap(columnIds);
-            for (int i = 0; i < list.size(); i++) {
-                list.get(i).setWriteUserName(map.get(list.get(i).getWriteUserId()).getRealName());
-                list.get(i).setLastModifyUserName(map.get(list.get(i).getLastModifyUserId()).getRealName());
-                list.get(i).setChannelName(channelMap.get(list.get(i).getChannelId()).getChannelName()!=null?channelMap.get(list.get(i).getChannelId()).getChannelName():"");
-                list.get(i).setColumnName(newsColumnMap.get(list.get(i).getColumnId())!=null?newsColumnMap.get(list.get(i).getColumnId()).getColumnName():"");
-            }
-        }
+        newsBiz.dataInit(list);
         Map<String, Object> result = new HashMap<>();
         result.put("page", page1);
         result.put("list", list);
@@ -143,6 +124,18 @@ public class NewsController extends BaseController {
         return ApiResponse.returnSuccess();
     }
 
+
+    /**
+     * 获取上次发布新闻的部门 频道 栏目信息
+     * @param request
+     * @return
+     */
+    @CheckToken
+    @CheckAuth( name = "news:write" )
+    @RequestMapping(value = "/previousColumn",method = RequestMethod.GET)
+    public String previousColumn(HttpServletRequest request){
+        return ApiResponse.returnSuccess(newsBiz.getPreviousColumn(getCurrentUserId(request)));
+    }
 
     /**
      * 创建新闻 保存草稿。

@@ -1,5 +1,7 @@
 package com.cn.cms.contants;
 
+import com.cn.cms.utils.StringUtils;
+
 /**
  * 所有Redis的Key保存在这里
  * Created by zhangyang on 16/11/15.
@@ -35,39 +37,50 @@ public class RedisKeyContants {
 
     public static final String REDIS_NEWCOLUMN_ID = "CMS_NEWCOLUMN_";
 
+    public static final String REDIS_ADD_NEW_PREVIOUS_COLUMN_INFO = "CMS_PREVIOUS_COLUMN_INFO_";
+
+    /**
+     * 获取上一次发布新闻选择的频道栏目。
+     * @param userId
+     * @return
+     */
+    public static String getRedisAddNewPreviousColumnInfo(String userId){
+        return REDIS_ADD_NEW_PREVIOUS_COLUMN_INFO + userId;
+    }
+
     public static String getRedisNewcolumnId(Long columnId){
         return REDIS_NEWCOLUMN_ID.concat(String.valueOf(columnId));
     }
 
     public static String getRedisLockKey(String key){
-        return REDIS_LOCK_KEY.concat(key);
+        return REDIS_LOCK_KEY + key;
     }
 
     public static String getUserKey(String userId){
-        return REDIS_USER_KEY.concat(userId);
+        return REDIS_USER_KEY + userId;
     }
 
     public static String getToken(String userId){
-        return REDIS_TOKEN_KEY.concat(userId);
+        return REDIS_TOKEN_KEY + userId;
     }
 
     public static String getPermission(String userId){
-        return REDIS_POSITION_PERMISSION_KEY.concat(userId);
+        return REDIS_POSITION_PERMISSION_KEY + userId;
     }
 
     public static String getMenuPermission(String userId){
-        return REDIS_POSITION_PERMISSION_MENU_KEY.concat(userId);
+        return REDIS_POSITION_PERMISSION_MENU_KEY +  userId;
     }
 
     public static String getButtonPermission(String userId){
-        return REDIS_POSITION_PERMISSION_BUTTON_KEY.concat(userId);
+        return REDIS_POSITION_PERMISSION_BUTTON_KEY + userId ;
     }
 
     public static String getButtonParentPermission(String userId ,Long parentId){
-        return REDIS_POSITION_PERMISSION_BUTTON_KEY.concat(userId).concat(REDIS_PARENT_KEY).concat(String.valueOf(parentId));
+        return REDIS_POSITION_PERMISSION_BUTTON_KEY  + userId + REDIS_PARENT_KEY + String.valueOf(parentId);
     }
 
     public static String getRedisChannelDetailKey(Long id){
-        return REDIS_CHANNEL_DETAIL.concat(String.valueOf(id));
+        return REDIS_CHANNEL_DETAIL + String.valueOf(id);
     }
 }

@@ -113,32 +113,11 @@ public class SearchController extends BaseController {
         Page pageObj = new Page(page, pageSize);
         QueryResult<News> queryResult = eSearchClient.searchNews(newsSearch,pageObj);
         List<News> list = queryResult.getList();
-        dataInit(list);
+        newsBiz.dataInit(list);
         return ApiResponse.returnSuccess(queryResult);
     }
 
-    public void dataInit(List<News> list ){
-        List<String> userIds = new ArrayList<>();
-        List<Long> channelIds = new ArrayList<>();
-        List<Long> columnIds = new ArrayList<>();
-        if(StringUtils.isNotEmpty(list)) {
-            for (int i = 0; i < list.size(); i++) {
-                userIds.add(list.get(i).getWriteUserId());
-                userIds.add(list.get(i).getLastModifyUserId());
-                channelIds.add(list.get(i).getChannelId());
-                columnIds.add(list.get(i).getColumnId());
-            }
-            Map<String, UserBean> map = userBiz.getUserBeanMap(userIds);
-            Map<Long ,Channel> channelMap = channelBiz.getChannelsMap(channelIds);
-            Map<Long, NewsColumn> newsColumnMap = newsBiz.getNewsColumnMap(columnIds);
-            for (int i = 0; i < list.size(); i++) {
-                list.get(i).setWriteUserName(map.get(list.get(i).getWriteUserId()).getRealName());
-                list.get(i).setLastModifyUserName(map.get(list.get(i).getLastModifyUserId()).getRealName());
-                list.get(i).setChannelName(channelMap.get(list.get(i).getChannelId()).getChannelName()!=null?channelMap.get(list.get(i).getChannelId()).getChannelName():"");
-                list.get(i).setColumnName(newsColumnMap.get(list.get(i).getColumnId())!=null?newsColumnMap.get(list.get(i).getColumnId()).getColumnName():"");
-            }
-        }
-    }
+
 
 
     /**
