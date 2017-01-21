@@ -353,7 +353,7 @@ $leftWidth : 225px;
 }
 
 .boxtab{
-    margin-top:55px; position:relative; z-index:9;
+     position:relative; z-index:9;
     .position-fixed{
          position:absolute; top:-45px; right:0; 
     }
@@ -388,6 +388,12 @@ $leftWidth : 225px;
     .w120{ width:120px; }
     .w220{ width:220px; }
     .w320{ width:320px; }
+
+    &.search{
+        margin-bottom:20px;
+        .title{ border-bottom:1px solid #ccc; background:#f66200;}
+        .content{ border:1px solid #ccc;}
+    }
 }
 .form-horizontal{ padding:20px;
     .control-group{ margin-bottom: 20px; overflow:hidden;
@@ -488,7 +494,7 @@ $leftWidth : 225px;
             }
         }
     }
-
+}
 .news{
     &.edit{
         .boxtab{ margin-top:0; }

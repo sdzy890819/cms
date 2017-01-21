@@ -26,7 +26,8 @@ require.config({
 
         'head' : 'common/header' , 
         'menu' : 'common/menu' , 
-        'form' : 'common/form',        
+        'form' : 'search/index',        
+        'search' : 'common/form',        
         'formlist' : 'common/formlist',
         'position' : 'common/position',
         'fixedNav' : 'common/positionNav',

@@ -1,0 +1,60 @@
+<div class="{{formdata.superClass}}">
+	<div class="boxtab search {{formdata.cls}}">
+		<div class="title">
+			<div class="right-sider">
+				<button ng-if='titelement.close==true' type="button" class="close" ng-click='close()'>&times;</button>
+			</div>
+			<i class="icon-reorder"></i>
+			检索
+		</div>
+		<div class="content clearfix">
+			<form class="layui-form clearfix">
+				<position-nav edit='edit' submit='submit' isadd='isadd'></position-nav>
+				<div ng-if='formdata' class="layui-form-item" ng-repeat="obj in formdata.list">
+					
+					<!-- 不换行 -->
+					<div class="layui-inline" ng-repeat="item in obj" repeat-finish='formRepeat'>
+						<label ng-if='item.type!="button"' class="layui-form-label {{$index!==0?'inline':''}}"><em ng-show='item.check!=false&&item.verify'>*</em>{{item.name}}</label>
+					    <div class="layui-input-inline"> <!-- 不换行 -->
+					        <!-- 输入匡 或 密码 -->
+							<input ng-if="item.type=='text'||item.type=='password'" 
+								class="text layui-input {{item.cls||'w100'}}" 
+								type="{{item.type=='text'?'text':'password'}}" 
+								name="{{item.title}}" 
+								ng-value="data[item.title]"
+								lay-verify="{{item.verify}}" 
+								placeholder="{{item.placeholder}}" 
+								autocomplete="off">
+
+							<!-- 多文本 -->
+							<textarea ng-if="item.type=='textarea'" class="layui-textarea text w80 {{item.cls}}" name="{{item.title}}" lay-verify="content" placeholder="{{item.placeholder}}">{{data[item.title]}}</textarea>
+
+						    <!-- select -->
+					      	<select ng-if="item.type=='select'" name="{{item.selectName[$index]}}" ng-repeat="select in item.select"  repeat-finish='selectRpeatDone'>
+					        	<option lay-verify="{{item.verify}}" ng-repeat="option in select" ng-selected="option.id && option.id==data[select[0].title]">{{option.name}}</option>
+					     	</select>
+
+						    <!-- 时间 -->
+						    <input ng-if="item.type=='date'" ng-value="data[item.title]" type="text" name="{{item.title}}" id="date"placeholder="{{item.placeholder}}" readonly='readonly' autocomplete="off" class="layui-input date {{item.cls||'w220'}}" ng-click="selectDate($event)"><!--  lay-verify="date"  -->
+
+					    	<button ng-if='item.type=="button"' class="layui-btn layui-btn-normal" ng-click='submit(item.evt,item,$event)'>{{item.name}}</button>
+
+					    	<!-- radio -->
+					    	<input ng-if="item.type=='radio'" ng-repeat="ob in item.radio" ng-value='ob.title' type="radio" name="{{item.title}}" title='{{ob.name}}' ng-checked="data[item.title]?(ob.name==data[item.title])?true:false:ob.checked" repeat-finish='radioRpeatDone'>
+					    </div>
+					</div>
+				</div>
+				<div class="submit" ng-if='formdata'>
+					<div class='btn {{obj.cls}}' lay-submit="" lay-filter="demo1" ng-repeat='obj in formdata.submit' data-event='{{obj.evt}}' ng-if='obj.evt!="cancel"'>
+						<i class="icon-{{obj.icon_cls}}"></i>
+						<span>{{obj.name}}</span>
+					</div>
+					<button ng-repeat='obj in formdata.submit' ng-if='obj.evt=="cancel"' type="reset" class="btn {{obj.cls}}">
+						<i class="icon-{{obj.icon_cls}}"></i>
+						<span>{{obj.name}}</span>
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

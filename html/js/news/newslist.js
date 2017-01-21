@@ -1,8 +1,8 @@
-define(['require',"app",'jquery'
+define(['require',"app",'jquery','search'
 	,'./addForm','../common/editPop','../data/getData','../moduls/Tool'
 	,'formlist','fixedNav','position'
 	,'../moduls/service','../moduls/factory'
-], function ( require , app , $ , list , editPop ,getData , Tool  ) {
+], function ( require , app , $ , search , list , editPop ,getData , Tool  ) {
 	app.directive('newsList',function(){
 		return {
 	    	restrict : 'E',
