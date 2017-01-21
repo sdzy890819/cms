@@ -3,7 +3,7 @@
 .setting/
 .bin/
 target/
-.idea/
+.idea/*
 *.iml
 velocity.log*
 

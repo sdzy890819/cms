@@ -1,7 +1,9 @@
 package com.cn.cms.biz;
 
 import com.alibaba.fastjson.JSONObject;
+import com.cn.cms.bo.PreviousColumn;
 import com.cn.cms.bo.RelationColumn;
+import com.cn.cms.bo.UserBean;
 import com.cn.cms.contants.RedisKeyContants;
 import com.cn.cms.enums.AutoPublishEnum;
 import com.cn.cms.enums.PublishEnum;
@@ -35,6 +37,8 @@ public class NewsBiz extends BaseBiz {
     private JedisClient jedisClient;
 
     @Resource
+    private UserBiz userBiz;
+    @Resource
     private ChannelBiz channelBiz;
 
     public List<NewsColumn> listNewsColumn(Long channelId){
@@ -48,6 +52,46 @@ public class NewsBiz extends BaseBiz {
             return this.newsService.queryListForPage(page);
         }
         return null;
+    }
+
+
+    /**
+     * 加载数据
+     * @param list
+     */
+    public void dataInit(List<News> list ){
+        List<String> userIds = new ArrayList<>();
+        List<Long> channelIds = new ArrayList<>();
+        List<Long> columnIds = new ArrayList<>();
+        if(StringUtils.isNotEmpty(list)) {
+            for (int i = 0; i < list.size(); i++) {
+                if(StringUtils.isNotBlank(list.get(i).getWriteUserId())) {
+                    userIds.add(list.get(i).getWriteUserId());
+                }
+                if(StringUtils.isNotBlank(list.get(i).getLastModifyUserId())) {
+                    userIds.add(list.get(i).getLastModifyUserId());
+                }
+                if(list.get(i).getChannelId()!=null) {
+                    channelIds.add(list.get(i).getChannelId());
+                }
+                if(list.get(i).getColumnId()!=null) {
+                    columnIds.add(list.get(i).getColumnId());
+                }
+            }
+            Map<String, UserBean> map = userBiz.getUserBeanMap(userIds);
+            Map<Long ,Channel> channelMap = channelBiz.getChannelsMap(channelIds);
+            Map<Long, NewsColumn> newsColumnMap = this.getNewsColumnMap(columnIds);
+            for (int i = 0; i < list.size(); i++) {
+                list.get(i).setWriteUserName(map.get(list.get(i).getWriteUserId())!=null?
+                        map.get(list.get(i).getWriteUserId()).getRealName():"");
+                list.get(i).setLastModifyUserName(map.get(list.get(i).getLastModifyUserId())!=null?
+                        map.get(list.get(i).getLastModifyUserId()).getRealName():"");
+                list.get(i).setChannelName(channelMap.get(list.get(i).getChannelId()).getChannelName()!=null?
+                        channelMap.get(list.get(i).getChannelId()).getChannelName():"");
+                list.get(i).setColumnName(newsColumnMap.get(list.get(i).getColumnId())!=null?
+                        newsColumnMap.get(list.get(i).getColumnId()).getColumnName():"");
+            }
+        }
     }
 
     public List<RelationColumn> getAll(){
@@ -198,6 +242,39 @@ public class NewsBiz extends BaseBiz {
      */
     public void saveNews(News news){
         newsService.saveNews(news);
+        String result = jedisClient.get(RedisKeyContants.getRedisAddNewPreviousColumnInfo(news.getLastModifyUserId()));
+        PreviousColumn previousColumn = null ;
+        if(StringUtils.isNotBlank(result)){
+            previousColumn = JSONObject.parseObject(result, PreviousColumn.class);
+
+        }else{
+            previousColumn = new PreviousColumn();
+        }
+        int tmp = 0;
+        if(news.getChannelId()!=null){
+            previousColumn.setChannelId(news.getChannelId());
+            tmp ++ ;
+        }
+        if(news.getCategoryId()!=null){
+            previousColumn.setCategoryId(news.getCategoryId());
+            tmp ++ ;
+        }
+        if(news.getColumnId()!=null){
+            previousColumn.setColumnId(news.getColumnId());
+            tmp ++ ;
+        }
+        if(tmp>0){
+            jedisClient.set(RedisKeyContants.getRedisAddNewPreviousColumnInfo(news.getLastModifyUserId())
+                    , JSONObject.toJSONString(previousColumn));
+        }
+    }
+
+    public PreviousColumn getPreviousColumn(String userId){
+        String result = jedisClient.get(RedisKeyContants.getRedisAddNewPreviousColumnInfo(userId));
+        if(StringUtils.isNotBlank(result)){
+            return JSONObject.parseObject(result, PreviousColumn.class);
+        }
+        return null;
     }
 
     public void updateNews(News news){

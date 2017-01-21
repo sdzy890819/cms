@@ -109,7 +109,9 @@ public class UserBiz extends BaseBiz{
     public List<User> getUserCacheList(List<String> userIds){
         Map<String, String> map = new HashMap<>();
         for(int i=0;i<userIds.size();i++){
-            map.put(userIds.get(i), RedisKeyContants.getUserKey(userIds.get(i)));
+            if(StringUtils.isNotBlank(userIds.get(i))) {
+                map.put(userIds.get(i), RedisKeyContants.getUserKey(userIds.get(i)));
+            }
         }
         List<String> list = jedisClient.mget(map.values().toArray(new String[map.size()]));
         List<User> result = new ArrayList<>();
