@@ -29,6 +29,9 @@ define(['require',"app",'jquery','./moduls/Tool'
 								festival: true
 							});
 						},
+						return : function(){
+							$scope.list.return();
+						},
 						formRepeat : function(){ //全局更新
 						  	form.render(); //更新全部
 						  	//自定义验证规则

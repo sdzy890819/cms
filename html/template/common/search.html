@@ -55,4 +55,13 @@
 			</div>
 		</form>
 	</div>
+	<div class="search-info" ng-if='list.search'>
+		<div class="info">
+			共搜索到<em>{{list.search.count}}</em>个<em>“{{list.search.name}}”</em>
+		</div>
+		<div class='btn' ng-click='return()'>
+			<i class="icon-chevron-left"></i>
+			<span>返回列表</span>
+		</div>
+	</div>
 </div>
