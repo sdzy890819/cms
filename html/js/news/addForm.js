@@ -75,6 +75,14 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 			type : 'edit'
 		},
 		{
+			title : 'field1',
+			name : '扩展字段',
+			placeholder : '请输入扩展字段内容',
+			typeName : 'addInput',
+			inputNum : 5,
+			type : 'text'
+		},
+		{
 			title : 'show',
 			name : '是否发布',
 			type : 'radio',
