@@ -160,8 +160,30 @@ define(['require',"app",'jquery','search','./searchForm'
 	        		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
 	        		$scope.$apply();
 				}
+				//显示列表
+				var page = 1;
+				function getDataList(){
+					getData.topic.listTopic({
+						page : page,
+						pageSize : 20,
+						callback : function(_data){
+							//分页
+							$scope.page = _data.data.page;
+							$scope.page.jump = function( obj ){
+								if(page != obj.curr){
+									page = obj.curr;
+									getDataList();
+								}
+							}
+							setList(_data);	
+						}
+					});
+				};
+				getDataList();
+				//end 显示列表
 				//搜索
 				function search(){
+					var searchPage = 1;
 					searchForm(function(data){
 						$.each(data,function( i , obj){
 							obj.callback = function( _object ){
@@ -182,8 +204,15 @@ define(['require',"app",'jquery','search','./searchForm'
 						});
 						$scope.searchform = {
 							list : data,
+							return : function(){ //返回列表
+								getDataList();
+								$scope.searchform.search = null;
+								page = 1;
+								searchPage = 1;
+								$scope.$$childHead.current = 1;
+							},
 							submit : function( obj , data ){
-								var page = 1 , channelId , topicColumnId , categoryId , topicClassifyId;
+								var channelId , topicColumnId , categoryId , topicClassifyId;
 								$.each(obj.selects,function(){
 									if(this.title == 'channelId'){
 										channelId = this.id;
@@ -208,16 +237,20 @@ define(['require',"app",'jquery','search','./searchForm'
 										"releaseTime":obj.releaseTime, //发布时间,
 										"startTime":obj.startTime,//创建时间
 										"endTime":obj.endTime,//创建时间
-										page : page,
+										page : searchPage,
 										pageSize : 20,
 										callback : function(_data){
 											//分页
 											$scope.page = _data.data.page;
 											$scope.page.jump = function( obj ){
-												if(page != obj.curr){
-													page = obj.curr;
+												if(searchPage != obj.curr){
+													searchPage = obj.curr;
 													getSearchList();
 												}
+											}
+											$scope.searchform.search = {
+												count : _data.data.page.count , 
+												name : obj.condition
 											}
 											setList(_data);
 										}
@@ -231,25 +264,6 @@ define(['require',"app",'jquery','search','./searchForm'
 				}
 				search();
 				//end 搜索
-				var page = 1;
-				function getDataList(){
-					getData.topic.listTopic({
-						page : page,
-						pageSize : 20,
-						callback : function(_data){
-							//分页
-							$scope.page = _data.data.page;
-							$scope.page.jump = function( obj ){
-								if(page != obj.curr){
-									page = obj.curr;
-									getDataList();
-								}
-							}
-							setList(_data);	
-						}
-					});
-				};
-				getDataList();
 				
 	        }
 	        ,link : function($scope , element ){

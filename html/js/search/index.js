@@ -1,4 +1,4 @@
-define(['require',"app",'jquery','./moduls/Tool'
+define(['require',"app",'jquery','/js/moduls/Tool.js'
 ], function ( require , app , $ , Tool  ) {
 	app.directive('search',function(){
 		return {
@@ -28,6 +28,9 @@ define(['require',"app",'jquery','./moduls/Tool'
 								format: 'YYYY-MM-DD hh:mm:ss',
 								festival: true
 							});
+						},
+						return : function(){
+							$scope.list.return();
 						},
 						formRepeat : function(){ //全局更新
 						  	form.render(); //更新全部
