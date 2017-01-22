@@ -276,6 +276,10 @@ define(['require',"app",'jquery'
 														count : _data.data.page.count , 
 														name : obj.condition
 													}
+
+													if (_data.data.list == undefined){
+														_data.data.list = [];
+													}
 													setList(_data);
 												}
 											})
