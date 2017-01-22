@@ -275,7 +275,7 @@ $leftWidth : 225px;
     }
     i{ font-size: 16px; margin-right: 5px; text-shadow: none; color:#969696;}
     
-    .selected{ display: block; width: 8px; height: 25px; background-image: url(../../images/sidebar-menu-arrow.png); float: right; position: absolute; right: 0px; top: 8px; }
+    .selected{ display: block; width: 8px; height: 25px; float: right; position: absolute; right: 0px; top: 8px; }
     .arrow{
         color: #7d7d7d !important; transition-duration:.5s; -webkit-transition-duration:.5s;
         &:before{ float: right; margin-top: 1px; margin-right: 5px; display: inline; font-size: 16px; font-family: FontAwesome; height: auto; content: "\f104"; font-weight: 300; text-shadow: none;}

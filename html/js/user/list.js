@@ -105,7 +105,7 @@ define(['require',"app",'jquery',
 				function getDataList(){
 					getData.user.userlist({
 						page : page,
-						pageSize: 5,
+						pageSize: 20,
 						callback : function(_data){
 							//分页
 							$scope.page = _data.data.page;
