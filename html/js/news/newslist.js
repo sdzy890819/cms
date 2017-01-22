@@ -1,5 +1,5 @@
 define(['require',"app",'jquery','search','./searchForm'
-	,'./addForm','./editNewsPop','../data/getData','../moduls/Tool'
+	,'./addForm','../common/editPop','../data/getData','../moduls/Tool'
 	,'formlist','fixedNav','position'
 	,'../moduls/service','../moduls/factory'
 ], function ( require , app , $ , search , searchForm , list , editPop ,getData , Tool  ) {
@@ -55,7 +55,7 @@ define(['require',"app",'jquery','search','./searchForm'
 
 								}
 							})
-						}
+						}													
 
         				editPop.init({
         					obj : obj,
@@ -65,82 +65,85 @@ define(['require',"app",'jquery','search','./searchForm'
         						var channelId = _detail.channelId , 
         							columnId = _detail.columnId , 
         							categoryId = _detail.categoryId;
-										$.each(obj.selects,function(){
-											if(this.title == 'channelId'){
-												channelId = this.id;
-											}
-											if(this.title == 'columnId'){
-												columnId = this.id;
-											}
-											if(this.title == 'categoryId'){
-												categoryId = this.id;
-											}
-										})
+								$.each(obj.selects,function(){
+									if(this.title == 'channelId'){
+										channelId = this.id;
+									}
+									if(this.title == 'columnId'){
+										columnId = this.id;
+									}
+									if(this.title == 'categoryId'){
+										categoryId = this.id;
+									}
+								})
 
-										getData.news.updateNews({
-											"id":_detail.id,
-											"title":obj.title,
-											"subTitle":obj.subTitle,
-											"keyword":obj.keyword,
-											"description":obj.description,
-											"source":obj.source,
-											"author":obj.author,
-											"channelId":channelId,//频道ID
-											"columnId":columnId,//栏目ID
-											"categoryId": categoryId, //部门分类ID
-											"content":obj.html,
-											"autoPublish":(obj.show=='yes'?1:0), //1 是自动发布。0是不自动发布.默认不自动发布
-											"timer":obj.writeTime, //定时发布。//可不传
-											"field1":obj.field1,
-											"field2":obj.field2,
-											"field3":obj.field3,
-											"field4":obj.field4,
-											"field5":obj.field5,
-											callback : function(_data){
-												layui.use(['layer'], function(){
-													var layer = layui.layer;
-													layer.msg(_data.message);
-													// setTimeout(function(){
-													// 	location.reload();
-													// },300);
-												});
-											}
+								getData.news.updateNews({
+									"id":_detail.id,
+									"title":obj.title,
+									"subTitle":obj.subTitle,
+									"keyword":obj.keyword,
+									"description":obj.description,
+									"source":obj.source,
+									"author":obj.author,
+									"channelId":channelId,//频道ID
+									"columnId":columnId,//栏目ID
+									"categoryId": categoryId, //部门分类ID
+									"content":obj.html,
+									"autoPublish":(obj.show=='yes'?1:0), //1 是自动发布。0是不自动发布.默认不自动发布
+									"timer":obj.writeTime, //定时发布。//可不传
+									"field1":obj.field1,
+									"field2":obj.field2,
+									"field3":obj.field3,
+									"field4":obj.field4,
+									"field5":obj.field5,
+									callback : function(_data){
+										layui.use(['layer'], function(){
+											var layer = layui.layer;
+											layer.msg(_data.message);
+											// setTimeout(function(){
+											// 	location.reload();
+											// },300);
 										});
+									}
+								});
         					},
-        					callback : function( _data, list , callback ){ //返回获取的数据 用于操作        						
-										$.each(list,function( i , obj){
-											if(obj.title == 'content'){
-												obj.width = '650px';
-											}			
-
-											if(obj.type=='select'){
-								
+       					callback : function( list , callback ){ //返回获取的数据 用于操作
+								$.each(list,function( i , obj){
+									if(obj.title == 'content'){
+										obj.width = '650px';
+									}
+									if(obj.type=='select'){
+										obj.callback = function( _object ){
+											if(_object.title == 'categoryId'){												
 												getData.channel.currentChannelList({
-													categoryId : _data.categoryId,
+													categoryId : _object.obj.id,
 													callback : function(_data){
 														var arr = [obj.select[1][0]];
 														obj.select[1] = arr;
 														obj.select[1] = obj.select[1].concat(Tool.changeObjectName(_data.data,[{name:'channelName',newName:'name'}]));
 														
-														$scope.$apply();																
+														$scope.$apply();
+														_object.callback();
 													}
 												})
-
+											}else if(_object.title == 'channelId'){
 												getData.news.newscolumnlist({
-													channelId : _data.channelId,
+													channelId : _object.obj.id,
 													callback : function(_data){
 														var arr = [obj.select[2][0]];
 														obj.select[2] = arr;
 														obj.select[2] = obj.select[2].concat(Tool.changeObjectName(_data.data,[{name:'columnName',newName:'name'}]));
-														$scope.$apply();																
+														$scope.$apply();
+														_object.callback();
 													}
 												})
-
-											}											
-										});										
-										getAddForm(function( data){
-											callback(data);
-										},list)
+											}
+										}
+									}
+								});
+								getAddForm(function( data){
+									callback(data);
+								},list)
         					},
         					$uibModal :$uibModal 
         				});
