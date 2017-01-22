@@ -85,12 +85,7 @@ public class NewsController extends BaseController {
                              @RequestParam(value="pageSize" ,required = false) Integer pageSize){
         Page page1 = new Page(page, pageSize);
         List<News> list = newsBiz.myNewsList(getCurrentUserId(request), publish, page1);
-        if(StringUtils.isNotEmpty(list)) {
-            UserBean userBean = userBiz.getUserBean(getCurrentUserId(request));
-            for (int i = 0; i < list.size(); i++) {
-                list.get(i).setWriteUserName(userBean.getRealName());
-            }
-        }
+        newsBiz.dataInit(list);
         Map<String, Object> result = new HashMap<>();
         result.put("page", page1);
         result.put("list", list);
