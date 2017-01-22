@@ -95,6 +95,7 @@ public class FileUtil {
      * @return
      */
     public static Map<String,Object> compressAndWatermark(byte[] bytes, int width, int height, String filePath, int watermark){
+
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
         Map<String, Object> map = new HashMap<>();
         try {
