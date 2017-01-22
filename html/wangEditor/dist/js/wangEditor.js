@@ -1019,7 +1019,6 @@ _e(function (E, $) {
     E.fn.clear = function () {
         var editor = this;
         var $txt = editor.txt.$txt;
-debugger;
         $txt.html('<p><br></p>');
         editor.restoreSelectionByElem($txt.find('p').get(0));
     };
@@ -2230,7 +2229,6 @@ _e(function (E, $) {
                 return;
             }
             var txtHtml = $.trim($txt.html().toLowerCase());
-            debugger;
             if (txtHtml === '<p><br></p>') {
                 // 如果最后还剩余一个空行，就不再继续删除了
                 e.preventDefault();
@@ -2247,7 +2245,6 @@ _e(function (E, $) {
             if (!txtHtml || txtHtml === '<br>') {
                 // 内容空了
                 $p = $('<p><br/></p>');
-                debugger;
                 $txt.html(''); // 一定要先清空，否则在 ff 下有问题
                 $txt.append($p);
                 editor.restoreSelectionByElem($p.get(0));
@@ -2387,7 +2384,6 @@ _e(function (E, $) {
 
                 // 拼接为 <p> 标签
                 if (pasteHtml) {
-                    debugger;
                     resultHtml = '<p>' + pasteHtml + '</p>';
                 }
 
@@ -2404,7 +2400,6 @@ _e(function (E, $) {
                         // 处理，并将结果存储到 resultHtml 『全局』变量
                         handle($paste.get(0));
                     } else {
-                        debugger;
                         // 得不到html，试图获取text
                         pasteHtml = data.getData('text/plain');
                         if (pasteHtml) {
@@ -2436,7 +2431,6 @@ _e(function (E, $) {
                     // 其他情况
                     return;
                 }
-                debugger;
             }
 
             // 执行命令
@@ -4201,7 +4195,6 @@ _e(function (E, $) {
                         if ($item.get(0).nodeName === 'P') {
                             $quoteElem.after($item);
                         } else {
-                            debugger;
                             $quoteElem.after('<p>' + $item.text() + '</p>');
                         }
                         $lastChild = $item;  // 记录最后一个子元素，用于callback中的range定位
@@ -5438,7 +5431,6 @@ _e(function (E, $) {
             var height = parseInt($heightInput.val());
             var $div = $('<div>');
             var html = '<p>{content}</p>';
-debugger;
             // 验证数据
             if (!link) {
                 menu.dropPanel.focusFirstInput();
@@ -6070,7 +6062,6 @@ _e(function (E, $) {
                     $textarea.focus();
                     return;
                 }
-debugger;
                 var rangeElem = editor.getRangeElem();
                 if ($.trim($(rangeElem).text()) && codeTpl.indexOf('<p><br></p>') !== 0) {
                     codeTpl = '<p><br></p>' + codeTpl;

@@ -29,8 +29,9 @@ define(["app",'jquery','require','../data/URL','wangEditor'], function ( app,$,r
 		                    }
 		                    ngModel.$setViewValue(html);
 		                }
-
-		    			/*[ //所有的
+		                // 创建编辑器
+		                var editor = new wangEditor(element);
+		                editor.config.menus = [
 					        'source',
 					        '|',
 					        'bold',
@@ -56,6 +57,7 @@ define(["app",'jquery','require','../data/URL','wangEditor'], function ( app,$,r
 					        'table',
 					        'emotion',
 					        '|',
+					        'indent',
 					        'img',
 					        'video',
 					        'location',
@@ -63,11 +65,10 @@ define(["app",'jquery','require','../data/URL','wangEditor'], function ( app,$,r
 					        '|',
 					        'undo',
 					        'redo',
-					        'fullscreen'
-					    ];*/
-		                // 创建编辑器
-		                var editor = new wangEditor(element);
-		                editor.config.menus = $.map(wangEditor.config.menus, function(item, key) {
+					        'fullscreen',
+					        'stock'
+					    ];
+		                editor.config.menus = $.map(editor.config.menus, function(item, key) {
 							if (item === 'insertcode') {
 								return null;
 							}
@@ -110,7 +111,6 @@ define(["app",'jquery','require','../data/URL','wangEditor'], function ( app,$,r
 					        // xhr 是 xmlHttpRequest 对象，IE8、9中不支持
 					        alert('上传错误');
 					    };
-
 				      	//上传图片
 				      	editor.config.uploadImgUrl = URL.upload.uploadImage;
 				      	// 配置自定义参数（举例）
