@@ -139,7 +139,7 @@ define(['require',"app",'jquery','search','./searchForm'
 
 									if(obj.type=='select'){
 										obj.callback = function( _object ){
-											if(_object.title == 'categoryId'){
+											if(_object.title == 'categoryId'){												
 												getData.channel.currentChannelList({
 													categoryId : _object.obj.id,
 													callback : function(_data){

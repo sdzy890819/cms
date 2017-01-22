@@ -629,7 +629,7 @@ input:focus{ border: 1px solid #bbb !important;} */
   display: block;
   width: 8px;
   height: 25px;
-  background-image: url(../../images/sidebar-menu-arrow.png);
+  
   float: right;
   position: absolute;
   right: 0px;
