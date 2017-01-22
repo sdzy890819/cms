@@ -1,5 +1,5 @@
 define(['require',"app",'jquery'
-	,'./addForm','../common/editPop','../data/getData','../moduls/Tool', 'search', './searchForm'
+	,'./addForm','./editNewsPop','../data/getData','../moduls/Tool', 'search', './mysearchForm'
 	,'formlist','fixedNav','position'
 	,'../moduls/service','../moduls/factory'
 ], function ( require , app , $ , list , editPop ,getData , Tool, search, searchForm  ) {
@@ -15,15 +15,48 @@ define(['require',"app",'jquery'
 				angular.extend($scope,{
 
 					edit : function( obj ){ //保存
-						function getAddForm(callback){ //填充数据
+						function getAddForm(callback , formList){ //填充数据
 							getData.news.newsdetail({
 								id : obj.id,
 								callback : function(_data){
 									_data.data.writeTime = new Date(_data.data.writeTime).format('yyyy-MM-dd h:m:s');
-									callback(_data);
+									
+									if(formList){ //发果有1条以上的字段则显示
+										var maxNum , index = 2 , 
+											title , name, inputMaxNum,type,
+											firstArr, lastArr;
+										$.each(formList,function(i,obj){
+											if(obj.title=='field1'){
+												title = obj.title.replace(obj.title.match(/\d+$/)[0],'');
+												name = obj.name;
+												inputMaxNum = obj.inputMaxNum;
+												type = obj.type;
+												firstArr = formList.slice(0,i+1) 
+												lastArr = formList.slice(i+1) 
+												maxNum = obj.inputMaxNum+1;
+											}
+										});
+										for(;index<maxNum;index++){
+											var value = _data.data['field'+index];
+											if(value){
+												firstArr.push({
+													title : title+index,
+													name : name+index,
+													placeholder : '请输入扩展字段内容',
+													num : index, //当前为第1条
+													inputMaxNum : inputMaxNum,
+													type : type
+												})
+											}
+										}
+										callback(firstArr.concat(lastArr));
+									}else{
+										callback(_data);
+									}
+
 								}
 							})
-						}													
+						}										
 
         				editPop.init({
         					obj : obj,
@@ -75,41 +108,41 @@ define(['require',"app",'jquery'
 									}
 								});
         					},
-        					callback : function( list , callback ){ //返回获取的数据 用于操作
-								$.each(list,function( i , obj){
-									if(obj.title == 'content'){
-										obj.width = '650px';
-									}
-									if(obj.type=='select'){
-										obj.callback = function( _object ){
-											if(_object.title == 'categoryId'){												
+        					callback : function( _data, list , callback ){ //返回获取的数据 用于操作
+        						
+										$.each(list,function( i , obj){
+											if(obj.title == 'content'){
+												obj.width = '650px';
+											}			
+
+											if(obj.type=='select'){
+								
 												getData.channel.currentChannelList({
-													categoryId : _object.obj.id,
+													categoryId : _data.categoryId,
 													callback : function(_data){
 														var arr = [obj.select[1][0]];
 														obj.select[1] = arr;
 														obj.select[1] = obj.select[1].concat(Tool.changeObjectName(_data.data,[{name:'channelName',newName:'name'}]));
 														
-														$scope.$apply();
-														_object.callback();
+														$scope.$apply();																
 													}
 												})
-											}else if(_object.title == 'channelId'){
+
 												getData.news.newscolumnlist({
-													channelId : _object.obj.id,
+													channelId : _data.channelId,
 													callback : function(_data){
 														var arr = [obj.select[2][0]];
 														obj.select[2] = arr;
 														obj.select[2] = obj.select[2].concat(Tool.changeObjectName(_data.data,[{name:'columnName',newName:'name'}]));
-														$scope.$apply();
-														_object.callback();
+														$scope.$apply();																
 													}
 												})
-											}
-										}
-									}
-								});
-								callback(list);
+
+											}											
+										});										
+										getAddForm(function( data){
+											callback(data);
+										},list)
         					},
         					$uibModal :$uibModal 
         				});
@@ -328,29 +361,20 @@ define(['require',"app",'jquery'
 						$scope.searchform = {
 							list : data,
 							submit : function( obj , data ){
-								var page = 1 , channelId , columnId , categoryId;
-								$.each(obj.selects,function(){
-									if(this.title == 'channelId'){
-										channelId = this.id;
-									}
-									if(this.title == 'columnId'){
-										columnId = this.id;
-									}
-									if(this.title == 'categoryId'){
-										categoryId = this.id;
-									}
-								});
-								function getSearchList(){
-									getData.search.searchNew({
-										"condition":obj.condition,
-										"author":obj.author,
-										"source":obj.source,
-										"categoryId":categoryId,//部门分类ID
-										"channelId":channelId,//频道ID
-										"columnId":columnId,//栏目ID
-										"platform":obj.platform, //平台,
-										"startTime":obj.startTime,//创建时间
-										"endTime":obj.endTime,//创建时间
+								var publish;
+
+								if(obj.publish == '已发布'){
+									publish = 1;
+								}else if(obj.publish == '未发布'){
+									publish = 0;									
+								}else if(obj.publish == '草稿'){
+									publish = 2;									
+								}
+								
+								function getSearchList(){								
+									getData.news.mynewslist({
+										publish: publish,
+
 										page : page,
 										pageSize : 20,
 										callback : function(_data){
@@ -365,6 +389,10 @@ define(['require',"app",'jquery'
 											$scope.searchform.search = {
 												count : _data.data.page.count , 
 												name : obj.condition
+											}
+
+											if(_data.data.list == undefined){
+												_data.data.list = [];
 											}
 											setList(_data);
 										}

@@ -34,9 +34,16 @@ define(["app",'jquery','form'],function (app,$) {
 					  	}
 					});
 
+					obj.updateData(function(_data){
+						$scope.data = _data.data;
+						if(!$scope.$$phase) { 
+							$scope.$apply();
+						} 
+					});					
+
 					getList(function(list){
 						
-						obj.callback(1, list,function(_list){
+						obj.callback($scope.data, list,function(_list){
 							$scope.formdata = { //确认按钮
 								title : '编辑',
 								cls : 'popedit',
@@ -55,12 +62,7 @@ define(["app",'jquery','form'],function (app,$) {
 									}*/
 								]
 							}
-							obj.updateData(function(_data){
-								$scope.data = _data.data;
-								if(!$scope.$$phase) { 
-									$scope.$apply();
-								} 
-							});
+
 							if(!$scope.$$phase) { 
 								$scope.$apply();
 							} 
