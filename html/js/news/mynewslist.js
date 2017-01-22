@@ -34,6 +34,26 @@ define(['require',"app",'jquery'
 												firstArr = formList.slice(0,i+1) 
 												lastArr = formList.slice(i+1) 
 												maxNum = obj.inputMaxNum+1;
+											}else if(obj.type=='select'){//填充二级 三级栏目
+												getData.channel.currentChannelList({
+													categoryId : _data.data.categoryId,
+													callback : function(_data){
+														var arr = [obj.select[1][0]];
+														obj.select[1] = arr;
+														obj.select[1] = obj.select[1].concat(Tool.changeObjectName(_data.data,[{name:'channelName',newName:'name'}]));
+									
+														$scope.$apply();
+													}
+												})
+												getData.news.newscolumnlist({
+													channelId : _data.data.channelId,
+													callback : function(_data){
+														var arr = [obj.select[2][0]];
+														obj.select[2] = arr;
+														obj.select[2] = obj.select[2].concat(Tool.changeObjectName(_data.data,[{name:'columnName',newName:'name'}]));
+														$scope.$apply();
+													}
+												})
 											}
 										});
 										for(;index<maxNum;index++){
