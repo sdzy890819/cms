@@ -236,19 +236,18 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 							form.on('submit(demo1)', function(data){
 								var event = $(data.elem).attr('data-event');
 
-								if($scope.editor){
+								if(window.Editor){
 								 	// 获取编辑器区域完整html代码
-							        var html = $scope.editor.$txt.html();
+							        var html = Editor.$txt.html();
 							        // 获取编辑器纯文本内容
-							        var text = $scope.editor.$txt.text();
+							        var text = Editor.$txt.text();
 							        // 获取格式化后的纯文本
-							        var formatText = $scope.editor.$txt.formatText();
+							        var formatText = Editor.$txt.formatText();
 							        data.field.html = html;
 							        data.field.text = text;
 							        data.field.formatText = formatText;
 								}
 								data.field.selects = $scope.selects;
-
 								//if(data.nodeName!='A'){
 									$scope.$parent[event](data.field);
 								//}else{
