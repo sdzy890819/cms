@@ -96,8 +96,7 @@ define(['require',"app",'jquery',
 		        	obj.list[0].image = obj.headImage;
 		        	obj.list[0].name = false;
 		        })
-
-		        console.log($scope.listdata.table.td)		;
+		        
         		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
         		$scope.$apply();							
 					
