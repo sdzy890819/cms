@@ -27,7 +27,11 @@ define(['require',"app",'jquery','search','./searchForm'
 										$.each(formList,function(i,obj){
 											if(obj.title=='field1'){
 												title = obj.title.replace(obj.title.match(/\d+$/)[0],'');
-												name = obj.name;
+												if(obj.name.match(/\d+$/)){
+													name = obj.name.replace(name[0],'');
+												}else{
+													name = obj.name;
+												}
 												inputMaxNum = obj.inputMaxNum;
 												type = obj.type;
 												firstArr = formList.slice(0,i+1) 

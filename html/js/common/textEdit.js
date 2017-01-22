@@ -61,8 +61,9 @@ define(["app",'jquery','require','../data/URL','../upload/angular-file-upload/in
 					        'emotion',
 					        '|',
 					        'indent',
+					        'lineheight',
 					        'img',
-					        'video',
+					        //'video',
 					        'location',
 					        'insertcode',
 					        '|',
@@ -131,8 +132,11 @@ define(["app",'jquery','require','../data/URL','../upload/angular-file-upload/in
 		        					title : '上传视频',
 		        					name : '请选择视频',
 		        					type : 'video',
+		        					success : function(fileItem, response, status, headers){
+		        						var video = "<video src='' width='200' height='200'></video>"
+		        						editor.command(null, 'insertHtml', video);
+		        					},
 		        					event : function(file , $uibModalInstance){
-		        						debugger;
 		        						$scope.imageInfo = file;	        						
 		        						$uibModalInstance.dismiss('cancel');
 		        					}
