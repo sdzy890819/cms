@@ -810,5 +810,10 @@
 }
 #stock-pop{ //
     width:200px;
-    td,th{ padding:4px; border-bottom:1px solid #ccc;}
+    td,th{ padding:4px; border-bottom:1px solid #ddd;}
+    td{ cursor: pointer; }
+    tr{
+        &.last td{ border-bottom:none;}
+        &:hover td{ background:#f2f2f2;}
+    }
 }

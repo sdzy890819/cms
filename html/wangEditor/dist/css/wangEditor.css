@@ -835,5 +835,14 @@
 #stock-pop td,
 #stock-pop th {
   padding: 4px;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #ddd;
+}
+#stock-pop td {
+  cursor: pointer;
+}
+#stock-pop tr.last td {
+  border-bottom: none;
+}
+#stock-pop tr:hover td {
+  background: #f2f2f2;
 }

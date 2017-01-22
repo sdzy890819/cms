@@ -5517,6 +5517,11 @@ _e(function (E, $) {
             id: menuId,
             title: lang.stock
         });
+
+        function addStock( e , obj){
+             editor.command(e, 'insertHtml', 'asdflsdljkf');
+        };
+
         function setTab(_data){
             var self = this,
                 offset = self.offset(),
@@ -5525,10 +5530,15 @@ _e(function (E, $) {
             tab.css({left:left+'px',top:top+'px'}).show();
             if(_data.length){
                 var td = '';
+                tbody.html('');
                 $.each(_data,function( i , obj){
-                    td += "<tr><td>"+obj.s1+"</td><td>"+obj.s3+"</td></tr>"
+                    td = $("<tr><td>"+obj.s1+"</td><td>"+obj.s3+"</td></tr>");
+                    td.click(function(e){//带有交易所缩写的股票代码(例如sz000002)
+                        var link = "<a href='http://data.p5w.net/stock/index.php?code="+obj.s2+obj.s1+"'>"+obj.s3+"</a>"
+                        editor.command(e, 'insertHtml', link);
+                    })
+                    tbody.append(td);
                 });
-                tbody.html(td)
             }else{
 
             }
