@@ -26,7 +26,8 @@ define(['require',"app",'jquery','search','./searchForm'
 										$.each(formList,function(i,obj){
 											if(obj.title=='field1'){ //填充多个字段
 												title = obj.title.replace(obj.title.match(/\d+$/)[0],'');
-												if(obj.name.match(/\d+$/)){
+												name = obj.name.match(/\d+$/);
+												if(name){
 													name = obj.name.replace(name[0],'');
 												}else{
 													name = obj.name;
@@ -139,7 +140,12 @@ define(['require',"app",'jquery','search','./searchForm'
 
 									if(obj.type=='select'){
 										obj.callback = function( _object ){
-											if(_object.title == 'categoryId'){												
+
+											if(_object.obj.name.indexOf('请选择')>-1){
+												return;
+											}
+											if(_object.title == 'categoryId'){
+
 												getData.channel.currentChannelList({
 													categoryId : _object.obj.id,
 													callback : function(_data){
