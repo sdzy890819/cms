@@ -95,7 +95,8 @@ define(['require',"app",'jquery',
 		        $.each($scope.listdata.table.td, function(i, obj){
 		        	obj.list[0].image = obj.headImage;
 		        	obj.list[0].name = false;
-		        })							
+		        })
+		        
         		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
         		$scope.$apply();							
 					
@@ -154,7 +155,7 @@ define(['require',"app",'jquery',
 												count : _data.data.page.count , 
 												name : obj.condition
 											}
-											
+
 											if (_data.data.list == undefined){
 												_data.data.list = [];
 											}											

@@ -300,6 +300,7 @@ define(['require',"app",'jquery','search','./searchForm'
 				}*/
 
 				function setList(_data){
+
 					var th = [
 						{name:'Id' , key:'id' , width : '50'},		
 						{name:'所属频道栏目' , key:'channelAndColumnName' , width : '200'},					
@@ -317,7 +318,7 @@ define(['require',"app",'jquery','search','./searchForm'
 					})
 			
 					$scope.listdata = { //确认按钮
-						title : $scope.title,
+						title : $scope.title + "（共" + _data.data.page.count + "条数据）",
 						table : {
 							select : true,
 							th : th,									
