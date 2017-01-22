@@ -11,6 +11,7 @@ import com.cn.cms.job.TopicPublishJob;
 import com.cn.cms.logfactory.CommonLog;
 import com.cn.cms.logfactory.CommonLogFactory;
 import com.cn.cms.po.Base;
+import com.cn.cms.po.NewsColumn;
 import com.cn.cms.po.Template;
 import com.cn.cms.po.Topic;
 import com.cn.cms.utils.ContextUtil;
@@ -82,6 +83,8 @@ public class TAGList extends Directive {
 
 
     //------------------------------------------
+    private NewsColumn newsColumn;
+
     private Base data;
 
     private Template template ;
@@ -113,6 +116,7 @@ public class TAGList extends Directive {
             template = (Template) context.get(StaticContants.TEMPLATE_KEY_TEMPLATE);
             channelId = (Long) context.get(StaticContants.TEMPLATE_KEY_CHANNELID);
             model = (Integer) context.get(StaticContants.TEMPLATE_KEY_PUBLISH_JOB_TYPE);
+            newsColumn = (NewsColumn) context.get(StaticContants.TEMPLATE_KEY_COLUMN);
             for (int i = 0; i < node.jjtGetNumChildren(); i++) {
                 if (node.jjtGetChild(i) != null) {
                     if (!(node.jjtGetChild(i) instanceof ASTBlock)) {
@@ -186,6 +190,7 @@ public class TAGList extends Directive {
                 templatePublishJob.setBase(data);
                 templatePublishJob.setTemplateBasics(template);
                 templatePublishJob.setChannelId(channelId);
+                templatePublishJob.setNewsColumn(newsColumn);
                 templatePublishJob.setPage(pageObj.getNextPage());
                 threadTaskExecutor.execute(templatePublishJob);
             }else if(model!=null && model == PublishJobTypeEnum.topic.getType()){
