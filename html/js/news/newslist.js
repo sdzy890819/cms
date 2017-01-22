@@ -112,39 +112,63 @@ define(['require',"app",'jquery','search','./searchForm'
 										});
         					},
         					callback : function( _data, list , callback ){ //返回获取的数据 用于操作        						
-										$.each(list,function( i , obj){
-											if(obj.title == 'content'){
-												obj.width = '650px';
-											}			
+								$.each(list,function( i , obj){
+									if(obj.title == 'content'){
+										obj.width = '650px';
+									}			
 
-											if(obj.type=='select'){
-								
+									if(obj.type=='select'){
+										getData.channel.currentChannelList({
+											categoryId : _data.categoryId,
+											callback : function(_data){
+												var arr = [obj.select[1][0]];
+												obj.select[1] = arr;
+												obj.select[1] = obj.select[1].concat(Tool.changeObjectName(_data.data,[{name:'channelName',newName:'name'}]));
+												
+												$scope.$apply();																
+											}
+										})
+
+										getData.news.newscolumnlist({
+											channelId : _data.channelId,
+											callback : function(_data){
+												var arr = [obj.select[2][0]];
+												obj.select[2] = arr;
+												obj.select[2] = obj.select[2].concat(Tool.changeObjectName(_data.data,[{name:'columnName',newName:'name'}]));
+												$scope.$apply();																
+											}
+										})
+										obj.callback = function( _object ){
+											if(_object.title == 'categoryId'){
 												getData.channel.currentChannelList({
-													categoryId : _data.categoryId,
+													categoryId : _object.obj.id,
 													callback : function(_data){
 														var arr = [obj.select[1][0]];
 														obj.select[1] = arr;
 														obj.select[1] = obj.select[1].concat(Tool.changeObjectName(_data.data,[{name:'channelName',newName:'name'}]));
-														
-														$scope.$apply();																
+									
+														$scope.$apply();
+														_object.callback();
 													}
 												})
-
+											}else if(_object.title == 'channelId'){
 												getData.news.newscolumnlist({
-													channelId : _data.channelId,
+													channelId : _object.obj.id,
 													callback : function(_data){
 														var arr = [obj.select[2][0]];
 														obj.select[2] = arr;
 														obj.select[2] = obj.select[2].concat(Tool.changeObjectName(_data.data,[{name:'columnName',newName:'name'}]));
-														$scope.$apply();																
+														$scope.$apply();
+														_object.callback();
 													}
 												})
-
-											}											
-										});										
-										getAddForm(function( data){
-											callback(data);
-										},list)
+											}
+										}
+									}											
+								});										
+								getAddForm(function( data){
+									callback(data);
+								},list)
         					},
         					$uibModal :$uibModal 
         				});
