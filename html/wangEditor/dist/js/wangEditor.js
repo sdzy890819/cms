@@ -1234,7 +1234,7 @@ _e(function (E, $) {
                 $tip.css({
                     width: titleWidth,
                     //'margin-left': currentMarginLeft + (currentWidth - titleWidth)/2
-                    'margin-left': -17
+                    'margin-left': -17  //菜单移上去的效果 现在改为写死
                 });
 
                 // 存储
@@ -5481,7 +5481,7 @@ _e(function (E, $) {
     });
 
 });
-// stock 菜单
+// stock 股票
 _e(function (E, $) {
 
     E.createMenu(function (check) {
@@ -5493,9 +5493,20 @@ _e(function (E, $) {
         var lang = editor.config.lang;
         var reg = /^\d+/i;  // 数字
 
+        var tab = $("<div id='stock-pop' style='position:fixed;z-index:9999; border:1px solid #ccc; padding:5px; background:#fff; left:0; top:0; display:none;'><table width='100%' cellspacing='0' cellpadding='0'><thead><tr><th>代码</th><th>名称</th></tr></thead><tbody></tbody></table></div>") , 
+            tbody = tab.find('tbody') ;
+
+        tab.appendTo('body');
+        $(document).click(function(){
+            tab.hide();
+        })
+        tab.click(function(e){
+            e.stopPropagation();
+        })
+
         var $content = $('<div></div>');
         var $linkInputContainer = $('<div style="margin:20px 10px;"></div>');
-        var $linkInput = $('<input type="text" class="block" placeholder=\'格式如：股票代码\/股票名称\'/>');
+        var $linkInput = $('<input type="text" class="block" placeholder=\'代码 \/ 简称 \/ 拼音\'/>');
         $linkInputContainer.append($linkInput);
 
         $content.append($linkInputContainer);
@@ -5506,11 +5517,45 @@ _e(function (E, $) {
             id: menuId,
             title: lang.stock
         });
+        function setTab(_data){
+            var self = this,
+                offset = self.offset(),
+                left = offset.left , 
+                top = offset.top - $('body').scrollTop() + self.height()+20;
+            tab.css({left:left+'px',top:top+'px'}).show();
+            if(_data.length){
+                var td = '';
+                $.each(_data,function( i , obj){
+                    td += "<tr><td>"+obj.s1+"</td><td>"+obj.s3+"</td></tr>"
+                });
+                tbody.html(td)
+            }else{
+
+            }
+        }
+
+        var timer = 0;
+        $linkInput.bind('input propertychange',function( evet ){
+            var self = $(this) ,
+                val = self.val();
+            clearTimeout(timer);
+            timer = setTimeout(function(){
+                $.ajax({
+                    url : 'http://hq.p5w.net/hq/suggestion.php',
+                    data : {query : val},
+                    type : 'get',
+                    dataType : 'jsonp',
+                    success : function(_data){
+                        setTab.call(self,_data);
+                    }
+                })
+            },300)
+        })
 
         // 创建panel
         menu.dropPanel = new E.DropPanel(editor, menu, {
             $content: $content,
-            width: 400
+            width: 200
         });
 
         // 增加到editor对象中

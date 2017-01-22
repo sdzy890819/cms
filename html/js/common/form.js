@@ -123,7 +123,7 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 							var self = this;
 							if(this.type=='edit'){
 								$scope.editorContent = '';
-					        	$css.add('../../wangEditor/dist/css/wangEditor.min.css');
+					        	$css.add('../../wangEditor/dist/css/wangEditor.css');
 					        	textEdit.init($scope,{
 					        		callback : function(editor){
 					        		}
