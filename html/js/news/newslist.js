@@ -166,7 +166,7 @@ define(['require',"app",'jquery','search','./searchForm'
 										}
 									}									
 								});									
-								getAddForm(function( data){
+								getAddForm(function( data){ //获取详情的数据，判断是否要新增字段，和更新二级，三级栏目 
 									callback(data);
 								},list)
         					},
