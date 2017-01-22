@@ -1,6 +1,13 @@
 define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 	var T = {
 		getdata : function( obj ){
+			if(obj.data){
+				obj.data.time = new Date().getTime()+Math.random()*9999;
+			}else{
+				obj.data = {
+					time : new Date().getTime()+Math.random()*9999
+				}
+			}
 			layui.use(['layer'], function(){
 				var loadding;
 				if(obj.loadding!=false){

@@ -112,7 +112,7 @@ define(["app",'jquery','./columnForm'
 				function getDataList(){
 					getData.news.newscolumn_list({
 						page : page,
-						pageSize : 5,
+						pageSize : 20,
 						callback : function(_data){
 							//分页
 							$scope.page = _data.data.page;

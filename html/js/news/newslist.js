@@ -125,9 +125,9 @@ define(['require',"app",'jquery','search','./searchForm'
 												layui.use(['layer'], function(){
 													var layer = layui.layer;
 													layer.msg(_data.message);
-													// setTimeout(function(){
-													// 	location.reload();
-													// },300);
+													 setTimeout(function(){
+													 	location.reload();
+													 },300);
 												});
 											}
 										});
@@ -140,10 +140,12 @@ define(['require',"app",'jquery','search','./searchForm'
 
 									if(obj.type=='select'){
 										obj.callback = function( _object ){
+
 											if(_object.obj.name.indexOf('请选择')>-1){
 												return;
 											}
 											if(_object.title == 'categoryId'){
+
 												getData.channel.currentChannelList({
 													categoryId : _object.obj.id,
 													callback : function(_data){
@@ -298,6 +300,7 @@ define(['require',"app",'jquery','search','./searchForm'
 				}*/
 
 				function setList(_data){
+
 					var th = [
 						{name:'Id' , key:'id' , width : '50'},		
 						{name:'所属频道栏目' , key:'channelAndColumnName' , width : '200'},					
@@ -315,7 +318,7 @@ define(['require',"app",'jquery','search','./searchForm'
 					})
 			
 					$scope.listdata = { //确认按钮
-						title : $scope.title,
+						title : $scope.title + "（共" + _data.data.page.count + "条数据）",
 						table : {
 							select : true,
 							th : th,									
