@@ -80,7 +80,7 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 		  					return;
 						}
 						layui.use('layer', function(){
-						  layui.layer.msg('扩展字段只能添加'+num+'条',{icon: 2,anim:6});
+						  layui.layer.msg('扩展字段只能添加'+(num-1)+'条',{icon: 2,anim:6});
 						}); 
 					},
 					delInput : function( obj , index ){ //删除输入匡

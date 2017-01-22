@@ -80,7 +80,7 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 							obj.width = '800px';
 						}
 						if(obj.type=='select'){
-							getData.news.previousColumn({
+							getData.news.previousColumn({ //默认显示 1级2级3级栏目
 								callback : function( data ){
 									var categoryId = data.data.categoryId , 
 										channelId = data.data.channelId , 
@@ -104,7 +104,7 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 											$scope.$apply();
 										}
 									});
-									$scope.data = {
+									$scope.data = { //默认显示 1级2级3级栏目
 										categoryId : categoryId , 
 										channelId : channelId , 
 										columnId : columnId
