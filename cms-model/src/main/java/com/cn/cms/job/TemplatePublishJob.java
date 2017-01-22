@@ -34,6 +34,11 @@ public class TemplatePublishJob extends BaseTask {
     private Base base;
 
     /**
+     * 新闻栏目
+     */
+    private NewsColumn newsColumn;
+
+    /**
      * 模版信息.
      */
     private TemplateBasics templateBasics;
@@ -70,6 +75,7 @@ public class TemplatePublishJob extends BaseTask {
         map.put(StaticContants.TEMPLATE_KEY_PAGE, page);
         map.put(StaticContants.TEMPLATE_KEY_CHANNELID, channelId);
         map.put(StaticContants.TEMPLATE_KEY_PUBLISH_JOB_TYPE, MODEL);
+        map.put(StaticContants.TEMPLATE_KEY_COLUMN, newsColumn);
         Channel channel ;
         String templatePath;
         if(templateBasics instanceof Template2){

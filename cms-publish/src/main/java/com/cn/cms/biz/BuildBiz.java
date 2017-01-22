@@ -112,6 +112,7 @@ public class BuildBiz extends BaseBiz {
                 Template2 template2 = template2Biz.getTemplate2(newsColumn.getListTemplate2Id());
                 TemplatePublishJob templatePublishJob = new TemplatePublishJob();
                 templatePublishJob.setChannelId(news.getChannelId());
+                templatePublishJob.setNewsColumn(newsColumn);
                 templatePublishJob.setTemplateBasics(template2);
                 threadTaskExecutor.execute(templatePublishJob);
             }
@@ -120,6 +121,7 @@ public class BuildBiz extends BaseBiz {
                 TemplatePublishJob templatePublishJob = new TemplatePublishJob();
                 templatePublishJob.setTemplateBasics(template2);
                 templatePublishJob.setChannelId(news.getChannelId());
+                templatePublishJob.setNewsColumn(newsColumn);
                 templatePublishJob.setBase(news);
                 threadTaskExecutor.execute(templatePublishJob);
             }
