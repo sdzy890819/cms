@@ -5534,8 +5534,9 @@ _e(function (E, $) {
                 $.each(_data,function( i , obj){
                     td = $("<tr><td>"+obj.s1+"</td><td>"+obj.s3+"</td></tr>");
                     td.click(function(e){//带有交易所缩写的股票代码(例如sz000002)
-                        var link = "<a href='http://data.p5w.net/stock/index.php?code="+obj.s2+obj.s1+"'>"+obj.s3+"</a>"
+                        var link = "<a style='color:red' href='http://data.p5w.net/stock/index.php?code="+obj.s2+obj.s1+"'>"+obj.s3+"</a>"
                         editor.command(e, 'insertHtml', link);
+                        tab.hide();
                     })
                     tbody.append(td);
                 });
