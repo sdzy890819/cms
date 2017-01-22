@@ -80,6 +80,39 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 							obj.width = '800px';
 						}
 						if(obj.type=='select'){
+							getData.news.previousColumn({
+								callback : function( data ){
+									var categoryId = data.data.categoryId , 
+										channelId = data.data.channelId , 
+										columnId = data.data.columnId;
+									getData.channel.currentChannelList({
+										categoryId : categoryId,
+										callback : function(_data){
+											var arr = [obj.select[1][0]];
+											obj.select[1] = arr;
+											obj.select[1] = obj.select[1].concat(Tool.changeObjectName(_data.data,[{name:'channelName',newName:'name'}]));
+						
+											$scope.$apply();
+										}
+									});
+									getData.news.newscolumnlist({
+										channelId : channelId,
+										callback : function(_data){
+											var arr = [obj.select[2][0]];
+											obj.select[2] = arr;
+											obj.select[2] = obj.select[2].concat(Tool.changeObjectName(_data.data,[{name:'columnName',newName:'name'}]));
+											$scope.$apply();
+										}
+									});
+									$scope.data = {
+										categoryId : categoryId , 
+										channelId : channelId , 
+										columnId : columnId
+									}
+									$scope.$apply();
+								}
+							});
+
 							obj.callback = function( _object ){
 								if(_object.obj.name.indexOf('请选择')>-1){
 									return;
