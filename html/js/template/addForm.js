@@ -81,14 +81,16 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 	function setData(obj){
 		var self = obj.self;
 		if(self.type=='select'){
-			if(self.select[0][0].title=='templateClassify'){
+
+			if(self.select[0][0].title== obj.name && obj.name == 'templateClassify'){
 				self.select[0] = [self.select[0][0]];
 				self.select[0] = self.select[0].concat(Tool.changeObjectName(obj.data.templateClassify,[{name:'type',newName:'id'}]));
-			}else if(self.select[0][0].title=='channelId'){
+			}else if(self.select[0][0].title==obj.name && obj.name =='channelId'){
 				self.select[0] = [self.select[0][0]];
-				self.select[0] = self.select[0].concat(Tool.changeObjectName(obj.data.relationType,[{name:'type',newName:'id'}]));
+				//self.select[0] = self.select[0].concat(obj.data);
+				self.select[0] = self.select[0].concat(Tool.changeObjectName(obj.data,[{name:'channelName',newName:'name'}]));
 			}
-		}else if(self.type=='radio'){
+		}else if(self.type=='radio' && obj.name == 'templateClassify'){
 			if(self.title=='encoded'){
 				self.radio = Tool.changeObjectName(obj.data.encoded,[{name:'name',newName:'title'}]);
 				self.radio[0].checked = true;
@@ -101,23 +103,39 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 	return function(callback){
 		getData.data.all({
 			callback : function(_data){
-				$.each(list,function(i , obj){
-					if($.type(obj)=='array'){
-						$.each(obj,function(){
-							setData({
-								self : this,
-								data : _data.data 
-							});
-						})
-					}else{
-						setData({
-							self : this,
-							data : _data.data 
-						});
-					}
+				getData.channel.listChannel({
+					callback:function( _data1 ){
+						$.each(list,function(i , obj){
+							if($.type(obj)=='array'){
+								$.each(obj,function(){
+									setData({
+										self : this,
+										data : _data.data ,
+										name : 'templateClassify'
+									});
+									setData({
+										self : this,
+										data : _data1.data ,
+										name : 'channelId'
+									});
+								})
+							}else{
+								setData({
+									self : this,
+									data : _data.data ,
+									name : 'templateClassify'
+								});
+								setData({
+									self : this,
+									data : _data1.data ,
+									name : 'channelId'
+								});
+							}
 
+						})
+						callback(list);
+					}
 				})
-				callback(list);
 			}
 		})
 	};
