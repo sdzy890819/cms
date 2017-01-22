@@ -100,9 +100,9 @@ define(['require',"app",'jquery','search','./searchForm'
 										layui.use(['layer'], function(){
 											var layer = layui.layer;
 											layer.msg(_data.message);
-											setTimeout(function(){
-												location.reload();
-											},300);
+											// setTimeout(function(){
+											// 	location.reload();
+											// },300);
 										});
 									}
 								});
@@ -192,9 +192,9 @@ define(['require',"app",'jquery','search','./searchForm'
 											layui.use(['layer'], function(){
 												var layer = layui.layer;
 												layer.msg(_data.message);
-												setTimeout(function(){
-													location.reload();
-												},300);
+												// setTimeout(function(){
+												// 	location.reload();
+												// },300);
 											});											
 										}
 									})						
@@ -240,11 +240,11 @@ define(['require',"app",'jquery','search','./searchForm'
 							layui.use(['layer'], function(){
 								var layer = layui.layer;
 								layer.msg(_data.message);
-								$state.reload();
+								//$state.reload();
 							});
 						};
 						pop.alert({
-	 						 text:'您确定要删除"'+obj.title+'"吗'
+	 						 text:'您确定要发布"'+obj.title+'"吗'
 	 						,btn : ['确定','取消']
 	 						,fn : function(){
 	 							getData.news.publish(obj);
