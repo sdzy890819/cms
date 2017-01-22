@@ -5487,7 +5487,6 @@ _e(function (E, $) {
                 menu.dropPanel.focusFirstInput();
                 return;
             }
-
             if (!reg.test(link)) {
                 alert('视频链接格式错误！');
                 menu.dropPanel.focusFirstInput();

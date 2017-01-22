@@ -50,7 +50,7 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 						var firstArr, lastArr, num = $scope.inputNum+1;
 							name = obj.name.match(/\d+$/) , 
 							title = obj.title.replace(obj.title.match(/\d+$/)[0],'');
-
+						
 						$.each($scope.formdata.list,function( i , _obj ){
 							if(_obj.num==$scope.inputNum){
 								firstArr = $scope.formdata.list.slice(0,i+1) 

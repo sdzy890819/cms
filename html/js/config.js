@@ -6,7 +6,7 @@ require.config({
         'wangEditor' : '../wangEditor/dist/js/wangEditor',
 
 
-        'angular': 'plug/angular',
+        'angular': 'plug/angular.min',
         "angularAMD": "plug/angularAMD.min",
         "ngload": "plug/ngload",
         'angular-ui-router': 'plug/angular-ui-router.min',
