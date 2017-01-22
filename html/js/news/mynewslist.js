@@ -1,8 +1,8 @@
 define(['require',"app",'jquery'
-	,'./addForm','../common/editPop','../data/getData','../moduls/Tool'
+	,'./addForm','../common/editPop','../data/getData','../moduls/Tool', 'search', './searchForm'
 	,'formlist','fixedNav','position'
 	,'../moduls/service','../moduls/factory'
-], function ( require , app , $ , list , editPop ,getData , Tool  ) {
+], function ( require , app , $ , list , editPop ,getData , Tool, search, searchForm  ) {
 	app.directive('mynewsList',function(){
 		return {
 	    	restrict : 'E',
@@ -234,6 +234,149 @@ define(['require',"app",'jquery'
 					]
 				}*/
 
+				function setList(_data){
+					var th = [
+						{name:'Id' , key:'id' , width : '50'},		
+						{name:'所属频道栏目' , key:'channelAndColumnName' , width : '200'},					
+						{name:'标题' , key:'title' , width : '300'},								
+						{name:'作者' , key:'author' , width: '50', class: 'center'},
+						{name:'状态' , key:'publishStr' , class: 'center'},
+						
+						{name:'发布时间' , key:'buildTimeStr' , class: 'center'},
+						{name:'更新时间' , key:'updateTimeStr' , class: 'center'},
+						{name:'操作' , width : '300' , class: 'center'}
+					];
+					
+					$.each(_data.data.list, function(i, obj){
+						obj.channelAndColumnName = [obj.channelName, obj.columnName].join('-');
+					})
+			
+					$scope.listdata = { //确认按钮
+						title : $scope.title,
+						table : {
+							select : true,
+							th : th,									
+							td : GenerateArrList.setArr(_data.data.list, th) ,
+							edit : [
+								{cls : 'edit' , name : ' 推荐',evt:$scope.recommend},
+								{cls : 'edit' , name : '发布',evt:$scope.publish},
+								{cls : 'edit' , name : '编辑',evt:$scope.edit},
+								{cls : 'del' , name : '删除',evt:$scope.del}										
+							]
+
+						},
+						/*submit : [
+							selectAll,
+							{
+								name : '批量删除',
+								evt : function(id , scope , evt){
+									scope.delAll(function( ids ){
+										console.log(ids)
+									});
+								},
+								cls :'red',
+								icon_cls : 'remove'
+							}
+						]*/
+					}
+
+					$.each($scope.listdata.table.td, function(i, obj){
+
+						if (obj.publish) {
+							obj.list[2].href = obj.url;
+						}
+					})
+
+					GenerateArrList.extendType($scope.listdata.table.td,th,['width','name','key']); //把TH 中的出name,key,width属性以外的属性合传给td							
+      		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');			        		
+      		$scope.$apply();						
+				}
+
+				//搜索
+				function search(){
+					searchForm(function(data){
+						$.each(data,function( i , obj){
+							if(obj.type=='select'){
+								obj.callback = function( _object ){
+									if(_object.title == 'categoryId'){
+										getData.channel.currentChannelList({
+											categoryId : _object.obj.id,
+											callback : function(_data){
+												var arr = [obj.select[1][0]];
+												obj.select[1] = arr;
+												obj.select[1] = obj.select[1].concat(Tool.changeObjectName(_data.data,[{name:'channelName',newName:'name'}]));
+							
+												$scope.$apply();
+												_object.callback();
+											}
+										})
+									}else if(_object.title == 'channelId'){
+										getData.news.newscolumnlist({
+											channelId : _object.obj.id,
+											callback : function(_data){
+												var arr = [obj.select[2][0]];
+												obj.select[2] = arr;
+												obj.select[2] = obj.select[2].concat(Tool.changeObjectName(_data.data,[{name:'columnName',newName:'name'}]));
+												$scope.$apply();
+												_object.callback();
+											}
+										})
+									}
+								}
+							}
+						});
+						$scope.searchform = {
+							list : data,
+							submit : function( obj , data ){
+								var page = 1 , channelId , columnId , categoryId;
+								$.each(obj.selects,function(){
+									if(this.title == 'channelId'){
+										channelId = this.id;
+									}
+									if(this.title == 'columnId'){
+										columnId = this.id;
+									}
+									if(this.title == 'categoryId'){
+										categoryId = this.id;
+									}
+								});
+								function getSearchList(){
+									getData.search.searchNew({
+										"condition":obj.condition,
+										"author":obj.author,
+										"source":obj.source,
+										"categoryId":categoryId,//部门分类ID
+										"channelId":channelId,//频道ID
+										"columnId":columnId,//栏目ID
+										"platform":obj.platform, //平台,
+										"startTime":obj.startTime,//创建时间
+										"endTime":obj.endTime,//创建时间
+										page : page,
+										pageSize : 20,
+										callback : function(_data){
+											//分页
+											$scope.page = _data.data.page;
+											$scope.page.jump = function( obj ){
+												if(page != obj.curr){
+													page = obj.curr;
+													getSearchList();
+												}
+											}
+											$scope.searchform.search = {
+												count : _data.data.page.count , 
+												name : obj.condition
+											}
+											setList(_data);
+										}
+									})
+								};
+								getSearchList();
+							}
+						}
+					});
+				}
+				search();
+				//end 搜索
 
 				var page = 1;
 
@@ -251,58 +394,8 @@ define(['require',"app",'jquery'
 									getDataList();
 								}
 							}
-							
-							//end 分页
-
-							var th = [
-								{name:'Id' , key:'id' , width : '50'},
-								{name:'所属频道栏目' , key:'channelAndColumnName' , width : '200'},
-								{name:'标题' , key:'title' , width : '300'},
-								{name:'作者' , key:'author' , width: '50', class: 'center'},
-								{name:'状态' , key:'publishStr' , class: 'center'},
-
-								{name:'发布时间' , key:'buildTimeStr' , class: 'center'},
-								{name:'更新时间' , key:'updateTimeStr' , class: 'center'},
-								{name:'操作' , width : '300' , class: 'center'}
-							];
-
-							$.each(_data.data.list, function(i, obj){
-								obj.channelAndColumnName = [obj.channelName, obj.columnName].join('-');
-							})
-
-							$scope.listdata = { //确认按钮
-								title : $scope.title,
-								table : {
-									select : true,
-									th : th,
-									td : GenerateArrList.setArr(_data.data.list, th) ,
-									edit : [
-										{cls : 'edit' , name : ' 推荐',evt:$scope.recommend},
-										{cls : 'edit' , name : '发布',evt:$scope.publish},
-										{cls : 'edit' , name : '编辑',evt:$scope.edit},
-										{cls : 'del' , name : '删除',evt:$scope.del},
-									]
-
-								},
-								/*submit : [
-									selectAll,
-									{
-										name : '批量删除',
-										evt : function(id , scope , evt){
-											scope.delAll(function( ids ){
-												console.log(ids)
-											});
-										},
-										cls :'red',
-										icon_cls : 'remove'
-									}
-								]*/
-							}
-
-							GenerateArrList.extendType($scope.listdata.table.td,th,['width','name','key']); //把TH 中的出name,key,width属性以外的属性合传给td
-							
-			        		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');			        		
-			        		$scope.$apply();			        		
+							setList(_data);	
+		        		
 						}
 					});
 				};

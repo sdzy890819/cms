@@ -268,6 +268,64 @@ define(['require',"app",'jquery','search','./searchForm'
 					]
 				}*/
 
+				function setList(_data){
+					var th = [
+						{name:'Id' , key:'id' , width : '50'},		
+						{name:'所属频道栏目' , key:'channelAndColumnName' , width : '200'},					
+						{name:'标题' , key:'title' , width : '300'},								
+						{name:'作者' , key:'author' , width: '50', class: 'center'},
+						{name:'状态' , key:'publishStr' , class: 'center'},
+						
+						{name:'发布时间' , key:'buildTimeStr' , class: 'center'},
+						{name:'更新时间' , key:'updateTimeStr' , class: 'center'},
+						{name:'操作' , width : '300' , class: 'center'}
+					];
+					
+					$.each(_data.data.list, function(i, obj){
+						obj.channelAndColumnName = [obj.channelName, obj.columnName].join('-');
+					})
+			
+					$scope.listdata = { //确认按钮
+						title : $scope.title,
+						table : {
+							select : true,
+							th : th,									
+							td : GenerateArrList.setArr(_data.data.list, th) ,
+							edit : [
+								{cls : 'edit' , name : ' 推荐',evt:$scope.recommend},
+								{cls : 'edit' , name : '发布',evt:$scope.publish},
+								{cls : 'edit' , name : '编辑',evt:$scope.edit},
+								{cls : 'del' , name : '删除',evt:$scope.del}										
+							]
+
+						},
+						/*submit : [
+							selectAll,
+							{
+								name : '批量删除',
+								evt : function(id , scope , evt){
+									scope.delAll(function( ids ){
+										console.log(ids)
+									});
+								},
+								cls :'red',
+								icon_cls : 'remove'
+							}
+						]*/
+					}
+
+					$.each($scope.listdata.table.td, function(i, obj){
+
+						if (obj.publish) {
+							obj.list[2].href = obj.url;
+						}
+					})
+
+					GenerateArrList.extendType($scope.listdata.table.td,th,['width','name','key']); //把TH 中的出name,key,width属性以外的属性合传给td							
+      		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');			        		
+      		$scope.$apply();						
+				}
+
 				//搜索
 				function search(){
 					searchForm(function(data){
@@ -338,8 +396,11 @@ define(['require',"app",'jquery','search','./searchForm'
 													getSearchList();
 												}
 											}
-											$scope.listdata.table.td = [];
-											$scope.$apply();
+											$scope.searchform.search = {
+												count : _data.data.page.count , 
+												name : obj.condition
+											}
+											setList(_data);
 										}
 									})
 								};
@@ -367,65 +428,8 @@ define(['require',"app",'jquery','search','./searchForm'
 									getDataList();
 								}
 							}
-							
-							//end 分页
-
-							var th = [
-								{name:'Id' , key:'id' , width : '50'},		
-								{name:'所属频道栏目' , key:'channelAndColumnName' , width : '200'},					
-								{name:'标题' , key:'title' , width : '300'},								
-								{name:'作者' , key:'author' , width: '50', class: 'center'},
-								{name:'状态' , key:'publishStr' , class: 'center'},
-								
-								{name:'发布时间' , key:'buildTimeStr' , class: 'center'},
-								{name:'更新时间' , key:'updateTimeStr' , class: 'center'},
-								{name:'操作' , width : '300' , class: 'center'}
-							];
-							
-							$.each(_data.data.list, function(i, obj){
-								obj.channelAndColumnName = [obj.channelName, obj.columnName].join('-');
-							})
-					
-							$scope.listdata = { //确认按钮
-								title : $scope.title,
-								table : {
-									select : true,
-									th : th,									
-									td : GenerateArrList.setArr(_data.data.list, th) ,
-									edit : [
-										{cls : 'edit' , name : ' 推荐',evt:$scope.recommend},
-										{cls : 'edit' , name : '发布',evt:$scope.publish},
-										{cls : 'edit' , name : '编辑',evt:$scope.edit},
-										{cls : 'del' , name : '删除',evt:$scope.del}										
-									]
-
-								},
-								/*submit : [
-									selectAll,
-									{
-										name : '批量删除',
-										evt : function(id , scope , evt){
-											scope.delAll(function( ids ){
-												console.log(ids)
-											});
-										},
-										cls :'red',
-										icon_cls : 'remove'
-									}
-								]*/
-							}
-
-							$.each($scope.listdata.table.td, function(i, obj){
-
-								if (obj.publish) {
-									obj.list[2].href = obj.url;
-								}
-							})
-
-							GenerateArrList.extendType($scope.listdata.table.td,th,['width','name','key']); //把TH 中的出name,key,width属性以外的属性合传给td
-							
-			        		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');			        		
-			        		$scope.$apply();			        		
+							setList(_data);	
+		        		
 						}
 					});
 				};
