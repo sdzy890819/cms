@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.cn.cms.contants.StaticContants;
+import com.cn.cms.enums.ErrorCodeEnum;
 import com.cn.cms.logfactory.CommonLog;
 import com.cn.cms.logfactory.CommonLogFactory;
 import com.cn.cms.po.Channel;
@@ -68,6 +69,7 @@ public class Test {
 //        Channel channel = a.getData();
 //        System.out.println(channel.getChannelName());
 //        System.out.println(StaticContants.OS_NAME);
+        System.out.println(JSONObject.toJSONString(ErrorCodeEnum.ERROR_CODE_DEFAULT, StaticContants.config));
     }
 
 
