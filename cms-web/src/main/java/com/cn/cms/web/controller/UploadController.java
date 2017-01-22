@@ -68,6 +68,11 @@ public class UploadController extends BaseController {
                          @RequestParam(value = "width", defaultValue = "0") Integer width,
                          @RequestParam(value = "height", defaultValue = "0") Integer height) throws Exception{
 
+
+        String[] baseCodes = baseCode.split(",");
+        if(baseCodes.length>1){
+            baseCode = baseCodes[1];
+        }
         byte[] bytes = FileUtil.base64Upload(baseCode);
         ImagesBase imagesBase = resourceBiz.findImagesBase();
         String relativePath = FileUtil.getRelativePath(imagesBase.getBasePath(), suffix);
