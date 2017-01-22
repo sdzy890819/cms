@@ -1233,7 +1233,8 @@ _e(function (E, $) {
                 // 重新设置样式
                 $tip.css({
                     width: titleWidth,
-                    'margin-left': currentMarginLeft + (currentWidth - titleWidth)/2
+                    //'margin-left': currentMarginLeft + (currentWidth - titleWidth)/2
+                    'margin-left': -17
                 });
 
                 // 存储
@@ -3136,7 +3137,8 @@ _e(function (E, $) {
         undo: '撤销',
         redo: '重复',
         fullscreen: '全屏',
-        openLink: '打开链接'
+        openLink: '打开链接',
+        stock: '股票'
     };
 
     // 英文
@@ -3517,6 +3519,10 @@ _e(function (E, $) {
         fullscreen: {
             normal: '<a href="#" tabindex="-1"><i class="wangeditor-menu-img-enlarge2"></i></a>',
             selected: '<a href="#" tabindex="-1" class="selected"><i class="wangeditor-menu-img-shrink2"></i></a>'
+        },
+        stock:{
+            normal: '<a href="#" tabindex="-1"><i class="wangeditor-menu-img-stock wangeditor-menu-img-search-plus"></i></a>',
+            selected: '.selected'
         }
      };
      
@@ -5462,6 +5468,43 @@ _e(function (E, $) {
             // 执行命令
             editor.command(e, 'insertHtml', html);
             $linkInput.val('');
+        });
+
+        // 创建panel
+        menu.dropPanel = new E.DropPanel(editor, menu, {
+            $content: $content,
+            width: 400
+        });
+
+        // 增加到editor对象中
+        editor.menus[menuId] = menu;
+    });
+
+});
+// stock 菜单
+_e(function (E, $) {
+
+    E.createMenu(function (check) {
+        var menuId = 'stock';
+        if (!check(menuId)) {
+            return;
+        }
+        var editor = this;
+        var lang = editor.config.lang;
+        var reg = /^\d+/i;  // 数字
+
+        var $content = $('<div></div>');
+        var $linkInputContainer = $('<div style="margin:20px 10px;"></div>');
+        var $linkInput = $('<input type="text" class="block" placeholder=\'格式如：股票代码\/股票名称\'/>');
+        $linkInputContainer.append($linkInput);
+
+        $content.append($linkInputContainer);
+
+        // 创建 menu 对象
+        var menu = new E.Menu({
+            editor: editor,
+            id: menuId,
+            title: lang.stock
         });
 
         // 创建panel
