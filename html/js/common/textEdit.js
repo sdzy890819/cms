@@ -94,9 +94,9 @@ define(["app",'jquery','require','../data/URL','wangEditor'], function ( app,$,r
 
 					        // 上传图片时，已经将图片的名字存在 editor.uploadImgOriginalName
 					        var originalName = editor.uploadImgOriginalName || '';  
-
+					        var obj = $.parseJSON(resultText);
 					        // 如果 resultText 是图片的url地址，可以这样插入图片：
-					        editor.command(null, 'insertHtml', '<img src="' + resultText + '" alt="' + originalName + '" style="max-width:100%;"/>');
+					        editor.command(null, 'insertHtml', '<img src="' + obj.data.imageUrl + '" alt="' + originalName + '" style="max-width:100%;"/>');
 					        // 如果不想要 img 的 max-width 样式，也可以这样插入：
 					        // editor.command(null, 'InsertImage', resultText);
 					    };
