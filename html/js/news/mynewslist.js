@@ -142,7 +142,7 @@ define(['require',"app",'jquery'
 												}
 											}
 										});							
-										getAddForm(function( data){
+										getAddForm(function( data){											
 											callback(data);
 										},list)
         					},
