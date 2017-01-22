@@ -40,13 +40,15 @@ define(['require',"app",'jquery','search','./searchForm'
 														obj.select[1] = obj.select[1].concat(Tool.changeObjectName(_data.data,[{name:'channelName',newName:'name'}]));
 									
 														$scope.$apply();
-														_object.callback();
 													}
 												})
 											}
 										});
+										callback(formList);
+									}else{
+
+										callback(_data);
 									}
-									callback(_data);
 								}
 							})
 						}										
@@ -118,7 +120,9 @@ define(['require',"app",'jquery','search','./searchForm'
 										}
 									}
 								});
-								callback(list);
+								updateData(function( data){ //获取详情的数据，判断是否要新增字段，和更新二级，三级栏目 
+									callback(data);
+								},list)
         					},
         					$uibModal :$uibModal 
         				});
