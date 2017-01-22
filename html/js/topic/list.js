@@ -24,12 +24,28 @@ define(['require',"app",'jquery','search','./searchForm'
 						})
 					},
 					edit : function( obj ){ //保存
-						function updateData(callback){ //填充数据
+						function updateData(callback,formList){ //填充数据
 							getData.topic.topicInfo({
 								id : obj.id,
 								callback : function(_data){
 									_data.data.releaseTime = new Date(_data.data.releaseTime).format('yyyy-MM-dd h:m:s');
+									if(formList){
+										$.each(formList,function(i,obj){
+											if(obj.type=='select'){//填充二级 三级栏目
+												getData.channel.currentChannelList({
+													categoryId : _data.categoryId,
+													callback : function(_data){
+														var arr = [obj.select[1][0]];
+														obj.select[1] = arr;
+														obj.select[1] = obj.select[1].concat(Tool.changeObjectName(_data.data,[{name:'channelName',newName:'name'}]));
 									
+														$scope.$apply();
+														_object.callback();
+													}
+												})
+											}
+										});
+									}
 									callback(_data);
 								}
 							})
