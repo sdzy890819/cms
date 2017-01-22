@@ -1,4 +1,4 @@
-define(["app",'jquery','require','wangEditor'], function ( app,$,require ) {
+define(["app",'jquery','require','../data/URL','wangEditor'], function ( app,$,require,URL ) {
 	return {
 		init : function( $scope , obj ){
 			app.directive('contenteditable',function(){
@@ -78,17 +78,47 @@ define(["app",'jquery','require','wangEditor'], function ( app,$,require ) {
 							return item;
 				      	});
 
+		                var baseCode , suffix;
+		                editor.config.uploadImgFns.prvonload = function(base64,filename){
+		                	suffix = filename.match(/\w+$/)[0];
+		                	baseCode = base64;
+		                	 editor.config.uploadParams = {
+						        suffix: suffix,
+						        baseCode: baseCode.split(',')[1]
+						    };
+		                }
+		                editor.config.uploadImgFns.onload = function (resultText, xhr) {
+					        // resultText 服务器端返回的text
+					        // xhr 是 xmlHttpRequest 对象，IE8、9中不支持
+
+					        // 上传图片时，已经将图片的名字存在 editor.uploadImgOriginalName
+					        var originalName = editor.uploadImgOriginalName || '';  
+
+					        // 如果 resultText 是图片的url地址，可以这样插入图片：
+					        editor.command(null, 'insertHtml', '<img src="' + resultText + '" alt="' + originalName + '" style="max-width:100%;"/>');
+					        // 如果不想要 img 的 max-width 样式，也可以这样插入：
+					        // editor.command(null, 'InsertImage', resultText);
+					    };
+					     // 自定义timeout事件
+					    editor.config.uploadImgFns.ontimeout = function (xhr) {
+					        // xhr 是 xmlHttpRequest 对象，IE8、9中不支持
+					        alert('上传超时');
+					    };
+
+					    // 自定义error事件
+					    editor.config.uploadImgFns.onerror = function (xhr) {
+					        // xhr 是 xmlHttpRequest 对象，IE8、9中不支持
+					        alert('上传错误');
+					    };
+
 				      	//上传图片
-				      	editor.config.uploadImgUrl = '/upload';
+				      	editor.config.uploadImgUrl = URL.upload.uploadImage;
 				      	// 配置自定义参数（举例）
-					    editor.config.uploadParams = {
-					        token: 'abcdefg',
-					        user: 'wangfupeng1988'
-					    };
+					   
 					    // 设置 headers（举例）
-					    editor.config.uploadHeaders = {
+					    /*editor.config.uploadHeaders = {
 					        'Accept' : 'text/x-json'
-					    };
+					    };*/
 					    //editor.config.hideLinkImg = true;
 		                	
 		                editor.ready(function(){

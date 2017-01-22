@@ -6655,7 +6655,6 @@ _e(function (E, $) {
 
             // headers
             var headers = editor.config.uploadHeaders || {};
-
             // 获取文件扩展名
             var fileExt = 'png';  // 默认为 png
             if (fileName.indexOf('.') > 0) {
@@ -6665,7 +6664,6 @@ _e(function (E, $) {
                 // 文件名没有扩展名，通过类型获取，如从 'image/png' 取 'png'
                 fileExt = fileType.split('/')[1];
             }
-
             // ------------ begin 预览模拟上传 ------------
             if (E.isOnWebsite) {
                 E.log('预览模拟上传');
@@ -6949,6 +6947,7 @@ _e(function (E, $) {
         var fileType = file.type || '';
         var uploadImgFns = editor.config.uploadImgFns;
         var uploadFileName = editor.config.uploadImgFileName || 'wangEditorH5File';
+        var prvonload = uploadImgFns.prvonload;
         var onload = uploadImgFns.onload;
         var ontimeout = uploadImgFns.ontimeout;
         var onerror = uploadImgFns.onerror;
@@ -6958,7 +6957,6 @@ _e(function (E, $) {
             E.error('请为编辑器配置上传图片的 onload ontimeout onerror 回调事件');
             return;
         }
-
 
         E.log('开始执行 ' + filename + ' 文件的上传');
 
@@ -6970,8 +6968,9 @@ _e(function (E, $) {
         // onload事件
         reader.onload = function (e) {
             E.log('已读取' + filename + '文件');
-
             var base64 = e.target.result || this.result;
+            prvonload.call(editor, base64 , filename);
+
             editor.xhrUploadImg({
                 event: e,
                 filename: filename,

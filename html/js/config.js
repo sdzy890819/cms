@@ -3,7 +3,7 @@ require.config({
     paths: {
         'jquery': 'plug/jquery-1.11.2.min',
         //'jquery-migrate': 'plug/jquery-migrate-3.0.0.min',
-        'wangEditor' : '../wangEditor/dist/js/wangEditor.min',
+        'wangEditor' : '../wangEditor/dist/js/wangEditor',
 
 
         'angular': 'plug/angular',
