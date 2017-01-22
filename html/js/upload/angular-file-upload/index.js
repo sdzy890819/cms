@@ -67,26 +67,26 @@ define(["app",'jquery','../../data/URL' , '../../data/getData'],function (app,$,
 						});
 			        };
 
-							uploader.onCompleteItem = function(fileItem, response, status, headers) {				       
-								 var $dom = $('.layui-box.layui-upload-button');
-								 var videoMsg = "<span class='layui-upload-icon ng-binding ng-scope'>" + response.data.fileName + "</span>";
-						    							    					       
-					       $dom.attr("video-url", response.data.location);
-					       $dom.attr("filename", response.data.fileName);
-					       $dom.empty().append(videoMsg);	       
-					    };
+					uploader.onCompleteItem = function(fileItem, response, status, headers) {				       
+							 var $dom = $('.layui-box.layui-upload-button');
+							 var videoMsg = "<span class='layui-upload-icon ng-binding ng-scope'>" + response.data.fileName + "</span>";
+					    							    					       
+				       $dom.attr("video-url", response.data.location);
+				       $dom.attr("filename", response.data.fileName);
+				       $dom.empty().append(videoMsg);	       
+				    };
 
 
-			        uploader.onCompleteAll = function() {			        	
+			        uploader.onCompleteAll = function() {	        	
 			        	$('.videoPop .progress2').css({width:'500px',transitionDuration:'10s'});
 			            layui.use(['layer'], function(){
-									var layer = layui.layer;
-									layer.msg('上传成功！');
-									isUpload = true;
-									setTimeout(function(){
-										$scope.close();
-									},300);
-								});
+							var layer = layui.layer;
+							layer.msg('上传成功！');
+							isUpload = true;
+							setTimeout(function(){
+								$scope.close();
+							},300);
+						});
 			        };
 
 				}

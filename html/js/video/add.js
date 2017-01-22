@@ -82,9 +82,6 @@ define(["app",'./addForm','../upload/index','../data/getData','../upload/angular
         					},
         					$uibModal :$uibModal
         				});
-
-						console.log(uploadify);
-						
 					});
 				});
 	        }

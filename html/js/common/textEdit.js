@@ -1,10 +1,13 @@
-define(["app",'jquery','require','../data/URL','wangEditor'], function ( app,$,require,URL ) {
+define(["app",'jquery','require','../data/URL','../upload/angular-file-upload/index','wangEditor'], function ( app,$,require,URL,uploadify ) {
 	return {
 		init : function( $scope , obj ){
 			app.directive('contenteditable',function(){
 				return {
 			    	restrict : 'A',
 			    	require: '?ngModel',
+			    	controller : function( $scope , $uibModal ){
+			    		$scope.$uibModal = $uibModal;
+			    	},
 					link: function(scope, element, attrs, ngModel) {
 		                // 初始化 编辑器内容
 		                if (!ngModel) {
@@ -120,6 +123,23 @@ define(["app",'jquery','require','../data/URL','wangEditor'], function ( app,$,r
 					        'Accept' : 'text/x-json'
 					    };*/
 					    //editor.config.hideLinkImg = true;
+
+					    editor.config.videoUpload = function(){
+					    	uploadify.init({
+	        					data : {
+	        						obj : {},
+		        					title : '上传视频',
+		        					name : '请选择视频',
+		        					type : 'video',
+		        					event : function(file , $uibModalInstance){
+		        						debugger;
+		        						$scope.imageInfo = file;	        						
+		        						$uibModalInstance.dismiss('cancel');
+		        					}
+	        					},
+	        					$uibModal :scope.$uibModal
+	        				});
+					    }
 		                	
 		                editor.ready(function(){
 		                	obj.callback(editor);
