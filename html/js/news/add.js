@@ -7,8 +7,8 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 	        templateUrl : '../template/common/addAndEdit.html',
 	        controller : function($scope){
 	        	$scope.$parent.menu.push({name:"新增新闻"});
-				$scope.rlease = function( obj ){ //发布
-					var channelId , columnId , categoryId;
+	        	function addNews( obj ){
+	        		var channelId , columnId , categoryId;
 					$.each(obj.selects,function(){
 						if(this.title == 'channelId'){
 							channelId = this.id;
@@ -38,6 +38,7 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 						"field3":obj.field3,
 						"field4":obj.field4,
 						"field5":obj.field5,
+						publish : obj.publish,
 						callback : function(_data){
 							layui.use(['layer'], function(){
 								var layer = layui.layer;
@@ -45,13 +46,17 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 							});
 						}
 					});
-				}
-				$scope.view = function( obj ){ //预览
-					alert(obj)
-				}
-				$scope.cancel = function( obj ){ //取消
-					alert(obj)
-				}
+	        	}
+	        	angular.extend($scope,{
+					rlease : function( obj ){ //发布
+						obj.publish = 0;
+						addNews(obj);
+					},
+					draft : function( obj ){ //保存草稿
+						obj.publish = 2;
+						addNews(obj);
+					}
+	        	});
 				
 				// $scope.edit = { //导航操作按钮
 				// 	nav : [{
@@ -111,16 +116,16 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 								name : '保存',
 								evt : 'save',
 								icon_cls : 'save'
-							},
-							{
-								name:'预览',
-								evt : 'view',
-								icon_cls : 'view'
 							},*/
 							{
 								name:'提交',
 								evt : 'rlease',
 								icon_cls : 'ok'
+							},
+							{
+								name:'保存草稿',
+								evt : 'draft',
+								icon_cls : 'view'
 							},
 							{
 								name:'取消',
