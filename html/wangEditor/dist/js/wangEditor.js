@@ -5399,8 +5399,32 @@ _e(function (E, $) {
             title: lang.video
         });
 
+        // 创建 panel content
+        var $panelContent = $('<div class="panel-tab"></div>');
+        var $tabContainer = $('<div class="tab-container"></div>');
+        var $contentContainer = $('<div class="content-container"></div>');
+        $panelContent.append($tabContainer).append($contentContainer);
+
+        // tab
+        var $uploadTab = $('<a href="javascript:void(0)" class="selected">上传视频</a>');
+        var $linkTab = $('<a href="javascript:void(0)">网络视频</a>');
+        $tabContainer.append($uploadTab).append($linkTab);
+
+        // 上传视频 content
+        var $uploadContent = $('<div class="content" style="display:block"></div>');
+        var $uploadIcon = $('<div class="upload-icon-container"><i class="wangeditor-menu-img-upload"></i></div>');
+        $uploadContent.append($uploadIcon);
+        $contentContainer.append($uploadContent);
+
+        $uploadIcon.click(function(){
+            if(editor.config.videoUpload){
+                editor.config.videoUpload();
+            }
+        })
+        
+
         // 创建 panel 内容
-        var $content = $('<div></div>');
+        var $content = $('<div class="panel-tab"></div>');
         var $linkInputContainer = $('<div style="margin:20px 10px;"></div>');
         var $linkInput = $('<input type="text" class="block" placeholder=\'格式如：<iframe src="..." frameborder=0 allowfullscreen></iframe>\'/>');
         $linkInputContainer.append($linkInput);
@@ -5418,7 +5442,28 @@ _e(function (E, $) {
         var $btnSubmit = $('<button class="right">' + lang.submit + '</button>');
         var $btnCancel = $('<button class="right gray">' + lang.cancel + '</button>');
         $btnContainer.append($howToCopy).append($btnSubmit).append($btnCancel);
-        $content.append($linkInputContainer).append($sizeContainer).append($btnContainer);
+
+        // 网络视频 content
+        var $linkContent = $('<div class="content"></div>');
+        $linkContent.append($linkInputContainer).append($sizeContainer).append($btnContainer);
+        $contentContainer.append($linkContent);
+
+        function setTab(){
+            var tab = $tabContainer.find('a') , 
+                content = $contentContainer.find('.content');
+            tab.each(function( i ){
+                $(this).click(function(){
+                    tab.removeClass('selected');
+                    $(this).addClass('selected');
+                    content.hide()
+                    content.eq(i).show();
+                })
+            })
+        }
+        setTab();
+
+        $content.append($tabContainer).append($contentContainer)
+        //$content.append($linkInputContainer).append($sizeContainer).append($btnContainer);
 
 
         // 取消按钮
