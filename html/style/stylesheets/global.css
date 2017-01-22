@@ -572,6 +572,7 @@ input:focus{ border: 1px solid #bbb !important;} */
   z-index: 998;
   left: 0;
   top: 45px;
+  bottom: 0;
   width: 225px;
   background: #3d3d3d;
   overflow: hidden;
