@@ -280,6 +280,7 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 										}else{
 											$scope.selects.push(obj);
 										}
+										if(obj.name.indexOf('请选择')>-1) return;
 										self.callback && self.callback({
 											obj : obj,
 											index : _obj.elem.selectedIndex,
