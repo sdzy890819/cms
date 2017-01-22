@@ -62,6 +62,7 @@ define(function(require){
 			listTemplate2list : url+'/template2/listTemplate2/list'
 		},
 		news : {
+			previousColumn : url + '/news/previousColumn',
 			newscolumn : url+'/newscolumn/newscolumn', //获取栏目信息
 			newscolumnlist : url+'/newscolumn/newscolumnlist', //栏目列表
 			newscolumn_list : url+'/newscolumn/list', //栏目列表分页

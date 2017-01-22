@@ -512,6 +512,14 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 			}
 		},
 		news : {
+			previousColumn : function(obj) {
+				T.ajax({
+					url : URL.news.previousColumn , 					
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				})
+			},
 			createNews : function( obj ){				
 				T.ajax({
 					url : URL.news.createNews , 

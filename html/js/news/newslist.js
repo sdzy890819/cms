@@ -1,5 +1,5 @@
 define(['require',"app",'jquery','search','./searchForm'
-	,'./addForm','./editNewsPop','../data/getData','../moduls/Tool'
+	,'./addForm','../common/editPop','../data/getData','../moduls/Tool'
 	,'formlist','fixedNav','position'
 	,'../moduls/service','../moduls/factory'
 ], function ( require , app , $ , search , searchForm , list , editPop ,getData , Tool  ) {
