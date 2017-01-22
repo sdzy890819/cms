@@ -658,6 +658,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					url : URL.news.mynewslist , 
 					type : 'get',
 					data : {
+						publish : obj.publish,
 						page:obj.page,
 						pageSize:obj.pageSize
 					},
