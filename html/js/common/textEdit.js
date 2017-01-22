@@ -29,6 +29,7 @@ define(["app",'jquery','require','../data/URL','wangEditor'], function ( app,$,r
 		                    }
 		                    ngModel.$setViewValue(html);
 		                }
+
 		    			/*[ //所有的
 					        'source',
 					        '|',
@@ -66,7 +67,6 @@ define(["app",'jquery','require','../data/URL','wangEditor'], function ( app,$,r
 					    ];*/
 		                // 创建编辑器
 		                var editor = new wangEditor(element);
-
 		                editor.config.menus = $.map(wangEditor.config.menus, function(item, key) {
 							if (item === 'insertcode') {
 								return null;

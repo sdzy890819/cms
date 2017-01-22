@@ -1019,6 +1019,7 @@ _e(function (E, $) {
     E.fn.clear = function () {
         var editor = this;
         var $txt = editor.txt.$txt;
+debugger;
         $txt.html('<p><br></p>');
         editor.restoreSelectionByElem($txt.find('p').get(0));
     };
@@ -2229,6 +2230,7 @@ _e(function (E, $) {
                 return;
             }
             var txtHtml = $.trim($txt.html().toLowerCase());
+            debugger;
             if (txtHtml === '<p><br></p>') {
                 // 如果最后还剩余一个空行，就不再继续删除了
                 e.preventDefault();
@@ -2245,6 +2247,7 @@ _e(function (E, $) {
             if (!txtHtml || txtHtml === '<br>') {
                 // 内容空了
                 $p = $('<p><br/></p>');
+                debugger;
                 $txt.html(''); // 一定要先清空，否则在 ff 下有问题
                 $txt.append($p);
                 editor.restoreSelectionByElem($p.get(0));
@@ -2258,14 +2261,13 @@ _e(function (E, $) {
         var self = this;
         var editor = self.editor;
         var $txt = self.$txt;
-
         var $keydownDivElem;
         function divHandler() {
             if (!$keydownDivElem) {
                 return;
             }
-
-            var $pElem = $('<p>' + $keydownDivElem.html() + '</p>');
+            //替换DIV
+            var $pElem = $('<p style="text-indent:2em;">' + $keydownDivElem.html() + '</p>');
             $keydownDivElem.after($pElem);
             $keydownDivElem.remove();
         }
@@ -2293,10 +2295,9 @@ _e(function (E, $) {
                     $keydownDivElem = $targetElem;
                     setTimeout(divHandler, 0);
                 }
-
                 if (e.type === 'keyup') {
-                    // 将 div 的内容移动到 p 里面，并移除 div
-                    $pElem = $('<p>' + $targetElem.html() + '</p>');
+                    // 将 div 的内容移动到 p 里面，并移除 div  回车 换行 
+                    $pElem = $('<p style="text-indent:2em">' + $targetElem.html() + '</p>');
                     $targetElem.after($pElem);
                     $targetElem.remove();
 
@@ -2386,6 +2387,7 @@ _e(function (E, $) {
 
                 // 拼接为 <p> 标签
                 if (pasteHtml) {
+                    debugger;
                     resultHtml = '<p>' + pasteHtml + '</p>';
                 }
 
@@ -2394,7 +2396,6 @@ _e(function (E, $) {
 
                 if (data && data.getData) {
                     // w3c
-
                     // 获取粘贴过来的html
                     pasteHtml = data.getData('text/html');
                     if (pasteHtml) {
@@ -2403,6 +2404,7 @@ _e(function (E, $) {
                         // 处理，并将结果存储到 resultHtml 『全局』变量
                         handle($paste.get(0));
                     } else {
+                        debugger;
                         // 得不到html，试图获取text
                         pasteHtml = data.getData('text/plain');
                         if (pasteHtml) {
@@ -2434,6 +2436,7 @@ _e(function (E, $) {
                     // 其他情况
                     return;
                 }
+                debugger;
             }
 
             // 执行命令
@@ -2633,7 +2636,6 @@ _e(function (E, $) {
                     return '>\n<' + tag + '>';
                 });
             });
-
             $temp.html(html);
             return $temp.text();
         };
@@ -2646,7 +2648,6 @@ _e(function (E, $) {
         var $txt = self.$txt;
         var $valueContainer = editor.$valueContainer;
         var valueNodeName = editor.valueNodeName;
-
         $txt.html = function (html) {
             var result;
 
@@ -2896,17 +2897,15 @@ _e(function (E, $) {
         var childNodes = txt.childNodes;
         var childrenLength = childNodes.length;
         var i, childNode, p;
-
         // 处理图片
         $imgs.length && $imgs.each(function () {
             $(this).wrap('<p>');
         });
-
         // 处理文字
         for (i = 0; i < childrenLength; i++) {
             childNode = childNodes[i];
             if (childNode.nodeType === 3 && childNode.textContent && $.trim(childNode.textContent)) {
-                $(childNode).wrap('<p>');
+                $(childNode).wrap('<p style="text-indent:2em;">'); //第一行换行
             }
         }
     };
@@ -3725,6 +3724,7 @@ _e(function (E, $) {
         });
 
         // 创建 dropPanel
+
         var $content = $('<div></div>');
         $.each(configColors, function (k, v) {
             $content.append(
@@ -4201,6 +4201,7 @@ _e(function (E, $) {
                         if ($item.get(0).nodeName === 'P') {
                             $quoteElem.after($item);
                         } else {
+                            debugger;
                             $quoteElem.after('<p>' + $item.text() + '</p>');
                         }
                         $lastChild = $item;  // 记录最后一个子元素，用于callback中的range定位
@@ -4253,7 +4254,6 @@ _e(function (E, $) {
                     isPrevEnter = false;
                     return;
                 }
-
                 var rangeElem = editor.getRangeElem();
                 rangeElem = editor.getSelfOrParentByName(rangeElem, 'blockquote');
                 if (!rangeElem) {
@@ -5421,6 +5421,7 @@ _e(function (E, $) {
         $btnContainer.append($howToCopy).append($btnSubmit).append($btnCancel);
         $content.append($linkInputContainer).append($sizeContainer).append($btnContainer);
 
+
         // 取消按钮
         $btnCancel.click(function (e) {
             e.preventDefault();
@@ -5437,7 +5438,7 @@ _e(function (E, $) {
             var height = parseInt($heightInput.val());
             var $div = $('<div>');
             var html = '<p>{content}</p>';
-
+debugger;
             // 验证数据
             if (!link) {
                 menu.dropPanel.focusFirstInput();
@@ -5460,6 +5461,8 @@ _e(function (E, $) {
             // 设置高度和宽度
             $link.attr('width', width)
                  .attr('height', height);
+
+
 
             // 拼接字符串
             html = html.replace('{content}', $div.append($link).html());
@@ -6067,7 +6070,7 @@ _e(function (E, $) {
                     $textarea.focus();
                     return;
                 }
-
+debugger;
                 var rangeElem = editor.getRangeElem();
                 if ($.trim($(rangeElem).text()) && codeTpl.indexOf('<p><br></p>') !== 0) {
                     codeTpl = '<p><br></p>' + codeTpl;
@@ -6664,6 +6667,7 @@ _e(function (E, $) {
                 // 文件名没有扩展名，通过类型获取，如从 'image/png' 取 'png'
                 fileExt = fileType.split('/')[1];
             }
+
             // ------------ begin 预览模拟上传 ------------
             if (E.isOnWebsite) {
                 E.log('预览模拟上传');
