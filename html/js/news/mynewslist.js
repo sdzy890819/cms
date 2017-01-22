@@ -68,9 +68,9 @@ define(['require',"app",'jquery'
 										layui.use(['layer'], function(){
 											var layer = layui.layer;
 											layer.msg(_data.message);
-											setTimeout(function(){
-												location.reload();
-											},300);
+											// setTimeout(function(){
+											// 	location.reload();
+											// },300);
 										});
 									}
 								});
@@ -157,9 +157,9 @@ define(['require',"app",'jquery'
 											layui.use(['layer'], function(){
 												var layer = layui.layer;
 												layer.msg(_data.message);
-												setTimeout(function(){
-													location.reload();
-												},300);
+												// setTimeout(function(){
+												// 	location.reload();
+												// },300);
 											});											
 										}
 									})						
@@ -205,11 +205,11 @@ define(['require',"app",'jquery'
 							layui.use(['layer'], function(){
 								var layer = layui.layer;
 								layer.msg(_data.message);
-								$state.reload();
+								// $state.reload();
 							});
 						};
 						pop.alert({
-	 						 text:'您确定要删除"'+obj.title+'"吗'
+	 						 text:'您确定要发布"'+obj.title+'"吗'
 	 						,btn : ['确定','取消']
 	 						,fn : function(){
 	 							getData.news.publish(obj);
@@ -255,16 +255,20 @@ define(['require',"app",'jquery'
 							//end 分页
 
 							var th = [
-								{name:'标题' , key:'title' , width : '200'},
-								{name:'来源' , key:'source', width : '100' , class: 'center'},
-								{name:'作者' , key:'author' , class: 'center'},
+								{name:'Id' , key:'id' , width : '50'},
+								{name:'所属频道栏目' , key:'channelAndColumnName' , width : '200'},
+								{name:'标题' , key:'title' , width : '300'},
+								{name:'作者' , key:'author' , width: '50', class: 'center'},
 								{name:'状态' , key:'publishStr' , class: 'center'},
-								{name:'平台名称',key:'platformStr'},
+
 								{name:'发布时间' , key:'buildTimeStr' , class: 'center'},
 								{name:'更新时间' , key:'updateTimeStr' , class: 'center'},
 								{name:'操作' , width : '300' , class: 'center'}
 							];
 
+							$.each(_data.data.list, function(i, obj){
+								obj.channelAndColumnName = [obj.channelName, obj.columnName].join('-');
+							})
 
 							$scope.listdata = { //确认按钮
 								title : $scope.title,
@@ -277,7 +281,6 @@ define(['require',"app",'jquery'
 										{cls : 'edit' , name : '发布',evt:$scope.publish},
 										{cls : 'edit' , name : '编辑',evt:$scope.edit},
 										{cls : 'del' , name : '删除',evt:$scope.del},
-										{cls : '' , name : '详情',evt:$scope.info},
 									]
 
 								},

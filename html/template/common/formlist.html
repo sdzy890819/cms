@@ -24,7 +24,7 @@
 						<td ng-repeat='item in obj.list' class='{{item.class}}'>
 							<span ng-if='item.name && !item.href'>{{item.name}}</span>
 							<a ng-if='item.name && item.href' href="{{item.href}}" target="_blank">{{item.name}}</a>
-							<img ng-if='item.image' class="img" src='{{item.image}}'>
+							<!--<img ng-if='item.image' class="img" src='{{item.image}}'>-->
 						</td>
 						<td class="edits">
 							<div ng-repeat='item in obj.list.edit' ng-click='submit(item.evt,obj,$event)' class="btn {{item.cls}}" repeat-finish='editsFinish'>
