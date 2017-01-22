@@ -139,6 +139,9 @@ define(['require',"app",'jquery','search','./searchForm'
 
 									if(obj.type=='select'){
 										obj.callback = function( _object ){
+											if(_object.obj.name.indexOf('请选择')>-1){
+												return;
+											}
 											if(_object.title == 'categoryId'){
 												getData.channel.currentChannelList({
 													categoryId : _object.obj.id,
