@@ -61,6 +61,7 @@ define(["app",'jquery','./data/getData','./moduls/directive'], function ( app,$,
 					        		self.find('.arrow').addClass('cur');
 					        		self.next().slideDown("fast");
 			        			}
+				        		setTimeout(getHeight,500);
 				        	}
 
 
@@ -103,7 +104,11 @@ define(["app",'jquery','./data/getData','./moduls/directive'], function ( app,$,
 				        		})
 				        	});
 				        	scope.$on('$viewContentLoaded',function(){
-				        		setTimeout(showMenu, 500);
+				        		setTimeout(function(){
+				        			element.css({height:'auto'});
+				        			getHeight();
+				        			showMenu();
+				        		}, 500);
 				        	});
 	        			})
 			        }
