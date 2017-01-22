@@ -7,8 +7,8 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 	        templateUrl : '../template/common/addAndEdit.html',
 	        controller : function($scope){
 	        	$scope.$parent.menu.push({name:"新增新闻"});
+	        	var categoryId,channelId,columnId;
 	        	function addNews( obj ){
-	        		var channelId , columnId , categoryId;
 					$.each(obj.selects,function(){
 						if(this.title == 'channelId'){
 							channelId = this.id;
@@ -19,8 +19,7 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 						if(this.title == 'categoryId'){
 							categoryId = this.id;
 						}
-					})				
-					
+					})
 					getData.news.createNews({
 						"title":obj.title,
 						"subTitle":obj.subTitle,
@@ -82,9 +81,9 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 						if(obj.type=='select'){
 							getData.news.previousColumn({ //默认显示 1级2级3级栏目
 								callback : function( data ){
-									var categoryId = data.data.categoryId , 
-										channelId = data.data.channelId , 
-										columnId = data.data.columnId;
+									categoryId = data.data.categoryId;
+									channelId = data.data.channelId;
+									columnId = data.data.columnId;
 									getData.channel.currentChannelList({
 										categoryId : categoryId,
 										callback : function(_data){
