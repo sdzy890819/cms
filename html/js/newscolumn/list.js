@@ -157,8 +157,15 @@ define(["app",'jquery','./columnForm'
 								]*/
 							}
 							//GenerateArrList.extendType($scope.listdata.table.td,th,['width','name','key']); //把TH 中的出name,key,width属性以外的属性合传给td
-			        		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
-			        		$scope.$apply();
+
+							$.each($scope.listdata.table.td, function(i, obj){
+
+								if (obj.listUrl) {
+									obj.list[1].href = obj.listUrl;
+								}
+							})							
+	        		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
+	        		$scope.$apply();
 						}
 					});
 				};
