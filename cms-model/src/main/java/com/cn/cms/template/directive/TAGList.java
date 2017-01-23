@@ -10,7 +10,10 @@ import com.cn.cms.job.TemplatePublishJob;
 import com.cn.cms.job.TopicPublishJob;
 import com.cn.cms.logfactory.CommonLog;
 import com.cn.cms.logfactory.CommonLogFactory;
-import com.cn.cms.po.*;
+import com.cn.cms.po.Base;
+import com.cn.cms.po.NewsColumn;
+import com.cn.cms.po.TemplateBasics;
+import com.cn.cms.po.Topic;
 import com.cn.cms.utils.ContextUtil;
 import com.cn.cms.utils.Page;
 import lombok.Getter;
@@ -110,7 +113,7 @@ public class TAGList extends Directive {
         try {
             page = (Integer) context.get(StaticContants.TEMPLATE_KEY_PAGE);
             data = (Base) context.get(StaticContants.TEMPLATE_KEY_DATA);
-            template = (Template) context.get(StaticContants.TEMPLATE_KEY_TEMPLATE);
+            template = (TemplateBasics) context.get(StaticContants.TEMPLATE_KEY_TEMPLATE);
             channelId = (Long) context.get(StaticContants.TEMPLATE_KEY_CHANNELID);
             model = (Integer) context.get(StaticContants.TEMPLATE_KEY_PUBLISH_JOB_TYPE);
             newsColumn = (NewsColumn) context.get(StaticContants.TEMPLATE_KEY_COLUMN);
