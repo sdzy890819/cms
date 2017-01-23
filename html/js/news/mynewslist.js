@@ -134,6 +134,7 @@ define(['require',"app",'jquery'
 												obj.width = '600px';
 											}
 											if(obj.type=='select'){
+
 												obj.callback = function( _object ){
 													if(_object.title == 'categoryId'){
 														getData.channel.currentChannelList({
