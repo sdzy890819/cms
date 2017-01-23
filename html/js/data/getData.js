@@ -1376,6 +1376,24 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						obj.callback(_data);
 					}
 				});				
+			},
+
+			updateTemplate2 : function(obj ){
+				T.ajax({
+					url : URL.template.updateTemplate2base ,
+					type : 'post',
+					data : {
+						id : obj.id,
+						"templateName":obj.templateName,
+						"filename":obj.filename,
+						"path":obj.path,
+						"templateClassify":obj.templateClassify,
+						"encoded":obj.encoded
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});
 			}
 		},
 		topic : { //专题

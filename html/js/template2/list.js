@@ -71,21 +71,15 @@ define(['require',"app",'jquery'
 									if(this.title == 'templateClassify'){
 										templateClassify = this.type;
 									}
-									if(this.title == 'channelId'){
-										channelId = this.type;
-									}
+
 								});
-								getData.template.updateTemplate({
+								getData.template.updateTemplate2({
 									id : _detail.id,
 									"templateName":obj.templateName,
-									"templateDesc":obj.templateDesc,
 									"filename":obj.filename,
 									"path":obj.path,
 									"templateClassify":templateClassify,
-									"job":(obj.job=='触发生成'?1:0), //是否定时生成。1是定时生成。0是触发生成
 									"encoded":obj.encoded,
-									"channelId":channelId,//频道ID
-									"sortNum":obj.sortNum,//排序值
 									callback : function(_data){
 										layui.use(['layer'], function(){
 											var layer = layui.layer;
