@@ -38,6 +38,11 @@ public class NewsColumn extends Base {
     private Long listTemplate2Id;
 
     /**
+     *  模版列表页url
+     */
+    private String listUrl;
+
+    /**
      * 模版ID
      */
     private Long detailTemplate2Id;

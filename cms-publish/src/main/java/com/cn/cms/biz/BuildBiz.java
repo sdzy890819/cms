@@ -49,6 +49,7 @@ public class BuildBiz extends BaseBiz {
     @Resource
     private Template2Biz template2Biz;
 
+
     @Resource(name = "threadTaskExecutor")
     private ThreadPoolTaskExecutor threadTaskExecutor;
 
@@ -115,6 +116,11 @@ public class BuildBiz extends BaseBiz {
                 templatePublishJob.setNewsColumn(newsColumn);
                 templatePublishJob.setTemplateBasics(template2);
                 threadTaskExecutor.execute(templatePublishJob);
+                Channel channel = channelBiz.getChannel(newsColumn.getChannelId());
+                newsColumn.setListUrl(StringUtils.concatUrl(channel.getChannelUrl(), template2.getPath(),
+                        newsColumn.getId().toString().concat(StaticContants.HTML_SUFFIX)));
+                newsBiz.publishListTemplate2(newsColumn);
+
             }
             if(newsColumn.getDetailTemplate2Id() != null && newsColumn.getDetailTemplate2Id() > 0){
                 Template2 template2 = template2Biz.getTemplate2(newsColumn.getDetailTemplate2Id());

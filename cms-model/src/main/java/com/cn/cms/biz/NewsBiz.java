@@ -360,5 +360,10 @@ public class NewsBiz extends BaseBiz {
         }
     }
 
+
+    public void publishListTemplate2(NewsColumn newsColumn){
+        newsService.publishListTemplate2(newsColumn);
+    }
+
 }
 

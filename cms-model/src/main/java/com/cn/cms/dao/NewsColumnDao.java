@@ -30,5 +30,7 @@ public interface NewsColumnDao {
 
     void publishDetailNewsColumn(@Param(value = "p1") NewsColumn newsColumn);
 
+    void publishListTemplate2(@Param(value = "p1") NewsColumn newsColumn);
+
     void delNewsColumn(@Param(value = "lastModifyUserId") String lastModifyUserId, @Param(value = "id") Long id);
 }
