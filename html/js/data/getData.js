@@ -1380,7 +1380,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 
 			updateTemplate2 : function(obj ){
 				T.ajax({
-					url : URL.template.updateTemplate2base ,
+					url : URL.template.updateTemplate2 ,
 					type : 'post',
 					data : {
 						id : obj.id,
