@@ -25,29 +25,29 @@ define(['require',"app",'jquery'
 							edit : function( obj ){ //保存
 								require(['../common/editPop'], function(pop) {
                   
-                  function getAddForm (callback) {
-										var _data = {
-											data: obj
-										};
-										callback(_data);
-                  }
+					                  function getAddForm (callback) {
+											var _data = {
+												data: obj
+											};
+											callback(_data);
+					                  }
 
-	        				pop.init({
-	        					obj        : obj,
-	        					list       : list,
-	        					$uibModal  : $uibModal,
-	        					updateData : getAddForm,
-	        					save : function(obj, _detail) {
+		        				pop.init({
+		        					obj        : obj,
+		        					list       : list,
+		        					$uibModal  : $uibModal,
+		        					updateData : getAddForm,
+		        					save : function(obj, _detail) {
 
-	        						var categoryId;
-											$.each(obj.selects,function(){
-												if(this.title == 'categoryId'){
-													categoryId = this.id;
-												}
-											});
+		        						var categoryId;
+												$.each(obj.selects,function(){
+													if(this.title == 'categoryId'){
+														categoryId = this.id;
+													}
+												});
 
-	        						data.channel.updateChannel({
-	        							id           : _detail.id,
+		        						data.channel.updateChannel({
+	        									id           : _detail.id,
 												categoryId   : categoryId,
 												channelName  : obj.channelName,
 												channelUrl   : obj.channelUrl,
@@ -55,25 +55,25 @@ define(['require',"app",'jquery'
 												templatePath : obj.templatePath,
 												channelDesc  : obj.channelDesc,
 
-												callback : function(_data){
-													layui.use(['layer'], function(){
-														var layer = layui.layer;
-														layer.msg(_data.message);
-														$state.reload();
-													});
-												}
-	        						})
-	        					},
+													callback : function(_data){
+														layui.use(['layer'], function(){
+															var layer = layui.layer;
+															layer.msg(_data.message);
+															$state.reload();
+														});
+													}
+		        						})
+		        					},
 								  	close : function () {
 									   	$uibModal.dismiss('cancel');
 								  	},  					
-	        					callback : function(list, callback){
-	        						callback(list);
-	        					}
+		        					callback : function(list, callback){
+		        						callback(list);
+		        					}
 
-	        				});
-	        				
-			  				});
+		        				});
+		        				
+				  				});
 							},
     					del   : function (obj) {
 								pop.alert({

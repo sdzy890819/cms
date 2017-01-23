@@ -52,6 +52,7 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 				$.each(list,function(i , obj){
 					if(obj.type=='select'){
 						if(obj.select[0][0].title=='categoryId'){
+							obj.select[0] = [obj.select[0][0]];
 							obj.select[0] = obj.select[0].concat(Tool.changeObjectName(_data.data,[{name:'categoryName',newName:'name'}]));							
 							callback(list);
 						}
