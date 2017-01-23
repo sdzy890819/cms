@@ -10,12 +10,14 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 	        	$scope.$parent.menu.push({name:$scope.title});
 	        	$scope.rlease = function( obj ){ //发布
 					var templateClassify  , channelId;
+					console.log(obj.selects);
 					$.each(obj.selects,function(){
 						if(this.title == 'templateClassify'){
 							templateClassify = this.type;
 						}
+
 						if(this.title == 'channelId'){
-							channelId = this.type;
+							channelId = this.id;
 						}
 					});
 					getData.template.createTemplate({

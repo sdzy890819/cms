@@ -72,7 +72,7 @@ define(['require',"app",'jquery'
 										templateClassify = this.type;
 									}
 									if(this.title == 'channelId'){
-										channelId = this.type;
+										channelId = this.id;
 									}
 								});
 								getData.template.updateTemplate({
