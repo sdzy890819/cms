@@ -24,13 +24,31 @@ define(['require',"app",'jquery','search','./searchForm'
 						})
 					},
 					edit : function( obj ){ //保存
-						function updateData(callback){ //填充数据
+						function updateData(callback,formList){ //填充数据
 							getData.topic.topicInfo({
 								id : obj.id,
 								callback : function(_data){
 									_data.data.releaseTime = new Date(_data.data.releaseTime).format('yyyy-MM-dd h:m:s');
+									if(formList){
+										$.each(formList,function(i,obj){
+											if(obj.type=='select'){//填充二级 三级栏目
+												getData.channel.currentChannelList({
+													categoryId : _data.categoryId,
+													callback : function(_data){
+														var arr = [obj.select[1][0]];
+														obj.select[1] = arr;
+														obj.select[1] = obj.select[1].concat(Tool.changeObjectName(_data.data,[{name:'channelName',newName:'name'}]));
 									
-									callback(_data);
+														$scope.$apply();
+													}
+												})
+											}
+										});
+										callback(formList);
+									}else{
+
+										callback(_data);
+									}
 								}
 							})
 						}										
@@ -86,6 +104,7 @@ define(['require',"app",'jquery','search','./searchForm'
 									}
 									if(obj.type=='select'){
 										obj.callback = function( _object ){
+								
 											if(_object.title == 'categoryId'){
 												getData.channel.currentChannelList({
 													categoryId : _object.obj.id,
@@ -102,7 +121,9 @@ define(['require',"app",'jquery','search','./searchForm'
 										}
 									}
 								});
-								callback(list);
+								updateData(function( data){ //获取详情的数据，判断是否要新增字段，和更新二级，三级栏目 
+									callback(data);
+								},list)
         					},
         					$uibModal :$uibModal 
         				});
@@ -112,9 +133,9 @@ define(['require',"app",'jquery','search','./searchForm'
 							layui.use(['layer'], function(){
 								var layer = layui.layer;
 								layer.msg(_data.message);
-								setTimeout(function(){
-									location.reload();
-								},300)
+								if(_data.code == 0) {									
+									$('table').find("tr[data-id=" + obj.id + "]").hide();
+								}
 							});
 						};
 						pop.alert({

@@ -63,7 +63,9 @@ define(['require',"app",'jquery'
 									layui.use(['layer'], function(){
 										var layer = layui.layer;
 										layer.msg(_data.message);													
-										location.reload();
+										if(_data.code == 0) {									
+											$('table').find("tr[data-id=" + obj.id + "]").hide();
+										}
 									});										
 								}
 							},
