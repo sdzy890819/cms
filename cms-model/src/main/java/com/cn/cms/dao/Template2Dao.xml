@@ -66,7 +66,7 @@
         #{p1.userId},#{p1.encoded});
     </insert>
 
-    <update id="updateTemplate">
+    <update id="updateTemplate2">
         update template2
         <set>
             <if test="p1.templateName != null">
