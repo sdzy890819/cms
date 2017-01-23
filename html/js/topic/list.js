@@ -129,9 +129,9 @@ define(['require',"app",'jquery','search','./searchForm'
 							layui.use(['layer'], function(){
 								var layer = layui.layer;
 								layer.msg(_data.message);
-								setTimeout(function(){
-									location.reload();
-								},300)
+								if(_data.code == 0) {									
+									$('table').find("tr[data-id=" + obj.id + "]").hide();
+								}
 							});
 						};
 						pop.alert({

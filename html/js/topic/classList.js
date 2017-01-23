@@ -63,7 +63,7 @@ define(['require',"app",'jquery'
 							});
 						};
 						pop.alert({
-	 						 text:'您确定要删除"'+obj.columnName+'"吗'
+	 						 text:'您确定要删除吗'
 	 						,btn : ['确定','取消']
 	 						,fn : function(){
 	 							getData.topic.delTopicClassify(obj);
