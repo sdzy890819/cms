@@ -9,7 +9,8 @@ define(["app",'./classForm','../data/getData','form','position','fixedNav'], fun
 	        	$scope.title = "新增分类";
 	        	$scope.$parent.menu.push({name:$scope.title})
 				$scope.save = function( obj ){ //保存
-					getData.topic.createTopicColumn({
+					console.log(11);
+					getData.topic.createTopicClassify({
 						name : obj.name,
 						callback : function(_data){
 							layui.use(['layer'], function(){

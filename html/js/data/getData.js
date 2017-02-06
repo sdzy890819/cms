@@ -1526,7 +1526,17 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					}
 				});
 			},
-			updateTopicClassify: function( obj ){//删除分类栏目列表
+			createTopicClassify: function( obj ){//更新专题分类
+				T.ajax({
+					url : URL.topic.createTopicClassify ,
+					type : 'POST',
+					data : {name:obj.name}, 
+					success : function( _data ){
+						obj.callback(_data)
+					}
+				});
+			},			
+			updateTopicClassify: function( obj ){//更新专题分类
 				T.ajax({
 					url : URL.topic.updateTopicClassify ,
 					type : 'POST',
