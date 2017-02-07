@@ -8,7 +8,28 @@ var gulp = require('gulp') ,
 	rename = require('gulp-rename'),          //文件名命名  
 	amdOptimize = require('gulp-amd-optimizer'),           //require优化  
     htmlmin = require('gulp-htmlmin'),
+    sass = require('gulp-sass'),
+    cleanCSS = require('gulp-clean-css'),
 	watch = require('gulp-watch'); 
+
+gulp.task('css',function(){
+    gulp.src([
+            'css/*.sass',
+            'css/*.scss',
+            'css/**/*.sass',
+            'css/**/*.scss'
+        ]) //多个文件以数组形式传入
+        .pipe(sass())
+        .pipe(cleanCSS())
+        .pipe(gulp.dest('dist/css'));
+})
+gulp.task('minify-css',function(){
+    gulp.src([
+            'dist/*.sass'
+        ]) //多个文件以数组形式传入
+        .pipe(cleanCSS())
+        .pipe(gulp.dest('dist/css'));
+})
 
 gulp.task('jsmin', function () {
     gulp.src([
@@ -44,12 +65,17 @@ gulp.task('testHtmlmin', function () {
         .pipe(htmlmin(options))
         .pipe(gulp.dest('dist'));
 });
-gulp.task('build',['jsmin','concat','testHtmlmin'])
+gulp.task('build',['css','jsmin','concat','testHtmlmin','minify-css'])
 
 gulp.task('default', function () {  
     //监听js变化  
-    gulp.watch(["./js/*.js",'./js/**/*.js'], function () {       //当js文件变化后，自动检验 压缩  
+    gulp.watch(["./js/*.js",'./js/**/*.js',
+        'css/*.sass',
+        'css/*.scss',
+        'css/**/*.sass',
+        'css/**/*.scss'
+    ], function () {       //当js文件变化后，自动检验 压缩  
         //gulp.run('lint', 'scripts');  
         gulp.run('build');  
     });
-}); 
+});
