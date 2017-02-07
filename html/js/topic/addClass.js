@@ -5,7 +5,7 @@ define(["app",'./classForm','../data/getData','form','position','fixedNav'], fun
 	    	replace : true,
 	    	transclude : true,
 	        templateUrl : '../template/common/addAndEdit.html',
-	        controller : function($scope){
+	        controller : function($scope, $state){
 	        	$scope.title = "新增分类";
 	        	$scope.$parent.menu.push({name:$scope.title})
 				$scope.save = function( obj ){ //保存
@@ -16,6 +16,10 @@ define(["app",'./classForm','../data/getData','form','position','fixedNav'], fun
 							layui.use(['layer'], function(){
 								var layer = layui.layer;
 								layer.msg(_data.message);
+
+								if(_data.code == 0){
+									$state.go('topic.classList');
+								}
 							});
 						}
 					})

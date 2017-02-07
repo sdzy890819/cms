@@ -33,7 +33,11 @@ define(["app",'./addForm', '../data/getData','form','position','fixedNav'], func
 								layui.use(['layer'], function(){
 									var layer = layui.layer;
 									layer.msg(_data.message);
-									$state.go('fragment.list');
+
+									if(_data.code == 0){
+										$state.go('fragment.list');
+									}									
+									
 								});								
 							}
 						})

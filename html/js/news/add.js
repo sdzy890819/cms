@@ -5,7 +5,7 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 	    	replace : true,
 	    	transclude : true,
 	        templateUrl : '../template/common/addAndEdit.html',
-	        controller : function($scope){
+	        controller : function($scope, $state){
 	        	$scope.$parent.menu.push({name:"新增新闻"});
 	        	var categoryId,channelId,columnId;
 	        	function addNews( obj ){
@@ -43,6 +43,10 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 							layui.use(['layer'], function(){
 								var layer = layui.layer;
 								layer.msg(_data.message);
+
+								if(_data.code == 0) {
+									$state.reload();
+								}
 							});
 						}
 					});

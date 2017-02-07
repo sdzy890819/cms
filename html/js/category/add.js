@@ -17,7 +17,11 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 									layui.use(['layer'], function(){
 										var layer = layui.layer;
 										layer.msg(_data.message);
-										$state.go('category.list');
+
+										if(_data.code == 0){
+											$state.go('category.list');	
+										}
+										
 									});
 								}
 							});					

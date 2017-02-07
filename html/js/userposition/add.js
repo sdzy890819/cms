@@ -16,7 +16,11 @@ define(["app",'./form','../data/getData','../moduls/Tool','form','position','fix
 									layui.use(['layer'], function(){
 										var layer = layui.layer;
 										layer.msg(_data.message);
-										$state.go('userposition.list');
+
+										if(_data.code == 0){
+											$state.go('userposition.list');	
+										}
+										
 									});
 								}
 							});					
