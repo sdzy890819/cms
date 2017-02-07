@@ -139,6 +139,7 @@ define(function(require){
 			listTemplate2 : url+'/template2/listTemplate2',//创建第二新模板
 			delTemplate2 : url+'/template2/delTemplate2',//删除
 			uploadTemplate2 : url+'/template2/uploadTemplate2',//模版上传
+			updateTemplate2 : url + '/template2/updateTemplate2',
 			downTemplate2 : url+'/template2/downTemplate2',//下载
 			template2Info : url+'/template2/template2Info',//第二模版详细信息 接口
 			template2base : url + '/template2/template2Base', //第二模板基础信息

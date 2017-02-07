@@ -166,7 +166,7 @@ public class Template2Controller extends BaseController  {
     @RequestMapping(value = "/createTemplate2", method = RequestMethod.POST)
     public String createTemplate2(HttpServletRequest request,
                                  @RequestParam(value = "templateName") String templateName,
-                                 @RequestParam(value = "filename") String filename,
+                                 @RequestParam(value = "filename", required = false) String filename,
                                  @RequestParam(value = "path") String path,
                                  @RequestParam(value = "templateClassify") Integer templateClassify,
                                  @RequestParam(value = "encoded") String encoded){

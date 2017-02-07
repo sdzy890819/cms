@@ -195,4 +195,9 @@ public class NewsServiceImpl implements NewsService {
     public void updateRecommendColumn(RecommendColumn recommendColumn) {
         recommendColumnDao.updateRecommendColumn(recommendColumn);
     }
+
+    @Override
+    public void publishListTemplate2(NewsColumn newsColumn) {
+        newsColumnDao.publishListTemplate2(newsColumn);
+    }
 }

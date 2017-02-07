@@ -66,4 +66,6 @@ public interface NewsService {
 
     void updateRecommendColumn(RecommendColumn recommendColumn);
 
+    void publishListTemplate2(NewsColumn newsColumn);
+
 }

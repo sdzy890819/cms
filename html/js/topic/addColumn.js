@@ -1,4 +1,4 @@
-define(["app",'./ColumnForm','../data/getData','form','position','fixedNav'], function ( app , list , getData ) {
+define(["app",'./columnForm','../data/getData','form','position','fixedNav'], function ( app , list , getData ) {
 	app.directive('topicAddColumn',function(){
 		return {
 	    	restrict : 'E',
