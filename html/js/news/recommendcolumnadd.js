@@ -16,7 +16,11 @@ define(["app",'./recommendcolumnForm','../data/getData','../moduls/Tool','form',
 									layui.use(['layer'], function(){
 										var layer = layui.layer;
 										layer.msg(_data.message);
-										$state.go('news.recommendcolumnlist');
+
+										if(_data.code == 0){
+											$state.go('news.recommendcolumnlist');	
+										}
+										
 									});
 								}
 							});					

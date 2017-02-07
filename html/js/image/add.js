@@ -5,7 +5,7 @@ define(["app",'./addForm','../upload/index','../data/getData','form','position',
 	    	replace : true,
 	    	transclude : true,
 	        templateUrl : '../template/common/addAndEdit.html',
-	        controller : function($scope,Upload,$uibModal){
+	        controller : function($scope,Upload,$uibModal, $state){
 	        	$scope.title = '新增图片';
 	        	$scope.$parent.menu.push({name:$scope.title});
 	        	angular.extend($scope,{
@@ -52,7 +52,11 @@ define(["app",'./addForm','../upload/index','../data/getData','form','position',
 											callback : function(_data){
 											layui.use(['layer'], function(){
 												var layer = layui.layer;
-												layer.msg(_data.message);												
+												layer.msg(_data.message);
+
+												if (_data.code == 0) {
+													$state.go('image.list');
+												}
 											});												
 											}
 										})
@@ -79,7 +83,7 @@ define(["app",'./addForm','../upload/index','../data/getData','form','position',
 	        					event : function(file , $uibModalInstance){	        						
 	        						$scope.imageInfo = file;	     
 											Upload.base64DataUrl($scope.imageInfo).then(function(urls){	        						   						
-		        						var image = "<img src='" + file.$ngfDataUrl + "'width='100px' class='thumb'>";	        						
+		        						var image = "<img src='" + file.$ngfDataUrl + "'width='100px' class='thumb'>";        						
 		        						$('.layui-upload-button').empty().append(image);												
 											})
 	        						

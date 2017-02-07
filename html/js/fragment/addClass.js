@@ -16,7 +16,11 @@ define(["app",'./classForm', '../data/getData', 'form','position','fixedNav'], f
 									layui.use(['layer'], function(){
 										var layer = layui.layer;
 										layer.msg(_data.message);
-										$state.go('fragment.classList');
+
+										if (_data.code == 0){
+											$state.go('fragment.classList');	
+										}
+										
 									});									
 								}
 							})

@@ -5,7 +5,7 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 	    	replace : true,
 	    	transclude : true,
 	        templateUrl : '../template/common/addAndEdit.html',
-	        controller : function($scope){
+	        controller : function($scope, $state){
 	        	$scope.title = "新增专题";
 	        	$scope.$parent.menu.push({name:$scope.title})
 				$scope.rlease = function( obj ){ //发布
@@ -40,6 +40,10 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 							layui.use(['layer'], function(){
 								var layer = layui.layer;
 								layer.msg(_data.message);
+
+								if(_data.code == 0){
+									$state.go('topic.list');
+								}
 							});
 						}
 					});

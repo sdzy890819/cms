@@ -84,7 +84,8 @@ define(['require',"app",'jquery','search','./searchForm'
 					var th = [
 							{name:'图片ID', key: 'id' },
 							{name:'图片标题', key: 'imageTitle' },
-							{name:'图片地址' , key: 'imageUrl', width : '200'},										
+							{name:'图片地址' , key: 'imageUrl', width : '200'},		
+							{name: '预览图', key: 'imageUrl', width : '50'}	,						
 							{name:'图片宽度', key: 'imageWidthPixel' },
 							{name:'图片高度', key: 'imageHeightPixel' },
 							{name:'操作' , width : '150' , class:'center' }
@@ -102,9 +103,10 @@ define(['require',"app",'jquery','search','./searchForm'
 						}
 					}	
 					// GenerateArrList.extendType($scope.listdata.table.td,$scope.listdata.table.th,['width','name']); //把TH 中的出name属性以外的属性合传给td
+						
 			        $.each($scope.listdata.table.td, function(i, obj){
-			        	obj.list[2].image = obj.imageUrl;
-			        	obj.list[2].name = false;
+			        	obj.list[3].image = obj.imageUrl;
+			        	obj.list[3].name = false;
 			        })							
 	        		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
 	        		if(!$scope.$$phase) { 

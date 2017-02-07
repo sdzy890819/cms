@@ -5,7 +5,7 @@ define(["app",'./addForm','../upload/index','../data/getData','../upload/angular
 	    	replace : true,
 	    	transclude : true,
 	        templateUrl : '../template/common/addAndEdit.html',
-	        controller : function($scope,Upload,$uibModal){
+	        controller : function($scope,Upload,$uibModal, $state){
 	        	$scope.title = "上传视频";
 	        	$scope.$parent.menu.push({name:$scope.title});
 
@@ -23,7 +23,11 @@ define(["app",'./addForm','../upload/index','../data/getData','../upload/angular
 							  callback : function(_data){
 									layui.use(['layer'], function(){
 										var layer = layui.layer;
-										layer.msg(_data.message);											
+										layer.msg(_data.message);		
+
+										if(_data.code == 0){
+											$state.go('video.list');
+										}
 									});								  	
 							  }
 							})							

@@ -34,6 +34,10 @@ define(["app",'./columnForm','../data/getData','form','position','fixedNav'], fu
 							layui.use(['layer'], function(){
 								var layer = layui.layer;
 								layer.msg(_data.message);
+
+								if(_data.code == 0){
+									$state.go('newscolumn.list');
+								}
 							});
 						}
 					})
