@@ -8,8 +8,10 @@ import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
 import javax.crypto.*;
+import javax.crypto.spec.SecretKeySpec;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.security.*;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
@@ -212,6 +214,13 @@ public class EncryptUtil {
         }
     }
 
+    /**
+     * 加密 通过私钥
+     * @param privateKey
+     * @param plainTextData
+     * @return
+     * @throws Exception
+     */
     public static byte[] encrypt(RSAPrivateKey privateKey, byte[] plainTextData)
             throws Exception {
         if (privateKey == null) {
@@ -238,6 +247,14 @@ public class EncryptUtil {
         }
     }
 
+    /**
+     * 获取公钥
+     * @param key
+     * @return
+     * @throws NoSuchAlgorithmException
+     * @throws UnsupportedEncodingException
+     * @throws InvalidKeySpecException
+     */
     public static Key getPublicKey(String key) throws NoSuchAlgorithmException, UnsupportedEncodingException, InvalidKeySpecException {
         // 解密由base64编码的公钥
         byte[] keyBytes = Base64.decode(key);
@@ -252,6 +269,21 @@ public class EncryptUtil {
         return keyFactory.generatePublic(keySpec);
     }
 
+    /**
+     * 根据公钥 加密
+     * @param data
+     * @param publicKey
+     * @return
+     * @throws NoSuchAlgorithmException
+     * @throws InvalidKeySpecException
+     * @throws InvalidKeyException
+     * @throws SignatureException
+     * @throws UnsupportedEncodingException
+     * @throws NoSuchPaddingException
+     * @throws IllegalBlockSizeException
+     * @throws BadPaddingException
+     * @throws ShortBufferException
+     */
     public static byte[] encryptByPublicKey(byte[] data, Key publicKey) throws NoSuchAlgorithmException, InvalidKeySpecException,
             InvalidKeyException, SignatureException, UnsupportedEncodingException, NoSuchPaddingException,
             IllegalBlockSizeException, BadPaddingException, ShortBufferException {
@@ -263,6 +295,97 @@ public class EncryptUtil {
         cipher.init(Cipher.ENCRYPT_MODE, publicKey);
 
         return CipherUtil.process(cipher, 117, data);
+    }
+
+
+    /**
+     * AES加密Key.
+     * @return
+     */
+    public static String encryptAESKey(){
+        KeyGenerator keyGen = null;//密钥生成器
+        try {
+            keyGen = KeyGenerator.getInstance("AES");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        keyGen.init(128);
+        SecretKey secretKey = keyGen.generateKey();//生成密钥
+        byte[] key = secretKey.getEncoded();//密钥字节数组
+        try {
+            return new String(key, StaticContants.UTF8);
+        } catch (UnsupportedEncodingException e) {
+            log.error(e);
+        }
+        return null;
+    }
+
+    /**
+     * AES
+     * @param key
+     * @param params
+     * @return
+     */
+    public static String encryptAES(String key, String... params){
+        if(params != null && params.length>0){
+            StringBuffer sbf = new StringBuffer();
+            for( int i = 0; i < params.length; i ++){
+                sbf.append(params[i]);
+            }
+            SecretKey secretKey = new SecretKeySpec(key.getBytes(Charset.forName(StaticContants.UTF8)), "AES");//恢复密钥
+            Cipher cipher = null;//Cipher完成加密或解密工作类
+            try {
+                cipher = Cipher.getInstance("AES");
+                cipher.init(Cipher.ENCRYPT_MODE, secretKey);//对Cipher初始化，解密模式
+                byte[] cipherByte = cipher.doFinal(sbf.toString().getBytes(Charset.forName(StaticContants.UTF8)));//加密data
+                return new String(cipherByte, StaticContants.UTF8);
+            } catch (NoSuchAlgorithmException e) {
+                log.error(e);
+            } catch (NoSuchPaddingException e) {
+                log.error(e);
+            } catch (InvalidKeyException e) {
+                log.error(e);
+            } catch (BadPaddingException e) {
+                log.error(e);
+            } catch (IllegalBlockSizeException e) {
+                log.error(e);
+            } catch (UnsupportedEncodingException e) {
+                log.error(e);
+            }
+
+        }
+        return null;
+    }
+
+    /**
+     * AES
+     * 解密
+     * @param key
+     * @param encryptCode
+     * @return
+     */
+    public static String decryptAEC(String key, String encryptCode){
+        SecretKey secretKey = new SecretKeySpec(key.getBytes(Charset.forName(StaticContants.UTF8)), "AES");//恢复密钥
+        Cipher cipher = null;//Cipher完成加密或解密工作类
+        try {
+            cipher = Cipher.getInstance("AES");
+            cipher.init(Cipher.DECRYPT_MODE, secretKey);//对Cipher初始化，解密模式
+            byte[] cipherByte = cipher.doFinal(encryptCode.getBytes(Charset.forName(StaticContants.UTF8)));//加密data
+            return new String(cipherByte, StaticContants.UTF8);
+        } catch (NoSuchAlgorithmException e) {
+            log.error(e);
+        } catch (NoSuchPaddingException e) {
+            log.error(e);
+        } catch (InvalidKeyException e) {
+            log.error(e);
+        } catch (BadPaddingException e) {
+            log.error(e);
+        } catch (IllegalBlockSizeException e) {
+            log.error(e);
+        } catch (UnsupportedEncodingException e) {
+            log.error(e);
+        }
+        return null;
     }
 
 }

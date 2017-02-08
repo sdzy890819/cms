@@ -1,5 +1,6 @@
 package com.cn.cms.po;
 
+import com.cn.cms.enums.PlatformEnum;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -51,5 +52,19 @@ public class Permission extends Base {
      * 权限Code
      */
     private String permission;
+
+    /**
+     * 平台字段
+     */
+    private Integer platform;
+
+    /**
+     * 平台名称
+     */
+    private String platformStr;
+
+    public String getPlatformStr(){
+        return PlatformEnum.get(platform).getName();
+    }
 
 }

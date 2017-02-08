@@ -11,9 +11,15 @@ public class RedisKeyContants {
 
     public static final String REDIS_TOKEN_KEY = "CMS_TOKEN_KEY_";
 
+    public static final String REDIS_APP_TOKEN_KEY = "CMS_APP_TOKEN_KEY_";
+
     public static final String REDIS_POSITION_PERMISSION_KEY = "CMS_PERMISSION_USERID_";
 
+    public static final String REDIS_APP_POSITION_PERMISSION_KEY = "CMS_APP_PERMISSION_USERID_";
+
     public static final String REDIS_POSITION_PERMISSION_MENU_KEY = "CMS_PERMISSION_MENU_USERID_";
+
+    public static final String REDIS_APP_POSITION_PERMISSION_MENU_KEY = "CMS_APP_PERMISSION_MENU_USERID_";
 
     public static final String REDIS_POSITION_PERMISSION_BUTTON_KEY = "CMS_PERMISSION_BUTTON_USERID_";
 
@@ -64,12 +70,24 @@ public class RedisKeyContants {
         return REDIS_TOKEN_KEY + userId;
     }
 
+    public static String getAppToken(String userId) {
+        return REDIS_APP_TOKEN_KEY + userId;
+    }
+
     public static String getPermission(String userId){
         return REDIS_POSITION_PERMISSION_KEY + userId;
     }
 
+    public static String getAppPermission(String userId){
+        return REDIS_APP_POSITION_PERMISSION_KEY + userId;
+    }
+
     public static String getMenuPermission(String userId){
         return REDIS_POSITION_PERMISSION_MENU_KEY +  userId;
+    }
+
+    public static String getAppMenuPermission(String userId){
+        return REDIS_APP_POSITION_PERMISSION_MENU_KEY +  userId;
     }
 
     public static String getButtonPermission(String userId){

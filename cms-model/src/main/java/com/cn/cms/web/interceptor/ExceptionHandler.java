@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Created by zhangyang on 16/11/23.
  */
-@Component
 public class ExceptionHandler implements HandlerExceptionResolver {
 
     private static CommonLog log = CommonLogFactory.getLog(ExceptionHandler.class);

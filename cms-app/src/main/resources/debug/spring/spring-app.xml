@@ -44,8 +44,8 @@
 
 
 	<mvc:interceptors >
-		<bean class="com.cn.cms.web.interceptor.CheckTokenInterceptor" />
-		<bean class="com.cn.cms.web.interceptor.CheckAuthInterceptor" />
+		<bean class="com.cn.cms.web.interceptor.CheckAppTokenInterceptor" />
+		<bean class="com.cn.cms.web.interceptor.CheckAppAuthInterceptor" />
 		<bean class="com.cn.cms.web.interceptor.HistoryInterceptor" />
 	</mvc:interceptors>
 

@@ -116,13 +116,14 @@ public class UserController extends BaseController{
     public String createUser(HttpServletRequest request, @RequestParam(value="userName")String userName,
                              @RequestParam(value="realName")String realName,
                              @RequestParam(value="pwd")String pwd,
-                             @RequestParam(value="headImage")String headImage){
+                             @RequestParam(value="headImage")String headImage,
+                             @RequestParam(value = "idfa", required = false) String idfa){
         String userID = getCurrentUserId(request);
         Integer a = userBiz.queryUserName(userName);
         if(a>0){
             return ApiResponse.returnFail(ErrorCodeEnum.ERROR_USERNAME_RE.getType(),ErrorCodeEnum.ERROR_USERNAME_RE.getMessage());
         }
-        userBiz.createUser(userID,userName,pwd,headImage,realName);
+        userBiz.createUser(userID,userName,pwd,headImage,realName, idfa);
         return ApiResponse.returnSuccess();
     }
 
@@ -152,15 +153,16 @@ public class UserController extends BaseController{
      */
     @CheckToken
     @RequestMapping(value = "/updateUser",method = RequestMethod.POST)
-    public String updateUser(HttpServletRequest request, @RequestParam("userId")String userId,
-                            @RequestParam(value = "realName",required = false)String realName,
-                            @RequestParam(value = "headImage",required = false)String headImage,
-                            @RequestParam(value = "pwd",required = false)String pwd){
+    public String updateUser(HttpServletRequest request, @RequestParam("userId") String userId,
+                            @RequestParam(value = "realName",required = false) String realName,
+                            @RequestParam(value = "headImage",required = false) String headImage,
+                            @RequestParam(value = "pwd",required = false) String pwd,
+                             @RequestParam(value = "idfa", required = false) String idfa){
         String userID = getCurrentUserId(request);
         if(!userId.equals(userID)){
             return ApiResponse.returnFail(ErrorCodeEnum.ERROR_NO_PERMISSION.getType(),ErrorCodeEnum.ERROR_NO_PERMISSION.getMessage());
         }
-        userBiz.updateUser(userID, userId, realName, headImage, pwd);
+        userBiz.updateUser(userID, userId, realName, headImage, pwd, idfa);
         return ApiResponse.returnSuccess();
     }
 

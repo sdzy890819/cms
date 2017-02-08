@@ -36,5 +36,10 @@ public class User extends Base{
      */
     private String userId;
 
+    /**
+     * IDFA。如果IDFA为空，则使用MAC地址。
+     */
+    private String idfa;
+
 
 }

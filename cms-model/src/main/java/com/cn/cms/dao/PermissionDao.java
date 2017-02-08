@@ -22,5 +22,5 @@ public interface PermissionDao {
 
     void delPermission(@Param(value = "id") Long id, @Param(value = "lastModifyUserId") String lastModifyUserId);
 
-    List<Permission> findPermissionForPositionIds(@Param(value = "userId") String userId);
+    List<Permission> findPermissionForPositionIds(@Param(value = "userId") String userId, @Param(value = "platform") Integer platform);
 }

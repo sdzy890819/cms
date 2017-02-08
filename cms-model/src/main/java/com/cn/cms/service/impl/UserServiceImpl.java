@@ -154,8 +154,8 @@ public class UserServiceImpl implements UserService {
         positionPermissionDao.createPositionPermission(positionId, positionPermissionList);
     }
 
-    public List<Permission> findPermissionForPositionIds(String userId) {
-        return permissionDao.findPermissionForPositionIds(userId);
+    public List<Permission> findPermissionForPositionIds(String userId, Integer platform) {
+        return permissionDao.findPermissionForPositionIds(userId, platform);
     }
 
     public void savePositionPermission(PositionPermission positionPermission) {

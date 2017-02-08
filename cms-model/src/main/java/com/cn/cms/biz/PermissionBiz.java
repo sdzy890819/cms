@@ -5,6 +5,7 @@ import com.cn.cms.bo.PermissionBean;
 import com.cn.cms.contants.RedisKeyContants;
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.enums.PermissionTypeEnum;
+import com.cn.cms.enums.PlatformEnum;
 import com.cn.cms.enums.ShowFlagEnum;
 import com.cn.cms.middleware.JedisClient;
 import com.cn.cms.po.Permission;
@@ -135,8 +136,8 @@ public class PermissionBiz extends BaseBiz{
      * 根据用户ID 开启权限
      * @param userId
      */
-    public void setPermissionRedis(String userId){
-        List<Permission> permissions = userService.findPermissionForPositionIds(userId);
+    public void setPermissionRedis(String userId, PlatformEnum platformEnum){
+        List<Permission> permissions = userService.findPermissionForPositionIds(userId, platformEnum.getType());
         if(StringUtils.isNotEmpty(permissions)) {
             Map<String, Double> map = new HashMap<>();
             //List<Permission> permissionList = new ArrayList<>();
@@ -171,14 +172,25 @@ public class PermissionBiz extends BaseBiz{
 //                Map.Entry<Long,List<Permission>> entry = it.next();
 //                redisMap.put(RedisKeyContants.getButtonParentPermission(userId ,entry.getKey()), JSONArray.toJSONString(entry.getValue()));
 //            }
-            delPermissionRedis(userId);
-            //验证用户权限
-            jedisClient.zadd(RedisKeyContants.getPermission(userId), map, StaticContants.DEFAULT_SECONDS);
-            //获取MENU列表
-            jedisClient.set(RedisKeyContants.getMenuPermission(userId), JSONArray.toJSONString(permissionBeenList), StaticContants.DEFAULT_SECONDS);
-            //jedisClient.set(redisMap,StaticContants.DEFAULT_SECONDS); //根据父权限获取子权限的列表
+            if(platformEnum.getType() == PlatformEnum.CMS.getType()) {
+                delPermissionRedis(userId);
+                //验证用户权限
+                jedisClient.zadd(RedisKeyContants.getPermission(userId), map, StaticContants.DEFAULT_SECONDS);
+                //获取MENU列表
+                jedisClient.set(RedisKeyContants.getMenuPermission(userId), JSONArray.toJSONString(permissionBeenList), StaticContants.DEFAULT_SECONDS);
+                //jedisClient.set(redisMap,StaticContants.DEFAULT_SECONDS); //根据父权限获取子权限的列表
+            }else if(platformEnum.getType() == PlatformEnum.APP.getType()){
+                delAppPermissionRedis(userId);
+                //验证用户权限
+                jedisClient.zadd(RedisKeyContants.getAppPermission(userId), map, StaticContants.DEFAULT_SECONDS);
+                //获取MENU列表
+                jedisClient.set(RedisKeyContants.getAppMenuPermission(userId), JSONArray.toJSONString(permissionBeenList), StaticContants.DEFAULT_SECONDS);
+                //jedisClient.set(redisMap,StaticContants.DEFAULT_SECONDS); //根据父权限获取子权限的列表
+            }
         }
     }
+
+
 
     /**
      * 根据用户ID 删除权限
@@ -187,6 +199,11 @@ public class PermissionBiz extends BaseBiz{
     public void delPermissionRedis(String userId){
         jedisClient.del(RedisKeyContants.getPermission(userId));
         jedisClient.del(RedisKeyContants.getMenuPermission(userId));
+    }
+
+    public void delAppPermissionRedis(String userId){
+        jedisClient.del(RedisKeyContants.getAppPermission(userId));
+        jedisClient.del(RedisKeyContants.getAppMenuPermission(userId));
     }
 
     /**
@@ -204,12 +221,40 @@ public class PermissionBiz extends BaseBiz{
     }
 
     /**
+     * 根据用户ID、权限检测用户权限
+     * @param userId
+     * @param permission
+     * @return
+     */
+    public boolean checkAppPermission(String userId, String permission){
+        Long result = jedisClient.zrank(RedisKeyContants.getAppPermission(userId), permission);
+        if(result != null && result > 0){
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * 获取用户菜单权限
      * @param userId
      * @return
      */
     public List<PermissionBean> getMenuPermission(String userId){
         String result = jedisClient.get(RedisKeyContants.getMenuPermission(userId));
+        if(StringUtils.isNotBlank(result)) {
+            return JSONArray.parseArray(result, PermissionBean.class);
+        }
+        return null;
+    }
+
+    /**
+     * APP
+     * 获取用户菜单权限
+     * @param userId
+     * @return
+     */
+    public List<PermissionBean> getAppMenuPermission(String userId){
+        String result = jedisClient.get(RedisKeyContants.getAppMenuPermission(userId));
         if(StringUtils.isNotBlank(result)) {
             return JSONArray.parseArray(result, PermissionBean.class);
         }

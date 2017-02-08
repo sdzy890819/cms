@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.cn.cms.bo.UserBean;
 import com.cn.cms.contants.RedisKeyContants;
 import com.cn.cms.contants.StaticContants;
+import com.cn.cms.enums.PlatformEnum;
 import com.cn.cms.middleware.JedisClient;
 import com.cn.cms.middleware.bo.UserSearch;
 import com.cn.cms.po.User;
@@ -138,7 +139,7 @@ public class UserBiz extends BaseBiz{
      * @param headImage
      * @param realName
      */
-    public void createUser(String lastModifyUserId,String userName,String pwd,String headImage,String realName){
+    public void createUser(String lastModifyUserId,String userName,String pwd,String headImage,String realName, String idfa){
         User user = new User();
         user.setUserName(userName);
         user.setUserId(EncryptUtil.buildUserId());
@@ -146,6 +147,7 @@ public class UserBiz extends BaseBiz{
         user.setHeadImage(headImage);
         user.setRealName(realName);
         user.setLastModifyUserId(lastModifyUserId);
+        user.setIdfa(idfa);
         userService.createUser(user);
         refreshUserCache(user);
     }
@@ -189,12 +191,13 @@ public class UserBiz extends BaseBiz{
      * @param headImage
      * @param pwd
      */
-    public void updateUser(String lastModifyUserId, String userId, String realName, String headImage, String pwd){
+    public void updateUser(String lastModifyUserId, String userId, String realName, String headImage, String pwd, String idfa){
         User user = new User();
         user.setUserId(userId);
         user.setLastModifyUserId(lastModifyUserId);
         user.setRealName(realName);
         user.setHeadImage(headImage);
+        user.setIdfa(idfa);
         User old = userService.findUser(userId);
         user.setPwd(EncryptUtil.encryptPwd(old.getUserName(),pwd));
         userService.updateUser(user);
@@ -217,6 +220,22 @@ public class UserBiz extends BaseBiz{
      * @param request
      * @param response
      */
+    public void clearAppCookie(HttpServletRequest request, HttpServletResponse response){
+        String userId = CookieUtil.getCookieVal(request,StaticContants.APP_COOKIE_USER_ID);
+        CookieUtil.delCookieVal(request,response,StaticContants.APP_COOKIE_USER_ID);
+        CookieUtil.delCookieVal(request,response,StaticContants.APP_COOKIE_USER_TOKEN);
+        CookieUtil.delCookieVal(request,response,StaticContants.APP_COOKIE_USER_KEY);
+        CookieUtil.delCookieVal(request,response,StaticContants.APP_COOKIE_TIME);
+        CookieUtil.delCookieVal(request,response,StaticContants.APP_COOKIE_REAL_NAME);
+        jedisClient.del(RedisKeyContants.getAppToken(userId));
+        permissionBiz.delAppPermissionRedis(userId);
+    }
+
+    /**
+     * 清理Cookie信息
+     * @param request
+     * @param response
+     */
     public void clearCookie(HttpServletRequest request, HttpServletResponse response){
         String userId = CookieUtil.getCookieVal(request,StaticContants.COOKIE_USER_ID);
         CookieUtil.delCookieVal(request,response,StaticContants.COOKIE_USER_ID);
@@ -228,6 +247,7 @@ public class UserBiz extends BaseBiz{
         permissionBiz.delPermissionRedis(userId);
 
     }
+
 
     /**
      * 检测用户登录状态
@@ -251,6 +271,33 @@ public class UserBiz extends BaseBiz{
     }
 
     /**
+     * 检测用户登录状态
+     * @param request
+     * @return
+     */
+    public boolean checkAppUserToken(HttpServletRequest request){
+        String userId = CookieUtil.getCookieVal(request,StaticContants.APP_COOKIE_USER_ID);
+        String userKey = CookieUtil.getCookieVal(request,StaticContants.APP_COOKIE_USER_KEY);
+        String time = CookieUtil.getCookieVal(request,StaticContants.APP_COOKIE_TIME);
+        String token = CookieUtil.getCookieVal(request,StaticContants.APP_COOKIE_USER_TOKEN);
+        String idfa = CookieUtil.getCookieVal(request, StaticContants.APP_COOKIE_DEVICE_IDFA);
+        if(StringUtils.isNotBlank(token) && StringUtils.isNotBlank(time) &&
+                StringUtils.isNotBlank(userId) && StringUtils.isNotBlank(userKey)){
+            String currentToken = EncryptUtil.token(userId, userKey, time);
+            String redisToken= jedisClient.get(RedisKeyContants.getAppToken(userId));
+            if(StringUtils.isNotBlank(currentToken) && StringUtils.isNotBlank(redisToken) &&
+                    currentToken.equals(redisToken) && currentToken.equals(token)){
+                User user = this.getUserCache(userId);
+                if(user.getIdfa().indexOf(idfa) > -1) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * WEB
      * 检查用户是否登录。如果登录后则写入Token
      * @param response
      * @param userName
@@ -273,6 +320,39 @@ public class UserBiz extends BaseBiz{
         }
     }
 
+    public String checkUserAndSetCookieForApp(HttpServletResponse response, String userName, String pwd,
+                                              String time, String tt, String idfa){
+        User user = userService.findUserName(userName);
+        pwd = EncryptUtil.decryptAEC(tt, pwd);
+        pwd = pwd.replace(userName ,"");
+        pwd = pwd.replace(time, "");
+        pwd = EncryptUtil.encryptPwd(userName, pwd);
+        if( user != null ){
+            if(user.getPwd().equals(pwd) && user.getIdfa().indexOf(idfa) > -1){
+                setAppCookie(response,user);
+                refreshUserCache(user);
+                return ApiResponse.returnSuccess(StaticContants.SUCCESS_LOGIN);
+            }else{
+                return ApiResponse.returnFail(StaticContants.ERROR_PWD);
+            }
+        }else{
+            return ApiResponse.returnFail(StaticContants.ERROR_NO_USER);
+        }
+    }
+
+    public void setAppCookie(HttpServletResponse response, User user){
+        String time = String.valueOf(new Date().getTime());
+        String key = EncryptUtil.token(user.getUserName(),user.getPwd(),user.getRealName(),time);
+        String token = EncryptUtil.token(user.getUserId(),key,time);
+        CookieUtil.addCookie(response,StaticContants.APP_COOKIE_USER_ID,user.getUserId(),0);
+        CookieUtil.addCookie(response,StaticContants.APP_COOKIE_TIME,String.valueOf(time),0);
+        CookieUtil.addCookie(response,StaticContants.APP_COOKIE_USER_KEY,key,0);
+        CookieUtil.addCookie(response,StaticContants.APP_COOKIE_USER_TOKEN,token,0);
+        CookieUtil.addCookie(response,StaticContants.APP_COOKIE_REAL_NAME,user.getRealName(),0);
+        jedisClient.set(RedisKeyContants.getAppToken(user.getUserId()), token, StaticContants.DEFAULT_SECONDS);
+        permissionBiz.setPermissionRedis(user.getUserId(), PlatformEnum.APP);
+    }
+
     /**
      * 设置Cookie && 设置Redis存储
      * 使用方式生成KEY
@@ -290,7 +370,7 @@ public class UserBiz extends BaseBiz{
         CookieUtil.addCookie(response,StaticContants.COOKIE_USER_TOKEN,token,0);
         CookieUtil.addCookie(response,StaticContants.COOKIE_REAL_NAME,user.getRealName(),0);
         jedisClient.set(RedisKeyContants.getToken(user.getUserId()), token, StaticContants.DEFAULT_SECONDS);
-        permissionBiz.setPermissionRedis(user.getUserId());
+        permissionBiz.setPermissionRedis(user.getUserId(), PlatformEnum.CMS);
     }
 
     /**

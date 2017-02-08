@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd "
+    >
+
+
+    <!--   jedis添加   -->
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxIdle" value="${redis.maxIdle}" />
+        <property name="testOnBorrow" value="${redis.testOnBorrow}"/>
+        <property name="testOnReturn" value="${redis.testOnReturn}"/>
+    </bean>
+
+    <bean id="jedisPool" class="redis.clients.jedis.JedisSentinelPool" scope="singleton">
+        <constructor-arg index="0" >
+            <value>${redis.master.group.name}</value>
+        </constructor-arg>
+        <constructor-arg index="1" >
+            <set>
+                <value>${redis.host}</value>
+            </set>
+        </constructor-arg>
+        <constructor-arg index="2" ref="jedisPoolConfig" />
+        <constructor-arg index="3">
+            <value>${redis.pass}</value>
+        </constructor-arg>
+    </bean>
+  
+</beans>

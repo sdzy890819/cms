@@ -197,7 +197,7 @@ public interface UserService {
      * @param userId
      * @return
      */
-    List<Permission> findPermissionForPositionIds(String userId);
+    List<Permission> findPermissionForPositionIds(String userId, Integer platform);
 
     void savePositionPermission(PositionPermission positionPermission);
 

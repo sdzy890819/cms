@@ -43,6 +43,26 @@ public class StaticContants {
 
     public static final String COOKIE_REAL_NAME = "CMS_QUANJING_NAME";
 
+    //----app端内容
+
+    public static final String APP_COOKIE_USER_ID = "APP_QUANJING_USER_ID";
+
+    public static final String APP_COOKIE_USER_TOKEN = "APP_QUANJING_USER_TOKEN";
+
+    public static final String APP_COOKIE_TIME = "APP_QUANJING_TIME";
+
+    public static final String APP_COOKIE_USER_KEY = "APP_QUANJING_USER_KEY";
+
+    public static final String APP_COOKIE_REAL_NAME = "APP_QUANJING_NAME";
+
+    public static final String APP_COOKIE_TT = "APP_QUANJING_TT";
+
+    public static final String APP_COOKIE_DEVICE_IDFA = "APP_DEVICE_IDFA";
+
+    public static final String APP_COOKIE_DEVICE_VERSION = "APP_DEVICE_VERSION";
+
+    public static final String APP_COOKIE_DEVICE_INFO = "APP_DEVICE_INFO";
+
     //----自定义错误码
 
     public static final String ERROR_NO_POSITION = "找不到此用户组! ";

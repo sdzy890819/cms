@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd "
+    >
+
+    <!-- Import ES -->
+    <bean id="esearchClient" class="com.cn.cms.middleware.ESearchClient" destroy-method="close" init-method="open">
+        <property name="clusterList">
+            <list>
+                <value>${essearch1.ip}</value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- Import Weedfs -->
+    <bean id="weedfsClient" class="com.cn.cms.middleware.WeedfsClient">
+        <property name="masterHost">
+            <value>${weedfs.master.host}</value>
+        </property>
+        <property name="assign">
+            <value>${weedfs.assign}</value>
+        </property>
+    </bean>
+
+    <!-- Import mssVideo -->
+    <bean id="mssVideoClient" class="com.cn.cms.middleware.MSSVideoClient">
+        <property name="accessId">
+            <value>${mss.video.accessId}</value>
+        </property>
+        <property name="accessKey">
+            <value>${mss.video.accessKey}</value>
+        </property>
+        <property name="finishUrl">
+            <value>${mss.video.finish}</value>
+        </property>
+        <property name="interruptUrl">
+            <value>${mss.video.interrupt}</value>
+        </property>
+        <property name="queryUrl">
+            <value>${mss.video.query}</value>
+        </property>
+        <property name="uploadUrl">
+            <value>${mss.video.upload}</value>
+        </property>
+    </bean>
+
+    <bean id="tongjiClient" class="com.cn.cms.middleware.TongjiClient">
+        <property name="accountType">
+            <value>${baidu.tongji.accountType}</value>
+        </property>
+        <property name="userName">
+            <value>${baidu.tongji.userName}</value>
+        </property>
+        <property name="pwd">
+            <value>${baidu.tongji.pwd}</value>
+        </property>
+        <property name="token">
+            <value>${baidu.tongji.token}</value>
+        </property>
+        <property name="uuid">
+            <value>${baidu.tongji.uuid}</value>
+        </property>
+        <property name="loginUrl">
+            <value>${baidu.tongji.loginUrl}</value>
+        </property>
+        <property name="apiUrl">
+            <value>${baidu.tongji.apiUrl}</value>
+        </property>
+        <property name="apiSiteUrl">
+            <value>${baidu.tongji.apiSiteUrl}</value>
+        </property>
+        <property name="apiDataUrl">
+            <value>${baidu.tongji.apiDataUrl}</value>
+        </property>
+        <property name="publicKey">
+            <value>${baidu.tongji.publicKey}</value>
+        </property>
+    </bean>
+
+</beans>
