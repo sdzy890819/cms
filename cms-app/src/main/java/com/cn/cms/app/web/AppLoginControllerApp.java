@@ -85,7 +85,7 @@ public class AppLoginControllerApp extends AppBaseController {
      * 密匙
      * @return
      */
-    @RequestMapping(value = "/login/init", method = RequestMethod.POST)
+    @RequestMapping(value = "/login/init", method = RequestMethod.GET)
     public String loginInit(HttpServletResponse response){
         String tt = EncryptUtil.encryptAESKey();
         CookieUtil.addCookie(response, StaticContants.APP_COOKIE_TT, tt, 0);
