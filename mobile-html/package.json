@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "build": "set NODE_ENV=build&& webpack --progress --hide-modules --config webpack.config.js",
+    "dev": "set NODE_ENV=dev&&webpack --colors  --progress --config webpack.config.js",
+    "gulpdev": "gulp dev --gulpfile gulpfile.babel.js",
+    "gulpbuild": "gulp build --gulpfile gulpfile.babel.js"
+  }
+}

@@ -2,15 +2,46 @@ var gulp = require('gulp') ,
 	requirejsOptimize = require('gulp-requirejs-optimize') , 
 	rjs = require('gulp-requirejs'),
 	sourcemaps = require('gulp-sourcemaps'),
-	concat = require('gulp-concat'),           //合并  
+	concat = require('gulp-concat'),    
 	jshint = require('gulp-jshint'),           //js规范验证  
-	uglify = require('gulp-uglify'),           //压缩  
-	rename = require('gulp-rename'),          //文件名命名  
-	amdOptimize = require('gulp-amd-optimizer'),           //require优化  
+	uglify = require('gulp-uglify'),       
+	rename = require('gulp-rename'),         
+	amdOptimize = require('gulp-amd-optimizer'),      
     htmlmin = require('gulp-htmlmin'),
     sass = require('gulp-sass'),
     cleanCSS = require('gulp-clean-css'),
+    webpack = require('webpack'),
+    gulpWebpack = require('gulp-webpack'),
+    path = require('path'),
+    HtmlWebpackPlugin = require('html-webpack-plugin'),
+    CleanPlugin = require('clean-webpack-plugin'),
+    ExtractTextPlugin = require("extract-text-webpack-plugin"),
+    CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin"),
 	watch = require('gulp-watch'); 
+
+var config = {
+    baseUrl: 'js/',
+    paths: {
+        'zepto': 'plug/zepto.min',
+        'vue' : 'vue.min',
+        'vue-router' : 'vue-router.min',
+        'wangEditor' : 'plug/wangEditor/dist/js/wangEditor',
+    },
+    shim: {
+        'zepto': {exports: '$'},
+    }
+}
+//require合并  
+gulp.task('rjs', function () { 
+    gulp.src(["js/*.js",'js/**/*.js'],{base:config.baseUrl})  
+        .pipe(amdOptimize(config)) 
+        //.pipe(concat("index.js"))           //合并  
+        .pipe(gulp.dest("dist/js"))          //输出保存  
+        .pipe(rename("index.min.js"))          //重命名  
+        .pipe(uglify())                        //压缩  
+        .pipe(gulp.dest("dist/js"));         //输出保存  
+});  
+
 
 gulp.task('css',function(){
     gulp.src([
@@ -18,7 +49,7 @@ gulp.task('css',function(){
             'css/*.scss',
             'css/**/*.sass',
             'css/**/*.scss'
-        ]) //多个文件以数组形式传入
+        ])
         .pipe(sass())
         .pipe(cleanCSS())
         .pipe(gulp.dest('dist/css'));
@@ -26,7 +57,7 @@ gulp.task('css',function(){
 gulp.task('minify-css',function(){
     gulp.src([
             'dist/*.sass'
-        ]) //多个文件以数组形式传入
+        ])
         .pipe(cleanCSS())
         .pipe(gulp.dest('dist/css'));
 })
@@ -36,19 +67,19 @@ gulp.task('jsmin', function () {
             'js/*.js',
             'js/**/*.js',
             '!js/plug/{zepto.min,vue.min,vue-router.min}.js'
-        ]) //多个文件以数组形式传入
+        ]) 
         .pipe(uglify())
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest('dist/js'));
 });
 gulp.task('concat', function () {
     gulp.src([
             'js/plug/zepto.min.js',
             'js/plug/vue.min.js',
             'js/plug/vue-router.min.js'
-        ]) //多个文件以数组形式传入
+        ])
         .pipe(uglify())
         .pipe(concat('global.js'))
-        .pipe(gulp.dest('dist/plug'));
+        .pipe(gulp.dest('dist/js/plug'));
 });
 gulp.task('testHtmlmin', function () {
     var options = {
@@ -67,15 +98,14 @@ gulp.task('testHtmlmin', function () {
 });
 gulp.task('build',['css','jsmin','concat','testHtmlmin','minify-css'])
 
-gulp.task('default', function () {  
-    //监听js变化  
+gulp.task('default', function () { 
     gulp.watch(["./js/*.js",'./js/**/*.js',
+        './index.html',
         'css/*.sass',
         'css/*.scss',
         'css/**/*.sass',
         'css/**/*.scss'
-    ], function () {       //当js文件变化后，自动检验 压缩  
-        //gulp.run('lint', 'scripts');  
+    ], function () {
         gulp.run('build');  
     });
 });
