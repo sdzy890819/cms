@@ -228,7 +228,7 @@ public class PermissionBiz extends BaseBiz{
      */
     public boolean checkAppPermission(String userId, String permission){
         Long result = jedisClient.zrank(RedisKeyContants.getAppPermission(userId), permission);
-        if(result != null && result > 0){
+        if(result != null && result > -1){
             return true;
         }
         return false;

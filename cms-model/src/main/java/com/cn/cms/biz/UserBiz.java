@@ -20,6 +20,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -321,14 +322,19 @@ public class UserBiz extends BaseBiz{
     }
 
     public String checkUserAndSetCookieForApp(HttpServletResponse response, String userName, String pwd,
-                                              String time, String tt, String idfa){
+                                              String time, String tt, String idfa) throws IOException {
         User user = userService.findUserName(userName);
-        pwd = EncryptUtil.decryptAEC(tt, pwd);
+        String tmp = new String(EncryptUtil.decode64(tt), StaticContants.UTF8);
+        String reEncryptCode = tmp.substring(0, tmp.length() - 32);
+        String rekey = tmp.substring(tmp.length() - 32);
+        String rett = EncryptUtil.decryptAEC(rekey, reEncryptCode);
+        pwd = EncryptUtil.decryptAEC(rett, pwd);
         pwd = pwd.replace(userName ,"");
         pwd = pwd.replace(time, "");
         pwd = EncryptUtil.encryptPwd(userName, pwd);
         if( user != null ){
-            if(user.getPwd().equals(pwd) && user.getIdfa().indexOf(idfa) > -1){
+            if(user.getPwd().equals(pwd) && StringUtils.isNotBlank(user.getIdfa()) &&
+                    StringUtils.isNotBlank(idfa) && user.getIdfa().indexOf(idfa) > -1){
                 setAppCookie(response,user);
                 refreshUserCache(user);
                 return ApiResponse.returnSuccess(StaticContants.SUCCESS_LOGIN);

@@ -389,7 +389,7 @@ public class JedisClient {
      */
     public Long zrank(String key, String member){
         Jedis client = null;
-        Long p = 0L;
+        Long p = -1L;
         try{
             client = jedisPool.getResource();
             p = client.zrank(key, member);
@@ -410,7 +410,7 @@ public class JedisClient {
      */
     public Long setnx(String key){
         Jedis client = null;
-        Long p = 0L;
+        Long p = -1L;
         try{
             client = jedisPool.getResource();
             p = client.setnx(key, key);

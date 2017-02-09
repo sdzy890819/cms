@@ -56,7 +56,7 @@ public class Permission extends Base {
     /**
      * 平台字段
      */
-    private Integer platform;
+    private Integer platform = PlatformEnum.CMS.getType();
 
     /**
      * 平台名称
