@@ -11,6 +11,8 @@ mvn clean package -e
 echo "----------------------------------------------------"
 echo "-----------------------operation copy------------------------"
 echo "----------------------------------------------------"
+cd /data/projects/cms-app/
+jar -xvf /data/source/cms/cms-app/target/cms-app.war
 cd /data/projects/cms-web/
 jar -xvf /data/source/cms/cms-web/target/cms-web.war 
 cp -rf /data/source/cms/cms-publish/target/cms-publish.jar /data/projects/cms-publish/
