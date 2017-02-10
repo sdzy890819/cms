@@ -8537,7 +8537,6 @@ _e(function (E, $) {
         menu.clickEvent = function (e) {
             var elem = editor.getRangeElem();
             var p = editor.getSelfOrParentByName(elem, 'p');
-            
             var $p;
 
             if (!p) {

@@ -10,7 +10,7 @@ define(["app", '../data/getData', './form','form','position','fixedNav'], functi
 	        	$scope.$parent.menu.push({name:$scope.title});
 
 	        	$scope.save = function(obj){	        		
-							var type, showFlag;
+							var type, showFlag, platform;
 
 							$.each(obj.selects,function(){
 								if(this.title == 'type'){
@@ -19,6 +19,10 @@ define(["app", '../data/getData', './form','form','position','fixedNav'], functi
 
 								if(this.title == 'showFlag'){
 									showFlag = this.id;
+								}
+
+								if(this.title == 'platform') {
+									platform = this.id;
 								}
 							});
 
@@ -30,6 +34,7 @@ define(["app", '../data/getData', './form','form','position','fixedNav'], functi
 								sort : obj.sort,
 								parentId : obj.parentId,
 								showFlag : showFlag,
+								platform : platform,
 								permission : obj.permission,
 								callback : function(_data){
 

@@ -35,11 +35,12 @@ define(["app",'jquery', '../upload/index', '../data/getData','form'],function (a
 							}
 
 							if($scope.imageInfo == undefined){
-								console.log(_obj.userId);
+								
 								getData.user.updateUser({
 									userId : _obj.userId,
 									headImage : _obj.headImage,
 									realName : newData.realName,
+									idfa : newData.idfa,
 									pwd : newData.pwd,						
 								
 									callback : function(_data){

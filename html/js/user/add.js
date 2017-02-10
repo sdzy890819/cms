@@ -30,6 +30,7 @@ define(["app",'./addForm', '../upload/index', '../data/getData','form','position
 													headImage : data.imageUrl,
 													userName: obj.userName,
 													realName: obj.realName,
+													idfa : obj.idfa,
 													pwd:  obj.pwd,
 
 													callback : function(_data){
