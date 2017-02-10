@@ -128,6 +128,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						sort : obj.sort,
 						parentId : obj.parentId,
 						showFlag : obj.showFlag,
+						platform : obj.platform,
 						permission : obj.permission
 					},
 					success : function(_data){
@@ -148,6 +149,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						sort : obj.sort,
 						parentId : obj.parentId,
 						showFlag : obj.showFlag,
+						platform : obj.platform,
 						permission : obj.permission
 					},
 					success : function(_data){

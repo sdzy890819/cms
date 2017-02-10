@@ -39,7 +39,7 @@ define(['require',"app",'jquery'
 	        					$uibModal  : $uibModal,
 	        					updateData : getAddForm,
 	        					save : function(obj, _detail) {	
-	        						var type, showFlag;  
+	        						var type, showFlag, platform;  
 
 	        						if (obj.type == 'BUTTON') {
 	        							type = 2;
@@ -53,6 +53,12 @@ define(['require',"app",'jquery'
 	        							showFlag = 0;
 	        						}
 
+	        						if (obj.platform == 'CMS') {
+	        							platform = 1;
+	        						}else if(obj.platform == 'APP') {
+	        							platform = 2;
+	        						}
+
 											data.permission.updatePermission({
 												id : _detail.id,
 												name : obj.name,
@@ -62,6 +68,7 @@ define(['require',"app",'jquery'
 												sort : obj.sort,
 												parentId : obj.parentId,
 												showFlag : showFlag,
+												platform : platform,
 												permission : obj.permission,
 												callback : function(_data){
 
@@ -108,7 +115,7 @@ define(['require',"app",'jquery'
 	        					$uibModal  : $uibModal,
 	        					updateData : getAddForm,
 	        					save : function(obj, _detail) {	
-	        						var type, showFlag;  
+	        						var type, showFlag, platform;  
 
 	        						if (obj.type == 'BUTTON') {
 	        							type = 2;
@@ -122,6 +129,12 @@ define(['require',"app",'jquery'
 	        							showFlag = 0;
 	        						}
 
+	        						if (obj.platform == 'CMS') {
+	        							platform = 1;
+	        						}else if(obj.platform == 'APP') {
+	        							platform = 2;
+	        						}	        						
+
 											data.permission.createPermission({												
 												name : obj.name,
 												description : obj.description,
@@ -130,6 +143,7 @@ define(['require',"app",'jquery'
 												sort : obj.sort,
 												parentId : obj.parentId,
 												showFlag : showFlag,
+												platform : platform,
 												permission : obj.permission,
 												callback : function(_data){
 
@@ -186,6 +200,7 @@ define(['require',"app",'jquery'
 													{name:'权限名', key: 'name' },
 													{name:'父类ID', key: 'parentId'},
 													{name:'权限代码', key: 'permission'},
+													{name: '显示设备', key: 'platformStr'},
 													{name:'类型', key: 'typeStr'},
 													{name:'操作' , width : '200', class:'center'}
 									];
