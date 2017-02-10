@@ -100,4 +100,23 @@ public class AppLoginControllerApp extends AppBaseController {
         return ApiResponse.returnSuccess(map);
     }
 
+    /**
+     * 密匙
+     * @return
+     */
+    @RequestMapping(value = "/login/test/en", method = RequestMethod.GET)
+    public String en(@RequestParam(value = "tt") String tt,
+                     @RequestParam(value = "userName") String userName,
+                     @RequestParam(value = "pwd") String pwd,
+                     @RequestParam(value = "time") String time) throws IOException {
+        String abc = EncryptUtil.encryptAES(tt, userName, pwd, time);
+        Map<String, String> map = new HashMap<>();
+        map.put("tt", tt);
+        map.put("userName", userName);
+        map.put("pwd", pwd);
+        map.put("time", time);
+        map.put("encrypt", abc);
+        return ApiResponse.returnSuccess(map);
+    }
+
 }
