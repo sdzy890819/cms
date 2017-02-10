@@ -81,7 +81,8 @@ public class PermissionController extends BaseController {
                                    @RequestParam(value = "sort")Integer sort,
                                    @RequestParam(value = "parentId")Long parentId,
                                    @RequestParam(value = "showFlag")Integer showFlag,
-                                   @RequestParam(value = "permission")String permission){
+                                   @RequestParam(value = "permission")String permission,
+                                   @RequestParam(value = "platform") Integer platform){
         Permission p = new Permission();
         p.setLastModifyUserId(getCurrentUserId(request));
         p.setDescription(description);
@@ -92,6 +93,7 @@ public class PermissionController extends BaseController {
         p.setSort(sort);
         p.setType(type);
         p.setUrl(url);
+        p.setPlatform(platform);
         this.permissionBiz.createPermission(p);
         return ApiResponse.returnSuccess();
     }
@@ -119,7 +121,8 @@ public class PermissionController extends BaseController {
                                    @RequestParam(value = "url",required = false)String url,
                                    @RequestParam(value = "sort",required = false)Integer sort,
                                    @RequestParam(value = "showFlag",required = false)Integer showFlag,
-                                   @RequestParam(value = "permission",required = false)String permission){
+                                   @RequestParam(value = "permission",required = false)String permission,
+                                   @RequestParam(value = "platform",required = false) Integer platform){
         Permission old = this.permissionBiz.findPermission(id);
         if(old == null){
             return ApiResponse.returnFail(StaticContants.ERROR_PERMISSION_NOT_FOUND);
@@ -145,6 +148,9 @@ public class PermissionController extends BaseController {
         }
         if(StringUtils.isNotBlank(url)){
             old.setUrl(url);
+        }
+        if(platform !=null && platform >-1){
+            old.setPlatform(platform);
         }
         this.permissionBiz.updatePermission(old);
         return ApiResponse.returnSuccess();

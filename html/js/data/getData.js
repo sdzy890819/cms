@@ -128,6 +128,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						sort : obj.sort,
 						parentId : obj.parentId,
 						showFlag : obj.showFlag,
+						platform : obj.platform,
 						permission : obj.permission
 					},
 					success : function(_data){
@@ -148,6 +149,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						sort : obj.sort,
 						parentId : obj.parentId,
 						showFlag : obj.showFlag,
+						platform : obj.platform,
 						permission : obj.permission
 					},
 					success : function(_data){
@@ -240,6 +242,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					data : {
 						userName: obj.userName,
 						realName: obj.realName,
+						idfa : obj.idfa,
 						pwd:  obj.pwd,
 						headImage: obj.headImage						
 					},
@@ -254,6 +257,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					type : 'post' ,
 					data : {												
 						realName: obj.realName,
+						idfa : obj.idfa,
 						pwd:  obj.pwd,
 						headImage: obj.headImage	,
 						userId : obj.userId					
