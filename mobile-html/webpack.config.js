@@ -11,7 +11,10 @@ var webpack = require('webpack')
 const extractSCSS = new ExtractTextPlugin('stylesheets/[name].less');
 
 module.exports = {
-    entry: './js/main.js',
+    entry: { 
+        app : './js/main.js',
+        //global: ["Vue", "VueRouter"]
+    },
     output: {
         path: path.join(__dirname, "/build"),
         publicPath: build ? http : local,
@@ -44,6 +47,11 @@ module.exports = {
                 test: /\.js$/,
                 enforce: "pre",
                 loader: "babel-loader"
+            },
+            {
+                test: /\.js$/,
+                enforce: "pre",
+                loader: "babel-loader"
             }
         ],
     },
@@ -52,6 +60,10 @@ module.exports = {
             path.join(__dirname, "/"),
             "node_modules"
         ],
+        alias : {
+            Vue : 'js/plug/vue.min' , 
+            VueRouter : 'js/plug/vue-router.min'
+        },
         extensions: ['.js', '.json', '.scss','.sass','.vue','.jsx','.css'],
     },
     plugins: [
@@ -76,7 +88,12 @@ module.exports = {
         new ExtractTextPlugin({
             filename : './[id][name].css?[hash]',
             allChunks : true
-        })
+        }),
+        /*new CommonsChunkPlugin({
+            name: ['global','app'], 
+            //filename : 'global.js',
+            //minChunks : Infinity
+        })*/
     ]
 };
 
