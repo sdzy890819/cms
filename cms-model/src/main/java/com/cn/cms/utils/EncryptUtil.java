@@ -34,6 +34,8 @@ public class EncryptUtil {
 
     public static final String KEY_ALGORITHM = "RSA";
 
+    public static final String ALGORITHM = "AES/ECB/PKCS7Padding";
+
     /**
      * 随时生成length长度的密码串
      * @param length
@@ -150,9 +152,7 @@ public class EncryptUtil {
         return base64Encoder.decodeBuffer(string);
     }
 
-    public static void main(String[] args){
-        System.out.println(randomPwd(12));
-    }
+
 
 
 
@@ -298,26 +298,74 @@ public class EncryptUtil {
     }
 
 
+
+    public static String bytesToHexString(byte[] src){
+        StringBuilder stringBuilder = new StringBuilder("");
+        if (src == null || src.length <= 0) {
+            return null;
+        }
+        for (int i = 0; i < src.length; i++) {
+            int v = src[i] & 0xFF;
+            String hv = Integer.toHexString(v);
+            if (hv.length() < 2) {
+                stringBuilder.append(0);
+            }
+            stringBuilder.append(hv);
+        }
+        return stringBuilder.toString();
+    }
+    /**
+     * Convert hex string to byte[]
+     * @param hexString the hex string
+     * @return byte[]
+     */
+    public static byte[] hexStringToBytes(String hexString) {
+        if (hexString == null || hexString.equals("")) {
+            return null;
+        }
+        hexString = hexString.toUpperCase();
+        int length = hexString.length() / 2;
+        char[] hexChars = hexString.toCharArray();
+        byte[] d = new byte[length];
+        for (int i = 0; i < length; i++) {
+            int pos = i * 2;
+            d[i] = (byte) (charToByte(hexChars[pos]) << 4 | charToByte(hexChars[pos + 1]));
+        }
+        return d;
+    }
+
+    private static byte charToByte(char c) {
+        return (byte) "0123456789ABCDEF".indexOf(c);
+    }
+
+
     /**
      * AES加密Key.
      * @return
      */
-    public static String encryptAESKey(){
+    public static String encryptAESKey(String pwd){
         KeyGenerator keyGen = null;//密钥生成器
         try {
             keyGen = KeyGenerator.getInstance("AES");
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        keyGen.init(128);
+        SecureRandom securerandom = new SecureRandom(tohash256Deal(pwd));
+        keyGen.init(128, securerandom);
         SecretKey secretKey = keyGen.generateKey();//生成密钥
         byte[] key = secretKey.getEncoded();//密钥字节数组
+        return bytesToHexString(key);
+    }
+
+    private static byte[] tohash256Deal(String datastr) {
         try {
-            return new String(key, StaticContants.UTF8);
-        } catch (UnsupportedEncodingException e) {
-            log.error(e);
+            MessageDigest digester=MessageDigest.getInstance("SHA-256");
+            digester.update(datastr.getBytes());
+            byte[] hex=digester.digest();
+            return hex;
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e.getMessage());
         }
-        return null;
     }
 
     /**
@@ -332,13 +380,12 @@ public class EncryptUtil {
             for( int i = 0; i < params.length; i ++){
                 sbf.append(params[i]);
             }
-            SecretKey secretKey = new SecretKeySpec(key.getBytes(Charset.forName(StaticContants.UTF8)), "AES");//恢复密钥
-            Cipher cipher = null;//Cipher完成加密或解密工作类
             try {
-                cipher = Cipher.getInstance("AES");
+                SecretKey secretKey = new SecretKeySpec(hexStringToBytes(key), "AES");//恢复密钥
+                Cipher cipher = Cipher.getInstance("AES");
                 cipher.init(Cipher.ENCRYPT_MODE, secretKey);//对Cipher初始化，解密模式
-                byte[] cipherByte = cipher.doFinal(sbf.toString().getBytes(Charset.forName(StaticContants.UTF8)));//加密data
-                return new String(cipherByte, StaticContants.UTF8);
+                byte[] cipherByte = cipher.doFinal(sbf.toString().getBytes());//加密data
+                return bytesToHexString(cipherByte);
             } catch (NoSuchAlgorithmException e) {
                 log.error(e);
             } catch (NoSuchPaddingException e) {
@@ -348,8 +395,6 @@ public class EncryptUtil {
             } catch (BadPaddingException e) {
                 log.error(e);
             } catch (IllegalBlockSizeException e) {
-                log.error(e);
-            } catch (UnsupportedEncodingException e) {
                 log.error(e);
             }
 
@@ -365,12 +410,12 @@ public class EncryptUtil {
      * @return
      */
     public static String decryptAEC(String key, String encryptCode){
-        SecretKey secretKey = new SecretKeySpec(key.getBytes(Charset.forName(StaticContants.UTF8)), "AES");//恢复密钥
+        SecretKey secretKey = new SecretKeySpec(hexStringToBytes(key), "AES");//恢复密钥
         Cipher cipher = null;//Cipher完成加密或解密工作类
         try {
             cipher = Cipher.getInstance("AES");
             cipher.init(Cipher.DECRYPT_MODE, secretKey);//对Cipher初始化，解密模式
-            byte[] cipherByte = cipher.doFinal(encryptCode.getBytes(Charset.forName(StaticContants.UTF8)));//加密data
+            byte[] cipherByte = cipher.doFinal(hexStringToBytes(encryptCode));//加密data
             return new String(cipherByte, StaticContants.UTF8);
         } catch (NoSuchAlgorithmException e) {
             log.error(e);
@@ -386,6 +431,34 @@ public class EncryptUtil {
             log.error(e);
         }
         return null;
+    }
+
+
+    public static void main(String[] args) throws IOException {
+//        String randomPwd = EncryptUtil.randomPwd(96);
+//        String tt = EncryptUtil.encryptAESKey(randomPwd);
+//        String key = EncryptUtil.encryptAESKey(randomPwd);
+//        String ttbase = EncryptUtil.base64(EncryptUtil.encryptAES(key, tt).concat(key).getBytes(StaticContants.UTF8));
+//        System.out.println("返回的TT：" + tt);
+//        String code = "kyo123456";
+//        String nn = EncryptUtil.encryptAES(tt, code);
+//        System.out.println("NN: " + nn);
+//        System.out.println("加密后的TTBASE：" + ttbase);
+//        String tmp = new String(EncryptUtil.decode64(ttbase), StaticContants.UTF8);
+//        String reEncryptCode = tmp.substring(0, tmp.length() - 32);
+//        String rekey = tmp.substring(tmp.length() - 32);
+//        String rett = EncryptUtil.decryptAEC(rekey, reEncryptCode);
+//        System.out.println("返回的TT：" + rett);
+//        String recode = EncryptUtil.decryptAEC(rett, nn);
+//        System.out.println("RECODE: " + recode);
+
+        String tt= "72ad8b4bdac29903bf82467e85a5effb";
+        String time = Long.toString(new Date().getTime());
+        String name = "kyo";
+        String pwd = "123456";
+        System.out.println(time);
+        System.out.println(EncryptUtil.encryptAES(tt, name, pwd, time));
+
     }
 
 }

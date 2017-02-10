@@ -29,6 +29,11 @@ public class UserBean {
      */
     private String userId;
 
+    /**
+     * idfa
+     */
+    private String idfa;
+
 
     /**
      * 最后修改人ID
@@ -42,6 +47,7 @@ public class UserBean {
             this.realName = user.getRealName();
             this.userId = user.getUserId();
             this.lastModifyUserId = user.getLastModifyUserId();
+            this.idfa = user.getIdfa();
         }
     }
 

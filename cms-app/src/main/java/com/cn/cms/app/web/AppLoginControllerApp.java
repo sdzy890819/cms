@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,7 +47,7 @@ public class AppLoginControllerApp extends AppBaseController {
                         HttpServletRequest request,
                         @RequestParam(value="userName")String userName,
                         @RequestParam(value="pwd")String pwd,
-                        @RequestParam(value="time")String time){
+                        @RequestParam(value="time")String time) throws IOException {
         String tt = CookieUtil.getCookieVal(request, StaticContants.APP_COOKIE_TT);
         String idfa = CookieUtil.getCookieVal(request, StaticContants.APP_COOKIE_DEVICE_IDFA);
         return userBiz.checkUserAndSetCookieForApp(response ,userName ,pwd, time, tt, idfa);
@@ -86,9 +89,12 @@ public class AppLoginControllerApp extends AppBaseController {
      * @return
      */
     @RequestMapping(value = "/login/init", method = RequestMethod.GET)
-    public String loginInit(HttpServletResponse response){
-        String tt = EncryptUtil.encryptAESKey();
-        CookieUtil.addCookie(response, StaticContants.APP_COOKIE_TT, tt, 0);
+    public String loginInit(HttpServletResponse response) throws IOException {
+        String randomPwd = EncryptUtil.randomPwd(96);
+        String tt = EncryptUtil.encryptAESKey(randomPwd);
+        String key = EncryptUtil.encryptAESKey(randomPwd);
+        String ttbase = EncryptUtil.base64(EncryptUtil.encryptAES(key, tt).concat(key).getBytes(StaticContants.UTF8));
+        CookieUtil.addCookie(response, StaticContants.APP_COOKIE_TT, ttbase, 0);
         Map<String, String> map = new HashMap<>();
         map.put("tt", tt);
         return ApiResponse.returnSuccess(map);
