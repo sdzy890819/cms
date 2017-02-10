@@ -43,7 +43,7 @@ define(['require',"app",'jquery',
 					},
 
 					del : function( obj ){ //删除
-						console.log(obj);
+						
 						pop.alert({
 							 text:'你确定删除：'+ obj.realName
 							,btn : ['确定','取消']
@@ -72,10 +72,17 @@ define(['require',"app",'jquery',
 					var th = [
 								{name:'头像' ,  key: 'headImage', width : '200'},										
 								{name:'真实名称', key: 'realName' },
+								{name: 'IDFA(MAC)', key: 'idfa'},
 								{name: '用户ID', key: 'userId'},
 								{name:'操作' , width : '300' , class:'center'}
 					];				
 
+					$.each(_data.data.list, function(i, a){						
+						if (!a.idfa) {
+							a.idfa = '';
+						}
+					})
+					
 					$scope.listdata = { //确认按钮
 						title : $scope.title,
 						table : {

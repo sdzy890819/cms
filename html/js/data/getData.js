@@ -240,6 +240,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					data : {
 						userName: obj.userName,
 						realName: obj.realName,
+						idfa : obj.idfa,
 						pwd:  obj.pwd,
 						headImage: obj.headImage						
 					},
@@ -254,6 +255,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					type : 'post' ,
 					data : {												
 						realName: obj.realName,
+						idfa : obj.idfa,
 						pwd:  obj.pwd,
 						headImage: obj.headImage	,
 						userId : obj.userId					

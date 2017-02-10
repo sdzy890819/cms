@@ -21,6 +21,13 @@ define(function(){
 			check : false
 		},
 		{
+			title : 'idfa',
+			name : 'IDFA(MAC)',
+			placeholder : '请输入IDFA(MAC)',
+			type : 'text',
+			check : false
+		},		
+		{
 			title : 'pwd',
 			name : '密码',
 			placeholder : '请输入密码',
