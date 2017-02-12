@@ -92,8 +92,10 @@
 	</div>
 	<div class="edit">
 		<div class="btn">
-			<i class="add"></i>
-			新增
+			<router-link to="/new/add">
+				<i class="add"></i>
+				新增
+			</router-link>
 		</div>
 	</div>
 </div>

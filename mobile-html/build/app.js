@@ -1,6 +1,34 @@
 /******/ (function(modules) { // webpackBootstrap
+/******/ 	// install a JSONP callback for chunk loading
+/******/ 	var parentJsonpFunction = window["webpackJsonp"];
+/******/ 	window["webpackJsonp"] = function webpackJsonpCallback(chunkIds, moreModules, executeModules) {
+/******/ 		// add "moreModules" to the modules object,
+/******/ 		// then flag all "chunkIds" as loaded and fire callback
+/******/ 		var moduleId, chunkId, i = 0, resolves = [], result;
+/******/ 		for(;i < chunkIds.length; i++) {
+/******/ 			chunkId = chunkIds[i];
+/******/ 			if(installedChunks[chunkId])
+/******/ 				resolves.push(installedChunks[chunkId][0]);
+/******/ 			installedChunks[chunkId] = 0;
+/******/ 		}
+/******/ 		for(moduleId in moreModules) {
+/******/ 			if(Object.prototype.hasOwnProperty.call(moreModules, moduleId)) {
+/******/ 				modules[moduleId] = moreModules[moduleId];
+/******/ 			}
+/******/ 		}
+/******/ 		if(parentJsonpFunction) parentJsonpFunction(chunkIds, moreModules, executeModules);
+/******/ 		while(resolves.length)
+/******/ 			resolves.shift()();
+/******/
+/******/ 	};
+/******/
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
+/******/
+/******/ 	// objects to store loaded and loading chunks
+/******/ 	var installedChunks = {
+/******/ 		1: 0
+/******/ 	};
 /******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
@@ -26,6 +54,49 @@
 /******/ 		return module.exports;
 /******/ 	}
 /******/
+/******/ 	// This file contains only the entry chunk.
+/******/ 	// The chunk loading function for additional chunks
+/******/ 	__webpack_require__.e = function requireEnsure(chunkId) {
+/******/ 		if(installedChunks[chunkId] === 0)
+/******/ 			return Promise.resolve();
+/******/
+/******/ 		// an Promise means "currently loading".
+/******/ 		if(installedChunks[chunkId]) {
+/******/ 			return installedChunks[chunkId][2];
+/******/ 		}
+/******/ 		// start chunk loading
+/******/ 		var head = document.getElementsByTagName('head')[0];
+/******/ 		var script = document.createElement('script');
+/******/ 		script.type = 'text/javascript';
+/******/ 		script.charset = 'utf-8';
+/******/ 		script.async = true;
+/******/ 		script.timeout = 120000;
+/******/
+/******/ 		if (__webpack_require__.nc) {
+/******/ 			script.setAttribute("nonce", __webpack_require__.nc);
+/******/ 		}
+/******/ 		script.src = __webpack_require__.p + "" + ({}[chunkId]||chunkId) + "_chunk.js?name=" + "9adeb7db755642d59768" + "";
+/******/ 		var timeout = setTimeout(onScriptComplete, 120000);
+/******/ 		script.onerror = script.onload = onScriptComplete;
+/******/ 		function onScriptComplete() {
+/******/ 			// avoid mem leaks in IE.
+/******/ 			script.onerror = script.onload = null;
+/******/ 			clearTimeout(timeout);
+/******/ 			var chunk = installedChunks[chunkId];
+/******/ 			if(chunk !== 0) {
+/******/ 				if(chunk) chunk[1](new Error('Loading chunk ' + chunkId + ' failed.'));
+/******/ 				installedChunks[chunkId] = undefined;
+/******/ 			}
+/******/ 		};
+/******/
+/******/ 		var promise = new Promise(function(resolve, reject) {
+/******/ 			installedChunks[chunkId] = [resolve, reject];
+/******/ 		});
+/******/ 		installedChunks[chunkId][2] = promise;
+/******/
+/******/ 		head.appendChild(script);
+/******/ 		return promise;
+/******/ 	};
 /******/
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
@@ -62,8 +133,11 @@
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
 /******/
+/******/ 	// on error function for async loading
+/******/ 	__webpack_require__.oe = function(err) { console.error(err); throw err; };
+/******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 37);
+/******/ 	return __webpack_require__(__webpack_require__.s = 38);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -4611,13 +4685,13 @@ if(false) {
 
 
 /* styles */
-__webpack_require__(36)
+__webpack_require__(37)
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(17),
   /* template */
-  __webpack_require__(32),
+  __webpack_require__(33),
   /* scopeId */
   "data-v-f26746a6",
   /* cssModules */
@@ -4649,13 +4723,13 @@ module.exports = Component.exports
 
 
 /* styles */
-__webpack_require__(33)
+__webpack_require__(34)
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(18),
   /* template */
-  __webpack_require__(28),
+  __webpack_require__(29),
   /* scopeId */
   "data-v-08ca4464",
   /* cssModules */
@@ -4687,13 +4761,13 @@ module.exports = Component.exports
 
 
 /* styles */
-__webpack_require__(34)
+__webpack_require__(35)
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(19),
   /* template */
-  __webpack_require__(29),
+  __webpack_require__(30),
   /* scopeId */
   "data-v-4344ca08",
   /* cssModules */
@@ -5436,6 +5510,8 @@ Object.defineProperty(exports, "__esModule", {
 //
 //
 //
+//
+//
 
 exports.default = {
 	name: 'list',
@@ -5518,7 +5594,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"list.vue","sourceRoot":"webpack://"}]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"list.vue","sourceRoot":"webpack://"}]);
 
 // exports
 
@@ -5557,13 +5633,13 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "", {"ve
 
 
 /* styles */
-__webpack_require__(35)
+__webpack_require__(36)
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(15),
   /* template */
-  __webpack_require__(30),
+  __webpack_require__(31),
   /* scopeId */
   "data-v-52d90edc",
   /* cssModules */
@@ -5597,7 +5673,7 @@ var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(16),
   /* template */
-  __webpack_require__(31),
+  __webpack_require__(32),
   /* scopeId */
   null,
   /* cssModules */
@@ -5624,7 +5700,8 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 28 */
+/* 28 */,
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -5643,13 +5720,23 @@ if (false) {
 }
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
+  return _c('div', [_vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _c('div', {
+    staticClass: "edit"
+  }, [_c('div', {
+    staticClass: "btn"
+  }, [_c('router-link', {
+    attrs: {
+      "to": "/new/add"
+    }
+  }, [_c('i', {
+    staticClass: "add"
+  }), _vm._v("\r\n\t\t\t\t新增\r\n\t\t\t")])], 1)])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
+  return _c('div', {
     attrs: {
       "id": "Search"
     }
@@ -5659,7 +5746,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _c('div', {
     staticClass: "btn"
-  }, [_vm._v("搜索")])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("搜索")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
     staticClass: "new-list"
   }, [_c('dl', [_c('dt', [_vm._v("标题标题")]), _vm._v(" "), _c('dd', [_c('p', [_vm._v("内容内容")]), _vm._v(" "), _c('div', {
     staticClass: "aside"
@@ -5733,13 +5822,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "author"
   }, [_vm._v("作者：卖血的羔羊")]), _vm._v(" "), _c('span', {
     staticClass: "time"
-  }, [_vm._v("2017/02/02")])])])])]), _vm._v(" "), _c('div', {
-    staticClass: "edit"
-  }, [_c('div', {
-    staticClass: "btn"
-  }, [_c('i', {
-    staticClass: "add"
-  }), _vm._v("\r\n\t\t\t新增\r\n\t\t")])])])
+  }, [_vm._v("2017/02/02")])])])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -5750,7 +5833,7 @@ if (false) {
 }
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -5775,7 +5858,7 @@ if (false) {
 }
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -5815,7 +5898,7 @@ if (false) {
 }
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -5830,7 +5913,7 @@ if (false) {
 }
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -5856,7 +5939,7 @@ if(false) {
 }
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -5882,7 +5965,7 @@ if(false) {
 }
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -5908,7 +5991,7 @@ if(false) {
 }
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -5934,7 +6017,7 @@ if(false) {
 }
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5967,6 +6050,11 @@ var router = new VueRouter({
 			path: 'list',
 			component: _list2.default,
 			alias: ['/new']
+		}, { // new or new/list
+			path: 'add',
+			component: function component(resolve) {
+				__webpack_require__.e/* require */(0).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(28)]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+			}
 		}]
 	}
 	/*{ 
@@ -5986,4 +6074,4 @@ new Vue({
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=app.js.map?name=8b6dc694e031d74b24f1
+//# sourceMappingURL=app.js.map?name=9adeb7db755642d59768

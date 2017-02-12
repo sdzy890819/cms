@@ -17,6 +17,12 @@ const router = new VueRouter({
 					component: newList, 
 					alias: ['/new'] 
 				},
+				{  // new or new/list
+					path: 'add', 
+					component : function(resolve){
+		        		require(['./new/add.vue'],resolve)
+		        	}
+				},
 			]
 		}
 		/*{ 
