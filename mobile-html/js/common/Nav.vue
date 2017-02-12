@@ -22,19 +22,6 @@
 </template>
 <script>
 	export default {
-		name : 'Nav',
-		props : {
-
-		},
-		data (){
-			return {
-				
-			}
-		},
-		ready(){
-		}
+		name : 'Nav'
 	}
 </script>
-<style scoped>
-
-</style>

@@ -2,7 +2,7 @@
 <div>
 	<Header></Header>
 	<article class="container">
-		<p>相关内容</p>
+		<router-view class="new"></router-view>
 	</article>
 	<Nav></Nav>
 </div>

@@ -63,12 +63,12 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 36);
+/******/ 	return __webpack_require__(__webpack_require__.s = 35);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 1:
+/***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2078,10 +2078,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 /***/ }),
 
-/***/ 36:
+/***/ 35:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(1);
+__webpack_require__(0);
 module.exports = __webpack_require__(5);
 
 
@@ -2764,4 +2764,4 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 /***/ })
 
 /******/ });
-//# sourceMappingURL=vendor.js.map?name=fef27c95cef1707dd5c5
+//# sourceMappingURL=vendor.js.map?name=5217e8bce387c38bc697

@@ -17,7 +17,7 @@ const SASS = new ExtractTextPlugin('stylesheets/[name].less');
 module.exports = {
     entry: { 
         app : './js/main.js',
-        vendor : ["Vue", "VueRouter"]
+        /*vendor : ["Vue", "VueRouter"]*/
     },
     /*externals : {
         '$' : 'window.zepto',
