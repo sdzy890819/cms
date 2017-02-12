@@ -1,2 +1,28 @@
 @import 'global.scss';
-body{ background:#fff; }
+body{ @include box; @include box-orient; background:#fff; }
+#Header{
+	height:2.8125rem; line-height: 2.8125rem; padding:0 $s10; border-bottom: $s1 solid #ccc; background:#212121;
+	img{
+		float:left; margin-right:$s5; width:$s30; height: $s30; border-radius: 100%;
+	}
+}
+#Nav{ position:fixed; z-index:999; left:0; bottom:0; width:100%;  height:$s60; background:#d00000;
+	ul{@include box; width:100%; height:100%;
+		li{ @include box-flex;@include box;@include box-orient;
+			border-right:$s1 solid rgba(0,0,0,.3); box-shadow:$s2 0 0 rgba(255,255,255,.3);
+			a{ @include box-flex;
+				@include box; @include boxCenter; @include boxMiddle; @include box-orient; width:100%; height:100%; color:#fff; text-align:center;
+				&.active{ background-color:#af0000 }
+			}
+			&:last-child{
+				border-right:0; box-shadow:none
+			}
+		}
+		i{ display:block; margin:0 auto; height:$s30;
+			&.new{ width:$s30; @include contain('../images/news.png') }
+			&.image{ width:$s30; @include contain('../images/image.png') }
+			&.video{ width:$s30; @include contain('../images/video.png')}
+		}
+	}
+}
+.container{ @include box-flex; padding-bottom:$s60; @include box-sizing;}

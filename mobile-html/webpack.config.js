@@ -1,6 +1,8 @@
+
 var webpack = require('webpack')
     ,path = require('path')
     ,HtmlWebpackPlugin = require('html-webpack-plugin')
+    ,ImageminPlugin = require('imagemin-webpack-plugin')
     ,CleanPlugin = require('clean-webpack-plugin')
     ,ExtractTextPlugin = require("extract-text-webpack-plugin")
     ,CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin")
@@ -8,13 +10,20 @@ var webpack = require('webpack')
     ,local = ''
     ,http = ''; 
 
-const extractSCSS = new ExtractTextPlugin('stylesheets/[name].less');
+
+const CSS = new ExtractTextPlugin('stylesheets/[name].less');
+const SASS = new ExtractTextPlugin('stylesheets/[name].less');
 
 module.exports = {
     entry: { 
         app : './js/main.js',
-        //global: ["Vue", "VueRouter"]
+        vendor : ["Vue", "VueRouter"]
     },
+    /*externals : {
+        '$' : 'window.zepto',
+        'Vue' : 'window.Vue',
+        'VueRouter' : 'window.VueRouter'
+    },*/
     output: {
         path: path.join(__dirname, "/build"),
         publicPath: build ? http : local,
@@ -31,6 +40,21 @@ module.exports = {
                     "sass-loader"
                 ]
             },
+            {
+                test: /\.(png|jpg|gif|svg)$/,
+                use: ["url-loader"],//,'image-webpack-loader',"url-loader"
+                /*options : {
+                      optimizationLevel: 7,
+                }*/
+            },
+            /*{
+                test: /\.(png|jpg|gif|svg)$/,
+                use: "url-loader",
+                options : {
+                    limit: 15000,
+                    name: '[name].[ext]?[hash]'
+                }
+            },*/
             /*{
                 test: /\.scss$/,
                 use : ExtractTextPlugin.extract({
@@ -43,15 +67,22 @@ module.exports = {
                     publicPath: "/build"
                 })
             },*/
+            /*{
+                test: /\.scss$/,
+                use: SASS.extract([ 'css-loader', 'sass-loader' ])
+            },
+            {
+                test: /\.css$/,
+                use: CSS.extract([ 'css-loader', 'postcss-loader' ])
+            },*/
             {
                 test: /\.js$/,
                 enforce: "pre",
                 loader: "babel-loader"
             },
             {
-                test: /\.js$/,
-                enforce: "pre",
-                loader: "babel-loader"
+              test: /\.vue$/,
+              loader: 'vue-loader'
             }
         ],
     },
@@ -69,7 +100,7 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             template: path.resolve('./', 'index.html'),  
-            inject: 'body',
+            inject: true,
             filename: 'index.html',
             minify : {
                 removeComments:true,    //移除HTML中的注释
@@ -89,8 +120,9 @@ module.exports = {
             filename : './[id][name].css?[hash]',
             allChunks : true
         }),
+        //new ImageminWebpackPlugin({ test: /\.(jpe?g|png|gif|svg)$/i })
         /*new CommonsChunkPlugin({
-            name: ['global','app'], 
+            name: 'vendor', 
             //filename : 'global.js',
             //minChunks : Infinity
         })*/

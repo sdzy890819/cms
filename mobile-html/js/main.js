@@ -1,25 +1,36 @@
 import '../css/main.scss';
+/*import _ from 'lodash';*/
 import login from './login/index.vue';
-/*Vue.use(VueRouter);
+import newindex from './new/index.vue';
 
+Vue.use(VueRouter);
+
+const Home = { template : '<router-view></router-view>'}
 const Foo = { template: '<div>foo</div>' }
-const Bar = { template: '<div>bar</div>' }
-
-const routes = [
-  { path: '/foo', component: login },
-  { path: '/bar', component: Bar }
-];
 
 const router = new VueRouter({
-  routes : routes
+	mode: 'history',
+	base: __dirname,
+	routes : [
+		//{ path: '*', redirect: '/login' },
+		{ path: '/', component: Home , 
+			children: [
+		        { path: '', component: newindex },
+				{ path: 'new', component: newindex , children: [
+				        { path: 'list', redirect: 'new' }
+					]
+				}
+			]
+		}
+	]
 })
 
 
 const app = new Vue({
-  router : router
-}).$mount('#app');*/
-
-new Vue({
-	el : '#app',
-	components : { login }
-});
+  router : router,
+  template: `
+    <div id="app">
+      <router-view class="view"></router-view>
+    </div>
+  `
+}).$mount('#app');

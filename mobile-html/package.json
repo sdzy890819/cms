@@ -4,5 +4,6 @@
     "dev": "set NODE_ENV=dev&&webpack --colors --config webpack.config.js",
     "gulpdev": "gulp dev --gulpfile gulpfile.babel.js",
     "gulpbuild": "gulp build --gulpfile gulpfile.babel.js"
-  }
+  },
+  "devDependencies": {}
 }
