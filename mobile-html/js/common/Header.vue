@@ -1,7 +1,7 @@
 <template>
 <div>
 	<div id="Header">
-		<img src='img'/>
+		<img src=''/>
 		<span>用户名</span>
 	</div>
 </div>

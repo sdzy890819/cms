@@ -111,7 +111,7 @@ module.exports = {
             //Promise: 'imports?this=>global!exports?global.Promise!es6-promise',
             $ : 'webpack-zepto',
             Vue : 'Vue',
-            VueRouter : 'vue-router'
+            VueRouter : 'VueRouter'
             //globalCss : '../../common/css/style/global.scss'
             //React : 'react',
             //ReactDOM : 'react-dom'

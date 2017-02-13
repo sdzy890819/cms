@@ -2,7 +2,9 @@
 <div>
 	<Header></Header>
 	<article class="container">
-		<router-view class="new"></router-view>
+		<transition name="fade" mode="in-out">
+			<router-view class="new"></router-view>
+		</transition>
 	</article>
 	<Nav></Nav>
 </div>

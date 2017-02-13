@@ -22,6 +22,17 @@
 </template>
 <script>
 	export default {
-		name : 'Nav'
+		name : 'Nav',
+		props : {
+
+		},
+		data (){
+			return {
+				
+			}
+		},
+		ready(){
+		}
 	}
 </script>
+<style scoped></style>
