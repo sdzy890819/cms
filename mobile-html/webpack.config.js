@@ -93,7 +93,9 @@ module.exports = {
         ],
         alias : {
             Vue : 'js/plug/vue.min' , 
-            VueRouter : 'js/plug/vue-router.min'
+            VueRouter : 'js/plug/vue-router.min' ,
+            calendar : 'js/plug/vue-calendar',
+            zepto : 'js/plug/zepto.min'
         },
         extensions: ['.js', '.json', '.scss','.sass','.vue','.jsx','.css'],
     },
@@ -109,9 +111,10 @@ module.exports = {
         }),
         new webpack.ProvidePlugin({
             //Promise: 'imports?this=>global!exports?global.Promise!es6-promise',
-            $ : 'webpack-zepto',
+            $ : 'zepto',
             Vue : 'Vue',
-            VueRouter : 'VueRouter'
+            VueRouter : 'VueRouter',
+            calendar : 'calendar',
             //globalCss : '../../common/css/style/global.scss'
             //React : 'react',
             //ReactDOM : 'react-dom'

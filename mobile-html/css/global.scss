@@ -8,7 +8,7 @@ a { color:#535862; text-decoration: none; }
 a:hover { color:#c40000; text-decoration: underline; }
 img { border: 0; }
 table { border-collapse: collapse; border-spacing: 0; }
-input[type="button"], input[type="submit"], input[type="reset"] { cursor: pointer; }
+input[type="button"], input[type="submit"], input[type="reset"] { cursor: pointer;-webkit-appearance: none; }
 .clearfix:after, .wrapper:after { visibility: hidden; display: block; font-size: 0; content: " "; clear: both; height: 0; }
 .clearfix { display: inline-block; }
 /* close commented backslash hack */

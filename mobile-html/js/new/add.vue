@@ -11,25 +11,31 @@
 			</li>
 			<li><textarea class="text" type="text" placeholder='描述'></textarea></li>
 			<li>
-				<select v-model="selected">
-				  <option>请选择部门</option>
-				  <option>B</option>
-				  <option>C</option>
-				</select>
+				<div class="select">
+					<select>
+					  <option selected>请选择部门</option>
+					  <option>B</option>
+					  <option>C</option>
+					</select>
+				</div>
 			</li>
 			<li>
-				<select v-model="selected">
-				  <option>请选择频道</option>
-				  <option>B</option>
-				  <option>C</option>
-				</select>
+				<div class="select">
+					<select>
+					  <option selected>请选择频道</option>
+					  <option>B</option>
+					  <option>C</option>
+					</select>
+				</div>
 			</li>
 			<li>
-				<select v-model="selected">
-				  <option>请选择栏目</option>
-				  <option>B</option>
-				  <option>C</option>
-				</select>
+				<div class="select">
+					<select>
+					  <option selected>请选择栏目</option>
+					  <option>B</option>
+					  <option>C</option>
+					</select>
+				</div>
 			</li>
 			<li>
 				富文本
@@ -39,11 +45,11 @@
 				<i class="add"></i>
 			</li>
 			<li>
-				<label><input type="radio">发布</label>
-				<label><input type="radio">不发布</label>
+				<label for='one'><input id='one' name='send' type="radio" v-model="picked">发布</label>
+				<label for='two'><input id='two' name='send' type="radio" v-model="picked">不发布</label>
 			</li>
 			<li>
-				定时发布时间 
+				<input type='date' placeholder='定时发布'>
 			</li>
 		</ul>
 		<div class="submit">
@@ -56,6 +62,9 @@
 <script>
 	export default {
 		name : 'add',
+		components : {
+			
+		},
 		props : {
 
 		},
@@ -82,36 +91,16 @@ $s35 : 2.1875rem;
 $s40 : 2.5rem;$s50 : 3.125rem;$s60 : 3.75rem;$s70 : 4.375rem;$s80 : 5.0rem;$s90 : 5.625rem; $s100 : 6.25rem;
 
 $browser : webkit;
-/* public */
-@mixin border( $color:#DBDBDB , $size:bottom ){
-	background-image: -webkit-linear-gradient(90deg,$color,$color 50%,transparent 50%);
-	background-image: -moz-linear-gradient(90deg,$color,$color 50%,transparent 50%);
-	background-image: -o-linear-gradient(90deg,$color,$color 50%,transparent 50%);
-	background-image: linear-gradient(0,$color,$color 50%,transparent 50%);
-	background-size: 100% 1px;
-	background-repeat: no-repeat;
-	background-position: $size
+
+@mixin box-sizing ($sizing:border-box) {
+    -webkit-box-sizing:$sizing;
+            box-sizing:$sizing;
 }
-@mixin contain($img , $contain:contain){
-	background: url($img) no-repeat;
-	background-size: $contain; 
-}
-@mixin animation( $name , $time:.5s , $move:infinite , $line:linear ){
-	animation: $name $time $move $line;
-    @each $key in $browser {
-        -#{$key}-animation:$name $time $move $line;
-    }
-}
+
 @mixin box{
 	display: -webkit-box;
     display: -webkit-flexbox;
     display: flexbox;
-}
-@mixin flex( $val :0 ){
-    flex-shrink: $val ;
-    @each $key in $browser {
-        -#{$key}-flex-shrink:$val;
-    }
 }
 @mixin box-flex( $val :1 ){
     box-flex:$val;
@@ -125,96 +114,99 @@ $browser : webkit;
         -#{$key}-box-orient:$val;
     }
 }
-@mixin boxCenter( $val : center ){
-	box-pack: $val;
-    justify-content:$val;
-    @each $key in $browser {
-        -#{$key}-box-pack:$val;
-        -#{$key}-justify-content:$val;
-    }
+%icon:before {
+  font-family: "icons";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
-@mixin boxMiddle( $val : center ){
-	box-align: $val;
-    align-content:$val;
-    @each $key in $browser {
-        -#{$key}-box-align:$val;
-        -#{$key}-align-content:$val;
-    }
-}
-@mixin align-items( $val : center){
-    align-items : $val;
-    @each $key in $browser {
-        -#{$key}-align-items:$val;
-    }
-}
-@mixin flex-grow( $val : 1){
-    flex-grow : $val; -webkit-flex-grow : $val
-}
-@mixin box-sizing ($sizing:border-box) {
-    -webkit-box-sizing:$sizing;
-            box-sizing:$sizing;
+.icon--down:before {
+	content: "\e600";
 }
 
-@mixin transition-property( $val , $b ){
-    transition-property: $val;
-    @each $key in $browser {
-        @if $b{
-            -#{$key}-transition-property:-#{$key}-$val;
-        }@else{
-            -#{$key}-transition-property:$val;
-        }
-    }
+// Icon font
+@font-face {
+  font-family: 'icons';
+	src: url(data:application/font-woff;charset=utf-8;base64,d09GRk9UVE8AAARgAAoAAAAABBgAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABDRkYgAAAA9AAAANgAAADYZbVvCE9TLzIAAAHMAAAAYAAAAGAIIvy2Y21hcAAAAiwAAABMAAAATBpVzFdnYXNwAAACeAAAAAgAAAAIAAAAEGhlYWQAAAKAAAAANgAAADYAl8viaGhlYQAAArgAAAAkAAAAJANuAeZobXR4AAAC3AAAABQAAAAUAwAAdG1heHAAAALwAAAABgAAAAYABVAAbmFtZQAAAvgAAAFFAAABRVcZpu5wb3N0AAAEQAAAACAAAAAgAAMAAAEABAQAAQEBCGljb21vb24AAQIAAQA6+BwC+BsD+BgEHgoAGVP/i4seCgAZU/+LiwwHi2v4lPh0BR0AAAB2Dx0AAAB7ER0AAAAJHQAAAM8SAAYBAQgPERMWG2ljb21vb25pY29tb29udTB1MXUyMHVFNjAwAAACAYkAAwAFAQEEBwoNTPyUDvyUDvyUDvuUDvgg958VgYD7AiOLi4aFg4iEi4SLg46GkYuL+wLzgZaAloqel5eWlpqMmX8I7yvv6wWZl5qKloCXf4p4gIAIDviUFPiUFYsMCgADAgABkAAFAAABTAFmAAAARwFMAWYAAAD1ABkAhAAAAAAAAAAAAAAAAAAAAAEQAAAAAAAAAAAAAAAAAAAAAEAAAOYAAeD/4P/gAeAAIAAAAAEAAAAAAAAAAAAAACAAAAAAAAIAAAADAAAAFAADAAEAAAAUAAQAOAAAAAoACAACAAIAAQAg5gD//f//AAAAAAAg5gD//f//AAH/4xoEAAMAAQAAAAAAAAAAAAAAAQAB//8ADwABAAAAAQAAss1nQF8PPPUACwIAAAAAAM/2xdgAAAAAz/bF2AAAAAABjAE1AAAACAACAAAAAAAAAAEAAAHg/+AAAAIAAAAAAAGMAAEAAAAAAAAAAAAAAAAAAAAFAAAAAAAAAAAAAAAAAQAAAAIAAHQAAFAAAAUAAAAAAA4ArgABAAAAAAABAA4AAAABAAAAAAACAA4ARwABAAAAAAADAA4AJAABAAAAAAAEAA4AVQABAAAAAAAFABYADgABAAAAAAAGAAcAMgABAAAAAAAKADQAYwADAAEECQABAA4AAAADAAEECQACAA4ARwADAAEECQADAA4AJAADAAEECQAEAA4AVQADAAEECQAFABYADgADAAEECQAGAA4AOQADAAEECQAKADQAYwBpAGMAbwBtAG8AbwBuAFYAZQByAHMAaQBvAG4AIAAxAC4AMABpAGMAbwBtAG8AbwBuaWNvbW9vbgBpAGMAbwBtAG8AbwBuAFIAZQBnAHUAbABhAHIAaQBjAG8AbQBvAG8AbgBGAG8AbgB0ACAAZwBlAG4AZQByAGEAdABlAGQAIABiAHkAIABJAGMAbwBNAG8AbwBuAC4AAAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==) format('woff');
+	font-weight: normal;
+	font-style: normal;
 }
-@mixin transition-duration( $val:.3s ){
-    transition-duration : $val;
-    @each $key in $browser {
-        -#{$key}-transition-duration:$val;
-    }
-}
-@mixin transform( $val ){
-    transform : $val;
-    @each $key in $browser {
-        -#{$key}-transform:$val;
-    }
-}
-@mixin animation($val){
-    animation : $val;
-    @each $key in $browser {
-        -#{$key}-animation:$val;
-    }
-}
-
-$minDevice: -webkit-min-device-pixel-ratio;
-$maxDevice: -webkit-max-device-pixel-ratio;
-@mixin size( $key , $val , $device:1 ){
-    @if $device == 1080{
-        $val : $val/2.88;
-    }
-    $val : $val/16px * 1rem;
-    #{$key} :  $val;
-    @media only screen and (min-device-width : 320px) and (max-device-width : 340px) and (orientation : portrait) and ($minDevice:1) and ($maxDevice:2) {
-        #{$key}: $val*.85714285714285714;
-    }
-    @media only screen and (min-device-width : 240px) and (max-device-width : 600px) and (orientation : portrait) and ($minDevice:0.75) and ($maxDevice:1.9){
-        #{$key}: $val*.85714285714285714;
-    }
-
-    //iphone 6 plus
-    @media only screen and (min-device-width : 410px) and (max-device-width : 500px) and (orientation : portrait) and ($minDevice:2.5) and ($maxDevice:4.0){
-        #{$key}: $val*1.105;
-    }
-}
-@mixin font-size( $val ){
-	@include size(font-size,$val)
-}
-	.form{
+$select-padding: 0.5em;
+.container{ overflow-y:scroll; }
+	.form{ font-size: $s14;
 		ul{ margin-bottom: $s10; padding:0 $s10; border-top:$s1 solid #ddd; border-bottom:$s1 solid #ddd; background:#fff; }
 		li{ @include box; padding:$s5 0;
-			input,select,label{ display:block; @include box-flex; height:$s25; line-height:$s25;
+			>input[type='text'],>input[type='date'],>label,>textarea{ display:block; @include box-flex; height:$s25; line-height:$s25;
 				border:$s1 solid #ddd; padding:$s4;
+			}
+			>textarea{ display: block; width:100%; height:$s60; padding:$s5; @include box-sizing; -webkit-appearance: none; }
+			>label{ border:none; }
+			>input{
+				&:not(:first-child){ margin-left:$s10; };
+			}
+			input{
+				background:#fff;-webkit-appearance: none;
+				&[type='radio']{ margin-right: $s5; }
 			}
 			select{ display: block;  }
 		}
+
+		.select{
+		  display: block; /* 1 */
+		  width:100%; @include box-sizing;
+		  position: relative; /* 2 */
+		  vertical-align: middle; /* 3 */
+		  padding: 0; /* 4 */
+		  overflow: hidden; /* 5 */
+		  
+		  // Custom Styling
+		  background:#fff;
+		  color:#555;
+		  border:$s1 solid #ddd;
+		  text-shadow: none;
+		  border-radius:$s4;
+
+		  &:hover{
+		    box-shadow : 0 1px 4px rgba(#000, 0.15);
+		  }
+
+		  @extend %icon; /* 6 */
+		  @extend .icon--down; /* 6 */
+
+		  &:before{
+		    position: absolute; /* 7 */
+		    top: $select-padding; /* 7 */
+		    right: $select-padding; /* 7 */
+		    pointer-events: none; /* 8 */
+		  }
+
+		  select{
+		  	width:100%; @include box-sizing;
+		    padding: $select-padding; /* 10 */
+		    padding-right: $select-padding + 1.5em; /* 11 */
+		    border: none; /* 13 */
+		    background: transparent; /* 13 */
+		    background-image: none; /* 13 */
+		    -webkit-appearance: none; /* 13 */
+		       -moz-appearance: none; /* 13 */
+		            appearance: none; /* 13 */
+
+		    // Mozilla Hack
+		    text-indent: 0.01px; /* 14 */
+		    text-overflow: ''; /* 14 */
+		    
+		    &:focus{
+		      outline:none; /* 16 */
+		    }
+		  }
+		}
+
 
 		.submit{
 			  @include box; padding:$s10;
@@ -225,4 +217,6 @@ $maxDevice: -webkit-max-device-pixel-ratio;
 			 }
 		}
 	}
+
+
 </style>
