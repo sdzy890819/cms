@@ -45,11 +45,11 @@
 				<i class="add"></i>
 			</li>
 			<li>
-				<label for='one'><input id='one' name='send' type="radio" v-model="picked">发布</label>
-				<label for='two'><input id='two' name='send' type="radio" v-model="picked">不发布</label>
+				<label for='one'><input id='one' name='send' type="radio">发布</label>
+				<label for='two'><input id='two' name='send' type="radio">不发布</label>
 			</li>
 			<li>
-				<input type='date' placeholder='定时发布'>
+				<input type='date' v-model='date' >
 			</li>
 		</ul>
 		<div class="submit">
@@ -70,11 +70,11 @@
 		},
 		data (){
 			return {
-				
+				date : new Date()
 			}
 		},
 		ready(){
-
+			this.date = '2017/01/01'
 		}
 	}
 </script>
@@ -150,7 +150,7 @@ $select-padding: 0.5em;
 			>input{
 				&:not(:first-child){ margin-left:$s10; };
 			}
-			input{
+			input:not([type='radio']){
 				background:#fff;-webkit-appearance: none;
 				&[type='radio']{ margin-right: $s5; }
 			}
