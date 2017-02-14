@@ -1,20 +1,20 @@
 import '../css/main.scss';
 /*import _ from 'lodash';*/
-import login from './login/index';
-import newindex from './new/index';
-import newList from './new/list';
+import box from './common/box';
 Vue.use(VueRouter)
 const router = new VueRouter({
 	mode: 'hash',
 	base: __dirname,
 	routes: [
 		{ path: '/', redirect:'/new'},
-		{ path: '/new', component: newindex,
+		{ path: '/new', component: box,
 			children: [
 				{ path: '', redirect: 'list' },
 				{  // new or new/list
 					path: 'list', 
-					component: newList, 
+					component: function(resolve){
+						require(['./new/list'],resolve)
+					}, 
 					alias: ['/new'] 
 				},
 				{
@@ -24,13 +24,43 @@ const router = new VueRouter({
 		        	}
 				},
 			]
-		}
-		/*{ 
-	        		path: '/list', 
-		        	component : function(resolve){
-		        		require(['./new/list.vue'],resolve)
+		},
+		{ path: '/image', component: box,
+			children: [
+				{ path: '', redirect: 'list' },
+				{  // new or new/list
+					path: 'list', 
+					component : function(resolve){
+		        		require(['./image/list'],resolve)
+		        	},
+					alias: ['/image'] 
+				},
+				{
+					path: 'add', 
+					component : function(resolve){
+		        		require(['./image/add'],resolve)
 		        	}
-		    	},*/
+				},
+			]
+		},
+		{ path: '/video', component: box,
+			children: [
+				{ path: '', redirect: 'list' },
+				{  // new or new/list
+					path: 'list', 
+					component : function(resolve){
+		        		require(['./video/list'],resolve)
+		        	},
+					alias: ['/video'] 
+				},
+				{
+					path: 'add', 
+					component : function(resolve){
+		        		require(['./video/add'],resolve)
+		        	}
+				},
+			]
+		}
 	]
 });
 

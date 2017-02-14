@@ -1,5 +1,5 @@
 <template>
-<div class="new" style="overflow-y:scroll;">
+<div class="new">
 	<div class="form">
 		<ul>
 			<li><input class="text" type="text" placeholder='标题'></li>
@@ -138,6 +138,7 @@ $browser : webkit;
 	font-style: normal;
 }
 $select-padding: 0.5em;
+.container{ overflow-y:scroll; }
 	.form{ font-size: $s14;
 		ul{ margin-bottom: $s10; padding:0 $s10; border-top:$s1 solid #ddd; border-bottom:$s1 solid #ddd; background:#fff; }
 		li{ @include box; padding:$s5 0;

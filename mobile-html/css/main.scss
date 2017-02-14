@@ -1,5 +1,5 @@
 @import 'global.scss';
-body{ height:100%; background:#f8f8f8; }
+body{ height:100%; }
 i{
 
 	&.add{ height:$s40; width:$s40; display:block; position:relative; border-radius:$s50;background:#d00000;
@@ -12,8 +12,14 @@ i{
 	.view{ height:100%; height:100%; @include box; @include box-orient;
 	}
 }
-#Header{
-	height:2.8125rem; line-height: 2.8125rem; padding:0 $s10; border-bottom: $s1 solid #ccc; background:#212121;
+#Header{ @include box;
+	height:$s35; line-height: 2.8125rem; padding:0 $s10; border-bottom: $s1 solid #ccc; background:#212121;
+	>div{ @include box-flex; color:#fff; line-height:$s35;
+		&:last-child{ text-align:right;}
+		&.user-info{
+			img{ display:inline-block; width:$s25; height:$s25; vertical-align:middle; }
+		}
+	}
 	img{
 		float:left; margin-right:$s5; width:$s30; height: $s30; border-radius: 100%;
 	}
@@ -22,7 +28,7 @@ i{
 	ul{@include box; width:100%; height:100%;
 		li{ @include box-flex;@include box;@include box-orient;
 			border-right:$s1 solid rgba(0,0,0,.3); box-shadow:$s2 0 0 rgba(255,255,255,.3);
-			a{ @include box-flex;
+			a{ @include box-flex; text-decoration:none;
 				@include box; @include boxCenter; @include boxMiddle; @include box-orient; width:100%; height:100%; color:#fff; text-align:center;
 				&.active{ background-color:#af0000 }
 			}
@@ -50,17 +56,22 @@ i{
 	.new-list{
 		@include box-flex; overflow-y:scroll;
 		dl{ @include size(line-height,22px); margin-bottom:$s10; padding:$s10 $s10 $s5; border-top:$s1 solid #ddd; border-bottom:$s1 solid #ddd; background:#fff; overflow:hidden;
-			dt{ @include size(height,22px); font-size:$s16; color:#444; }
+			dt{ @include size(height,22px); font-size:$s16; color:#444;
+				
+			}
 			dd{ @include size(max-height,44px); font-size:$s14;
+				p{ overflow:hidden; text-overflow:ellipsis;}
 				.aside{ margin-top:$s5; padding-top:$s5; font-size:$s12; border-top:$s1 dashed #eee;
 					.submit{ float:right;
 						.btn{ display:inline-block; height:$s23; line-height:$s23;  padding:0 $s15;border:$s1 solid #ddd; background:#f8f8f8;
-							&:hover{ background:#e50000; color:#fff;}
-						}
+								&:hover{ background:#e50000; color:#fff;}
+							}
 					}
 				}
 			}
 		}
 	}
-	.edit{ position: fixed; z-index: 998; right:$s10; bottom:$s70;}
+}
+.fixed-edit{ position: fixed; z-index: 998; right:$s10; bottom:$s70;
+
 }

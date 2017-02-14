@@ -1,7 +1,7 @@
 body, div, p, h1, h2, h3, h4, h5, h6, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, table, th, td { margin: 0; padding: 0; }
 address, cite, em, i { font-style: normal; }
 html,body,root{ height:100%; overflow:hidden;}
-body{ margin:0 auto; color:#fff; -webkit-appearance: none; background:#fff; overflow-y:scroll; font-family:'PingFang SC','STHeiti','Microsoft YaHei',Helvetica,Arial,sans-serif; color: #878C92;}
+body{ margin:0 auto; color:#fff; -webkit-appearance: none; background:#fff; font-family:'PingFang SC','STHeiti','Microsoft YaHei',Helvetica,Arial,sans-serif; color: #878C92;}
 li { list-style: none; }
 html,body{ max-width:750px; margin:0 auto;}
 a { color:#535862; text-decoration: none; }
@@ -22,7 +22,9 @@ $s22 : 1.375rem;
 $s23 : 1.4375rem;
 $s25 : 1.5625rem;
 $s28 : 1.75rem;
-$s30 : 1.875rem;$s40 : 2.5rem;$s50 : 3.125rem;$s60 : 3.75rem;$s70 : 4.375rem;$s80 : 5.0rem;$s90 : 5.625rem; $s100 : 6.25rem;
+$s30 : 1.875rem;$s31 : 1.9375rem;$s32 : 2.0rem;$s33 : 2.0625rem;$s34 : 2.125rem;
+$s35 : 2.1875rem;$s36 : 2.25rem;$s37 : 2.3125rem;$s38 : 2.375rem;$s39 :2.4375rem;
+$s40 : 2.5rem;$s50 : 3.125rem;$s60 : 3.75rem;$s70 : 4.375rem;$s80 : 5.0rem;$s90 : 5.625rem; $s100 : 6.25rem;
 
 $browser : webkit;
 /* public */
@@ -177,3 +179,4 @@ $maxDevice: -webkit-max-device-pixel-ratio;
 /* public */
 .flex{ @include flex(); }
 input{outline: none;}
+.container{ background:#f8f8f8;}
