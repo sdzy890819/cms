@@ -14,7 +14,8 @@ i{
 }
 #Header{ @include box;
 	height:$s35; line-height: 2.8125rem; padding:0 $s10; border-bottom: $s1 solid #ccc; background:#212121;
-	>div{ @include box-flex; color:#fff; line-height:$s35;
+	>div{ @include box-flex; color:#fff; line-height:$s35; font-size:$s12;
+		a{ color:#fff;}
 		&:last-child{ text-align:right;}
 		&.user-info{
 			img{ display:inline-block; width:$s25; height:$s25; vertical-align:middle; }
@@ -75,3 +76,4 @@ i{
 .fixed-edit{ position: fixed; z-index: 998; right:$s10; bottom:$s70;
 
 }
+

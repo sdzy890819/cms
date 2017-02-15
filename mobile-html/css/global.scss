@@ -167,6 +167,108 @@ $maxDevice: -webkit-max-device-pixel-ratio;
         @content;
     }
 }
+%icon:before {
+  font-family: "icons";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon--down:before {
+    content: "\e600";
+}
+
+// Icon font
+@font-face {
+  font-family: 'icons';
+    src: url(data:application/font-woff;charset=utf-8;base64,d09GRk9UVE8AAARgAAoAAAAABBgAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABDRkYgAAAA9AAAANgAAADYZbVvCE9TLzIAAAHMAAAAYAAAAGAIIvy2Y21hcAAAAiwAAABMAAAATBpVzFdnYXNwAAACeAAAAAgAAAAIAAAAEGhlYWQAAAKAAAAANgAAADYAl8viaGhlYQAAArgAAAAkAAAAJANuAeZobXR4AAAC3AAAABQAAAAUAwAAdG1heHAAAALwAAAABgAAAAYABVAAbmFtZQAAAvgAAAFFAAABRVcZpu5wb3N0AAAEQAAAACAAAAAgAAMAAAEABAQAAQEBCGljb21vb24AAQIAAQA6+BwC+BsD+BgEHgoAGVP/i4seCgAZU/+LiwwHi2v4lPh0BR0AAAB2Dx0AAAB7ER0AAAAJHQAAAM8SAAYBAQgPERMWG2ljb21vb25pY29tb29udTB1MXUyMHVFNjAwAAACAYkAAwAFAQEEBwoNTPyUDvyUDvyUDvuUDvgg958VgYD7AiOLi4aFg4iEi4SLg46GkYuL+wLzgZaAloqel5eWlpqMmX8I7yvv6wWZl5qKloCXf4p4gIAIDviUFPiUFYsMCgADAgABkAAFAAABTAFmAAAARwFMAWYAAAD1ABkAhAAAAAAAAAAAAAAAAAAAAAEQAAAAAAAAAAAAAAAAAAAAAEAAAOYAAeD/4P/gAeAAIAAAAAEAAAAAAAAAAAAAACAAAAAAAAIAAAADAAAAFAADAAEAAAAUAAQAOAAAAAoACAACAAIAAQAg5gD//f//AAAAAAAg5gD//f//AAH/4xoEAAMAAQAAAAAAAAAAAAAAAQAB//8ADwABAAAAAQAAss1nQF8PPPUACwIAAAAAAM/2xdgAAAAAz/bF2AAAAAABjAE1AAAACAACAAAAAAAAAAEAAAHg/+AAAAIAAAAAAAGMAAEAAAAAAAAAAAAAAAAAAAAFAAAAAAAAAAAAAAAAAQAAAAIAAHQAAFAAAAUAAAAAAA4ArgABAAAAAAABAA4AAAABAAAAAAACAA4ARwABAAAAAAADAA4AJAABAAAAAAAEAA4AVQABAAAAAAAFABYADgABAAAAAAAGAAcAMgABAAAAAAAKADQAYwADAAEECQABAA4AAAADAAEECQACAA4ARwADAAEECQADAA4AJAADAAEECQAEAA4AVQADAAEECQAFABYADgADAAEECQAGAA4AOQADAAEECQAKADQAYwBpAGMAbwBtAG8AbwBuAFYAZQByAHMAaQBvAG4AIAAxAC4AMABpAGMAbwBtAG8AbwBuaWNvbW9vbgBpAGMAbwBtAG8AbwBuAFIAZQBnAHUAbABhAHIAaQBjAG8AbQBvAG8AbgBGAG8AbgB0ACAAZwBlAG4AZQByAGEAdABlAGQAIABiAHkAIABJAGMAbwBNAG8AbwBuAC4AAAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==) format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+$select-padding: 0.5em;
+.form{ font-size: $s14;
+    ul{ margin-bottom: $s10; padding:0 $s10; border-top:$s1 solid #ddd; border-bottom:$s1 solid #ddd; background:#fff; }
+    li{ @include box; padding:$s5 0;
+        >input[type='text'],>input[type='tel'],>input[type='date'],>label,>textarea{ display:block; @include box-flex; height:$s25; line-height:$s25;
+            border:$s1 solid #ddd; padding:$s4;
+        }
+        >textarea{ display: block; width:100%; height:$s60; padding:$s5; @include box-sizing; -webkit-appearance: none; }
+        >label{ border:none; }
+        >input{
+            &:not(:first-child){ margin-left:$s10; };
+        }
+        input:not([type='radio']){
+            background:#fff;-webkit-appearance: none;
+            &[type='radio']{ margin-right: $s5; }
+        }
+        select{ display: block;  }
+    }
+
+    .select{
+      display: block; /* 1 */
+      width:100%; @include box-sizing;
+      position: relative; /* 2 */
+      vertical-align: middle; /* 3 */
+      padding: 0; /* 4 */
+      overflow: hidden; /* 5 */
+      
+      // Custom Styling
+      background:#fff;
+      color:#555;
+      border:$s1 solid #ddd;
+      text-shadow: none;
+      border-radius:$s4;
+
+      &:hover{
+        box-shadow : 0 1px 4px rgba(#000, 0.15);
+      }
+
+      @extend %icon; /* 6 */
+      @extend .icon--down; /* 6 */
+
+      &:before{
+        position: absolute; /* 7 */
+        top: $select-padding; /* 7 */
+        right: $select-padding; /* 7 */
+        pointer-events: none; /* 8 */
+      }
+
+      select{
+        width:100%; @include box-sizing;
+        padding: $select-padding; /* 10 */
+        padding-right: $select-padding + 1.5em; /* 11 */
+        border: none; /* 13 */
+        background: transparent; /* 13 */
+        background-image: none; /* 13 */
+        -webkit-appearance: none; /* 13 */
+           -moz-appearance: none; /* 13 */
+                appearance: none; /* 13 */
+
+        // Mozilla Hack
+        text-indent: 0.01px; /* 14 */
+        text-overflow: ''; /* 14 */
+        
+        &:focus{
+          outline:none; /* 16 */
+        }
+      }
+    }
+
+
+    .submit{
+          @include box; padding:$s10;
+         .btn{ display:block; @include box-flex; text-align: center;
+            height:$s35; line-height: $s35; background:#f85200; border-radius: $s3; color:#fff; font-size: $s14;
+            &:not(:first-child){ margin-left:$s10; };
+            &:hover{ background: #ff4e00 };
+         }
+    }
+}
 
 /* link color */
 .red{ color:#f42b13;}

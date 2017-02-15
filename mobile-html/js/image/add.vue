@@ -1,222 +1,109 @@
+<style lang='sass'>
+@import '../../css/global.scss';
+.image{
+	.form{
+		margin-top:$s15;
+		input[type='file']{ display:none; }
+		overflow:hidden;
+		.btn-file{ @include box-sizing; border-radius:$s3;
+			display: block; width:100%; height:$s35; line-height: $s35; text-align: center; border:$s1 solid #ddd; background:#d00000; color:#fff;
+			&.gray{ background:gray; } 
+		}
+		li{
+			padding:$s10 0;
+			.label{ width:5.625rem; padding-right: $s5; text-align:center; }
+			.text{ @include box-flex; 
+				label:not(:first-child){ margin-right:$s10; };
+			}
+			#img{ display:block; margin:0 auto; max-width:10rem; max-height: 10rem; border:$s1 solid #ddd; padding:$s1; background:#fff; }
+		}
+	}
+}
+</style>
 <template>
-<div class="new">
+<div class="image">
 	<div class="form">
 		<ul>
-			<li><input class="text" type="text" placeholder='标题'></li>
-			<li><input class="text" type="text" placeholder='副标题'></li>
-			<li><input class="text" type="text" placeholder='关键字'></li>
 			<li>
-				<input class="text" type="text" placeholder='作者'>
-				<input class="text" type="text" placeholder='来源'>
+				<input id='file' type="file" value="上传图片"/>
+				<div @click='file' class="btn-file">+上传图片</div>
 			</li>
-			<li><textarea class="text" type="text" placeholder='描述'></textarea></li>
+			<li style='display:none'><img id="img"></li>
+			<li><input class="text" type="text" placeholder='图片标题'></li>
 			<li>
-				<div class="select">
-					<select>
-					  <option selected>请选择部门</option>
-					  <option>B</option>
-					  <option>C</option>
-					</select>
+				<div class="label">是否水印</div>
+				<div class="text">
+					<input type="radio" id="one" value="true">
+					<label for="one">是</label>
+
+					<input type="radio" id="two" value="false">
+					<label for="two">否</label>
 				</div>
 			</li>
 			<li>
-				<div class="select">
-					<select>
-					  <option selected>请选择频道</option>
-					  <option>B</option>
-					  <option>C</option>
-					</select>
+				<div class="label">是否等比缩放</div>
+				<div class="text">
+					<input type="radio" id="one1" value="true" v-model="shuo">
+					<label for="one1">是</label>
+
+					<input type="radio" id="two1" value="false" v-model="shuo">
+					<label for="two1">否</label>
 				</div>
 			</li>
-			<li>
-				<div class="select">
-					<select>
-					  <option selected>请选择栏目</option>
-					  <option>B</option>
-					  <option>C</option>
-					</select>
+			<li v-show='shuo=="true"'>
+				<div class="label">等比缩放选择</div>
+				<div class="text">
+					<input type="radio" id="one2" value="true" v-model="size">
+					<label for="one2">是</label>
+
+					<input type="radio" id="two2" value="false" v-model="size">
+					<label for="two2">否</label>
 				</div>
 			</li>
-			<li>
-				富文本
-			</li>
-			<li>
-				<input class="text" type="text" placeholder='扩展字段'>
-				<i class="add"></i>
-			</li>
-			<li>
-				<label for='one'><input id='one' name='send' type="radio">发布</label>
-				<label for='two'><input id='two' name='send' type="radio">不发布</label>
-			</li>
-			<li>
-				<input type='date' v-model='date' >
-			</li>
+			<li v-show='shuo=="true"&&size=="true"'><input class="text" type="tel" placeholder='图片宽度'></li>
+			<li v-show='shuo=="true"&&size=="false"'><input class="text" type="tel" placeholder='图片高度'></li>
 		</ul>
 		<div class="submit">
 			<div class="btn">提交</div>
-			<div class="btn">保存草稿箱</div>
 		</div>
 	</div>
 </div>
 </template>
 <script>
 	export default {
-		name : 'add',
-		components : {
-			
-		},
-		props : {
-
-		},
 		data (){
 			return {
-				date : new Date()
+				filed : true,
+				shuo : 'false',
+				size : 'false'
 			}
 		},
-		ready(){
-			this.date = '2017/01/01'
+		methods : {
+			file : function(evet){
+				var self = this ,
+					tag = $(event.currentTarget),
+					file = $('#file');
+				file.bind('change',function(){
+					self.filed = true;
+					tag.removeClass('gray')
+					var file = this.files[0]; 
+					//这里我们判断下类型如果不是图片就返回 去掉就可以上传任意文件 
+					if(!/image\/\w+/.test(file.type)){ 
+						alert("请确保文件为图像类型"); 
+						return false; 
+					} 
+					var reader = new FileReader(); 
+					reader.readAsDataURL(file); 
+					reader.onload = function(e){ 
+						$('#img').attr('src',this.result).parent().show()
+					}
+				});
+				if(self.filed==true){
+					self.filed = false;
+					tag.addClass('gray')
+					file.click();
+				}
+			}
 		}
 	}
 </script>
-<style lang='sass'>
-$s1:.0625rem;$s2:.125rem;$s3:.1875rem;$s4:.25rem;$s5:.3125rem;$s6:.375rem;$s7:.4375rem;$s8:.5rem;$s9:.5625rem;$s10:.625rem;$s11:.6875rem;$s12: .75rem;$s13: .8125rem;$s14: .875rem;$s15: .9375rem;$s16: 1rem;$s17: 1.0625rem;$s18 : 1.125rem;$s19 : 1.1875rem;
-$s20 : 1.25rem;
-$s21 : 1.3125rem;
-$s22 : 1.375rem;
-$s23 : 1.4375rem;
-$s25 : 1.5625rem;
-$s28 : 1.75rem;
-$s30 : 1.875rem;
-$s35 : 2.1875rem;
-$s40 : 2.5rem;$s50 : 3.125rem;$s60 : 3.75rem;$s70 : 4.375rem;$s80 : 5.0rem;$s90 : 5.625rem; $s100 : 6.25rem;
-
-$browser : webkit;
-
-@mixin box-sizing ($sizing:border-box) {
-    -webkit-box-sizing:$sizing;
-            box-sizing:$sizing;
-}
-
-@mixin box{
-	display: -webkit-box;
-    display: -webkit-flexbox;
-    display: flexbox;
-}
-@mixin box-flex( $val :1 ){
-    box-flex:$val;
-    @each $key in $browser {
-        -#{$key}-box-flex:$val;
-    }
-}
-@mixin box-orient( $val : vertical ){
-    box-orient:$val;
-    @each $key in $browser {
-        -#{$key}-box-orient:$val;
-    }
-}
-%icon:before {
-  font-family: "icons";
-  speak: none;
-  font-style: normal;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-
-  /* Better Font Rendering =========== */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-.icon--down:before {
-	content: "\e600";
-}
-
-// Icon font
-@font-face {
-  font-family: 'icons';
-	src: url(data:application/font-woff;charset=utf-8;base64,d09GRk9UVE8AAARgAAoAAAAABBgAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABDRkYgAAAA9AAAANgAAADYZbVvCE9TLzIAAAHMAAAAYAAAAGAIIvy2Y21hcAAAAiwAAABMAAAATBpVzFdnYXNwAAACeAAAAAgAAAAIAAAAEGhlYWQAAAKAAAAANgAAADYAl8viaGhlYQAAArgAAAAkAAAAJANuAeZobXR4AAAC3AAAABQAAAAUAwAAdG1heHAAAALwAAAABgAAAAYABVAAbmFtZQAAAvgAAAFFAAABRVcZpu5wb3N0AAAEQAAAACAAAAAgAAMAAAEABAQAAQEBCGljb21vb24AAQIAAQA6+BwC+BsD+BgEHgoAGVP/i4seCgAZU/+LiwwHi2v4lPh0BR0AAAB2Dx0AAAB7ER0AAAAJHQAAAM8SAAYBAQgPERMWG2ljb21vb25pY29tb29udTB1MXUyMHVFNjAwAAACAYkAAwAFAQEEBwoNTPyUDvyUDvyUDvuUDvgg958VgYD7AiOLi4aFg4iEi4SLg46GkYuL+wLzgZaAloqel5eWlpqMmX8I7yvv6wWZl5qKloCXf4p4gIAIDviUFPiUFYsMCgADAgABkAAFAAABTAFmAAAARwFMAWYAAAD1ABkAhAAAAAAAAAAAAAAAAAAAAAEQAAAAAAAAAAAAAAAAAAAAAEAAAOYAAeD/4P/gAeAAIAAAAAEAAAAAAAAAAAAAACAAAAAAAAIAAAADAAAAFAADAAEAAAAUAAQAOAAAAAoACAACAAIAAQAg5gD//f//AAAAAAAg5gD//f//AAH/4xoEAAMAAQAAAAAAAAAAAAAAAQAB//8ADwABAAAAAQAAss1nQF8PPPUACwIAAAAAAM/2xdgAAAAAz/bF2AAAAAABjAE1AAAACAACAAAAAAAAAAEAAAHg/+AAAAIAAAAAAAGMAAEAAAAAAAAAAAAAAAAAAAAFAAAAAAAAAAAAAAAAAQAAAAIAAHQAAFAAAAUAAAAAAA4ArgABAAAAAAABAA4AAAABAAAAAAACAA4ARwABAAAAAAADAA4AJAABAAAAAAAEAA4AVQABAAAAAAAFABYADgABAAAAAAAGAAcAMgABAAAAAAAKADQAYwADAAEECQABAA4AAAADAAEECQACAA4ARwADAAEECQADAA4AJAADAAEECQAEAA4AVQADAAEECQAFABYADgADAAEECQAGAA4AOQADAAEECQAKADQAYwBpAGMAbwBtAG8AbwBuAFYAZQByAHMAaQBvAG4AIAAxAC4AMABpAGMAbwBtAG8AbwBuaWNvbW9vbgBpAGMAbwBtAG8AbwBuAFIAZQBnAHUAbABhAHIAaQBjAG8AbQBvAG8AbgBGAG8AbgB0ACAAZwBlAG4AZQByAGEAdABlAGQAIABiAHkAIABJAGMAbwBNAG8AbwBuAC4AAAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==) format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
-$select-padding: 0.5em;
-.container{ overflow-y:scroll; }
-	.form{ font-size: $s14;
-		ul{ margin-bottom: $s10; padding:0 $s10; border-top:$s1 solid #ddd; border-bottom:$s1 solid #ddd; background:#fff; }
-		li{ @include box; padding:$s5 0;
-			>input[type='text'],>input[type='date'],>label,>textarea{ display:block; @include box-flex; height:$s25; line-height:$s25;
-				border:$s1 solid #ddd; padding:$s4;
-			}
-			>textarea{ display: block; width:100%; height:$s60; padding:$s5; @include box-sizing; -webkit-appearance: none; }
-			>label{ border:none; }
-			>input{
-				&:not(:first-child){ margin-left:$s10; };
-			}
-			input:not([type='radio']){
-				background:#fff;-webkit-appearance: none;
-				&[type='radio']{ margin-right: $s5; }
-			}
-			select{ display: block;  }
-		}
-
-		.select{
-		  display: block; /* 1 */
-		  width:100%; @include box-sizing;
-		  position: relative; /* 2 */
-		  vertical-align: middle; /* 3 */
-		  padding: 0; /* 4 */
-		  overflow: hidden; /* 5 */
-		  
-		  // Custom Styling
-		  background:#fff;
-		  color:#555;
-		  border:$s1 solid #ddd;
-		  text-shadow: none;
-		  border-radius:$s4;
-
-		  &:hover{
-		    box-shadow : 0 1px 4px rgba(#000, 0.15);
-		  }
-
-		  @extend %icon; /* 6 */
-		  @extend .icon--down; /* 6 */
-
-		  &:before{
-		    position: absolute; /* 7 */
-		    top: $select-padding; /* 7 */
-		    right: $select-padding; /* 7 */
-		    pointer-events: none; /* 8 */
-		  }
-
-		  select{
-		  	width:100%; @include box-sizing;
-		    padding: $select-padding; /* 10 */
-		    padding-right: $select-padding + 1.5em; /* 11 */
-		    border: none; /* 13 */
-		    background: transparent; /* 13 */
-		    background-image: none; /* 13 */
-		    -webkit-appearance: none; /* 13 */
-		       -moz-appearance: none; /* 13 */
-		            appearance: none; /* 13 */
-
-		    // Mozilla Hack
-		    text-indent: 0.01px; /* 14 */
-		    text-overflow: ''; /* 14 */
-		    
-		    &:focus{
-		      outline:none; /* 16 */
-		    }
-		  }
-		}
-
-
-		.submit{
-			  @include box; padding:$s10;
-			 .btn{ display:block; @include box-flex; text-align: center;
-			 	height:$s35; line-height: $s35; background:#f85200; border-radius: $s3; color:#fff; font-size: $s14;
-			 	&:not(:first-child){ margin-left:$s10; };
-			 	&:hover{ background: #ff4e00 };
-			 }
-		}
-	}
-
-
-</style>

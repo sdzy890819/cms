@@ -115,7 +115,7 @@
 	</div>
 	<div class="fixed-edit">
 		<div class="btn">
-			<router-link to="/new/add">
+			<router-link to="/video/add">
 				<i class="add"></i>
 				新增
 			</router-link>

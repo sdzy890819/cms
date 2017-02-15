@@ -109,7 +109,7 @@
 	</div>
 	<div class="fixed-edit">
 		<div class="btn">
-			<router-link to="/new/add">
+			<router-link to="/image/add">
 				<i class="add"></i>
 				新增
 			</router-link>
