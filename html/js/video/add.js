@@ -11,7 +11,7 @@ define(["app",'./addForm','../upload/index','../data/getData','../upload/angular
 
 	        	angular.extend($scope,{
 						save : function( obj ){ //保存
-
+							
 							var $dom = $('.layui-box.layui-upload-button');
 							var videoUrl = $dom.attr('video-url'),
 									fileName = $dom.attr('filename');
