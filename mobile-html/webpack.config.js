@@ -42,7 +42,7 @@ module.exports = {
             },
             {
                 test: /\.(png|jpg|gif|svg)$/,
-                use: ["url-loader"],//,'image-webpack-loader',"url-loader"
+                use: "url-loader?limit=8192",//,'image-webpack-loader',"url-loader"
                 /*options : {
                       optimizationLevel: 7,
                 }*/
@@ -78,7 +78,10 @@ module.exports = {
             {
                 test: /\.js$/,
                 enforce: "pre",
-                loader: "babel-loader"
+                loader: "babel-loader",
+                options : {
+                    compact : false
+                }
             },
             {
               test: /\.vue$/,
