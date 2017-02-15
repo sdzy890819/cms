@@ -198,7 +198,7 @@ define(['require',"app",'jquery'
 									td : GenerateArrList.setArr(_data.data.list,th) ,
 									edit : [
 										{cls : 'edit' , name : '编辑',evt:$scope.edit},
-										{cls : 'edit' , name : '修改碎片对应关系',evt:$scope.editFragmentMap},
+										{cls : 'edit' , name : '碎片维护',evt:$scope.editFragmentMap},
 										{cls : 'del'  , name : '删除',evt:$scope.del},
 										{cls : 'edit'  , name : '发布',evt:$scope.release}
 									]
