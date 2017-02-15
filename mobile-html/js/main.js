@@ -1,25 +1,76 @@
 import '../css/main.scss';
-import login from './login/index.vue';
-/*Vue.use(VueRouter);
-
-const Foo = { template: '<div>foo</div>' }
-const Bar = { template: '<div>bar</div>' }
-
-const routes = [
-  { path: '/foo', component: login },
-  { path: '/bar', component: Bar }
-];
-
+/*import _ from 'lodash';*/
+import box from './common/box';
+Vue.use(VueRouter)
 const router = new VueRouter({
-  routes : routes
-})
-
-
-const app = new Vue({
-  router : router
-}).$mount('#app');*/
+	mode: 'hash',
+	base: __dirname,
+	routes: [
+		{ path: '/', redirect:'/new'},
+		{ path: '/new', component: box,
+			children: [
+				{ path: '', redirect: 'list' },
+				{  // new or new/list
+					path: 'list', 
+					component: function(resolve){
+						require(['./new/list'],resolve)
+					}, 
+					alias: ['/new'] 
+				},
+				{
+					path: 'add', 
+					component : function(resolve){
+		        		require(['./new/add'],resolve)
+		        	}
+				},
+			]
+		},
+		{ path: '/image', component: box,
+			children: [
+				{ path: '', redirect: 'list' },
+				{  // new or new/list
+					path: 'list', 
+					component : function(resolve){
+		        		require(['./image/list'],resolve)
+		        	},
+					alias: ['/image'] 
+				},
+				{
+					path: 'add', 
+					component : function(resolve){
+		        		require(['./image/add'],resolve)
+		        	}
+				},
+			]
+		},
+		{ path: '/video', component: box,
+			children: [
+				{ path: '', redirect: 'list' },
+				{  // new or new/list
+					path: 'list', 
+					component : function(resolve){
+		        		require(['./video/list'],resolve)
+		        	},
+					alias: ['/video'] 
+				},
+				{
+					path: 'add', 
+					component : function(resolve){
+		        		require(['./video/add'],resolve)
+		        	}
+				},
+			]
+		}
+	]
+});
 
 new Vue({
-	el : '#app',
-	components : { login }
-});
+  router,
+  template: `
+    <div id="app">
+   		<transition name="fade" mode="in-out">
+      		<router-view class="view"></router-view>
+      	</transition>
+    </div>
+  `
+}).$mount('#app')

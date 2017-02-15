@@ -1,53 +1,30 @@
-body, div, p, h1, h2, h3, h4, h5, h6, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, table, th, td { margin: 0; padding: 0; }
+body, div, p, h1, h2, h3, h4, h5, h6, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, table, th, td { margin: 0; padding: 0; }
 address, cite, em, i { font-style: normal; }
 html,body,root{ height:100%; overflow:hidden;}
-body{ margin:0 auto; color:#fff; -webkit-appearance: none; background:#fff; overflow-y:scroll; font-family:'PingFang SC','STHeiti','Microsoft YaHei',Helvetica,Arial,sans-serif; color: #878C92;}
+body{ margin:0 auto; color:#fff; -webkit-appearance: none; background:#fff; font-family:'PingFang SC','STHeiti','Microsoft YaHei',Helvetica,Arial,sans-serif; color: #878C92;}
 li { list-style: none; }
 html,body{ max-width:750px; margin:0 auto;}
 a { color:#535862; text-decoration: none; }
 a:hover { color:#c40000; text-decoration: underline; }
-legend { color: #000; }
-fieldset, img { border: 0; }
+img { border: 0; }
 table { border-collapse: collapse; border-spacing: 0; }
-input[type="button"], input[type="submit"], input[type="reset"] { cursor: pointer; }
+input[type="button"], input[type="submit"], input[type="reset"] { cursor: pointer;-webkit-appearance: none; }
 .clearfix:after, .wrapper:after { visibility: hidden; display: block; font-size: 0; content: " "; clear: both; height: 0; }
 .clearfix { display: inline-block; }
-/* start commented backslash hack \*/
-* html .clearfix { height: 1%; }
-.clearfix { display: block; }
 /* close commented backslash hack */
-.middle * { display: inline-block; vertical-align: middle; }
-::-webkit-input-placeholder{ font-size:.75rem; }
+::-webkit-input-placeholder{ font-size:.75rem;  }
 
 /* height */
-$s1:.0625rem;
-$s2:.125rem;
-$s3:.1875rem;
-$s4:.25rem;
-$s5:.3125rem;
-$s6:.375rem;
-$s7:.4375rem;
-$s8:.5rem;
-$s9:.5625rem;
-$s10:.625rem;
-$s11:.6875rem;
-$s12: .75rem;
-$s13: .8125rem;
-$s14: .875rem;
-$s15: .9375rem;
-$s16: 1rem;
-$s17: 1.0625rem;
-$s18 : 1.125rem;
+$s1:.0625rem;$s2:.125rem;$s3:.1875rem;$s4:.25rem;$s5:.3125rem;$s6:.375rem;$s7:.4375rem;$s8:.5rem;$s9:.5625rem;$s10:.625rem;$s11:.6875rem;$s12: .75rem;$s13: .8125rem;$s14: .875rem;$s15: .9375rem;$s16: 1rem;$s17: 1.0625rem;$s18 : 1.125rem;$s19 : 1.1875rem;
 $s20 : 1.25rem;
 $s21 : 1.3125rem;
 $s22 : 1.375rem;
+$s23 : 1.4375rem;
 $s25 : 1.5625rem;
 $s28 : 1.75rem;
-$s30 : 1.875rem;
-$s40 : 2.5rem;
-$s50 : 3.125rem;
-$s60 : 3.75rem;
-$s70 : 4.375rem;
+$s30 : 1.875rem;$s31 : 1.9375rem;$s32 : 2.0rem;$s33 : 2.0625rem;$s34 : 2.125rem;
+$s35 : 2.1875rem;$s36 : 2.25rem;$s37 : 2.3125rem;$s38 : 2.375rem;$s39 :2.4375rem;
+$s40 : 2.5rem;$s50 : 3.125rem;$s60 : 3.75rem;$s70 : 4.375rem;$s80 : 5.0rem;$s90 : 5.625rem; $s100 : 6.25rem;
 
 $browser : webkit;
 /* public */
@@ -202,6 +179,4 @@ $maxDevice: -webkit-max-device-pixel-ratio;
 /* public */
 .flex{ @include flex(); }
 input{outline: none;}
-
- /* layout */
-.hide{ display: none;}
+.container{ background:#f8f8f8;}
