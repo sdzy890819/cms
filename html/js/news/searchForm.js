@@ -1,5 +1,6 @@
 define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 	var list = [ //表单
+		
 		{
 			title : 'condition',
 			name : '检索关键字',
@@ -18,6 +19,18 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 			placeholder : '请输入作者',
 			type : 'text'
 		},
+		{
+			title : 'startTime',
+			name : '开始时间',
+			placeholder : '请选择时间 年/月/日 时:分:秒',
+			type : 'date'
+		},
+		{
+			title : 'endTime',
+			name : '结束时间',
+			placeholder : '请选择时间 年/月/日 时:分:秒',
+			type : 'date'
+		},		
 		{
 			title : 'channelId',
 			selectName : [
@@ -38,19 +51,7 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 					{name:'请选择栏目',title:'columnId'}
 				]
 			]
-		},
-		{
-			title : 'startTime',
-			name : '开始时间',
-			placeholder : '请选择时间 年/月/日 时:分:秒',
-			type : 'date'
-		},
-		{
-			title : 'endTime',
-			name : '结束时间',
-			placeholder : '请选择时间 年/月/日 时:分:秒',
-			type : 'date'
-		}	
+		}
 	];
 	function getList(callback){
 		getData.category.listCategory({//部门

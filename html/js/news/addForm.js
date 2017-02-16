@@ -11,8 +11,7 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 			title : 'subTitle',
 			name : '附标题',
 			placeholder : '请输入附标题',
-			type : 'text',
-			verify : 'title'
+			type : 'text'			
 		},
 		[
 			{
