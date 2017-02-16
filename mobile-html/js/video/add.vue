@@ -44,6 +44,7 @@
 </div>
 </template>
 <script>
+	import T from '../common/global.js';
 	import {upload} from '../common/URL.js';
 	export default {
 		data (){
@@ -98,13 +99,13 @@
 				if(title.length<2){
 					$('.error').addClass('cur').text('标题不能底于2个字符')
 				}
-				$.ajax({
+				T.ajax({
 					type: 'POST',				
 					url : upload.uploadVideo , 
-					dataType: "json",
 					data : {
 						"baseCode":[base64].join(','),
-						"fileName":title
+						"fileName":title,
+						finish : 1
 					},
 					success : function(_data){	
 	                    					
