@@ -98,6 +98,10 @@ public class AppUploadController extends AppBaseController {
                          @RequestParam(value = "fileName") String fileName,
                          @RequestParam(value = "partNum", defaultValue = "1") Integer partNum,
                          @RequestParam(value = "finish", defaultValue = "0") Integer finish) throws BizException {
+        String[] baseCodes = baseCode.split(",");
+        if(baseCodes.length>1){
+            baseCode = baseCodes[1];
+        }
         VideoResponse videoResponse = mssVideoClient.upload(baseCode, fileName, partNum, finish);
         if( videoResponse == null) {
             return ApiResponse.returnFail(StaticContants.ERROR_VIDEO);

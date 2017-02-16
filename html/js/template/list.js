@@ -55,7 +55,12 @@ define(['require',"app",'jquery'
 							getData.template.templateInfo({
 								id : obj.id,
 								callback : function(_data){
-									//_data.data.releaseTime = new Date(_data.data.releaseTime).format('yyyy-MM-dd h:m:s');
+									//_data.data.releaseTime = new Date(_data.data.releaseTime).format('yyyy-MM-dd h:m:s');																		
+									if(_data.data.job == 0) {
+										_data.data.job = '触发生成';
+									}else {
+										_data.data.job = '定时生成';
+									}
 									callback(_data);
 								}
 							})
@@ -82,7 +87,7 @@ define(['require',"app",'jquery'
 									"filename":obj.filename,
 									"path":obj.path,
 									"templateClassify":templateClassify,
-									"job":(obj.job=='触发生成'?1:0), //是否定时生成。1是定时生成。0是触发生成
+									"job":(obj.job=='触发生成'?0:1), //是否定时生成。1是定时生成。0是触发生成
 									"encoded":obj.encoded,
 									"channelId":channelId,//频道ID
 									"sortNum":obj.sortNum,//排序值
@@ -206,6 +211,7 @@ define(['require',"app",'jquery'
 					GenerateArrList.extendType($scope.listdata.table.td,$scope.listdata.table.th,['width','name']); //把TH 中的出name属性以外的属性合传给td
         	GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
         	$.each($scope.listdata.table.td,function( i , item ){
+
         		if(item.job==1){//1是定时生成。0是触发生成
         			var arr = [];
         			$.each(item.list.edit,function( j , obj ){

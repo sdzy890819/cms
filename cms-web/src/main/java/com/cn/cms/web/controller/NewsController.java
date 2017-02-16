@@ -158,7 +158,7 @@ public class NewsController extends BaseController {
     @RequestMapping(value = "/createNews",method = RequestMethod.POST)
     public String createNews(HttpServletRequest request,
                              @RequestParam(value = "title") String title,
-                             @RequestParam(value = "subTitle") String subTitle,
+                             @RequestParam(value = "subTitle", required = false) String subTitle,
                              @RequestParam(value = "keyword") String keyword,
                              @RequestParam(value = "description") String description,
                              @RequestParam(value = "source") String source,

@@ -90,7 +90,7 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 				//self.select[0] = self.select[0].concat(obj.data);
 				self.select[0] = self.select[0].concat(Tool.changeObjectName(obj.data,[{name:'channelName',newName:'name'}]));
 			}
-		}else if(self.type=='radio' && obj.name == 'templateClassify'){
+		}else if(self.type=='radio' && obj.name == 'templateClassify'){			
 			if(self.title=='encoded'){
 				self.radio = Tool.changeObjectName(obj.data.encoded,[{name:'name',newName:'title'}]);
 				self.radio[0].checked = true;

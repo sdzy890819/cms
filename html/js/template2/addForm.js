@@ -26,12 +26,12 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 		{
 			title : 'templateClassify',
 			selectName : ['templateClassify'],
-			name : '选择模版',
+			name : '模版分类',
 			type : 'select',
 			verify : 'select',
 			select : [
 				[
-					{name:'请选择选择模版',title:'templateClassify'}
+					{name:'模版分类',title:'templateClassify'}
 				]
 			]
 		},
@@ -44,9 +44,17 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 	];
 	function setData(obj){
 		var self = obj.self;
+		var template2Classify = [];
+
+		$.each(obj.data.templateClassify, function(i, o){			
+			if (o.name == '列表页' || o.name == '详情页') {
+				template2Classify.push(o);
+			}
+		})
+
 		if(self.type=='select'){
 			self.select[0] = [self.select[0][0]];
-			self.select[0] = self.select[0].concat(Tool.changeObjectName(obj.data.templateClassify,[{name:'type',newName:'id'}]));
+			self.select[0] = self.select[0].concat(Tool.changeObjectName(template2Classify,[{name:'type',newName:'id'}]));
 		}else if(self.type=='radio'){
 			self.radio = Tool.changeObjectName(obj.data.encoded,[{name:'name',newName:'title'}]);
 			self.radio[0].checked = true;
