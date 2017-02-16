@@ -72,12 +72,12 @@ define(["app",'jquery','../../data/URL' , '../../data/getData'],function (app,$,
 
 					uploader.onCompleteItem = function(fileItem, response, status, headers) {				       
 						obj.obj && obj.obj.success && obj.obj.success(fileItem, response, status, headers);
-						/* var $dom = $('.layui-box.layui-upload-button');
+						 var $dom = $('.layui-box.layui-upload-button');
 						 var videoMsg = "<span class='layui-upload-icon ng-binding ng-scope'>" + response.data.fileName + "</span>";
 					    							    					       
 				       $dom.attr("video-url", response.data.location);
 				       $dom.attr("filename", response.data.fileName);
-				       $dom.empty().append(videoMsg);	       */
+				       $dom.empty().append(videoMsg);	       
 				    };
 
 

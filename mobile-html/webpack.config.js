@@ -42,39 +42,8 @@ module.exports = {
             },
             {
                 test: /\.(png|jpg|gif|svg)$/,
-                use: "url-loader?limit=8192",//,'image-webpack-loader',"url-loader"
-                /*options : {
-                      optimizationLevel: 7,
-                }*/
+                use: "url-loader?limit=8192",
             },
-            /*{
-                test: /\.(png|jpg|gif|svg)$/,
-                use: "url-loader",
-                options : {
-                    limit: 15000,
-                    name: '[name].[ext]?[hash]'
-                }
-            },*/
-            /*{
-                test: /\.scss$/,
-                use : ExtractTextPlugin.extract({
-                    fallback: "style-loader",
-                    use: [
-                        "style-loader",
-                        "css-loader",
-                        "sass-loader"
-                    ],
-                    publicPath: "/build"
-                })
-            },*/
-            /*{
-                test: /\.scss$/,
-                use: SASS.extract([ 'css-loader', 'sass-loader' ])
-            },
-            {
-                test: /\.css$/,
-                use: CSS.extract([ 'css-loader', 'postcss-loader' ])
-            },*/
             {
                 test: /\.js$/,
                 enforce: "pre",
@@ -97,8 +66,7 @@ module.exports = {
         alias : {
             Vue : 'js/plug/vue.min' , 
             VueRouter : 'js/plug/vue-router.min' ,
-            calendar : 'js/plug/vue-calendar',
-            zepto : 'js/plug/zepto.min'
+            zepto : 'js/plug/zepto'
         },
         extensions: ['.js', '.json', '.scss','.sass','.vue','.jsx','.css'],
     },
@@ -117,7 +85,6 @@ module.exports = {
             $ : 'zepto',
             Vue : 'Vue',
             VueRouter : 'VueRouter',
-            calendar : 'calendar',
             //globalCss : '../../common/css/style/global.scss'
             //React : 'react',
             //ReactDOM : 'react-dom'
