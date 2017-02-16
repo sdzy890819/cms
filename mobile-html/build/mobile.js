@@ -1155,7 +1155,7 @@ var router = new VueRouter({
 		}]
 	}]
 });
-
+window.router = router;
 new Vue({
 	router: router,
 	template: '\n    <div id="app">\n   \t\t<transition name="fade" mode="in-out">\n      \t\t<router-view class="view"></router-view>\n      \t</transition>\n    </div>\n  '
@@ -1164,4 +1164,4 @@ new Vue({
 
 /***/ })
 ],[33]);
-//# sourceMappingURL=mobile.js.map?name=3451ae1b6a86adb496da
+//# sourceMappingURL=mobile.js.map?name=8b6efeed84eb1678154f

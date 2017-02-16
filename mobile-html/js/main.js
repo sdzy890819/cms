@@ -63,7 +63,7 @@ const router = new VueRouter({
 		}
 	]
 });
-
+window.router = router;
 new Vue({
   router,
   template: `

@@ -98,14 +98,13 @@ exports.default = {
 		submit: function submit() {
 			var base64 = this.base64,
 			    file = this.fileType,
-			    title = this.title;
+			    title = file.name;
 			if (base64 < 20) {
 				$('.error').addClass('cur').text('请选择视频文件');
 			}
 			if (title.length < 2) {
 				$('.error').addClass('cur').text('标题不能底于2个字符');
 			}
-			debugger;
 			$.ajax({
 				type: 'POST',
 				url: _URL.upload.uploadVideo,
@@ -308,4 +307,4 @@ if(false) {
 /***/ })
 
 });
-//# sourceMappingURL=0_chunk.js.map?name=3451ae1b6a86adb496da
+//# sourceMappingURL=0_chunk.js.map?name=8b6efeed84eb1678154f

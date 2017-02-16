@@ -91,7 +91,7 @@
 			,submit : function(){
 				var base64 = this.base64 ,
 					file = this.fileType, 
-					title = this.title;
+					title = file.name;
 				if(base64<20){
 					$('.error').addClass('cur').text('请选择视频文件')
 				}
