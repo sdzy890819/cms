@@ -1195,6 +1195,9 @@ input:focus{ border: 1px solid #bbb !important;} */
 .layui-form .layui-form-label {
   width: 120px;
 }
+
+
+
 /* line 444, ../sass/global.scss */
 .layui-form .layui-input-block {
   margin-left: 150px;
