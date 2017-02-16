@@ -189,7 +189,7 @@ define(['require',"app",'jquery'
 							edit : [
 								{cls : 'down', name : '下载',evt:$scope.down},
 								{cls : 'upload', name : '上传',evt:$scope.upload}, //'exe|dmg'
-								{cls : 'add', name : '关联',evt:$scope.relation},
+								// {cls : 'add', name : '关联',evt:$scope.relation},
 								{cls : 'edit' , name : '编辑',evt:$scope.edit},
 								{cls : 'del' , name : '删除',evt:$scope.del}
 							]

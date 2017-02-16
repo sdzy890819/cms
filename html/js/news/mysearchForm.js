@@ -9,6 +9,9 @@ define(function(getData,Tool){
 			type : 'select',
 			select : [
 				[
+					{						
+						name : '全部'						
+					},				
 					{
 						title : 0,
 						name : '未发布'						

@@ -11,7 +11,7 @@
 			<div ng-if='list.list' class="layui-form-item">
 				<!-- 不换行 -->
 				<div class="layui-inline" ng-repeat="item in list.list" repeat-finish='formRepeat'>
-					<label class="layui-form-label"><em ng-show='item.check!=false&&item.verify'>*</em>{{item.name}}</label>
+					<label class="layui-form-label" style="width: auto;"><em ng-show='item.check!=false&&item.verify'>*</em>{{item.name}}</label>
 				    <div class="layui-input-inline"> <!-- 不换行 -->
 				        <!-- 输入匡 或 密码 -->
 						<input ng-if="item.type=='text'||item.type=='password'" 
