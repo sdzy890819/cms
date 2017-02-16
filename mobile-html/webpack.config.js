@@ -16,8 +16,8 @@ const SASS = new ExtractTextPlugin('stylesheets/[name].less');
 
 module.exports = {
     entry: { 
-        app : './js/main.js',
-        /*vendor : ["Vue", "VueRouter"]*/
+        mobile : './js/main.js',
+        vendor : ['zepto',"Vue", "VueRouter"]
     },
     /*externals : {
         '$' : 'window.zepto',
@@ -94,11 +94,11 @@ module.exports = {
             allChunks : true
         }),
         //new ImageminWebpackPlugin({ test: /\.(jpe?g|png|gif|svg)$/i })
-        /*new CommonsChunkPlugin({
+        new CommonsChunkPlugin({
             name: 'vendor', 
-            //filename : 'global.js',
+            filename : 'global.js',
             //minChunks : Infinity
-        })*/
+        })
     ]
 };
 
