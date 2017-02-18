@@ -274,7 +274,6 @@ exports.default = {
 				$('.error').addClass('cur').text('请输入标题');
 				return;
 			}
-			debugger;
 			_global2.default.ajax({
 				type: 'POST',
 				url: _URL.upload.uploadImage,
@@ -493,7 +492,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "for": "one2"
     }
-  }, [_vm._v("是")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("宽")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -517,7 +516,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "for": "two2"
     }
-  }, [_vm._v("否")])])]), _vm._v(" "), _c('li', {
+  }, [_vm._v("高")])])]), _vm._v(" "), _c('li', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -630,4 +629,4 @@ if(false) {
 /***/ })
 
 });
-//# sourceMappingURL=1_chunk.js.map?name=7f83192cb04068188ae0
+//# sourceMappingURL=1_chunk.js.map?name=3135b9bb04cf593b8319
