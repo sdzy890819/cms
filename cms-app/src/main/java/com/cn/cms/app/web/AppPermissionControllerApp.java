@@ -2,7 +2,7 @@ package com.cn.cms.app.web;
 
 import com.cn.cms.biz.PermissionBiz;
 import com.cn.cms.bo.PermissionBean;
-import com.cn.cms.web.ann.CheckToken;
+import com.cn.cms.web.ann.CheckAppToken;
 import com.cn.cms.web.result.ApiResponse;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,7 +27,7 @@ public class AppPermissionControllerApp extends AppBaseController {
      * @param request
      * @return
      */
-    @CheckToken
+    @CheckAppToken
     @RequestMapping(value = "/currentMenuPermission",method = RequestMethod.GET)
     public String currentMenuPermission(HttpServletRequest request){
         String userID = getCurrentUserId(request);
