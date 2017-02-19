@@ -57,7 +57,9 @@
 <script>
 	import T from '../common/global.js';
 	import {login} from '../common/URL.js';
-	import AES from '../common/AES.js';
+	//import CryptoJS from '../common/AES_2.js';
+	//import md5 from '../plug/md5.min.js';
+	//import Base64 from '../plug/base64.js';
 	export default {
 		data (){
 			return {
@@ -68,12 +70,15 @@
 		},
 		beforeCreate (){
 			var self = this;
-			T.ajax({
+			require.ensure([],function(require){
+				self.md5 = require('../plug/md5.min.js');
+			})
+			/*T.ajax({
 				url : login.init ,
 				success : function( _data ){
-					self.tt = _data.data.tt;
+					self.tt = _data.data.tt;										
 				}
-			})
+			})*/
 		},
 		mounted(){
 			$('.login li input').click(function(){
@@ -83,6 +88,7 @@
 		methods : {
 			submit : function(){
 				var self = this ,
+					md5 = self.md5,
 					userName = this.userName , 
 					pwd = this.pwd , 
 					time = (new Date()).valueOf();
@@ -94,27 +100,39 @@
 				}
 
 				//userName = 'AES128('+userName+self.tt+')'
-				pwd = 'AES128('+pwd+self.tt+')'+time
+				//pwd = CryptoJS.AES.encrypt(userName + pwd + time, self.tt).toString();
+				pwd = md5(userName + pwd);
+				
 				/*使用接口4 获取到tt   使用tt AES128加密(userName的值+密码+time的串)
 使用接口4 获取到tt   使用tt AES128加密(userName的值+密码+time的串)   tt是加密秘钥
 不是
 AES是一种加密
 你要实现的*/
 				T.ajax({
-					url : login.login ,
-					type : 'post',
-					data : {
-						userName : userName , 
-						pwd : pwd , 
-						time : time
-					},
+					url : login.init ,
 					success : function( _data ){
-						if(_data.data.code == 0){
-							router.push('/');
-						}
-						else if(_data.data.code == -1){
-							$('.error').addClass('cur').text('用户名称或密码错误！')
-						}
+						self.tt = _data.data.tt;
+						T.ajax({
+							url : login.login ,
+							type : 'post',
+							data : {
+								userName : userName , 
+								pwd : pwd , 
+								time : time , 
+								tt : self.tt
+							},
+							success : function( _data ){
+								if(_data.code == 0){
+									router.push('/');
+								}
+								else if(_data.code == -1){
+									$('.error').addClass('cur').text('用户名称或密码错误！')
+								}
+							},
+							error : function(){
+								$('.error').addClass('cur').text('其他错误，请联系技术员！')
+							}
+						})
 					}
 				})
 			}

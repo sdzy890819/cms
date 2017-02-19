@@ -290,6 +290,16 @@ $select-padding: 0.5em;
         -webkit-animation: rotation 33s linear infinite;
     }
 }
+.pop-tip{ position:fixed; z-index: 999; left:6%; top:0; font-size:$s12;
+    width:88%; height:$s30; line-height:$s30; border:$s1 solid #ddd; 
+    background:#fffdc0; color:#333; text-align:center;
+    opacity:0; 
+    @include transition-duration; @include transform(translateY(-$s100));
+    &.error{
+       border:$s1 solid #e20000; 
+         color:red;
+    }
+}
 @-webkit-keyframes rotation{
     from {-webkit-transform: rotate(0deg);}
     to {-webkit-transform: rotate(360deg);}

@@ -4,8 +4,8 @@ import com.cn.cms.biz.ResourceBiz;
 import com.cn.cms.enums.PlatformEnum;
 import com.cn.cms.po.Video;
 import com.cn.cms.utils.Page;
-import com.cn.cms.web.ann.CheckAuth;
-import com.cn.cms.web.ann.CheckToken;
+import com.cn.cms.web.ann.CheckAppAuth;
+import com.cn.cms.web.ann.CheckAppToken;
 import com.cn.cms.web.result.ApiResponse;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -38,8 +38,8 @@ public class AppVideoController extends AppBaseController {
      * @param videoPath
      * @return
      */
-    @CheckToken
-    @CheckAuth( name = "appvideo:write" )
+    @CheckAppToken
+    @CheckAppAuth( name = "appvideo:write" )
     @RequestMapping(value = "/createVideo", method = RequestMethod.POST)
     public String createVideo(HttpServletRequest request,
                               @RequestParam(value = "videoTitle") String videoTitle,
@@ -72,8 +72,8 @@ public class AppVideoController extends AppBaseController {
      * @param videoPath
      * @return
      */
-    @CheckToken
-    @CheckAuth( name = "appvideo:update" )
+    @CheckAppToken
+    @CheckAppAuth( name = "appvideo:update" )
     @RequestMapping(value = "/updateVideo", method = RequestMethod.POST)
     public String updateVideo(HttpServletRequest request,
                               @RequestParam(value = "id") Long id,
@@ -105,8 +105,8 @@ public class AppVideoController extends AppBaseController {
      * @param id
      * @return
      */
-    @CheckToken
-    @CheckAuth( name = "appvideo:delete" )
+    @CheckAppToken
+    @CheckAppAuth( name = "appvideo:delete" )
     @RequestMapping(value = "/delVideo", method = RequestMethod.GET)
     public String delVideo(HttpServletRequest request,
                            @RequestParam("id") Long id){
@@ -121,8 +121,8 @@ public class AppVideoController extends AppBaseController {
      * @param pageSize
      * @return
      */
-    @CheckToken
-    @CheckAuth( name = "appvideo:read" )
+    @CheckAppToken
+    @CheckAppAuth( name = "appvideo:read" )
     @RequestMapping(value = "/videolist")
     public String videolist(HttpServletRequest request, @RequestParam(value = "page",required = false) Integer page,
                             @RequestParam(value="pageSize",required = false)Integer pageSize){

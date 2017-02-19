@@ -1,0 +1,108 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "vue2-html5-editor",
+        "scope": null,
+        "escapedName": "vue2-html5-editor",
+        "name": "vue2-html5-editor",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "E:\\"
+    ]
+  ],
+  "_from": "vue2-html5-editor@latest",
+  "_id": "vue2-html5-editor@0.6.0",
+  "_inCache": true,
+  "_location": "/vue2-html5-editor",
+  "_nodeVersion": "7.3.0",
+  "_npmOperationalInternal": {
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/vue2-html5-editor-0.6.0.tgz_1484219588863_0.41524958377704024"
+  },
+  "_npmUser": {
+    "name": "egorvakh",
+    "email": "egorvakh@gmail.com"
+  },
+  "_npmVersion": "3.10.10",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "vue2-html5-editor",
+    "scope": null,
+    "escapedName": "vue2-html5-editor",
+    "name": "vue2-html5-editor",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#DEV:/",
+    "#USER"
+  ],
+  "_resolved": "https://registry.npmjs.org/vue2-html5-editor/-/vue2-html5-editor-0.6.0.tgz",
+  "_shasum": "35d7dcc607f57380fb67f984ec6b05b87ed4217a",
+  "_shrinkwrap": null,
+  "_spec": "vue2-html5-editor",
+  "_where": "E:\\",
+  "author": {
+    "name": "peak"
+  },
+  "bugs": {
+    "url": "https://github.com/Egorvah/vue-html5-editor-2/issues"
+  },
+  "dependencies": {},
+  "description": "A WYSIWYG text editor base on html5 and vue",
+  "devDependencies": {
+    "babel-core": "^6.13.2",
+    "babel-loader": "^6.2.4",
+    "babel-plugin-transform-runtime": "^6.12.0",
+    "babel-preset-es2015": "^6.13.2",
+    "babel-runtime": "^6.11.6",
+    "css-loader": "^0.23.1",
+    "file-loader": "^0.8.5",
+    "less": "^2.6.1",
+    "less-loader": "^2.2.3",
+    "url-loader": "^0.5.7",
+    "vue": "2.1.6",
+    "vue-hot-reload-api": "^1.3.2",
+    "vue-html-loader": "^1.2.2",
+    "vue-loader": "^10",
+    "vue-router": "^2.0.0",
+    "vue-style-loader": "^1.0.0",
+    "vue-template-compiler": "2.1.6",
+    "webpack": "^1.13.0"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "35d7dcc607f57380fb67f984ec6b05b87ed4217a",
+    "tarball": "https://registry.npmjs.org/vue2-html5-editor/-/vue2-html5-editor-0.6.0.tgz"
+  },
+  "gitHead": "f7a3d6ed5017dc8b579c92f4d12dccbfbfb00073",
+  "homepage": "https://github.com/Egorvah/vue-html5-editor-2#readme",
+  "keywords": [
+    "vue2",
+    "WYSIWYG"
+  ],
+  "license": "Apache-2.0",
+  "main": "dist/vue2-html5-editor.js",
+  "maintainers": [
+    {
+      "name": "egorvakh",
+      "email": "egorvakh@gmail.com"
+    }
+  ],
+  "name": "vue2-html5-editor",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Egorvah/vue-html5-editor-2.git"
+  },
+  "scripts": {
+    "build": "webpack --progress --hide-modules",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "0.6.0"
+}

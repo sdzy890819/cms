@@ -58,7 +58,7 @@ i{
 		@include box-flex; overflow-y:scroll;
 		dl{ @include size(line-height,22px); margin-bottom:$s10; padding:$s10 $s10 $s5; border-top:$s1 solid #ddd; border-bottom:$s1 solid #ddd; background:#fff; overflow:hidden;
 			dt{ @include size(height,22px); font-size:$s16; color:#444;
-				
+				white-space: nowrap; text-overflow: ellipsis; overflow: hidden;
 			}
 			dd{ @include size(max-height,44px); font-size:$s14;
 				p{ overflow:hidden; text-overflow:ellipsis;}

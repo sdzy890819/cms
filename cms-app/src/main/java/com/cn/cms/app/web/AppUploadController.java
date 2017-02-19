@@ -11,8 +11,8 @@ import com.cn.cms.po.ImagesBase;
 import com.cn.cms.utils.EncryptUtil;
 import com.cn.cms.utils.FileUtil;
 import com.cn.cms.utils.StringUtils;
-import com.cn.cms.web.ann.CheckAuth;
-import com.cn.cms.web.ann.CheckToken;
+import com.cn.cms.web.ann.CheckAppAuth;
+import com.cn.cms.web.ann.CheckAppToken;
 import com.cn.cms.web.ann.NotSaveBody;
 import com.cn.cms.web.result.ApiResponse;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,8 +56,8 @@ public class AppUploadController extends AppBaseController {
      * @return
      */
     @NotSaveBody
-    @CheckToken
-    @CheckAuth( name = "appimages:upload" )
+    @CheckAppToken
+    @CheckAppAuth( name = "appimages:upload" )
     @RequestMapping(value="/uploadImage",method = RequestMethod.POST)
     public String upload(HttpServletRequest request,
                          @RequestParam(value = "baseCode") String baseCode,
@@ -90,8 +90,8 @@ public class AppUploadController extends AppBaseController {
 
 
     @NotSaveBody
-    @CheckToken
-    @CheckAuth( name = "appvideo:upload" )
+    @CheckAppToken
+    @CheckAppAuth( name = "appvideo:upload" )
     @RequestMapping(value="/uploadVideo",method = RequestMethod.POST)
     public String upload(HttpServletRequest request,
                          @RequestParam(value = "baseCode") String baseCode,
@@ -113,8 +113,8 @@ public class AppUploadController extends AppBaseController {
     }
 
     @NotSaveBody
-    @CheckToken
-    @CheckAuth( name = "appvideo:upload" )
+    @CheckAppToken
+    @CheckAppAuth( name = "appvideo:upload" )
     @RequestMapping(value="/uploadVideo2",method = RequestMethod.POST)
     public String uploadVideo2(@RequestParam(value = "file", required = false) MultipartFile file) throws IOException, BizException {
         String fileName = file.getOriginalFilename();
@@ -157,8 +157,8 @@ public class AppUploadController extends AppBaseController {
      * @throws BizException
      */
     @NotSaveBody
-    @CheckToken
-    @CheckAuth( name = "appvideo:upload" )
+    @CheckAppToken
+    @CheckAppAuth( name = "appvideo:upload" )
     @RequestMapping(value="/cancelVideo",method = RequestMethod.POST)
     public String cancel(@RequestParam(value = "fileName", required = false) String fileName) throws IOException, BizException {
         mssVideoClient.interrupt(fileName);

@@ -15,5 +15,16 @@ module.exports = {
 	},
 	video : {
 		videolist : url+'/video/videolist',
-	}
+	},
+	news : {
+		newslist : url+'/news/newslist',
+		newscolumnlist : url+'/newscolumn/newscolumnlist', //栏目列表
+		delNews : url+'/news/delNews', //删除新闻
+	},
+	category : {//部门分类
+		listCategory : url+'/category/listCategory', //获取部门分类列表
+	},
+	channel : { //获取频道分类列表
+		currentChannelList : url+'/channel/currentChannelList' , 
+	},
 }

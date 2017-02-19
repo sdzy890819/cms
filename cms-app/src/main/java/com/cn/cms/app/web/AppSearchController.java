@@ -11,8 +11,8 @@ import com.cn.cms.po.Images;
 import com.cn.cms.po.News;
 import com.cn.cms.po.Video;
 import com.cn.cms.utils.Page;
-import com.cn.cms.web.ann.CheckAuth;
-import com.cn.cms.web.ann.CheckToken;
+import com.cn.cms.web.ann.CheckAppAuth;
+import com.cn.cms.web.ann.CheckAppToken;
 import com.cn.cms.web.result.ApiResponse;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -43,8 +43,8 @@ public class AppSearchController extends AppBaseController {
      * @param pageSize
      * @return
      */
-    @CheckToken
-    @CheckAuth(name = "appnews:search")
+    @CheckAppToken
+    @CheckAppAuth(name = "appnews:search")
     @RequestMapping(value = "/searchNew", method = RequestMethod.POST)
     public String searchNews(@RequestParam(value = "condition", required = false) String condition,
                              @RequestParam(value = "page", required = false) Integer page,
@@ -67,8 +67,8 @@ public class AppSearchController extends AppBaseController {
      * @param pageSize
      * @return
      */
-    @CheckToken
-    @CheckAuth(name = "appimages:search")
+    @CheckAppToken
+    @CheckAppAuth(name = "appimages:search")
     @RequestMapping(value = "/searchImages", method = RequestMethod.POST)
     public String searchImages(@RequestParam(value = "condition", required = false) String condition,
                                @RequestParam(value = "page", required = false) Integer page,
@@ -88,8 +88,8 @@ public class AppSearchController extends AppBaseController {
      * @param pageSize
      * @return
      */
-    @CheckToken
-    @CheckAuth(name = "appvideo:search")
+    @CheckAppToken
+    @CheckAppAuth(name = "appvideo:search")
     @RequestMapping(value = "/searchVideo", method = RequestMethod.POST)
     public String searchVideo(@RequestParam(value = "condition", required = false) String condition,
                               @RequestParam(value = "page", required = false) Integer page,
