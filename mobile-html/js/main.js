@@ -60,7 +60,13 @@ const router = new VueRouter({
 		        	}
 				},
 			]
-		}
+		},
+		{ 
+			path: '/login', 
+			component: function(resolve){
+        		require(['./login/index'],resolve)
+    		},
+    	}
 	]
 });
 window.router = router;
