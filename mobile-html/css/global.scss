@@ -20,7 +20,11 @@ $s20 : 1.25rem;
 $s21 : 1.3125rem;
 $s22 : 1.375rem;
 $s23 : 1.4375rem;
+$s24 : 1.5rem;
 $s25 : 1.5625rem;
+$s26 : 1.625rem;
+$s27 : 1.6875rem;
+$s29 : 1.8125rem;
 $s28 : 1.75rem;
 $s30 : 1.875rem;$s31 : 1.9375rem;$s32 : 2.0rem;$s33 : 2.0625rem;$s34 : 2.125rem;
 $s35 : 2.1875rem;$s36 : 2.25rem;$s37 : 2.3125rem;$s38 : 2.375rem;$s39 :2.4375rem;
@@ -194,7 +198,7 @@ $select-padding: 0.5em;
 .form{ font-size: $s14;
     ul{ margin-bottom: $s10; padding:0 $s10; border-top:$s1 solid #ddd; border-bottom:$s1 solid #ddd; background:#fff; }
     li{ @include box; padding:$s5 0;
-        >input[type='text'],>input[type='tel'],>input[type='date'],>label,>textarea{ display:block; @include box-flex; height:$s25; line-height:$s25;
+        >input[type='text'],>input[type='password'],>input[type='tel'],>input[type='date'],>label,>textarea{ display:block; @include box-flex; height:$s25; line-height:$s25;
             border:$s1 solid #ddd; padding:$s4;
         }
         >textarea{ display: block; width:100%; height:$s60; padding:$s5; @include box-sizing; -webkit-appearance: none; }
@@ -267,6 +271,14 @@ $select-padding: 0.5em;
             &:not(:first-child){ margin-left:$s10; };
             &:hover{ background: #ff4e00 };
          }
+    }
+    .error{ @include transition-duration(.5s); height:0; margin:0 $s20; border:0; text-align: center; overflow:hidden;
+      &.cur{
+        height:$s33; line-height: $s33; background: #feffd1; border:$s1 solid #ddd; color:red;
+      }
+      &.right{
+        height:$s33; line-height: $s33; background: green; border:$s1 solid #ddd; color:#fff;
+      }
     }
 }
 .load-mask{

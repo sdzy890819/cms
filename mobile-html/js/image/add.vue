@@ -9,7 +9,7 @@
 			display: block; height:$s35; line-height: $s35; text-align: center; border:$s1 solid #ddd; background:#0999e0; color:#fff;
 			&.gray{ background:gray; } 
 		}
-		.btn-upload{ margin-left:$s10; background: #f85200; border-radius:$s3; }
+		.btn-upload{ margin-top:$s10; background: #f85200; border-radius:$s3; }
 		li{
 			padding:$s10 0;
 			.label{ width:5.625rem; padding-right: $s5; text-align:center; }
@@ -40,6 +40,7 @@
 			</li>
 			<li class="imgs">
 				<img id="img">
+				<div class="btn-upload" @click='uploadFile'>上传</div>
 			</li>
 			<li><input class="text" type="text" v-model="title" placeholder='图片标题'></li>
 			<li>
@@ -77,7 +78,7 @@
 		</ul>
 		<div class="error"></div>
 		<div class="submit">
-			<div class="btn" @click='uploadFile'>提交</div>
+			<div class="btn" @click='submit'>提交</div>
 		</div>
 	</div>
 </div>
@@ -96,7 +97,8 @@
 				title : '' , 
 				base64 : '',
 				width : '',
-				height : ''
+				height : '',
+				imgInfo : null
 			}
 		},
 		mounted(){
@@ -123,7 +125,8 @@
 					reader.readAsDataURL(file); 
 					reader.onload = function(e){ 
 						self.base64 = this.result;
-						$('#img').attr('src',this.result).parent().show()
+						$('#img').attr('src',this.result).parent().show();
+						$('.btn-upload').show();
 					}
 				});
 				if(self.filed==true){
@@ -133,7 +136,43 @@
 				}
 			}
 			,uploadFile : function(){
+				var self = this ,
+					base64 = this.base64 ,
+					file = this.fileType , 
+					shuiyin = this.shuiyin == 'true'?1:0,
+					width = this.width , 
+					height = this.height;
+				if(base64<20){
+					$('.error').addClass('cur').text('请选择图片文件')
+					return;
+				}
+				T.ajax({
+					type: 'POST',				
+					url : upload.uploadImage , 
+					data : {
+						"baseCode":base64,
+						"suffix":file.type,
+						"watermark":shuiyin,
+						"width":width,
+						"height":height //需要压缩的高度  可不传
+					},
+					success : function(_data){
+						if(_data.code == 0){
+							self.imgInfo = _data.data;
+							$('.btn-upload').hide();
+							$('.error').addClass('right').text('上传成功');
+							setTimeout(function(){
+								$('.error').removeClass('right');
+							},1000)
+							return;
+						}
+						$('.error').addClass('cur').text('失败，请重新上传！')
+					}
+				})
+			}
+			,submit : function(){
 				var base64 = this.base64 ,
+					obj = this.imgInfo,
 					title = this.title , 
 					file = this.fileType , 
 					shuiyin = this.shuiyin == 'true'?1:0,
@@ -147,21 +186,36 @@
 					$('.error').addClass('cur').text('请输入标题')
 					return;
 				}
+				if(!obj){
+					$('.error').addClass('cur').text('请先上传图片')
+					return;
+				}
 				T.ajax({
 					type: 'POST',				
-					url : upload.uploadImage , 
+					url : upload.createImages , 
 					data : {
-						"baseCode":base64,
-						"suffix":file.type,
-						"watermark":1,
-						"width":width,
-						"height":height //需要压缩的高度  可不传
+						"imageUrl":obj.imageUrl,//图片上传接口返回
+						"imageWidthPixel":obj.imageWidthPixel, //图片长像素  图片上传接口返回
+						"imageHeightPixel":obj.imageHeightPixel, // 图片宽像素  图片上传接口返回
+						"orgWidthPixel":obj.orgWidthPixel, //原始长像素  图片上传接口返回
+						"orgHeightPixel":obj.orgHeightPixel, //原始宽像素  图片上传接口返回
+						"imageTitle":title,
+						"imagePath":obj.imagePath,
+						"watermark":shuiyin, //是否水印 1、0
+						"compress":obj.compress, //是否压缩
+						"fid":obj.fid, //图片上传接口返回
+						"size":obj.size //图片上传接口返回
 					},
 					success : function(_data){
-						$('.error').addClass('right').text('上传成功');
-						setTimeout(function(){
-							$('.error').removeClass('right');
-						},1000)
+						if(_data.code == 0){
+							$('.error').addClass('right').text('提交成功');
+							setTimeout(function(){
+								$('.error').removeClass('right');
+							},1000)
+							return;
+						}
+						$('.error').addClass('cur').text('失败，请重新上传！')
+						
 					}
 				})
 			}

@@ -28,7 +28,7 @@ var T = {
 						obj.success(_data);
 						return;
 					};
-					if(_data.code == -110 ){//未登录
+					if(_data.code == -110 || _data.code == -1 ){//未登录
 						router.push('login')
 						return;
 					}else if(_data.code == -111 ){ //无权限								
