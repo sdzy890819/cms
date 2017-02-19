@@ -96,12 +96,9 @@ public class EncryptUtil {
      */
     public static String md5Base64(String key){
         try {
-            MessageDigest md5 = MessageDigest.getInstance("MD5");
             BASE64Encoder base64en = new BASE64Encoder();
             //加密后的字符串
-            return base64en.encode(md5.digest(key.getBytes(StaticContants.UTF8)));
-        } catch (NoSuchAlgorithmException e) {
-            log.error("密码生成异常!",e);
+            return base64en.encode(md5(key).getBytes(StaticContants.UTF8));
         } catch (UnsupportedEncodingException e) {
             log.error("密码生成异常!",e);
         }
@@ -144,7 +141,7 @@ public class EncryptUtil {
 
     public static String base64(byte[] bytes){
         BASE64Encoder base64Encoder = new BASE64Encoder();
-        return base64Encoder.encodeBuffer(bytes);
+        return base64Encoder.encodeBuffer(bytes).replaceAll("\\r|\\n", "");
     }
 
     public static byte[] decode64(String string) throws IOException {
@@ -452,12 +449,15 @@ public class EncryptUtil {
 //        String recode = EncryptUtil.decryptAEC(rett, nn);
 //        System.out.println("RECODE: " + recode);
 
-        String tt= "72ad8b4bdac29903bf82467e85a5effb";
-        String time = Long.toString(new Date().getTime());
-        String name = "kyo";
-        String pwd = "123456";
-        System.out.println(time);
-        System.out.println(EncryptUtil.encryptAES(tt, name, pwd, time));
+//        String tt= "72ad8b4bdac29903bf82467e85a5effb";
+//        String time = Long.toString(new Date().getTime());
+//        String name = "kyo";
+//        String pwd = "123456";
+//        System.out.println(time);
+//        System.out.println(EncryptUtil.encryptAES(tt, name, pwd, time));
+        System.out.println(new String(decode64("Mzk5ZmUwMGM4NjllMjlmYjAxYTM3ZWFhNzYyNzA2Mjk="),StaticContants.UTF8));
+        System.out.println(md5("kyo123456"));
+        System.out.println(EncryptUtil.base64("399fe00c869e29fb01a37eaa76270629".getBytes(StaticContants.UTF8)));
 
     }
 
