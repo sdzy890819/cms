@@ -20,7 +20,7 @@ import java.util.List;
 @Controller
 @RequestMapping(value="/app/newscolumn/",produces = "application/json; charset=UTF-8")
 @ResponseBody
-public class AppNewsControllerController extends AppBaseController {
+public class AppNewsColumnController extends AppBaseController {
 
     @Resource
     private NewsBiz newsBiz;
