@@ -66,6 +66,15 @@
 				tt : '',
 			}
 		},
+		beforeCreate (){
+			var self = this;
+			T.ajax({
+				url : login.init ,
+				success : function( _data ){
+					self.tt = _data.data.tt;
+				}
+			})
+		},
 		mounted(){
 			$('.login li input').click(function(){
 				$('.error').removeClass('cur right')
@@ -83,34 +92,29 @@
 				if(pwd.length<5){
 					return $('.error').addClass('cur').text('密码不能小于5位数')
 				}
-				T.ajax({
-					url : login.init ,
-					success : function( _data ){
-						self.tt = _data.data.tt;
-						//userName = 'AES128('+userName+self.tt+')'
-						pwd = 'AES128('+pwd+self.tt+')'+time
-						/*使用接口4 获取到tt   使用tt AES128加密(userName的值+密码+time的串)
+
+				//userName = 'AES128('+userName+self.tt+')'
+				pwd = 'AES128('+pwd+self.tt+')'+time
+				/*使用接口4 获取到tt   使用tt AES128加密(userName的值+密码+time的串)
 使用接口4 获取到tt   使用tt AES128加密(userName的值+密码+time的串)   tt是加密秘钥
 不是
 AES是一种加密
 你要实现的*/
-						T.ajax({
-							url : login.login ,
-							type : 'post',
-							data : {
-								userName : userName , 
-								pwd : pwd , 
-								time : time
-							},
-							success : function( _data ){
-								if(_data.data.code == 0){
-									router.push('/');
-								}
-								else if(_data.data.code == -1){
-									$('.error').addClass('cur').text('用户名称或密码错误！')
-								}
-							}
-						})
+				T.ajax({
+					url : login.login ,
+					type : 'post',
+					data : {
+						userName : userName , 
+						pwd : pwd , 
+						time : time
+					},
+					success : function( _data ){
+						if(_data.data.code == 0){
+							router.push('/');
+						}
+						else if(_data.data.code == -1){
+							$('.error').addClass('cur').text('用户名称或密码错误！')
+						}
 					}
 				})
 			}
