@@ -31,7 +31,6 @@ public class AppChannelController extends AppBaseController {
      * @return
      */
     @CheckAppToken
-    @CheckAppAuth( name = "appchannel:read")
     @RequestMapping(value = "/listChannel", method = RequestMethod.GET)
     public String listChannel(){
         List<Channel> list = channelBiz.listChannel();

@@ -31,7 +31,6 @@ public class AppNewsColumnController extends AppBaseController {
      * @return
      */
     @CheckAppToken
-    @CheckAppAuth( name = "appnewscolumn:read" )
     @RequestMapping(value = "/newscolumnlist",method = RequestMethod.GET)
     public String list(@RequestParam(value = "channelId") Long channelId){
         List<NewsColumn> list = newsBiz.listNewsColumn(channelId);

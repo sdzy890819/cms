@@ -29,7 +29,6 @@ public class AppCategoryController extends AppBaseController {
      * @return
      */
     @CheckAppToken
-    @CheckAppAuth( name = "appcategory:read")
     @RequestMapping(value = "/listCategory", method = RequestMethod.GET)
     public String listCategory(){
         List<Category> list = categoryBiz.listCategory();
