@@ -28,81 +28,13 @@
 		<input type='text'><div class="btn">搜索</div>
 	</div>
 	<div class="image-list">
-		<ul>
-			<li>
-				<div class="img"><img src='http://js.jrjimg.cn/zqt-red-1000/images/v2/pic_01.jpg'></div>
-				<h2>图片标题</h2>
+		<ul v-for="item in list">
+			<li v-for='obj in item'>
+				<div class="img"><img :src='obj.imageUrl'></div>
+				<h2>{{obj.imageTitle}}</h2>
 				<div class="edit">
-					<div class="btn">编辑</div>
-					<div class="btn">删除</div>
-				</div>
-			</li>
-			<li>
-				<div class="img"><img src='http://js.jrjimg.cn/zqt-red-1000/images/v2/pic_01.jpg'></div>
-				<h2>图片标题</h2>
-				<div class="edit">
-					<div class="btn">编辑</div>
-					<div class="btn">删除</div>
-				</div>
-			</li>
-			<li>
-				<div class="img"><img src='http://js.jrjimg.cn/zqt-red-1000/images/v2/pic_01.jpg'></div>
-				<h2>图片标题</h2>
-				<div class="edit">
-					<div class="btn">编辑</div>
-					<div class="btn">删除</div>
-				</div>
-			</li>
-		</ul>
-		<ul>
-			<li>
-				<div class="img"><img src='http://js.jrjimg.cn/zqt-red-1000/images/v2/pic_01.jpg'></div>
-				<h2>图片标题</h2>
-				<div class="edit">
-					<div class="btn">编辑</div>
-					<div class="btn">删除</div>
-				</div>
-			</li>
-			<li>
-				<div class="img"><img src='http://js.jrjimg.cn/zqt-red-1000/images/v2/pic_01.jpg'></div>
-				<h2>图片标题</h2>
-				<div class="edit">
-					<div class="btn">编辑</div>
-					<div class="btn">删除</div>
-				</div>
-			</li>
-			<li>
-				<div class="img"><img src='http://js.jrjimg.cn/zqt-red-1000/images/v2/pic_01.jpg'></div>
-				<h2>图片标题</h2>
-				<div class="edit">
-					<div class="btn">编辑</div>
-					<div class="btn">删除</div>
-				</div>
-			</li>
-		</ul>
-		<ul>
-			<li>
-				<div class="img"><img src='http://js.jrjimg.cn/zqt-red-1000/images/v2/pic_01.jpg'></div>
-				<h2>图片标题</h2>
-				<div class="edit">
-					<div class="btn">编辑</div>
-					<div class="btn">删除</div>
-				</div>
-			</li>
-			<li>
-				<div class="img"><img src='http://js.jrjimg.cn/zqt-red-1000/images/v2/pic_01.jpg'></div>
-				<h2>图片标题</h2>
-				<div class="edit">
-					<div class="btn">编辑</div>
-					<div class="btn">删除</div>
-				</div>
-			</li>
-			<li>
-				<div class="img"><img src='http://js.jrjimg.cn/zqt-red-1000/images/v2/pic_01.jpg'></div>
-				<h2>图片标题</h2>
-				<div class="edit">
-					<div class="btn">编辑</div>
-					<div class="btn">删除</div>
+					<div class="btn" @click='edit(obj)'>编辑</div>
+					<div class="btn" @click='del(obj)'>删除</div>
 				</div>
 			</li>
 		</ul>
@@ -118,16 +50,50 @@
 </div>
 </template>
 <script>
+	import T from '../common/global.js';
+	import {images} from '../common/URL.js';
 	export default {
 		props : {
 
 		},
 		data (){
 			return {
-				
+				list : []
 			}
 		},
-		ready(){
+		beforeCreate (){
+			var self = this;
+			T.ajax({
+				url : images.images , 
+				data : {
+
+				},
+				success : function( _data ){
+					var list = _data.data.list , 
+						newarr = [],
+						arr = [];
+					if(list){
+						list.map((obj,index)=>{
+							index += 1;
+							arr.push(obj)
+							if(index%3==0){
+								newarr.push(arr);
+								arr = []
+							}
+						});
+						arr.length && newarr.push(arr);
+					}
+					self.list = newarr;
+				}
+			})
+		},
+		methods : {
+			edit : function( obj ){
+				debugger;
+			},
+			del : function( obj ){
+				debugger;
+			}
 		}
 	}
 </script>

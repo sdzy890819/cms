@@ -51,6 +51,9 @@ module.exports = {
 		uploadVideo: url + '/upload/uploadVideo',
 		uploadVideo2: url + '/upload/uploadVideo2',
 		uploadImage: url + '/upload/uploadImage'
+	},
+	images: {
+		images: url + '/images/imageslist'
 	}
 };
 
@@ -409,4 +412,4 @@ if(false) {
 /***/ })
 
 });
-//# sourceMappingURL=0_chunk.js.map?name=3135b9bb04cf593b8319
+//# sourceMappingURL=0_chunk.js.map?name=b0db9180f1b8dd47c144
