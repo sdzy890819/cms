@@ -10,7 +10,7 @@ define(function(){
 		{
 			title : 'upload',
 			name : '上传视频',
-			type : 'file', //text textarea radio checkbox edit
+			type : 'file', //text textarea radio checkbox edit			
 			typeName : 'video'
 		},
 		{
