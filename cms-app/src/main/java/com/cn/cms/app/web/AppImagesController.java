@@ -4,8 +4,8 @@ import com.cn.cms.biz.ResourceBiz;
 import com.cn.cms.enums.PlatformEnum;
 import com.cn.cms.po.Images;
 import com.cn.cms.utils.Page;
-import com.cn.cms.web.ann.CheckAuth;
-import com.cn.cms.web.ann.CheckToken;
+import com.cn.cms.web.ann.CheckAppToken;
+import com.cn.cms.web.ann.CheckAppAuth;
 import com.cn.cms.web.result.ApiResponse;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -43,8 +43,8 @@ public class AppImagesController extends AppBaseController {
      * @param compress
      * @return
      */
-    @CheckToken
-    @CheckAuth( name = "appimages:write" )
+    @CheckAppToken
+    @CheckAppAuth( name = "appimages:write" )
     @RequestMapping(value = "/createImages", method = RequestMethod.POST)
     public String createImages(HttpServletRequest request,
                                @RequestParam("imageUrl") String imageUrl,
@@ -92,8 +92,8 @@ public class AppImagesController extends AppBaseController {
      * @param compress
      * @return
      */
-    @CheckToken
-    @CheckAuth( name = "appimages:update" )
+    @CheckAppToken
+    @CheckAppAuth( name = "appimages:update" )
     @RequestMapping(value = "/updateImages", method = RequestMethod.POST)
     public String updateImages(HttpServletRequest request,
                                @RequestParam("id") Long id,
@@ -135,8 +135,8 @@ public class AppImagesController extends AppBaseController {
      * @param id
      * @return
      */
-    @CheckToken
-    @CheckAuth( name = "appimages:delete" )
+    @CheckAppToken
+    @CheckAppAuth( name = "appimages:delete" )
     @RequestMapping(value = "/delImages", method = RequestMethod.GET)
     public String delImages(HttpServletRequest request,
                             @RequestParam("id") Long id) throws Exception{
@@ -155,8 +155,8 @@ public class AppImagesController extends AppBaseController {
      * @param pageSize
      * @return
      */
-    @CheckToken
-    @CheckAuth( name = "appimages:read" )
+    @CheckAppToken
+    @CheckAppAuth( name = "appimages:read" )
     @RequestMapping(value = "/imageslist")
     public String imageslist(HttpServletRequest request, @RequestParam(value = "page",required = false) Integer page,
                              @RequestParam(value="pageSize",required = false)Integer pageSize){

@@ -16,8 +16,6 @@ import com.cn.cms.utils.Page;
 import com.cn.cms.utils.StringUtils;
 import com.cn.cms.web.ann.CheckAppAuth;
 import com.cn.cms.web.ann.CheckAppToken;
-import com.cn.cms.web.ann.CheckAuth;
-import com.cn.cms.web.ann.CheckToken;
 import com.cn.cms.web.result.ApiResponse;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -93,8 +91,8 @@ public class AppNewsController extends AppBaseController {
      * @param request
      * @return
      */
-    @CheckToken
-    @CheckAuth( name = "appnews:write" )
+    @CheckAppToken
+    @CheckAppAuth( name = "appnews:write" )
     @RequestMapping(value = "/previousColumn",method = RequestMethod.GET)
     public String previousColumn(HttpServletRequest request){
         return ApiResponse.returnSuccess(newsBiz.getPreviousColumn(getCurrentUserId(request)));
@@ -121,8 +119,8 @@ public class AppNewsController extends AppBaseController {
      * @param timer
      * @return
      */
-    @CheckToken
-    @CheckAuth( name = "appnews:write" )
+    @CheckAppToken
+    @CheckAppAuth( name = "appnews:write" )
     @RequestMapping(value = "/createNews",method = RequestMethod.POST)
     public String createNews(HttpServletRequest request,
                              @RequestParam(value = "title") String title,
@@ -204,8 +202,8 @@ public class AppNewsController extends AppBaseController {
      * @param content
      * @return
      */
-    @CheckToken
-    @CheckAuth( name = "appnews:update" )
+    @CheckAppToken
+    @CheckAppAuth( name = "appnews:update" )
     @RequestMapping(value = "/updateNews",method = RequestMethod.POST)
     public String updateNews(HttpServletRequest request,
                              @RequestParam(value = "id",required = false) Long id,
@@ -278,8 +276,8 @@ public class AppNewsController extends AppBaseController {
      * @param id
      * @return
      */
-    @CheckToken
-    @CheckAuth( name = "appnews:publish" )
+    @CheckAppToken
+    @CheckAppAuth( name = "appnews:publish" )
     @RequestMapping(value = "/publish", method = RequestMethod.GET)
     public String publish(HttpServletRequest request,
                           @RequestParam(value = "id") Long id){
