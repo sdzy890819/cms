@@ -328,6 +328,7 @@ public class UserBiz extends BaseBiz{
         String reEncryptCode = tmp.substring(0, tmp.length() - 32);
         String rekey = tmp.substring(tmp.length() - 32);
         String rett = EncryptUtil.decryptAEC(rekey, reEncryptCode);
+        pwd = EncryptUtil.base64(pwd.getBytes(StaticContants.UTF8));
         if( user != null ){
             if(user.getPwd().equals(pwd) && StringUtils.isNotBlank(user.getIdfa()) &&
                     StringUtils.isNotBlank(idfa) && user.getIdfa().indexOf(idfa) > -1 && rett.equals(tt)){

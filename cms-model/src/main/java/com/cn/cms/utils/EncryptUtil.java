@@ -455,8 +455,8 @@ public class EncryptUtil {
 //        String pwd = "123456";
 //        System.out.println(time);
 //        System.out.println(EncryptUtil.encryptAES(tt, name, pwd, time));
-        System.out.println(new String(decode64("OZ/gDIaeKfsBo36qdicGKQ=="),StaticContants.UTF8));
-        System.out.println(md5("kyo123456"));
+        System.out.println(new String(decode64("Mzk5ZmUwMGM4NjllMjlmYjAxYTM3ZWFhNzYyNzA2Mjk="),StaticContants.UTF8));
+        System.out.println(md5Base64("admin3123456"));
 
     }
 
