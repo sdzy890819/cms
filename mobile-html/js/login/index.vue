@@ -89,6 +89,11 @@
 						self.tt = _data.data.tt;
 						//userName = 'AES128('+userName+self.tt+')'
 						pwd = 'AES128('+pwd+self.tt+')'+time
+						/*使用接口4 获取到tt   使用tt AES128加密(userName的值+密码+time的串)
+使用接口4 获取到tt   使用tt AES128加密(userName的值+密码+time的串)   tt是加密秘钥
+不是
+AES是一种加密
+你要实现的*/
 						T.ajax({
 							url : login.login ,
 							type : 'post',
