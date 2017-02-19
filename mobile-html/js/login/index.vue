@@ -57,7 +57,8 @@
 <script>
 	import T from '../common/global.js';
 	import {login} from '../common/URL.js';
-	import AES from '../common/ASE.js';
+	import CryptoJS from '../common/AES_2.js';
+	
 	export default {
 		data (){
 			return {
@@ -71,7 +72,7 @@
 			T.ajax({
 				url : login.init ,
 				success : function( _data ){
-					self.tt = _data.data.tt;
+					self.tt = _data.data.tt;										
 				}
 			})
 		},
@@ -94,7 +95,8 @@
 				}
 
 				//userName = 'AES128('+userName+self.tt+')'
-				pwd = 'AES128('+pwd+self.tt+')'+time
+				pwd = CryptoJS.AES.encrypt(userName + pwd + time, self.tt).toString();
+				
 				/*使用接口4 获取到tt   使用tt AES128加密(userName的值+密码+time的串)
 使用接口4 获取到tt   使用tt AES128加密(userName的值+密码+time的串)   tt是加密秘钥
 不是
