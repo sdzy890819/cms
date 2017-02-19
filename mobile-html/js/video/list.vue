@@ -27,85 +27,15 @@
 		<input type='text'><div class="btn">搜索</div>
 	</div>
 	<div class="video-list">
-		<dl>
-			<dt>标题标题</dt>
+		<dl v-for='obj in list'>
+			<dt>{{obj.videoTitle}}</dt>
 			<dd>
-				<p>http://www.baidu.com/dsflaskdjfe32904890234/sdfjlio43509534</p>
+				<p>{{obj.videoUrl}}</p>
 
 				<div class="aside">
 					<div class="submit">
-						<div class="btn">修改</div>
-						<div class="btn">发布</div>
-					</div>
-					<span class="author">作者：卖血的羔羊</span>
-					<span class="time">2017/02/02</span>
-				</div>
-			</dd>
-		</dl><dl>
-			<dt>标题标题</dt>
-			<dd>
-				<p>内容内容</p>
-
-				<div class="aside">
-					<div class="submit">
-						<div class="btn">修改</div>
-						<div class="btn">发布</div>
-					</div>
-					<span class="author">作者：卖血的羔羊</span>
-					<span class="time">2017/02/02</span>
-				</div>
-			</dd>
-		</dl><dl>
-			<dt>标题标题</dt>
-			<dd>
-				<p>内容内容</p>
-
-				<div class="aside">
-					<div class="submit">
-						<div class="btn">修改</div>
-						<div class="btn">发布</div>
-					</div>
-					<span class="author">作者：卖血的羔羊</span>
-					<span class="time">2017/02/02</span>
-				</div>
-			</dd>
-		</dl><dl>
-			<dt>标题标题</dt>
-			<dd>
-				<p>内容内容</p>
-
-				<div class="aside">
-					<div class="submit">
-						<div class="btn">修改</div>
-						<div class="btn">发布</div>
-					</div>
-					<span class="author">作者：卖血的羔羊</span>
-					<span class="time">2017/02/02</span>
-				</div>
-			</dd>
-		</dl><dl>
-			<dt>标题标题</dt>
-			<dd>
-				<p>内容内容</p>
-
-				<div class="aside">
-					<div class="submit">
-						<div class="btn">修改</div>
-						<div class="btn">发布</div>
-					</div>
-					<span class="author">作者：卖血的羔羊</span>
-					<span class="time">2017/02/02</span>
-				</div>
-			</dd>
-		</dl><dl>
-			<dt>标题标题</dt>
-			<dd>
-				<p>内容内容</p>
-
-				<div class="aside">
-					<div class="submit">
-						<div class="btn">修改</div>
-						<div class="btn">发布</div>
+						<div class="btn" @click='edit(obj)'>修改</div>
+						<div class="btn" @click='send(obj)'>发布</div>
 					</div>
 					<span class="author">作者：卖血的羔羊</span>
 					<span class="time">2017/02/02</span>
@@ -124,14 +54,22 @@
 </div>
 </template>
 <script>
+	import T from '../common/global.js';
+	import {video} from '../common/URL.js';
 	export default {
-		props : {
-
-		},
 		data (){
 			return {
-				
+				list : []
 			}
-		}
+		},
+		beforeCreate (){
+			var self = this;
+			T.ajax({
+				url : video.videolist ,
+				success : function( _data ){
+					self.list = _data.data.list;
+				}
+			})
+		},
 	}
 </script>

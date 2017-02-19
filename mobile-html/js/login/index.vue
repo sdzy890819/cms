@@ -57,7 +57,7 @@
 <script>
 	import T from '../common/global.js';
 	import {login} from '../common/URL.js';
-	import AES from '../common/ASE.js';
+	import AES from '../common/AES.js';
 	export default {
 		data (){
 			return {
