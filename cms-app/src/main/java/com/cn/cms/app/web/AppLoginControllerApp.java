@@ -47,10 +47,11 @@ public class AppLoginControllerApp extends AppBaseController {
                         HttpServletRequest request,
                         @RequestParam(value="userName")String userName,
                         @RequestParam(value="pwd")String pwd,
-                        @RequestParam(value="time")String time) throws IOException {
-        String tt = CookieUtil.getCookieVal(request, StaticContants.APP_COOKIE_TT);
+                        @RequestParam(value="time")String time,
+                        @RequestParam(value="tt")String tt) throws IOException {
+        String cookieTT = CookieUtil.getCookieVal(request, StaticContants.APP_COOKIE_TT);
         String idfa = CookieUtil.getCookieVal(request, StaticContants.APP_COOKIE_DEVICE_IDFA);
-        return userBiz.checkUserAndSetCookieForApp(response ,userName ,pwd, time, tt, idfa);
+        return userBiz.checkUserAndSetCookieForApp(response ,userName ,pwd, time, cookieTT, idfa, tt);
     }
 
 
@@ -101,6 +102,8 @@ public class AppLoginControllerApp extends AppBaseController {
         return ApiResponse.returnSuccess(map);
     }
 
+
+
     /**
      * 密匙
      * @return
@@ -110,7 +113,7 @@ public class AppLoginControllerApp extends AppBaseController {
                      @RequestParam(value = "userName") String userName,
                      @RequestParam(value = "pwd") String pwd,
                      @RequestParam(value = "time") String time) throws IOException {
-        String abc = EncryptUtil.encryptAES(tt, userName, pwd, time);
+        String abc = EncryptUtil.encryptPwd(userName, pwd);
         Map<String, String> map = new HashMap<>();
         map.put("tt", tt);
         map.put("userName", userName);
