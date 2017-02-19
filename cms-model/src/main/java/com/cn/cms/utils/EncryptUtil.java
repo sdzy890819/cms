@@ -141,7 +141,7 @@ public class EncryptUtil {
 
     public static String base64(byte[] bytes){
         BASE64Encoder base64Encoder = new BASE64Encoder();
-        return base64Encoder.encodeBuffer(bytes);
+        return base64Encoder.encodeBuffer(bytes).replaceAll("\\r|\\n", "");
     }
 
     public static byte[] decode64(String string) throws IOException {
@@ -456,7 +456,8 @@ public class EncryptUtil {
 //        System.out.println(time);
 //        System.out.println(EncryptUtil.encryptAES(tt, name, pwd, time));
         System.out.println(new String(decode64("Mzk5ZmUwMGM4NjllMjlmYjAxYTM3ZWFhNzYyNzA2Mjk="),StaticContants.UTF8));
-        System.out.println(md5Base64("admin3123456"));
+        System.out.println(md5("kyo123456"));
+        System.out.println(EncryptUtil.base64("399fe00c869e29fb01a37eaa76270629".getBytes(StaticContants.UTF8)));
 
     }
 
