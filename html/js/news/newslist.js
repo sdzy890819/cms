@@ -302,10 +302,12 @@ define(['require',"app",'jquery','search','./searchForm'
 				function setList(_data){
 
 					var th = [
-						{name:'Id' , key:'id' , width : '50'},		
+						{name:'文章ID' , key:'id' , width : '50'},		
 						{name:'所属频道栏目' , key:'channelAndColumnName' , width : '200'},					
 						{name:'标题' , key:'title' , width : '300'},								
 						{name:'作者' , key:'author' , width: '50', class: 'center'},
+						{name:'发布人' , key:'buildUserName' , width: '50', class: 'center'},
+						{name:'修改人' , key:'lastModifyUserName' , width: '50', class: 'center'},
 						{name:'状态' , key:'publishStr' , class: 'center'},
 						
 						{name:'发布时间' , key:'buildTimeStr' , class: 'center'},
@@ -416,8 +418,8 @@ define(['require',"app",'jquery','search','./searchForm'
 								function getSearchList(){
 									getData.search.searchNew({
 										"newsId" : obj.newsId,
-										"publishUserName" : obj.publishUserName,
-										"updateUserName" : obj.updateUserName,
+										"buildUserName" : obj.buildUserName,
+										"lastModifyUserName" : obj.lastModifyUserName,
 										"condition":obj.condition,
 										"author":obj.author,
 										"source":obj.source,
