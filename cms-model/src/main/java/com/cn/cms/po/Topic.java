@@ -1,9 +1,11 @@
 package com.cn.cms.po;
 
+import com.cn.cms.contants.StaticContants;
 import com.cn.cms.enums.PublishEnum;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -55,6 +57,8 @@ public class Topic extends Base {
      */
     private Date releaseTime;
 
+    private String releaseTimeStr;
+
     /**
      * 关键词.SEO标准
      */
@@ -86,6 +90,11 @@ public class Topic extends Base {
     private Date buildTime;
 
     /**
+     * 发布时间戳
+     */
+    private String buildTimeStr;
+
+    /**
      * 是否发布
      */
     private Integer publish = PublishEnum.NO.getType();
@@ -98,6 +107,22 @@ public class Topic extends Base {
             return publishEnum.getName();
         }
         return publishStr;
+    }
+
+    public String getBuildTimeStr(){
+        if(buildTime!=null){
+            SimpleDateFormat sdf = new SimpleDateFormat(StaticContants.YYYY_MM_DD_HH_MM);
+            return sdf.format(buildTime);
+        }
+        return " ";
+    }
+
+    public String getReleaseTimeStr(){
+        if(releaseTime!=null){
+            SimpleDateFormat sdf = new SimpleDateFormat(StaticContants.YYYY_MM_DD);
+            return sdf.format(releaseTime);
+        }
+        return " ";
     }
 
 }
