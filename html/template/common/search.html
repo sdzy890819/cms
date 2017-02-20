@@ -1,3 +1,4 @@
+
 <div class="boxtab search" ng-show='list'>
 	<div class="title">
 		<div class="right-sider">
@@ -6,12 +7,12 @@
 		<i class="icon-reorder"></i>
 		检索
 	</div>
-	<div class="content clearfix">
+	<div class="content clearfix" style="font-size: 12px;">
 		<form class="layui-form clearfix">
 			<div ng-if='list.list' class="layui-form-item">
 				<!-- 不换行 -->
-				<div class="layui-inline" ng-repeat="item in list.list" repeat-finish='formRepeat'>
-					<label class="layui-form-label" style="width: auto;"><em ng-show='item.check!=false&&item.verify'>*</em>{{item.name}}</label>
+				<div class="layui-inline" style="margin-right: 0px;" ng-repeat="item in list.list" repeat-finish='formRepeat'>
+					<label class="layui-form-label" style="width: auto;padding: 9px 5px;"><em ng-show='item.check!=false&&item.verify'>*</em>{{item.name}}</label>
 				    <div class="layui-input-inline"> <!-- 不换行 -->
 				        <!-- 输入匡 或 密码 -->
 						<input ng-if="item.type=='text'||item.type=='password'" 

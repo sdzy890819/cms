@@ -408,6 +408,9 @@ define(['require',"app",'jquery','search','./searchForm'
 								});
 								function getSearchList(){
 									getData.search.searchNew({
+										"newsId" : obj.newsId,
+										"publishUserName" : obj.publishUserName,
+										"updateUserName" : obj.updateUserName,
 										"condition":obj.condition,
 										"author":obj.author,
 										"source":obj.source,
