@@ -411,7 +411,14 @@ public class UserBiz extends BaseBiz{
      */
     public Map<String, UserBean> getUserForRealName(List<String> realNames){
         List<User> users = userService.getUserForRealName(realNames);
-        return toBeanMap(users);
+        Map<String, UserBean> map = new HashMap<>();
+        if(users!=null && users.size()>0) {
+            for (int i = 0; i < users.size(); i++) {
+                UserBean userBean = new UserBean(users.get(i));
+                map.put(userBean.getRealName(),userBean);
+            }
+        }
+        return map;
     }
 
 }
