@@ -5,7 +5,7 @@ define(function(){
 			name : '上传图片',
 			type : 'file', //text textarea radio checkbox edit
 			typeName : 'images',
-			verify : 'title'
+			verify : 'image'
 		},
 		{
 			title : 'title',
@@ -73,8 +73,7 @@ define(function(){
 			title : 'imageHeight',
 			name : '图片高度',
 			placeholder : '请填写图片高度',
-			type : 'text', //text textarea radio checkbox edit
-			verify : 'title'
+			type : 'text' //text textarea radio checkbox edit			
 		}
 	];
 

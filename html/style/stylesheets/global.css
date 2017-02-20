@@ -1016,6 +1016,16 @@ input:focus{ border: 1px solid #bbb !important;} */
 .boxtab.popedit {
   margin-top: 0;
 }
+
+.boxtab .w70 {
+  width: 70px;
+}
+.boxtab .w80 {
+  width: 80px;
+}
+.boxtab .w90 {
+  width: 90px;
+}
 /* line 398, ../sass/global.scss */
 .boxtab .w100 {
   width: 100%;
@@ -1252,6 +1262,7 @@ input:focus{ border: 1px solid #bbb !important;} */
   height: 42px;
   font-size: 14px;
   border-bottom: 1px solid #ddd;
+  word-break:break-all;
 }
 /* line 462, ../sass/global.scss */
 .table td.center {

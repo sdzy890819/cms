@@ -11,7 +11,7 @@ define(function(){
 			name : '用户名',
 			placeholder : '请输入用户名',
 			type : 'text',
-			verify : 'title'
+			verify : 'userName'
 		},
 		{
 			title : 'realName',
@@ -32,7 +32,7 @@ define(function(){
 			name : '密码',
 			placeholder : '请输入密码',
 			type : 'password', //text textarea radio checkbox edit
-			verify : 'required'
+			verify : 'password'
 		}
 	];
 })

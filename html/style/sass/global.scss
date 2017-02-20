@@ -395,6 +395,7 @@ $leftWidth : 225px;
     }
     .uploadify-button{ border:1px solid #ccc; border-radius:5px; background:#3d82e1; color:#fff; }
     &.popedit{ margin-top:0; }
+    .w50 {width: 50px; }
     .w100{ width:100%;}
     .w120{ width:120px; }
     .w220{ width:220px; }
@@ -458,7 +459,7 @@ $leftWidth : 225px;
     th{ text-align:left; padding:8px; font-size:14px; font-weight:bold; border-bottom:1px solid #ddd; 
         &.center{ text-align:center;}
     }
-    td{ text-align:left; padding:0 8px 0 8px; height: 42px; font-size:14px;  border-bottom:1px solid #ddd; 
+    td{ text-align:left; padding:0 8px 0 8px; height: 42px; font-size:14px;  border-bottom:1px solid #ddd; word-break:break-all; 
         &.center{ text-align:center;}
         &.edits{ text-align:center; }
         a{ color:#488be7;

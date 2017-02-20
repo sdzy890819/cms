@@ -278,7 +278,7 @@ define(['require',"app",'jquery','search','./searchForm'
 	 						 text:'您确定要发布"'+obj.title+'"吗'
 	 						,btn : ['确定','取消']
 	 						,fn : function(){
-	 							getData.news.publish(obj);
+	 							getData.news.publish(obj);	 								 							
 							}
 	 					})						
 					}
@@ -393,6 +393,13 @@ define(['require',"app",'jquery','search','./searchForm'
 						});
 						$scope.searchform = {
 							list : data,
+							return : function(){ //返回列表
+								getDataList();
+								$scope.searchform.search = null;
+								page = 1;
+								searchPage = 1;
+								$scope.$$childHead.current = 1;
+							},							
 							submit : function( obj , data ){
 								var page = 1 , channelId , columnId , categoryId;
 								$.each(obj.selects,function(){
@@ -408,6 +415,9 @@ define(['require',"app",'jquery','search','./searchForm'
 								});
 								function getSearchList(){
 									getData.search.searchNew({
+										"newsId" : obj.newsId,
+										"publishUserName" : obj.publishUserName,
+										"updateUserName" : obj.updateUserName,
 										"condition":obj.condition,
 										"author":obj.author,
 										"source":obj.source,
