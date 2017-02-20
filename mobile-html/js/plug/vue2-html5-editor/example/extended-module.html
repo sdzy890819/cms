@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <title>vue html5 editor demo</title>
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"/>
-    <script src="../dist/vue-html5-editor.js"></script>
-    <script src="http://cdn.bootcss.com/vue/1.0.26/vue.js"></script>
+    <script src="../dist/vue2-html5-editor.js"></script>
+    <!-- <script src="http://cdn.bootcss.com/vue/1.0.26/vue.js"></script -->>
+    <script src="https://unpkg.com/vue@2.1.10/dist/vue.js"></script>
     <script src="http://cdn.bootcss.com/moment.js/2.14.1/moment.min.js"></script>
     <link href="http://cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
     <style>
@@ -18,7 +19,7 @@
 </head>
 <body>
 <div id="app">
-    <vue-html5-editor :content.sync="content" :height="500"></vue-html5-editor>
+    <vue2-html5-editor :content.sync="content" :height="500"></vue2-html5-editor>
 </div>
 
 
@@ -27,7 +28,7 @@
 </script>
 <script>
 
-    Vue.use(VueHtml5Editor, {
+    Vue.use(Vue2Html5Editor, {
         i18n: {
             //i18n for custom module
             "en-us": {
