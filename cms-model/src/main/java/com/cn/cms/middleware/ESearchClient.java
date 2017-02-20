@@ -73,7 +73,11 @@ public class ESearchClient {
     public QueryResult<News> searchNews(NewsSearch newsSearch, Page page){
         BoolQueryBuilder qb = QueryBuilders.boolQuery();
         if(StringUtils.isNotBlank(newsSearch.getCondition())) {
-            qb = qb.must(QueryBuilders.multiMatchQuery(newsSearch.getCondition(), StaticContants.CONDITION_FIELD));
+            if(newsSearch.getCondition().length() == newsSearch.getCondition().getBytes().length){
+                qb = qb.must(QueryBuilders.multiMatchQuery(newsSearch.getCondition(), new String[]{"title", "title.pinyin", "subTitle", "keyword", "description", "content","recommendTitle","recommendDescription"}));
+            }else {
+                qb = qb.must(QueryBuilders.multiMatchQuery(newsSearch.getCondition(), new String[]{"title","subTitle","keyword","description","content","recommendTitle","recommendDescription"}));
+            }
         }
         if(StringUtils.isNotBlank(newsSearch.getAuthor())){
             qb = qb.must(QueryBuilders.commonTermsQuery(StaticContants.FIELD_AUTHOR, newsSearch.getAuthor()));
@@ -205,7 +209,12 @@ public class ESearchClient {
     public QueryResult<Topic> searchTopic(TopicSearch topicSearch, Page page){
         BoolQueryBuilder qb = QueryBuilders.boolQuery();
         if(StringUtils.isNotBlank(topicSearch.getCondition())) {
-            qb = qb.must(QueryBuilders.multiMatchQuery(topicSearch.getCondition(), new String[]{"topicTitle","topicTitle.pinyin","keyword","description"}));
+            if(topicSearch.getCondition().length() == topicSearch.getCondition().getBytes().length){
+                qb = qb.must(QueryBuilders.multiMatchQuery(topicSearch.getCondition(), new String[]{"topicTitle", "topicTitle.pinyin", "keyword", "description"}));
+            }else {
+                qb = qb.must(QueryBuilders.multiMatchQuery(topicSearch.getCondition(), new String[]{"topicTitle", "keyword", "description"}));
+            }
+
         }
         if(topicSearch.getChannelId()!=null && topicSearch.getChannelId()>0){
             qb = qb.must(QueryBuilders.termQuery("channelId", topicSearch.getChannelId()));
@@ -277,9 +286,12 @@ public class ESearchClient {
     public QueryResult<Images> searchImages(ImagesSearch imagesSearch, Page page){
         BoolQueryBuilder qb = QueryBuilders.boolQuery();
         if(StringUtils.isNotBlank(imagesSearch.getCondition())) {
-            qb = qb.must(QueryBuilders.multiMatchQuery(imagesSearch.getCondition(), new String[]{"imageTitle","imageTitle.pinyin"}));
+            if(imagesSearch.getCondition().length() == imagesSearch.getCondition().getBytes().length){
+                qb = qb.must(QueryBuilders.multiMatchQuery(imagesSearch.getCondition(), new String[]{"imageTitle", "imageTitle.pinyin"}));
+            }else {
+                qb = qb.must(QueryBuilders.commonTermsQuery(imagesSearch.getCondition(), new String[]{"imageTitle"}));
+            }
         }
-
         SearchRequestBuilder builder = this.client.prepareSearch(ESSearchTypeEnum.images.getIndex())
                 .setTypes(ESSearchTypeEnum.images.getName())
                 .setFrom(page.getStart())
@@ -326,7 +338,11 @@ public class ESearchClient {
     public QueryResult<Video> searchVideo(VideoSearch videoSearch, Page page){
         BoolQueryBuilder qb = QueryBuilders.boolQuery();
         if(StringUtils.isNotBlank(videoSearch.getCondition())) {
-            qb = qb.must(QueryBuilders.multiMatchQuery(videoSearch.getCondition(), new String[]{"videoTitle","videoTitle.pinyin","videoDesc"}));
+            if(videoSearch.getCondition().length() == videoSearch.getCondition().getBytes().length){
+                qb = qb.must(QueryBuilders.multiMatchQuery(videoSearch.getCondition(), new String[]{"videoTitle", "videoTitle.pinyin", "videoDesc"}));
+            }else {
+                qb = qb.must(QueryBuilders.multiMatchQuery(videoSearch.getCondition(), new String[]{"videoTitle", "videoDesc"}));
+            }
         }
 
         SearchRequestBuilder builder = this.client.prepareSearch(ESSearchTypeEnum.video.getIndex())

@@ -99,6 +99,11 @@ public class News extends Base{
     private String buildUserId;
 
     /**
+     * 发布人名
+     */
+    private String buildUserName;
+
+    /**
      * 平台
      */
     private Integer platform = PlatformEnum.CMS.getType();
