@@ -28,6 +28,7 @@ import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.rest.RestStatus;
 import org.elasticsearch.search.SearchHit;
@@ -98,6 +99,16 @@ public class ESearchClient {
         if(newsSearch.getEndTimeMillis()!=null && newsSearch.getEndTimeMillis()>0){
             qb = qb.must(QueryBuilders.rangeQuery(StaticContants.FIELD_CREATE_TIME).lte(newsSearch.getEndTimeMillis()));
         }
+        if(StringUtils.isNotBlank(newsSearch.getBuildUserId())){
+            qb = qb.must(QueryBuilders.termQuery("buildUserId", newsSearch.getBuildUserId()));
+        }
+        if(StringUtils.isNotBlank(newsSearch.getLastModifyUserId())){
+            qb = qb.must(QueryBuilders.termQuery("lastModifyUserId", newsSearch.getLastModifyUserId()));
+        }
+        if(newsSearch.getId()!=null && newsSearch.getId()>0){
+            qb = qb.must(QueryBuilders.termQuery("id", newsSearch.getId()));
+        }
+
         SearchRequestBuilder builder = this.client.prepareSearch(ESSearchTypeEnum.news.getIndex())
                 .setTypes(ESSearchTypeEnum.news.getName())
                 .setFrom(page.getStart())

@@ -112,4 +112,12 @@
         limit ${page.start},${page.pageSize};
     </select>
 
+    <select id="getUserForRealName" resultMap="user">
+        select <include refid="all_column" /> from user <include refid="delTag" />
+        and real_name in
+        <foreach collection="list" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </select>
+
 </mapper>
