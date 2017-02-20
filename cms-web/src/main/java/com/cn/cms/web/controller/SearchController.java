@@ -86,8 +86,8 @@ public class SearchController extends BaseController {
                            @RequestParam(value = "startTime", required = false) String startTime,
                            @RequestParam(value = "endTime", required = false) String endTime,
                              @RequestParam(value = "sort", required = false) Integer sort,
-                             @RequestParam(value = "publishUserName", required = false) String publishUserName,
-                             @RequestParam(value = "updateUserName", required = false) String updateUserName,
+                             @RequestParam(value = "buildUserName", required = false) String buildUserName,
+                             @RequestParam(value = "lastModifyUserName", required = false) String lastModifyUserName,
                              @RequestParam(value = "id", required = false) Integer id,
                            @RequestParam(value = "page", required = false) Integer page,
                            @RequestParam(value = "pageSize", required = false) Integer pageSize){
@@ -103,19 +103,19 @@ public class SearchController extends BaseController {
         newsSearch.setPlatform(platform);
         newsSearch.setSort(sort);
         List<String> realNames = new ArrayList<>();
-        if(StringUtils.isNotBlank(publishUserName)){
-            realNames.add(publishUserName);
+        if(StringUtils.isNotBlank(buildUserName)){
+            realNames.add(buildUserName);
         }
-        if(StringUtils.isNotBlank(updateUserName)){
-            realNames.add(updateUserName);
+        if(StringUtils.isNotBlank(lastModifyUserName)){
+            realNames.add(lastModifyUserName);
         }
         if(realNames.size() > 0){
             Map<String ,UserBean> map = userBiz.getUserForRealName(realNames);
-            if(StringUtils.isNotBlank(publishUserName)){
-                newsSearch.setBuildUserId(map.get(publishUserName)!=null?map.get(publishUserName).getUserId():publishUserName);
+            if(StringUtils.isNotBlank(buildUserName)){
+                newsSearch.setBuildUserId(map.get(buildUserName)!=null?map.get(buildUserName).getUserId():buildUserName);
             }
-            if(StringUtils.isNotBlank(updateUserName)){
-                newsSearch.setLastModifyUserId(map.get(updateUserName)!=null?map.get(updateUserName).getUserId():updateUserName);
+            if(StringUtils.isNotBlank(lastModifyUserName)){
+                newsSearch.setLastModifyUserId(map.get(lastModifyUserName)!=null?map.get(lastModifyUserName).getUserId():lastModifyUserName);
             }
         }
         newsSearch.setId(id);
