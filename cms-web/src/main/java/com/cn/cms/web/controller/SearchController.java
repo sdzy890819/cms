@@ -112,10 +112,10 @@ public class SearchController extends BaseController {
         if(realNames.size() > 0){
             Map<String ,UserBean> map = userBiz.getUserForRealName(realNames);
             if(StringUtils.isNotBlank(publishUserName)){
-                newsSearch.setBuildUserId(map.get(publishUserName)!=null?map.get(publishUserName).getUserId():null);
+                newsSearch.setBuildUserId(map.get(publishUserName)!=null?map.get(publishUserName).getUserId():publishUserName);
             }
             if(StringUtils.isNotBlank(updateUserName)){
-                newsSearch.setLastModifyUserId(map.get(updateUserName)!=null?map.get(updateUserName).getUserId():null);
+                newsSearch.setLastModifyUserId(map.get(updateUserName)!=null?map.get(updateUserName).getUserId():updateUserName);
             }
         }
         newsSearch.setId(id);
