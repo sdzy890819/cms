@@ -206,6 +206,21 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 								  if(value.length < 1){
 								    return '内容至少得1个字符啊';
 								  }
+								},
+								userName: function(value) {
+								  if(value.length < 5){
+								    return '用户名至少为5个字符串';
+								  }									
+								},
+								password: function(value) {
+								  if(value.length < 6){
+								    return '密码至少为6个字符串';
+								  }											
+								},
+								image : function(value) {
+								  if(value.length < 1){
+								    return '请上传图片';
+								  }											
 								}
 								,http : function( value ){
 									var reg = /^http:\/\/([\w-]+\.)+[\w-]+(\/[\w-./?%&=]*)?$/;

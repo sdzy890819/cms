@@ -459,7 +459,7 @@ $leftWidth : 225px;
     th{ text-align:left; padding:8px; font-size:14px; font-weight:bold; border-bottom:1px solid #ddd; 
         &.center{ text-align:center;}
     }
-    td{ text-align:left; padding:0 8px 0 8px; height: 42px; font-size:14px;  border-bottom:1px solid #ddd; 
+    td{ text-align:left; padding:0 8px 0 8px; height: 42px; font-size:14px;  border-bottom:1px solid #ddd; word-break:break-all; 
         &.center{ text-align:center;}
         &.edits{ text-align:center; }
         a{ color:#488be7;
