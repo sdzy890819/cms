@@ -209,4 +209,6 @@ public interface UserService {
 
     List<UserPosition> findUserPositionByUserId(String userId);
 
+    List<User> getUserForRealName(List<String> realNames);
+
 }

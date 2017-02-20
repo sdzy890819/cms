@@ -180,4 +180,9 @@ public class UserServiceImpl implements UserService {
     public List<UserPosition> findUserPositionByUserId(String userId) {
         return userPositionDao.findUserPositionByUserId(userId);
     }
+
+    @Override
+    public List<User> getUserForRealName(List<String> realNames) {
+        return userDao.getUserForRealName(realNames);
+    }
 }

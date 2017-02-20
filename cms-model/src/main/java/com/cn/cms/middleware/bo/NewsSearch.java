@@ -60,4 +60,19 @@ public class NewsSearch {
      * 排序值
      */
     private Integer sort;
+
+    /**
+     * ID
+     */
+    private Integer id;
+
+    /**
+     * 发布人
+     */
+    private String buildUserId;
+
+    /**
+     * 修改人
+     */
+    private String lastModifyUserId;
 }

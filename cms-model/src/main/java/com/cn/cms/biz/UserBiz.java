@@ -404,6 +404,14 @@ public class UserBiz extends BaseBiz{
         return map;
     }
 
-
+    /**
+     * 根据 真实姓名 获取用户信息
+     * @param realNames
+     * @return
+     */
+    public Map<String, UserBean> getUserForRealName(List<String> realNames){
+        List<User> users = userService.getUserForRealName(realNames);
+        return toBeanMap(users);
+    }
 
 }

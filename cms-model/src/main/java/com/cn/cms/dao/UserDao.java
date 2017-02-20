@@ -38,4 +38,6 @@ public interface UserDao {
     Integer searchUsersCount(@Param(value = "p1") UserSearch userSearch);
 
     List<User> searchUsers(@Param(value = "p1") UserSearch userSearch, @Param(value = "page") Page page);
+
+    List<User> getUserForRealName(@Param(value = "list") List<String> realNames);
 }
