@@ -1823,8 +1823,8 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					data : {
 						//所有参数都不是必传项
 						"id" : obj.newsId,
-						"publishUserName" : obj.publishUserName,
-						"updateUserName" : obj.updateUserName,
+						"buildUserName" : obj.buildUserName,
+						"lastModifyUserName" : obj.lastModifyUserName,
 						"condition":obj.condition,
 						"author":obj.author,
 						"source":obj.source,

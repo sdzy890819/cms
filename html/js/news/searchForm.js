@@ -22,14 +22,14 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 			type : 'text'
 		},
 		{
-			title : 'publishUserName',
+			title : 'buildUserName',
 			name : '发布人',
 			placeholder : '发布人',
 			cls: "w90",
 			type : 'text'
 		},			
 		{
-			title : 'updateUserName',
+			title : 'lastModifyUserName',
 			name : '修改人',
 			placeholder : '修改人',
 			cls: "w90",
