@@ -10,7 +10,7 @@ define(['require',"app",'jquery','search','./searchForm'
 	    	replace : true,
 	    	transclude : true,
 	        templateUrl : '../template/common/list.html',
-	        controller : function($scope , pop , $uibModal , $css,GenerateArrList){
+	        controller : function($scope , pop , $uibModal , $css,GenerateArrList, $state){
 	        	$scope.title = "专题列表";
 				$scope.$parent.menu.push({name:$scope.title}); //栏目
 				angular.extend($scope,{
@@ -91,7 +91,7 @@ define(['require',"app",'jquery','search','./searchForm'
 											var layer = layui.layer;
 											layer.msg(_data.message);
 											setTimeout(function(){
-												location.reload();
+												$state.reload();
 											},300)
 										});
 									}
@@ -155,7 +155,7 @@ define(['require',"app",'jquery','search','./searchForm'
 						}
 					});
 					var th = [
-						{name:'专题标题' , key:'topicTitle' , changeObjectName : [{name:'topicUrl',newName:'href'}] , width : '200'},
+						{name:'专题标题' , key:'topicTitle' , changeObjectName : [{name:'topicUrl',newName:'href'}] , width : '400'},
 						//{name:'专题内容' , key:'topicContent' },
 						{name:'专题相对路径' , key:'topicPath' },
 						{name:'专题文件名' , key:'topicFilename' },

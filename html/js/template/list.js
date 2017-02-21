@@ -11,7 +11,7 @@ define(['require',"app",'jquery'
 	    	replace : true,
 	    	transclude : true,
 	        templateUrl : '../template/common/list.html',
-	        controller : function($scope , pop , $uibModal , $css,GenerateArrList , Upload){
+	        controller : function($scope , pop , $uibModal , $css,GenerateArrList , Upload, $state){
 	        	$scope.title = "模版列表";
 				$scope.$parent.menu.push({name:$scope.title}); //栏目
 				
@@ -96,7 +96,7 @@ define(['require',"app",'jquery'
 											var layer = layui.layer;
 											layer.msg(_data.message);
 											setTimeout(function(){
-												location.reload();
+												$state.reload();
 											},300)
 										});
 									}

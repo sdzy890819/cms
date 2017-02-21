@@ -10,7 +10,7 @@ define(['require',"app",'jquery'
 	    	replace : true,
 	    	transclude : true,
 	        templateUrl : '../template/common/list.html',
-	        controller : function($scope , pop , $uibModal , $css,GenerateArrList){
+	        controller : function($scope , pop , $uibModal , $css,GenerateArrList, $state){
 	        	$scope.title = "系列专题分类列表";
 				$scope.$parent.menu.push({name:$scope.title}); //栏目
 				angular.extend($scope,{
@@ -40,7 +40,7 @@ define(['require',"app",'jquery'
 											var layer = layui.layer;
 											layer.msg(_data.message);
 											setTimeout(function(){
-												location.reload();
+												$state.reload();
 											},300)
 										});
 									}

@@ -126,7 +126,7 @@ define(['require',"app",'jquery','search','./searchForm'
 													var layer = layui.layer;
 													layer.msg(_data.message);
 													 setTimeout(function(){
-													 	location.reload();
+													 	$state.reload();
 													 },300);
 												});
 											}

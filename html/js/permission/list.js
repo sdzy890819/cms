@@ -183,7 +183,7 @@ define(['require',"app",'jquery'
 									layui.use(['layer'], function(){
 										var layer = layui.layer;
 										layer.msg(_data.message);													
-										location.reload();
+										$state.reload();
 									});					
 			 					}
     					},
