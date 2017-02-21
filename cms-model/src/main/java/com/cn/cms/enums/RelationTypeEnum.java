@@ -9,8 +9,8 @@ import lombok.Getter;
 public enum RelationTypeEnum {
 
     column("新闻栏目", 1),
-    topic("专题分类", 3),
-    fragment("碎片", 2),
+    topic("专题分类", 2),
+    fragment("碎片", 3),
     recommend("推荐栏目", 4);
 
     @Getter
