@@ -12,13 +12,13 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 				title : 'topicPath',
 				name : '发布目录',
 				type : 'text',
-				placeholder : '请输入发布目录',
+				placeholder : '例如：/list/',
 				verify : 'path'
 			},
 			{
 				title : 'topicFilename',
 				name : '专题文件名',
-				placeholder : '请输入专题文件名',
+				placeholder : '例如: index.html',
 				type : 'text', //text textarea radio checkbox edit
 				verify : 'html'
 			}
@@ -55,8 +55,7 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 				title : 'topicColumnId',
 				selectName : ['topicColumnId'],
 				name : '系列专题',
-				type : 'select',
-				verify : 'select',
+				type : 'select',				
 				select : [
 					[
 						{name:'请选择专题栏目',title:'topicColumnId'}
@@ -68,14 +67,16 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 			{
 				title : 'releaseTime',
 				name : '发布时间',
-				placeholder : '请选择时间 年/月/日 时:分:秒',
-				type : 'date'
+				placeholder : '请选择时间 YYYY-MM-DD ',
+				type : 'date',
+				verify : 'title'
 			},
 			{
 				title : 'keyword',
 				name : '关键字',
 				placeholder : '请输入关键字以“,”间隔',
-				type : 'text'
+				type : 'text',
+				verify : 'title'
 			}
 		],
 		{
@@ -89,7 +90,8 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 			name : '内容',
 			height : 100,
 			placeholder : '请输入内容',
-			type : 'textarea'
+			type : 'textarea',
+			verify : 'title'
 		}
 	];
 	function setData(obj){

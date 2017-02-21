@@ -41,10 +41,18 @@
 
 				    	<!-- radio -->
 				    	<input ng-if="item.type=='radio'" ng-repeat="ob in item.radio" ng-value='ob.title' type="radio" name="{{item.title}}" title='{{ob.name}}' ng-checked="data[item.title]?(ob.name==data[item.title])?true:false:ob.checked" repeat-finish='radioRpeatDone'>
-				    </div>
+				    </div>				    
 				</div>
+
+				<div class="layui-inline search-submit">
+				<div class='btn {{obj.cls}}' lay-submit="" lay-filter="searchForm">
+					<i class="icon-search"></i>
+					<span>搜索</span>
+				</div>				
+				</div>
+
 			</div>
-			<div class="submit">
+<!-- 			<div class="submit">
 				<div class='btn {{obj.cls}}' lay-submit="" lay-filter="searchForm">
 					<i class="icon-search"></i>
 					<span>搜索</span>
@@ -53,12 +61,12 @@
 					<i class="icon-minus-sign"></i>
 					<span>清空</span>
 				</button>
-			</div>
+			</div> -->
 		</form>
 	</div>
 	<div class="search-info" ng-if='list.search'>
 		<div class="info">
-			共搜索到<em>{{list.search.count}}</em>个<em>“{{list.search.name}}”</em>
+			共搜索到<em>{{list.search.count}}</em>条记录<!-- <em>“{{list.search.name}}”</em> -->
 		</div>
 		<div class='btn' ng-click='return()'>
 			<i class="icon-chevron-left"></i>

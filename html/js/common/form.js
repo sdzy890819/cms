@@ -48,7 +48,7 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 					inputNum : 1,
 					addInput : function( obj , index ){ //新增输入匡
 						var firstArr, lastArr, num = $scope.inputNum+1;
-							name = obj.name.match(/\d+$/) , 
+							name = obj.name.match(/\d+$/) ,							
 							title = obj.title.replace(obj.title.match(/\d+$/)[0],'');
 						
 						$.each($scope.formdata.list,function( i , _obj ){
@@ -66,7 +66,7 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 							obj.name = name+obj.num;
 							firstArr.push({
 								title : title+num,
-								name : name+num,
+								name : name+num,								
 								placeholder : '请输入扩展字段内容',
 								num : num, //当前为第1条
 								inputMaxNum : obj.inputMaxNum,
@@ -202,9 +202,12 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 						  	form.render(); //更新全部
 						  	//自定义验证规则
 							form.verify({
+								useless: function(value) {
+
+								},
 								title: function(value){
 								  if(value.length < 1){
-								    return '内容至少得1个字符啊';
+								    return '请填写所有必填项!';
 								  }
 								},
 								userName: function(value) {
@@ -221,7 +224,12 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 								  if(value.length < 1){
 								    return '请上传图片';
 								  }											
-								}
+								},
+								imageTitle : function(value) {
+								  if(value.length < 1){
+								    return '请填写图片标题';
+								  }											
+								}								
 								,http : function( value ){
 									var reg = /^http:\/\/([\w-]+\.)+[\w-]+(\/[\w-./?%&=]*)?$/;
 									if(value.search(reg)<0){
@@ -245,7 +253,13 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 									if(value.search(reg)<0){
 										return '请输入正确文件名（例：index.html）';
 									};
+								},
+								channelPath : function(value) {
+								  if(value.length < 1){
+								    return '请输入绝对路径';
+								  }											
 								}
+
 								//required（必填项）phone（手机号）email（邮箱）url（网址）number（数字）date（日期）identity（身份证）
 							});
 							form.on('submit(demo1)', function(data){

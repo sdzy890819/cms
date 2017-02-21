@@ -292,15 +292,19 @@ define(['require',"app",'jquery'
 
 				function setList(_data){
 					var th = [
-						{name:'Id' , key:'id' , width : '50'},		
+						{name:'文章ID' , key:'id' , width : '50'},		
 						{name:'所属频道栏目' , key:'channelAndColumnName' , width : '200'},					
-						{name:'标题' , key:'title' , width : '300'},								
-						{name:'作者' , key:'author' , width: '50', class: 'center'},
-						{name:'状态' , key:'publishStr' , class: 'center'},
-						
-						{name:'发布时间' , key:'buildTimeStr' , class: 'center'},
-						{name:'更新时间' , key:'updateTimeStr' , class: 'center'},
-						{name:'操作' , width : '300' , class: 'center'}
+						{name:'标题' , key:'title' , width : '200'},								
+						{name:'作者' , key:'author' , width: '100', class: 'center'},
+						{name:'发布人' , key:'buildUserName' , width: '100', class: 'center'},
+						{name:'修改人' , key:'lastModifyUserName' , width: '100', class: 'center'},
+						{name:'媒体来源' , key:'source' , width: '100', class: 'center'},
+												
+						{name:'发布时间' , key:'buildTimeStr' , width : '200', class: 'center'},
+						{name:'修改时间' , key:'updateTimeStr' , width : '200', class: 'center'},
+						{name:'状态' , key:'publishStr' , width: '100', class: 'center'},
+						{name:'操作' , width : '200' , class: 'center'},
+						{name:'权限' , width : '100' , class: 'center'}
 					];
 					
 					$.each(_data.data.list, function(i, obj){
@@ -313,12 +317,16 @@ define(['require',"app",'jquery'
 							select : true,
 							th : th,									
 							td : GenerateArrList.setArr(_data.data.list, th) ,
-							edit : [
-								{cls : 'edit' , name : ' 推荐',evt:$scope.recommend},
-								{cls : 'edit' , name : '发布',evt:$scope.publish},
+							edit : [																
 								{cls : 'edit' , name : '编辑',evt:$scope.edit},
-								{cls : 'del' , name : '删除',evt:$scope.del}										
+								{cls : 'edit' , name : ' 推荐',evt:$scope.recommend}
+								// {cls : 'del' , name : '删除',evt:$scope.del}
+							],
+
+							permission : [
+								{cls : 'del' , name : '删除',evt:$scope.del}
 							]
+
 
 						},
 						/*submit : [
@@ -345,6 +353,7 @@ define(['require',"app",'jquery'
 
 					GenerateArrList.extendType($scope.listdata.table.td,th,['width','name','key']); //把TH 中的出name,key,width属性以外的属性合传给td							
       		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');			        		
+      		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.permission,'permission');			        		
       		$scope.$apply();						
 				}
 

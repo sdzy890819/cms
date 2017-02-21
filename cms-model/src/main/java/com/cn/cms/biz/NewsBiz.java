@@ -89,8 +89,8 @@ public class NewsBiz extends BaseBiz {
                         map.get(list.get(i).getWriteUserId()).getRealName():"");
                 list.get(i).setLastModifyUserName(map.get(list.get(i).getLastModifyUserId())!=null?
                         map.get(list.get(i).getLastModifyUserId()).getRealName():"");
-                list.get(i).setBuildUserName(map.get(list.get(i).getBuildUserName())!=null?
-                        map.get(list.get(i).getBuildUserName()).getRealName():"");
+                list.get(i).setBuildUserName(map.get(list.get(i).getBuildUserId())!=null?
+                        map.get(list.get(i).getBuildUserId()).getRealName():"");
                 list.get(i).setChannelName(channelMap.get(list.get(i).getChannelId())!=null?
                         channelMap.get(list.get(i).getChannelId()).getChannelName():"");
                 list.get(i).setColumnName(newsColumnMap.get(list.get(i).getColumnId())!=null?

@@ -63,6 +63,10 @@ define(['require',"app",'jquery'
 													layui.use(['layer'], function(){
 														var layer = layui.layer;
 														layer.msg(_data.message);
+
+														if (_data.code == 0) {
+															$state.reload();
+														}
 													});													
 												}
 	        						})
@@ -185,7 +189,7 @@ define(['require',"app",'jquery'
 						
 						function setList(_data){
 							var th = [							
-										{name: '碎片ID', key: 'id'},
+										{name: '碎片ID', width: '100', key: 'id'},
 										{name:'碎片名称', key: 'fragmentName' },												
 										{name:'操作' , width : '400', class:'center'}
 							];
@@ -199,8 +203,8 @@ define(['require',"app",'jquery'
 									edit : [
 										{cls : 'edit' , name : '编辑',evt:$scope.edit},
 										{cls : 'edit' , name : '碎片维护',evt:$scope.editFragmentMap},
-										{cls : 'del'  , name : '删除',evt:$scope.del},
-										{cls : 'edit'  , name : '发布',evt:$scope.release}
+										{cls : 'del'  , name : '删除',evt:$scope.del}
+										// {cls : 'edit'  , name : '发布',evt:$scope.release}
 									]
 								}
 							}

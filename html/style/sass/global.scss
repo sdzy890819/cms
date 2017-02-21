@@ -102,6 +102,15 @@ input:focus{ border: 1px solid #bbb !important;} */
 .loadding{ height:200px; background:url(../../images/loadding.gif) center center no-repeat;}
 .container{ padding:0 20px;}
 
+.imagePre {
+  border:  1px solid #ddd;
+  padding: 4px;
+  margin: 5px;
+  background: #fff;
+  border-radius: 4px;
+  vertical-align: middle;
+}
+
 .file {
     padding: 4px 10px;
     height: 20px;
@@ -393,6 +402,21 @@ $leftWidth : 225px;
         }
 
     }
+    .search-submit{
+        height:50px; line-height: 50px; padding-left: 15px; background: #fff; 
+        .btn{ display: inline-block; height: 35px; line-height: 35px; padding:0 15px; color: #fff; border:none; background: #488be7; cursor: pointer;@include transition-duration(.3s);
+            &:hover{ background:#3d82e1; };
+            &:not(:nth-child(1)){ margin-left:10px; };
+            &.cancel{ background-color: #e5e5e5; color: #737373; 
+              &:hover{ background:#d3d3d3; };
+            }
+            &.red{
+                background-color:#e50000; color:#fff;
+                &:hover{ background:#c80000; };
+            }
+        }
+
+    }    
     .uploadify-button{ border:1px solid #ccc; border-radius:5px; background:#3d82e1; color:#fff; }
     &.popedit{ margin-top:0; }
     .w50 {width: 50px; }
@@ -455,7 +479,7 @@ $leftWidth : 225px;
 }
 .table{
     table{ width:100%; border-left:1px solid #ddd; border-top:1px solid #ddd; @include box-sizing;}
-    img.img{ vertical-align:middle; width:20px; height:20px; border-radius:100%;}
+    img.img{ vertical-align:middle; width:30px; height:30px; border-radius:100%;}
     th{ text-align:left; padding:8px; font-size:14px; font-weight:bold; border-bottom:1px solid #ddd; 
         &.center{ text-align:center;}
     }

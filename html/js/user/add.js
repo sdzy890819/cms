@@ -5,7 +5,7 @@ define(["app",'./addForm', '../upload/index', '../data/getData','form','position
 	    	replace : true,
 	    	transclude : true,
 	        templateUrl : '../template/common/addAndEdit.html',
-	        controller : function($scope, $uibModal, Upload){
+	        controller : function($scope, $uibModal, Upload, $state){
 	        	$scope.$parent.menu.push({name:"新增用户"});
 	        	angular.extend($scope,{
 							save : function( obj ){ //保存
@@ -37,6 +37,10 @@ define(["app",'./addForm', '../upload/index', '../data/getData','form','position
 														layui.use(['layer'], function(){
 															var layer = layui.layer;
 															layer.msg(_data.message);												
+															if(_data.code == 0){
+																$state.go('user.list');	
+															}
+
 														});												
 													}
 												})
@@ -96,7 +100,8 @@ define(["app",'./addForm', '../upload/index', '../data/getData','form','position
 			        						$scope.imageInfo = file;	     
 													Upload.base64DataUrl($scope.imageInfo).then(function(urls){	        						   						
 				        						var image = "<img src='" + file.$ngfDataUrl + "'width='100px' class='thumb'>";	        						
-				        						$('.layui-upload-button').empty().append(image);												
+				        						// $('.layui-upload-button').empty().append(image);												
+				        						$('.imagePre').empty().append(image);
 													})
 			        						
 			        						$uibModalInstance.dismiss('cancel');

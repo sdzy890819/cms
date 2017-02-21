@@ -23,7 +23,7 @@ define(function(){
 		{
 			title : 'idfa',
 			name : 'IDFA(MAC)',
-			placeholder : '请输入IDFA(MAC)',
+			placeholder : '多个以逗号分割 例如： XX-XX-XX-XX-XX',
 			type : 'text',
 			check : false
 		},		

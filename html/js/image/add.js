@@ -69,7 +69,7 @@ define(["app",'./addForm','../upload/index','../data/getData','form','position',
 							}else if(!urls){
 								alert('请上传图片')
 							}else if(isSize=='yes' && selectSize=='yes' && !width ){
-								alert('请输入高度')
+								alert('请输入宽度')
 							}else if(isSize=='yes' && selectSize=='no' && !height ){
 								alert('请输入高度')
 							}
@@ -88,7 +88,8 @@ define(["app",'./addForm','../upload/index','../data/getData','form','position',
 	        						$scope.imageInfo = file;	     
 											Upload.base64DataUrl($scope.imageInfo).then(function(urls){	        						   						
 		        						var image = "<img src='" + file.$ngfDataUrl + "'width='100px' class='thumb'>";        						
-		        						$('.layui-upload-button').empty().append(image);												
+		        						// $('.layui-upload-button').empty().append(image);												
+		        						$('.imagePre').empty().append(image);
 											})
 	        						
 	        						$uibModalInstance.dismiss('cancel');

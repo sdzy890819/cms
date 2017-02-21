@@ -9,7 +9,7 @@ define(["app",'jquery','./columnForm'
 	    	replace : true,
 	    	transclude : true,
 	        templateUrl : '../template/common/list.html',
-	        controller : function($scope , pop , GenerateArrList , $uibModal ){
+	        controller : function($scope , pop , GenerateArrList , $uibModal, $state ){
 				$scope.title = "新闻栏目列表";
 				$scope.$parent.menu.push({name:$scope.title}); //栏目
 				angular.extend($scope,{
@@ -60,7 +60,7 @@ define(["app",'jquery','./columnForm'
 														var layer = layui.layer;
 														layer.msg(_data.message);
 														setTimeout(function(){
-															location.reload()
+															$state.reload()
 														},300)
 													});
 												}
@@ -126,7 +126,7 @@ define(["app",'jquery','./columnForm'
 
 							var th = [
 								{name:'ID' , key:'id' , width : '50'},
-								{name:'栏目名' , key:'columnName' , width : '200'},
+								{name:'栏目名' , key:'columnName' , width : '500'},
 								{name:'频道ID' , key:'channelId' },
 								{name:'操作' , width : '200' , class:'center'}
 							];

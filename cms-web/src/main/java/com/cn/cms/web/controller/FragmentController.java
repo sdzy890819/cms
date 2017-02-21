@@ -119,6 +119,7 @@ public class FragmentController extends BaseController {
         }
         fragment.setFragmentContent(fragmentModel);
         fragmentBiz.editFragment(fragment);
+        publish(request, id);
         return ApiResponse.returnSuccess();
     }
 

@@ -39,13 +39,16 @@ define(['../data/getData','../moduls/Tool'], function(Data, Tool){
 		{
 			title : 'fragmentModel',
 			name : '碎片模版',					
-			type : 'textarea' //text textarea radio checkbox edit			
+			type : 'textarea', //text textarea radio checkbox edit			
+			placeholder : '例如: 上帝改{#第一个#}，说明改{#第二个#}',
+			verify : 'title'
 		},
 		{
 			title : 'sortNum',
 			name : '排序值',
-			type : 'text',
-			verify : 'number'
+			type : 'text',	
+			placeholder : '1000',
+			verify : 'useless'
 		}		
 	];
 

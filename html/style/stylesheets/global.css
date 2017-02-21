@@ -239,6 +239,16 @@ input:focus{ border: 1px solid #bbb !important;} */
   padding: 0 20px;
 }
 
+.imagePre {
+  border:  1px solid #ddd;
+  padding: 4px;
+  margin: 5px;
+  background: #fff;
+  border-radius: 4px;
+  vertical-align: middle;
+}
+
+
 /* line 105, ../sass/global.scss */
 .file {
   padding: 4px 10px;
@@ -963,6 +973,29 @@ input:focus{ border: 1px solid #bbb !important;} */
   background: #f5f5f5;
   border-top: 1px solid #e5e5e5;
 }
+
+.boxtab .search-submit {
+  height: 50px;
+  line-height: 50px;
+  padding-left: 15px;
+  background: #fff;  
+}
+
+.boxtab .search-submit .btn {
+  display: inline-block;
+  height: 35px;
+  line-height: 35px;
+  padding: 0 15px;
+  color: #fff;
+  border: none;
+  background: #488be7;
+  cursor: pointer;
+  transition-duration: 0.3s;
+  -webkit-transition-duration: 0.3s;
+  -moz-transition-duration: 0.3s;
+  -o-transition-duration: 0.3s;
+  -ms-transition-duration: 0.3s;  
+}
 /* line 383, ../sass/global.scss */
 .boxtab .submit .btn {
   display: inline-block;
@@ -1239,8 +1272,8 @@ input:focus{ border: 1px solid #bbb !important;} */
 /* line 457, ../sass/global.scss */
 .table img.img {
   vertical-align: middle;
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
   border-radius: 100%;
 }
 /* line 458, ../sass/global.scss */

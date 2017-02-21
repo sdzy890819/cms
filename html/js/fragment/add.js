@@ -10,7 +10,7 @@ define(["app",'./addForm', '../data/getData','form','position','fixedNav'], func
         	$scope.$parent.menu.push({name:$scope.title});
 
 					$scope.save = function( obj, _detail ){ //保存
-						var channelId, fragmentClassifyId;
+						var channelId, fragmentClassifyId, sortNum;
 
 						$.each(obj.selects, function(){
 							if (this.title == 'channelId'){
@@ -22,12 +22,17 @@ define(["app",'./addForm', '../data/getData','form','position','fixedNav'], func
 							}
 						})
 
+						if (!sortNum) {
+							sortNum = 1000;
+						}
+
+
 						Data.fragment.createFragment({
 							channelId : channelId,
 							fragmentClassifyId : fragmentClassifyId,
 							fragmentName : obj.fragmentName,
 							fragmentModel : obj.fragmentModel,
-							sortNum : obj.sortNum,
+							sortNum : sortNum,
 
 							callback : function(_data){
 								layui.use(['layer'], function(){
@@ -46,10 +51,10 @@ define(["app",'./addForm', '../data/getData','form','position','fixedNav'], func
 						alert(obj);
 					}
 
-					getList(function(list){
+					getList(function(list){						
 						$scope.formdata = { //确认按钮
 							title : $scope.title,
-							list : list,
+							list : list,											
 							submit : [
 								{
 									name : '保存',
