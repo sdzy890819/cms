@@ -294,7 +294,7 @@ public class NewsController extends BaseController {
             }
         }
         newsBiz.updateNews(news);
-        if(autoPublish!=null && autoPublish == AutoPublishEnum.YES.getType() && news.getTimer() == null && publish != PublishEnum.draft.getType()){
+        if(autoPublish !=null && autoPublish == AutoPublishEnum.YES.getType() && news.getTimer() == null && publish != PublishEnum.draft.getType()){
             if(permissionBiz.checkPermission(userID, "news:publish")) {
                 publish(request, id);
             }
