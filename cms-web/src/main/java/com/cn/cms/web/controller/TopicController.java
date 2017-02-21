@@ -52,7 +52,7 @@ public class TopicController extends BaseController {
                                @RequestParam(value="pageSize",required = false)Integer pageSize){
         Page pageObj = new Page(page, pageSize);
         List<Topic> topics = topicBiz.listTopic(pageObj);
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
         map.put("page", pageObj);
         map.put("list", topics);
         return ApiResponse.returnSuccess(map);
