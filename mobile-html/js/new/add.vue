@@ -41,7 +41,8 @@
 				</div>
 			</li>
 			<li>
-				<vue2-html5-editor v-model="content" :height="100"></vue2-html5-editor>
+				<!-- <vue-html5-editor :content="content" :height="100"></vue-html5-editor> -->
+				<!-- <vue2-html5-editor :content.sync="content" :height="500"></vue2-html5-editor> -->
 			</li>
 			<li>
 				<input v-model='field1' class="text" type="text" placeholder='扩展字段1'>
@@ -89,6 +90,9 @@
 			<li>
 				<input type='date' v-model='timer' >
 			</li>
+			<li>
+				<vue2-html5-editor v-model="content" :height="500"></vue2-html5-editor>
+			</li>
 		</ul>
 		<div class="submit">
 			<div class="btn">提交</div>
@@ -117,10 +121,11 @@ Date.prototype.Format = function (fmt) { //author: meizz
 //import vue2Html5Editor from '../plug/vue2-html5-editor/src/editor.vue';
 import T from '../common/global';
 import {news,category,channel} from '../common/URL';
+//import { VueEditor } from '../plug/vue2-editor/dist/index.js'
+
 	export default {
 		name : 'add',
 		components : {
-			
 		},
 		props : {
 
@@ -166,11 +171,10 @@ import {news,category,channel} from '../common/URL';
 				}
 			});
 			require.ensure([],function(require){
-				require('../plug/vue2-html5-editor/src/style.less')
-				var option = {
-				    //global component name
-				    name: "vue-html5-editor",
-				    //custom icon class of built-in modules,default using font-awesome
+				/*require('../plug/vue2-html5-editor/src/style.less');
+				var options = {
+					name: "vue-html5-editor",
+				    //custom icon class of built-in modules,default using font-awesome 
 				    icons: {
 				        text: "fa fa-pencil",
 				        color: "fa fa-paint-brush",
@@ -187,23 +191,23 @@ import {news,category,channel} from '../common/URL';
 				        "full-screen": "fa fa-arrows-alt",
 				        info: "fa fa-info",
 				    },
-				    //config image module
+				    //config image module 
 				    image: {
-				        //Url of the server-side,default null and convert image to base64
+				        //Url of the server-side,default null and convert image to base64 
 				        server: null,
-				        //the name for file field in multipart request
+				        //the name for file field in multipart request 
 				        fieldName: "image",
-				        //max file size
+				        //max file size 
 				        sizeLimit: 512 * 1024,
-				        // default true,if set to true,the image will resize by localResizeIMG (https://github.com/think2011/localResizeIMG)
+				        // default true,if set to true,the image will resize by localResizeIMG (https://github.com/think2011/localResizeIMG) 
 				        compress: true,
-				        //follows are options of localResizeIMG
+				        //follows are options of localResizeIMG 
 				        width: 1600,
 				        height: 1600,
 				        quality: 80,
-				        //handle response data，return image url
+				        //handle response data，return image url 
 				        uploadHandler(responseText){
-				            //default accept json data like  {ok:false,msg:"unexpected"} or {ok:true,data:"image url"}
+				            //default accept json data like  {ok:false,msg:"unexpected"} or {ok:true,data:"image url"} 
 				            var json = JSON.parse(responseText)
 				            if (!json.ok) {
 				                alert(json.msg)
@@ -212,10 +216,10 @@ import {news,category,channel} from '../common/URL';
 				            }
 				        }
 				    },
-				    //default en-us, en-us and zh-cn are built-in
+				    //default en-us, en-us and zh-cn are built-in 
 				    language: "zh-cn",
 				    i18n: {
-				        //specify your language here
+				        //specify your language here 
 				        "zh-cn": {
 				            "align": "对齐方式",
 				            "image": "图片",
@@ -259,10 +263,10 @@ import {news,category,channel} from '../common/URL';
 				            "reset": "重置"
 				        }
 				    },
-				    //the modules you don't want
+				    //the modules you don't want 
 				    hiddenModules: [],
-				    //keep only the modules you want and customize the order.
-				    //can be used with hiddenModules together
+				    //keep only the modules you want and customize the order. 
+				    //can be used with hiddenModules together 
 				    visibleModules: [
 				        "text",
 				        "color",
@@ -279,11 +283,15 @@ import {news,category,channel} from '../common/URL';
 				        "full-screen",
 				        "info",
 				    ],
-				    //extended modules
+				    //extended modules 
 				    modules: {
-				        //omit,reference to source code of build-in modules
+				        //omit,reference to source code of build-in modules 
 				    }
 				}
+				var Vue2Html5Editor = require("../plug/vue2-html5-editor/dist/vue2-html5-editor.js");
+				//Vue.use(editor,options);
+				Vue.use(Vue2Html5Editor,options)*/
+
 				var editor = require("../plug/vue2-html5-editor/dist/vue2-html5-editor.js");
 				Vue.use(editor, {
 				    name: 'vue2-html5-editor'
