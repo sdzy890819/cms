@@ -49,8 +49,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
-//
-//
 
 exports.default = {
 	data: function data() {
@@ -90,6 +88,26 @@ exports.default = {
 		},
 		release: function release(obj) {
 			_global2.default.pop('发布', 'error');
+		},
+		search: function search() {
+			var self = this,
+			    txt = self.searchtxt;
+			_global2.default.ajax({
+				url: _URL.search.searchNew,
+				type: 'post',
+				data: {
+					condition: txt,
+					page: 1,
+					pageSize: 20
+				},
+				success: function success(_data) {
+					var list = _data.data.list;
+					list.map(function (obj, i) {
+						obj.timeStr = obj.updateTimeStr.substr(5, 11);
+					});
+					self.list = list;
+				}
+			});
 		}
 	}
 };
@@ -102,7 +120,36 @@ exports.default = {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "new"
-  }, [_vm._m(0), _vm._v(" "), _c('div', {
+  }, [_c('div', {
+    attrs: {
+      "id": "Search"
+    }
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.searchtxt),
+      expression: "searchtxt"
+    }],
+    attrs: {
+      "type": "text",
+      "placeholder": "请输入搜索内容"
+    },
+    domProps: {
+      "value": _vm._s(_vm.searchtxt)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.searchtxt = $event.target.value
+      }
+    }
+  }), _c('div', {
+    staticClass: "btn",
+    on: {
+      "click": _vm.search
+    }
+  }, [_vm._v("搜索")])]), _vm._v(" "), _c('div', {
     staticClass: "new-list"
   }, _vm._l((_vm.list), function(obj) {
     return _c('dl', [_c('dt', [_vm._v(_vm._s(obj.title))]), _vm._v(" "), _c('dd', [_c('div', {
@@ -139,19 +186,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('i', {
     staticClass: "add"
   }), _vm._v("\r\n\t\t\t\t新增\r\n\t\t\t")])], 1)])])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    attrs: {
-      "id": "Search"
-    }
-  }, [_c('input', {
-    attrs: {
-      "type": "text"
-    }
-  }), _c('div', {
-    staticClass: "btn"
-  }, [_vm._v("搜索")])])
-}]}
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -219,7 +254,8 @@ module.exports = {
 		init: url + '/login/init'
 	},
 	video: {
-		videolist: url + '/video/videolist'
+		videolist: url + '/video/videolist',
+		createVideo: url + '/video/createVideo'
 	},
 	news: {
 		newslist: url + '/news/newslist',
@@ -229,6 +265,12 @@ module.exports = {
 		listCategory: url + '/category/listCategory' },
 	channel: { //获取频道分类列表
 		currentChannelList: url + '/channel/currentChannelList'
+	},
+	search: {
+		searchNew: url + '/search/searchNew',
+		searchVideo: url + '/search/searchVideo',
+		searchImages: url + '/search/searchImages'
+
 	}
 };
 
@@ -308,4 +350,4 @@ module.exports = T;
 /***/ })
 
 });
-//# sourceMappingURL=6_chunk.js.map?name=0aea89b927cc927dabda
+//# sourceMappingURL=6_chunk.js.map?name=b95f1a6d41de31433dba

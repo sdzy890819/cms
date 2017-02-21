@@ -15,6 +15,7 @@ module.exports = {
 	},
 	video : {
 		videolist : url+'/video/videolist',
+		createVideo : url+'/video/createVideo',
 	},
 	news : {
 		newslist : url+'/news/newslist',
@@ -27,4 +28,10 @@ module.exports = {
 	channel : { //获取频道分类列表
 		currentChannelList : url+'/channel/currentChannelList' , 
 	},
+	search : {
+		searchNew : url+'/search/searchNew' , 
+		searchVideo : url+'/search/searchVideo' , 
+		searchImages : url+'/search/searchImages' , 
+
+	}
 }

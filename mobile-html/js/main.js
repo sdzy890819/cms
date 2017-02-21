@@ -59,6 +59,12 @@ const router = new VueRouter({
 		        		require(['./video/add'],resolve)
 		        	}
 				},
+				{
+					path: 'edit', 
+					component : function(resolve){
+		        		require(['./video/edit'],resolve)
+		        	}
+				},
 			]
 		},
 		{ 
