@@ -39,17 +39,47 @@
 			}
 		},
 		beforeCreate (){
-			var self = this;
-			T.ajax({
-				url : news.newslist ,
-				success : function( _data ){
-					var list = _data.data.list;
-					list.map((obj , i)=>{
-						obj.timeStr = obj.updateTimeStr.substr(5,11)
-					})
-					self.list = list;
-				}
-			})
+			var self = this,
+				page = 1 ,
+				pageSize = 10 , 
+				loading = true;
+
+			function getList(){
+				if(loading==false) return;
+				loading = false;
+				T.ajax({
+					url : news.newslist ,
+					data : {
+						page : page , 
+						pageSize : pageSize
+					},
+					success : function( _data ){
+						var list = _data.data.list;
+						if(!list || !list.length) return;
+						list.map((obj , i)=>{
+							obj.timeStr = obj.updateTimeStr.substr(5,11)
+						})
+						self.list = self.list.concat(list);
+						loading = true;
+						self.$nextTick(function(){
+			                var box = $('.new-list'),
+								scrollHeight = box[0].scrollHeight , 
+								height = box.height();
+							box.unbind().on('scroll',function(){
+								var scrollTop = $(this).scrollTop()+height+50;
+								if(scrollTop>scrollHeight){
+									page++;
+									getList();
+								}
+							})
+			            });
+					}
+				})
+			}
+			getList();
+		},
+		mounted(){
+			
 		},
 		methods : {
 			edit : function( obj ){
