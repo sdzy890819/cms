@@ -7,7 +7,7 @@ define(["app",'jquery','./moduls/directive'], function ( app , $ ) {
 	        templateUrl : '../template/common/formlist.html',
 			scope : {
 	            data : '=data',	            
-	            edit : '=edit',
+	            edit : '=edit',	            
 	            filter : '=filter',	
 	            searchform : '=searchform', //搜索  	            
 	            page : '=page'

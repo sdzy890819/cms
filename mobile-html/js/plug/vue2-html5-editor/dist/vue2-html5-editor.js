@@ -1289,59 +1289,77 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-	  return _c('div', {
-	    staticClass: "vue-html5-editor",
-	    class: {
-	      'full-screen': _vm.fullScreen
-	    },
-	    style: ({
-	      'z-index': _vm.zIndex
-	    })
-	  }, [_c('div', {
-	    ref: "toolbar",
-	    staticClass: "toolbar",
-	    style: ({
-	      'z-index': _vm.zIndex + 1
-	    })
-	  }, [_c('ul', [_vm._l((_vm.modules), function(module) {
-	    return [(module.show) ? _c('li', {
-	      attrs: {
-	        "title": _vm.locale[module.i18n]
-	      },
-	      on: {
-	        "click": function($event) {
-	          _vm.activeModule(module)
-	        }
-	      }
-	    }, [_c('span', {
-	      staticClass: "icon",
-	      class: module.icon
-	    })]) : _vm._e()]
-	  })], true), _vm._v(" "), _c('div', {
-	    directives: [{
-	      name: "show",
-	      rawName: "v-show",
-	      value: (_vm.dashboard),
-	      expression: "dashboard"
-	    }],
-	    staticClass: "dashboard",
-	    style: (_vm.dashboardStyle)
-	  }, [_c('keep-alive', [(_vm.dashboard) ? _c(_vm.dashboard, {
-	    tag: "div"
-	  }) : _vm._e()])])]), _vm._v(" "), _c('div', {
-	    ref: "content",
-	    staticClass: "content",
-	    style: (_vm.contentStyle),
-	    attrs: {
-	      "contenteditable": "true"
-	    },
-	    on: {
-	      "click": function($event) {
-	        _vm.toggleDashboard(_vm.dashboard)
-	      }
-	    }
-	  })])
+	module.exports={render:function (){
+	var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+	  return _c('div', 
+	  	{
+		    staticClass: "vue-html5-editor",
+		    class: {
+		      'full-screen': _vm.fullScreen
+		    },
+		    style: ({
+		      'z-index': _vm.zIndex
+		    })
+	  }, 
+	  [_c(
+	  	'div', 
+	  	{
+		    ref: "toolbar",
+		    staticClass: "toolbar",
+		    style: ({
+		      'z-index': _vm.zIndex + 1
+		    })
+	  	},
+	  	[
+		  _c('ul', 
+		  	_vm._l((_vm.modules), function(module) {
+			    return ((module.show) ? _c('li', 
+			    	{
+				      attrs: {
+				        "title": _vm.locale[module.i18n]
+				      },
+				      on: {
+				        "click": function($event) {
+				          _vm.activeModule(module)
+				        }
+				      }
+				    }, 
+			    	[_c('span', {
+				      staticClass: "icon",
+				      class: module.icon
+				    })]
+		    	) : _vm._e())
+			  })
+		  , true),
+		  _vm._v(" "),
+		  _c('div', {
+		    directives: [
+		    	{
+			      name: "show",
+			      rawName: "v-show",
+			      value: (_vm.dashboard),
+			      expression: "dashboard"
+			    }
+	   		],
+		    staticClass: "dashboard",
+		    style: (_vm.dashboardStyle)
+	 	 	}, [_c('keep-alive', [(_vm.dashboard) ? _c(_vm.dashboard, {
+	   		tag: "div"
+	 	 	}) : _vm._e()])])
+		]), 
+		_vm._v(" "), _c('div', {
+		    ref: "content",
+		    staticClass: "content",
+		    style: (_vm.contentStyle),
+		    attrs: {
+		      "contenteditable": "true"
+		    },
+		    on: {
+		      "click": function($event) {
+		        _vm.toggleDashboard(_vm.dashboard)
+		      }
+		    }
+		  })])
 	},staticRenderFns: []}
 	module.exports.render._withStripped = true
 	if (false) {
@@ -1939,61 +1957,78 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-	  return _c('div', [_c('label', [_c('input', {
-	    directives: [{
-	      name: "model",
-	      rawName: "v-model",
-	      value: (_vm.command),
-	      expression: "command"
-	    }],
-	    attrs: {
-	      "type": "radio",
-	      "value": "foreColor"
-	    },
-	    domProps: {
-	      "checked": _vm._q(_vm.command, "foreColor")
-	    },
-	    on: {
-	      "change": function($event) {
-	        _vm.command = "foreColor"
-	      }
-	    }
-	  }), _vm._v(" \n        " + _vm._s(_vm.$parent.locale["fore color"]) + "\n    ")]), _vm._v(" "), _c('label', [_c('input', {
-	    directives: [{
-	      name: "model",
-	      rawName: "v-model",
-	      value: (_vm.command),
-	      expression: "command"
-	    }],
-	    attrs: {
-	      "type": "radio",
-	      "value": "backColor"
-	    },
-	    domProps: {
-	      "checked": _vm._q(_vm.command, "backColor")
-	    },
-	    on: {
-	      "change": function($event) {
-	        _vm.command = "backColor"
-	      }
-	    }
-	  }), _vm._v(" \n        " + _vm._s(_vm.$parent.locale["background color"]) + "\n    ")]), _vm._v(" "), _vm._l((_vm.colors), function(color) {
-	    return _c('div', {
-	      staticClass: "color-card",
-	      style: ({
-	        'background-color': color
-	      }),
-	      on: {
-	        "click": function($event) {
-	          _vm.changeColor(color)
-	        }
-	      }
-	    })
-	  }), _vm._v(" "), _c('div', {
-	    staticStyle: {
-	      "clear": "both"
-	    }
-	  })], true)
+	  return _c('div', [
+	  	_c('label', [
+		  	_c('input', {
+			    directives: [{
+			      name: "model",
+			      rawName: "v-model",
+			      value: (_vm.command),
+			      expression: "command"
+			    }],
+			    attrs: {
+			      "type": "radio",
+			      "value": "foreColor"
+			    },
+			    domProps: {
+			      "checked": _vm._q(_vm.command, "foreColor")
+			    },
+			    on: {
+			      "change": function($event) {
+			        _vm.command = "foreColor"
+			      }
+			    }
+		  })
+		  ,_vm._v(" \n        " + _vm._s(_vm.$parent.locale["fore color"]) + "\n    ")
+	  	])
+	  	,_vm._v(" "),
+	  	_c('label', [
+		  	_c('input', {
+			    directives: [{
+			      name: "model",
+			      rawName: "v-model",
+			      value: (_vm.command),
+			      expression: "command"
+			    }],
+			    attrs: {
+			      "type": "radio",
+			      "value": "backColor"
+			    },
+			    domProps: {
+			      "checked": _vm._q(_vm.command, "backColor")
+			    },
+			    on: {
+			      "change": function($event) {
+			        _vm.command = "backColor"
+			      }
+			    }
+		  	}), 
+		  	_vm._v(" \n        " + _vm._s(_vm.$parent.locale["background color"]) + "\n    ")
+		]),
+		_vm._v(" "),
+		_c(
+			'div',
+			_vm._l((_vm.colors), function(color) {
+			    return _c('div', {
+			      staticClass: "color-card",
+			      style: ({
+			        'background-color': color
+			      }),
+			      on: {
+			        "click": function($event) {
+			          _vm.changeColor(color)
+			        }
+			      }
+			    })
+			}),
+		),
+		_vm._v(" "),
+		_c('div', {
+		    staticStyle: {
+		      "clear": "both"
+		    }
+	  	})
+		], true)
 	},staticRenderFns: []}
 	module.exports.render._withStripped = true
 	if (false) {

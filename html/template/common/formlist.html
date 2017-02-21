@@ -31,6 +31,13 @@
 								<i class='icon-{{item.icon}}'></i>{{item.name}}
 							</div>
 						</td>
+
+						<td class="edits" ng-if="obj.list.permission">						
+							<div ng-repeat='item in obj.list.permission' ng-click='submit(item.evt,obj,$event)' class="btn {{item.cls}}" repeat-finish='editsFinish'>
+								<i class='icon-{{item.icon}}'></i>{{item.name}}
+							</div>
+						</td>						
+
 					</tr>
 				</table>
 			</div>
