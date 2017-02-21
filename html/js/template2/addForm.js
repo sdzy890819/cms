@@ -12,13 +12,13 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 				title : 'filename',
 				name : '发布文件名',
 				type : 'text',
-				placeholder : '请输入模版发布时显示的文件名',
+				placeholder : '例如:index.html',
 				verify : 'required'
 			},
 			{
 				title : 'path',
 				name : '发布目录',
-				placeholder : '请输入模版发布目录',
+				placeholder : '例如：/list/',
 				type : 'text', //text textarea radio checkbox edit
 				verify : 'path'
 			}
