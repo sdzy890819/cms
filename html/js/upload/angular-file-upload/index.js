@@ -52,6 +52,10 @@ define(["app",'jquery','../../data/URL' , '../../data/getData'],function (app,$,
 			            }
 							});
 
+							uploader.onAfterAddingFile = function(fileItem) {
+								$('.filename').empty().append(fileItem._file.name);
+							};
+
 			        uploader.onProgressItem = function(fileItem, progress) { //进行中
 			        	$('.videoPop .progress1').css({width:progress+'%'});
 			        };

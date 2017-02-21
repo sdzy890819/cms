@@ -247,6 +247,8 @@ input:focus{ border: 1px solid #bbb !important;} */
   border-radius: 4px;
   vertical-align: middle;
 }
+
+
 /* line 105, ../sass/global.scss */
 .file {
   padding: 4px 10px;
@@ -1270,8 +1272,8 @@ input:focus{ border: 1px solid #bbb !important;} */
 /* line 457, ../sass/global.scss */
 .table img.img {
   vertical-align: middle;
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
   border-radius: 100%;
 }
 /* line 458, ../sass/global.scss */

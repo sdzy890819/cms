@@ -69,7 +69,7 @@ define(["app",'./addForm','../upload/index','../data/getData','form','position',
 							}else if(!urls){
 								alert('请上传图片')
 							}else if(isSize=='yes' && selectSize=='yes' && !width ){
-								alert('请输入高度')
+								alert('请输入宽度')
 							}else if(isSize=='yes' && selectSize=='no' && !height ){
 								alert('请输入高度')
 							}

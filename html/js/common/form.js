@@ -202,6 +202,9 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 						  	form.render(); //更新全部
 						  	//自定义验证规则
 							form.verify({
+								useless: function(value) {
+
+								},
 								title: function(value){
 								  if(value.length < 1){
 								    return '内容至少得1个字符啊';
@@ -221,7 +224,12 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 								  if(value.length < 1){
 								    return '请上传图片';
 								  }											
-								}
+								},
+								imageTitle : function(value) {
+								  if(value.length < 1){
+								    return '请填写图片标题';
+								  }											
+								}								
 								,http : function( value ){
 									var reg = /^http:\/\/([\w-]+\.)+[\w-]+(\/[\w-./?%&=]*)?$/;
 									if(value.search(reg)<0){

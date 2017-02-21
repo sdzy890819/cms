@@ -479,7 +479,7 @@ $leftWidth : 225px;
 }
 .table{
     table{ width:100%; border-left:1px solid #ddd; border-top:1px solid #ddd; @include box-sizing;}
-    img.img{ vertical-align:middle; width:20px; height:20px; border-radius:100%;}
+    img.img{ vertical-align:middle; width:30px; height:30px; border-radius:100%;}
     th{ text-align:left; padding:8px; font-size:14px; font-weight:bold; border-bottom:1px solid #ddd; 
         &.center{ text-align:center;}
     }
