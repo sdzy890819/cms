@@ -49,7 +49,8 @@ define(["app",'jquery', '../upload/index', '../data/getData','form'],function (a
 										layui.use(['layer'], function(){
 											var layer = layui.layer;
 											layer.msg(_data.message);		
-											$state.reload();										
+											$state.reload();				
+											$uibModalInstance.dismiss('cancel');						
 										});												
 									}
 								})								
@@ -85,6 +86,7 @@ define(["app",'jquery', '../upload/index', '../data/getData','form'],function (a
 															var layer = layui.layer;
 															layer.msg(_data.message);												
 															$state.reload();
+															$uibModalInstance.dismiss('cancel');
 														});												
 													}
 												})

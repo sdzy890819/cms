@@ -25,6 +25,7 @@ define(["app",'jquery','form'],function (app,$) {
 					  	},
 						save : function( arr ){ //保存
 							obj.save(arr,$scope.data)
+								$uibModalInstance.dismiss('cancel');
 						},
 						cancel : function( arr ){ //取消
 							obj.cancel(arr,$scope.data)

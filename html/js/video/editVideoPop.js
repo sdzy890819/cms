@@ -44,6 +44,7 @@ define(["app",'jquery', '../data/getData', '../upload/index','../upload/angular-
 										var layer = layui.layer;
 										layer.msg(_data.message);		
 										$state.reload();
+										$uibModalInstance.dismiss('cancel');
 									});								  	
 							  }
 							})	

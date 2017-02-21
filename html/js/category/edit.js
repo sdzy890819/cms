@@ -77,8 +77,7 @@ define(["app",'jquery', '../data/getData', './addForm','form', 'position', 'fixe
 						titelement : {
 					  		close : true
 					  	},
-						save : function( obj ){ //保存
-							console.log(id);
+						save : function( obj ){ //保存							
 							 getData.category.updateCategory({
 							 	id: id,
 							 	categoryName: obj.categoryName,
@@ -89,6 +88,7 @@ define(["app",'jquery', '../data/getData', './addForm','form', 'position', 'fixe
 										layer.msg(_data.message);
 
 										$state.reload();
+										$uibModalInstance.dismiss('cancel');
 									});							 		
 							 	}
 							 })
