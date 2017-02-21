@@ -1,20 +1,20 @@
 webpackJsonp([1],{
 
-/***/ 109:
+/***/ 115:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function($) {
 
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _global = __webpack_require__(41);
+var _global = __webpack_require__(42);
 
 var _global2 = _interopRequireDefault(_global);
 
-var _URL = __webpack_require__(40);
+var _URL = __webpack_require__(41);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -98,17 +98,45 @@ exports.default = {
 		};
 	},
 	beforeCreate: function beforeCreate() {
-		var self = this;
-		_global2.default.ajax({
-			url: _URL.video.videolist,
-			success: function success(_data) {
-				var list = _data.data.list;
-				list.map(function (obj, i) {
-					obj.timeStr = new Date(obj.uploadTime).Format("MM-dd h:m");
-				});
-				self.list = list;
-			}
-		});
+		var self = this,
+		    page = 1,
+		    pageSize = 10,
+		    loading = true;
+
+		function getList() {
+			if (loading == false) return;
+			loading = false;
+			_global2.default.ajax({
+				url: _URL.video.videolist,
+				data: {
+					page: page,
+					pageSize: pageSize
+				},
+				success: function success(_data) {
+					var list = _data.data.list;
+					if (!list || !list.length) return;
+					var list = _data.data.list;
+					list.map(function (obj, i) {
+						obj.timeStr = new Date(obj.uploadTime).Format("MM-dd h:m");
+					});
+					self.list = self.list.concat(list);
+					loading = true;
+					self.$nextTick(function () {
+						var box = $('.video-list'),
+						    scrollHeight = box[0].scrollHeight,
+						    height = box.height();
+						box.unbind().on('scroll', function () {
+							var scrollTop = $(this).scrollTop() + height + 50;
+							if (scrollTop > scrollHeight) {
+								page++;
+								getList();
+							}
+						});
+					});
+				}
+			});
+		}
+		getList();
 	},
 
 	methods: {
@@ -134,10 +162,11 @@ exports.default = {
 		}
 	}
 };
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
 
-/***/ 183:
+/***/ 190:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)();
@@ -152,7 +181,7 @@ exports.push([module.i, "\nbody, div, p, h1, h2, h3, h4, h5, h6, dl, dt, dd, ul,
 
 /***/ }),
 
-/***/ 193:
+/***/ 197:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -235,23 +264,23 @@ if (false) {
 
 /***/ }),
 
-/***/ 200:
+/***/ 205:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(183);
+var content = __webpack_require__(190);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(5)("8ca45ac4", content, false);
+var update = __webpack_require__(5)("28e2742a", content, false);
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!./../../../../../node_modules/css-loader/index.js?sourceMap!./../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-0b87767e!./../../../../../node_modules/sass-loader/lib/loader.js!./../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./list.vue", function() {
-     var newContent = require("!!./../../../../../node_modules/css-loader/index.js?sourceMap!./../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-0b87767e!./../../../../../node_modules/sass-loader/lib/loader.js!./../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./list.vue");
+   module.hot.accept("!!./../../../../../../node_modules/css-loader/index.js?sourceMap!./../../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-0b87767e!./../../../../../../node_modules/sass-loader/lib/loader.js!./../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./list.vue", function() {
+     var newContent = require("!!./../../../../../../node_modules/css-loader/index.js?sourceMap!./../../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-0b87767e!./../../../../../../node_modules/sass-loader/lib/loader.js!./../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./list.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -262,24 +291,24 @@ if(false) {
 
 /***/ }),
 
-/***/ 28:
+/***/ 29:
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(200)
+__webpack_require__(205)
 
 var Component = __webpack_require__(2)(
   /* script */
-  __webpack_require__(109),
+  __webpack_require__(115),
   /* template */
-  __webpack_require__(193),
+  __webpack_require__(197),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "E:\\myProjuct\\yang.z\\mobile-html\\js\\video\\list.vue"
+Component.options.__file = "E:\\Myindex\\myproject\\yang\\mobile-html\\js\\video\\list.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] list.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -301,7 +330,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 40:
+/***/ 41:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -345,7 +374,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 41:
+/***/ 42:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -419,4 +448,4 @@ module.exports = T;
 /***/ })
 
 });
-//# sourceMappingURL=1_chunk.js.map?name=b95f1a6d41de31433dba
+//# sourceMappingURL=1_chunk.js.map?name=0ef9b51eed1496ad6d31

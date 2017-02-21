@@ -79,17 +79,45 @@ Date.prototype.Format = function (fmt) { //author: meizz
 			}
 		},
 		beforeCreate (){
-			var self = this;
-			T.ajax({
-				url : video.videolist ,
-				success : function( _data ){
-					var list = _data.data.list;
-					list.map((obj , i)=>{
-						obj.timeStr = new Date(obj.uploadTime).Format("MM-dd h:m")
-					})
-					self.list = list;
-				}
-			})
+			var self = this,
+				page = 1 ,
+				pageSize = 10 , 
+				loading = true;
+
+			function getList(){
+				if(loading==false) return;
+				loading = false;
+				T.ajax({
+					url : video.videolist ,
+					data : {
+						page : page , 
+						pageSize : pageSize
+					},
+					success : function( _data ){
+						var list = _data.data.list;
+						if(!list || !list.length) return;
+						var list = _data.data.list;
+						list.map((obj , i)=>{
+							obj.timeStr = new Date(obj.uploadTime).Format("MM-dd h:m")
+						})
+						self.list = self.list.concat(list);
+						loading = true;
+						self.$nextTick(function(){
+			                var box = $('.video-list'),
+								scrollHeight = box[0].scrollHeight , 
+								height = box.height();
+							box.unbind().on('scroll',function(){
+								var scrollTop = $(this).scrollTop()+height+50;
+								if(scrollTop>scrollHeight){
+									page++;
+									getList();
+								}
+							})
+			            });
+					}
+				})
+			}
+			getList();
 		},
 		methods : {
 			search : function(){

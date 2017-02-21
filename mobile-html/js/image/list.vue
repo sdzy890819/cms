@@ -62,17 +62,25 @@
 			}
 		},
 		beforeCreate (){
-			var self = this;
-			T.ajax({
-				url : images.images , 
-				data : {
+			var self = this,
+				page = 1 ,
+				pageSize = 10 , 
+				loading = true;
 
-				},
-				success : function( _data ){
-					var list = _data.data.list , 
-						newarr = [],
-						arr = [];
-					if(list){
+			function getList(){
+				if(loading==false) return;
+				loading = false;
+				T.ajax({
+					url : images.images , 
+					data : {
+						page : page , 
+						pageSize : pageSize
+					},
+					success : function( _data ){
+						var list = _data.data.list , 
+							newarr = [],
+							arr = [];
+						if(!list || !list.length) return;
 						list.map((obj,index)=>{
 							index += 1;
 							arr.push(obj)
@@ -82,10 +90,24 @@
 							}
 						});
 						arr.length && newarr.push(arr);
+						self.list = self.list.concat(newarr);
+						loading = true;
+						self.$nextTick(function(){
+			                var box = $('.image-list'),
+								scrollHeight = box[0].scrollHeight , 
+								height = box.height();
+							box.unbind().on('scroll',function(){
+								var scrollTop = $(this).scrollTop()+height+50;
+								if(scrollTop>scrollHeight){
+									page++;
+									getList();
+								}
+							})
+			            });
 					}
-					self.list = newarr;
-				}
-			})
+				})
+			}
+			getList();
 		},
 		methods : {
 			edit : function( obj ){
