@@ -109,7 +109,7 @@
     </insert>
 
     <select id="findAll" resultMap="fragment">
-        select <include refid="sql_column_1" /> from fragment order by update_time desc;
+        select <include refid="sql_column_1" /> from fragment <include refid="delTag" /> order by update_time desc;
     </select>
 
 </mapper>
