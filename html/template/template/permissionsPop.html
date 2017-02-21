@@ -15,14 +15,16 @@
 								</th>
 								<th>权限名称</th>
 								<th>权限TYPE</th>
+								<th>是否显示</th>
 							</tr>
 
-							<tr ng-repeat='item in listPermissionData' class='permission-list'>
+							<tr ng-repeat='item in listPermissionData' class='permission-list {{item.typeStr == "MENU" ? "special" : ""}}' >
 								<td class="center">
 									<input type='checkbox' name="permission" data-id="{{item.id}}" ng-value="{{item.id}}" ng-checked="{{item.ischecked}}" ng-click='select($event)'>
 								</td>
 								<td>{{item.name}}</td>
 								<td>{{item.typeStr}}</td>
+								<td>{{item.showFlag == 0 ? '否' : '是'}}</td>
 							</tr>
 						</tbody>
 					</table>

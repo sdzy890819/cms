@@ -200,7 +200,7 @@ define(['require',"app",'jquery'
 													{name:'权限名', key: 'name' },
 													{name:'父类ID', key: 'parentId'},
 													{name:'权限代码', key: 'permission'},
-													{name: '显示设备', key: 'platformStr'},
+													{name: '应用设备', key: 'platformStr'},
 													{name:'类型', key: 'typeStr'},
 													{name:'操作' , width : '200', class:'center'}
 									];

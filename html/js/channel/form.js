@@ -10,27 +10,30 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 		{
 			title : 'channelUrl',
 			name : '频道域名',
-			placeholder : '请输入频道域名',
+			placeholder : '例如：http://www.p5w.net/',
 			type : 'text', //text textarea radio checkbox edit
-			verify : 'title'
+			verify : 'title'			
 		},
 		{
 			title : 'channelPath',
 			name : '频道绝对路径',
 			type : 'text',
-			placeholder : '请输入频道绝对路径'
+			placeholder : '例如：/data/publish ',
+			verify : 'channelPath'			
 		},
 		{
 			title : 'templatePath',
 			name : '模板位置',
-			placeholder : '请输入模板位置',
-			type : 'text' //text textarea radio checkbox edit			
+			placeholder : '例如/data/template',
+			type : 'text', //text textarea radio checkbox edit			
+			verify : 'title'
 		},
 		{
 			title : 'channelDesc',
 			name : '频道说明',
 			placeholder : '请输入频道说明',
-			type : 'textarea' //text textarea radio checkbox edit			
+			type : 'textarea', //text textarea radio checkbox edit			
+			verify : 'title'
 		},
 		{
 			title : 'category',

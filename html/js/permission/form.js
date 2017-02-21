@@ -50,13 +50,13 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 		},
 		{
 			title : 'platform',
-			name : '显示设备',
+			name : '应用设备',
 			selectName : ['platform'],
 			type : 'select',
 			verify : 'select',
 			select : [
 				[
-					{name:'请选择显示设备',title : 'platform'},					
+					{name:'请选择应用设备',title : 'platform'},					
 					{name: 'CMS', id: 1},
 					{name: 'APP', id: 2}
 				]
