@@ -157,7 +157,7 @@ public class BuildBiz extends BaseBiz {
                 Body body = new Body();
                 body.setId(ids.get(i).getId());
                 body.setUserId(ids.get(i).getBuildUserId());
-                commonMessage.setMessage(body);
+                commonMessage.setMessage(JSONObject.toJSON(body));
                 commonMessage.setSource(CommonMessageSourceEnum.NEWS.getType());
                 this.build(commonMessage);
             }
