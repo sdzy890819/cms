@@ -102,6 +102,15 @@ input:focus{ border: 1px solid #bbb !important;} */
 .loadding{ height:200px; background:url(../../images/loadding.gif) center center no-repeat;}
 .container{ padding:0 20px;}
 
+.imagePre {
+  border:  1px solid #ddd;
+  padding: 4px;
+  margin: 5px;
+  background: #fff;
+  border-radius: 4px;
+  vertical-align: middle;
+}
+
 .file {
     padding: 4px 10px;
     height: 20px;

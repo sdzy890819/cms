@@ -239,6 +239,14 @@ input:focus{ border: 1px solid #bbb !important;} */
   padding: 0 20px;
 }
 
+.imagePre {
+  border:  1px solid #ddd;
+  padding: 4px;
+  margin: 5px;
+  background: #fff;
+  border-radius: 4px;
+  vertical-align: middle;
+}
 /* line 105, ../sass/global.scss */
 .file {
   padding: 4px 10px;
