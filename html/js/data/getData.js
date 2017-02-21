@@ -552,7 +552,8 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						"field2":obj.field2,
 						"field3":obj.field3,
 						"field4":obj.field4,
-						"field5":obj.field5
+						"field5":obj.field5,
+						"publish":obj.publish
 					},
 					success : function( _data ){
 						obj.callback(_data);

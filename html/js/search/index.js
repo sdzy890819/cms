@@ -112,6 +112,7 @@ define(['require',"app",'jquery','/js/moduls/Tool.js'
 										}else{
 											$scope.selects.push(obj);
 										}
+										if(obj.name.indexOf('请选择')>-1) return;
 										self.callback && self.callback({
 											obj : obj,
 											index : _obj.elem.selectedIndex,
