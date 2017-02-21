@@ -1,6 +1,6 @@
 <style lang='sass'>
 @import '../../css/global.scss';
-.image{
+.video{
 	.form{
 		margin-top:$s15;
 		input[type='file']{ display:none; }
@@ -30,7 +30,7 @@
 }
 </style>
 <template>
-<div class="image">
+<div class="video">
 	<div class="form">
 		<ul>
 			<li>
@@ -96,7 +96,9 @@
 			}
 			,uploadFile : function(){
 				var base64 = this.base64 ,
-					file = this.fileType;
+					file = this.fileType, 
+					describe = this.describe,
+					title = this.title;
 				if(base64<20){
 					$('.error').addClass('cur').text('请选择视频文件')
 					return;
@@ -106,7 +108,7 @@
 					url : upload.uploadVideo , 
 					data : {
 						"baseCode":[base64].join(','),
-						"fileName":title,
+						"fileName":file.name,
 						finish : 1
 					},
 					success : function(_data){

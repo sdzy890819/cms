@@ -4,9 +4,9 @@
 	#Search{ margin-bottom:0; }
 	.image-list{
 		@include box-flex; overflow-y:scroll;
-		ul{ @include box; background:#fff; margin-top:$s10; padding:$s10; border-top:$s1 solid #ddd; border-bottom:$s1 solid #ddd; }
+		ul{ background:#fff; margin-top:$s10; padding:$s10; border-top:$s1 solid #ddd; border-bottom:$s1 solid #ddd; overflow:hidden; }
 		li{
-			@include box-flex;
+			float:left;
 			width:33.33%; padding:0 $s10; @include box-sizing; 
 			h2{ height: $s33; line-height: $s33; @include font-size(14px); overflow:hidden; text-align: center; font-weight: normal;}
 			img{ display: block; margin:0 auto; width:100%; border:$s1 solid #ddd; @include box-sizing; }
