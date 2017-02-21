@@ -1371,8 +1371,8 @@ var _typeof4 = typeof Symbol === "function" && typeof Symbol.iterator === "symbo
 						style: {
 							'z-index': _vm.zIndex + 1
 						}
-					}, [_c('ul', [_vm._l(_vm.modules, function (module) {
-						return [module.show ? _c('li', {
+					}, [_c('ul', _vm._l(_vm.modules, function (module) {
+						return module.show ? _c('li', {
 							attrs: {
 								"title": _vm.locale[module.i18n]
 							},
@@ -1384,8 +1384,8 @@ var _typeof4 = typeof Symbol === "function" && typeof Symbol.iterator === "symbo
 						}, [_c('span', {
 							staticClass: "icon",
 							class: module.icon
-						})]) : _vm._e()];
-					})], true), _vm._v(" "), _c('div', {
+						})]) : _vm._e();
+					}), true), _vm._v(" "), _c('div', {
 						directives: [{
 							name: "show",
 							rawName: "v-show",
@@ -2084,7 +2084,7 @@ var _typeof4 = typeof Symbol === "function" && typeof Symbol.iterator === "symbo
 								_vm.command = "backColor";
 							}
 						}
-					}), _vm._v(" \n        " + _vm._s(_vm.$parent.locale["background color"]) + "\n    ")]), _vm._v(" "), _vm._l(_vm.colors, function (color) {
+					}), _vm._v(" \n        " + _vm._s(_vm.$parent.locale["background color"]) + "\n    ")]), _vm._v(" "), _c('div', _vm._l(_vm.colors, function (color) {
 						return _c('div', {
 							staticClass: "color-card",
 							style: {
@@ -2096,7 +2096,7 @@ var _typeof4 = typeof Symbol === "function" && typeof Symbol.iterator === "symbo
 								}
 							}
 						});
-					}), _vm._v(" "), _c('div', {
+					})), _vm._v(" "), _c('div', {
 						staticStyle: {
 							"clear": "both"
 						}
@@ -5224,4 +5224,4 @@ module.exports = function (module) {
 /***/ })
 
 });
-//# sourceMappingURL=9_chunk.js.map?name=25038883cbe1b731acca
+//# sourceMappingURL=9_chunk.js.map?name=0aea89b927cc927dabda
