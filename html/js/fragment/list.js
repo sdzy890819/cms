@@ -66,6 +66,7 @@ define(['require',"app",'jquery'
 
 														if (_data.code == 0) {
 															$state.reload();
+															
 														}
 													});													
 												}
