@@ -20,6 +20,14 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 							categoryId = this.id;
 						}
 					})
+
+					var now = new Date().valueOf();
+
+					if (new Date(obj.writeTime).valueOf() < now ) {
+						alert("发布时间必须大于当前时间");
+						return;
+					}
+
 					getData.news.createNews({
 						"title":obj.title,
 						"subTitle":obj.subTitle,

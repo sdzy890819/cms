@@ -24,7 +24,7 @@
 <template>
 <div class="video">
 	<div id='Search'>
-		<input type='text'><div class="btn">搜索</div>
+		<input type='text' v-model='searchtxt' placeholder='请输入搜索内容'><div class="btn" @click='search'>搜索</div>
 	</div>
 	<div class="video-list">
 		<dl v-for='obj in list'>
@@ -37,8 +37,8 @@
 						<div class="btn" @click='edit(obj)'>修改</div>
 						<div class="btn" @click='send(obj)'>发布</div>
 					</div>
-					<span class="author">作者：卖血的羔羊</span>
-					<span class="time">2017/02/02</span>
+					<span class="author">{{obj.author}}</span>
+					<span class="time">{{obj.timeStr}}</span>
 				</div>
 			</dd>
 		</dl>
@@ -54,22 +54,92 @@
 </div>
 </template>
 <script>
+Date.prototype.Format = function (fmt) { //author: meizz 
+    var o = {
+        "M+": this.getMonth() + 1, //月份 
+        "d+": this.getDate(), //日 
+        "h+": this.getHours(), //小时 
+        "m+": this.getMinutes(), //分 
+        "s+": this.getSeconds(), //秒 
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+        "S": this.getMilliseconds() //毫秒 
+    };
+    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
+}
 	import T from '../common/global.js';
-	import {video} from '../common/URL.js';
+	import {video,search} from '../common/URL.js';
 	export default {
 		data (){
 			return {
-				list : []
+				list : [] ,
+				searchtxt : ''
 			}
 		},
 		beforeCreate (){
-			var self = this;
-			T.ajax({
-				url : video.videolist ,
-				success : function( _data ){
-					self.list = _data.data.list;
-				}
-			})
+			var self = this,
+				page = 1 ,
+				pageSize = 10 , 
+				loading = true;
+
+			function getList(){
+				if(loading==false) return;
+				loading = false;
+				T.ajax({
+					url : video.videolist ,
+					data : {
+						page : page , 
+						pageSize : pageSize
+					},
+					success : function( _data ){
+						var list = _data.data.list;
+						if(!list || !list.length) return;
+						var list = _data.data.list;
+						list.map((obj , i)=>{
+							obj.timeStr = new Date(obj.uploadTime).Format("MM-dd h:m")
+						})
+						self.list = self.list.concat(list);
+						loading = true;
+						self.$nextTick(function(){
+			                var box = $('.video-list'),
+								scrollHeight = box[0].scrollHeight , 
+								height = box.height();
+							box.unbind().on('scroll',function(){
+								var scrollTop = $(this).scrollTop()+height+50;
+								if(scrollTop>scrollHeight){
+									page++;
+									getList();
+								}
+							})
+			            });
+					}
+				})
+			}
+			getList();
 		},
+		methods : {
+			search : function(){
+				var self = this , 
+					txt = self.searchtxt;
+				T.ajax({
+					url : search.searchVideo ,
+					type : 'post',
+					data : {
+						condition:txt,
+						page:1,
+						pageSize:20
+					},
+					success : function( _data ){
+						var list = _data.data.list;
+						list.map((obj , i)=>{
+							obj.timeStr = new Date(obj.uploadTime).Format("MM-dd h:m")
+						})
+						self.list = list;
+						}
+				})
+			}
+		}
 	}
 </script>

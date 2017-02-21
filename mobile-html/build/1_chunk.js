@@ -1,20 +1,20 @@
 webpackJsonp([1],{
 
-/***/ 109:
+/***/ 115:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function($) {
 
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _global = __webpack_require__(41);
+var _global = __webpack_require__(42);
 
 var _global2 = _interopRequireDefault(_global);
 
-var _URL = __webpack_require__(40);
+var _URL = __webpack_require__(41);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -74,26 +74,99 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 
+Date.prototype.Format = function (fmt) {
+	//author: meizz 
+	var o = {
+		"M+": this.getMonth() + 1, //月份 
+		"d+": this.getDate(), //日 
+		"h+": this.getHours(), //小时 
+		"m+": this.getMinutes(), //分 
+		"s+": this.getSeconds(), //秒 
+		"q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+		"S": this.getMilliseconds() //毫秒 
+	};
+	if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+	for (var k in o) {
+		if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
+	}return fmt;
+};
 exports.default = {
 	data: function data() {
 		return {
-			list: []
+			list: [],
+			searchtxt: ''
 		};
 	},
 	beforeCreate: function beforeCreate() {
-		var self = this;
-		_global2.default.ajax({
-			url: _URL.video.videolist,
-			success: function success(_data) {
-				self.list = _data.data.list;
-			}
-		});
+		var self = this,
+		    page = 1,
+		    pageSize = 10,
+		    loading = true;
+
+		function getList() {
+			if (loading == false) return;
+			loading = false;
+			_global2.default.ajax({
+				url: _URL.video.videolist,
+				data: {
+					page: page,
+					pageSize: pageSize
+				},
+				success: function success(_data) {
+					var list = _data.data.list;
+					if (!list || !list.length) return;
+					var list = _data.data.list;
+					list.map(function (obj, i) {
+						obj.timeStr = new Date(obj.uploadTime).Format("MM-dd h:m");
+					});
+					self.list = self.list.concat(list);
+					loading = true;
+					self.$nextTick(function () {
+						var box = $('.video-list'),
+						    scrollHeight = box[0].scrollHeight,
+						    height = box.height();
+						box.unbind().on('scroll', function () {
+							var scrollTop = $(this).scrollTop() + height + 50;
+							if (scrollTop > scrollHeight) {
+								page++;
+								getList();
+							}
+						});
+					});
+				}
+			});
+		}
+		getList();
+	},
+
+	methods: {
+		search: function search() {
+			var self = this,
+			    txt = self.searchtxt;
+			_global2.default.ajax({
+				url: _URL.search.searchVideo,
+				type: 'post',
+				data: {
+					condition: txt,
+					page: 1,
+					pageSize: 20
+				},
+				success: function success(_data) {
+					var list = _data.data.list;
+					list.map(function (obj, i) {
+						obj.timeStr = new Date(obj.uploadTime).Format("MM-dd h:m");
+					});
+					self.list = list;
+				}
+			});
+		}
 	}
 };
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
 
-/***/ 183:
+/***/ 190:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)();
@@ -108,13 +181,42 @@ exports.push([module.i, "\nbody, div, p, h1, h2, h3, h4, h5, h6, dl, dt, dd, ul,
 
 /***/ }),
 
-/***/ 193:
+/***/ 197:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "video"
-  }, [_vm._m(0), _vm._v(" "), _c('div', {
+  }, [_c('div', {
+    attrs: {
+      "id": "Search"
+    }
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.searchtxt),
+      expression: "searchtxt"
+    }],
+    attrs: {
+      "type": "text",
+      "placeholder": "请输入搜索内容"
+    },
+    domProps: {
+      "value": _vm._s(_vm.searchtxt)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.searchtxt = $event.target.value
+      }
+    }
+  }), _c('div', {
+    staticClass: "btn",
+    on: {
+      "click": _vm.search
+    }
+  }, [_vm._v("搜索")])]), _vm._v(" "), _c('div', {
     staticClass: "video-list"
   }, _vm._l((_vm.list), function(obj) {
     return _c('dl', [_c('dt', [_vm._v(_vm._s(obj.videoTitle))]), _vm._v(" "), _c('dd', [_c('p', [_vm._v(_vm._s(obj.videoUrl))]), _vm._v(" "), _c('div', {
@@ -137,9 +239,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_vm._v("发布")])]), _vm._v(" "), _c('span', {
       staticClass: "author"
-    }, [_vm._v("作者：卖血的羔羊")]), _vm._v(" "), _c('span', {
+    }, [_vm._v(_vm._s(obj.author))]), _vm._v(" "), _c('span', {
       staticClass: "time"
-    }, [_vm._v("2017/02/02")])])])])
+    }, [_vm._v(_vm._s(obj.timeStr))])])])])
   })), _vm._v(" "), _c('div', {
     staticClass: "fixed-edit"
   }, [_c('div', {
@@ -151,19 +253,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('i', {
     staticClass: "add"
   }), _vm._v("\r\n\t\t\t\t新增\r\n\t\t\t")])], 1)])])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    attrs: {
-      "id": "Search"
-    }
-  }, [_c('input', {
-    attrs: {
-      "type": "text"
-    }
-  }), _c('div', {
-    staticClass: "btn"
-  }, [_vm._v("搜索")])])
-}]}
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -174,23 +264,23 @@ if (false) {
 
 /***/ }),
 
-/***/ 200:
+/***/ 205:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(183);
+var content = __webpack_require__(190);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(5)("8ca45ac4", content, false);
+var update = __webpack_require__(5)("28e2742a", content, false);
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!./../../../../../node_modules/css-loader/index.js?sourceMap!./../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-0b87767e!./../../../../../node_modules/sass-loader/lib/loader.js!./../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./list.vue", function() {
-     var newContent = require("!!./../../../../../node_modules/css-loader/index.js?sourceMap!./../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-0b87767e!./../../../../../node_modules/sass-loader/lib/loader.js!./../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./list.vue");
+   module.hot.accept("!!./../../../../../../node_modules/css-loader/index.js?sourceMap!./../../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-0b87767e!./../../../../../../node_modules/sass-loader/lib/loader.js!./../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./list.vue", function() {
+     var newContent = require("!!./../../../../../../node_modules/css-loader/index.js?sourceMap!./../../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-0b87767e!./../../../../../../node_modules/sass-loader/lib/loader.js!./../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./list.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -201,24 +291,24 @@ if(false) {
 
 /***/ }),
 
-/***/ 28:
+/***/ 29:
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(200)
+__webpack_require__(205)
 
 var Component = __webpack_require__(2)(
   /* script */
-  __webpack_require__(109),
+  __webpack_require__(115),
   /* template */
-  __webpack_require__(193),
+  __webpack_require__(197),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "E:\\myProjuct\\yang.z\\mobile-html\\js\\video\\list.vue"
+Component.options.__file = "E:\\Myindex\\myproject\\yang\\mobile-html\\js\\video\\list.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] list.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -240,7 +330,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 40:
+/***/ 41:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -262,7 +352,8 @@ module.exports = {
 		init: url + '/login/init'
 	},
 	video: {
-		videolist: url + '/video/videolist'
+		videolist: url + '/video/videolist',
+		createVideo: url + '/video/createVideo'
 	},
 	news: {
 		newslist: url + '/news/newslist',
@@ -272,12 +363,18 @@ module.exports = {
 		listCategory: url + '/category/listCategory' },
 	channel: { //获取频道分类列表
 		currentChannelList: url + '/channel/currentChannelList'
+	},
+	search: {
+		searchNew: url + '/search/searchNew',
+		searchVideo: url + '/search/searchVideo',
+		searchImages: url + '/search/searchImages'
+
 	}
 };
 
 /***/ }),
 
-/***/ 41:
+/***/ 42:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -351,4 +448,4 @@ module.exports = T;
 /***/ })
 
 });
-//# sourceMappingURL=1_chunk.js.map?name=0aea89b927cc927dabda
+//# sourceMappingURL=1_chunk.js.map?name=0ef9b51eed1496ad6d31

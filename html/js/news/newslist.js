@@ -18,7 +18,11 @@ define(['require',"app",'jquery','search','./searchForm'
 							getData.news.newsdetail({
 								id : obj.id,
 								callback : function(_data){
-									_data.data.writeTime = new Date(_data.data.writeTime).format('yyyy-MM-dd h:m:s');
+									if (_data.data.timer) {
+										_data.data.writeTime = new Date(_data.data.timer).format('yyyy-MM-dd h:m:s');
+									}else {
+										_data.data.writeTime = '';
+									}
 									if(formList){ //发果有1条以上的字段则显示
 										var maxNum , index = 2 , 
 											title , name, inputMaxNum,type,
@@ -101,6 +105,13 @@ define(['require',"app",'jquery','search','./searchForm'
 												categoryId = this.id;
 											}
 										})
+
+										var now = new Date().valueOf();
+
+										if (new Date(obj.writeTime).valueOf() < now ) {
+											alert("发布时间必须大于当前时间");
+											return;
+										}
 
 										getData.news.updateNews({
 											"id":_detail.id,
