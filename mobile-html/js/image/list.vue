@@ -25,7 +25,7 @@
 <template>
 <div class="image">
 	<div id='Search'>
-		<input type='text'><div class="btn">搜索</div>
+		<input type='text' v-model='searchtxt' placeholder='请输入搜索内容'><div class="btn" @click='search'>搜索</div>
 	</div>
 	<div class="image-list">
 		<ul v-for="item in list">
@@ -51,7 +51,7 @@
 </template>
 <script>
 	import T from '../common/global.js';
-	import {images} from '../common/URL.js';
+	import {images,search} from '../common/URL.js';
 	export default {
 		props : {
 
@@ -93,6 +93,36 @@
 			},
 			del : function( obj ){
 				debugger;
+			},
+			search : function(){
+				var self = this , 
+					txt = self.searchtxt;
+				T.ajax({
+					url : search.searchImages ,
+					type : 'post',
+					data : {
+						condition:txt,
+						page:1,
+						pageSize:20
+					},
+					success : function( _data ){
+						var list = _data.data.list , 
+							newarr = [],
+							arr = [];
+						if(list){
+							list.map((obj,index)=>{
+								index += 1;
+								arr.push(obj)
+								if(index%3==0){
+									newarr.push(arr);
+									arr = []
+								}
+							});
+							arr.length && newarr.push(arr);
+						}
+						self.list = newarr;
+					}
+				})
 			}
 		}
 	}

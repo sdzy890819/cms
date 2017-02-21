@@ -372,7 +372,8 @@ module.exports = {
 		init: url + '/login/init'
 	},
 	video: {
-		videolist: url + '/video/videolist'
+		videolist: url + '/video/videolist',
+		createVideo: url + '/video/createVideo'
 	},
 	news: {
 		newslist: url + '/news/newslist',
@@ -382,6 +383,12 @@ module.exports = {
 		listCategory: url + '/category/listCategory' },
 	channel: { //获取频道分类列表
 		currentChannelList: url + '/channel/currentChannelList'
+	},
+	search: {
+		searchNew: url + '/search/searchNew',
+		searchVideo: url + '/search/searchVideo',
+		searchImages: url + '/search/searchImages'
+
 	}
 };
 
@@ -461,4 +468,4 @@ module.exports = T;
 /***/ })
 
 });
-//# sourceMappingURL=0_chunk.js.map?name=5e91745ebd508ccc06b7
+//# sourceMappingURL=0_chunk.js.map?name=b95f1a6d41de31433dba

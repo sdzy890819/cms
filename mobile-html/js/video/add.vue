@@ -50,7 +50,7 @@
 </template>
 <script>
 	import T from '../common/global.js';
-	import {upload} from '../common/URL.js';
+	import {upload , video} from '../common/URL.js';
 	export default {
 		data (){
 			return {
@@ -59,7 +59,7 @@
 				title : '' , 
 				describe : '',
 				base64 : '',
-
+				videos : null
 			}
 		},
 		mounted(){
@@ -95,11 +95,13 @@
 				}
 			}
 			,uploadFile : function(){
-				var base64 = this.base64 ,
+				var self = this , 
+					base64 = this.base64 ,
 					file = this.fileType, 
 					describe = this.describe,
 					title = this.title;
 				if(base64<20){
+					self.filed = true;
 					$('.error').addClass('cur').text('请选择视频文件')
 					return;
 				}
@@ -112,10 +114,11 @@
 						finish : 1
 					},
 					success : function(_data){
+						self.videos = _data.data;
 						$('.error').addClass('right').text('上传成功');
 						setTimeout(function(){
 							$('.error').removeClass('right');
-						},1000)
+						},1000);
 					}
 				})
 			}
@@ -123,9 +126,10 @@
 				var base64 = this.base64 ,
 					file = this.fileType, 
 					describe = this.describe,
-					title = this.title;
+					title = this.title , 
+					videos = this.videos;
 				if(base64<20){
-					$('.error').addClass('cur').text('上传视频文件');
+					$('.error').addClass('cur').text('请上传视频文件');
 					return;
 				}
 				if(title.length<2){
@@ -134,11 +138,13 @@
 				}
 				T.ajax({
 					type: 'POST',				
-					url : upload.uploadVideo , 
+					url : video.createVideo , 
 					data : {
-						"baseCode":[base64].join(','),
-						"fileName":title,
-						finish : 1
+						"videoTitle":title,
+						"videoDesc":describe,
+						"videoUrl":videos.location,
+						"videoPath":videos.location,
+						"fileName":videos.videos
 					},
 					success : function(_data){	
 	                    $('.error').addClass('right').text('提交成功！');

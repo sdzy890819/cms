@@ -1,14 +1,12 @@
 <template>
 <div class="new">
 	<div id='Search'>
-		<input type='text'><div class="btn">搜索</div>
+		<input type='text' v-model='searchtxt' placeholder='请输入搜索内容'><div class="btn" @click='search'>搜索</div>
 	</div>
 	<div class="new-list">
 		<dl v-for='obj in list'>
 			<dt>{{obj.title}}</dt>
 			<dd>
-				<!-- <p>内容内容</p>
- -->
 				<div class="aside">
 					<div class="submit">
 						<div class="btn" @click='edit(obj)'>修改</div>
@@ -33,7 +31,7 @@
 </template>
 <script>
 	import T from '../common/global.js';
-	import {news} from '../common/URL.js';
+	import {news,search} from '../common/URL.js';
 	export default {
 		data (){
 			return {
@@ -72,6 +70,26 @@
 			},
 			release : function( obj ){
 				T.pop('发布','error')
+			},
+			search : function(){
+				var self = this , 
+					txt = self.searchtxt;
+				T.ajax({
+					url : search.searchNew ,
+					type : 'post',
+					data : {
+						condition:txt,
+						page:1,
+						pageSize:20
+					},
+					success : function( _data ){
+						var list = _data.data.list;
+						list.map((obj , i)=>{
+							obj.timeStr = obj.updateTimeStr.substr(5,11)
+						})
+						self.list = list;
+					}
+				})
 			}
 		}
 	}
