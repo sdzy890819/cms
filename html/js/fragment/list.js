@@ -63,6 +63,10 @@ define(['require',"app",'jquery'
 													layui.use(['layer'], function(){
 														var layer = layui.layer;
 														layer.msg(_data.message);
+
+														if (_data.code == 0) {
+															$state.reload();
+														}
 													});													
 												}
 	        						})
