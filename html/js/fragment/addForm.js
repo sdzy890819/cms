@@ -44,8 +44,8 @@ define(['../data/getData','../moduls/Tool'], function(Data, Tool){
 		{
 			title : 'sortNum',
 			name : '排序值',
-			type : 'text',
-			verify : 'number'
+			type : 'text',	
+			placeholder : '1000'			
 		}		
 	];
 

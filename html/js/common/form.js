@@ -48,7 +48,7 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 					inputNum : 1,
 					addInput : function( obj , index ){ //新增输入匡
 						var firstArr, lastArr, num = $scope.inputNum+1;
-							name = obj.name.match(/\d+$/) , 
+							name = obj.name.match(/\d+$/) ,							
 							title = obj.title.replace(obj.title.match(/\d+$/)[0],'');
 						
 						$.each($scope.formdata.list,function( i , _obj ){
@@ -66,7 +66,7 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 							obj.name = name+obj.num;
 							firstArr.push({
 								title : title+num,
-								name : name+num,
+								name : name+num,								
 								placeholder : '请输入扩展字段内容',
 								num : num, //当前为第1条
 								inputMaxNum : obj.inputMaxNum,
