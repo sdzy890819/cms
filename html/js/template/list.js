@@ -215,6 +215,15 @@ define(['require',"app",'jquery'
 				if (item.publish) {
 					item.list[0].href = '/webapi/template/redirect/'+item.id;
 				}
+				if(item.upload==1){//1是上传过。0是未上传
+					var arr = [];
+					$.each(item.list.edit,function( j , obj ){
+						if(obj.name!='下载'){
+							arr.push(obj);
+						}
+					});
+					item.list.edit = arr;
+				}
         		if(item.job==1){//1是定时生成。0是触发生成
         			var arr = [];
         			$.each(item.list.edit,function( j , obj ){
