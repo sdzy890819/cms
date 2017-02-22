@@ -4,10 +4,12 @@ module.exports = {
 		uploadVideo : url + '/upload/uploadVideo',
 		uploadVideo2 : url + '/upload/uploadVideo2',
 		uploadImage : url + '/upload/uploadImage',
-		createImages : url + '/upload/createImages',
+		
 	},
 	images : {
 		images : url + '/images/imageslist',
+		createImages : url + '/images/createImages',
+		delImages : url + '/images/delImages',
 	},
 	login : {
 		login : url+'/login',

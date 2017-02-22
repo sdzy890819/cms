@@ -41,6 +41,12 @@ const router = new VueRouter({
 		        		require(['./image/add'],resolve)
 		        	}
 				},
+				{
+					path: 'edit', 
+					component : function(resolve){
+		        		require(['./image/edit'],resolve)
+		        	}
+				},
 			]
 		},
 		{ path: '/video', component: box,
