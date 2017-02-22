@@ -111,15 +111,18 @@ public class BuildBiz extends BaseBiz {
             NewsColumn newsColumn = newsBiz.getNewsColumn(news.getColumnId());
             if(newsColumn.getListTemplate2Id()!=null && newsColumn.getListTemplate2Id() > 0){
                 Template2 template2 = template2Biz.getTemplate2(newsColumn.getListTemplate2Id());
+
+                Channel channel = channelBiz.getChannel(newsColumn.getChannelId());
+                newsColumn.setListUrl(StringUtils.concatUrl(channel.getChannelUrl(), template2.getPath(),
+                        newsColumn.getId().toString().concat(StaticContants.HTML_SUFFIX)));
+                newsBiz.publishListTemplate2(newsColumn);
+
                 TemplatePublishJob templatePublishJob = new TemplatePublishJob();
                 templatePublishJob.setChannelId(news.getChannelId());
                 templatePublishJob.setNewsColumn(newsColumn);
                 templatePublishJob.setTemplateBasics(template2);
                 threadTaskExecutor.execute(templatePublishJob);
-                Channel channel = channelBiz.getChannel(newsColumn.getChannelId());
-                newsColumn.setListUrl(StringUtils.concatUrl(channel.getChannelUrl(), template2.getPath(),
-                        newsColumn.getId().toString().concat(StaticContants.HTML_SUFFIX)));
-                newsBiz.publishListTemplate2(newsColumn);
+
 
             }
             if(newsColumn.getDetailTemplate2Id() != null && newsColumn.getDetailTemplate2Id() > 0){
