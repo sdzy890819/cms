@@ -6,14 +6,14 @@
 			<span>用户名</span>
 		</div>
 		<div class="aside">
-			<router-link to="/login">
-				<p>退出</p>
-			</router-link>
+			<p @click='loginout'>退出</p>
 		</div>
 	</div>
 </div>
 </template>
 <script>
+	import T from '../common/global.js';
+	import {login} from '../common/URL.js';
 	export default {
 		name : 'Header',
 		props : {
@@ -24,7 +24,18 @@
 				
 			}
 		},
-		ready(){
+		methods :{
+			loginout : function(){
+				T.ajax({
+					url : login.loginOut ,
+					type : 'post',
+					success : function( _data ){
+						if(_data.code == 0){
+							router.push('/login');
+						}
+					}
+				})
+			}
 		}
 	}
 </script>

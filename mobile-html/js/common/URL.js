@@ -15,6 +15,7 @@ module.exports = {
 	},
 	login : {
 		login : url+'/login',
+		init : url+'/login/init',
 		loginOut : url+'/loginOut',
 	},
 	video : {

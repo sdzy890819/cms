@@ -96,12 +96,13 @@
 			}
 			,uploadFile : function(){
 				var self = this , 
-					base64 = this.base64 ,
+					base64 = [this.base64].join(',') ,
 					file = this.fileType, 
 					describe = this.describe,
 					title = this.title , 
 					b = 1024*1024*5  , 
 					num = 0 ;
+				base64 = base64.replace(base64.match(/^data[\:|\w|\-|\;|\/]+,/)[0],'')
 				if(base64<20){
 					self.filed = true;
 					$('.error').addClass('cur').text('请选择视频文件')
@@ -123,10 +124,10 @@
 						type: 'POST',				
 						url : upload.uploadVideo , 
 						data : {
-							"baseCode":[base64.substr(start,b)].join(','),
+							"baseCode":(base64.substr(start,b)),
 							"fileName":file.name,
-							partNum : indexNum,
-							finish : finish
+							'partNum' : indexNum,
+							'finish' : finish
 						},
 						success : function(_data){
 							getData();
