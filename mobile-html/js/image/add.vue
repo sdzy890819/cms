@@ -211,7 +211,9 @@
 							$('.error').addClass('right').text('提交成功');
 							setTimeout(function(){
 								$('.error').removeClass('right');
-							},1000)
+							},1000);
+							$('.imgs').hide();
+							$('li input[type="text"]').val('');
 							return;
 						}
 						$('.error').addClass('cur').text('失败，请重新上传！')

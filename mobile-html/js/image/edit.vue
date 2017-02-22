@@ -26,7 +26,6 @@
                 height:$s33; line-height: $s33; background: green; border:$s1 solid #ddd; color:#fff;
             }
         }
-        .imgs{ display:none; }
     }
 }
 </style>
@@ -36,10 +35,10 @@
         <ul>
             <li>
                 <input id='file' type="file" value="上传图片"/>
-                <div @click='file' class="btn-file">+选择图片</div>
+                <div @click='file' class="btn-file">+重新选择图片</div>
             </li>
             <li class="imgs">
-                <img id="img">
+                <img id="img" :src='imageUrl'>
                 <div class="btn-upload" @click='uploadFile'>上传</div>
             </li>
             <li><input class="text" type="text" v-model="title" placeholder='图片标题'></li>
@@ -98,8 +97,25 @@
                 base64 : '',
                 width : '',
                 height : '',
-                imgInfo : null
+                imgInfo : null , 
+                imageUrl : ''
             }
+        },
+        beforeCreate : function(){
+            var imageId = window.location.hash.match(/imageId=\w+/)[0].replace('imageId=','');
+            var self = this;
+            T.ajax({
+                url : images.detail+'/'+imageId , 
+                success : function(_data){
+                    self.imageUrl = _data.data.imageUrl;
+                    self.title = _data.data.imageTitle;
+                    self.width = _data.data.imageWidthPixel;
+                    self.height = _data.data.imageHeightPixel;
+                    self.shuiyin = _data.data.watermark==1?'true':'false';
+                    self.shuo = _data.data.compress==1?'true':'false';
+                    self.imgInfo = _data.data;
+                }
+            })
         },
         mounted(){
             $('.image li input').click(function(){
@@ -177,8 +193,9 @@
                     file = this.fileType , 
                     shuiyin = this.shuiyin == 'true'?1:0,
                     width = this.width , 
-                    height = this.height;
-                if(base64<20){
+                    height = this.height,
+                    imageUrl = this.imageUrl;
+                if(base64<20 && imageUrl.length<5){
                     $('.error').addClass('cur').text('请选择图片文件')
                     return;
                 }

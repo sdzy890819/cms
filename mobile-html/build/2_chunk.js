@@ -1,6 +1,6 @@
 webpackJsonp([2],{
 
-/***/ 114:
+/***/ 118:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -179,7 +179,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 189:
+/***/ 193:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)();
@@ -287,17 +287,17 @@ if (false) {
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(189);
+var content = __webpack_require__(193);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(5)("16f05528", content, false);
+var update = __webpack_require__(5)("81b2f910", content, false);
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!./../../../../../node_modules/css-loader/index.js?sourceMap!./../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-09846c2d!./../../../../../node_modules/sass-loader/lib/loader.js!./../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./edit.vue", function() {
-     var newContent = require("!!./../../../../../node_modules/css-loader/index.js?sourceMap!./../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-09846c2d!./../../../../../node_modules/sass-loader/lib/loader.js!./../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./edit.vue");
+   module.hot.accept("!!./../../../../../../node_modules/css-loader/index.js?sourceMap!./../../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-09846c2d!./../../../../../../node_modules/sass-loader/lib/loader.js!./../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./edit.vue", function() {
+     var newContent = require("!!./../../../../../../node_modules/css-loader/index.js?sourceMap!./../../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-09846c2d!./../../../../../../node_modules/sass-loader/lib/loader.js!./../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./edit.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -317,7 +317,7 @@ __webpack_require__(210)
 
 var Component = __webpack_require__(2)(
   /* script */
-  __webpack_require__(114),
+  __webpack_require__(118),
   /* template */
   __webpack_require__(201),
   /* scopeId */
@@ -325,7 +325,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "E:\\myProjuct\\yang.z\\mobile-html\\js\\video\\edit.vue"
+Component.options.__file = "E:\\Myindex\\myproject\\yang\\mobile-html\\js\\video\\edit.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] edit.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -364,7 +364,8 @@ module.exports = {
 	images: {
 		images: url + '/images/imageslist',
 		createImages: url + '/images/createImages',
-		delImages: url + '/images/delImages'
+		delImages: url + '/images/delImages',
+		detail: url + '/images/detail'
 	},
 	login: {
 		login: url + '/login',
@@ -414,6 +415,11 @@ var T = {
         } else {
             T.loadHtml.remove();
         }
+    },
+    getParams: function getParams(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+        var r = window.location.hash.substr(1).match(reg); //匹配目标参数
+        if (r != null) return unescape(r[2]);return null; //返回参数值
     },
     pop: function pop(val, cls, time, callback) {
         cls = cls || '';
@@ -888,4 +894,4 @@ exports.default = T;
 /***/ })
 
 });
-//# sourceMappingURL=2_chunk.js.map?name=eaf4a85e8f25ec029f4b
+//# sourceMappingURL=2_chunk.js.map?name=45bcebcb4849f7b14ed6

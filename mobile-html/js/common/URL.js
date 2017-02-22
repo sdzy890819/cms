@@ -10,6 +10,7 @@ module.exports = {
 		images : url + '/images/imageslist',
 		createImages : url + '/images/createImages',
 		delImages : url + '/images/delImages',
+		detail : url + '/images/detail',
 	},
 	login : {
 		login : url+'/login',
