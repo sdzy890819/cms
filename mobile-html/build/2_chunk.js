@@ -68,6 +68,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
 
 exports.default = {
     data: function data() {
@@ -77,8 +78,23 @@ exports.default = {
             title: '',
             describe: '',
             base64: '',
+            name: '',
             videos: null
         };
+    },
+
+    beforeCreate: function beforeCreate() {
+        var videoId = window.location.hash.match(/videoId=\w+/)[0].replace('videoId=', '');
+        var self = this;
+        _global2.default.ajax({
+            url: _URL.video.detail + '/' + videoId,
+            success: function success(_data) {
+                self.title = _data.data.videoTitle;
+                self.describe = _data.data.videoDesc;
+                self.name = _data.data.fileName;
+                self.videos = _data.data;
+            }
+        });
     },
     mounted: function mounted() {
         $('.image li input').click(function () {
@@ -124,6 +140,7 @@ exports.default = {
                 $('.error').addClass('cur').text('请选择视频文件');
                 return;
             }
+            self.name = file.name;
             _global2.default.ajax({
                 type: 'POST',
                 url: _URL.upload.uploadVideo,
@@ -133,7 +150,8 @@ exports.default = {
                     finish: 1
                 },
                 success: function success(_data) {
-                    self.videos = _data.data;
+                    $.extend(self.videos, _data.data);
+                    self.videos.videoUrl = _data.data.location;
                     $('.error').addClass('right').text('上传成功');
                     setTimeout(function () {
                         $('.error').removeClass('right');
@@ -146,8 +164,9 @@ exports.default = {
                 file = this.fileType,
                 describe = this.describe,
                 title = this.title,
+                videoUrl = this.videos.videoUrl,
                 videos = this.videos;
-            if (base64 < 20) {
+            if (base64 < 20 && videoUrl.length < 2) {
                 $('.error').addClass('cur').text('请上传视频文件');
                 return;
             }
@@ -157,13 +176,14 @@ exports.default = {
             }
             _global2.default.ajax({
                 type: 'POST',
-                url: _URL.video.createVideo,
+                url: _URL.video.updateVideo,
                 data: {
                     "videoTitle": title,
                     "videoDesc": describe,
-                    "videoUrl": videos.location,
-                    "videoPath": videos.location,
-                    "fileName": videos.videos
+                    "videoUrl": videos.videoUrl,
+                    "videoPath": videos.videoUrl,
+                    "fileName": videos.fileName,
+                    id: videos.id
                 },
                 success: function success(_data) {
                     $('.error').addClass('right').text('提交成功！');
@@ -213,12 +233,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.file
     }
-  }, [_vm._v("+选择视频")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("+重新选择视频")]), _vm._v(" "), _c('div', {
     staticClass: "btn-upload",
     on: {
       "click": _vm.uploadFile
     }
-  }, [_vm._v("上传")])]), _vm._v(" "), _c('li', [_c('input', {
+  }, [_vm._v("上传")])]), _vm._v(" "), _c('li', [_vm._v("视频名称：" + _vm._s(_vm.name))]), _vm._v(" "), _c('li', [_c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -365,15 +385,18 @@ module.exports = {
 		images: url + '/images/imageslist',
 		createImages: url + '/images/createImages',
 		delImages: url + '/images/delImages',
-		detail: url + '/images/detail'
+		detail: url + '/images/detail',
+		updateImages: url + '/images/updateImages'
 	},
 	login: {
 		login: url + '/login',
-		init: url + '/login/init'
+		loginOut: url + '/loginOut'
 	},
 	video: {
 		videolist: url + '/video/videolist',
-		createVideo: url + '/video/createVideo'
+		createVideo: url + '/video/createVideo',
+		detail: url + '/video/detail',
+		updateVideo: url + '/video/updateVideo'
 	},
 	news: {
 		newslist: url + '/news/newslist',
@@ -894,4 +917,4 @@ exports.default = T;
 /***/ })
 
 });
-//# sourceMappingURL=2_chunk.js.map?name=45bcebcb4849f7b14ed6
+//# sourceMappingURL=2_chunk.js.map?name=9526d87d64c3eddfe5b1

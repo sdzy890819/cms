@@ -118,28 +118,47 @@ exports.default = {
 			    base64 = this.base64,
 			    file = this.fileType,
 			    describe = this.describe,
-			    title = this.title;
+			    title = this.title,
+			    b = 1024 * 1024 * 5,
+			    num = 0;
 			if (base64 < 20) {
 				self.filed = true;
 				$('.error').addClass('cur').text('请选择视频文件');
 				return;
 			}
-			_global2.default.ajax({
-				type: 'POST',
-				url: _URL.upload.uploadVideo,
-				data: {
-					"baseCode": [base64].join(','),
-					"fileName": file.name,
-					finish: 1
-				},
-				success: function success(_data) {
-					self.videos = _data.data;
-					$('.error').addClass('right').text('上传成功');
-					setTimeout(function () {
-						$('.error').removeClass('right');
-					}, 1000);
-				}
-			});
+			if (base64 <= b) {
+				num = 0;
+			} else {
+				num = base64.length % b;
+			}
+			var index = 0;
+			function getData() {
+				var start = index * b,
+				    end = b,
+				    indexNum = index + 1,
+				    finish = indexNum == num ? 1 : 0;
+				if (indexNum >= num) return;
+				_global2.default.ajax({
+					type: 'POST',
+					url: _URL.upload.uploadVideo,
+					data: {
+						"baseCode": [base64.substr(start, b)].join(','),
+						"fileName": file.name,
+						partNum: indexNum,
+						finish: finish
+					},
+					success: function success(_data) {
+						getData();
+						/*self.videos = _data.data;
+      $('.error').addClass('right').text('上传成功');
+      setTimeout(function(){
+      	$('.error').removeClass('right');
+      },1000);*/
+					}
+				});
+				index++;
+			}
+			getData();
 		},
 		submit: function submit() {
 			var base64 = this.base64,
@@ -163,7 +182,7 @@ exports.default = {
 					"videoDesc": describe,
 					"videoUrl": videos.location,
 					"videoPath": videos.location,
-					"fileName": videos.videos
+					"fileName": videos.fileName
 				},
 				success: function success(_data) {
 					$('.error').addClass('right').text('提交成功！');
@@ -365,15 +384,18 @@ module.exports = {
 		images: url + '/images/imageslist',
 		createImages: url + '/images/createImages',
 		delImages: url + '/images/delImages',
-		detail: url + '/images/detail'
+		detail: url + '/images/detail',
+		updateImages: url + '/images/updateImages'
 	},
 	login: {
 		login: url + '/login',
-		init: url + '/login/init'
+		loginOut: url + '/loginOut'
 	},
 	video: {
 		videolist: url + '/video/videolist',
-		createVideo: url + '/video/createVideo'
+		createVideo: url + '/video/createVideo',
+		detail: url + '/video/detail',
+		updateVideo: url + '/video/updateVideo'
 	},
 	news: {
 		newslist: url + '/news/newslist',
@@ -894,4 +916,4 @@ exports.default = T;
 /***/ })
 
 });
-//# sourceMappingURL=3_chunk.js.map?name=45bcebcb4849f7b14ed6
+//# sourceMappingURL=3_chunk.js.map?name=9526d87d64c3eddfe5b1

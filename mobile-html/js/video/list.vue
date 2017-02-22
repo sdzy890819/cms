@@ -35,7 +35,7 @@
 				<div class="aside">
 					<div class="submit">
 						<div class="btn" @click='edit(obj)'>修改</div>
-						<div class="btn" @click='release(obj)'>发布</div>
+						<!-- <div class="btn" @click='release(obj)'>发布</div> -->
 					</div>
 					<span class="author">{{obj.author}}</span>
 					<span class="time">{{obj.timeStr}}</span>
@@ -122,8 +122,8 @@ Date.prototype.Format = function (fmt) { //author: meizz
 			getList();
 		},
 		methods : {
-			edit : function(){
-				
+			edit : function(obj){
+				router.push({ path: '/video/edit', query: {videoId:obj.id}})
 			},
 			release : function(){
 

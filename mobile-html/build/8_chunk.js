@@ -281,15 +281,18 @@ module.exports = {
 		images: url + '/images/imageslist',
 		createImages: url + '/images/createImages',
 		delImages: url + '/images/delImages',
-		detail: url + '/images/detail'
+		detail: url + '/images/detail',
+		updateImages: url + '/images/updateImages'
 	},
 	login: {
 		login: url + '/login',
-		init: url + '/login/init'
+		loginOut: url + '/loginOut'
 	},
 	video: {
 		videolist: url + '/video/videolist',
-		createVideo: url + '/video/createVideo'
+		createVideo: url + '/video/createVideo',
+		detail: url + '/video/detail',
+		updateVideo: url + '/video/updateVideo'
 	},
 	news: {
 		newslist: url + '/news/newslist',
@@ -810,4 +813,4 @@ exports.default = T;
 /***/ })
 
 });
-//# sourceMappingURL=8_chunk.js.map?name=45bcebcb4849f7b14ed6
+//# sourceMappingURL=8_chunk.js.map?name=9526d87d64c3eddfe5b1

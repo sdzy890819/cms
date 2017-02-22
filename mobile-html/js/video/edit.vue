@@ -35,9 +35,10 @@
         <ul>
             <li>
                 <input id='file' type="file" value="上传视频"/>
-                <div @click='file' class="btn-file">+选择视频</div>
+                <div @click='file' class="btn-file">+重新选择视频</div>
                 <div class="btn-upload" @click='uploadFile'>上传</div>
             </li>
+            <li>视频名称：{{name}}</li>
             <li><input class="text" type="text" placeholder='视频标题' v-model='title'></li>
             <li><textarea class="text" type="text" placeholder='描述' v-model='describe'></textarea>
         </ul>
@@ -59,8 +60,22 @@
                 title : '' , 
                 describe : '',
                 base64 : '',
+                name : '',
                 videos : null
             }
+        },
+        beforeCreate : function(){
+            var videoId = window.location.hash.match(/videoId=\w+/)[0].replace('videoId=','');
+            var self = this;
+            T.ajax({
+                url : video.detail+'/'+videoId , 
+                success : function(_data){
+                    self.title = _data.data.videoTitle;
+                    self.describe = _data.data.videoDesc;
+                    self.name = _data.data.fileName;
+                    self.videos = _data.data;
+                }
+            })
         },
         mounted(){
             $('.image li input').click(function(){
@@ -105,6 +120,7 @@
                     $('.error').addClass('cur').text('请选择视频文件')
                     return;
                 }
+                self.name = file.name;
                 T.ajax({
                     type: 'POST',               
                     url : upload.uploadVideo , 
@@ -114,7 +130,8 @@
                         finish : 1
                     },
                     success : function(_data){
-                        self.videos = _data.data;
+                        $.extend(self.videos,_data.data)
+                        self.videos.videoUrl = _data.data.location;
                         $('.error').addClass('right').text('上传成功');
                         setTimeout(function(){
                             $('.error').removeClass('right');
@@ -127,8 +144,9 @@
                     file = this.fileType, 
                     describe = this.describe,
                     title = this.title , 
+                    videoUrl = this.videos.videoUrl,
                     videos = this.videos;
-                if(base64<20){
+                if(base64<20 && videoUrl.length<2){
                     $('.error').addClass('cur').text('请上传视频文件');
                     return;
                 }
@@ -138,13 +156,14 @@
                 }
                 T.ajax({
                     type: 'POST',               
-                    url : video.createVideo , 
+                    url : video.updateVideo , 
                     data : {
                         "videoTitle":title,
                         "videoDesc":describe,
-                        "videoUrl":videos.location,
-                        "videoPath":videos.location,
-                        "fileName":videos.videos
+                        "videoUrl":videos.videoUrl,
+                        "videoPath":videos.videoUrl,
+                        "fileName":videos.fileName,
+                        id : videos.id
                     },
                     success : function(_data){  
                         $('.error').addClass('right').text('提交成功！');

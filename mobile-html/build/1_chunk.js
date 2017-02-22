@@ -142,7 +142,9 @@ exports.default = {
 	},
 
 	methods: {
-		edit: function edit() {},
+		edit: function edit(obj) {
+			router.push({ path: '/video/edit', query: { videoId: obj.id } });
+		},
 		release: function release() {},
 		search: function search() {
 			var self = this,
@@ -234,14 +236,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           _vm.edit(obj)
         }
       }
-    }, [_vm._v("修改")]), _vm._v(" "), _c('div', {
-      staticClass: "btn",
-      on: {
-        "click": function($event) {
-          _vm.release(obj)
-        }
-      }
-    }, [_vm._v("发布")])]), _vm._v(" "), _c('span', {
+    }, [_vm._v("修改")])]), _vm._v(" "), _c('span', {
       staticClass: "author"
     }, [_vm._v(_vm._s(obj.author))]), _vm._v(" "), _c('span', {
       staticClass: "time"
@@ -352,15 +347,18 @@ module.exports = {
 		images: url + '/images/imageslist',
 		createImages: url + '/images/createImages',
 		delImages: url + '/images/delImages',
-		detail: url + '/images/detail'
+		detail: url + '/images/detail',
+		updateImages: url + '/images/updateImages'
 	},
 	login: {
 		login: url + '/login',
-		init: url + '/login/init'
+		loginOut: url + '/loginOut'
 	},
 	video: {
 		videolist: url + '/video/videolist',
-		createVideo: url + '/video/createVideo'
+		createVideo: url + '/video/createVideo',
+		detail: url + '/video/detail',
+		updateVideo: url + '/video/updateVideo'
 	},
 	news: {
 		newslist: url + '/news/newslist',
@@ -881,4 +879,4 @@ exports.default = T;
 /***/ })
 
 });
-//# sourceMappingURL=1_chunk.js.map?name=45bcebcb4849f7b14ed6
+//# sourceMappingURL=1_chunk.js.map?name=9526d87d64c3eddfe5b1

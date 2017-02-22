@@ -9,7 +9,7 @@
             display: block; height:$s35; line-height: $s35; text-align: center; border:$s1 solid #ddd; background:#0999e0; color:#fff;
             &.gray{ background:gray; } 
         }
-        .btn-upload{ margin-top:$s10; background: #f85200; border-radius:$s3; }
+        .btn-upload{ display:none; margin-top:$s10; background: #f85200; border-radius:$s3; }
         li{
             padding:$s10 0;
             .label{ width:5.625rem; padding-right: $s5; text-align:center; }
@@ -17,6 +17,7 @@
                 label:not(:first-child){ margin-right:$s10; };
             }
             #img{ display:block; margin:0 auto; min-width:$s5; min-height:$s5; max-width:15rem; max-height: 15rem; border:$s1 solid #ddd; padding:$s1; background:#fff; }
+            &.imgs{ @include box-orient;}
         }
         .error{ @include transition-duration(.5s); height:0; margin:0 $s20; border:0; text-align: center; overflow:hidden;
             &.cur{
@@ -174,7 +175,7 @@
                     },
                     success : function(_data){
                         if(_data.code == 0){
-                            self.imgInfo = _data.data;
+                            $.extend(self.imgInfo,_data.data)
                             $('.btn-upload').hide();
                             $('.error').addClass('right').text('上传成功');
                             setTimeout(function(){
@@ -209,7 +210,7 @@
                 }
                 T.ajax({
                     type: 'POST',               
-                    url : images.createImages , 
+                    url : images.updateImages , 
                     data : {
                         "imageUrl":obj.imageUrl,//图片上传接口返回
                         "imageWidthPixel":obj.imageWidthPixel, //图片长像素  图片上传接口返回
@@ -221,7 +222,8 @@
                         "watermark":shuiyin, //是否水印 1、0
                         "compress":obj.compress, //是否压缩
                         "fid":obj.fid, //图片上传接口返回
-                        "size":obj.size //图片上传接口返回
+                        "size":obj.size, //图片上传接口返回
+                        id : obj.id
                     },
                     success : function(_data){
                         if(_data.code == 0){
