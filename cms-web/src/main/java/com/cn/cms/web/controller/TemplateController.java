@@ -4,6 +4,7 @@ import com.cn.cms.biz.ChannelBiz;
 import com.cn.cms.biz.TemplateBiz;
 import com.cn.cms.bo.RelationBean;
 import com.cn.cms.contants.StaticContants;
+import com.cn.cms.enums.UploadEnum;
 import com.cn.cms.exception.BizException;
 import com.cn.cms.po.Channel;
 import com.cn.cms.po.Template;
@@ -201,7 +202,8 @@ public class TemplateController extends BaseController {
         byte[] bytes = FileUtil.base64Upload(baseCode);
         String fileName = StringUtils.concatUrl(channel.getTemplatePath(), template.getPath(), template.getFilename());
         FileUtil.fileUpload(bytes, fileName);
-        Map<String,Object> map = new HashMap<String,Object>();
+        templateBiz.uploadTemplate(getCurrentUserId(request), id, UploadEnum.YES.getType());
+        Map<String,Object> map = new HashMap<>();
         map.put("fileName",fileName);
         return ApiResponse.returnSuccess(map);
     }
@@ -347,6 +349,7 @@ public class TemplateController extends BaseController {
         }
         return null;
     }
+
 
 
 }

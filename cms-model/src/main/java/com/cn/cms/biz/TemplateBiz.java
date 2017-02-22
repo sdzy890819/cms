@@ -156,4 +156,10 @@ public class TemplateBiz extends BaseBiz {
                                           int job){
         return templateService.findTemplateByChannel(channelId, templateClassify, relationId, relationType, job);
     }
+
+    public void uploadTemplate(String lastModifyUserId,
+                               Long id,
+                               Integer upload){
+        templateService.uploadTemplate(lastModifyUserId, id, upload);
+    }
 }

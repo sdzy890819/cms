@@ -62,4 +62,8 @@ public interface TemplateService {
     void saveTemplateAndRelationAndNewsColumn(Template template, TemplateRelation templateRelation, NewsColumn newsColumn);
 
     Template findTemplateList(Long channelId, Integer templateClassify);
+
+    void uploadTemplate(String lastModifyUserId,
+                        Long id,
+                        Integer upload);
 }

@@ -22,17 +22,18 @@
         <result column="channel_id" property="channelId" />
         <result column="sort_num" property="sortNum" />
         <result column="publish" property="publish" />
+        <result column="upload" property="upload" />
     </resultMap>
 
     <sql id="delTag"> where del_tag = 1 </sql>
 
     <sql id="sql_column">
         id,last_modify_user_id,
-        template_name,template_desc,filename,path,template_classify,user_id,job,encoded,channel_id,sort_num,publish,update_time,create_time
+        template_name,template_desc,filename,path,template_classify,user_id,job,encoded,channel_id,sort_num,publish,update_time,create_time,upload
     </sql>
     <sql id="insert_sql_column">
         id,last_modify_user_id,
-        template_name,template_desc,filename,path,template_classify,user_id,job,encoded,channel_id,sort_num,publish
+        template_name,template_desc,filename,path,template_classify,user_id,job,encoded,channel_id,sort_num,publish,upload
     </sql>
 
 
@@ -75,7 +76,7 @@
     <insert id="saveTemplate" useGeneratedKeys="true" keyProperty="p1.id">
         insert into template ( <include refid="insert_sql_column" /> ) values (
         null,#{p1.lastModifyUserId},#{p1.templateName},#{p1.templateDesc},#{p1.filename},#{p1.path},${p1.templateClassify},
-        #{p1.userId},${p1.job},#{p1.encoded},${p1.channelId},${p1.sortNum},${p1.publish});
+        #{p1.userId},${p1.job},#{p1.encoded},${p1.channelId},${p1.sortNum},${p1.publish},${p1.upload});
     </insert>
 
     <update id="updateTemplate">
@@ -147,5 +148,9 @@
         select <include refid="sql_column" /> from template <include refid="delTag" /> and job = ${job}
         and template_classify = ${templateClassify} and channel_id = ${channelId} order by sort_num desc limit 1 ;
     </select>
+
+    <update id="uploadTemplate">
+        update template set upload = ${upload}, last_modify_user_id = #{p1.lastModifyUserId} where id = ${id};
+    </update>
 
 </mapper>

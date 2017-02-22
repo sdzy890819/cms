@@ -17,13 +17,14 @@
         <result column="template_classify" property="templateClassify" />
         <result column="user_id" property="userId" />
         <result column="encoded" property="encoded" />
+        <result column="upload" property="upload" />
     </resultMap>
 
     <sql id="delTag"> where del_tag = 1 </sql>
 
     <sql id="sql_column">
         id,last_modify_user_id,
-        template_name,filename,path,template_classify,user_id,encoded
+        template_name,filename,path,template_classify,user_id,encoded,upload
     </sql>
 
     <select id="queryTemplate2Count" resultType="java.lang.Integer">
@@ -63,7 +64,7 @@
     <insert id="saveTemplate2" useGeneratedKeys="true" keyProperty="p1.id">
         insert into template2 ( <include refid="sql_column" /> ) values (
         null,#{p1.lastModifyUserId},#{p1.templateName},#{p1.filename},#{p1.path},#{p1.templateClassify},
-        #{p1.userId},#{p1.encoded});
+        #{p1.userId},#{p1.encoded},#{p1.upload});
     </insert>
 
     <update id="updateTemplate2">
@@ -93,4 +94,7 @@
         where id = ${p1.id};
     </update>
 
+    <update id="uploadTemplate">
+        update template set upload = ${upload}, last_modify_user_id = #{p1.lastModifyUserId} where id = ${id};
+    </update>
 </mapper>

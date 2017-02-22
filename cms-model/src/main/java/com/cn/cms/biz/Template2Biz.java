@@ -93,4 +93,10 @@ public class Template2Biz extends BaseBiz {
         }
     }
 
+    public void uploadTemplate(String lastModifyUserId,
+                               Long id,
+                               Integer upload){
+        template2Service.uploadTemplate(lastModifyUserId, id, upload);
+    }
+
 }

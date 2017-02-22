@@ -31,6 +31,8 @@ public interface Template2Dao {
 
     Template2 getTemplate2(@Param(value = "id") Long id);
 
-
+    void uploadTemplate(@Param(value = "lastModifyUserId") String lastModifyUserId,
+                        @Param(value = "id") Long id,
+                        @Param(value = "upload") Integer upload);
 
 }

@@ -4,6 +4,7 @@ import com.cn.cms.biz.Template2Biz;
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.enums.Template2ClassifyEnum;
 import com.cn.cms.enums.TemplateClassifyEnum;
+import com.cn.cms.enums.UploadEnum;
 import com.cn.cms.exception.BizException;
 import com.cn.cms.po.Template2;
 import com.cn.cms.po.Template2Base;
@@ -201,6 +202,7 @@ public class Template2Controller extends BaseController  {
         byte[] bytes = FileUtil.base64Upload(baseCode);
         String fileName = StringUtils.concatUrl(template2Base.getBasePath(), template2.getPath(), template2.getFilename());
         FileUtil.fileUpload(bytes, fileName);
+        template2Biz.uploadTemplate(getCurrentUserId(request), id, UploadEnum.YES.getType());
         Map<String,Object> map = new HashMap<String,Object>();
         map.put("fileName",fileName);
         return ApiResponse.returnSuccess(map);

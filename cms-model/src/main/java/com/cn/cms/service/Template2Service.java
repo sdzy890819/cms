@@ -37,5 +37,5 @@ public interface Template2Service {
 
     void updateTemplate2Base(Template2Base template2Base);
 
-
+    void uploadTemplate(String lastModifyUserId, Long id, Integer upload);
 }
