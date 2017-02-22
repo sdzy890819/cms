@@ -208,6 +208,7 @@ define(['require',"app",'jquery'
 						// 	item.list.edit = arr;
 						// }
 						$.each(item.list.edit,function( j , obj ){
+							var arr = [];
 							if((obj.name == '下载' && item.job == 1) || (obj.name == '关联' && item.upload == 0)){
 							}else {
 								arr.push(obj);
