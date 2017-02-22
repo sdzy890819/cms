@@ -213,6 +213,7 @@ define(['require',"app",'jquery'
 							}else {
 								arr.push(obj);
 							}
+							item.list.edit = arr;
 						});
 		        		// if(item.job==1){//1是定时生成。0是触发生成
 		        		// 	var arr = [];
