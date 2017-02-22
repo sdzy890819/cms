@@ -152,6 +152,7 @@ public class TopicController extends BaseController {
         topic.setTopicPath(topicPath);
         topic.setTopicTitle(topicTitle);
         topicBiz.saveTopic(topic);
+        publish(request, topic.getId());
         return ApiResponse.returnSuccess();
     }
 
@@ -209,6 +210,7 @@ public class TopicController extends BaseController {
         topic.setTopicPath(topicPath);
         topic.setTopicTitle(topicTitle);
         topicBiz.saveTopic(topic);
+        publish(request, topic.getId());
         return ApiResponse.returnSuccess();
     }
 

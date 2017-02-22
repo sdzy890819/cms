@@ -61,6 +61,7 @@ public class VelocityUtils {
      * @param publishFile
      */
     public static void publish(Map<String, Object> map, String content, String publishFile){
+        log.info("生成目录：" + publishFile +  " 根据内容文件发布发布开始");
         VelocityEngine velocityEngine = new VelocityEngine(prop);
         VelocityContext context = new VelocityContext(map);
         File file = new File(publishFile);
@@ -85,6 +86,7 @@ public class VelocityUtils {
      */
     public static void publish(Map<String, Object> map, String templateFile,
                                String publishFile, String encode){
+        log.info("模版文件：" + templateFile + ", 生成目录：" + publishFile + ", 编码：" + encode + " 文件发布开始");
         VelocityEngine velocityEngine = new VelocityEngine(prop);
         VelocityContext context = new VelocityContext(map);
         File file = new File(publishFile);

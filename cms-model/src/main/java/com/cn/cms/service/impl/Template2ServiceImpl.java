@@ -77,4 +77,9 @@ public class Template2ServiceImpl implements Template2Service {
     public void updateTemplate2Base(Template2Base template2Base) {
         template2BaseDao.updateTemplate2Base(template2Base);
     }
+
+    @Override
+    public void uploadTemplate(String lastModifyUserId, Long id, Integer upload) {
+        template2Dao.uploadTemplate(lastModifyUserId, id, upload);
+    }
 }

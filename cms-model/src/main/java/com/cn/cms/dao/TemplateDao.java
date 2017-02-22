@@ -48,4 +48,8 @@ public interface TemplateDao {
                               @Param(value = "templateClassify") Integer templateClassify,
                               @Param(value = "job") int job);
 
+    void uploadTemplate(@Param(value = "lastModifyUserId") String lastModifyUserId,
+                        @Param(value = "id") Long id,
+                        @Param(value = "upload") Integer upload);
+
 }

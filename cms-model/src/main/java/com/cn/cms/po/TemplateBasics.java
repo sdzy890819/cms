@@ -2,6 +2,7 @@ package com.cn.cms.po;
 
 import com.cn.cms.enums.EncodedEnum;
 import com.cn.cms.enums.TemplateClassifyEnum;
+import com.cn.cms.enums.UploadEnum;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -58,8 +59,26 @@ public class TemplateBasics extends Base {
     @Setter
     protected String encoded = EncodedEnum.utf8.getName();
 
+    /**
+     * 是否上传
+     */
+    @Getter
+    @Setter
+    protected Integer upload = UploadEnum.NO.getType();
+
+
+    protected String uploadStr;
+
     public String getTemplateClassifyStr() {
         return TemplateClassifyEnum.get(templateClassify).getName();
+    }
+
+    public String getUploadStr(){
+        UploadEnum uploadEnum = UploadEnum.get(upload);
+        if(uploadEnum!=null){
+            return uploadEnum.getName();
+        }
+        return uploadStr;
     }
 
 }

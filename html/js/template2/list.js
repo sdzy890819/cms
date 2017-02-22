@@ -198,15 +198,33 @@ define(['require',"app",'jquery'
 					GenerateArrList.extendType($scope.listdata.table.td,$scope.listdata.table.th,['width','name']); //把TH 中的出name属性以外的属性合传给td
 		        	GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
 		        	$.each($scope.listdata.table.td,function( i , item ){
-		        		if(item.job==1){//1是定时生成。0是触发生成
-		        			var arr = [];
-		        			$.each(item.list.edit,function( j , obj ){
-		        				if(obj.name!='关联'){
-		        					arr.push(obj);
-		        				}
-		        			});
-		        			item.list.edit = arr;
-		        		}
+						// if(item.upload==1){//1是上传过。0是未上传
+						// 	var arr = [];
+						// 	$.each(item.list.edit,function( j , obj ){
+						// 		if(obj.name!='下载'){
+						// 			arr.push(obj);
+						// 		}
+						// 	});
+						// 	item.list.edit = arr;
+						// }
+						var arr = [];
+						$.each(item.list.edit,function( j , obj ){
+							if((obj.name == '关联' && item.job == 1) || (obj.name == '下载' && item.upload == 0)){
+
+							}else {
+								arr.push(obj);
+							}
+						});
+						item.list.edit = arr;
+		        		// if(item.job==1){//1是定时生成。0是触发生成
+		        		// 	var arr = [];
+		        		// 	$.each(item.list.edit,function( j , obj ){
+		        		// 		if(obj.name!='关联'){
+		        		// 			arr.push(obj);
+		        		// 		}
+		        		// 	});
+		        		// 	item.list.edit = arr;
+		        		// }
 		        	});
 		        	$scope.$apply();
 				}

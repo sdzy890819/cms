@@ -147,5 +147,10 @@ public class TemplateServiceImpl implements TemplateService {
     public Template findTemplateList(Long channelId, Integer templateClassify) {
         return templateDao.findTemplateList(channelId,templateClassify,JobEnum.trigger.getType());
     }
+
+    @Override
+    public void uploadTemplate(String lastModifyUserId, Long id, Integer upload) {
+        templateDao.uploadTemplate(lastModifyUserId, id, upload);
+    }
 }
 

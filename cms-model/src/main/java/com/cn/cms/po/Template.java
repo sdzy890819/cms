@@ -3,6 +3,7 @@ package com.cn.cms.po;
 import com.cn.cms.enums.EncodedEnum;
 import com.cn.cms.enums.PublishEnum;
 import com.cn.cms.enums.TemplateClassifyEnum;
+import com.cn.cms.enums.UploadEnum;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -53,6 +54,8 @@ public class Template extends TemplateBasics {
     @Setter
     private Integer publish = PublishEnum.NO.getType();
 
+
+
     private String publishStr;
 
     public String getPublishStr(){
@@ -62,5 +65,7 @@ public class Template extends TemplateBasics {
         }
         return publishStr;
     }
+
+
 
 }

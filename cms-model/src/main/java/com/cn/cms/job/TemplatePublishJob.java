@@ -96,7 +96,13 @@ public class TemplatePublishJob extends BaseTask {
             publishPath = StringUtils.concatUrl(channel.getChannelPath(),news.getRelativePath());
             fromPath = StringUtils.concatUrl(templatePath, templateBasics.getPath(), templateBasics.getFilename());
         }else{
-            publishPath = StringUtils.concatUrl(channel.getChannelPath(), templateBasics.getPath(), FileUtil.getFileNameByPage(templateBasics.getFilename(),getPage()));
+            if(templateBasics instanceof Template2 && templateBasics.getTemplateClassify() == TemplateClassifyEnum.list.getType() && newsColumn != null){
+                publishPath = StringUtils.concatUrl(channel.getChannelPath(), templateBasics.getPath(),
+                        FileUtil.getFileNameByPage(newsColumn.getId().toString().concat(StaticContants.HTML_SUFFIX), getPage()));
+            }else{
+                publishPath = StringUtils.concatUrl(channel.getChannelPath(), templateBasics.getPath(), FileUtil.getFileNameByPage(templateBasics.getFilename(),getPage()));
+            }
+
             fromPath = StringUtils.concatUrl(templatePath, templateBasics.getPath(), templateBasics.getFilename());
         }
         VelocityUtils.publish(map, fromPath,
