@@ -233,14 +233,14 @@ define(['require',"app",'jquery'
         		// 	});
         		// 	item.list.edit = arr;
         		// }
+				var arr = [];
 				$.each(item.list.edit,function( j , obj ){
-					var arr = [];
 					if((obj.name == '下载' && item.job == 1) || (obj.name == '关联' && item.upload == 0)){
 					}else {
 						arr.push(obj);
 					}
-					item.list.edit = arr;
 				});
+				item.list.edit = arr;
         	});
         	$scope.$apply();
 

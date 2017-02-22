@@ -207,14 +207,14 @@ define(['require',"app",'jquery'
 						// 	});
 						// 	item.list.edit = arr;
 						// }
+						var arr = [];
 						$.each(item.list.edit,function( j , obj ){
-							var arr = [];
 							if((obj.name == '下载' && item.job == 1) || (obj.name == '关联' && item.upload == 0)){
 							}else {
 								arr.push(obj);
 							}
-							item.list.edit = arr;
 						});
+						item.list.edit = arr;
 		        		// if(item.job==1){//1是定时生成。0是触发生成
 		        		// 	var arr = [];
 		        		// 	$.each(item.list.edit,function( j , obj ){
