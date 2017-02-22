@@ -7,10 +7,7 @@ import com.cn.cms.utils.Page;
 import com.cn.cms.web.ann.CheckAppToken;
 import com.cn.cms.web.ann.CheckAppAuth;
 import com.cn.cms.web.result.ApiResponse;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -166,6 +163,14 @@ public class AppImagesController extends AppBaseController {
         result.put("page",pageObj);
         result.put("list",images);
         return ApiResponse.returnSuccess(result);
+    }
+
+    @CheckAppToken
+    @CheckAppAuth( name = "appimages:read" )
+    @RequestMapping(value = "/detail/{id}")
+    public String imageslist(@PathVariable("id") Long id){
+        Images images = resourceBiz.getImages(id);
+        return ApiResponse.returnSuccess(images);
     }
 
 }
