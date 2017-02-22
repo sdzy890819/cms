@@ -7,10 +7,7 @@ import com.cn.cms.utils.Page;
 import com.cn.cms.web.ann.CheckAppAuth;
 import com.cn.cms.web.ann.CheckAppToken;
 import com.cn.cms.web.result.ApiResponse;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -132,6 +129,14 @@ public class AppVideoController extends AppBaseController {
         result.put("page",pageObj);
         result.put("list",videos);
         return ApiResponse.returnSuccess(result);
+    }
+
+    @CheckAppToken
+    @CheckAppAuth( name = "appvideo:read" )
+    @RequestMapping(value = "/detail/{id}")
+    public String videolist(@PathVariable("id") Long id){
+        Video video = resourceBiz.getVideo(id);
+        return ApiResponse.returnSuccess(video);
     }
 
 }

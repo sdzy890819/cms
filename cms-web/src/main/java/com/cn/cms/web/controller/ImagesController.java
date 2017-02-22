@@ -221,7 +221,7 @@ public class ImagesController extends BaseController{
                            @RequestParam(value="pageSize",required = false)Integer pageSize){
         Page pageObj = new Page(page,pageSize);
         List<Images> images = resourceBiz.listImages(pageObj);
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
         result.put("page",pageObj);
         result.put("list",images);
         return ApiResponse.returnSuccess(result);
