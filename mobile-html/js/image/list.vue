@@ -34,7 +34,7 @@
 				<h2>{{obj.imageTitle}}</h2>
 				<div class="edit">
 					<div class="btn" @click='edit(obj)'>编辑</div>
-					<div class="btn" @click='del(obj)'>删除</div>
+					<!-- <div class="btn" @click='del(obj)'>删除</div> -->
 				</div>
 			</li>
 		</ul>
@@ -51,6 +51,7 @@
 </template>
 <script>
 	import T from '../common/global.js';
+	//import pop from '../widgets/pop.js';
 	import {images,search} from '../common/URL.js';
 	export default {
 		props : {
@@ -62,60 +63,92 @@
 			}
 		},
 		beforeCreate (){
-			var self = this,
-				page = 1 ,
-				pageSize = 10 , 
-				loading = true;
+			this.update = function(){
+				var self = this,
+					page = 1 ,
+					pageSize = 10 , 
+					loading = true;
 
-			function getList(){
-				if(loading==false) return;
-				loading = false;
-				T.ajax({
-					url : images.images , 
-					data : {
-						page : page , 
-						pageSize : pageSize
-					},
-					success : function( _data ){
-						var list = _data.data.list , 
-							newarr = [],
-							arr = [];
-						if(!list || !list.length) return;
-						list.map((obj,index)=>{
-							index += 1;
-							arr.push(obj)
-							if(index%3==0){
-								newarr.push(arr);
-								arr = []
-							}
-						});
-						arr.length && newarr.push(arr);
-						self.list = self.list.concat(newarr);
-						loading = true;
-						self.$nextTick(function(){
-			                var box = $('.image-list'),
-								scrollHeight = box[0].scrollHeight , 
-								height = box.height();
-							box.unbind().on('scroll',function(){
-								var scrollTop = $(this).scrollTop()+height+50;
-								if(scrollTop>scrollHeight){
-									page++;
-									getList();
+				function getList(){
+					if(loading==false) return;
+					loading = false;
+					T.ajax({
+						url : images.images , 
+						data : {
+							page : page , 
+							pageSize : pageSize
+						},
+						success : function( _data ){
+							var list = _data.data.list , 
+								newarr = [],
+								arr = [];
+							if(!list || !list.length) return;
+							list.map((obj,index)=>{
+								index += 1;
+								arr.push(obj)
+								if(index%3==0){
+									newarr.push(arr);
+									arr = []
 								}
-							})
-			            });
-					}
-				})
+							});
+							arr.length && newarr.push(arr);
+							self.list = self.list.concat(newarr);
+							loading = true;
+							self.$nextTick(function(){
+				                var box = $('.image-list'),
+									scrollHeight = box[0].scrollHeight , 
+									height = box.height();
+								box.unbind().on('scroll',function(){
+									var scrollTop = $(this).scrollTop()+height+50;
+									if(scrollTop>scrollHeight){
+										if(page==_data.data.page.pageCount) return;
+										page++;
+										getList();
+									}
+								})
+				            });
+						}
+					})
+				}
+				getList();
 			}
-			getList();
+			this.update();
 		},
 		methods : {
 			edit : function( obj ){
-				debugger;
+				router.push({ path: '/image/edit', query: {imageId:obj.id}})
 			},
-			del : function( obj ){
-				debugger;
-			},
+			/*del : function( obj ){
+				var self = this;
+				require.ensure([],function(require){
+					var Pop = require('../widgets/pop.js');
+					new Pop({
+						title : '提示',
+						content : '确定要"'+obj.imageTitle+'"删除吗？',
+						width: '70%',
+						cancelBtn:false,
+						okTxt:'确定',
+						timing : 'bounceIn', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+						okCallback:function(){
+							T.ajax({
+								url : images.delImages ,
+								type : 'post',
+								data : {
+									id : obj.id
+								},
+								success : function( _data ){
+									if(_data.code==0){
+										T.pop('删除成功！',false,false,function(){
+											Pop.close();
+											self.update();
+										});
+									}
+								}
+							});
+						}
+					});
+				})
+			},*/
 			search : function(){
 				var self = this , 
 					txt = self.searchtxt;

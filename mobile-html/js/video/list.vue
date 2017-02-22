@@ -35,7 +35,7 @@
 				<div class="aside">
 					<div class="submit">
 						<div class="btn" @click='edit(obj)'>修改</div>
-						<div class="btn" @click='send(obj)'>发布</div>
+						<div class="btn" @click='release(obj)'>发布</div>
 					</div>
 					<span class="author">{{obj.author}}</span>
 					<span class="time">{{obj.timeStr}}</span>
@@ -109,6 +109,7 @@ Date.prototype.Format = function (fmt) { //author: meizz
 							box.unbind().on('scroll',function(){
 								var scrollTop = $(this).scrollTop()+height+50;
 								if(scrollTop>scrollHeight){
+									if(page==_data.data.page.pageCount) return;
 									page++;
 									getList();
 								}
@@ -120,6 +121,12 @@ Date.prototype.Format = function (fmt) { //author: meizz
 			getList();
 		},
 		methods : {
+			edit : function(){
+				
+			},
+			release : function(){
+
+			},
 			search : function(){
 				var self = this , 
 					txt = self.searchtxt;
@@ -137,7 +144,7 @@ Date.prototype.Format = function (fmt) { //author: meizz
 							obj.timeStr = new Date(obj.uploadTime).Format("MM-dd h:m")
 						})
 						self.list = list;
-						}
+					}
 				})
 			}
 		}

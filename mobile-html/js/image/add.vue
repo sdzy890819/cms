@@ -85,7 +85,7 @@
 </template>
 <script>
 	import T from '../common/global.js';
-	import {upload} from '../common/URL.js';
+	import {upload , images} from '../common/URL.js';
 	export default {
 		data (){
 			return {
@@ -151,7 +151,7 @@
 					url : upload.uploadImage , 
 					data : {
 						"baseCode":base64,
-						"suffix":file.type,
+						"suffix":file.type.match(/\w+$/)[0],
 						"watermark":shuiyin,
 						"width":width,
 						"height":height //需要压缩的高度  可不传
@@ -192,7 +192,7 @@
 				}
 				T.ajax({
 					type: 'POST',				
-					url : upload.createImages , 
+					url : images.createImages , 
 					data : {
 						"imageUrl":obj.imageUrl,//图片上传接口返回
 						"imageWidthPixel":obj.imageWidthPixel, //图片长像素  图片上传接口返回
