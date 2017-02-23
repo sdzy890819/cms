@@ -1,6 +1,6 @@
 webpackJsonp([8],{
 
-/***/ 116:
+/***/ 112:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -233,7 +233,7 @@ if (false) {
 
 var Component = __webpack_require__(2)(
   /* script */
-  __webpack_require__(116),
+  __webpack_require__(112),
   /* template */
   __webpack_require__(204),
   /* scopeId */
@@ -241,7 +241,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "E:\\Myindex\\myproject\\yang\\mobile-html\\js\\new\\list.vue"
+Component.options.__file = "E:\\myProjuct\\yang.z\\mobile-html\\js\\new\\list.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] list.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -264,4 +264,4 @@ module.exports = Component.exports
 /***/ })
 
 });
-//# sourceMappingURL=8_chunk.js.map?name=e09500761e0321eb345d
+//# sourceMappingURL=8_chunk.js.map?name=877f34de60bc2b9a014e

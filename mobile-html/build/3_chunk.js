@@ -1,6 +1,6 @@
 webpackJsonp([3],{
 
-/***/ 117:
+/***/ 113:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -121,43 +121,42 @@ exports.default = {
 			    title = this.title,
 			    b = 1024 * 1024 * 5,
 			    num = 0;
-			base64 = base64.replace(base64.match(/^data[\:|\w|\-|\;|\/]+,/)[0], '');
-			if (base64 < 20) {
-				self.filed = true;
-				$('.error').addClass('cur').text('请选择视频文件');
-				return;
-			}
-			if (base64 <= b) {
-				num = 0;
-			} else {
-				num = base64.length % b;
-			}
-			var index = 0;
+			//base64 = base64.replace(base64.match(/^data[\:|\w|\-|\;|\/]+,/)[0],'')
+			/*if(base64<20){
+   	self.filed = true;
+   	$('.error').addClass('cur').text('请选择视频文件')
+   	return;
+   }
+   if(base64.length<=b){
+   	num = 0;
+   }else{
+   	num = base64.length%b;
+   }
+   var index = 0; */
 			function getData() {
-				var start = index * b,
-				    end = b,
-				    indexNum = index + 1,
-				    finish = indexNum == num ? 1 : 0;
-				if (indexNum >= num) return;
+				/*var start = index*b , 
+    	end = b , 
+    	indexNum = index+1 , 
+    	finish = index==num?1:0;*/
+				//if(index>num) return;
 				_global2.default.ajax({
 					type: 'POST',
 					url: _URL.upload.uploadVideo,
 					data: {
-						"baseCode": base64.substr(start, b),
-						"fileName": file.name,
-						'partNum': indexNum,
-						'finish': finish
+						//"baseCode":(base64.substr(start,b)),
+						"baseCode": base64,
+						"fileName": file.name
 					},
 					success: function success(_data) {
-						getData();
-						/*self.videos = _data.data;
-      $('.error').addClass('right').text('上传成功');
-      setTimeout(function(){
-      	$('.error').removeClass('right');
-      },1000);*/
+						//getData();
+						self.videos = _data.data;
+						$('.error').addClass('right').text('上传成功');
+						setTimeout(function () {
+							$('.error').removeClass('right');
+						}, 1000);
 					}
 				});
-				index++;
+				//index++;
 			}
 			getData();
 		},
@@ -199,7 +198,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 197:
+/***/ 193:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)();
@@ -307,17 +306,17 @@ if (false) {
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(197);
+var content = __webpack_require__(193);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(5)("217724ad", content, false);
+var update = __webpack_require__(5)("72b94d8e", content, false);
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!./../../../../../../node_modules/css-loader/index.js?sourceMap!./../../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-5ddcd4ce!./../../../../../../node_modules/sass-loader/lib/loader.js!./../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./add.vue", function() {
-     var newContent = require("!!./../../../../../../node_modules/css-loader/index.js?sourceMap!./../../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-5ddcd4ce!./../../../../../../node_modules/sass-loader/lib/loader.js!./../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./add.vue");
+   module.hot.accept("!!./../../../../../node_modules/css-loader/index.js?sourceMap!./../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-5ddcd4ce!./../../../../../node_modules/sass-loader/lib/loader.js!./../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./add.vue", function() {
+     var newContent = require("!!./../../../../../node_modules/css-loader/index.js?sourceMap!./../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-5ddcd4ce!./../../../../../node_modules/sass-loader/lib/loader.js!./../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./add.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -337,7 +336,7 @@ __webpack_require__(214)
 
 var Component = __webpack_require__(2)(
   /* script */
-  __webpack_require__(117),
+  __webpack_require__(113),
   /* template */
   __webpack_require__(206),
   /* scopeId */
@@ -345,7 +344,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "E:\\Myindex\\myproject\\yang\\mobile-html\\js\\video\\add.vue"
+Component.options.__file = "E:\\myProjuct\\yang.z\\mobile-html\\js\\video\\add.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] add.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -368,4 +367,4 @@ module.exports = Component.exports
 /***/ })
 
 });
-//# sourceMappingURL=3_chunk.js.map?name=e09500761e0321eb345d
+//# sourceMappingURL=3_chunk.js.map?name=877f34de60bc2b9a014e
