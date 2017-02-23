@@ -119,9 +119,9 @@ exports.default = {
 			    file = this.fileType,
 			    describe = this.describe,
 			    title = this.title,
-			    b = 1024 * 1024 * 5,
+			    b = 1024 * 1024 * 3,
 			    num = 0;
-			base64 = base64.replace(base64.match(/^data[\:|\w|\-|\;|\/]+,/)[0], '');
+			//base64 = base64.replace(base64.match(/^data[\:|\w|\-|\;|\/]+,/)[0],'')
 			if (base64 < 20) {
 				self.filed = true;
 				$('.error').addClass('cur').text('请选择视频文件');
@@ -137,8 +137,8 @@ exports.default = {
 				var start = index * b,
 				    end = b,
 				    indexNum = index + 1,
-				    finish = indexNum == num ? 1 : 0;
-				if (indexNum >= num) return;
+				    finish = index == num ? 1 : 0;
+				if (index >= num) return;
 				_global2.default.ajax({
 					type: 'POST',
 					url: _URL.upload.uploadVideo,
@@ -368,4 +368,4 @@ module.exports = Component.exports
 /***/ })
 
 });
-//# sourceMappingURL=3_chunk.js.map?name=e09500761e0321eb345d
+//# sourceMappingURL=3_chunk.js.map?name=4dfcfea028ac647f19ca
