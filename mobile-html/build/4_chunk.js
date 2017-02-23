@@ -117,10 +117,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
-//
-//
-//
-//
 
 Date.prototype.Format = function (fmt) {
 	//author: meizz 
@@ -158,7 +154,7 @@ exports.default = {
 			channelId: -1, //频道ID
 			columnId: -1, //栏目ID
 			categoryId: -1, //部门分类ID
-			content: '', //详细内容"
+			content: '详细内容', //详细内容"
 			field1: '', //扩展字段，界面上需要的时候点击添加" //可不传
 			field2: '', //扩展字段，界面上需要的时候点击添加" //可不传
 			field3: '', //扩展字段，界面上需要的时候点击添加" //可不传
@@ -188,131 +184,116 @@ exports.default = {
 			}
 		});
 		__webpack_require__.e/* require.ensure */(13).then((function (require) {/* WEBPACK VAR INJECTION */(function(Vue) {
-			/*require('../plug/vue2-html5-editor/src/style.less');
-   var options = {
-   	name: "vue-html5-editor",
-       //custom icon class of built-in modules,default using font-awesome 
-       icons: {
-           text: "fa fa-pencil",
-           color: "fa fa-paint-brush",
-           font: "fa fa-font",
-           align: "fa fa-align-justify",
-           list: "fa fa-list",
-           link: "fa fa-chain",
-           unlink: "fa fa-chain-broken",
-           tabulation: "fa fa-table",
-           image: "fa fa-file-image-o",
-           hr: "fa fa-minus",
-           eraser: "fa fa-eraser",
-           undo: "fa-undo fa",
-           "full-screen": "fa fa-arrows-alt",
-           info: "fa fa-info",
-       },
-       //config image module 
-       image: {
-           //Url of the server-side,default null and convert image to base64 
-           server: null,
-           //the name for file field in multipart request 
-           fieldName: "image",
-           //max file size 
-           sizeLimit: 512 * 1024,
-           // default true,if set to true,the image will resize by localResizeIMG (https://github.com/think2011/localResizeIMG) 
-           compress: true,
-           //follows are options of localResizeIMG 
-           width: 1600,
-           height: 1600,
-           quality: 80,
-           //handle response data，return image url 
-           uploadHandler(responseText){
-               //default accept json data like  {ok:false,msg:"unexpected"} or {ok:true,data:"image url"} 
-               var json = JSON.parse(responseText)
-               if (!json.ok) {
-                   alert(json.msg)
-               } else {
-                   return json.data
-               }
-           }
-       },
-       //default en-us, en-us and zh-cn are built-in 
-       language: "zh-cn",
-       i18n: {
-           //specify your language here 
-           "zh-cn": {
-               "align": "对齐方式",
-               "image": "图片",
-               "list": "列表",
-               "link": "链接",
-               "unlink": "去除链接",
-               "table": "表格",
-               "font": "文字",
-               "full screen": "全屏",
-               "text": "排版",
-               "eraser": "格式清除",
-               "info": "关于",
-               "color": "颜色",
-               "please enter a url": "请输入地址",
-               "create link": "创建链接",
-               "bold": "加粗",
-               "italic": "倾斜",
-               "underline": "下划线",
-               "strike through": "删除线",
-               "subscript": "上标",
-               "superscript": "下标",
-               "heading": "标题",
-               "font name": "字体",
-               "font size": "文字大小",
-               "left justify": "左对齐",
-               "center justify": "居中",
-               "right justify": "右对齐",
-               "ordered list": "有序列表",
-               "unordered list": "无序列表",
-               "fore color": "前景色",
-               "background color": "背景色",
-               "row count": "行数",
-               "column count": "列数",
-               "save": "确定",
-               "upload": "上传",
-               "progress": "进度",
-               "unknown": "未知",
-               "please wait": "请稍等",
-               "error": "错误",
-               "abort": "中断",
-               "reset": "重置"
-           }
-       },
-       //the modules you don't want 
-       hiddenModules: [],
-       //keep only the modules you want and customize the order. 
-       //can be used with hiddenModules together 
-       visibleModules: [
-           "text",
-           "color",
-           "font",
-           "align",
-           "list",
-           "link",
-           "unlink",
-           "tabulation",
-           "image",
-           "hr",
-           "eraser",
-           "undo",
-           "full-screen",
-           "info",
-       ],
-       //extended modules 
-       modules: {
-           //omit,reference to source code of build-in modules 
-       }
-   }
-   var Vue2Html5Editor = require("../plug/vue2-html5-editor/dist/vue2-html5-editor.js");
-   //Vue.use(editor,options);
-   Vue.use(Vue2Html5Editor,options)*/
-
+			var options = {
+				//global component name 
+				name: "vue2-html5-editor",
+				//custom icon class of built-in modules,default using font-awesome 
+				/*icons: {
+        text: "fa fa-pencil",
+        color: "fa fa-paint-brush",
+        font: "fa fa-font",
+        align: "fa fa-align-justify",
+        list: "fa fa-list",
+        link: "fa fa-chain",
+        unlink: "fa fa-chain-broken",
+        tabulation: "fa fa-table",
+        image: "fa fa-file-image-o",
+        hr: "fa fa-minus",
+        eraser: "fa fa-eraser",
+        undo: "fa-undo fa",
+        "full-screen": "fa fa-arrows-alt",
+        info: "fa fa-info",
+    },*/
+				//config image module 
+				/*image: {
+        //Url of the server-side,default null and convert image to base64 
+        server: null,
+        //the name for file field in multipart request 
+        fieldName: "image",
+        //max file size 
+        sizeLimit: 512 * 1024,
+        // default true,if set to true,the image will resize by localResizeIMG (https://github.com/think2011/localResizeIMG) 
+        compress: true,
+        //follows are options of localResizeIMG 
+        width: 1600,
+        height: 1600,
+        quality: 80,
+        //handle response data，return image url 
+        uploadHandler(responseText){
+            //default accept json data like  {ok:false,msg:"unexpected"} or {ok:true,data:"image url"} 
+            var json = JSON.parse(responseText)
+            if (!json.ok) {
+                alert(json.msg)
+            } else {
+                return json.data
+            }
+        }
+    },
+    //default en-us, en-us and zh-cn are built-in 
+    language: "zh-cn",
+    i18n: {
+        //specify your language here 
+        "zh-cn": {
+            "align": "对齐方式",
+            "image": "图片",
+            "list": "列表",
+            "link": "链接",
+            "unlink": "去除链接",
+            "table": "表格",
+            "font": "文字",
+            "full screen": "全屏",
+            "text": "排版",
+            "eraser": "格式清除",
+            "info": "关于",
+            "color": "颜色",
+            "please enter a url": "请输入地址",
+            "create link": "创建链接",
+            "bold": "加粗",
+            "italic": "倾斜",
+            "underline": "下划线",
+            "strike through": "删除线",
+            "subscript": "上标",
+            "superscript": "下标",
+            "heading": "标题",
+            "font name": "字体",
+            "font size": "文字大小",
+            "left justify": "左对齐",
+            "center justify": "居中",
+            "right justify": "右对齐",
+            "ordered list": "有序列表",
+            "unordered list": "无序列表",
+            "fore color": "前景色",
+            "background color": "背景色",
+            "row count": "行数",
+            "column count": "列数",
+            "save": "确定",
+            "upload": "上传",
+            "progress": "进度",
+            "unknown": "未知",
+            "please wait": "请稍等",
+            "error": "错误",
+            "abort": "中断",
+            "reset": "重置"
+        }
+    },
+    //the modules you don't want 
+    hiddenModules: [],*/
+				//keep only the modules you want and customize the order. 
+				//can be used with hiddenModules together 
+				visibleModules: ["text", "color", "font", "align", "list", "link", "unlink", "tabulation",
+				//"image",
+				"hr", "eraser", "undo",
+				// "full-screen",
+				"info"],
+				//extended modules 
+				modules: {
+					//omit,reference to source code of build-in modules 
+				}
+			};
+			__webpack_require__(199);
+			__webpack_require__(200);
 			var editor = __webpack_require__(188);
-			Vue.use(editor, {
-				name: 'vue2-html5-editor'
-			});
+			Vue.use(editor, options);
 		
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0)))}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 	},
@@ -374,10 +355,10 @@ exports.default = {
 
 /***/ }),
 
-/***/ 191:
+/***/ 193:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(3)();
+exports = module.exports = __webpack_require__(2)();
 // imports
 
 
@@ -389,7 +370,7 @@ exports.push([module.i, "\nbody, div, p, h1, h2, h3, h4, h5, h6, dl, dt, dd, ul,
 
 /***/ }),
 
-/***/ 203:
+/***/ 213:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -613,7 +594,25 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "value": option.id
       }
     }, [_vm._v("\r\n\t\t\t\t\t\t\t" + _vm._s(option.columnName) + "\r\n\t\t\t\t\t\t")])
-  })], 2)])]), _vm._v(" "), _c('li'), _vm._v(" "), _c('li', [_c('input', {
+  })], 2)])]), _vm._v(" "), _c('li', [_c('vue2-html5-editor', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.content),
+      expression: "content"
+    }],
+    attrs: {
+      "height": 200
+    },
+    domProps: {
+      "value": (_vm.content)
+    },
+    on: {
+      "input": function($event) {
+        _vm.content = $event
+      }
+    }
+  })], 1), _vm._v(" "), _c('li', [_c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -870,34 +869,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.timer = $event.target.value
       }
     }
-  })]), _vm._v(" "), _c('li', [_c('vue2-html5-editor', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.content),
-      expression: "content"
-    }],
-    attrs: {
-      "height": 500
-    },
-    domProps: {
-      "value": (_vm.content)
-    },
-    on: {
-      "input": function($event) {
-        _vm.content = $event
-      }
-    }
-  })], 1)]), _vm._v(" "), _vm._m(0)])])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
+  })])]), _vm._v(" "), _c('div', {
     staticClass: "submit"
   }, [_c('div', {
-    staticClass: "btn"
+    staticClass: "btn",
+    on: {
+      "click": _vm.submit
+    }
   }, [_vm._v("提交")]), _vm._v(" "), _c('div', {
     staticClass: "btn"
-  }, [_vm._v("保存草稿箱")])])
-}]}
+  }, [_vm._v("保存草稿箱")])])])])
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -908,13 +890,13 @@ if (false) {
 
 /***/ }),
 
-/***/ 212:
+/***/ 222:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(191);
+var content = __webpack_require__(193);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -940,13 +922,13 @@ if(false) {
 
 
 /* styles */
-__webpack_require__(212)
+__webpack_require__(222)
 
-var Component = __webpack_require__(2)(
+var Component = __webpack_require__(3)(
   /* script */
   __webpack_require__(111),
   /* template */
-  __webpack_require__(203),
+  __webpack_require__(213),
   /* scopeId */
   null,
   /* cssModules */
@@ -975,4 +957,4 @@ module.exports = Component.exports
 /***/ })
 
 });
-//# sourceMappingURL=4_chunk.js.map?name=877f34de60bc2b9a014e
+//# sourceMappingURL=4_chunk.js.map?name=d5c2c695f274d2c602c9

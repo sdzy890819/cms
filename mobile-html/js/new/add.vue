@@ -41,8 +41,7 @@
 				</div>
 			</li>
 			<li>
-				<!-- <vue-html5-editor :content="content" :height="100"></vue-html5-editor> -->
-				<!-- <vue2-html5-editor :content.sync="content" :height="500"></vue2-html5-editor> -->
+				<vue2-html5-editor v-model="content" :height="200"></vue2-html5-editor>
 			</li>
 			<li>
 				<input v-model='field1' class="text" type="text" placeholder='扩展字段1'>
@@ -90,12 +89,9 @@
 			<li>
 				<input type='date' v-model='timer' >
 			</li>
-			<li>
-				<vue2-html5-editor v-model="content" :height="500"></vue2-html5-editor>
-			</li>
 		</ul>
 		<div class="submit">
-			<div class="btn">提交</div>
+			<div class="btn" @click='submit'>提交</div>
 			<div class="btn">保存草稿箱</div>
 		</div>
 	</div>
@@ -141,7 +137,7 @@ import {news,category,channel} from '../common/URL';
 				channelId:-1,//频道ID
 				columnId:-1,//栏目ID
 				categoryId:-1,//部门分类ID
-				content:'',//详细内容"
+				content:'详细内容',//详细内容"
 				field1:'',//扩展字段，界面上需要的时候点击添加" //可不传
 				field2:'',//扩展字段，界面上需要的时候点击添加" //可不传
 				field3:'',//扩展字段，界面上需要的时候点击添加" //可不传
@@ -171,11 +167,11 @@ import {news,category,channel} from '../common/URL';
 				}
 			});
 			require.ensure([],function(require){
-				/*require('../plug/vue2-html5-editor/src/style.less');
 				var options = {
-					name: "vue-html5-editor",
+				    //global component name 
+				    name: "vue2-html5-editor",
 				    //custom icon class of built-in modules,default using font-awesome 
-				    icons: {
+				    /*icons: {
 				        text: "fa fa-pencil",
 				        color: "fa fa-paint-brush",
 				        font: "fa fa-font",
@@ -190,9 +186,9 @@ import {news,category,channel} from '../common/URL';
 				        undo: "fa-undo fa",
 				        "full-screen": "fa fa-arrows-alt",
 				        info: "fa fa-info",
-				    },
+				    },*/
 				    //config image module 
-				    image: {
+				    /*image: {
 				        //Url of the server-side,default null and convert image to base64 
 				        server: null,
 				        //the name for file field in multipart request 
@@ -264,7 +260,7 @@ import {news,category,channel} from '../common/URL';
 				        }
 				    },
 				    //the modules you don't want 
-				    hiddenModules: [],
+				    hiddenModules: [],*/
 				    //keep only the modules you want and customize the order. 
 				    //can be used with hiddenModules together 
 				    visibleModules: [
@@ -276,26 +272,22 @@ import {news,category,channel} from '../common/URL';
 				        "link",
 				        "unlink",
 				        "tabulation",
-				        "image",
+				        //"image",
 				        "hr",
 				        "eraser",
 				        "undo",
-				        "full-screen",
+				       // "full-screen",
 				        "info",
 				    ],
 				    //extended modules 
 				    modules: {
 				        //omit,reference to source code of build-in modules 
 				    }
-				}
-				var Vue2Html5Editor = require("../plug/vue2-html5-editor/dist/vue2-html5-editor.js");
-				//Vue.use(editor,options);
-				Vue.use(Vue2Html5Editor,options)*/
-
+				};
+				require("../plug/vue2-html5-editor/src/css/font-awesome.css")
+				require("../plug/vue2-html5-editor/src/style.less")
 				var editor = require("../plug/vue2-html5-editor/dist/vue2-html5-editor.js");
-				Vue.use(editor, {
-				    name: 'vue2-html5-editor'
-				});
+				Vue.use(editor, options);
 			})
 		},
 		mounted(){
