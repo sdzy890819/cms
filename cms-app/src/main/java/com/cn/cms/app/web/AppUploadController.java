@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
@@ -78,6 +79,7 @@ public class AppUploadController extends AppBaseController {
         String urlPath = StringUtils.concatUrl(imagesBase.getBaseUrl(), relativePath);
         Map<String, Object> map = FileUtil.compressAndWatermark(bytes, width, height, absPath, watermark);
         //weedfsClient.upload(new File(StringUtils.concatUrl(urlPath, relativePath)));
+        log.info("APP端 图片上传");
         map.put("imageUrl", urlPath);
         map.put("imagePath", relativePath);
         map.put("fid","19,1");
@@ -95,21 +97,15 @@ public class AppUploadController extends AppBaseController {
     @RequestMapping(value="/uploadVideo",method = RequestMethod.POST)
     public String upload(HttpServletRequest request,
                          @RequestParam(value = "baseCode") String baseCode,
-                         @RequestParam(value = "fileName") String fileName,
-                         @RequestParam(value = "partNum", defaultValue = "1") Integer partNum,
-                         @RequestParam(value = "finish", defaultValue = "0") Integer finish) throws BizException {
+                         @RequestParam(value = "fileName") String fileName) throws BizException, IOException {
         String[] baseCodes = baseCode.split(",");
         if(baseCodes.length>1){
             baseCode = baseCodes[1];
         }
-        VideoResponse videoResponse = mssVideoClient.upload(baseCode, fileName, partNum, finish);
-        if( videoResponse == null) {
-            return ApiResponse.returnFail(StaticContants.ERROR_VIDEO);
-        }
-        if(videoResponse.getFlag() != 100) {
-            return ApiResponse.returnFail(videoResponse.getFlagString(), videoResponse);
-        }
-        return ApiResponse.returnSuccess(videoResponse);
+        byte[] bytes = FileUtil.base64Upload(baseCode);
+        log.info("APP端 视频上传");
+        ByteArrayInputStream in = new ByteArrayInputStream(bytes);
+        return uploadVideo(in, fileName);
     }
 
     @NotSaveBody
@@ -119,6 +115,10 @@ public class AppUploadController extends AppBaseController {
     public String uploadVideo2(@RequestParam(value = "file", required = false) MultipartFile file) throws IOException, BizException {
         String fileName = file.getOriginalFilename();
         InputStream in = file.getInputStream();
+        return uploadVideo(in, fileName);
+    }
+
+    public String uploadVideo(InputStream in ,String fileName) throws IOException, BizException {
         int length = (in.available()-1)/size + 1;
         byte[] bytes = null ;
         int finish = 0;
@@ -128,12 +128,11 @@ public class AppUploadController extends AppBaseController {
                 if (length > i) {
                     bytes = new byte[size];
                 } else {
-                    log.info("in.available():" + in.available());
                     bytes = new byte[in.available()];
                     finish = 1;
                 }
                 in.read(bytes, 0, bytes.length);
-
+                log.info("APP 视频上传到第三方" + i + " - " + finish);
                 videoResponse = mssVideoClient.upload(EncryptUtil.base64(bytes).replaceAll("\\r|\\n", ""), fileName, i, finish);
                 if (videoResponse == null) {
                     return ApiResponse.returnFail(StaticContants.ERROR_VIDEO);

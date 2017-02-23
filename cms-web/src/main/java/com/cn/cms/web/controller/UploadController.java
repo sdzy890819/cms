@@ -3,11 +3,9 @@ package com.cn.cms.web.controller;
 import com.cn.cms.biz.ResourceBiz;
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.enums.CompressEnum;
-import com.cn.cms.enums.WatermarkEnum;
 import com.cn.cms.exception.BizException;
 import com.cn.cms.middleware.MSSVideoClient;
 import com.cn.cms.middleware.WeedfsClient;
-import com.cn.cms.middleware.bean.VideoPartResponse;
 import com.cn.cms.middleware.bean.VideoResponse;
 import com.cn.cms.po.ImagesBase;
 import com.cn.cms.utils.EncryptUtil;
@@ -18,13 +16,15 @@ import com.cn.cms.web.ann.CheckToken;
 import com.cn.cms.web.ann.NotSaveBody;
 import com.cn.cms.web.result.ApiResponse;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.File;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
@@ -97,21 +97,14 @@ public class UploadController extends BaseController {
     @RequestMapping(value="/uploadVideo",method = RequestMethod.POST)
     public String upload(HttpServletRequest request,
                          @RequestParam(value = "baseCode") String baseCode,
-                         @RequestParam(value = "fileName") String fileName,
-                         @RequestParam(value = "partNum", defaultValue = "1") Integer partNum,
-                         @RequestParam(value = "finish", defaultValue = "0") Integer finish) throws BizException {
+                         @RequestParam(value = "fileName") String fileName) throws BizException, IOException {
         String[] baseCodes = baseCode.split(",");
         if(baseCodes.length>1){
             baseCode = baseCodes[1];
         }
-        VideoResponse videoResponse = mssVideoClient.upload(baseCode, fileName, partNum, finish);
-        if( videoResponse == null) {
-            return ApiResponse.returnFail(StaticContants.ERROR_VIDEO);
-        }
-        if(videoResponse.getFlag() != 100) {
-            return ApiResponse.returnFail(videoResponse.getFlagString(), videoResponse);
-        }
-        return ApiResponse.returnSuccess(videoResponse);
+        byte[] bytes = FileUtil.base64Upload(baseCode);
+        ByteArrayInputStream in = new ByteArrayInputStream(bytes);
+        return uploadVideo(in, fileName);
     }
 
     @NotSaveBody
@@ -121,6 +114,11 @@ public class UploadController extends BaseController {
     public String uploadVideo2(@RequestParam(value = "file", required = false) MultipartFile file) throws IOException, BizException {
         String fileName = file.getOriginalFilename();
         InputStream in = file.getInputStream();
+        return uploadVideo(in , fileName);
+    }
+
+
+    public String uploadVideo(InputStream in ,String fileName) throws IOException, BizException {
         int length = (in.available()-1)/size + 1;
         byte[] bytes = null ;
         int finish = 0;
@@ -130,7 +128,6 @@ public class UploadController extends BaseController {
                 if (length > i) {
                     bytes = new byte[size];
                 } else {
-                    log.info("in.available():" + in.available());
                     bytes = new byte[in.available()];
                     finish = 1;
                 }
@@ -149,6 +146,8 @@ public class UploadController extends BaseController {
         }
         return ApiResponse.returnSuccess(videoResponse);
     }
+
+
 
 
     /**
