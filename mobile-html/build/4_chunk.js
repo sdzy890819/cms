@@ -154,7 +154,7 @@ exports.default = {
 			channelId: -1, //频道ID
 			columnId: -1, //栏目ID
 			categoryId: -1, //部门分类ID
-			content: '详细内容', //详细内容"
+			content: '请输入内容', //详细内容"
 			field1: '', //扩展字段，界面上需要的时候点击添加" //可不传
 			field2: '', //扩展字段，界面上需要的时候点击添加" //可不传
 			field3: '', //扩展字段，界面上需要的时候点击添加" //可不传
@@ -175,8 +175,7 @@ exports.default = {
 			}
 		};
 	},
-	beforeCreate: function beforeCreate() {},
-	mounted: function mounted() {
+	beforeCreate: function beforeCreate() {
 		var self = this;
 		_global2.default.ajax({
 			url: _URL.category.listCategory,
@@ -283,9 +282,7 @@ exports.default = {
 				//can be used with hiddenModules together 
 				visibleModules: ["text", "color", "font", "align", "list", "link", "unlink", "tabulation",
 				//"image",
-				"hr", "eraser", "undo",
-				// "full-screen",
-				"info"],
+				"hr", "eraser", "undo"],
 				//extended modules 
 				modules: {
 					//omit,reference to source code of build-in modules 
@@ -297,6 +294,9 @@ exports.default = {
 			Vue.use(editor, options);
 		
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0)))}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+	},
+	mounted: function mounted() {
+		var self = this;
 	},
 
 	methods: {
@@ -602,6 +602,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "content"
     }],
     attrs: {
+      "content": _vm.content,
       "height": 200
     },
     domProps: {
@@ -957,4 +958,4 @@ module.exports = Component.exports
 /***/ })
 
 });
-//# sourceMappingURL=4_chunk.js.map?name=ba94c7bc7dd7246bfa0a
+//# sourceMappingURL=4_chunk.js.map?name=a1242455ea882605c0c3

@@ -41,7 +41,7 @@
 				</div>
 			</li>
 			<li>
-				<vue2-html5-editor v-model="content" :height="200"></vue2-html5-editor>
+				<vue2-html5-editor v-model="content" :content.sync="content" :height="200"></vue2-html5-editor>
 			</li>
 			<li>
 				<input v-model='field1' class="text" type="text" placeholder='扩展字段1'>
@@ -137,7 +137,7 @@ import {news,category,channel} from '../common/URL';
 				channelId:-1,//频道ID
 				columnId:-1,//栏目ID
 				categoryId:-1,//部门分类ID
-				content:'详细内容',//详细内容"
+				content:'请输入内容',//详细内容"
 				field1:'',//扩展字段，界面上需要的时候点击添加" //可不传
 				field2:'',//扩展字段，界面上需要的时候点击添加" //可不传
 				field3:'',//扩展字段，界面上需要的时候点击添加" //可不传
@@ -159,9 +159,6 @@ import {news,category,channel} from '../common/URL';
 			}
 		},
 		beforeCreate(){
-			
-		},
-		mounted(){
 			var self = this;
 			T.ajax({
 				url : category.listCategory,
@@ -292,6 +289,9 @@ import {news,category,channel} from '../common/URL';
 				var editor = require("../plug/vue2-html5-editor/dist/vue2-html5-editor.js");
 				Vue.use(editor, options);
 			})
+		},
+		mounted(){
+			var self = this;
 		},
 		methods : {
 			addField : function(){
