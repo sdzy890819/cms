@@ -26,7 +26,7 @@ public class CheckAppTokenInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
 		System.out.println("参数："+request.getRequestURL().toString());
-		System.out.println("参数："+JSONObject.toJSONString(request.getParameterMap());
+		System.out.println("参数："+JSONObject.toJSONString(request.getParameterMap()));
 		if(handler instanceof HandlerMethod){
 			HandlerMethod hm = (HandlerMethod) handler;
 			if(hm.getMethodAnnotation(CheckAppToken.class) != null) {
