@@ -460,9 +460,10 @@ public class EncryptUtil {
 
         File file = new File("/Users/zhangyang/Downloads/平凡之路 钢琴独奏 成人自学_标清.mp4");
         FileInputStream fileInputStream = new FileInputStream(file);
+        System.out.println(fileInputStream.available());
         byte[] bytes = new byte[fileInputStream.available()];
         fileInputStream.read(bytes);
-        String baseCode = Base64.encode(bytes);
+        String baseCode = EncryptUtil.base64(bytes);
         File testFile = new File("/Users/zhangyang/Downloads/base_pingfan");
         FileWriter fileWriter = new FileWriter(testFile);
         fileWriter.write(baseCode);

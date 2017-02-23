@@ -105,7 +105,7 @@ public class AppUploadController extends AppBaseController {
         byte[] bytes = FileUtil.base64Upload(baseCode);
         log.info("APP端 视频上传");
         ByteArrayInputStream in = new ByteArrayInputStream(bytes);
-        return uploadVideo(in, fileName);
+        return uploadVideo(in, fileName.replaceAll(" ","_"));
     }
 
     @NotSaveBody
@@ -113,7 +113,7 @@ public class AppUploadController extends AppBaseController {
     @CheckAppAuth( name = "appvideo:upload" )
     @RequestMapping(value="/uploadVideo2",method = RequestMethod.POST)
     public String uploadVideo2(@RequestParam(value = "file", required = false) MultipartFile file) throws IOException, BizException {
-        String fileName = file.getOriginalFilename();
+        String fileName = file.getOriginalFilename().replaceAll(" ","_");
         InputStream in = file.getInputStream();
         return uploadVideo(in, fileName);
     }

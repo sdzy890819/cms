@@ -24,9 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.Map;
 
 /**
@@ -104,7 +102,7 @@ public class UploadController extends BaseController {
         }
         byte[] bytes = FileUtil.base64Upload(baseCode);
         ByteArrayInputStream in = new ByteArrayInputStream(bytes);
-        return uploadVideo(in, fileName);
+        return uploadVideo(in, fileName.replaceAll(" ","_"));
     }
 
     @NotSaveBody
@@ -112,7 +110,7 @@ public class UploadController extends BaseController {
     @CheckAuth( name = "video:upload" )
     @RequestMapping(value="/uploadVideo2",method = RequestMethod.POST)
     public String uploadVideo2(@RequestParam(value = "file", required = false) MultipartFile file) throws IOException, BizException {
-        String fileName = file.getOriginalFilename();
+        String fileName = file.getOriginalFilename().replaceAll(" ","_");
         InputStream in = file.getInputStream();
         return uploadVideo(in , fileName);
     }
@@ -167,5 +165,16 @@ public class UploadController extends BaseController {
     }
 
 
+    public static void main(String[] args) throws IOException, BizException {
+        MSSVideoClient m = new MSSVideoClient();
+        File file = new File("/Users/zhangyang/Downloads/平凡之路 钢琴独奏 成人自学_标清.mp4");
+        FileInputStream inputStream = new FileInputStream(file);
+        UploadController uploadController = new UploadController();
+        uploadController.mssVideoClient = m;
+        System.out.println("平凡之路 钢琴独奏 成人自学_标清.mp4".replaceAll(" ","_"));
+        System.out.println(uploadController.uploadVideo(inputStream, "平凡之路_钢琴独奏_成人自学_标清.mp4"));
+
+
+    }
 
 }

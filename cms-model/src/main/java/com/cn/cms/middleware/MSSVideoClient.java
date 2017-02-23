@@ -27,17 +27,17 @@ public class MSSVideoClient {
 
     private CommonLog log = CommonLogFactory.getLog(MSSVideoClient.class);
 
-    private String uploadUrl;
+    private String uploadUrl = "http://upload.dvr.aodianyun.com/v2/DVR.UploadPart";
 
-    private String queryUrl;
+    private String queryUrl = "http://upload.dvr.aodianyun.com/v2/DVR.UploadQuery";
 
-    private String finishUrl;
+    private String finishUrl = "http://upload.dvr.aodianyun.com/v2/DVR.UploadComplete";
 
-    private String interruptUrl;
+    private String interruptUrl = "http://upload.dvr.aodianyun.com/v2/DVR.AbortUpload";
 
-    private String accessKey;
+    private String accessKey = "1p5Z7yUHsCqdLiCJbB8lwDPd3Ffe1q8f";
 
-    private String accessId;
+    private String accessId = "115840986417";
 
 
     public VideoResponse upload(String baseCode, String fileName, int partNum, int finish) throws BizException {
@@ -90,16 +90,8 @@ public class MSSVideoClient {
     }
 
     public static void main(String[] args) throws IOException, BizException {
-        MSSVideoClient m = new MSSVideoClient();
-        File file = new File("/Users/zhangyang/Documents/a.WMV");
-        FileInputStream fileInputStream = new FileInputStream(file);
-        System.out.println(fileInputStream.available());
-        byte[] bytes = new byte[fileInputStream.available()];
-        fileInputStream.read(bytes);
-        String baseCode = EncryptUtil.base64(bytes).replaceAll("\\r|\\n", "");
-        System.out.println(baseCode.length());
-        fileInputStream.close();
-        m.upload(baseCode, file.getName(), 1, 1);
+
+
     }
 
 
