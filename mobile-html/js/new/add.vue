@@ -159,6 +159,9 @@ import {news,category,channel} from '../common/URL';
 			}
 		},
 		beforeCreate(){
+			
+		},
+		mounted(){
 			var self = this;
 			T.ajax({
 				url : category.listCategory,
@@ -277,7 +280,7 @@ import {news,category,channel} from '../common/URL';
 				        "eraser",
 				        "undo",
 				       // "full-screen",
-				        "info",
+				        //"info",
 				    ],
 				    //extended modules 
 				    modules: {
@@ -289,9 +292,6 @@ import {news,category,channel} from '../common/URL';
 				var editor = require("../plug/vue2-html5-editor/dist/vue2-html5-editor.js");
 				Vue.use(editor, options);
 			})
-		},
-		mounted(){
-			
 		},
 		methods : {
 			addField : function(){

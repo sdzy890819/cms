@@ -175,7 +175,8 @@ exports.default = {
 			}
 		};
 	},
-	beforeCreate: function beforeCreate() {
+	beforeCreate: function beforeCreate() {},
+	mounted: function mounted() {
 		var self = this;
 		_global2.default.ajax({
 			url: _URL.category.listCategory,
@@ -297,7 +298,6 @@ exports.default = {
 		
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0)))}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 	},
-	mounted: function mounted() {},
 
 	methods: {
 		addField: function addField() {
@@ -957,4 +957,4 @@ module.exports = Component.exports
 /***/ })
 
 });
-//# sourceMappingURL=4_chunk.js.map?name=d5c2c695f274d2c602c9
+//# sourceMappingURL=4_chunk.js.map?name=ba94c7bc7dd7246bfa0a
