@@ -102,43 +102,44 @@
 					title = this.title , 
 					b = 1024*1024*5  , 
 					num = 0 ;
-				base64 = base64.replace(base64.match(/^data[\:|\w|\-|\;|\/]+,/)[0],'')
-				if(base64<20){
+				//base64 = base64.replace(base64.match(/^data[\:|\w|\-|\;|\/]+,/)[0],'')
+				/*if(base64<20){
 					self.filed = true;
 					$('.error').addClass('cur').text('请选择视频文件')
 					return;
 				}
-				if(base64<=b){
+				if(base64.length<=b){
 					num = 0;
 				}else{
 					num = base64.length%b;
 				}
-				var index = 0; 
+				var index = 0; */
 				function getData(){
-					var start = index*b , 
+					/*var start = index*b , 
 						end = b , 
 						indexNum = index+1 , 
-						finish = indexNum==num?1:0;
-					if(indexNum>=num) return;
+						finish = index==num?1:0;*/
+					//if(index>num) return;
 					T.ajax({
 						type: 'POST',				
 						url : upload.uploadVideo , 
 						data : {
-							"baseCode":(base64.substr(start,b)),
+							//"baseCode":(base64.substr(start,b)),
+							"baseCode":base64,
 							"fileName":file.name,
-							'partNum' : indexNum,
-							'finish' : finish
+							//'partNum' : indexNum,
+							//'finish' : finish
 						},
 						success : function(_data){
-							getData();
-							/*self.videos = _data.data;
+							//getData();
+							self.videos = _data.data;
 							$('.error').addClass('right').text('上传成功');
 							setTimeout(function(){
 								$('.error').removeClass('right');
-							},1000);*/
+							},1000);
 						}
 					})
-					index++;
+					//index++;
 				}
 				getData();
 			}
