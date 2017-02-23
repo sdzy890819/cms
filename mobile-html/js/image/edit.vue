@@ -9,7 +9,7 @@
             display: block; height:$s35; line-height: $s35; text-align: center; border:$s1 solid #ddd; background:#0999e0; color:#fff;
             &.gray{ background:gray; } 
         }
-        .btn-upload{ margin-top:$s10; background: #f85200; border-radius:$s3; }
+        .btn-upload{ display:none; margin-top:$s10; background: #f85200; border-radius:$s3; }
         li{
             padding:$s10 0;
             .label{ width:5.625rem; padding-right: $s5; text-align:center; }
@@ -17,6 +17,7 @@
                 label:not(:first-child){ margin-right:$s10; };
             }
             #img{ display:block; margin:0 auto; min-width:$s5; min-height:$s5; max-width:15rem; max-height: 15rem; border:$s1 solid #ddd; padding:$s1; background:#fff; }
+            &.imgs{ @include box-orient;}
         }
         .error{ @include transition-duration(.5s); height:0; margin:0 $s20; border:0; text-align: center; overflow:hidden;
             &.cur{
@@ -26,7 +27,6 @@
                 height:$s33; line-height: $s33; background: green; border:$s1 solid #ddd; color:#fff;
             }
         }
-        .imgs{ display:none; }
     }
 }
 </style>
@@ -36,10 +36,10 @@
         <ul>
             <li>
                 <input id='file' type="file" value="上传图片"/>
-                <div @click='file' class="btn-file">+选择图片</div>
+                <div @click='file' class="btn-file">+重新选择图片</div>
             </li>
             <li class="imgs">
-                <img id="img">
+                <img id="img" :src='imageUrl'>
                 <div class="btn-upload" @click='uploadFile'>上传</div>
             </li>
             <li><input class="text" type="text" v-model="title" placeholder='图片标题'></li>
@@ -98,8 +98,25 @@
                 base64 : '',
                 width : '',
                 height : '',
-                imgInfo : null
+                imgInfo : null , 
+                imageUrl : ''
             }
+        },
+        beforeCreate : function(){
+            var imageId = window.location.hash.match(/imageId=\w+/)[0].replace('imageId=','');
+            var self = this;
+            T.ajax({
+                url : images.detail+'/'+imageId , 
+                success : function(_data){
+                    self.imageUrl = _data.data.imageUrl;
+                    self.title = _data.data.imageTitle;
+                    self.width = _data.data.imageWidthPixel;
+                    self.height = _data.data.imageHeightPixel;
+                    self.shuiyin = _data.data.watermark==1?'true':'false';
+                    self.shuo = _data.data.compress==1?'true':'false';
+                    self.imgInfo = _data.data;
+                }
+            })
         },
         mounted(){
             $('.image li input').click(function(){
@@ -158,7 +175,7 @@
                     },
                     success : function(_data){
                         if(_data.code == 0){
-                            self.imgInfo = _data.data;
+                            $.extend(self.imgInfo,_data.data)
                             $('.btn-upload').hide();
                             $('.error').addClass('right').text('上传成功');
                             setTimeout(function(){
@@ -177,8 +194,9 @@
                     file = this.fileType , 
                     shuiyin = this.shuiyin == 'true'?1:0,
                     width = this.width , 
-                    height = this.height;
-                if(base64<20){
+                    height = this.height,
+                    imageUrl = this.imageUrl;
+                if(base64<20 && imageUrl.length<5){
                     $('.error').addClass('cur').text('请选择图片文件')
                     return;
                 }
@@ -192,7 +210,7 @@
                 }
                 T.ajax({
                     type: 'POST',               
-                    url : images.createImages , 
+                    url : images.updateImages , 
                     data : {
                         "imageUrl":obj.imageUrl,//图片上传接口返回
                         "imageWidthPixel":obj.imageWidthPixel, //图片长像素  图片上传接口返回
@@ -204,7 +222,8 @@
                         "watermark":shuiyin, //是否水印 1、0
                         "compress":obj.compress, //是否压缩
                         "fid":obj.fid, //图片上传接口返回
-                        "size":obj.size //图片上传接口返回
+                        "size":obj.size, //图片上传接口返回
+                        id : obj.id
                     },
                     success : function(_data){
                         if(_data.code == 0){

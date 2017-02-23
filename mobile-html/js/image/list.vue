@@ -101,9 +101,10 @@
 								box.unbind().on('scroll',function(){
 									var scrollTop = $(this).scrollTop()+height+50;
 									if(scrollTop>scrollHeight){
-										if(page==_data.data.page.pageCount) return;
-										page++;
-										getList();
+										if(page<=_data.data.page.pageCount && loading==true){
+											page++;
+											getList();
+										}
 									}
 								})
 				            });

@@ -10,14 +10,19 @@ module.exports = {
 		images : url + '/images/imageslist',
 		createImages : url + '/images/createImages',
 		delImages : url + '/images/delImages',
+		detail : url + '/images/detail',
+		updateImages : url + '/images/updateImages',
 	},
 	login : {
 		login : url+'/login',
 		init : url+'/login/init',
+		loginOut : url+'/loginOut',
 	},
 	video : {
 		videolist : url+'/video/videolist',
 		createVideo : url+'/video/createVideo',
+		detail : url+'/video/detail',
+		updateVideo : url+'/video/updateVideo',
 	},
 	news : {
 		newslist : url+'/news/newslist',
