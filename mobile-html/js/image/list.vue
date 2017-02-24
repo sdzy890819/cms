@@ -9,7 +9,8 @@
 			float:left;
 			width:33.33%; padding:0 $s10; @include box-sizing; 
 			h2{ height: $s33; line-height: $s33; @include font-size(14px); overflow:hidden; text-align: center; font-weight: normal;}
-			img{ display: block; margin:0 auto; width:100%; border:$s1 solid #ddd; @include box-sizing; }
+			.img{ min-height:6.5625rem; overflow:hidden;}
+			img{ display: block; margin:0 auto; max-width:100%; max-height:$s100; border:$s1 solid #ddd; @include box-sizing; }
 
 		}
 		.edit{ @include box;
@@ -66,7 +67,7 @@
 			this.update = function(){
 				var self = this,
 					page = 1 ,
-					pageSize = 10 , 
+					pageSize = 12 , 
 					loading = true;
 
 				function getList(){

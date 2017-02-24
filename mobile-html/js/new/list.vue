@@ -85,23 +85,39 @@
 		},
 		methods : {
 			edit : function( obj ){
-				T.pop('修改')
-				/*T.ajax({
-					url : news.delNews,
-					data : {
-
-					},
-					success : function( _data ){
-						var list = _data.data.list;
-						list.map((obj , i)=>{
-							obj.timeStr = obj.updateTimeStr.substr(5,11)
-						})
-						self.list = list;
-					}
-				})*/
+				router.push({path:'/new/edit',query:{newsId : obj.id}})
 			},
 			release : function( obj ){
-				T.pop('发布','error')
+				T.ajax({
+					url : news.publish ,
+					data : {
+						id : obj.id
+					},
+					success : function( _data ){
+						require.ensure([], function(require) {
+			                var Pop = require('../widgets/pop.js');
+							if(_data.code == 0){
+			                	new Pop({
+			                        title: '提示',
+			                        content: '<center>发布成功</center>',
+			                        width: '70%',
+			                        cancelBtn: false,
+			                        okTxt: '确定',
+			                        timing: 'slideOutUp', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+			                    });
+			                }else{
+			                	new Pop({
+			                        title: '提示',
+			                        content: '<center>发布失败，请联系管理员！</center>',
+			                        width: '70%',
+			                        cancelBtn: false,
+			                        okTxt: '确定',
+			                        timing: 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+			                    });
+			                }
+		               	});
+					}
+				});
 			},
 			search : function(){
 				var self = this , 
