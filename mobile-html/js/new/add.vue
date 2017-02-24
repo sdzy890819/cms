@@ -13,7 +13,7 @@
 			<li>
 				<div class="select">
 					<select v-model='categoryId' @change='categoryEvent'>
-						<option value='-1'>请选择部门</option>
+						<option value='-1'>请选择部门分类</option>
 						<option v-for="option in data.listCategory" v-bind:value="option.id">
 							{{ option.categoryName }}
 						</option>
@@ -41,7 +41,7 @@
 				</div>
 			</li>
 			<li>
-				<vue2-html5-editor v-model="content" :content.sync="content" :height="200"></vue2-html5-editor>
+				<vue2-html5-editor v-model="content" :content.sync="content" :value="content" :height="200"></vue2-html5-editor>
 			</li>
 			<li>
 				<input v-model='field1' class="text" type="text" placeholder='扩展字段1'>
@@ -88,11 +88,12 @@
 			</li>
 			<li>
 				<input type='date' v-model='timer' >
+				<input type="time" v-model='datatime' />
 			</li>
 		</ul>
 		<div class="submit">
-			<div class="btn" @click='submit'>提交</div>
-			<div class="btn">保存草稿箱</div>
+			<div class="btn" @click='save'>提交</div>
+			<div class="btn" @click='save'>保存草稿箱</div>
 		</div>
 	</div>
 </div>
@@ -118,7 +119,37 @@ Date.prototype.Format = function (fmt) { //author: meizz
 import T from '../common/global';
 import {news,category,channel} from '../common/URL';
 //import { VueEditor } from '../plug/vue2-editor/dist/index.js'
+var data = {
+	title:'', //标题
+	subTitle:'',//子标题
+	keyword:'',//关键字 多个关键字按照空格分割
+	description:'',//SEO描述
+	source:'',//来源
+	author:'',//"作者"
+	channelId:-1,//频道ID
+	columnId:-1,//栏目ID
+	categoryId:-1,//部门分类ID
+	content:'请输入内容',//详细内容"
+	field1:'',//扩展字段，界面上需要的时候点击添加" //可不传
+	field2:'',//扩展字段，界面上需要的时候点击添加" //可不传
+	field3:'',//扩展字段，界面上需要的时候点击添加" //可不传
+	field4:'',//扩展字段，界面上需要的时候点击添加" //可不传
+	field5:'',//扩展字段，界面上需要的时候点击添加" //可不传
+	field2Show : false,
+	field3Show : false,
+	field4Show : false,
+	field5Show : false,
+	autoPublish:1,////1 是自动发布。0是不自动发布.默认不自动发布
+	timer:'',//yyyy-MM-dd HH:mm" //定时发布。//可不传
+	datatime : '',
+	publish:0,//0|2 //默认为0 ，正常保存。保存草稿使用2
 
+	data : {
+		listCategory : [],
+		currentChannelList : [],
+		newscolumnlist : [],
+	}
+}
 	export default {
 		name : 'add',
 		components : {
@@ -127,36 +158,7 @@ import {news,category,channel} from '../common/URL';
 
 		},
 		data (){
-			return {
-				title:'', //标题
-				subTitle:'',//子标题
-				keyword:'',//关键字 多个关键字按照空格分割
-				description:'',//SEO描述
-				source:'',//来源
-				author:'',//"作者"
-				channelId:-1,//频道ID
-				columnId:-1,//栏目ID
-				categoryId:-1,//部门分类ID
-				content:'请输入内容',//详细内容"
-				field1:'',//扩展字段，界面上需要的时候点击添加" //可不传
-				field2:'',//扩展字段，界面上需要的时候点击添加" //可不传
-				field3:'',//扩展字段，界面上需要的时候点击添加" //可不传
-				field4:'',//扩展字段，界面上需要的时候点击添加" //可不传
-				field5:'',//扩展字段，界面上需要的时候点击添加" //可不传
-				field2Show : false,
-				field3Show : false,
-				field4Show : false,
-				field5Show : false,
-				autoPublish:0,////1 是自动发布。0是不自动发布.默认不自动发布
-				timer:new Date().Format("yyyy-MM-dd"),//yyyy-MM-dd HH:mm" //定时发布。//可不传
-				publish:0,//0|2 //默认为0 ，正常保存。保存草稿使用2
-
-				data : {
-					listCategory : [],
-					currentChannelList : [],
-					newscolumnlist : [],
-				}
-			}
+			return data;
 		},
 		beforeCreate(){
 			var self = this;
@@ -266,7 +268,7 @@ import {news,category,channel} from '../common/URL';
 				    visibleModules: [
 				        "text",
 				        "color",
-				        "font",
+				        //"font",
 				        "align",
 				        "list",
 				        "link",
@@ -328,6 +330,20 @@ import {news,category,channel} from '../common/URL';
 			},
 			categoryEvent : function( ){
 				var self = this;
+				if(self.categoryId<0){
+					require.ensure([],function(require){
+						var Pop = require('../widgets/pop.js');
+						new Pop({
+							title : '提示',
+							content : '<center>请选择部门分类！</center>',
+							width: '70%',
+							cancelBtn:false,
+							okTxt:'确定',
+							timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+						});
+					})
+					return;
+				}
 				T.ajax({
 					url : channel.currentChannelList,
 					data : {
@@ -340,6 +356,20 @@ import {news,category,channel} from '../common/URL';
 			},
 			listChannelEvent : function(){
 				var self = this;
+				if(self.channelId<0){
+					require.ensure([],function(require){
+						var Pop = require('../widgets/pop.js');
+						new Pop({
+							title : '提示',
+							content : '<center>请选择频道分类！</center>',
+							width: '70%',
+							cancelBtn:false,
+							okTxt:'确定',
+							timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+						});
+					})
+					return;
+				}
 				T.ajax({
 					url : news.newscolumnlist,
 					data : {
@@ -350,9 +380,192 @@ import {news,category,channel} from '../common/URL';
 					}
 				})
 			}
-			,submit : function(){
-				var self = this;
-				debugger;
+			,submit : function( publish ){
+				var self = this , 
+					obj = this;
+				require.ensure([],function(require){
+					var Pop = require('../widgets/pop.js');
+					if(obj.title.length<2){
+						return new Pop({
+							title : '提示',
+							content : '<center>标题不能小于2位数！</center>',
+							width: '70%',
+							cancelBtn:false,
+							okTxt:'确定',
+							timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+						});
+					}
+					if(obj.subTitle.length<2){
+						return new Pop({
+							title : '提示',
+							content : '<center>副标题不能小于2位数！</center>',
+							width: '70%',
+							cancelBtn:false,
+							okTxt:'确定',
+							timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+						});
+					}
+					if(obj.keyword.length<1){
+						return new Pop({
+							title : '提示',
+							content : '<center>关键字不能小于1位数！</center>',
+							width: '70%',
+							cancelBtn:false,
+							okTxt:'确定',
+							timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+						});
+					}
+					if(obj.author.length<2){
+						return new Pop({
+							title : '提示',
+							content : '<center>作者不能小于2位数！</center>',
+							width: '70%',
+							cancelBtn:false,
+							okTxt:'确定',
+							timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+						});
+					}
+					if(obj.source.length<2){
+						return new Pop({
+							title : '提示',
+							content : '<center>来源不能小于2位数！</center>',
+							width: '70%',
+							cancelBtn:false,
+							okTxt:'确定',
+							timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+						});
+					}
+					if(obj.description.length<5){
+						return new Pop({
+							title : '提示',
+							content : '<center>描述不能小于5位数！</center>',
+							width: '70%',
+							cancelBtn:false,
+							okTxt:'确定',
+							timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+						});
+					}
+					if(obj.categoryId.length<1){
+						return new Pop({
+							title : '提示',
+							content : '<center>请选择部门分类！</center>',
+							width: '70%',
+							cancelBtn:false,
+							okTxt:'确定',
+							timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+						});
+					}
+					if(obj.channelId.length<1){
+						return new Pop({
+							title : '提示',
+							content : '<center>请选择频道分类！</center>',
+							width: '70%',
+							cancelBtn:false,
+							okTxt:'确定',
+							timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+						});
+					}
+					if(obj.columnId.length<1){
+						return new Pop({
+							title : '提示',
+							content : '<center>请选择栏目分类！</center>',
+							width: '70%',
+							cancelBtn:false,
+							okTxt:'确定',
+							timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+						});
+					}
+					if(obj.content.length<10){
+						return new Pop({
+							title : '提示',
+							content : '<center>内容不能小于10位数！</center>',
+							width: '70%',
+							cancelBtn:false,
+							okTxt:'确定',
+							timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+						});
+					}
+					T.ajax({
+						url : news.createNews , 
+						type : 'POST',
+						data : {
+							title:obj.title,
+							subTitle:obj.subTitle,
+							keyword:obj.keyword,
+							description:obj.description,
+							source:obj.source,
+							author:obj.author,
+							channelId:obj.channelId,//频道ID
+							columnId:obj.columnId,//栏目ID
+							categoryId:obj.categoryId, //部门分类ID
+							content:obj.content,
+							field1:obj.field1,
+							field2:obj.field2,
+							field3:obj.field3,
+							field4:obj.field4,
+							field5:obj.field5,
+							autoPublish:obj.autoPublish, //1 是自动发布。0是不自动发布.默认不自动发布
+							timer:obj.timer+' '+obj.datatime, //定时发布。//可不传
+							publish:publish //默认为0 ，正常保存。保存草稿使用2
+						},
+						success : function(_data){
+							if(_data.code==0){
+								var pop = new Pop({
+									title : '提示',
+									content : '新闻创建成功！',
+									width: '70%',
+									okTxt:'保留内容',
+									cancelTxt:'清空内容',
+									timing : 'bounceIn', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+									cancelCallback:function(){
+										$.extend(self,{
+											title:'', //标题
+											subTitle:'',//子标题
+											keyword:'',//关键字 多个关键字按照空格分割
+											description:'',//SEO描述
+											source:'',//来源
+											author:'',//"作者"
+											channelId:-1,//频道ID
+											columnId:-1,//栏目ID
+											categoryId:-1,//部门分类ID
+											content:'请输入内容',//详细内容"
+											field1:'',//扩展字段，界面上需要的时候点击添加" //可不传
+											field2:'',//扩展字段，界面上需要的时候点击添加" //可不传
+											field3:'',//扩展字段，界面上需要的时候点击添加" //可不传
+											field4:'',//扩展字段，界面上需要的时候点击添加" //可不传
+											field5:'',//扩展字段，界面上需要的时候点击添加" //可不传
+											field2Show : false,
+											field3Show : false,
+											field4Show : false,
+											field5Show : false,
+											autoPublish:1,////1 是自动发布。0是不自动发布.默认不自动发布
+											timer:'',//yyyy-MM-dd HH:mm" //定时发布。//可不传
+											datatime : '',
+											publish:0,//0|2 //默认为0 ，正常保存。保存草稿使用2
+										});
+										pop.close();
+									}
+								});
+							}else{
+								new Pop({
+									title : '提示',
+									content : '新闻创建失败！',
+									width: '70%',
+									cancelBtn:false,
+									okTxt:'确定',
+									timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+								});
+							}
+							
+						}
+					})
+				})
+			}
+			,save : function(){
+				this.submit(0);
+			}
+			,draft : function(){
+				this.submit(2);
 			}
 		}
 	}

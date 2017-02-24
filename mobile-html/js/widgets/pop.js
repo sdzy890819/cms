@@ -117,6 +117,7 @@ module.exports = class Pop{
 			self = this;
 		if(!ele.elem.parent().length){
 			body.append(ele.elem);
+			ele.elem.addClass('cur')
 			this.addContent(fn);
 			setTimeout(()=>{
 				ele.bg.addClass('cur');
@@ -147,8 +148,10 @@ module.exports = class Pop{
 			}
 			maskSelf.push(self);
 			window.onpopstate = function(e){
-				maskSelf[maskSelf.length-1].back();
-				maskSelf.pop();
+				if(maskSelf.length){
+					maskSelf[maskSelf.length-1].back();
+					maskSelf.pop();
+				}
 			}
 		}
 	}
@@ -245,6 +248,7 @@ module.exports = class Pop{
 	}
 	back( fn ){
 		var ele = this.element;
+		ele.elem.removeClass('cur');
 		ele.bg.removeClass('cur');
 		setTimeout(()=>{
 			ele.elem.remove();

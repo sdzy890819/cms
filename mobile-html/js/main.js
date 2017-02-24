@@ -23,6 +23,12 @@ const router = new VueRouter({
 		        		require(['./new/add'],resolve)
 		        	}
 				},
+				{
+					path : 'edit',
+					component : function( resolve ){
+						require(['./new/editor'],resolve);
+					}
+				}
 			]
 		},
 		{ path: '/image', component: box,

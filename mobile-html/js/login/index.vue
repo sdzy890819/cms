@@ -4,7 +4,7 @@
 　　color:#fff;
 }
 .login{ @include box; @include boxCenter; @include boxMiddle;
-	@include contain('../../images/login_bg.jpg');
+	@include contain('../../images/login_bg.jpg',cover);
 	.content{  width:100%; @include box-sizing;
 		padding:$s10 $s40;
 		
@@ -29,6 +29,9 @@
 		i{ display: block; width:$s40; height:$s40; @include contain('../../images/login_logo.png');}
 	}
 	.error{ margin:$s10 0; background:#fffb94; }
+	.footer{ position:fixed; z-index:1; left:$s10; right:$s10; bottom:$s10;
+		p{ font-size:$s12; text-align:center; line-height:$s16; }
+	}
 }
 </style>
 <template>
@@ -52,6 +55,7 @@
 			</div>
 		</div>
 	</div>
+	<div class='footer'></div>
 </div>
 </template>
 <script>
@@ -60,6 +64,15 @@
 	//import CryptoJS from '../common/AES_2.js';
 	//import md5 from '../plug/md5.min.js';
 	//import Base64 from '../plug/base64.js';
+	function getCookie(name){
+		var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)"); //正则匹配
+		if(arr=document.cookie.match(reg)){
+			return unescape(arr[2]);
+		}
+		else{
+			return null;
+		}
+	} 
 	export default {
 		data (){
 			return {
@@ -83,7 +96,17 @@
 		mounted(){
 			$('.login li input').click(function(){
 				$('.error').removeClass('cur right')
-			})
+			});
+			var APP_DEVICE_IDFA = getCookie("APP_DEVICE_IDFA") , 
+				APP_DEVICE_VERSION = getCookie("APP_DEVICE_VERSION"),
+				APP_DEVICE_INFO = getCookie("APP_DEVICE_INFO");
+				//getCookie("APP_DEVICE_IDFA") 版本号：getCookie("APP_DEVICE_VERSION") 设备信息：getCookie（“APP_DEVICE_INFO”）
+			
+			$('.footer').html(
+				'<p>IDFA（MAC）：'+APP_DEVICE_IDFA+'</p>'
+				+'<p>版本号：'+APP_DEVICE_VERSION+'</p>'
+				+'<p>设备信息：'+APP_DEVICE_INFO+'</p>'
+			)
 		},
 		methods : {
 			submit : function(){

@@ -1103,6 +1103,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports.default = {
 	    props: {
+	    	content: {
+                //no longer be required
+                //twoWay: true,
+                type: String,
+                required: true,
+                default: ""
+            },
 	        value: {
 	            required: true
 	        },
@@ -1140,6 +1147,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	                this.$refs.content.innerHTML = val;
 	            }
 	        },
+	        /*content(val) {
+                let content = this.$els.content.innerHTML
+                if (val != content) {
+                    this.$els.content.innerHTML = val
+                }
+            },*/
 	        dashboard: function dashboard(val) {
 	            if (val) {
 	                this.computeDashboardStyle();
@@ -1216,8 +1229,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	                this.range = range;
 	            }
 
-	            if (this.value != this.$refs.content.innerHTML) {
+	            var content = this.$refs.content.innerHTML;
+
+	            if (this.value != content) {
 	                this.$emit('input', this.$refs.content.innerHTML);
+	            }
+	            if (this.value == '请输入内容') {
+	                this.$refs.content.innerHTML = '';
 	            }
 	        },
 	        restoreSelection: function restoreSelection() {
