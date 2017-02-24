@@ -112,7 +112,7 @@ exports.default = {
 				},
 				success: function success(_data) {
 					__webpack_require__.e/* require.ensure */(13/* duplicate */).then((function (require) {
-						var Pop = __webpack_require__(50);
+						var Pop = __webpack_require__(48);
 						if (_data.code == 0) {
 							new Pop({
 								title: '提示',
@@ -279,4 +279,4 @@ module.exports = Component.exports
 /***/ })
 
 });
-//# sourceMappingURL=9_chunk.js.map?name=dda1ddf9dfa9db730384
+//# sourceMappingURL=9_chunk.js.map?name=f817e58e979b5fc91226

@@ -83,9 +83,17 @@
 					} 
 					self.fileType = file;
 					var reader = new FileReader(); 
-					reader.readAsDataURL(file); 
+					reader.readAsArrayBuffer(file); 
+					//reader.readAsDataURL(file); 
 					reader.onload = function(e){ 
 						self.base64 = this.result;
+						var data = reader.result;
+					    self.array = new Int8Array(data);
+
+					    //var num = 100*15000;
+					    //var str = JSON.stringify(array, null, '  ');
+
+						debugger;
 					}
 				});
 				if(self.filed==true){
@@ -96,12 +104,24 @@
 			}
 			,uploadFile : function(){
 				var self = this , 
-					base64 = [this.base64].join(',') ,
+					//base64 = [this.base64].join(',') ,
+					array = self.array,
+					len = array.length,
 					file = this.fileType, 
 					describe = this.describe,
 					title = this.title , 
-					b = 1024*1024*5  , 
+					bynum = 100*10000,
+					b = 1024*1024*1  , 
 					num = 0 ;
+
+				function base64Encode(input) {
+	                var rv;
+	                rv = encodeURIComponent(input);
+	                rv = unescape(rv);
+	                rv = window.btoa(rv);
+	                return rv;
+	            }
+
 				//base64 = base64.replace(base64.match(/^data[\:|\w|\-|\;|\/]+,/)[0],'')
 				/*if(base64<20){
 					self.filed = true;
@@ -111,35 +131,65 @@
 				if(base64.length<=b){
 					num = 0;
 				}else{
-					num = base64.length%b;
+					num = Math.floor(base64.length/b);
+				}*/
+
+				if(len<1){
+					self.filed = true;
+					$('.error').addClass('cur').text('请选择视频文件')
+					return;
 				}
-				var index = 0; */
+				if(len < bynum){
+					num = 0;
+				}else{
+					num = Math.floor(len/bynum);
+				}
+				console.log(num)
+				var index = 0; 
 				function getData(){
-					/*var start = index*b , 
-						end = b , 
+					var start = index*bynum , 
 						indexNum = index+1 , 
-						finish = index==num?1:0;*/
-					//if(index>num) return;
-					T.ajax({
-						type: 'POST',				
-						url : upload.uploadVideo , 
-						data : {
-							//"baseCode":(base64.substr(start,b)),
-							"baseCode":base64,
-							"fileName":file.name,
-							//'partNum' : indexNum,
-							//'finish' : finish
-						},
-						success : function(_data){
-							//getData();
-							self.videos = _data.data;
-							$('.error').addClass('right').text('上传成功');
-							setTimeout(function(){
-								$('.error').removeClass('right');
-							},1000);
-						}
-					})
-					//index++;
+						end = indexNum*bynum , 
+						finish = index==num?1:0;
+
+					//console.log(finish+':-index:'+index+':-num:'+num)
+					if(index<=num){
+						T.ajax({
+							type: 'POST',				
+							url : upload.uploadVideo , 
+							data : {
+								//"baseCode":(base64.substr(start,b)),
+								"baseCode":base64Encode(array.slice(start,end)),
+								"fileName":file.name,
+								'partNum' : indexNum,
+								'finish' : finish
+							},
+							success : function(_data){
+								getData();
+								/*self.videos = _data.data;
+								$('.error').addClass('right').text('上传成功');
+								setTimeout(function(){
+									$('.error').removeClass('right');
+								},1000);*/
+							}
+						})
+						index++;
+					}else{
+						require.ensure([], function(require) {
+	                		var Pop = require('../widgets/pop.js');
+							var pop = new Pop({
+	                            title: '提示',
+	                            content: '上传成功！',
+	                            width: '70%',
+	                            cancelBtn: false,
+	                            okTxt: '确定',
+	                            timing: 'slideOutUp', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+	                        });
+	                        setTimeout(function(){
+	                        	pop.close();
+	                        },3000);
+                        });
+					}
 				}
 				getData();
 			}
