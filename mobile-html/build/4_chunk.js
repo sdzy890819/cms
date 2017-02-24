@@ -224,8 +224,8 @@ exports.default = {
         self.id = _global2.default.getParams('newsId');
         self.categoryEvent = function (callback) {
             if (self.categoryId < 0) {
-                __webpack_require__.e/* require.ensure */(13).then((function (require) {
-                    var Pop = __webpack_require__(50);
+                __webpack_require__.e/* require.ensure */(13/* duplicate */).then((function (require) {
+                    var Pop = __webpack_require__(48);
                     new Pop({
                         title: '提示',
                         content: '<center>请选择部门分类！</center>',
@@ -250,7 +250,7 @@ exports.default = {
         self.listChannelEvent = function (callback) {
             if (self.channelId < 0) {
                 __webpack_require__.e/* require.ensure */(13/* duplicate */).then((function (require) {
-                    var Pop = __webpack_require__(50);
+                    var Pop = __webpack_require__(48);
                     new Pop({
                         title: '提示',
                         content: '<center>请选择频道分类！</center>',
@@ -353,7 +353,7 @@ exports.default = {
             var self = this,
                 obj = this;
             __webpack_require__.e/* require.ensure */(13/* duplicate */).then((function (require) {
-                var Pop = __webpack_require__(50);
+                var Pop = __webpack_require__(48);
                 if (obj.title.length < 2) {
                     return new Pop({
                         title: '提示',
@@ -1157,4 +1157,4 @@ module.exports = Component.exports
 /***/ })
 
 });
-//# sourceMappingURL=4_chunk.js.map?name=dda1ddf9dfa9db730384
+//# sourceMappingURL=4_chunk.js.map?name=f817e58e979b5fc91226
