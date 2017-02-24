@@ -97,27 +97,25 @@ public class AppUploadController extends AppBaseController {
     @RequestMapping(value="/uploadVideo",method = RequestMethod.POST)
     public String upload(HttpServletRequest request,
                          @RequestParam(value = "baseCode") String baseCode,
-                         @RequestParam(value = "fileName") String fileName,
-                         @RequestParam(value = "partNum", required = false) Integer partNum,
-                         @RequestParam(value = "finish", required = false) Integer finish) throws BizException, IOException {
+                         @RequestParam(value = "fileName") String fileName) throws BizException, IOException {
         String[] baseCodes = baseCode.split(",");
         if(baseCodes.length>1){
             baseCode = baseCodes[1];
         }
-        VideoResponse videoResponse = mssVideoClient.upload(baseCode, fileName.replaceAll(" ", "_"), partNum, finish);
-        if( videoResponse == null) {
-            return ApiResponse.returnFail(StaticContants.ERROR_VIDEO);
-        }
-        if(videoResponse.getFlag() != 100) {
-            return ApiResponse.returnFail(videoResponse.getFlagString(), videoResponse);
-        }
-        return ApiResponse.returnSuccess(videoResponse);
+//        VideoResponse videoResponse = mssVideoClient.upload(baseCode, fileName.replaceAll(" ", "_"), partNum, finish);
+//        if( videoResponse == null) {
+//            return ApiResponse.returnFail(StaticContants.ERROR_VIDEO);
+//        }
+//        if(videoResponse.getFlag() != 100) {
+//            return ApiResponse.returnFail(videoResponse.getFlagString(), videoResponse);
+//        }
+//        return ApiResponse.returnSuccess(videoResponse);
 
 
-//        byte[] bytes = FileUtil.base64Upload(baseCode);
-//        log.info("APP端 视频上传");
-//        ByteArrayInputStream in = new ByteArrayInputStream(bytes);
-//        return uploadVideo(in, fileName.replaceAll(" ","_"));
+        byte[] bytes = FileUtil.base64Upload(baseCode);
+        log.info("APP端 视频上传");
+        ByteArrayInputStream in = new ByteArrayInputStream(bytes);
+        return uploadVideo(in, fileName.replaceAll(" ","_"));
     }
 
     @NotSaveBody
