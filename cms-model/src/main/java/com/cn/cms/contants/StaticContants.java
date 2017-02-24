@@ -4,6 +4,9 @@ import com.alibaba.fastjson.serializer.SerializeConfig;
 import com.cn.cms.enums.*;
 import com.cn.cms.enums.serializer.JSONEnumSerializer;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * 所有静态类的变量定义。都在这个类里
  * Created by zhangyang on 16/11/15.
@@ -231,5 +234,7 @@ public class StaticContants {
     public static String FIELD_CREATE_TIME = "createTime";
 
     public static String ES_INDEX = "cmsindex";
+
+    public static String REGEX_IMG = "<(img|IMG)[^>]*(src|SRC)=['\"]{0,1}([^\"'\\s]*)['\"]{0,1}[^>]*>";
 
 }

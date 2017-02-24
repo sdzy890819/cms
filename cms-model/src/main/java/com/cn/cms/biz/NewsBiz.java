@@ -5,6 +5,7 @@ import com.cn.cms.bo.PreviousColumn;
 import com.cn.cms.bo.RelationColumn;
 import com.cn.cms.bo.UserBean;
 import com.cn.cms.contants.RedisKeyContants;
+import com.cn.cms.contants.StaticContants;
 import com.cn.cms.enums.AutoPublishEnum;
 import com.cn.cms.enums.PublishEnum;
 import com.cn.cms.enums.TemplateClassifyEnum;
@@ -17,6 +18,8 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by zhangyang on 16/12/11.
@@ -241,11 +244,21 @@ public class NewsBiz extends BaseBiz {
         return newsService.findNewsAndDetail(id);
     }
 
+    public String getImagesUrl(String content){
+        Pattern pattern = Pattern.compile(StaticContants.REGEX_IMG);
+        Matcher matcher = pattern.matcher(content);
+        if(matcher.find()){
+            return matcher.group(3);
+        }
+        return null;
+    }
+
     /**
      * 保存新闻
      * @param news
      */
     public void saveNews(News news){
+        news.setImageUrl(getImagesUrl(news.getNewsDetail().getContent()));
         newsService.saveNews(news);
         String result = jedisClient.get(RedisKeyContants.getRedisAddNewPreviousColumnInfo(news.getLastModifyUserId()));
         PreviousColumn previousColumn = null ;
@@ -283,6 +296,7 @@ public class NewsBiz extends BaseBiz {
     }
 
     public void updateNews(News news){
+        news.setImageUrl(getImagesUrl(news.getNewsDetail().getContent()));
         newsService.updateNews(news);
     }
 
