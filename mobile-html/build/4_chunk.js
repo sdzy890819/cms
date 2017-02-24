@@ -603,6 +603,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }],
     attrs: {
       "content": _vm.content,
+      "value": _vm.content,
       "height": 200
     },
     domProps: {
@@ -958,4 +959,4 @@ module.exports = Component.exports
 /***/ })
 
 });
-//# sourceMappingURL=4_chunk.js.map?name=a1242455ea882605c0c3
+//# sourceMappingURL=4_chunk.js.map?name=f9da6745842f37dfab7e

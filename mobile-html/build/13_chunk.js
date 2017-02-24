@@ -1169,6 +1169,13 @@ var _typeof4 = typeof Symbol === "function" && typeof Symbol.iterator === "symbo
 
 			exports.default = {
 				props: {
+					content: {
+						//no longer be required
+						//twoWay: true,
+						type: String,
+						required: true,
+						default: ""
+					},
 					value: {
 						required: true
 					},
@@ -1205,6 +1212,12 @@ var _typeof4 = typeof Symbol === "function" && typeof Symbol.iterator === "symbo
 							this.$refs.content.innerHTML = val;
 						}
 					},
+					/*content(val) {
+            let content = this.$els.content.innerHTML
+            if (val != content) {
+                this.$els.content.innerHTML = val
+            }
+        },*/
 					dashboard: function dashboard(val) {
 						if (val) {
 							this.computeDashboardStyle();
@@ -1281,8 +1294,17 @@ var _typeof4 = typeof Symbol === "function" && typeof Symbol.iterator === "symbo
 							this.range = range;
 						}
 
-						if (this.value != this.$refs.content.innerHTML) {
+						var content = this.$refs.content.innerHTML;
+
+						if (this.value != content) {
 							this.$emit('input', this.$refs.content.innerHTML);
+						}
+						if (this.value == '请输入内容') {
+							this.$refs.content.innerHTML = '';
+							return;
+						}
+						if (this.value == '') {
+							this.$refs.content.innerHTML = '请输入内容';
 						}
 					},
 					restoreSelection: function restoreSelection() {
@@ -5351,4 +5373,4 @@ module.exports = function (module) {
 /***/ })
 
 });
-//# sourceMappingURL=13_chunk.js.map?name=a1242455ea882605c0c3
+//# sourceMappingURL=13_chunk.js.map?name=f9da6745842f37dfab7e

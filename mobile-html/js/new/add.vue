@@ -41,7 +41,7 @@
 				</div>
 			</li>
 			<li>
-				<vue2-html5-editor v-model="content" :content.sync="content" :height="200"></vue2-html5-editor>
+				<vue2-html5-editor v-model="content" :content.sync="content" :value="content" :height="200"></vue2-html5-editor>
 			</li>
 			<li>
 				<input v-model='field1' class="text" type="text" placeholder='扩展字段1'>
