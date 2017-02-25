@@ -1,0 +1,3 @@
+define(["app","./baseForm","../data/getData","../moduls/Tool","form","position","fixedNav"],function(t,e,a,l){t.directive("template2baseAdd",function(){return{restrict:"E",replace:!0,transclude:!0,templateUrl:"../template/common/addAndEdit.html",controller:function(t){t.title="第二模板基础信息",t.$parent.menu.push({name:t.title}),t.save=function(e){//发布	  	        		
+a.template.updateTemplate2base({id:t.data.id,basePath:e.basePath,callback:function(t){layui.use(["layer"],function(){var e=layui.layer;e.msg(t.message)})}})},a.template.template2base({callback:function(a){t.formdata={//确认按钮
+title:t.title,list:e,submit:[{name:"提交",evt:"save",icon_cls:"ok"}]},t.data=a.data}})}}})});

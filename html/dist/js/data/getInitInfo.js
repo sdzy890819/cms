@@ -1,0 +1,3 @@
+define(["./URL","./loginAndOut","jquery","./getData"],function(n,t,a,u){if(!window.quanjing){var c={user:null};window.quanjing=c}var e={init:function(){e.getAllInfo()},login:function(u){t.login({data:u.data,callback:function(t){a.ajax({//当前登录用户信息接口
+url:n.user.currentUser,type:"get",dataType:"json",success:function(n){c.user=n,u.callback(n)}})}})},loginOut:function(){t.loginOut()},getUserInfo:function(n){return n.callback&&n.callback()},getPublicData:function(t){a.ajax({url:n.data.all,type:"get",success:function(n){c.all=n,t&&t(n)},error:function(){}})},getAllInfo:function(n){//获取所有信息
+e.getUserInfo(function(){e.getPublicData(n)})}};return e});

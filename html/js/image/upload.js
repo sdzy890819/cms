@@ -30,9 +30,9 @@ define(["app",'form','position','fixedNav'], function ( app ) {
 						var settings_object = {//定义参数配置对象  
 							upload_url : "/webapi/upload/uploadImage",  														
 							post_params : {  
-							"post_param_name_1" : "post_param_value_1",  
-							"post_param_name_2" : "post_param_value_2",  
-							"post_param_name_n" : "post_param_value_n"  
+								"post_param_name_1" : "post_param_value_1",  
+								"post_param_name_2" : "post_param_value_2",  
+								"post_param_name_n" : "post_param_value_n"  
 							},  
 							use_query_string : false,  
 							requeue_on_error : false,  
@@ -50,7 +50,7 @@ define(["app",'form','position','fixedNav'], function ( app ) {
 							button_image_url : "http://www.swfupload.org/button_sprite.png",  
 							button_width : 61,  
 							button_height : 22,  
-							button_text : "<b>Click</b> <span class="redText">here</span>",  
+							button_text : '<b>Click</b> <span class="redText">here</span>',  
 							button_text_style : ".redText { color: #FF0000; }",  
 							button_text_left_padding : 3,  
 							button_text_top_padding : 2,  
@@ -62,18 +62,17 @@ define(["app",'form','position','fixedNav'], function ( app ) {
 							upload_progress_handler : upload_progress_function,  
 							upload_error_handler : upload_error_function,  
 							upload_success_handler : upload_success_function,  
-							upload_complete_handler : upload_complete_function,  
+							upload_complete_handler : upload_complete_function,
 							
-						};  
-						alert('load');
+						};
 						swfu = new SWFUpload(settings_object);
 					};
-
+/*
 					function upload_start_function(){}
 					function upload_progress_function(){}
 					function upload_error_function(){}
 					function upload_success_function(){}
-					function upload_complete_function(){}
+					function upload_complete_function(){}*/
 				}
 	    };
 	});

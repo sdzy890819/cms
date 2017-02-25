@@ -1,0 +1,19 @@
+define(["require","app","jquery","../data/getData","./addForm","search","./searchForm","formlist","fixedNav","position","../moduls/service","../moduls/factory"],function(t,a,e,n,i,l,c){a.directive("fragmentList",function(){return{restrict:"E",replace:!0,transclude:!0,templateUrl:"../template/common/list.html",controller:function(a,l,r,d,o,u){function f(t){var e=[{name:"碎片ID",width:"100",key:"id"},{name:"碎片名称",key:"fragmentName"},{name:"操作",width:"400",class:"center"}];a.listdata={//确认按钮
+title:a.title,table:{select:!0,th:e,td:o.setArr(t.data.list,e),edit:[{cls:"edit",name:"编辑",evt:a.edit},{cls:"edit",name:"碎片维护",evt:a.editFragmentMap},{cls:"del",name:"删除",evt:a.del}]}},o.extendType(a.listdata.table.td,a.listdata.table.th,["width","name"]),//把TH 中的出name属性以外的属性合传给td
+o.extendChild(a.listdata.table.td,a.listdata.table.edit,"edit"),a.$apply()}function s(){n.fragment.listFragment({page:g,pageSize:20,callback:function(t){
+//分页
+a.page=t.data.page,a.page.jump=function(t){g!=t.curr&&(g=t.curr,s())},f(t)}})}
+//搜索
+function m(){var t=1;c(function(i){a.searchform={list:i,return:function(){//返回列表
+s(),a.searchform.search=null,g=1,t=1,a.$$childHead.current=1},submit:function(i,l){function c(){n.search.searchFragment({condition:i.condition,fragmentClassifyId:r,channelId:d,//频道ID
+page:t,pageSize:20,callback:function(e){
+//分页
+a.page=e.data.page,a.page.jump=function(a){t!=a.curr&&(t=a.curr,c())},a.searchform.search={count:e.data.page.count,name:i.condition},void 0==e.data.list&&(e.data.list=[]),f(e)}})}var r,d;e.each(i.selects,function(){"fragmentClassifyId"==this.title&&(r=this.id),"channelId"==this.title&&(d=this.id)}),c()}},a.$apply()})}a.title="碎片列表",a.$parent.menu.push({name:a.title}),//栏目
+angular.extend(a,{add:function(t){//保存
+l.alert({text:"你的ID为："+t,btn:["确定","取消"],fn:function(t){//确定
+layer.close(t)}})},edit:function(a){//保存
+t(["../common/editPop"],function(t){function l(t){n.fragment.findFragment({id:a.id,callback:function(a){t(a)}})}t.init({obj:a,list:i,$uibModal:r,updateData:l,save:function(t,a){var i,l;e.each(t.selects,function(){"channelId"==this.title&&(i=this.id),"fragmentClassifyId"==this.title&&(l=this.id)}),n.fragment.updateFragment({id:a.id,channelId:i,fragmentClassifyId:l,fragmentName:t.fragmentName,fragmentModel:t.fragmentModel,sortNum:t.sortNum,callback:function(t){layui.use(["layer"],function(){var a=layui.layer;a.msg(t.message),0==t.code&&u.reload()})}})},callback:function(t,a){a(t)}})})},editFragmentMap:function(a){//修改碎片map
+t(["../common/editPop"],function(t){function i(t){n.fragment.fragmentMap({id:a.id,callback:function(e){e.data.id=a.id,t(e)}})}function l(t){var i=[];n.fragment.fragmentMap({id:a.id,callback:function(a){e.each(a.data,function(t,a){i.push({title:t,name:t,type:"text",placeholder:t,verify:"title"})}),t(i)}})}t.init({obj:a,list:l,$uibModal:r,updateData:i,save:function(t,a){var i=[];e.each(t,function(t,a){"selects"!=t&&i.push(a)}),n.fragment.editFragment({id:a.id,values:i,callback:function(t){layui.use(["layer"],function(){var a=layui.layer;a.msg(t.message),u.reload()})}})},callback:function(t,a){a(t)}})})},del:function(t){//删除
+l.alert({text:"你确定删除"+t.fragmentName+"吗",btn:["确定","取消"],fn:function(a){//确定
+n.fragment.delFragment(t)}}),t.callback=function(a){layui.use(["layer"],function(){var n=layui.layer;n.msg(a.message),0==a.code&&e("table").find("tr[data-id="+t.id+"]").hide()})}},release:function(t){l.alert({text:"确认发布"+t.fragmentName,btn:["确定","取消"],fn:function(a){n.fragment.publish(t)}}),t.callback=function(t){layui.use(["layer"],function(){var a=layui.layer;a.msg(t.message)})}},filter:[//过滤不需要展示的
+"id","fragmentClassifyId"]});var g=1;s(),m()},link:function(t,a){}}})});

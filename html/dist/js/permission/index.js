@@ -1,0 +1,1 @@
+define(["head","menu"],function(){return["$scope","$location",function(n,e){n.$on("$viewContentLoaded",function(){n.menu=[{name:"权限管理",link:"permission.list"}]}),n.menu=[{name:"权限管理",link:"permission.list"}]}]});

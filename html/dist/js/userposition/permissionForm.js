@@ -1,0 +1,1 @@
+define(["../data/getData"],function(a){});

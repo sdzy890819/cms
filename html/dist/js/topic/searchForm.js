@@ -1,0 +1,8 @@
+define(["../data/getData","../moduls/Tool"],function(e,t){function a(e){var a=e.self;"select"==a.type&&a.select[0][0].title==e.title&&(a.select[0]=[a.select[0][0]],a.select[0]=a.select[0].concat(t.changeObjectName(e.data.data,[{name:e.changeName,newName:"name"}])))}function l(t){e.topic.topicColumnList({//系列专题是。topicColumn
+callback:function(l){e.topic.topicClassifyList({//专题分类 topicClassifyId
+callback:function(i){e.category.listCategory({//获取部门分类列表 categoryId
+callback:function(e){$.each(c,function(t,c){"array"==$.type(c)?$.each(c,function(){a({self:this,//对像本身
+title:"topicColumnId",//需要添加到arr的，title名称
+data:l,//数据
+changeName:"columnName"}),a({self:this,title:"topicClassifyId",data:i,changeName:"classifyName"}),a({self:this,title:"categoryId",data:e,changeName:"categoryName"})}):(a({self:this,title:"topicColumnId",data:l,changeName:"classifyName"}),a({self:this,title:"topicClassifyId",data:i,changeName:"classifyName"}),a({self:this,title:"categoryId",data:e,changeName:"categoryName"}))}),t(c)}})}})}})}var c=[//表单
+{title:"condition",name:"检索关键字",placeholder:"请输入关键字",type:"text"},{title:"topicClassifyId",selectName:["topicClassifyId"],name:"专题分类",type:"select",select:[[{name:"请选择专题分类",title:"topicClassifyId"}]]},{title:"channelId",selectName:["categoryId","channelId"],name:"请选择分类",type:"select",select:[[{name:"请选择部门类别",title:"categoryId"}],[{name:"请选择频道类别",title:"channelId"}]]},{title:"topicColumnId",selectName:["topicColumnId"],name:"系列专题",type:"select",select:[[{name:"请选择专题栏目",title:"topicColumnId"}]]},{title:"releaseTime",name:"发布时间",placeholder:"请选择时间 年/月/日 时:分:秒",type:"date"},{title:"startTime",name:"开始创建时间",placeholder:"请选择时间 年/月/日 时:分:秒",type:"date"},{title:"endTime",name:"结束创建时间",placeholder:"请选择时间 年/月/日 时:分:秒",type:"date"}];return l});

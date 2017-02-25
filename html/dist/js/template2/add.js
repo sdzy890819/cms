@@ -1,0 +1,5 @@
+define(["app","./addForm","../data/getData","../moduls/Tool","form","position","fixedNav"],function(e,t,a,l){e.directive("template2Add",function(){return{restrict:"E",replace:!0,transclude:!0,templateUrl:"../template/common/addAndEdit.html",controller:function(e,l){e.title="新增模版二",e.$parent.menu.push({name:e.title}),e.rlease=function(e){//发布
+var t;$.each(e.selects,function(){"templateClassify"==this.title&&(t=this.type)}),a.template.createTemplate2({templateName:e.templateName,filename:e.filename,path:e.path,templateClassify:t,encoded:e.encoded,callback:function(e){layui.use(["layer"],function(){var t=layui.layer;t.msg(e.message),0==e.code&&l.go("template2.list")})}})},t(function(t){
+//debugger;
+e.formdata={//确认按钮
+title:e.title,list:t,submit:[{name:"确认发布",evt:"rlease",icon_cls:"ok"},{name:"清空",evt:"cancel",icon_cls:"cancel",cls:"cancel"}]},e.$apply()})}}})});

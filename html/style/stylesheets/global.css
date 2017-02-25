@@ -341,7 +341,7 @@ input:focus{ border: 1px solid #bbb !important;} */
   background-repeat: no-repeat;
   background-size: 100%;
   overflow: hidden;
-  display: box;
+  display: flex;
   display: -webkit-box;
   display: -ms-box;
   display: -moz-box;
