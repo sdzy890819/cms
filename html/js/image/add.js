@@ -8,6 +8,9 @@ define(["app",'./addForm','../upload/index','../data/getData','form','position',
 	        controller : function($scope,Upload,$uibModal, $state){
 	        	$scope.title = '新增图片';
 	        	$scope.$parent.menu.push({name:$scope.title});
+	        	$scope.data = {
+	        		imageWidth : 360
+	        	}
 	        	angular.extend($scope,{
 					save : function( obj ){ //保存
 						var watermark = (obj.watermark=='yes'?1:0), //水印

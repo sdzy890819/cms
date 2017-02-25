@@ -11,18 +11,20 @@
             <div class="content clearfix">
                 <form class="layui-form clearfix">
                     <div class="layui-form-item">
-                        <label class="layui-form-label"></label>
+                        <label class="layui-form-label">请选择文件：</label>
                         <div class="layui-input-block">
                             <div class="layui-input-inline">
-                                <a href="javascript:;" class="file">选择文件
+                                <a href="javascript:;" class="file">{{picFile?'重新选择文件':'选择文件'}}
                                 <input type="file" ngf-select ng-model="picFile" name="file" title='{{dataList.title}}' class="upload-file" ngf-max-size="2MB" required ngf-model-invalid="errorFile">
                                 </a>
                             </div>
                         </div>
                     </div>
-                    <div class="layui-form-item">
+                    <div class="layui-form-item" ng-show='picFile'>
+                        <label class="layui-form-label">文件名：</label>
                         <div class="layui-input-block">
-                            <img ng-show="myForm.file.$valid" ngf-thumbnail="picFile" class="thumb">                            
+                            <!-- <img ng-show="myForm.file.$valid" ngf-thumbnail="picFile" class="thumb"> -->
+                            <p style='padding-top:10px;'>{{picFile.name}}</p>        
                         </div>
                     </div>
                     <div class="submit">

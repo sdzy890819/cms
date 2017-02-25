@@ -11,6 +11,7 @@ define(["app",'jquery','../../data/URL'],function (app,$,URL) {
 				templateUrl: '../template/upload/videoPop.html',
 				size: 'lg',
 				controller: function($scope,$uibModalInstance,$css, $timeout,FileUploader) {
+
 					$scope.isUpload = true;
 					angular.extend($scope,{
 					    close : function(){
@@ -34,7 +35,7 @@ define(["app",'jquery','../../data/URL'],function (app,$,URL) {
 			        uploader.filters.push({
 			            name: 'customFilter',
 			            fn: function(item /*{File|FileLikeObject}*/, options) {
-
+			            	debugger;
 			                return this.queue.length < 10;
 			            }
 					});
