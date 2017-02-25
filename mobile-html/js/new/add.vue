@@ -386,104 +386,104 @@ var data = {
 				require.ensure([],function(require){
 					var Pop = require('../widgets/pop.js');
 					if(obj.title.length<2){
-						return new Pop({
-							title : '提示',
-							content : '<center>标题不能小于2位数！</center>',
-							width: '70%',
-							cancelBtn:false,
-							okTxt:'确定',
-							timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
-						});
+						var pop = new Pop({
+                            title : '提示',
+                            content : '<center>标题不能小于2位数！</center>',
+                            width: '70%',
+                            cancelBtn:false,
+                            timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+                        });
+						return;
 					}
 					if(obj.subTitle.length<2){
-						return new Pop({
-							title : '提示',
-							content : '<center>副标题不能小于2位数！</center>',
-							width: '70%',
-							cancelBtn:false,
-							okTxt:'确定',
-							timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
-						});
+						var pop = new Pop({
+                            title : '提示',
+                            content : '<center>副标题不能小于2位数！</center>',
+                            width: '70%',
+                            cancelBtn:false,
+                            timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+                        });
+						return;
 					}
 					if(obj.keyword.length<1){
-						return new Pop({
-							title : '提示',
-							content : '<center>关键字不能小于1位数！</center>',
-							width: '70%',
-							cancelBtn:false,
-							okTxt:'确定',
-							timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
-						});
+						var pop = new Pop({
+                            title : '提示',
+                            content : '<center>关键字不能小于1位数！</center>',
+                            width: '70%',
+                            cancelBtn:false,
+                            timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+                        });
+						return;
 					}
 					if(obj.author.length<2){
-						return new Pop({
-							title : '提示',
-							content : '<center>作者不能小于2位数！</center>',
-							width: '70%',
-							cancelBtn:false,
-							okTxt:'确定',
-							timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
-						});
+						var pop = new Pop({
+                            title : '提示',
+                            content : '<center>作者不能小于2位数！</center>',
+                            width: '70%',
+                            cancelBtn:false,
+                            timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+                        });
+						return;
 					}
 					if(obj.source.length<2){
-						return new Pop({
-							title : '提示',
-							content : '<center>来源不能小于2位数！</center>',
-							width: '70%',
-							cancelBtn:false,
-							okTxt:'确定',
-							timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
-						});
+						var pop = new Pop({
+                            title : '提示',
+                            content : '<center>来源不能小于2位数！</center>',
+                            width: '70%',
+                            cancelBtn:false,
+                            timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+                        });
+						return;
 					}
 					if(obj.description.length<5){
-						return new Pop({
-							title : '提示',
-							content : '<center>描述不能小于5位数！</center>',
-							width: '70%',
-							cancelBtn:false,
-							okTxt:'确定',
-							timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
-						});
+						var pop = new Pop({
+                            title : '提示',
+                            content : '<center>描述不能小于5位数！</center>',
+                            width: '70%',
+                            cancelBtn:false,
+                            timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+                        });
+						return;
 					}
 					if(obj.categoryId.length<1){
-						return new Pop({
-							title : '提示',
-							content : '<center>请选择部门分类！</center>',
-							width: '70%',
-							cancelBtn:false,
-							okTxt:'确定',
-							timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
-						});
+						var pop = new Pop({
+                            title : '提示',
+                            content : '<center>请选择部门分类！</center>',
+                            width: '70%',
+                            cancelBtn:false,
+                            timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+                        });
+						return;
 					}
 					if(obj.channelId.length<1){
-						return new Pop({
-							title : '提示',
-							content : '<center>请选择频道分类！</center>',
-							width: '70%',
-							cancelBtn:false,
-							okTxt:'确定',
-							timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
-						});
+						var pop = new Pop({
+                            title : '提示',
+                            content : '<center>请选择频道分类！</center>',
+                            width: '70%',
+                            cancelBtn:false,
+                            timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+                        });
+						return;
 					}
 					if(obj.columnId.length<1){
-						return new Pop({
-							title : '提示',
-							content : '<center>请选择栏目分类！</center>',
-							width: '70%',
-							cancelBtn:false,
-							okTxt:'确定',
-							timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
-						});
+						var pop = new Pop({
+                            title : '提示',
+                            content : '<center>请选择栏目分类！</center>',
+                            width: '70%',
+                            cancelBtn:false,
+                            timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+                        });
+						return;
 					}
 					if(obj.content.length<10){
-						return new Pop({
-							title : '提示',
-							content : '<center>内容不能小于10位数！</center>',
-							width: '70%',
-							cancelBtn:false,
-							okTxt:'确定',
-							timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
-						});
+                        var pop = new Pop({
+                            title : '提示',
+                            content : '<center>内容不能小于10位数！</center>',
+                            width: '70%',
+                            cancelBtn:false,
+                            timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+                        });
+						return;
 					}
 					T.ajax({
 						url : news.createNews , 
@@ -509,54 +509,55 @@ var data = {
 							publish:publish //默认为0 ，正常保存。保存草稿使用2
 						},
 						success : function(_data){
+							var obj = {
+								title:'', //标题
+								subTitle:'',//子标题
+								keyword:'',//关键字 多个关键字按照空格分割
+								description:'',//SEO描述
+								source:'',//来源
+								author:'',//"作者"
+								channelId:-1,//频道ID
+								columnId:-1,//栏目ID
+								categoryId:-1,//部门分类ID
+								content:'请输入内容',//详细内容"
+								field1:'',//扩展字段，界面上需要的时候点击添加" //可不传
+								field2:'',//扩展字段，界面上需要的时候点击添加" //可不传
+								field3:'',//扩展字段，界面上需要的时候点击添加" //可不传
+								field4:'',//扩展字段，界面上需要的时候点击添加" //可不传
+								field5:'',//扩展字段，界面上需要的时候点击添加" //可不传
+								field2Show : false,
+								field3Show : false,
+								field4Show : false,
+								field5Show : false,
+								autoPublish:1,////1 是自动发布。0是不自动发布.默认不自动发布
+								timer:'',//yyyy-MM-dd HH:mm" //定时发布。//可不传
+								datatime : '',
+								publish:0,//0|2 //默认为0 ，正常保存。保存草稿使用2
+							},
+							text = '';
+
 							if(_data.code==0){
-								var pop = new Pop({
-									title : '提示',
-									content : '新闻创建成功！',
-									width: '70%',
-									okTxt:'保留内容',
-									cancelTxt:'清空内容',
-									timing : 'bounceIn', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
-									cancelCallback:function(){
-										$.extend(self,{
-											title:'', //标题
-											subTitle:'',//子标题
-											keyword:'',//关键字 多个关键字按照空格分割
-											description:'',//SEO描述
-											source:'',//来源
-											author:'',//"作者"
-											channelId:-1,//频道ID
-											columnId:-1,//栏目ID
-											categoryId:-1,//部门分类ID
-											content:'请输入内容',//详细内容"
-											field1:'',//扩展字段，界面上需要的时候点击添加" //可不传
-											field2:'',//扩展字段，界面上需要的时候点击添加" //可不传
-											field3:'',//扩展字段，界面上需要的时候点击添加" //可不传
-											field4:'',//扩展字段，界面上需要的时候点击添加" //可不传
-											field5:'',//扩展字段，界面上需要的时候点击添加" //可不传
-											field2Show : false,
-											field3Show : false,
-											field4Show : false,
-											field5Show : false,
-											autoPublish:1,////1 是自动发布。0是不自动发布.默认不自动发布
-											timer:'',//yyyy-MM-dd HH:mm" //定时发布。//可不传
-											datatime : '',
-											publish:0,//0|2 //默认为0 ，正常保存。保存草稿使用2
-										});
-										pop.close();
-									}
-								});
+								text = '新闻创建成功！';
 							}else{
-								new Pop({
-									title : '提示',
-									content : '新闻创建失败！',
-									width: '70%',
-									cancelBtn:false,
-									okTxt:'确定',
-									timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
-								});
+								text = '新闻创建失败！';
 							}
-							
+							var pop = new Pop({
+								title : '提示',
+								content : '<center>'+text+'</center>',
+								width: '70%',
+								okTxt:'清空内容',
+                                nextBtn : true,
+                                nextTxt : '返回列表',
+                                cancelTxt:'保留内容',
+								timing : 'bounceIn', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+								okCallback:function(){
+                                    $.extend(self,data)
+                                    pop.close();
+                                },
+                                nextCallback : function(){
+                                    router.push('/new/list')
+                                }
+							});
 						}
 					})
 				})

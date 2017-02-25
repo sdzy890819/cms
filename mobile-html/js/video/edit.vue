@@ -94,7 +94,20 @@
                     var file = this.files[0]; 
                     //这里我们判断下类型如果不是图片就返回 去掉就可以上传任意文件 
                     if(!/video\/\w+/.test(file.type)){ 
-                        alert("请确保文件为视频类型"); 
+                        //alert("请确保文件为视频类型"); 
+                        require.ensure([],function(require){
+                            var Pop = require('../widgets/pop.js');
+                            var pop = new Pop({
+                                title : '提示',
+                                content : '<center>请确保文件为视频类型</center>',
+                                width: '70%',
+                                cancelBtn:false,
+                                timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+                            });
+                            setTimeout(function(){
+                                pop.close();
+                            },3000)
+                        });
                         return false; 
                     } 
                     self.fileType = file;
@@ -118,7 +131,20 @@
                     title = this.title;
                 if(base64<20){
                     self.filed = true;
-                    $('.error').addClass('cur').text('请选择视频文件')
+                    //$('.error').addClass('cur').text('请选择视频文件')
+                    require.ensure([],function(require){
+                        var Pop = require('../widgets/pop.js');
+                        var pop = new Pop({
+                            title : '提示',
+                            content : '<center>请选择视频文件</center>',
+                            width: '70%',
+                            cancelBtn:false,
+                            timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+                        });
+                        setTimeout(function(){
+                            pop.close();
+                        },3000)
+                    });
                     return;
                 }
                 self.name = file.name;
@@ -133,10 +159,23 @@
                     success : function(_data){
                         $.extend(self.videos,_data.data)
                         self.videos.videoUrl = _data.data.location;
-                        $('.error').addClass('right').text('上传成功');
+                        /*$('.error').addClass('right').text('上传成功');
                         setTimeout(function(){
                             $('.error').removeClass('right');
-                        },1000);
+                        },1000);*/
+                        require.ensure([],function(require){
+                            var Pop = require('../widgets/pop.js');
+                            var pop = new Pop({
+                                title : '提示',
+                                content : '<center>上传成功</center>',
+                                width: '70%',
+                                cancelBtn:false,
+                                timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+                            });
+                            setTimeout(function(){
+                                pop.close();
+                            },3000)
+                        });
                     }
                 })
             }
@@ -147,31 +186,84 @@
                     title = this.title , 
                     videoUrl = this.videos.videoUrl,
                     videos = this.videos;
-                if(base64<20 && videoUrl.length<2){
-                    $('.error').addClass('cur').text('请上传视频文件');
-                    return;
-                }
-                if(title.length<2){
-                    $('.error').addClass('cur').text('标题不能底于2个字符');
-                    return;
-                }
-                T.ajax({
-                    type: 'POST',               
-                    url : video.updateVideo , 
-                    data : {
-                        "videoTitle":title,
-                        "videoDesc":describe,
-                        "videoUrl":videos.videoUrl,
-                        "videoPath":videos.videoUrl,
-                        "fileName":videos.fileName,
-                        id : videos.id
-                    },
-                    success : function(_data){  
-                        $('.error').addClass('right').text('提交成功！');
+                require.ensure([],function(require){
+                    var Pop = require('../widgets/pop.js');
+                    if(base64<20 && videoUrl.length<2){
+                        //$('.error').addClass('cur').text('请上传视频文件');
+                        var pop = new Pop({
+                            title : '提示',
+                            content : '<center>请上传视频文件</center>',
+                            width: '70%',
+                            cancelBtn:false,
+                            timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+                        });
                         setTimeout(function(){
-                            $('.error').removeClass('right');
-                        },1000)
+                            pop.close();
+                        },3000)
+                    return;
                     }
+                    if(title.length<2){
+                    //$('.error').addClass('cur').text('标题不能底于2个字符');
+                        var Pop = require('../widgets/pop.js');
+                        var pop = new Pop({
+                            title : '提示',
+                            content : '<center>标题不能底于2个字符</center>',
+                            width: '70%',
+                            cancelBtn:false,
+                            timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+                        });
+                        return;
+                    }
+                    T.ajax({
+                        type: 'POST',               
+                        url : video.updateVideo , 
+                        data : {
+                            "videoTitle":title,
+                            "videoDesc":describe,
+                            "videoUrl":videos.videoUrl,
+                            "videoPath":videos.videoUrl,
+                            "fileName":videos.fileName,
+                            id : videos.id
+                        },
+                        success : function(_data){  
+                            var obj = {
+                                filed : true , 
+                                fileType : '',
+                                title : '' , 
+                                describe : '',
+                                base64 : '',
+                                name : '',
+                                videos : ''
+                            },
+                            text = '';
+                            if(_data.code==0){
+                                text = '视频更新成功！';
+                            }else{
+                                text = '视频更新失败！';
+                            }
+                            var pop = new Pop({
+                                title : '提示',
+                                content : '<center>'+text+'</center>',
+                                width: '70%',
+                                okTxt:'清空内容',
+                                nextBtn : true,
+                                nextTxt : '返回列表',
+                                cancelTxt:'保留内容',
+                                timing : 'bounceIn', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+                                okCallback:function(){
+                                    $.extend(self,data)
+                                    pop.close();
+                                },
+                                nextCallback : function(){
+                                    router.push('/new/list')
+                                }
+                            });
+                            /*$('.error').addClass('right').text('提交成功！');
+                            setTimeout(function(){
+                                $('.error').removeClass('right');
+                            },1000)*/
+                        }
+                    })
                 })
             }
         }

@@ -100,7 +100,7 @@
 				base64 : '',
 				width : '',
 				height : '',
-				imgInfo : null
+				imgInfo : ''
 			}
 		},
 		mounted(){
@@ -120,7 +120,17 @@
 					self.fileType = file;
 					//这里我们判断下类型如果不是图片就返回 去掉就可以上传任意文件 
 					if(!/image\/\w+/.test(file.type)){ 
-						alert("请确保文件为图像类型"); 
+						//alert("请确保文件为图像类型"); 
+						require.ensure([],function(require){
+							var Pop = require('../widgets/pop.js');
+							var pop = new Pop({
+								title : '提示',
+								content : '<center>请确保文件为图像类型</center>',
+								width: '70%',
+								cancelBtn:false,
+								timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+							});
+						});
 						return false; 
 					} 
 					var reader = new FileReader(); 
@@ -145,7 +155,17 @@
 					width = this.width , 
 					height = this.height;
 				if(base64<20){
-					$('.error').addClass('cur').text('请选择图片文件')
+					//$('.error').addClass('cur').text('请选择图片文件')
+					require.ensure([],function(require){
+						var Pop = require('../widgets/pop.js');
+						var pop = new Pop({
+							title : '提示',
+							content : '<center>请选择图片文件</center>',
+							width: '70%',
+							cancelBtn:false,
+							timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+						});
+					});
 					return;
 				}
 				/*function ajax(a) {
@@ -222,47 +242,105 @@
 					shuiyin = this.shuiyin == 'true'?1:0,
 					width = this.width , 
 					height = this.height;
-				if(base64<20){
-					$('.error').addClass('cur').text('请选择图片文件')
-					return;
-				}
-				if(title.length<2){
-					$('.error').addClass('cur').text('请输入标题')
-					return;
-				}
-				if(!obj){
-					$('.error').addClass('cur').text('请先上传图片')
-					return;
-				}
-				T.ajax({
-					type: 'POST',				
-					url : images.createImages , 
-					data : {
-						"imageUrl":obj.imageUrl,//图片上传接口返回
-						"imageWidthPixel":obj.imageWidthPixel, //图片长像素  图片上传接口返回
-						"imageHeightPixel":obj.imageHeightPixel, // 图片宽像素  图片上传接口返回
-						"orgWidthPixel":obj.orgWidthPixel, //原始长像素  图片上传接口返回
-						"orgHeightPixel":obj.orgHeightPixel, //原始宽像素  图片上传接口返回
-						"imageTitle":title,
-						"imagePath":obj.imagePath,
-						"watermark":shuiyin, //是否水印 1、0
-						"compress":obj.compress, //是否压缩
-						"fid":obj.fid, //图片上传接口返回
-						"size":obj.size //图片上传接口返回
-					},
-					success : function(_data){
-						if(_data.code == 0){
-							$('.error').addClass('right').text('提交成功');
-							setTimeout(function(){
-								$('.error').removeClass('right');
-							},1000);
-							$('.imgs').hide();
-							$('li input[type="text"]').val('');
-							return;
-						}
-						$('.error').addClass('cur').text('失败，请重新上传！')
-						
+
+				require.ensure([],function(require){
+					var Pop = require('../widgets/pop.js');
+					if(base64<20){
+						//$('.error').addClass('cur').text('请选择图片文件')
+						var pop = new Pop({
+							title : '提示',
+							content : '<center>请选择图片文件</center>',
+							width: '70%',
+							cancelBtn:false,
+							timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+						});
+						return;
 					}
+					if(title.length<2){
+						//$('.error').addClass('cur').text('请输入标题')
+						var pop = new Pop({
+							title : '提示',
+							content : '<center>请输入标题</center>',
+							width: '70%',
+							cancelBtn:false,
+							timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+						});
+						return;
+					}
+					if(!obj){
+						//$('.error').addClass('cur').text('请先上传图片')
+						var pop = new Pop({
+							title : '提示',
+							content : '<center>请先上传图片</center>',
+							width: '70%',
+							cancelBtn:false,
+							timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+						});
+						return;
+					}
+					T.ajax({
+						type: 'POST',				
+						url : images.createImages , 
+						data : {
+							"imageUrl":obj.imageUrl,//图片上传接口返回
+							"imageWidthPixel":obj.imageWidthPixel, //图片长像素  图片上传接口返回
+							"imageHeightPixel":obj.imageHeightPixel, // 图片宽像素  图片上传接口返回
+							"orgWidthPixel":obj.orgWidthPixel, //原始长像素  图片上传接口返回
+							"orgHeightPixel":obj.orgHeightPixel, //原始宽像素  图片上传接口返回
+							"imageTitle":title,
+							"imagePath":obj.imagePath,
+							"watermark":shuiyin, //是否水印 1、0
+							"compress":obj.compress, //是否压缩
+							"fid":obj.fid, //图片上传接口返回
+							"size":obj.size //图片上传接口返回
+						},
+						success : function(_data){
+							if(_data.code == 0){
+								var pop = new Pop({
+									title : '提交成功',
+									content : '图片创建成功！',
+									width: '70%',
+									okTxt:'清空内容',
+									nextBtn : true,
+									nextTxt : '返回列表',
+									cancelTxt:'保留内容',
+									timing : 'bounceIn', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+									okCallback:function(){
+										$('.imgs').hide();
+										$('li input[type="text"]').val('');
+										$.extend(self,{
+											filed : true,
+											shuo : 'false',
+											size : 'false',
+											shuiyin : 'false',
+											fileType : '',
+											title : '' , 
+											base64 : '',
+											width : '',
+											height : '',
+											imgInfo : ''
+										})
+										pop.close();
+									},
+									nextCallback : function(){
+	                                    router.push('/image/list')
+	                                }
+								});
+
+								/*$('.error').addClass('right').text('提交成功');
+								setTimeout(function(){
+									$('.error').removeClass('right');
+								},1000);
+								$('.imgs').hide();
+								$('li input[type="text"]').val('');*/
+								//return;
+							}else{
+
+							}
+							//$('.error').addClass('cur').text('失败，请重新上传！')
+							
+						}
+					})
 				})
 			}
 		}
