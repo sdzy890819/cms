@@ -18,6 +18,7 @@ module.exports = class Pop{
 			cancelTxt : '取消',
 			history : true, //是否使用历史记录
 			okCallback : function(){self.close();},
+			nextCallback : function(){self.close();},
 			cancelCallback : function(){ self.close();},
 			close : true,
 			closeCallback : function(){},
