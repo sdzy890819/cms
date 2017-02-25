@@ -92,13 +92,13 @@
 		data (){
 			return {
 				filed : true,
-				shuo : 'false',
-				size : 'false',
-				shuiyin : 'false',
+				shuo : 'true',
+				size : 'true',
+				shuiyin : 'true',
 				fileType : '',
 				title : '' , 
 				base64 : '',
-				width : '',
+				width : '360',
 				height : '',
 				imgInfo : ''
 			}
@@ -141,11 +141,11 @@
 						$('.btn-upload').show();
 					}
 				});
-				if(self.filed==true){
+				/*if(self.filed==true){
 					self.filed = false;
-					tag.addClass('gray')
+					tag.addClass('gray')*/
 					file.click();
-				}
+				//}
 			}
 			,uploadFile : function(){
 				var self = this ,
