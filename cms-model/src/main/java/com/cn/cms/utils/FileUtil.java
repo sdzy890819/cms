@@ -138,9 +138,10 @@ public class FileUtil {
 
             //-----水印
             if(watermark == WatermarkEnum.watermark.getType()) {
-                int x = width / 2;
-                int y = height / 2;
+                int x = width / 4;
+                int y = height / 4;
                 graphics.setColor(Color.gray);
+                graphics.setFont(new Font(Font.SERIF, Font.BOLD ,16));
                 graphics.drawString(StaticContants.WATERMARK_TEXT, x, y);
             }
             //-----水印结束
