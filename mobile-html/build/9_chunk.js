@@ -1,335 +1,282 @@
 webpackJsonp([9],{
 
-/***/ 41:
+/***/ 130:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
-
-/*
- * Sonic 0.3
- * --
- * https://github.com/padolsey/Sonic
- */
-
-(function () {
-
-	var emptyFn = function emptyFn() {};
-
-	function Sonic(d) {
-
-		this.converter = d.converter;
-
-		this.data = d.path || d.data;
-		this.imageData = [];
-
-		this.multiplier = d.multiplier || 1;
-		this.padding = d.padding || 0;
-
-		this.fps = d.fps || 25;
-
-		this.stepsPerFrame = ~~d.stepsPerFrame || 1;
-		this.trailLength = d.trailLength || 1;
-		this.pointDistance = d.pointDistance || .05;
-
-		this.domClass = d.domClass || 'sonic';
-
-		this.backgroundColor = d.backgroundColor || 'rgba(0,0,0,0)';
-		this.fillColor = d.fillColor;
-		this.strokeColor = d.strokeColor;
-
-		this.stepMethod = typeof d.step == 'string' ? stepMethods[d.step] : d.step || stepMethods.square;
-
-		this._setup = d.setup || emptyFn;
-		this._teardown = d.teardown || emptyFn;
-		this._preStep = d.preStep || emptyFn;
-
-		this.pixelRatio = d.pixelRatio || null;
-
-		this.width = d.width;
-		this.height = d.height;
-
-		this.fullWidth = this.width + 2 * this.padding;
-		this.fullHeight = this.height + 2 * this.padding;
-
-		this.domClass = d.domClass || 'sonic';
-
-		this.setup();
-	}
-
-	var argTypes = Sonic.argTypes = {
-		DIM: 1,
-		DEGREE: 2,
-		RADIUS: 3,
-		OTHER: 0
-	};
-
-	var argSignatures = Sonic.argSignatures = {
-		arc: [1, 1, 3, 2, 2, 0],
-		bezier: [1, 1, 1, 1, 1, 1, 1, 1],
-		line: [1, 1, 1, 1]
-	};
-
-	var pathMethods = Sonic.pathMethods = {
-		bezier: function bezier(t, p0x, p0y, p1x, p1y, c0x, c0y, c1x, c1y) {
-
-			t = 1 - t;
-
-			var i = 1 - t,
-			    x = t * t,
-			    y = i * i,
-			    a = x * t,
-			    b = 3 * x * i,
-			    c = 3 * t * y,
-			    d = y * i;
-
-			return [a * p0x + b * c0x + c * c1x + d * p1x, a * p0y + b * c0y + c * c1y + d * p1y];
-		},
-		arc: function arc(t, cx, cy, radius, start, end) {
-
-			var point = (end - start) * t + start;
-
-			var ret = [Math.cos(point) * radius + cx, Math.sin(point) * radius + cy];
-
-			ret.angle = point;
-			ret.t = t;
-
-			return ret;
-		},
-		line: function line(t, sx, sy, ex, ey) {
-			return [(ex - sx) * t + sx, (ey - sy) * t + sy];
-		}
-	};
-
-	var stepMethods = Sonic.stepMethods = {
-
-		square: function square(point, i, f, color, alpha) {
-			this._.fillRect(point.x - 3, point.y - 3, 6, 6);
-		},
-
-		fader: function fader(point, i, f, color, alpha) {
-
-			this._.beginPath();
-
-			if (this._last) {
-				this._.moveTo(this._last.x, this._last.y);
-			}
-
-			this._.lineTo(point.x, point.y);
-			this._.closePath();
-			this._.stroke();
-
-			this._last = point;
-		}
-
-	};
-
-	Sonic.prototype = {
-
-		calculatePixelRatio: function calculatePixelRatio() {
-
-			var devicePixelRatio = window.devicePixelRatio || 1;
-			var backingStoreRatio = this._.webkitBackingStorePixelRatio || this._.mozBackingStorePixelRatio || this._.msBackingStorePixelRatio || this._.oBackingStorePixelRatio || this._.backingStorePixelRatio || 1;
-
-			return devicePixelRatio / backingStoreRatio;
-		},
-
-		setup: function setup() {
-
-			var args,
-			    type,
-			    method,
-			    value,
-			    data = this.data;
-
-			this.canvas = document.createElement('canvas');
-			this._ = this.canvas.getContext('2d');
-
-			if (this.pixelRatio == null) {
-				this.pixelRatio = this.calculatePixelRatio();
-			}
-
-			this.canvas.className = this.domClass;
-
-			if (this.pixelRatio != 1) {
-
-				this.canvas.style.height = this.fullHeight + 'px';
-				this.canvas.style.width = this.fullWidth + 'px';
-
-				this.fullHeight *= this.pixelRatio;
-				this.fullWidth *= this.pixelRatio;
-
-				this.canvas.height = this.fullHeight;
-				this.canvas.width = this.fullWidth;
-
-				this._.scale(this.pixelRatio, this.pixelRatio);
-			} else {
-
-				this.canvas.height = this.fullHeight;
-				this.canvas.width = this.fullWidth;
-			}
-
-			this.points = [];
-
-			for (var i = -1, l = data.length; ++i < l;) {
-
-				args = data[i].slice(1);
-				method = data[i][0];
-
-				if (method in argSignatures) for (var a = -1, al = args.length; ++a < al;) {
-
-					type = argSignatures[method][a];
-					value = args[a];
-
-					switch (type) {
-						case argTypes.RADIUS:
-							value *= this.multiplier;
-							break;
-						case argTypes.DIM:
-							value *= this.multiplier;
-							value += this.padding;
-							break;
-						case argTypes.DEGREE:
-							value *= Math.PI / 180;
-							break;
-					};
-
-					args[a] = value;
-				}
-
-				args.unshift(0);
-
-				for (var r, pd = this.pointDistance, t = pd; t <= 1; t += pd) {
-
-					// Avoid crap like 0.15000000000000002
-					t = Math.round(t * 1 / pd) / (1 / pd);
-
-					args[0] = t;
-
-					r = pathMethods[method].apply(null, args);
-
-					this.points.push({
-						x: r[0],
-						y: r[1],
-						progress: t
+/* WEBPACK VAR INJECTION */(function($) {
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _global = __webpack_require__(8);
+
+var _global2 = _interopRequireDefault(_global);
+
+var _URL = __webpack_require__(9);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+exports.default = {
+	data: function data() {
+		return {
+			list: []
+		};
+	},
+	beforeCreate: function beforeCreate() {
+		var self = this,
+		    page = 1,
+		    pageSize = 10,
+		    loading = true;
+
+		function getList() {
+			if (loading == false) return;
+			loading = false;
+			_global2.default.ajax({
+				url: _URL.news.newslist,
+				data: {
+					page: page,
+					pageSize: pageSize
+				},
+				success: function success(_data) {
+					var list = _data.data.list;
+					if (!list || !list.length) return;
+					list.map(function (obj, i) {
+						obj.timeStr = obj.updateTimeStr.substr(5, 11);
+					});
+					self.list = self.list.concat(list);
+					loading = true;
+					self.$nextTick(function () {
+						var box = $('.new-list'),
+						    scrollHeight = box[0].scrollHeight,
+						    height = box.height();
+						box.unbind().on('scroll', function () {
+							var scrollTop = $(this).scrollTop() + height + 50;
+							if (scrollTop > scrollHeight) {
+								if (page <= _data.data.page.pageCount && loading == true) {
+									page++;
+									getList();
+								}
+							}
+						});
 					});
 				}
-			}
-
-			this.frame = 0;
-
-			if (this.converter && this.converter.setup) {
-				this.converter.setup(this);
-			}
-		},
-
-		prep: function prep(frame) {
-
-			if (frame in this.imageData) {
-				return;
-			}
-
-			this._.clearRect(0, 0, this.fullWidth, this.fullHeight);
-			this._.fillStyle = this.backgroundColor;
-			this._.fillRect(0, 0, this.fullWidth, this.fullHeight);
-
-			var points = this.points,
-			    pointsLength = points.length,
-			    pd = this.pointDistance,
-			    point,
-			    index,
-			    frameD,
-			    indexD;
-
-			this._setup();
-
-			for (var i = -1, l = pointsLength * this.trailLength; ++i < l && !this.stopped;) {
-
-				index = frame + i;
-
-				point = points[index] || points[index - pointsLength];
-
-				if (!point) continue;
-
-				this.alpha = Math.round(1000 * (i / (l - 1))) / 1000;
-
-				this._.globalAlpha = this.alpha;
-
-				if (this.fillColor) {
-					this._.fillStyle = this.fillColor;
-				}
-				if (this.strokeColor) {
-					this._.strokeStyle = this.strokeColor;
-				}
-
-				frameD = frame / (this.points.length - 1);
-				indexD = i / (l - 1);
-
-				this._preStep(point, indexD, frameD);
-				this.stepMethod(point, indexD, frameD);
-			}
-
-			this._teardown();
-
-			this.imageData[frame] = this._.getImageData(0, 0, this.fullWidth, this.fullWidth);
-
-			return true;
-		},
-
-		draw: function draw() {
-
-			if (!this.prep(this.frame)) {
-
-				this._.clearRect(0, 0, this.fullWidth, this.fullWidth);
-
-				this._.putImageData(this.imageData[this.frame], 0, 0);
-			}
-
-			if (this.converter && this.converter.step) {
-				this.converter.step(this);
-			}
-
-			if (!this.iterateFrame()) {
-				if (this.converter && this.converter.teardown) {
-					this.converter.teardown(this);
-					this.converter = null;
-				}
-			}
-		},
-
-		iterateFrame: function iterateFrame() {
-
-			this.frame += this.stepsPerFrame;
-
-			if (this.frame >= this.points.length) {
-				this.frame = 0;
-				return false;
-			}
-
-			return true;
-		},
-
-		play: function play() {
-
-			this.stopped = false;
-
-			var hoc = this;
-
-			this.timer = setInterval(function () {
-				hoc.draw();
-			}, 1000 / this.fps);
-		},
-		stop: function stop() {
-
-			this.stopped = true;
-			this.timer && clearInterval(this.timer);
+			});
 		}
-	};
+		getList();
+	},
+	mounted: function mounted() {},
 
-	module.exports = Sonic;
-})();
+	methods: {
+		edit: function edit(obj) {
+			router.push({ path: '/new/edit', query: { newsId: obj.id } });
+		},
+		release: function release(obj) {
+			_global2.default.ajax({
+				url: _URL.news.publish,
+				data: {
+					id: obj.id
+				},
+				success: function success(_data) {
+					__webpack_require__.e/* require.ensure */(13/* duplicate */).then((function (require) {
+						var Pop = __webpack_require__(48);
+						if (_data.code == 0) {
+							new Pop({
+								title: '提示',
+								content: '<center>发布成功</center>',
+								width: '70%',
+								cancelBtn: false,
+								okTxt: '确定',
+								timing: 'slideOutUp' });
+						} else {
+							new Pop({
+								title: '提示',
+								content: '<center>发布失败，请联系管理员！</center>',
+								width: '70%',
+								cancelBtn: false,
+								okTxt: '确定',
+								timing: 'errorcur' });
+						}
+					}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+				}
+			});
+		},
+		search: function search() {
+			var self = this,
+			    txt = self.searchtxt;
+			_global2.default.ajax({
+				url: _URL.search.searchNew,
+				type: 'post',
+				data: {
+					condition: txt,
+					page: 1,
+					pageSize: 20
+				},
+				success: function success(_data) {
+					var list = _data.data.list;
+					list.map(function (obj, i) {
+						obj.timeStr = obj.updateTimeStr.substr(5, 11);
+					});
+					self.list = list;
+				}
+			});
+		}
+	}
+};
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ }),
+
+/***/ 222:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "new"
+  }, [_c('div', {
+    attrs: {
+      "id": "Search"
+    }
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.searchtxt),
+      expression: "searchtxt"
+    }],
+    attrs: {
+      "type": "text",
+      "placeholder": "请输入搜索内容"
+    },
+    domProps: {
+      "value": _vm._s(_vm.searchtxt)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.searchtxt = $event.target.value
+      }
+    }
+  }), _c('div', {
+    staticClass: "btn",
+    on: {
+      "click": _vm.search
+    }
+  }, [_vm._v("搜索")])]), _vm._v(" "), _c('div', {
+    staticClass: "new-list"
+  }, _vm._l((_vm.list), function(obj) {
+    return _c('dl', [_c('dt', [_vm._v(_vm._s(obj.title))]), _vm._v(" "), _c('dd', [_c('div', {
+      staticClass: "aside"
+    }, [_c('div', {
+      staticClass: "submit"
+    }, [_c('div', {
+      staticClass: "btn",
+      on: {
+        "click": function($event) {
+          _vm.edit(obj)
+        }
+      }
+    }, [_vm._v("修改")]), _vm._v(" "), _c('div', {
+      staticClass: "btn",
+      on: {
+        "click": function($event) {
+          _vm.release(obj)
+        }
+      }
+    }, [_vm._v("发布")])]), _vm._v(" "), _c('span', {
+      staticClass: "author"
+    }, [_vm._v("作者：" + _vm._s(obj.writeUserName))]), _vm._v("\r\n\t\t\t\t\t | \r\n\t\t\t\t\t"), _c('span', {
+      staticClass: "time"
+    }, [_vm._v(_vm._s(obj.timeStr))])])])])
+  })), _vm._v(" "), _c('div', {
+    staticClass: "fixed-edit"
+  }, [_c('div', {
+    staticClass: "btn"
+  }, [_c('router-link', {
+    attrs: {
+      "to": "/new/add"
+    }
+  }, [_c('i', {
+    staticClass: "add"
+  }), _vm._v("\r\n\t\t\t\t新增\r\n\t\t\t")])], 1)])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-4344ca08", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ 30:
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(4)(
+  /* script */
+  __webpack_require__(130),
+  /* template */
+  __webpack_require__(222),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "E:\\Myindex\\myproject\\yang\\mobile-html\\js\\new\\list.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] list.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-4344ca08", Component.options)
+  } else {
+    hotAPI.reload("data-v-4344ca08", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
 
 /***/ })
 
 });
-//# sourceMappingURL=9_chunk.js.map?name=4cabe020e9e9d7f7ff7c
+//# sourceMappingURL=9_chunk.js.map?name=297e65e38590032d4855

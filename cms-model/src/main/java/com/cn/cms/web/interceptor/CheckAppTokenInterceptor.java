@@ -1,5 +1,6 @@
 package com.cn.cms.web.interceptor;
 
+import com.alibaba.fastjson.JSONObject;
 import com.cn.cms.biz.UserBiz;
 import com.cn.cms.enums.ErrorCodeEnum;
 import com.cn.cms.exception.BizException;
@@ -24,6 +25,8 @@ public class CheckAppTokenInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
+		System.out.println("参数："+request.getRequestURL().toString());
+		System.out.println("参数："+JSONObject.toJSONString(request.getParameterMap()));
 		if(handler instanceof HandlerMethod){
 			HandlerMethod hm = (HandlerMethod) handler;
 			if(hm.getMethodAnnotation(CheckAppToken.class) != null) {

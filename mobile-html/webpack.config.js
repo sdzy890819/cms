@@ -33,6 +33,13 @@ module.exports = {
     module: {
         rules :[
             {
+                test: /\.css$/,
+                use: [
+                    "style-loader",
+                    "css-loader"
+                ]
+            },
+            {
                 test: /\.scss$/,
                 use: [
                     "style-loader",
@@ -49,7 +56,7 @@ module.exports = {
                 ]
             },
             {
-                test: /\.(png|jpg|gif|svg)$/,
+                test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/,
                 use: "url-loader?limit=8192",
             },
             {

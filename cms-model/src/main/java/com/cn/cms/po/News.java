@@ -167,6 +167,11 @@ public class News extends Base{
      */
     private Date timer;
 
+    /**
+     * 图片URL
+     */
+    private String imageUrl;
+
     private String publishStr;
 
     /**
