@@ -17,6 +17,7 @@
 				label:not(:first-child){ margin-right:$s10; };
 			}
 			#img{ display:block; margin:0 auto; min-width:$s5; min-height:$s5; max-width:15rem; max-height: 15rem; border:$s1 solid #ddd; padding:$s1; background:#fff; }
+			p{ overflow:hidden; word-break:break-all;}
 		}
 		.error{ @include transition-duration(.5s); height:0; margin:0 $s20; border:0; text-align: center; overflow:hidden;
 			&.cur{
@@ -43,6 +44,7 @@
 				<div class="btn-upload" @click='uploadFile'>上传</div>
 			</li>
 			<li><input class="text" type="text" v-model="title" placeholder='图片标题'></li>
+			<!-- <li v-show='imgInfo' style='word-break:break-all;'>{{imgInfo.imageUrl}}</li> -->
 			<li>
 				<div class="label">是否水印</div>
 				<div class="text">

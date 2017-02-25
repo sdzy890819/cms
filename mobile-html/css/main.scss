@@ -22,7 +22,7 @@ i{
 		}
 	}
 	img{
-		float:left; margin-right:$s5; width:$s30; height: $s30; border-radius: 100%;
+		margin-top:-$s2; margin-right:$s5; width:$s30; height: $s30; vertical-align:middle; border-radius: 100%;
 	}
 }
 #Nav{ position:fixed; z-index:999; left:0; bottom:0; width:100%;  height:$s60; background:#d00000;

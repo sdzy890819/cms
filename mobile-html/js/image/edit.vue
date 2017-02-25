@@ -43,6 +43,7 @@
                 <div class="btn-upload" @click='uploadFile'>上传</div>
             </li>
             <li><input class="text" type="text" v-model="title" placeholder='图片标题'></li>
+            <!-- <li v-show='imgInfo' style='word-break:break-all;'>{{imgInfo.imageUrl}}</li> -->
             <li>
                 <div class="label">是否水印</div>
                 <div class="text">

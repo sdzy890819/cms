@@ -39,6 +39,7 @@
                 <div class="btn-upload" @click='uploadFile'>上传</div>
             </li>
             <li>视频名称：{{name}}</li>
+            <li v-show='videos' style='word-break: break-all;'>{{videos.location}}</li>
             <li><input class="text" type="text" placeholder='视频标题' v-model='title'></li>
             <li><textarea class="text" type="text" placeholder='描述' v-model='describe'></textarea>
         </ul>
@@ -61,7 +62,7 @@
                 describe : '',
                 base64 : '',
                 name : '',
-                videos : null
+                videos : ''
             }
         },
         beforeCreate : function(){
@@ -127,7 +128,7 @@
                     data : {
                         "baseCode":[base64].join(','),
                         "fileName":file.name,
-                        finish : 1
+                        //finish : 1
                     },
                     success : function(_data){
                         $.extend(self.videos,_data.data)

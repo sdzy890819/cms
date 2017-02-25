@@ -11,6 +11,7 @@
 			h2{ height: $s33; line-height: $s33; @include font-size(14px); overflow:hidden; text-align: center; font-weight: normal;}
 			.img{ min-height:6.5625rem; overflow:hidden;}
 			img{ display: block; margin:0 auto; max-width:100%; max-height:$s100; border:$s1 solid #ddd; @include box-sizing; }
+			p{ overflow: hidden; word-break:break-all; }
 
 		}
 		.edit{ @include box;
@@ -32,6 +33,7 @@
 		<ul v-for="item in list">
 			<li v-for='obj in item'>
 				<div class="img"><img :src='obj.imageUrl'></div>
+				<!-- <p>{{obj.imageUrl}}</p> -->
 				<h2>{{obj.imageTitle}}</h2>
 				<div class="edit">
 					<div class="btn" @click='edit(obj)'>编辑</div>
