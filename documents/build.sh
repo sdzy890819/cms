@@ -29,6 +29,7 @@ fi
 
 cp -rf /data/source/cms/cms-publish/target/cms-publish.jar /data/projects/cms-publish/
 cp -rf /data/source/cms/html /data/
+cp -rf /data/source/cms/mobile-html /data/
 
 if [ ! -d "/data/projects/instance/cms-web-tomcat" ]; then
 	echo "-----创建cms-web-tomcat目录-----"
