@@ -138,10 +138,10 @@ public class FileUtil {
 
             //-----水印
             if(watermark == WatermarkEnum.watermark.getType()) {
-                int x = width / 4;
-                int y = height / 4;
+                int x = width - 18*5;
+                int y = height - 18;
                 graphics.setColor(Color.gray);
-                graphics.setFont(new Font(Font.SERIF, Font.BOLD ,16));
+                graphics.setFont(new Font("宋体", Font.BOLD ,18));
                 graphics.drawString(StaticContants.WATERMARK_TEXT, x, y);
             }
             //-----水印结束
