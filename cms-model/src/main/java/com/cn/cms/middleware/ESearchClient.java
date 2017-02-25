@@ -289,7 +289,7 @@ public class ESearchClient {
             if(imagesSearch.getCondition().length() == imagesSearch.getCondition().getBytes().length){
                 qb = qb.must(QueryBuilders.multiMatchQuery(imagesSearch.getCondition(), new String[]{"imageTitle", "imageTitle.pinyin"}));
             }else {
-                qb = qb.must(QueryBuilders.commonTermsQuery(imagesSearch.getCondition(), new String[]{"imageTitle"}));
+                qb = qb.must(QueryBuilders.matchQuery("imageTitle", imagesSearch.getCondition()));
             }
         }
         SearchRequestBuilder builder = this.client.prepareSearch(ESSearchTypeEnum.images.getIndex())

@@ -16,7 +16,7 @@
   </GlobalNamingResources>
 
   <Service name="Catalina">
-    
+
     <Connector port="8080" protocol="HTTP/1.1" maxThreads="150" minSpareThreads="25" maxSpareThreads="75"
                enableLookups="false" disableUploadTimeout="true" URIEncoding="UTF-8"
                connectionTimeout="20000" debug="0"
