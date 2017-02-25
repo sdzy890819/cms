@@ -17,9 +17,10 @@
 
   <Service name="Catalina">
 
-    <Connector port="9090" protocol="HTTP/1.1"
-               connectionTimeout="20000"
-               redirectPort="9443" maxPostSize="0"/>
+    <Connector port="9090" protocol="HTTP/1.1" maxThreads="150" minSpareThreads="25" maxSpareThreads="75"
+               enableLookups="false" disableUploadTimeout="true" URIEncoding="UTF-8"
+               connectionTimeout="20000" debug="0"
+               redirectPort="9443" maxPostSize="-1"/>
 
     <Connector port="9009" protocol="AJP/1.3" redirectPort="9443"/>
 
