@@ -147,7 +147,10 @@ define(["app",'jquery','require','../data/URL','../upload/angular-file-upload/in
 		                	
 		                editor.ready(function(){
 		                	obj.callback(editor);
-		                })
+		                });
+		                editor.config.jsFilter = true;
+		                editor.config.pasteFilter = true;
+		                //editor.config.pasteText = true;
 		                editor.create();
 		                $scope.editor = editor;
 		                window.Editor = editor;

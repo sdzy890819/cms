@@ -2389,8 +2389,7 @@ _e(function (E, $) {
                 }
 
             } else {
-                // 粘贴过滤了样式的、只有标签的 html
-
+                
                 if (data && data.getData) {
                     // w3c
                     // 获取粘贴过来的html
@@ -2418,7 +2417,6 @@ _e(function (E, $) {
                             });
                         }
                     }
-                    
                 } else if (ieData && ieData.getData) {
                     // IE 直接从剪切板中取出纯文本格式
                     resultHtml = ieData.getData('text');
@@ -2433,10 +2431,38 @@ _e(function (E, $) {
                     return;
                 }
             }
-
             // 执行命令
             if (resultHtml) {
-                editor.command(e, 'insertHtml', resultHtml);
+                function clearHtml(data){
+                     // 粘贴过滤了样式的、只有标签的 html
+                    //过滤标签的处理
+                    //bo.peng
+                    data = data.replace(/&lt;|&amp;lt;/g, '<').replace(/&gt;|&amp;gt;/g, '>')
+                    //去掉DIV是为了防止IE下DIV的编辑会出现拖动框的问题。
+                               .replace(/<(?!p(\s|>)|br|strong|img|span|font|pre|\/p(\s|>)|\/br|\/strong|\/img|\/span|\/font|\/pre)[^>]+>/ig, "")
+                               .replace(/class=["]([^"]*|\s*)["]/ig, "")
+                               .replace(/class=[']([^']*|\s*)[']/ig, "")
+                               .replace(/style=["]([^"]*|\s*)["]/ig, "")
+                               .replace(/style=[']([^']*|\s*)[']/ig, "");
+                    
+                    // 以下为peng.bo加入
+                    //将重复多余的空格转为一个
+                    data = data.replace(/\s+|(&nbsp;)+/g, ' ');
+                    //将</br>替换为段落标签<p>便于自动排版用(一般从记事本过来的会有体现)
+                    data = data.replace(/(.*?)<(\/br|br\s*.*?|br \/)>/g, '<p>$1</p>');
+                    //删除所有除p、br、img,div以外的元素
+                    data = data.replace(/<[\/?abc|e-h|j-o|q-t]\w*\s*[=-]*['"]*['"]*>/ig,'')
+                    data = data.replace(/<img[\w|\s]*>/ig,'');
+                    data = data.replace(/(&nbsp)+;*/ig,'');
+                    //var _txt = $(data).html(data).html()
+                    //data = _txt?_txt:data; 
+                    data = data.replace(/<p[\x21-\x2f|\x3a-\x3b|=|\x3f-\x40|\w|\s|\u4e00-\u9fa5|\u0391-\uFFE5]*>/ig,'<p>')//删除所有p元素的属性
+                    data = data.replace(/<[\/|a-o|q-z][\x21-\x2f|\x3a-\x3b|=|\x3f-\x40|\w|\s|\u4e00-\u9fa5|\u0391-\uFFE5]*>/ig,'') //删除所有非p元素
+                    data = data.replace(/<\w+\s*>\s*<\/\w+\s*>/ig,''); //清空元素中无字段的
+                    return data;
+                    //bo.peng end
+                }
+                editor.command(e, 'insertHtml', clearHtml(resultHtml));
 
                 // 删除内容为空的 p 和嵌套的 p
                 self.clearEmptyOrNestP();
@@ -2474,7 +2500,7 @@ _e(function (E, $) {
                 });
                 return;
             }
-            
+
             if (legalTagArr.indexOf(nodeName) >= 0) {
                 // 如果是合法标签之内的，则根据元素类型，获取值
                 resultHtml += getResult(elem);
@@ -8533,12 +8559,51 @@ _e(function (E, $) {
             $domSelected: $('<a href="#" tabindex="-1" class="selected"><i class="wangeditor-menu-img-indent-left"></i></a>')
         });
 
+        function getSelectedContents(){
+            if (window.getSelection) { //chrome,firefox,opera
+                var range=window.getSelection().getRangeAt(0);
+                var container = document.createElement('div');
+                container.appendChild(range.cloneContents());
+                return container;
+                //return window.getSelection(); //只复制文本
+            }
+            else if (document.getSelection) { //其他
+                var range=window.getSelection().getRangeAt(0);
+                var container = document.createElement('div');
+                container.appendChild(range.cloneContents());
+                return container;
+                //return container.innerHTML;
+                //return document.getSelection(); //只复制文本
+            }
+            else if (document.selection) { //IE特有的
+                return document.selection.createRange();
+                //return document.selection.createRange().htmlText;
+                //return document.selection.createRange().text; //只复制文本
+            }
+        } 
         // 菜单正常状态下，点击将触发该事件
         menu.clickEvent = function (e) {
             var elem = editor.getRangeElem();
+            var elemHTML = $(elem).html();
             var p = editor.getSelfOrParentByName(elem, 'p');
+            var select = getSelectedContents();
+            var selectHTML = $(select).html();
+            var first = elemHTML.indexOf(selectHTML) ,
+                last = select.length ,
+                start = $(elemHTML.substr(0,first)).length ,
+                end = $(select).find('p').length;
             var $p;
-
+            if(!this.selectAll){
+                this.selectAll = true;
+                for(;start<=end;start++){
+                    $(elem).find('p').eq(start).css('text-indent', '2em')
+                }
+            }else{
+                this.selectAll = false;
+                for(;start<=end;start++){
+                    $(elem).find('p').eq(start).css('text-indent', '')
+                }
+            }
             if (!p) {
                 // 未找到 p 元素，则忽略
                 return e.preventDefault();
@@ -8563,10 +8628,9 @@ _e(function (E, $) {
                 return e.preventDefault();
             }
             $p = $(p);
-
             // 使用自定义命令
             function commandFn() {
-                $p.css('text-indent', '0');
+                $p.css('text-indent', '');
             }
             editor.customCommand(e, commandFn);
         };
