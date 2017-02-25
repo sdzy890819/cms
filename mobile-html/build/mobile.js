@@ -415,7 +415,7 @@ module.exports = {
 	upload: {
 		uploadVideo: url + '/upload/uploadVideo',
 		uploadVideo2: url + '/upload/uploadVideo2',
-		uploadImage: url + '/upload/uploadImage'
+		uploadImage: '/webapi' + '/upload/uploadImage'
 
 	},
 	images: {
@@ -1750,4 +1750,4 @@ new Vue({
 
 /***/ })
 ],[38]);
-//# sourceMappingURL=mobile.js.map?name=4dfcfea028ac647f19ca
+//# sourceMappingURL=mobile.js.map?name=4cabe020e9e9d7f7ff7c

@@ -165,6 +165,47 @@ exports.default = {
 				$('.error').addClass('cur').text('请选择图片文件');
 				return;
 			}
+			/*function ajax(a) {
+       var _z = false; //xmlHTTP
+       if (window.XMLHttpRequest) { // Mozilla, Safari,...
+           _z = new XMLHttpRequest();
+       } else if (window.ActiveXObject) { // IE
+           try {
+               _z = new ActiveXObject("Msxml2.XMLHTTP")
+           } catch (e) {
+               try {
+                   _z = new ActiveXObject("Microsoft.XMLHTTP")
+               } catch (e) { }
+           }
+       }
+       this.setRequest = function (url, fun, content, type) {
+           if (type != 'post') type = "get";
+   		_z.fun = fun;
+           _z.open(type, type == 'get' ? url + (content ?( '?' + content) : '') : url, a === 'syc' ? false : true);
+           _z.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+           _z.setRequestHeader('Content-Type','application/json;charset=utf-8'); 
+           _z.onreadystatechange = function () {
+               if (_z.readyState == 4 && _z.status == 200) {
+                   _z.fun(_z.responseText)
+               }
+           }
+           _z.send(type == 'get' ? 'NULL' : (content || 'NULL'))
+       }
+   };
+   var get = new ajax() , 
+   	obj = {
+   		"baseCode":base64,
+   		"suffix":file.type.match(/\w+$/)[0],
+   		"watermark":shuiyin,
+   		"width":width,
+   		"height":height //需要压缩的高度  可不传
+   	},
+   	parm = "baseCode="+base64+"&suffix="+file.type.match(/\w+$/)[0]
+   		+"&watermark="+shuiyin+"&width="+width+"&height="+height,
+   	strObj = JSON.stringify(obj);
+   get.setRequest(upload.uploadImage,function(){
+   	},parm,'post')
+   return;*/
 			_global2.default.ajax({
 				type: 'POST',
 				url: _URL.upload.uploadImage,
@@ -618,4 +659,4 @@ module.exports = Component.exports
 /***/ })
 
 });
-//# sourceMappingURL=7_chunk.js.map?name=4dfcfea028ac647f19ca
+//# sourceMappingURL=7_chunk.js.map?name=4cabe020e9e9d7f7ff7c

@@ -68,6 +68,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
 
 exports.default = {
 	data: function data() {
@@ -238,7 +239,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.uploadFile
     }
-  }, [_vm._v("上传")])]), _vm._v(" "), _c('li', [_c('input', {
+  }, [_vm._v("上传")])]), _vm._v(" "), _c('li', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.fileType),
+      expression: "fileType"
+    }]
+  }, [_vm._v(_vm._s(_vm.fileType.name))]), _vm._v(" "), _c('li', [_c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -368,4 +376,4 @@ module.exports = Component.exports
 /***/ })
 
 });
-//# sourceMappingURL=3_chunk.js.map?name=4dfcfea028ac647f19ca
+//# sourceMappingURL=3_chunk.js.map?name=4cabe020e9e9d7f7ff7c

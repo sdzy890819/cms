@@ -38,6 +38,7 @@
 				<div @click='file' class="btn-file">+选择视频</div>
 				<div class="btn-upload" @click='uploadFile'>上传</div>
 			</li>
+			<li v-show='fileType'>{{fileType.name}}</li>
 			<li><input class="text" type="text" placeholder='视频标题' v-model='title'></li>
 			<li><textarea class="text" type="text" placeholder='描述' v-model='describe'></textarea>
 		</ul>
