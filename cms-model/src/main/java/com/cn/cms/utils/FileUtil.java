@@ -140,11 +140,12 @@ public class FileUtil {
             if(watermark == WatermarkEnum.watermark.getType()) {
                 int x = width - 10 * 5;
                 int y = height - 10 * 2;
+                int x1 = width - 10 * 7;
                 int y1 = height - 10 ;
                 graphics.setColor(Color.BLACK);
                 graphics.setFont(new Font("Serif", Font.PLAIN ,10));
                 graphics.drawString(StaticContants.WATERMARK_TEXT_EN, x, y);
-                graphics.drawString(StaticContants.WATERMARK_TEXT_URL, x, y1);
+                graphics.drawString(StaticContants.WATERMARK_TEXT_URL, x1, y1);
             }
             //-----水印结束
 
