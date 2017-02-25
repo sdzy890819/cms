@@ -1,6 +1,6 @@
 webpackJsonp([3],{
 
-/***/ 119:
+/***/ 131:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18,6 +18,7 @@ var _URL = __webpack_require__(9);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//
 //
 //
 //
@@ -133,18 +134,15 @@ exports.default = {
 			    bynum = 100 * 10000,
 			    b = 1024 * 1024 * 1,
 			    num = 0;
-
+			//base64 = base64.replace(base64.match(/^data[\:|\w|\-|\;|\/]+,/)[0],'')
+			/*if(base64<20){
+   	num = 0 ;
+   }*/
 			function base64Encode(input) {
 				var rv;
 				rv = encodeURIComponent(input);
 				rv = unescape(rv);
 				rv = window.btoa(rv);
-				return rv;
-			}
-			function base64Decode(input) {
-				rv = window.atob(input);
-				rv = escape(rv);
-				rv = decodeURIComponent(rv);
 				return rv;
 			}
 
@@ -170,7 +168,6 @@ exports.default = {
 			} else {
 				num = Math.floor(len / bynum);
 			}
-			console.log(num);
 			var index = 0;
 			function getData() {
 				var start = index * bynum,
@@ -256,7 +253,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 201:
+/***/ 213:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)();
@@ -295,7 +292,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.uploadFile
     }
-  }, [_vm._v("上传")])]), _vm._v(" "), _c('li', [_c('input', {
+  }, [_vm._v("上传")])]), _vm._v(" "), _c('li', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.fileType),
+      expression: "fileType"
+    }]
+  }, [_vm._v(_vm._s(_vm.fileType.name))]), _vm._v(" "), _c('li', [_c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -364,17 +368,17 @@ if (false) {
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(201);
+var content = __webpack_require__(213);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(5)("72b94d8e", content, false);
+var update = __webpack_require__(5)("217724ad", content, false);
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!./../../../../../node_modules/css-loader/index.js?sourceMap!./../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-5ddcd4ce!./../../../../../node_modules/sass-loader/lib/loader.js!./../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./add.vue", function() {
-     var newContent = require("!!./../../../../../node_modules/css-loader/index.js?sourceMap!./../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-5ddcd4ce!./../../../../../node_modules/sass-loader/lib/loader.js!./../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./add.vue");
+   module.hot.accept("!!./../../../../../../node_modules/css-loader/index.js?sourceMap!./../../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-5ddcd4ce!./../../../../../../node_modules/sass-loader/lib/loader.js!./../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./add.vue", function() {
+     var newContent = require("!!./../../../../../../node_modules/css-loader/index.js?sourceMap!./../../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-5ddcd4ce!./../../../../../../node_modules/sass-loader/lib/loader.js!./../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./add.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -394,7 +398,7 @@ __webpack_require__(233)
 
 var Component = __webpack_require__(4)(
   /* script */
-  __webpack_require__(119),
+  __webpack_require__(131),
   /* template */
   __webpack_require__(224),
   /* scopeId */
@@ -402,7 +406,7 @@ var Component = __webpack_require__(4)(
   /* cssModules */
   null
 )
-Component.options.__file = "E:\\myProjuct\\yang.z\\mobile-html\\js\\video\\add.vue"
+Component.options.__file = "E:\\Myindex\\myproject\\yang\\mobile-html\\js\\video\\add.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] add.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -425,4 +429,4 @@ module.exports = Component.exports
 /***/ })
 
 });
-//# sourceMappingURL=3_chunk.js.map?name=f817e58e979b5fc91226
+//# sourceMappingURL=3_chunk.js.map?name=297e65e38590032d4855

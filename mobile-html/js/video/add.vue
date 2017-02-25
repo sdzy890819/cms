@@ -38,6 +38,7 @@
 				<div @click='file' class="btn-file">+选择视频</div>
 				<div class="btn-upload" @click='uploadFile'>上传</div>
 			</li>
+			<li v-show='fileType'>{{fileType.name}}</li>
 			<li><input class="text" type="text" placeholder='视频标题' v-model='title'></li>
 			<li><textarea class="text" type="text" placeholder='描述' v-model='describe'></textarea>
 		</ul>
@@ -113,7 +114,10 @@
 					bynum = 100*10000,
 					b = 1024*1024*1  , 
 					num = 0 ;
-
+				//base64 = base64.replace(base64.match(/^data[\:|\w|\-|\;|\/]+,/)[0],'')
+				/*if(base64<20){
+					num = 0 ;
+				}*/
 				function base64Encode(input) {
 	                var rv;
 	                rv = encodeURIComponent(input);
@@ -144,7 +148,6 @@
 				}else{
 					num = Math.floor(len/bynum);
 				}
-				console.log(num)
 				var index = 0; 
 				function getData(){
 					var start = index*bynum , 
