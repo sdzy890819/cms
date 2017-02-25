@@ -134,16 +134,17 @@ public class FileUtil {
             graphics.setColor(new Color(255,255,255));
             graphics.fillRect(0, 0, width, height);
 
+            graphics.drawImage(image.getScaledInstance(width, height, Image.SCALE_SMOOTH), 0, 0, null);
+
             //-----水印
             if(watermark == WatermarkEnum.watermark.getType()) {
-                int x = width / 2;
-                int y = height / 2;
-                graphics.setColor(Color.white);
+                int x = width / 4;
+                int y = height / 4;
+                graphics.setColor(Color.gray);
+                graphics.setFont(new Font(Font.SERIF, Font.BOLD ,16));
                 graphics.drawString(StaticContants.WATERMARK_TEXT, x, y);
             }
             //-----水印结束
-
-            graphics.drawImage(image.getScaledInstance(width, height, Image.SCALE_SMOOTH), 0, 0, null);
 
             ImageIO.write(buffImg, suffix, new File(filePath));
 
