@@ -124,7 +124,8 @@ public class StaticContants {
 
     public static final int BAIDU_DATA_SECONDS = 20*60;
 
-    public static final String WATERMARK_TEXT = "全景网";
+    public static final String WATERMARK_TEXT_EN = "© 全景网";
+    public static final String WATERMARK_TEXT_URL = "www.p5w.net";
 
     /**
      * 全景网资源文件名前缀

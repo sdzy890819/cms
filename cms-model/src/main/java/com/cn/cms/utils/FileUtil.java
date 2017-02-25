@@ -105,7 +105,7 @@ public class FileUtil {
             map.put("orgWidthPixel", w);
             map.put("orgHeightPixel", h);
             double bili = 0D;
-            if(width == 0 && height == 0){
+            if((width == 0 && height == 0) || width > w || height > h){
                 width = w;
                 height = h;
             }else {
@@ -138,11 +138,14 @@ public class FileUtil {
 
             //-----水印
             if(watermark == WatermarkEnum.watermark.getType()) {
-                int x = width / 4;
-                int y = height / 4;
-                graphics.setColor(Color.gray);
-                graphics.setFont(new Font(Font.SERIF, Font.BOLD ,16));
-                graphics.drawString(StaticContants.WATERMARK_TEXT, x, y);
+                int x = width - 10 * 5;
+                int y = height - 10 * 2;
+                int x1 = width - 10 * 7;
+                int y1 = height - 10 ;
+                graphics.setColor(Color.BLACK);
+                graphics.setFont(new Font("Serif", Font.PLAIN ,10));
+                graphics.drawString(StaticContants.WATERMARK_TEXT_EN, x, y);
+                graphics.drawString(StaticContants.WATERMARK_TEXT_URL, x1, y1);
             }
             //-----水印结束
 
