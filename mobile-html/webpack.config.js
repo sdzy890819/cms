@@ -131,7 +131,7 @@ if (build) {
       sourceMap: false
     }),
 
-    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(),
     new CleanPlugin('./build')
 
   ])

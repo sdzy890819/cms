@@ -29,7 +29,7 @@
 		i{ display: block; width:$s40; height:$s40; @include contain('../../images/login_logo.png');}
 	}
 	.error{ margin:$s10 0; background:#fffb94; }
-	.footer{ position:fixed; z-index:1; left:$s10; right:$s10; bottom:$s10;
+	.footer{ padding:$s10; margin-top:$s50;
 		p{ font-size:$s12; text-align:center; line-height:$s16; }
 	}
 }

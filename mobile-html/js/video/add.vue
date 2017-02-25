@@ -39,6 +39,7 @@
 				<div class="btn-upload" @click='uploadFile'>上传</div>
 			</li>
 			<li v-show='fileType'>{{fileType.name}}</li>
+			<li v-show='videos' style='word-break: break-all;'>{{videos.location}}</li>
 			<li><input class="text" type="text" placeholder='视频标题' v-model='title'></li>
 			<li><textarea class="text" type="text" placeholder='描述' v-model='describe'></textarea>
 		</ul>
@@ -60,7 +61,7 @@
 				title : '' , 
 				describe : '',
 				base64 : '',
-				videos : null
+				videos : ''
 			}
 		},
 		mounted(){
@@ -84,17 +85,16 @@
 					} 
 					self.fileType = file;
 					var reader = new FileReader(); 
-					reader.readAsArrayBuffer(file); 
-					//reader.readAsDataURL(file); 
+					//reader.readAsArrayBuffer(file); 
+					reader.readAsDataURL(file); 
 					reader.onload = function(e){ 
 						self.base64 = this.result;
-						var data = reader.result;
-					    self.array = new Int8Array(data);
+						/*var data = reader.result;
+					    self.array = new Int8Array(data);*/
 
 					    //var num = 100*15000;
 					    //var str = JSON.stringify(array, null, '  ');
 
-						debugger;
 					}
 				});
 				if(self.filed==true){
@@ -105,15 +105,36 @@
 			}
 			,uploadFile : function(){
 				var self = this , 
-					//base64 = [this.base64].join(',') ,
-					array = self.array,
-					len = array.length,
+					base64 = [this.base64].join(',') ,
+					//array = self.array,
+					//len = array.length,
 					file = this.fileType, 
 					describe = this.describe,
 					title = this.title , 
 					bynum = 100*10000,
 					b = 1024*1024*1  , 
 					num = 0 ;
+
+
+				T.ajax({
+					type: 'POST',				
+					url : upload.uploadVideo , 
+					data : {
+						//"baseCode":(base64.substr(start,b)),
+						"baseCode":base64,
+						"fileName":file.name,
+						//'partNum' : indexNum,
+						//'finish' : finish
+					},
+					success : function(_data){
+						self.videos = _data.data;
+						$('.error').addClass('right').text('上传成功');
+						setTimeout(function(){
+							$('.error').removeClass('right');
+						},1000);
+					}
+				})
+				return;
 				//base64 = base64.replace(base64.match(/^data[\:|\w|\-|\;|\/]+,/)[0],'')
 				/*if(base64<20){
 					num = 0 ;

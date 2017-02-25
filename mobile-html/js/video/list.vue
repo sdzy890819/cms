@@ -8,7 +8,7 @@
 
 			}
 			dd{ @include size(max-height,44px); font-size:$s14;
-				p{ overflow:hidden; text-overflow:ellipsis;}
+				p{ overflow:hidden; word-break:break-all;}
 				.aside{ margin-top:$s5; padding-top:$s5; font-size:$s12; border-top:$s1 dashed #eee;
 					.submit{ float:right;
 						.btn{ display:inline-block; height:$s23; line-height:$s23;  padding:0 $s15;border:$s1 solid #ddd; background:#f8f8f8;
