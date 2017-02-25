@@ -1,0 +1,7 @@
+define(["app","jquery","../data/getData","../upload/index","../upload/angular-file-upload/index","form"],function(a,e,i,t,n){return{init:function(a){var t=a.$uibModal,l=a.list;"array"==e.type(l)&&(l=function(e){e(a.list)}),a.$uibModal.open({animation:!0,ariaLabelledBy:"modal-title",ariaDescribedBy:"modal-body",
+//windowTemplateUrl : '../../template/common/window.html',
+//template : 'asdfsadf',
+templateUrl:"../template/common/addAndEdit.html",size:"lg",controller:function(o,d,u,c){o.data=null,angular.extend(o,{titelement:{close:!0},save:function(a){//保存
+var t=e(".layui-box.layui-upload-button"),n=t.attr("video-url"),l=t.attr("filename");void 0==n&&(n=o.data.videoUrl,l=o.data.fileName),i.video.updateVideo({id:o.data.id,videoTitle:a.videoTitle,videoDesc:a.videoDesc,videoUrl:n,fileName:l,callback:function(a){layui.use(["layer"],function(){var e=layui.layer;e.msg(a.message),c.reload(),d.dismiss("cancel")})}})},cancel:function(e){//取消
+a.cancel(e,o.data)},close:function(){d.dismiss("cancel")}}),o.$on("formRepeat",function(){e(".layui-upload-button").unbind().click(function(){n.init({data:{obj:{},title:"上传视频",name:"请选择视频",type:"video",event:function(a,e){o.videoInfo=a,e.dismiss("cancel")}},$uibModal:t})})}),l(function(e){a.callback(e,function(e){o.formdata={//确认按钮
+title:"编辑",cls:"popedit",list:e,submit:[{name:"确定",evt:"save",icon_cls:"save"}]},a.updateData(function(a){o.data=a.data,o.$$phase||o.$apply()}),o.$$phase||o.$apply()})})}})},updateData:function(){}}});

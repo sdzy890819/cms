@@ -1,0 +1,3 @@
+define(["app","./columnForm","../data/getData","form","position","fixedNav"],function(e,t,n){e.directive("topicAddColumn",function(){return{restrict:"E",replace:!0,transclude:!0,templateUrl:"../template/common/addAndEdit.html",controller:function(e,a){e.title="新建系列专题分类",e.$parent.menu.push({name:e.title}),e.save=function(e){//保存
+n.topic.createTopicColumn({name:e.name,callback:function(e){layui.use(["layer"],function(){var t=layui.layer;t.msg(e.message),0==e.code&&a.go("topic.columnList")})}})},e.formdata={//确认按钮
+title:e.title,list:t,submit:[{name:"保存",evt:"save",icon_cls:"save"},{name:"清空",evt:"cancel",icon_cls:"cancel",cls:"cancel"}]}}}})});

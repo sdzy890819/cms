@@ -1,0 +1,1 @@
+define(["head","menu"],function(){return["$scope","$location",function(n,e){n.$on("$viewContentLoaded",function(){n.menu=[{name:"用户组管理系统",link:"userposition.list"}]}),n.menu=[{name:"用户组管理系统",link:"userposition.list"}]}]});

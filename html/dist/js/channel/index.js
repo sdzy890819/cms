@@ -1,0 +1,1 @@
+define(["head","menu"],function(){return["$scope","$location",function(n,e){n.$on("$viewContentLoaded",function(){n.menu=[{name:"频道管理系统",link:"channel.list"}]}),n.menu=[{name:"频道管理系统",link:"channel.list"}]}]});

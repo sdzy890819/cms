@@ -1,0 +1,1 @@
+define(["head","menu"],function(){return["$scope","$location",function(n,e){n.$on("$viewContentLoaded",function(){n.menu=[{name:"第二套模版管理系统",link:"template.list"}]}),n.menu=[{name:"第二套模版管理系统",link:"template.list"}]}]});
