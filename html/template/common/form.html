@@ -35,7 +35,7 @@
 						<textarea ng-if="obj.type=='textarea'" class="layui-textarea text w80 {{obj.cls}}" name="{{obj.title}}" style="height:{{obj.height}}px" lay-verify="content" placeholder="{{obj.placeholder}}">{{data[obj.title]}}</textarea>
 
 						<!-- 富文本编辑器 -->
-						<div ng-if="obj.type=='edit'" class='wangEditor {{obj.cls}}' data-html='{{data.newsDetail.content}}' style="width:{{obj.width}}; max-width:{{obj.maxWidth}}; min-width:{{obj.minWidth}}">
+						<div ng-if="obj.type=='edit'" class='wangEditor {{obj.cls}}' data-html='{{data.newsDetail.content}}' style="width:{{obj.width}}; max-width:800px;">
 							<div ng-model="text" contenteditable="true" name="{{obj.title}}" style="height:{{obj.height}};"></div>
 						</div>
 

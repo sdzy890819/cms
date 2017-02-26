@@ -8761,9 +8761,9 @@ _e(function (E, $) {
 
 });
 // 版权提示
-_e(function (E, $) {
+/*_e(function (E, $) {
     E.info('本页面富文本编辑器由 wangEditor 提供 http://wangeditor.github.io/ ');
-});
+});*/
     
     // 最终返回wangEditor构造函数
     return window.wangEditor;

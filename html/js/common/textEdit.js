@@ -150,6 +150,7 @@ define(["app",'jquery','require','../data/URL','../upload/angular-file-upload/in
 		                });
 		                editor.config.jsFilter = true;
 		                editor.config.pasteFilter = true;
+		                editor.config.printLog = false;
 		                //editor.config.pasteText = true;
 		                editor.create();
 		                $scope.editor = editor;
