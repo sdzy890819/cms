@@ -8564,14 +8564,14 @@ _e(function (E, $) {
                 var range=window.getSelection().getRangeAt(0);
                 var container = document.createElement('div');
                 container.appendChild(range.cloneContents());
-                return container;
+                return range;
                 //return window.getSelection(); //只复制文本
             }
             else if (document.getSelection) { //其他
-                var range=window.getSelection().getRangeAt(0);
+                var range=document.getSelection().getRangeAt(0);
                 var container = document.createElement('div');
                 container.appendChild(range.cloneContents());
-                return container;
+                return range;
                 //return container.innerHTML;
                 //return document.getSelection(); //只复制文本
             }
@@ -8586,23 +8586,21 @@ _e(function (E, $) {
             var elem = editor.getRangeElem();
             var elemHTML = $(elem).html();
             var p = editor.getSelfOrParentByName(elem, 'p');
-            var select = getSelectedContents();
-            var selectHTML = $(select).html();
-            var first = elemHTML.indexOf(selectHTML) ,
-                last = select.length ,
-                start = $(elemHTML.substr(0,first)).length ,
-                end = $(select).find('p').length;
+
+            var selection = document.getSelection();
+            var range = selection.getRangeAt(0);
+            var container = document.createElement('div');
+                container.appendChild(range.cloneContents());
+            range.deleteContents();
+            range.insertNode(container);
+
             var $p;
             if(!this.selectAll){
                 this.selectAll = true;
-                for(;start<=end;start++){
-                    $(elem).find('p').eq(start).css('text-indent', '2em')
-                }
+                $(container).find('p').css('text-indent', '2em')
             }else{
                 this.selectAll = false;
-                for(;start<=end;start++){
-                    $(elem).find('p').eq(start).css('text-indent', '')
-                }
+                $(container).find('p').css('text-indent', '')
             }
             if (!p) {
                 // 未找到 p 元素，则忽略
