@@ -1,1 +1,282 @@
-webpackJsonp([9],{130:function(t,e,n){"use strict";(function(t){function s(t){return t&&t.__esModule?t:{default:t}}Object.defineProperty(e,"__esModule",{value:!0});var i=n(8),a=s(i),r=n(9);e.default={data:function(){return{list:[]}},beforeCreate:function(){function e(){0!=c&&(c=!1,a.default.ajax({url:r.news.newslist,data:{page:s,pageSize:i},success:function(i){var a=i.data.list;a&&a.length&&(a.map(function(t,e){t.timeStr=t.updateTimeStr.substr(5,11)}),n.list=n.list.concat(a),c=!0,n.$nextTick(function(){var n=t(".new-list"),a=n[0].scrollHeight,r=n.height();n.unbind().on("scroll",function(){var n=t(this).scrollTop()+r+50;n>a&&s<=i.data.page.pageCount&&1==c&&(s++,e())})}))}}))}var n=this,s=1,i=10,c=!0;e()},mounted:function(){},methods:{edit:function(t){router.push({path:"/new/edit",query:{newsId:t.id}})},release:function(t){a.default.ajax({url:r.news.publish,data:{id:t.id},success:function(t){n.e(13).then(function(e){var s=n(46);new s(0==t.code?{title:"提示",content:"<center>发布成功</center>",width:"70%",cancelBtn:!1,okTxt:"确定",timing:"slideOutUp"}:{title:"提示",content:"<center>发布失败，请联系管理员！</center>",width:"70%",cancelBtn:!1,okTxt:"确定",timing:"errorcur"})}.bind(null,n)).catch(n.oe)}})},search:function(){var t=this,e=t.searchtxt;a.default.ajax({url:r.search.searchNew,type:"post",data:{condition:e,page:1,pageSize:20},success:function(e){var n=e.data.list;n.map(function(t,e){t.timeStr=t.updateTimeStr.substr(5,11)}),t.list=n}})}}}}).call(e,n(2))},222:function(t,e,n){t.exports={render:function(){var t=this,e=t.$createElement,n=t._self._c||e;return n("div",{staticClass:"new"},[n("div",{attrs:{id:"Search"}},[n("input",{directives:[{name:"model",rawName:"v-model",value:t.searchtxt,expression:"searchtxt"}],attrs:{type:"text",placeholder:"请输入搜索内容"},domProps:{value:t._s(t.searchtxt)},on:{input:function(e){e.target.composing||(t.searchtxt=e.target.value)}}}),n("div",{staticClass:"btn",on:{click:t.search}},[t._v("搜索")])]),t._v(" "),n("div",{staticClass:"new-list"},t._l(t.list,function(e){return n("dl",[n("dt",[t._v(t._s(e.title))]),t._v(" "),n("dd",[n("div",{staticClass:"aside"},[n("div",{staticClass:"submit"},[n("div",{staticClass:"btn",on:{click:function(n){t.edit(e)}}},[t._v("修改")]),t._v(" "),n("div",{staticClass:"btn",on:{click:function(n){t.release(e)}}},[t._v("发布")])]),t._v(" "),n("span",{staticClass:"author"},[t._v("作者："+t._s(e.writeUserName))]),t._v("\r\n\t\t\t\t\t | \r\n\t\t\t\t\t"),n("span",{staticClass:"time"},[t._v(t._s(e.timeStr))])])])])})),t._v(" "),n("div",{staticClass:"fixed-edit"},[n("div",{staticClass:"btn"},[n("router-link",{attrs:{to:"/new/add"}},[n("i",{staticClass:"add"}),t._v("\r\n\t\t\t\t新增\r\n\t\t\t")])],1)])])},staticRenderFns:[]},t.exports.render._withStripped=!0},30:function(t,e,n){var s=n(4)(n(130),n(222),null,null);s.options.__file="E:\\Myindex\\myproject\\yang\\mobile-html\\js\\new\\list.vue",s.esModule&&Object.keys(s.esModule).some(function(t){return"default"!==t&&"__esModule"!==t})&&console.error("named exports are not supported in *.vue files."),s.options.functional&&console.error("[vue-loader] list.vue: functional components are not supported with templates, they should use render functions."),t.exports=s.exports}});
+webpackJsonp([9],{
+
+/***/ 118:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function($) {
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _global = __webpack_require__(8);
+
+var _global2 = _interopRequireDefault(_global);
+
+var _URL = __webpack_require__(9);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+exports.default = {
+	data: function data() {
+		return {
+			list: []
+		};
+	},
+	beforeCreate: function beforeCreate() {
+		var self = this,
+		    page = 1,
+		    pageSize = 10,
+		    loading = true;
+
+		function getList() {
+			if (loading == false) return;
+			loading = false;
+			_global2.default.ajax({
+				url: _URL.news.newslist,
+				data: {
+					page: page,
+					pageSize: pageSize
+				},
+				success: function success(_data) {
+					var list = _data.data.list;
+					if (!list || !list.length) return;
+					list.map(function (obj, i) {
+						obj.timeStr = obj.updateTimeStr.substr(5, 11);
+					});
+					self.list = self.list.concat(list);
+					loading = true;
+					self.$nextTick(function () {
+						var box = $('.new-list'),
+						    scrollHeight = box[0].scrollHeight,
+						    height = box.height();
+						box.unbind().on('scroll', function () {
+							var scrollTop = $(this).scrollTop() + height + 50;
+							if (scrollTop > scrollHeight) {
+								if (page <= _data.data.page.pageCount && loading == true) {
+									page++;
+									getList();
+								}
+							}
+						});
+					});
+				}
+			});
+		}
+		getList();
+	},
+	mounted: function mounted() {},
+
+	methods: {
+		edit: function edit(obj) {
+			router.push({ path: '/new/edit', query: { newsId: obj.id } });
+		},
+		release: function release(obj) {
+			_global2.default.ajax({
+				url: _URL.news.publish,
+				data: {
+					id: obj.id
+				},
+				success: function success(_data) {
+					__webpack_require__.e/* require.ensure */(13/* duplicate */).then((function (require) {
+						var Pop = __webpack_require__(46);
+						if (_data.code == 0) {
+							new Pop({
+								title: '提示',
+								content: '<center>发布成功</center>',
+								width: '70%',
+								cancelBtn: false,
+								okTxt: '确定',
+								timing: 'slideOutUp' });
+						} else {
+							new Pop({
+								title: '提示',
+								content: '<center>发布失败，请联系管理员！</center>',
+								width: '70%',
+								cancelBtn: false,
+								okTxt: '确定',
+								timing: 'errorcur' });
+						}
+					}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+				}
+			});
+		},
+		search: function search() {
+			var self = this,
+			    txt = self.searchtxt;
+			_global2.default.ajax({
+				url: _URL.search.searchNew,
+				type: 'post',
+				data: {
+					condition: txt,
+					page: 1,
+					pageSize: 20
+				},
+				success: function success(_data) {
+					var list = _data.data.list;
+					list.map(function (obj, i) {
+						obj.timeStr = obj.updateTimeStr.substr(5, 11);
+					});
+					self.list = list;
+				}
+			});
+		}
+	}
+};
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+
+/***/ }),
+
+/***/ 222:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "new"
+  }, [_c('div', {
+    attrs: {
+      "id": "Search"
+    }
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.searchtxt),
+      expression: "searchtxt"
+    }],
+    attrs: {
+      "type": "text",
+      "placeholder": "请输入搜索内容"
+    },
+    domProps: {
+      "value": _vm._s(_vm.searchtxt)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.searchtxt = $event.target.value
+      }
+    }
+  }), _c('div', {
+    staticClass: "btn",
+    on: {
+      "click": _vm.search
+    }
+  }, [_vm._v("搜索")])]), _vm._v(" "), _c('div', {
+    staticClass: "new-list"
+  }, _vm._l((_vm.list), function(obj) {
+    return _c('dl', [_c('dt', [_vm._v(_vm._s(obj.title))]), _vm._v(" "), _c('dd', [_c('div', {
+      staticClass: "aside"
+    }, [_c('div', {
+      staticClass: "submit"
+    }, [_c('div', {
+      staticClass: "btn",
+      on: {
+        "click": function($event) {
+          _vm.edit(obj)
+        }
+      }
+    }, [_vm._v("修改")]), _vm._v(" "), _c('div', {
+      staticClass: "btn",
+      on: {
+        "click": function($event) {
+          _vm.release(obj)
+        }
+      }
+    }, [_vm._v("发布")])]), _vm._v(" "), _c('span', {
+      staticClass: "author"
+    }, [_vm._v("作者：" + _vm._s(obj.writeUserName))]), _vm._v("\r\n\t\t\t\t\t | \r\n\t\t\t\t\t"), _c('span', {
+      staticClass: "time"
+    }, [_vm._v(_vm._s(obj.timeStr))])])])])
+  })), _vm._v(" "), _c('div', {
+    staticClass: "fixed-edit"
+  }, [_c('div', {
+    staticClass: "btn"
+  }, [_c('router-link', {
+    attrs: {
+      "to": "/new/add"
+    }
+  }, [_c('i', {
+    staticClass: "add"
+  }), _vm._v("\r\n\t\t\t\t新增\r\n\t\t\t")])], 1)])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-4344ca08", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ 30:
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(4)(
+  /* script */
+  __webpack_require__(118),
+  /* template */
+  __webpack_require__(222),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "E:\\myProjuct\\yang.z\\mobile-html\\js\\new\\list.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] list.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-4344ca08", Component.options)
+  } else {
+    hotAPI.reload("data-v-4344ca08", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ })
+
+});
+//# sourceMappingURL=9_chunk.js.map?name=6a2ae689ef85e0f1dbd8

@@ -360,16 +360,6 @@ export default {
                     });
                     return;
                 }
-                if(obj.subTitle.length<2){
-                    var pop = new Pop({
-                        title : '提示',
-                        content : '<center>副标题不能小于2位数！</center>',
-                        width: '70%',
-                        cancelBtn:false,
-                        timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
-                    });
-                    return;
-                }
                 if(obj.keyword.length<1){
                     var pop = new Pop({
                         title : '提示',
@@ -567,6 +557,7 @@ export default {
       .text{ @include box-flex; 
         label:not(:first-child){ margin-right:$s10; };
       }
+      .vue-html5-editor{ @include box-flex;}
     }
   }
 </style>
