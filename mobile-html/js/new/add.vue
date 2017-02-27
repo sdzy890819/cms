@@ -710,7 +710,7 @@ var data = {
 					}
 				}
 			}
-			.indent{ @include contain('../../images/indent.png')}
+			.indent{ @include contain('../../images/indent.png');vertical-align: middle;}
 		}
 	}
 </style>
