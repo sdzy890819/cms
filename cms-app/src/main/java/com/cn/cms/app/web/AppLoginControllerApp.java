@@ -96,7 +96,6 @@ public class AppLoginControllerApp extends AppBaseController {
         String key = EncryptUtil.encryptAESKey(randomPwd);
         String ttbase = EncryptUtil.base64(EncryptUtil.encryptAES(key, tt).concat(key).getBytes(StaticContants.UTF8));
         CookieUtil.addCookie(response, StaticContants.APP_COOKIE_TT, ttbase, 0);
-        CookieUtil.addCookie(response, StaticContants.APP_COOKIE_DEVICE_IDFA, "AABBCC", 0);
         Map<String, String> map = new HashMap<>();
         map.put("tt", tt);
         return ApiResponse.returnSuccess(map);
