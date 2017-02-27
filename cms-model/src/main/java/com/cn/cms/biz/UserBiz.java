@@ -330,8 +330,9 @@ public class UserBiz extends BaseBiz{
         String rett = EncryptUtil.decryptAEC(rekey, reEncryptCode);
         pwd = EncryptUtil.base64(pwd.getBytes(StaticContants.UTF8));
         if( user != null ){
+            //StringUtils.isNotBlank(idfa) && user.getIdfa().indexOf(idfa) > -1 &&
             if(user.getPwd().equals(pwd) && StringUtils.isNotBlank(user.getIdfa()) &&
-                    StringUtils.isNotBlank(idfa) && user.getIdfa().indexOf(idfa) > -1 && rett.equals(tt)){
+                     rett.equals(tt)){
                 setAppCookie(response,user);
                 refreshUserCache(user);
                 return ApiResponse.returnSuccess(StaticContants.SUCCESS_LOGIN);
