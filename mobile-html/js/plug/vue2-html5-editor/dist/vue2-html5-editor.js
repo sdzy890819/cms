@@ -1113,6 +1113,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	        value: {
 	            required: true
 	        },
+	        width: {
+	            type: Number,
+	            default: '100%',
+	            validator: function validator(val) {
+	                return val >= 100;
+	            }
+	        },
 	        height: {
 	            type: Number,
 	            default: 300,

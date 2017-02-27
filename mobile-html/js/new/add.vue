@@ -41,7 +41,7 @@
 				</div>
 			</li>
 			<li>
-				<vue2-html5-editor v-model="content" :content.sync="content" :value="content" :height="200"></vue2-html5-editor>
+				<vue2-html5-editor v-model="content" :content.sync="content" :value="content" width='100%' :height="200"></vue2-html5-editor>
 			</li>
 			<li>
 				<input v-model='field1' class="text" type="text" placeholder='扩展字段1'>
@@ -395,16 +395,6 @@ var data = {
                         });
 						return;
 					}
-					if(obj.subTitle.length<2){
-						var pop = new Pop({
-                            title : '提示',
-                            content : '<center>副标题不能小于2位数！</center>',
-                            width: '70%',
-                            cancelBtn:false,
-                            timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
-                        });
-						return;
-					}
 					if(obj.keyword.length<1){
 						var pop = new Pop({
                             title : '提示',
@@ -601,6 +591,7 @@ var data = {
 			.text{ @include box-flex; 
 				label:not(:first-child){ margin-right:$s10; };
 			}
+			.vue-html5-editor{ @include box-flex;}
 		}
 	}
 </style>
