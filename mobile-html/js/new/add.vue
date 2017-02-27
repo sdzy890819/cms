@@ -86,9 +86,12 @@
 					<label for="two">不发布</label>
 				</div>
 			</li>
-			<li>
-				<input type='date' v-model='timer' >
-				<input type="time" v-model='datatime' />
+			<li class='time-date'>
+				<div class='label'>请选择日期：</div>
+				<div class='text'>
+					<input type='date' v-model='timer' >
+					<input type="time" v-model='datatime' />
+				</div>
 			</li>
 		</ul>
 		<div class="submit">
@@ -265,6 +268,111 @@ var data = {
 				    hiddenModules: [],*/
 				    //keep only the modules you want and customize the order. 
 				    //can be used with hiddenModules together 
+				     i18n: {
+			            //i18n for custom module
+			            "en-us": {
+			                date: "insert current time",
+			                emoji: "emoji",
+			                indent: "indent"
+			            }
+			        },
+			        //config custom module
+			        date: {
+			            format: "YYYY/MM/DD"
+			        },
+			        modules: [
+			            {
+			                name: "date",
+			                icon: "fa fa-calendar",
+			                i18n: "time",
+			                show: true,
+			                init: function (editor) {
+			                    console.log("time module init, config is", this.config)
+			                },
+			                handler: function (editor) {
+			                    var format = this.config.format || "YYYY-MM-DD HH:mm"
+			                    editor.execCommand("insertText", moment().format(format))
+			                },
+			                destroyed: function (editor) {
+			                    console.log("time module destroyed")
+			                }
+			            },
+			            {
+			                //custom module with dashboard
+			                name: "emoji",
+			                icon: "fa fa-smile-o",
+			                i18n: "emoji",
+			                show: true,
+			                init: function (editor) {
+			                    console.log("emoji module init")
+			                },
+			                //vue component
+			                dashboard: {
+			                    template: "#template-emoji",
+			                    data: function () {
+			                        return {
+			                            symbols: [
+			                                ">_<|||",
+			                                "^_^;",
+			                                "⊙﹏⊙‖∣°",
+			                                "^_^|||",
+			                                "^_^\"",
+			                                "→_→",
+			                                "..@_@|||||..",
+			                                "…(⊙_⊙;)…",
+			                                "o_o ....",
+			                                "O__O",
+			                                "///^_^.......",
+			                                "?o?|||",
+			                                "( ^_^ )? ",
+			                                "(+_+)?",
+			                                "（?ε?）? ",
+			                                "o_O???",
+			                                "@_@a",
+			                                "一 一+",
+			                                ">\"<||||",
+			                                "‘(*>﹏<*)′"
+			                            ]
+			                        }
+			                    },
+			                    methods: {
+			                        insertSymbol: function (symbol) {
+			                            //$parent is editor component instance
+			                            this.$parent.execCommand("insertText", symbol)
+			                        }
+			                    }
+			                }
+			            },
+			            {
+			                //custom module with dashboard
+			                name: "indent",
+			                icon: "fa indent",
+			                i18n: "indent",
+			                show: true,
+			                init: function (editor) {
+			                    console.log("indent module init, config is", this.config)
+			                },
+			                handler: function (editor) {
+			                	var range = window.selectedContents;
+					            var container = document.createElement('div');
+					                container.appendChild(range.cloneContents());
+					            range.deleteContents();
+					            range.insertNode(container);
+
+					            if(!this.selectAll){
+					                this.selectAll = true;
+					                $(container).find('div').css('text-indent', '2em')
+					            }else{
+					                this.selectAll = false;
+					                $(container).find('div').css('text-indent', '')
+					            }
+
+			                },
+			                destroyed: function (editor) {
+			                    console.log("indent module destroyed")
+			                }
+			            },
+			        ],
 				    visibleModules: [
 				        "text",
 				        "color",
@@ -274,17 +382,16 @@ var data = {
 				        "link",
 				        "unlink",
 				        "tabulation",
-				        //"image",
+				        "image",
 				        "hr",
 				        "eraser",
 				        "undo",
+				        "indent",
+				        //"date",
+				        //"emoji",
 				       // "full-screen",
 				        //"info",
-				    ],
-				    //extended modules 
-				    modules: {
-				        //omit,reference to source code of build-in modules 
-				    }
+				    ]
 				};
 				require("../plug/vue2-html5-editor/src/css/font-awesome.css")
 				require("../plug/vue2-html5-editor/src/style.less")
@@ -592,6 +699,18 @@ var data = {
 				label:not(:first-child){ margin-right:$s10; };
 			}
 			.vue-html5-editor{ @include box-flex;}
+
+			&.time-date{ @include box;
+				.label{ width:5.9375rem; line-height:32px; } 
+				.text{ @include box-flex;
+					input{
+						display:block; float:left; height:$s25; line-height:$s25;
+            			border:$s1 solid #ddd; padding:$s4;
+           				font-size:$s12;
+					}
+				}
+			}
+			.indent{ @include contain('../../images/indent.png')}
 		}
 	}
 </style>

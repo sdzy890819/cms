@@ -123,10 +123,12 @@
                         </input>
                     </div>
                 </li>
-                <li>
-                    <input type="date" v-model="timer">
-                        <input type="time" v-model="datatime"/>
-                    </input>
+                <li class='time-date'>
+                    <div class='label'>请选择日期：</div>
+                    <div class='text'>
+                        <input type='date' v-model='timer' >
+                        <input type="time" v-model='datatime' />
+                    </div>
                 </li>
             </ul>
             <div class="submit">
@@ -298,7 +300,7 @@ export default {
                     //"image",
                     "hr", "eraser", "undo",
                     // "full-screen",
-                    //"info",
+                    "info",
                 ],
                 //extended modules 
                 modules: {
@@ -558,6 +560,16 @@ export default {
         label:not(:first-child){ margin-right:$s10; };
       }
       .vue-html5-editor{ @include box-flex;}
+      &.time-date{ @include box;
+            .label{ width:5.9375rem; line-height:32px; } 
+            .text{ @include box-flex;
+                input{
+                    display:block; float:left; height:$s25; line-height:$s25;
+                    border:$s1 solid #ddd; padding:$s4;
+                    font-size:$s12;
+                }
+            }
+        }
     }
   }
 </style>
