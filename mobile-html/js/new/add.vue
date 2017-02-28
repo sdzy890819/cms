@@ -553,10 +553,11 @@ var data = {
                                 cancelTxt:'保留内容',
 								timing : 'bounceIn', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
 								okCallback:function(){
-                                    $.extend(self,data)
+                                    $.extend(self,obj)
                                     pop.close();
                                 },
                                 nextCallback : function(){
+                                	$.extend(self,obj)
                                     router.push('/new/list')
                                 }
 							});
