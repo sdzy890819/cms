@@ -1,5 +1,5 @@
 <template>
-<div class="new" style="overflow-y:scroll;">
+<div class="new">
 	<div class="form">
 		<ul>
 			<li><input v-model='title' class="text" type="text" placeholder='标题'></li>
@@ -599,6 +599,7 @@ var data = {
 	}
 	.fieldEdit{ width:$s100; @include box; padding-left:$s10; }
 	.form{
+		@include box-flex; overflow-y:scroll;
 		li{
 			.label{ width:5.625rem; padding-right: $s5; text-align:center; }
 			.text{ @include box-flex; 
