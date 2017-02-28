@@ -255,7 +255,7 @@
                                     pop.close();
                                 },
                                 nextCallback : function(){
-                                    router.push('/new/list')
+                                    router.push('/video/list')
                                 }
                             });
                             /*$('.error').addClass('right').text('提交成功！');

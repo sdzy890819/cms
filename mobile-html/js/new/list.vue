@@ -23,7 +23,6 @@
 		<div class="btn">
 			<router-link to="/new/add">
 				<i class="add"></i>
-				新增
 			</router-link>
 		</div>
 	</div>

@@ -26,7 +26,7 @@
 				height:$s33; line-height: $s33; background: green; border:$s1 solid #ddd; color:#fff;
 			}
 		}
-		.imgs{ display:none; }
+		.upload-imgs{ display:none; }
 	}
 }
 </style>
@@ -38,7 +38,7 @@
 				<input id='file' type="file" value="上传图片"/>
 				<div @click='file' class="btn-file">+选择图片</div>
 			</li>
-			<li class="imgs">
+			<li class="upload-imgs">
 				<img id="img">
 				<div class="btn-upload" @click='uploadFile'>上传</div>
 			</li>
@@ -139,7 +139,7 @@
 					reader.onload = function(e){ 
 						self.base64 = this.result;
 						$('#img').attr('src',this.result).parent().show();
-						$('.btn-upload').show();
+						$('.upload-imgs').show();
 					}
 				});
 				/*if(self.filed==true){
@@ -307,7 +307,7 @@
 									cancelTxt:'保留内容',
 									timing : 'bounceIn', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
 									okCallback:function(){
-										$('.imgs').hide();
+										$('.upload-imgs').hide();
 										$('li input[type="text"]').val('');
 										$.extend(self,{
 											filed : true,

@@ -46,7 +46,6 @@
 		<div class="btn">
 			<router-link to="/image/add">
 				<i class="add"></i>
-				新增
 			</router-link>
 		</div>
 	</div>
