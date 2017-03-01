@@ -56,7 +56,7 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 			title : 'condition',
 			name : '关键字',
 			placeholder : '请输入关键字',
-			cls: "w120",
+			cls: "w220",
 			type : 'text'
 		},
 		{

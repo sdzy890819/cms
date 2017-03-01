@@ -468,6 +468,11 @@ define(['require',"app",'jquery','search','./searchForm'
 								getSearchList();
 							}
 						}
+
+						setTimeout(function(){
+							var input = $('.layui-form input[name="condition"');
+							$("<br>").insertBefore(input.parent().parent());
+						},300)
 					});
 				}
 				search();
