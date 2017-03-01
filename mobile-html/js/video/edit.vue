@@ -1,7 +1,7 @@
 <style lang='sass'>
 @import '../../css/global.scss';
 .video{
-    .form{
+    .form{ @include box-flex; overflow-y:scroll;
         margin-top:$s15;
         input[type='file']{ display:none; }
         overflow:hidden;
@@ -255,7 +255,7 @@
                                     pop.close();
                                 },
                                 nextCallback : function(){
-                                    router.push('/new/list')
+                                    router.push('/video/list')
                                 }
                             });
                             /*$('.error').addClass('right').text('提交成功！');

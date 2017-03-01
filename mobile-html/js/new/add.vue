@@ -1,5 +1,5 @@
 <template>
-<div class="new" style="overflow-y:scroll;">
+<div class="new">
 	<div class="form">
 		<ul>
 			<li><input v-model='title' class="text" type="text" placeholder='标题'></li>
@@ -553,10 +553,11 @@ var data = {
                                 cancelTxt:'保留内容',
 								timing : 'bounceIn', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
 								okCallback:function(){
-                                    $.extend(self,data)
+                                    $.extend(self,obj)
                                     pop.close();
                                 },
                                 nextCallback : function(){
+                                	$.extend(self,obj)
                                     router.push('/new/list')
                                 }
 							});
@@ -598,6 +599,7 @@ var data = {
 	}
 	.fieldEdit{ width:$s100; @include box; padding-left:$s10; }
 	.form{
+		@include box-flex; overflow-y:scroll;
 		li{
 			.label{ width:5.625rem; padding-right: $s5; text-align:center; }
 			.text{ @include box-flex; 

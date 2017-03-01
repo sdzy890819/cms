@@ -45,7 +45,7 @@ i{
 	}
 }
 .container{@include box; @include box-flex; padding-bottom:$s60; @include box-sizing;
-	>div{ @include box; @include box-flex; @include box-orient; }
+	>div{ @include box; @include box-flex; @include box-orient; @include box-sizing; }
 }
 #Search{ //搜索
 	@include size(height,35px); @include size(line-height,35px); margin-bottom:$s10; background:#fff; border-bottom:$s1 solid #ddd; padding:$s10;

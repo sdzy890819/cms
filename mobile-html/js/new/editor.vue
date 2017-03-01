@@ -1,5 +1,5 @@
 <template>
-    <div class="new" style="overflow-y:scroll;">
+    <div class="new">
         <div class="form">
             <ul>
                 <li>
@@ -616,10 +616,11 @@ export default {
                             cancelTxt:'保留内容',
                             timing : 'bounceIn', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
                             okCallback:function(){
-                                $.extend(self,data)
+                                $.extend(self,obj)
                                 pop.close();
                             },
                             nextCallback : function(){
+                                $.extend(self,obj)
                                 router.push('/new/list')
                             }
                         });
@@ -660,7 +661,7 @@ export default {
     }
   }
   .fieldEdit{ width:$s100; @include box; padding-left:$s10; }
-  .form{
+  .form{@include box-flex; overflow-y:scroll;
     li{
       .label{ width:5.625rem; padding-right: $s5; text-align:center; }
       .text{ @include box-flex; 
