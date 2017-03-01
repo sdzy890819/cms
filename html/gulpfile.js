@@ -104,7 +104,7 @@ gulp.task('default', function () {
         gulp.run('lint', 'rjs');  
     });
 });
-gulp.task('build', ['testHtmlmin','testAutoFx','testImagemin','jsmin','testfont']);
+gulp.task('build', ['testHtmlmin','testAutoFx','testImagemin','jsmin']);
 
 gulp.task('scripts', function () {
 /* appDir  应用程序的目录（即<root>）。在这个文件夹下的所有文件将会被复制到dir参数标注的文件夹下。
