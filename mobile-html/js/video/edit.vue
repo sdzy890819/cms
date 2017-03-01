@@ -247,15 +247,16 @@
                                 width: '70%',
                                 okTxt:'返回列表',
                                 nextBtn : false,
-                                nextTxt : '返回列表',
+                                //nextTxt : '返回列表',
                                 cancelTxt:'继续修改',
                                 timing : 'bounceIn', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
                                 okCallback:function(){
                                     //$.extend(self,obj)
-                                    pop.close();
+                                    router.push('/video/list');
                                 },
-                                nextCallback : function(){
-                                    router.push('/video/list')
+                                cancelCallback : function(){
+                                    pop.close();
+                                    
                                 }
                             });
                             /*$('.error').addClass('right').text('提交成功！');
