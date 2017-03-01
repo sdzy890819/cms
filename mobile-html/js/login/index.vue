@@ -86,12 +86,12 @@
 			require.ensure([],function(require){
 				self.md5 = require('../plug/md5.min.js');
 			})
-			/*T.ajax({
+			T.ajax({
 				url : login.init ,
 				success : function( _data ){
 					self.tt = _data.data.tt;										
 				}
-			})*/
+			})
 		},
 		mounted(){
 			$('.login li input').click(function(){
@@ -132,32 +132,32 @@
 AES是一种加密
 你要实现的*/
 				T.ajax({
+					url : login.login ,
+					type : 'post',
+					data : {
+						userName : userName , 
+						pwd : pwd , 
+						time : time , 
+						tt : self.tt
+					},
+					success : function( _data ){
+						if(_data.code == 0){
+							router.push('/');
+						}
+						else if(_data.code == -1){
+							$('.error').addClass('cur').text('用户名称或密码错误！')
+						}
+					},
+					error : function(){
+						$('.error').addClass('cur').text('其他错误，请联系技术员！')
+					}
+				})
+				/*T.ajax({
 					url : login.init ,
 					success : function( _data ){
 						self.tt = _data.data.tt;
-						T.ajax({
-							url : login.login ,
-							type : 'post',
-							data : {
-								userName : userName , 
-								pwd : pwd , 
-								time : time , 
-								tt : self.tt
-							},
-							success : function( _data ){
-								if(_data.code == 0){
-									router.push('/');
-								}
-								else if(_data.code == -1){
-									$('.error').addClass('cur').text('用户名称或密码错误！')
-								}
-							},
-							error : function(){
-								$('.error').addClass('cur').text('其他错误，请联系技术员！')
-							}
-						})
 					}
-				})
+				})*/
 			}
 		}
 	}

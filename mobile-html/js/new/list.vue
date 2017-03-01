@@ -9,7 +9,7 @@
 			<dd>
 				<div class="aside">
 					<div class="submit">
-						<div class="btn" @click='edit(obj)'>修改</div>
+						<!-- <div class="btn" @click='edit(obj)'>修改</div> -->
 						<div class="btn" @click='release(obj)'>发布</div>
 					</div>
 					<span class="author">作者：{{obj.writeUserName}}</span>
@@ -23,7 +23,6 @@
 		<div class="btn">
 			<router-link to="/new/add">
 				<i class="add"></i>
-				新增
 			</router-link>
 		</div>
 	</div>

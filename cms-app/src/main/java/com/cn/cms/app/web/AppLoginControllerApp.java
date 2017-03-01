@@ -96,7 +96,6 @@ public class AppLoginControllerApp extends AppBaseController {
         String key = EncryptUtil.encryptAESKey(randomPwd);
         String ttbase = EncryptUtil.base64(EncryptUtil.encryptAES(key, tt).concat(key).getBytes(StaticContants.UTF8));
         CookieUtil.addCookie(response, StaticContants.APP_COOKIE_TT, ttbase, 0);
-        CookieUtil.addCookie(response, StaticContants.APP_COOKIE_DEVICE_IDFA, "AABBCC", 0);
         Map<String, String> map = new HashMap<>();
         map.put("tt", tt);
         return ApiResponse.returnSuccess(map);
@@ -109,18 +108,9 @@ public class AppLoginControllerApp extends AppBaseController {
      * @return
      */
     @RequestMapping(value = "/login/test/en", method = RequestMethod.GET)
-    public String en(@RequestParam(value = "tt") String tt,
-                     @RequestParam(value = "userName") String userName,
-                     @RequestParam(value = "pwd") String pwd,
-                     @RequestParam(value = "time") String time) throws IOException {
-        String abc = EncryptUtil.encryptPwd(userName, pwd);
-        Map<String, String> map = new HashMap<>();
-        map.put("tt", tt);
-        map.put("userName", userName);
-        map.put("pwd", pwd);
-        map.put("time", time);
-        map.put("encrypt", abc);
-        return ApiResponse.returnSuccess(map);
+    public String en(HttpServletResponse response) throws IOException {
+        CookieUtil.addCookie(response, StaticContants.APP_COOKIE_DEVICE_IDFA, "AABBCC", 0);
+        return ApiResponse.returnSuccess();
     }
 
 }

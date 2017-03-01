@@ -1,0 +1,6 @@
+framework module NOOpenUDID {
+  umbrella header "NOOpenUDID.h"
+
+  export *
+  module * { export * }
+}

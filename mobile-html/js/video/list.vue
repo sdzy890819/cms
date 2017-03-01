@@ -47,7 +47,6 @@
 		<div class="btn">
 			<router-link to="/video/add">
 				<i class="add"></i>
-				新增
 			</router-link>
 		</div>
 	</div>

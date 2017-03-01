@@ -1,5 +1,5 @@
 <template>
-    <div class="new" style="overflow-y:scroll;">
+    <div class="new">
         <div class="form">
             <ul>
                 <li>
@@ -58,8 +58,9 @@
                     </div>
                 </li>
                 <li>
-                    <vue2-html5-editor :content.sync="content" :height="200" :value="content" v-model="content">
-                    </vue2-html5-editor>
+                    <!-- <vue2-html5-editor :content.sync="content" :height="200" :value="content" v-model="content">
+                    </vue2-html5-editor> -->
+                    <textarea v-model='content' class="text textedit" disabled='disabled' type="text" placeholder='请输入内容'></textarea>
                 </li>
                 <li>
                     <input class="text" placeholder="扩展字段1" type="text" v-model="field1">
@@ -123,10 +124,12 @@
                         </input>
                     </div>
                 </li>
-                <li>
-                    <input type="date" v-model="timer">
-                        <input type="time" v-model="datatime"/>
-                    </input>
+                <li class='time-date'>
+                    <div class='label'>请选择日期：</div>
+                    <div class='text'>
+                        <input type='date' v-model='timer' >
+                        <input type="time" v-model='datatime' />
+                    </div>
                 </li>
             </ul>
             <div class="submit">
@@ -289,27 +292,133 @@ export default {
                 });
             }
         });
-        require.ensure([], function(require) {
+       /* require.ensure([], function(require) {
             var options = {
-                name: "vue2-html5-editor",
-                visibleModules: ["text", "color",
-                    //"font",
-                    "align", "list", "link", "unlink", "tabulation",
-                    //"image",
-                    "hr", "eraser", "undo",
-                    // "full-screen",
-                    //"info",
-                ],
-                //extended modules 
-                modules: {
-                    //omit,reference to source code of build-in modules 
-                }
-            };
+                    name: "vue2-html5-editor",
+                     i18n: {
+                        "en-us": {
+                            date: "insert current time",
+                            emoji: "emoji",
+                            indent: "indent"
+                        }
+                    },
+                    date: {
+                        format: "YYYY/MM/DD"
+                    },
+                    modules: [
+                        {
+                            name: "date",
+                            icon: "fa fa-calendar",
+                            i18n: "time",
+                            show: true,
+                            init: function (editor) {
+                                console.log("time module init, config is", this.config)
+                            },
+                            handler: function (editor) {
+                                var format = this.config.format || "YYYY-MM-DD HH:mm"
+                                editor.execCommand("insertText", moment().format(format))
+                            },
+                            destroyed: function (editor) {
+                                console.log("time module destroyed")
+                            }
+                        },
+                        {
+                            name: "emoji",
+                            icon: "fa fa-smile-o",
+                            i18n: "emoji",
+                            show: true,
+                            init: function (editor) {
+                                console.log("emoji module init")
+                            },
+                            dashboard: {
+                                template: "#template-emoji",
+                                data: function () {
+                                    return {
+                                        symbols: [
+                                            ">_<|||",
+                                            "^_^;",
+                                            "⊙﹏⊙‖∣°",
+                                            "^_^|||",
+                                            "^_^\"",
+                                            "→_→",
+                                            "..@_@|||||..",
+                                            "…(⊙_⊙;)…",
+                                            "o_o ....",
+                                            "O__O",
+                                            "///^_^.......",
+                                            "?o?|||",
+                                            "( ^_^ )? ",
+                                            "(+_+)?",
+                                            "（?ε?）? ",
+                                            "o_O???",
+                                            "@_@a",
+                                            "一 一+",
+                                            ">\"<||||",
+                                            "‘(*>﹏<*)′"
+                                        ]
+                                    }
+                                },
+                                methods: {
+                                    insertSymbol: function (symbol) {
+                                        this.$parent.execCommand("insertText", symbol)
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            name: "indent",
+                            icon: "fa indent",
+                            i18n: "indent",
+                            show: true,
+                            init: function (editor) {
+                                console.log("indent module init, config is", this.config)
+                            },
+                            handler: function (editor) {
+                                var range = window.selectedContents;
+                                var container = document.createElement('div');
+                                    container.appendChild(range.cloneContents());
+                                range.deleteContents();
+                                range.insertNode(container);
+
+                                if(!this.selectAll){
+                                    this.selectAll = true;
+                                    $(container).find('div').css('text-indent', '2em')
+                                }else{
+                                    this.selectAll = false;
+                                    $(container).find('div').css('text-indent', '')
+                                }
+
+                            },
+                            destroyed: function (editor) {
+                                console.log("indent module destroyed")
+                            }
+                        },
+                    ],
+                    visibleModules: [
+                        "text",
+                        "color",
+                        //"font",
+                        "align",
+                        "list",
+                        "link",
+                        "unlink",
+                        "tabulation",
+                        "image",
+                        "hr",
+                        "eraser",
+                        "undo",
+                        "indent",
+                        //"date",
+                        //"emoji",
+                       // "full-screen",
+                        //"info",
+                    ]
+                };
             require("../plug/vue2-html5-editor/src/css/font-awesome.css")
             require("../plug/vue2-html5-editor/src/style.less")
             var editor = require("../plug/vue2-html5-editor/dist/vue2-html5-editor.js");
             Vue.use(editor, options);
-        })
+        })*/
     },
     mounted() {
         var self = this;
@@ -354,16 +463,6 @@ export default {
                     var pop = new Pop({
                         title : '提示',
                         content : '<center>标题不能小于2位数！</center>',
-                        width: '70%',
-                        cancelBtn:false,
-                        timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
-                    });
-                    return;
-                }
-                if(obj.subTitle.length<2){
-                    var pop = new Pop({
-                        title : '提示',
-                        content : '<center>副标题不能小于2位数！</center>',
                         width: '70%',
                         cancelBtn:false,
                         timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
@@ -517,10 +616,11 @@ export default {
                             cancelTxt:'保留内容',
                             timing : 'bounceIn', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
                             okCallback:function(){
-                                $.extend(self,data)
+                                $.extend(self,obj)
                                 pop.close();
                             },
                             nextCallback : function(){
+                                $.extend(self,obj)
                                 router.push('/new/list')
                             }
                         });
@@ -561,12 +661,25 @@ export default {
     }
   }
   .fieldEdit{ width:$s100; @include box; padding-left:$s10; }
-  .form{
+  .form{@include box-flex; overflow-y:scroll;
     li{
       .label{ width:5.625rem; padding-right: $s5; text-align:center; }
       .text{ @include box-flex; 
         label:not(:first-child){ margin-right:$s10; };
       }
+      .textedit{ height:$s100; }
+      .vue-html5-editor{ @include box-flex;}
+      &.time-date{ @include box;
+            .label{ width:5.9375rem; line-height:32px; } 
+            .text{ @include box-flex;
+                input{
+                    display:block; float:left; height:$s25; line-height:$s25;
+                    border:$s1 solid #ddd; padding:$s4;
+                    font-size:$s12;
+                }
+            }
+        }
+        .indent{ @include contain('../../images/indent.png');vertical-align: middle;}
     }
   }
 </style>

@@ -1,5 +1,5 @@
 <template>
-<div class="new" style="overflow-y:scroll;">
+<div class="new">
 	<div class="form">
 		<ul>
 			<li><input v-model='title' class="text" type="text" placeholder='标题'></li>
@@ -41,7 +41,8 @@
 				</div>
 			</li>
 			<li>
-				<vue2-html5-editor v-model="content" :content.sync="content" :value="content" :height="200"></vue2-html5-editor>
+				<!-- <vue2-html5-editor v-model="content" :content.sync="content" :value="content" width='100%' :height="200"></vue2-html5-editor> -->
+				<textarea v-model='content' class="text textedit" type="text" placeholder='请输入内容'></textarea>
 			</li>
 			<li>
 				<input v-model='field1' class="text" type="text" placeholder='扩展字段1'>
@@ -86,9 +87,12 @@
 					<label for="two">不发布</label>
 				</div>
 			</li>
-			<li>
-				<input type='date' v-model='timer' >
-				<input type="time" v-model='datatime' />
+			<li class='time-date'>
+				<div class='label'>请选择日期：</div>
+				<div class='text'>
+					<input type='date' v-model='timer' >
+					<input type="time" v-model='datatime' />
+				</div>
 			</li>
 		</ul>
 		<div class="submit">
@@ -129,7 +133,7 @@ var data = {
 	channelId:-1,//频道ID
 	columnId:-1,//栏目ID
 	categoryId:-1,//部门分类ID
-	content:'请输入内容',//详细内容"
+	content:'',//详细内容"
 	field1:'',//扩展字段，界面上需要的时候点击添加" //可不传
 	field2:'',//扩展字段，界面上需要的时候点击添加" //可不传
 	field3:'',//扩展字段，界面上需要的时候点击添加" //可不传
@@ -168,103 +172,112 @@ var data = {
 					self.data.listCategory = _data.data;
 				}
 			});
-			require.ensure([],function(require){
+			/*require.ensure([],function(require){
 				var options = {
-				    //global component name 
 				    name: "vue2-html5-editor",
-				    //custom icon class of built-in modules,default using font-awesome 
-				    /*icons: {
-				        text: "fa fa-pencil",
-				        color: "fa fa-paint-brush",
-				        font: "fa fa-font",
-				        align: "fa fa-align-justify",
-				        list: "fa fa-list",
-				        link: "fa fa-chain",
-				        unlink: "fa fa-chain-broken",
-				        tabulation: "fa fa-table",
-				        image: "fa fa-file-image-o",
-				        hr: "fa fa-minus",
-				        eraser: "fa fa-eraser",
-				        undo: "fa-undo fa",
-				        "full-screen": "fa fa-arrows-alt",
-				        info: "fa fa-info",
-				    },*/
-				    //config image module 
-				    /*image: {
-				        //Url of the server-side,default null and convert image to base64 
-				        server: null,
-				        //the name for file field in multipart request 
-				        fieldName: "image",
-				        //max file size 
-				        sizeLimit: 512 * 1024,
-				        // default true,if set to true,the image will resize by localResizeIMG (https://github.com/think2011/localResizeIMG) 
-				        compress: true,
-				        //follows are options of localResizeIMG 
-				        width: 1600,
-				        height: 1600,
-				        quality: 80,
-				        //handle response data，return image url 
-				        uploadHandler(responseText){
-				            //default accept json data like  {ok:false,msg:"unexpected"} or {ok:true,data:"image url"} 
-				            var json = JSON.parse(responseText)
-				            if (!json.ok) {
-				                alert(json.msg)
-				            } else {
-				                return json.data
-				            }
-				        }
-				    },
-				    //default en-us, en-us and zh-cn are built-in 
-				    language: "zh-cn",
-				    i18n: {
-				        //specify your language here 
-				        "zh-cn": {
-				            "align": "对齐方式",
-				            "image": "图片",
-				            "list": "列表",
-				            "link": "链接",
-				            "unlink": "去除链接",
-				            "table": "表格",
-				            "font": "文字",
-				            "full screen": "全屏",
-				            "text": "排版",
-				            "eraser": "格式清除",
-				            "info": "关于",
-				            "color": "颜色",
-				            "please enter a url": "请输入地址",
-				            "create link": "创建链接",
-				            "bold": "加粗",
-				            "italic": "倾斜",
-				            "underline": "下划线",
-				            "strike through": "删除线",
-				            "subscript": "上标",
-				            "superscript": "下标",
-				            "heading": "标题",
-				            "font name": "字体",
-				            "font size": "文字大小",
-				            "left justify": "左对齐",
-				            "center justify": "居中",
-				            "right justify": "右对齐",
-				            "ordered list": "有序列表",
-				            "unordered list": "无序列表",
-				            "fore color": "前景色",
-				            "background color": "背景色",
-				            "row count": "行数",
-				            "column count": "列数",
-				            "save": "确定",
-				            "upload": "上传",
-				            "progress": "进度",
-				            "unknown": "未知",
-				            "please wait": "请稍等",
-				            "error": "错误",
-				            "abort": "中断",
-				            "reset": "重置"
-				        }
-				    },
-				    //the modules you don't want 
-				    hiddenModules: [],*/
-				    //keep only the modules you want and customize the order. 
-				    //can be used with hiddenModules together 
+				     i18n: {
+			            "en-us": {
+			                date: "insert current time",
+			                emoji: "emoji",
+			                indent: "indent"
+			            }
+			        },
+			        date: {
+			            format: "YYYY/MM/DD"
+			        },
+			        modules: [
+			            {
+			                name: "date",
+			                icon: "fa fa-calendar",
+			                i18n: "time",
+			                show: true,
+			                init: function (editor) {
+			                    console.log("time module init, config is", this.config)
+			                },
+			                handler: function (editor) {
+			                    var format = this.config.format || "YYYY-MM-DD HH:mm"
+			                    editor.execCommand("insertText", moment().format(format))
+			                },
+			                destroyed: function (editor) {
+			                    console.log("time module destroyed")
+			                }
+			            },
+			            {
+			                //custom module with dashboard
+			                name: "emoji",
+			                icon: "fa fa-smile-o",
+			                i18n: "emoji",
+			                show: true,
+			                init: function (editor) {
+			                    console.log("emoji module init")
+			                },
+			                //vue component
+			                dashboard: {
+			                    template: "#template-emoji",
+			                    data: function () {
+			                        return {
+			                            symbols: [
+			                                ">_<|||",
+			                                "^_^;",
+			                                "⊙﹏⊙‖∣°",
+			                                "^_^|||",
+			                                "^_^\"",
+			                                "→_→",
+			                                "..@_@|||||..",
+			                                "…(⊙_⊙;)…",
+			                                "o_o ....",
+			                                "O__O",
+			                                "///^_^.......",
+			                                "?o?|||",
+			                                "( ^_^ )? ",
+			                                "(+_+)?",
+			                                "（?ε?）? ",
+			                                "o_O???",
+			                                "@_@a",
+			                                "一 一+",
+			                                ">\"<||||",
+			                                "‘(*>﹏<*)′"
+			                            ]
+			                        }
+			                    },
+			                    methods: {
+			                        insertSymbol: function (symbol) {
+			                            //$parent is editor component instance
+			                            this.$parent.execCommand("insertText", symbol)
+			                        }
+			                    }
+			                }
+			            },
+			            {
+			                //custom module with dashboard
+			                name: "indent",
+			                icon: "fa indent",
+			                i18n: "indent",
+			                show: true,
+			                init: function (editor) {
+			                    console.log("indent module init, config is", this.config)
+			                },
+			                handler: function (editor) {
+			                	var range = window.selectedContents;
+					            var container = document.createElement('div');
+					                container.appendChild(range.cloneContents());
+					            range.deleteContents();
+					            range.insertNode(container);
+
+					            if(!this.selectAll){
+					                this.selectAll = true;
+					                $(container).find('div').css('text-indent', '2em')
+					            }else{
+					                this.selectAll = false;
+					                $(container).find('div').css('text-indent', '')
+					            }
+
+			                },
+			                destroyed: function (editor) {
+			                    console.log("indent module destroyed")
+			                }
+			            },
+			        ],
 				    visibleModules: [
 				        "text",
 				        "color",
@@ -274,23 +287,22 @@ var data = {
 				        "link",
 				        "unlink",
 				        "tabulation",
-				        //"image",
+				        "image",
 				        "hr",
 				        "eraser",
 				        "undo",
+				        "indent",
+				        //"date",
+				        //"emoji",
 				       // "full-screen",
 				        //"info",
-				    ],
-				    //extended modules 
-				    modules: {
-				        //omit,reference to source code of build-in modules 
-				    }
+				    ]
 				};
 				require("../plug/vue2-html5-editor/src/css/font-awesome.css")
 				require("../plug/vue2-html5-editor/src/style.less")
 				var editor = require("../plug/vue2-html5-editor/dist/vue2-html5-editor.js");
 				Vue.use(editor, options);
-			})
+			})*/
 		},
 		mounted(){
 			var self = this;
@@ -389,16 +401,6 @@ var data = {
 						var pop = new Pop({
                             title : '提示',
                             content : '<center>标题不能小于2位数！</center>',
-                            width: '70%',
-                            cancelBtn:false,
-                            timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
-                        });
-						return;
-					}
-					if(obj.subTitle.length<2){
-						var pop = new Pop({
-                            title : '提示',
-                            content : '<center>副标题不能小于2位数！</center>',
                             width: '70%',
                             cancelBtn:false,
                             timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
@@ -551,10 +553,11 @@ var data = {
                                 cancelTxt:'保留内容',
 								timing : 'bounceIn', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
 								okCallback:function(){
-                                    $.extend(self,data)
+                                    $.extend(self,obj)
                                     pop.close();
                                 },
                                 nextCallback : function(){
+                                	$.extend(self,obj)
                                     router.push('/new/list')
                                 }
 							});
@@ -596,11 +599,25 @@ var data = {
 	}
 	.fieldEdit{ width:$s100; @include box; padding-left:$s10; }
 	.form{
+		@include box-flex; overflow-y:scroll;
 		li{
 			.label{ width:5.625rem; padding-right: $s5; text-align:center; }
 			.text{ @include box-flex; 
 				label:not(:first-child){ margin-right:$s10; };
 			}
+			.vue-html5-editor{ @include box-flex;}
+			.textedit{ height:$s100; }
+			&.time-date{ @include box;
+				.label{ width:5.9375rem; line-height:32px; } 
+				.text{ @include box-flex;
+					input{
+						display:block; float:left; height:$s25; line-height:$s25;
+            			border:$s1 solid #ddd; padding:$s4;
+           				font-size:$s12;
+					}
+				}
+			}
+			.indent{ @include contain('../../images/indent.png');vertical-align: middle;}
 		}
 	}
 </style>

@@ -1,10 +1,9 @@
 <style lang='sass'>
 @import '../../css/global.scss';
-.image{ overflow-y: scroll;
-    .form{
+.image{ 
+    .form{ @include box-flex; overflow-y:scroll;
         margin-top:$s15;
         input[type='file']{ display:none; }
-        overflow:hidden;
         .btn-file,.btn-upload{ @include box-flex; @include box-sizing; border-radius:$s3;
             display: block; height:$s35; line-height: $s35; text-align: center; border:$s1 solid #ddd; background:#0999e0; color:#fff;
             &.gray{ background:gray; } 
@@ -17,7 +16,7 @@
                 label:not(:first-child){ margin-right:$s10; };
             }
             #img{ display:block; margin:0 auto; min-width:$s5; min-height:$s5; max-width:15rem; max-height: 15rem; border:$s1 solid #ddd; padding:$s1; background:#fff; }
-            &.imgs{ @include box-orient;}
+            &.imgs{ display:block; @include box-orient;}
         }
         .error{ @include transition-duration(.5s); height:0; margin:0 $s20; border:0; text-align: center; overflow:hidden;
             &.cur{

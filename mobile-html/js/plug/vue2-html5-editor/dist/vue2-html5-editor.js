@@ -1113,6 +1113,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	        value: {
 	            required: true
 	        },
+	        width: {
+	            type: Number,
+	            default: '100%',
+	            validator: function validator(val) {
+	                return val >= 100;
+	            }
+	        },
 	        height: {
 	            type: Number,
 	            default: 300,
@@ -1205,6 +1212,29 @@ return /******/ (function(modules) { // webpackBootstrap
 	        },
 	        toggleDashboard: function toggleDashboard(dashboard) {
 	            this.dashboard == dashboard ? this.dashboard = null : this.dashboard = dashboard;
+	             function getSelectedContents(fn){
+		            if (window.getSelection) { //chrome,firefox,opera
+		                var range=window.getSelection().getRangeAt(0);
+		                var container = document.createElement('div');
+		                container.appendChild(range.cloneContents());
+		                return range;
+		                //return window.getSelection(); //只复制文本
+		            }
+		            else if (document.getSelection) { //其他
+		                var range=document.getSelection().getRangeAt(0);
+		                var container = document.createElement('div');
+		                container.appendChild(range.cloneContents());
+		                return range;
+		                //return container.innerHTML;
+		                //return document.getSelection(); //只复制文本
+		            }
+		            else if (document.selection) { //IE特有的
+		                return document.selection.createRange();
+		                //return document.selection.createRange().htmlText;
+		                //return document.selection.createRange().text; //只复制文本
+		            }
+		        }
+	            window.selectedContents = getSelectedContents();
 	        },
 	        execCommand: function execCommand(command, arg) {
 	            this.restoreSelection();
@@ -1252,6 +1282,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                range.setEnd(div, 0);
 	                selection.addRange(range);
 	            }
+
 	        },
 	        activeModule: function activeModule(module) {
 	            if (typeof module.handler == "function") {

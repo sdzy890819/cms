@@ -1,10 +1,9 @@
 <style lang='sass'>
 @import '../../css/global.scss';
-.image{ overflow-y: scroll;
-	.form{
+.image{
+	.form{ @include box-flex; overflow-y:scroll;
 		margin-top:$s15;
 		input[type='file']{ display:none; }
-		overflow:hidden;
 		.btn-file,.btn-upload{ @include box-flex; @include box-sizing; border-radius:$s3;
 			display: block; height:$s35; line-height: $s35; text-align: center; border:$s1 solid #ddd; background:#0999e0; color:#fff;
 			&.gray{ background:gray; } 
@@ -27,7 +26,7 @@
 				height:$s33; line-height: $s33; background: green; border:$s1 solid #ddd; color:#fff;
 			}
 		}
-		.imgs{ display:none; }
+		.upload-imgs{ display:none; }
 	}
 }
 </style>
@@ -39,7 +38,7 @@
 				<input id='file' type="file" value="上传图片"/>
 				<div @click='file' class="btn-file">+选择图片</div>
 			</li>
-			<li class="imgs">
+			<li class="upload-imgs">
 				<img id="img">
 				<div class="btn-upload" @click='uploadFile'>上传</div>
 			</li>
@@ -118,6 +117,8 @@
 					tag.removeClass('gray')
 					var file = this.files[0]; 
 					self.fileType = file;
+
+					console.log(file);
 					//这里我们判断下类型如果不是图片就返回 去掉就可以上传任意文件 
 					if(!/image\/\w+/.test(file.type)){ 
 						//alert("请确保文件为图像类型"); 
@@ -138,7 +139,7 @@
 					reader.onload = function(e){ 
 						self.base64 = this.result;
 						$('#img').attr('src',this.result).parent().show();
-						$('.btn-upload').show();
+						$('.upload-imgs').show();
 					}
 				});
 				/*if(self.filed==true){
@@ -306,7 +307,7 @@
 									cancelTxt:'保留内容',
 									timing : 'bounceIn', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
 									okCallback:function(){
-										$('.imgs').hide();
+										$('.upload-imgs').hide();
 										$('li input[type="text"]').val('');
 										$.extend(self,{
 											filed : true,
