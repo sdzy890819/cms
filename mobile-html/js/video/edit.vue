@@ -213,7 +213,7 @@
                         setTimeout(function(){
                             pop.close();
                         },3000)
-                    return;
+                        return;
                     }
                     if(title.length<2){
                     //$('.error').addClass('cur').text('标题不能底于2个字符');
@@ -264,7 +264,7 @@
                                 cancelTxt:'保留内容',
                                 timing : 'bounceIn', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
                                 okCallback:function(){
-                                    $.extend(self,data)
+                                    $.extend(self,obj)
                                     pop.close();
                                 },
                                 nextCallback : function(){
