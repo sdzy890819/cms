@@ -238,7 +238,7 @@
                                 nextBtn : true,
                                 nextTxt : '返回列表',
                                 cancelTxt:'保留内容',
-                                timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+                                timing : 'bounceIn', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
                                 okCallback:function(){
                                     $.extend(self,obj)
                                     pop.close();

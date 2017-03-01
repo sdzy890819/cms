@@ -171,23 +171,10 @@
                     success : function(_data){
                         $.extend(self.videos,_data.data)
                         self.videos.videoUrl = _data.data.location;
-                        /*$('.error').addClass('right').text('上传成功');
+                        $('.error').addClass('right').text('上传成功');
                         setTimeout(function(){
                             $('.error').removeClass('right');
-                        },1000);*/
-                        require.ensure([],function(require){
-                            var Pop = require('../widgets/pop.js');
-                            var pop = new Pop({
-                                title : '提示',
-                                content : '<center>上传成功</center>',
-                                width: '70%',
-                                cancelBtn:false,
-                                timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
-                            });
-                            setTimeout(function(){
-                                pop.close();
-                            },3000)
-                        });
+                        },1000);
                     }
                 })
             }
@@ -258,13 +245,13 @@
                                 title : '提示',
                                 content : '<center>'+text+'</center>',
                                 width: '70%',
-                                okTxt:'清空内容',
-                                nextBtn : true,
+                                okTxt:'返回列表',
+                                nextBtn : false,
                                 nextTxt : '返回列表',
-                                cancelTxt:'保留内容',
+                                cancelTxt:'继续修改',
                                 timing : 'bounceIn', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
                                 okCallback:function(){
-                                    $.extend(self,obj)
+                                    //$.extend(self,obj)
                                     pop.close();
                                 },
                                 nextCallback : function(){
