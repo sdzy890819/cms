@@ -188,6 +188,7 @@ public class FragmentController extends BaseController {
         fragment.setFragmentName(fragmentName);
         fragment.setFragmentClassifyId(fragmentClassifyId);
         fragment.setFragmentModel(fragmentModel);
+        fragment.setFragmentContent("");
         fragment.setSortNum(sortNum);
         fragment.setLastModifyUserId(getCurrentUserId(request));
         fragmentBiz.updateFragment(fragment);
