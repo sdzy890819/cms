@@ -121,16 +121,17 @@ define(['require',"app",'jquery'
 
 	        					save : function(obj, _detail) {
 
-	        						var values = [];	        						
+	        						var values = {};	        						
 	        						$.each(obj, function(k, v){
+
 	        							if (k != 'selects') {
-	        								values.push(v);
+	        								values[k] = v;
 	        							}
 	        						})
-
+	        						
 	        						getData.fragment.editFragment({
 	        							id : _detail.id,
-	        							values : values,	        							
+	        							values : JSON.stringify(values),	        							
 	        							callback : function(_data) {
 													layui.use(['layer'], function(){
 														var layer = layui.layer;
