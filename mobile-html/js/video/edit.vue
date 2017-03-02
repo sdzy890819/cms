@@ -96,7 +96,7 @@
                         tag.removeClass('gray')
                         var file = this.files[0]; 
                         //这里我们判断下类型如果不是图片就返回 去掉就可以上传任意文件 
-                        if(!file || !file.name.toLowerCase().search(/(video|kux|remb|avi|rmvb|rm|asf|divx|mpg|mpeg|mpe|wmv|mp4|mkv|vob)$/)){ 
+                        if(file && !file.name.toLowerCase().search(/(video|kux|remb|avi|rmvb|rm|asf|divx|mpg|mpeg|mpe|wmv|mp4|mkv|vob)$/)){ 
                             //alert("请确保文件为视频类型"); 
                             if(!ispop){
                                 ispop = true;
