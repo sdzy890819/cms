@@ -57,11 +57,21 @@ var T = {
                         obj.success(_data);
                         return;
                     };
-                    if(_data.code == -110 || _data.code == -1 ){//未登录
+                    if(_data.code == -110 ){//未登录
                         router.push('/login')
                         return;
-                    }else if(_data.code == -111 ){ //无权限                                
                     }
+                    require.ensure([], function(require) {
+                        var Pop = require('../widgets/pop.js');
+                        var pop = new Pop({
+                            title: '提示',
+                            content: _data.message,
+                            width: '70%',
+                            cancelBtn: false,
+                            okTxt: '确定',
+                            timing: 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+                        });
+                    });
                 }
             },
             error : function(){}
