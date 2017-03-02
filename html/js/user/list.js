@@ -1,8 +1,9 @@
 define(['require',"app",'jquery',
 	'../data/getData' , './addForm', 'search', './searchForm',
+	'../common/editPop',
 	'formlist','position','fixedNav',
 	'../moduls/service','../moduls/factory'
-], function ( require , app , $ , getData , list, search, searchForm ) {
+], function ( require , app , $ , getData , list, search, searchForm,editPop ) {
 	app.directive('userList',function(){
 		return {
 	    	restrict : 'E',
@@ -22,9 +23,6 @@ define(['require',"app",'jquery',
 							}
 						})
 					},
-					edit : function( obj ){ //保存
-					},
-
 					editUserChannel : function(obj) {
 						require(['./channelPop'], function(pop) {
         				pop.init({
@@ -41,7 +39,22 @@ define(['require',"app",'jquery',
         				});
 	  				});	
 					},
+					edit : function( obj ){
+						editPop.init({
+        					obj : obj,
+        					list : list,
+        					updateData : function(){
 
+        					},
+        					save : function(obj , _detail ){ //保存 新增 确认 等
+        						
+        					},
+        					callback : function( list , callback ){ //返回获取的数据 用于操作  				
+								
+        					},
+        					$uibModal :$uibModal 
+        				});
+					},
 					del : function( obj ){ //删除
 						
 						pop.alert({
@@ -72,6 +85,7 @@ define(['require',"app",'jquery',
 					var th = [
 								{name:'头像' ,  key: 'headImage', width : '200'},										
 								{name:'真实名称', key: 'realName' },
+								//{name:'用户名', key: 'realName' },
 								{name: 'IDFA(MAC)', key: 'idfa'},
 								{name: '用户ID', key: 'userId'},
 								{name:'操作' , width : '300' , class:'center'}
@@ -92,6 +106,7 @@ define(['require',"app",'jquery',
 							edit : [
 								{cls : 'edit' , name : '所属频道',evt:$scope.editUserChannel},
 								{cls : 'edit' , name : '用户组',evt:$scope.editUserPosition},
+								{cls : 'edit' , name : '编辑',evt:$scope.edit},
 								{cls : 'del' , name : '删除',evt:$scope.del}
 							]
 						}

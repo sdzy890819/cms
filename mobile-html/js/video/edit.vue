@@ -87,35 +87,47 @@
             file : function(evet){
                 var self = this ,
                     tag = $(event.currentTarget),
-                    file = $('#file');
-                file.bind('change',function(){
-                    self.filed = true;
-                    tag.removeClass('gray')
-                    var file = this.files[0]; 
-                    //这里我们判断下类型如果不是图片就返回 去掉就可以上传任意文件 
-                    if(!/video\/\w+/.test(file.type)){ 
-                        //alert("请确保文件为视频类型"); 
-                        require.ensure([],function(require){
-                            var Pop = require('../widgets/pop.js');
-                            var pop = new Pop({
-                                title : '提示',
-                                content : '<center>请确保文件为视频类型</center>',
-                                width: '70%',
-                                cancelBtn:false,
-                                timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
-                            });
-                            setTimeout(function(){
-                                pop.close();
-                            },3000)
-                        });
-                        return false; 
-                    } 
-                    self.fileType = file;
-                    var reader = new FileReader(); 
-                    reader.readAsDataURL(file); 
-                    reader.onload = function(e){ 
-                        self.base64 = this.result;
-                    }
+                    file = $('#file'),
+                    ispop = false;
+                require.ensure([], function(require) {
+                    var Pop = require('../widgets/pop.js');
+                    file.bind('change',function(){
+                        self.filed = true;
+                        tag.removeClass('gray')
+                        var file = this.files[0]; 
+                        //这里我们判断下类型如果不是图片就返回 去掉就可以上传任意文件 
+                        if(!/video\/\w+/.test(file.type)){ 
+                            //alert("请确保文件为视频类型"); 
+                            if(!ispop){
+                                ispop = true;
+                                var pop = new Pop({
+                                    title: '提示',
+                                    content: '请确保文件为视频类型',
+                                    width: '70%',
+                                    cancelBtn: false,
+                                    okTxt: '确定',
+                                    timing: 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+                                    okCallback : function(){
+                                        ispop = false;
+                                    }
+                                });
+                            }
+                            return false; 
+                        } 
+                        self.fileType = file;
+                        var reader = new FileReader(); 
+                        //reader.readAsArrayBuffer(file); 
+                        reader.readAsDataURL(file); 
+                        reader.onload = function(e){ 
+                            self.base64 = this.result;
+                            /*var data = reader.result;
+                            self.array = new Int8Array(data);*/
+
+                            //var num = 100*15000;
+                            //var str = JSON.stringify(array, null, '  ');
+
+                        }
+                    });
                 });
                 if(self.filed==true){
                     self.filed = false;
@@ -159,28 +171,16 @@
                     success : function(_data){
                         $.extend(self.videos,_data.data)
                         self.videos.videoUrl = _data.data.location;
-                        /*$('.error').addClass('right').text('上传成功');
+                        $('.error').addClass('right').text('上传成功');
                         setTimeout(function(){
                             $('.error').removeClass('right');
-                        },1000);*/
-                        require.ensure([],function(require){
-                            var Pop = require('../widgets/pop.js');
-                            var pop = new Pop({
-                                title : '提示',
-                                content : '<center>上传成功</center>',
-                                width: '70%',
-                                cancelBtn:false,
-                                timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
-                            });
-                            setTimeout(function(){
-                                pop.close();
-                            },3000)
-                        });
+                        },1000);
                     }
                 })
             }
             ,submit : function(){
-                var base64 = this.base64 ,
+                var self = this,
+                    base64 = this.base64 ,
                     file = this.fileType, 
                     describe = this.describe,
                     title = this.title , 
@@ -200,7 +200,7 @@
                         setTimeout(function(){
                             pop.close();
                         },3000)
-                    return;
+                        return;
                     }
                     if(title.length<2){
                     //$('.error').addClass('cur').text('标题不能底于2个字符');
@@ -245,17 +245,18 @@
                                 title : '提示',
                                 content : '<center>'+text+'</center>',
                                 width: '70%',
-                                okTxt:'清空内容',
-                                nextBtn : true,
-                                nextTxt : '返回列表',
-                                cancelTxt:'保留内容',
+                                okTxt:'返回列表',
+                                nextBtn : false,
+                                //nextTxt : '返回列表',
+                                cancelTxt:'继续修改',
                                 timing : 'bounceIn', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
                                 okCallback:function(){
-                                    $.extend(self,data)
-                                    pop.close();
+                                    //$.extend(self,obj)
+                                    router.push('/video/list');
                                 },
-                                nextCallback : function(){
-                                    router.push('/video/list')
+                                cancelCallback : function(){
+                                    pop.close();
+                                    
                                 }
                             });
                             /*$('.error').addClass('right').text('提交成功！');
