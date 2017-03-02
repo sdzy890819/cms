@@ -1,5 +1,6 @@
 package com.cn.cms.web.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.cn.cms.biz.FragmentBiz;
 import com.cn.cms.biz.PublishBiz;
 import com.cn.cms.contants.StaticContants;
@@ -102,20 +103,21 @@ public class FragmentController extends BaseController {
     @RequestMapping(value = "/editFragment", method = RequestMethod.POST)
     public String editFragment(HttpServletRequest request,
                                @RequestParam(value = "id") Long id,
-                               @RequestParam(value = "values") String[] values){
+                               @RequestParam(value = "values") String values){
+        JSONObject jsonObject = JSONObject.parseObject(values);
         Fragment fragment = fragmentBiz.findFragment(id);
         if(fragment == null){
             return ApiResponse.returnFail(StaticContants.ERROR_FRAGMENT_NOT_FOUND);
         }
         List<String> list = FragmentUtil.getKey(fragment.getFragmentModel(), RegexNumEnum.REGEX_ALL);
-        if(list == null || list.size()!=values.length){
+        if(list == null || list.size() != jsonObject.size()){
             return ApiResponse.returnFail(StaticContants.ERROR_FRAGMENT_LENGTH);
         }
         fragment.setLastModifyUserId(getCurrentUserId(request));
         String fragmentModel = fragment.getFragmentModel();
         for(int i=0; i<list.size(); i++){
-            fragmentModel = fragmentModel.replace(list.get(i), values[i]);
-
+            fragmentModel = fragmentModel.replace(list.get(i),
+                    jsonObject.getString(list.get(i).substring(2, list.get(i).length()-2).trim()));
         }
         fragment.setFragmentContent(fragmentModel);
         fragmentBiz.editFragment(fragment);
@@ -186,6 +188,7 @@ public class FragmentController extends BaseController {
         fragment.setFragmentName(fragmentName);
         fragment.setFragmentClassifyId(fragmentClassifyId);
         fragment.setFragmentModel(fragmentModel);
+        fragment.setFragmentContent("");
         fragment.setSortNum(sortNum);
         fragment.setLastModifyUserId(getCurrentUserId(request));
         fragmentBiz.updateFragment(fragment);
