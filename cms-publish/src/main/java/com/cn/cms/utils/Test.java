@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.enums.ErrorCodeEnum;
+import com.cn.cms.enums.RegexNumEnum;
 import com.cn.cms.logfactory.CommonLog;
 import com.cn.cms.logfactory.CommonLogFactory;
 import com.cn.cms.po.Channel;
@@ -18,6 +19,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.List;
 
 /**
  * Created by zhangyang on 16/12/28.
@@ -69,7 +71,10 @@ public class Test {
 //        Channel channel = a.getData();
 //        System.out.println(channel.getChannelName());
 //        System.out.println(StaticContants.OS_NAME);
-        System.out.println(JSONObject.toJSONString(ErrorCodeEnum.ERROR_CODE_DEFAULT, StaticContants.config));
+        //System.out.println(JSONObject.toJSONString(ErrorCodeEnum.ERROR_CODE_DEFAULT, StaticContants.config));
+
+        System.out.println("{#1234#}".substring(2,"{#1234#}".length()-2));
+
     }
 
 
