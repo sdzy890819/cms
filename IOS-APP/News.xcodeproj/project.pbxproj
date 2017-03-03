@@ -18,7 +18,7 @@
 		F375EB071E63E60A0020DC98 /* NOOpenUDID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F375EB021E63E5F00020DC98 /* NOOpenUDID.framework */; };
 		F375EB081E63E60A0020DC98 /* NOOpenUDID.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F375EB021E63E5F00020DC98 /* NOOpenUDID.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F375EB0E1E6402810020DC98 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F375EB0D1E6402810020DC98 /* WebKit.framework */; };
-		F375EB231E652E620020DC98 /* login_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = F375EB221E652E620020DC98 /* login_logo.png */; };
+		F375EB231E652E620020DC98 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F375EB221E652E620020DC98 /* icon.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,7 +71,7 @@
 		F375EAF51E63DFD30020DC98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F375EB021E63E5F00020DC98 /* NOOpenUDID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = NOOpenUDID.framework; sourceTree = "<group>"; };
 		F375EB0D1E6402810020DC98 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		F375EB221E652E620020DC98 /* login_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_logo.png; sourceTree = "<group>"; };
+		F375EB221E652E620020DC98 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,7 +125,7 @@
 		F375EACD1E63DFD00020DC98 /* News */ = {
 			isa = PBXGroup;
 			children = (
-				F375EB221E652E620020DC98 /* login_logo.png */,
+				F375EB221E652E620020DC98 /* icon.png */,
 				F375EB011E63E5F00020DC98 /* Third */,
 				F375EAD11E63DFD00020DC98 /* AppDelegate.h */,
 				F375EAD21E63DFD00020DC98 /* AppDelegate.m */,
@@ -250,7 +250,6 @@
 				TargetAttributes = {
 					F375EACA1E63DFD00020DC98 = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = 66X9PJVZ92;
 						ProvisioningStyle = Manual;
 					};
 					F375EAE31E63DFD30020DC98 = {
@@ -292,7 +291,7 @@
 			files = (
 				F375EADE1E63DFD20020DC98 /* LaunchScreen.storyboard in Resources */,
 				F375EADB1E63DFD20020DC98 /* Assets.xcassets in Resources */,
-				F375EB231E652E620020DC98 /* login_logo.png in Resources */,
+				F375EB231E652E620020DC98 /* icon.png in Resources */,
 				F375EAD91E63DFD10020DC98 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -469,8 +468,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: 1 1 (C4XH99WMMD)";
-				DEVELOPMENT_TEAM = 66X9PJVZ92;
+				CODE_SIGN_IDENTITY = "iPhone Developer: peng ma (GN39685P9H)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: peng ma (GN39685P9H)";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/News/Third",
@@ -480,8 +481,9 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.koolearn.KoolearnMotionForiPadVersions;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7211f0dc-c331-4c3f-b9d4-fac3bb095114";
-				PROVISIONING_PROFILE_SPECIFIER = getgetsetset5CommonTest;
+				PROVISIONING_PROFILE = "3e861a13-75b4-46ab-8ea6-ec440b35a9fc";
+				PROVISIONING_PROFILE_SPECIFIER = editorial_app_provisioningProfiles;
+				VALID_ARCHS = "arm64 armv7";
 			};
 			name = Debug;
 		};
@@ -489,8 +491,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: 1 1 (C4XH99WMMD)";
-				DEVELOPMENT_TEAM = 66X9PJVZ92;
+				CODE_SIGN_IDENTITY = "iPhone Developer: peng ma (GN39685P9H)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: peng ma (GN39685P9H)";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/News/Third",
@@ -500,8 +504,9 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.koolearn.KoolearnMotionForiPadVersions;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7211f0dc-c331-4c3f-b9d4-fac3bb095114";
-				PROVISIONING_PROFILE_SPECIFIER = getgetsetset5CommonTest;
+				PROVISIONING_PROFILE = "3e861a13-75b4-46ab-8ea6-ec440b35a9fc";
+				PROVISIONING_PROFILE_SPECIFIER = editorial_app_provisioningProfiles;
+				VALID_ARCHS = "arm64 armv7";
 			};
 			name = Release;
 		};
