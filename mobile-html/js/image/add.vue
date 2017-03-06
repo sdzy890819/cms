@@ -118,7 +118,6 @@
 					var file = this.files[0]; 
 					self.fileType = file;
 
-					console.log(file);
 					//这里我们判断下类型如果不是图片就返回 去掉就可以上传任意文件 
 					if(!/image\/\w+/.test(file.type)){ 
 						//alert("请确保文件为图像类型"); 

@@ -1,0 +1,1 @@
+/Users/koo/Desktop/News/DerivedData/News/Build/Intermediates/ArchiveIntermediates/News/InstallationBuildProductsLocation/Applications/News.app

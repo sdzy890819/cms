@@ -26,6 +26,8 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.umeng.analytics.MobclickAgent;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,12 +44,13 @@ public class MainActivity extends Activity {
 //    public static ValueCallback<Uri> mUploadMessage;
 //    public static ValueCallback<Uri[]> uploadMessage;
     CookieManager cookieManager;
-
+    private String  uuuu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mWebview = new WebView(this);
         setContentView(mWebview);
+        MobclickAgent.setCatchUncaughtExceptions(true);
         mWebSttings = mWebview.getSettings();
         mWebview.getSettings().setAllowFileAccess(true);
         mWebview.getSettings().setJavaScriptEnabled(true);
@@ -129,7 +132,6 @@ public class MainActivity extends Activity {
         cookieManager.setCookie(url, idfa);
         cookieManager.setCookie(url, version);
         cookieManager.setCookie(url, info);
-
 
     }
 
@@ -235,7 +237,7 @@ public class MainActivity extends Activity {
         }
         Intent i = new Intent(Intent.ACTION_GET_CONTENT);
         i.addCategory(Intent.CATEGORY_OPENABLE);
-        i.setType("image/*");
+        i.setType("*/*");
         Intent chooserIntent = Intent.createChooser(i, "Image Chooser");
         chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, cameraIntents.toArray(new Parcelable[]{}));
         startActivityForResult(chooserIntent, FILECHOOSER_RESULTCODE);
@@ -246,4 +248,15 @@ public class MainActivity extends Activity {
     private final static int FILECHOOSER_RESULTCODE = 1;// 表单的结果回调
     private Uri imageUri;
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
 }

@@ -78,11 +78,11 @@
 				require.ensure([], function(require) {
             		var Pop = require('../widgets/pop.js');
 					file.bind('change',function(){
-						self.filed = true;
-						tag.removeClass('gray')
+						/*self.filed = true;
+						tag.removeClass('gray')*/
 						var file = this.files[0]; 
 						//这里我们判断下类型如果不是图片就返回 去掉就可以上传任意文件 
-						if(!/video\/\w+/.test(file.type)){ 
+						if(file && !file.name.toLowerCase().search(/(video|kux|remb|avi|rmvb|rm|asf|divx|mpg|mpeg|mpe|wmv|mp4|mkv|vob)$/)){ 
 							//alert("请确保文件为视频类型"); 
 							if(!ispop){
 								ispop = true;
@@ -93,13 +93,13 @@
 		                            cancelBtn: false,
 		                            okTxt: '确定',
 		                            timing: 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
-		                            okCallback : function(){
+		                            closeCallback : function(){
 		                            	ispop = false;
 		                            }
 		                        });
 							}
 							return false; 
-						} 
+						}
 						self.fileType = file;
 						var reader = new FileReader(); 
 						//reader.readAsArrayBuffer(file); 
@@ -115,14 +115,14 @@
 						}
 					});
                 });
-				if(self.filed==true){
+				/*if(self.filed==true){
 					self.filed = false;
-					tag.addClass('gray')
-					file.click();
-				}
+					tag.addClass('gray')*/
+					file.unbind().click();
+				//}
 			}
 			,uploadFile : function(){
-				var self = this , 
+				var self = this , ispop = false , 
 					base64 = [this.base64].join(',') ,
 					//array = self.array,
 					//len = array.length,
@@ -133,6 +133,26 @@
 					b = 1024*1024*1  , 
 					num = 0 ;
 
+                if(base64<20){
+                    if(!ispop){
+                        ispop = true;
+                        require.ensure([],function(require){
+                            var Pop = require('../widgets/pop.js');
+                                //$('.error').addClass('cur').text('请上传视频文件');
+                            var pop = new Pop({
+                                title : '提示',
+                                content : '<center>请选择视频文件</center>',
+                                width: '70%',
+                                cancelBtn:false,
+                                timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+                                closeCallback : function(){
+                                    ispop = false;
+                                }
+                            });
+                        });
+                    }
+                    return;
+                }
 
 				T.ajax({
 					type: 'POST',				
