@@ -5,7 +5,9 @@
 //  Created by KOO on 2017/2/27.
 //  Copyright © 2017年 News. All rights reserved.
 //
+#define TOONEWSURL        @"http://120.77.220.11/m"
 #define NEWSURL           @"http://120.77.220.11/m/#/login"
+#define NEWSURLS          @"http://120.77.220.11/app/login/init"
 #define TESTURL           @"https://images.koolearn.com/shark/qqtest/cookie-test.html"
 #define HOST              @"http://120.77.220.11"
 
@@ -25,11 +27,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self deleteCookie];
-//        [self webview];
-    [self wkView];
+    [self setCookie];
+    [self loadWebView];
+//    [self loadWkView];
 }
 
--(void)wkView
+-(void)loadWkView
 {
     WKWebViewConfiguration *webConfig = [[WKWebViewConfiguration alloc] init];
     webConfig.preferences = [[WKPreferences alloc] init];
@@ -44,17 +47,17 @@
                                    injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
     [userContentController addUserScript:cookieScript];
     webConfig.userContentController = userContentController;
-    NSMutableDictionary *cookieDic = [NSMutableDictionary dictionary];
-    NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-    for (NSHTTPCookie *cookie in [cookieJar cookies]) {
-        [cookieDic setObject:cookie.value forKey:cookie.name];
-    }
-    WKWebView *wkWebView = [[WKWebView alloc] initWithFrame:self.view.frame configuration:webConfig];
+    CGRect frame=self.view.frame;
+    frame.origin.y=self.view.frame.origin.y+20;
+    frame.size.height=self.view.frame.size.height-20;
+
+    WKWebView *wkWebView = [[WKWebView alloc] initWithFrame:frame configuration:webConfig];
     
     wkWebView.navigationDelegate = self;
     [self.view addSubview:wkWebView];
-    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:NEWSURL]];
+    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:NEWSURLS]];
     [request addValue:cookieValue forHTTPHeaderField:@"Cookie"];
+//    [request addValue:NEWSURL forHTTPHeaderField:@"Host"];
     request.HTTPShouldHandleCookies=YES;
     [wkWebView loadRequest:request];
 }
@@ -63,7 +66,8 @@
     [webView evaluateJavaScript:[self cookieStr] completionHandler:^(id result, NSError *error) {
     }];
 }
--(void)webview
+
+-(void)loadWebView
 {
     // Do any additional setup after loading the view from its nib.
     self.newsWap.scalesPageToFit=YES;
@@ -73,7 +77,6 @@
     //    self.webView.scrollView.userInteractionEnabled=NO;
     self.newsWap.scrollView.showsVerticalScrollIndicator=NO;
     self.newsWap.delegate=self;
-    [self setCookie];
     //    NSString *str1 = [NEWSURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSURL *url = [NSURL URLWithString:NEWSURL];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:60];
@@ -87,12 +90,39 @@
     //    NSLog(@"%@",[cookieJar cookies]);
     [self.newsWap loadRequest:request];
 }
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    NSLog(@"%@",webView.request.allHTTPHeaderFields);
+    NSLog(@"%@",request.allHTTPHeaderFields);
+    return  YES;
+}
+
+-(void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    for (NSHTTPCookie *cookie in [cookieJar cookies]) {
+        NSLog(@"%@",cookie);
+    }
+//  webView.request.allHTTPHeaderFields
+//    NSLog(@"%@",webView.request.allHTTPHeaderFields);
+//    NSHTTPCookie *cookie = [NSHTTPCookie cookieWithProperties:fromappDict];
+//    NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+//    NSArray *cookies = [cookieStorage cookiesForURL:[NSURL URLWithString:TOONEWSURL]];
+//    NSEnumerator *enumerator = [cookies objectEnumerator];
+//    NSHTTPCookie *cookiess;
+//    while (cookie = [enumerator nextObject]) {
+//        NSLog(@"COOKIE{name: %@, value: %@}", [cookie name], [cookiess value]);
+//    }
+}
 -(NSString *)cookieStr
 {
     NSString *uuid = [NOOpenUDID value];
     NSString *uuidstr=[NSString stringWithFormat:@"APP_DEVICE_IDFA:%@",uuid];
+    
     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     NSString *versionstr=[NSString stringWithFormat:@"APP_DEVICE_VERSION:CMS v%@",version];
+    
     struct utsname systemInfo;
     uname(&systemInfo);
     NSString *deviceString = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
@@ -102,79 +132,33 @@
     return string;
 }
 
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
-{
-//    NSMutableURLRequest *requests=[request copy];
-//    NSString *uuid = [NOOpenUDID value];
-//    NSString *uuidstr=[NSString stringWithFormat:@"APP_DEVICE_IDFA:%@",uuid];
-//    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-//    NSString *versionstr=[NSString stringWithFormat:@"APP_DEVICE_VERSION:CMS v%@",version];
-//    
-//    struct utsname systemInfo;
-//    uname(&systemInfo);
-//    NSString *deviceString = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
-//    NSString *devicestr=[NSString stringWithFormat:@"APP_DEVICE_INFO:%@",deviceString];
-//    
-//    NSString *string=[NSString stringWithFormat:@"%@;%@;%@;",uuidstr,versionstr,devicestr];
-//    [requests addValue:string forHTTPHeaderField:@"Cookie"];
-//    request=[requests copy];
-    NSLog(@"%@",webView.request.allHTTPHeaderFields);
-    NSLog(@"%@",request.allHTTPHeaderFields);
-    return  YES;
-}
-
--(void)webViewDidFinishLoad:(UIWebView *)webView
-{
-//  webView.request.allHTTPHeaderFields
-    NSLog(@"%@",webView.request.allHTTPHeaderFields);
-}
-
 - (void)setCookie{
-    NSMutableDictionary *properties = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *keyDict = [NSMutableDictionary dictionary];
     NSString *uuid = [NOOpenUDID value];
-    [properties setValue:[NSString stringWithFormat:@"APP_DEVICE_IDFA:%@",uuid] forKey:NSHTTPCookieValue];
+    [keyDict setObject:uuid forKey:@"APP_DEVICE_IDFA"];
     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-    [properties setValue:[NSString stringWithFormat:@"APP_DEVICE_VERSION:%@",version] forKey:NSHTTPCookieVersion];
+    [keyDict setObject:[NSString stringWithFormat:@"CMS v%@",version] forKey:@"APP_DEVICE_VERSION"];
     struct utsname systemInfo;
     uname(&systemInfo);
     NSString *deviceString = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
-    [properties setValue:[NSString stringWithFormat:@"APP_DEVICE_INFO:%@",deviceString] forKey:NSHTTPCookieDiscard];
-    [properties setValue:[NSDate dateWithTimeIntervalSinceNow:60*60] forKey:NSHTTPCookieExpires];
-    NSMutableDictionary *cookieProperties = [NSMutableDictionary dictionary];
-    [cookieProperties setObject:deviceString forKey:NSHTTPCookieName];
-    [cookieProperties setObject:uuid forKey:NSHTTPCookieValue];
-    [cookieProperties setObject:NEWSURL forKey:NSHTTPCookieDomain];
-    [cookieProperties setObject:NEWSURL forKey:NSHTTPCookieOriginURL];
-    [cookieProperties setObject:NEWSURL forKey:NSHTTPCookiePath];
-    [cookieProperties setObject:version forKey:NSHTTPCookieVersion];
-    [cookieProperties setObject:[NSDate dateWithTimeIntervalSinceNow:60*60] forKey:NSHTTPCookieExpires];//设置失效时间
-    [cookieProperties setObject:@"0" forKey:NSHTTPCookieDiscard]; //设置sessionOnly
-    NSHTTPCookie * userCookie = [NSHTTPCookie cookieWithProperties:cookieProperties];
-    [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:userCookie];
+    [keyDict setObject:deviceString forKey:@"APP_DEVICE_INFO"];
     
     NSMutableDictionary *fromappDict = [NSMutableDictionary dictionary];
-    [fromappDict setObject:@"fromapp" forKey:NSHTTPCookieName];
-    [fromappDict setObject:@"ios" forKey:NSHTTPCookieValue];
-    [fromappDict setObject:NEWSURL forKey:NSHTTPCookieDomain];
-    [fromappDict setObject:NEWSURL forKey:NSHTTPCookieOriginURL];
-    [fromappDict setObject:@"/" forKey:NSHTTPCookiePath];
-    [fromappDict setObject:@"0" forKey:NSHTTPCookieVersion];
-    
-    NSHTTPCookie *cookie = [NSHTTPCookie cookieWithProperties:fromappDict];
-    NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-    [cookieStorage setCookie:cookie];
-    NSHTTPCookieStorage *sharedHTTPCookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-    NSArray *cookies = [sharedHTTPCookieStorage cookiesForURL:[NSURL URLWithString:NEWSURL]];
-    NSEnumerator *enumerator = [cookies objectEnumerator];
-    NSHTTPCookie *cookiess;
-    while (cookie = [enumerator nextObject]) {
-        NSLog(@"COOKIE{name: %@, value: %@}", [cookie name], [cookiess value]);
+    for (NSString *keyStr in [keyDict allKeys]) {
+        [fromappDict setObject:keyStr forKey:NSHTTPCookieName];
+        [fromappDict setObject:keyDict[keyStr] forKey:NSHTTPCookieValue];
+        [fromappDict setObject:[[NSURL URLWithString:NEWSURL] host] forKey:NSHTTPCookieDomain];
+        [fromappDict setObject:[[NSURL URLWithString:NEWSURL] path] forKey:NSHTTPCookiePath];
+        NSHTTPCookie *cookie = [NSHTTPCookie cookieWithProperties:fromappDict];
+        [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookie];
+        [fromappDict removeAllObjects];
     }
 }
+
 - (void)deleteCookie{
     NSHTTPCookie *cookie;
     NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-    NSArray *cookieAry = [cookieJar cookiesForURL: [NSURL URLWithString: NEWSURL]];
+    NSArray *cookieAry = [cookieJar cookiesForURL: [NSURL URLWithString: TOONEWSURL]];
     for (cookie in cookieAry) {
         [cookieJar deleteCookie: cookie];
     }
@@ -183,7 +167,7 @@
                      completionHandler:^(NSArray<WKWebsiteDataRecord *> * __nonnull records) {
                          for (WKWebsiteDataRecord *record  in records)
                          {
-                             if ( [record.displayName containsString:@"120.77.220.11"])
+                             if ( [record.displayName containsString:@"120.77.220.11/m"])
                              {
                                  [[WKWebsiteDataStore defaultDataStore] removeDataOfTypes:record.dataTypes
                                                                            forDataRecords:@[record]
