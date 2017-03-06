@@ -21,6 +21,7 @@
 				&:hover{ background:#e50000; color:#fff;}
 			}
 		}
+		.no-more{ margin-top:$s10; }
 	}
 }
 </style>
@@ -41,6 +42,7 @@
 				</div>
 			</li>
 		</ul>
+		<div class='no-more'>没有更多的内容了。</div>
 	</div>
 	<div class="fixed-edit">
 		<div class="btn">
@@ -101,11 +103,14 @@
 									scrollHeight = box[0].scrollHeight , 
 									height = box.height();
 								box.unbind().on('scroll',function(){
-									var scrollTop = $(this).scrollTop()+height+50;
+									var scrollTop = $(this).scrollTop()+height+100;
 									if(scrollTop>scrollHeight){
 										if(page<=_data.data.page.pageCount && loading==true){
 											page++;
 											getList();
+											$('.no-more').hide();
+										}else{
+											$('.no-more').show();
 										}
 									}
 								})
@@ -153,7 +158,7 @@
 				})
 			},*/
 			search : function(){
-				var self = this , 
+				/*var self = this , 
 					txt = self.searchtxt;
 				T.ajax({
 					url : search.searchImages ,
@@ -180,7 +185,62 @@
 						}
 						self.list = newarr;
 					}
-				})
+				})*/
+				var self = this,
+					txt = self.searchtxt,
+					page = 1 ,
+					pageSize = 12 , 
+					loading = true;
+
+				function getList(){
+					if(loading==false) return;
+					loading = false;
+					T.ajax({
+						url : search.searchImages , 
+						type : 'post',
+						data : {
+							condition:txt,
+							page : page , 
+							pageSize : pageSize
+						},
+						success : function( _data ){
+							var list = _data.data.list , 
+								newarr = [],
+								arr = [];
+							if(!list || !list.length) return;
+							list.map((obj,index)=>{
+								index += 1;
+								arr.push(obj)
+								if(index%3==0){
+									newarr.push(arr);
+									arr = []
+								}
+							});
+							arr.length && newarr.push(arr);
+							self.list = self.list.concat(newarr);
+							loading = true;
+							self.$nextTick(function(){
+				                var box = $('.image-list'),
+									scrollHeight = box[0].scrollHeight , 
+									height = box.height();
+								box.unbind().on('scroll',function(){
+									var scrollTop = $(this).scrollTop()+height+100;
+									if(scrollTop>scrollHeight){
+										if(page<=_data.data.page.pageCount && loading==true){
+											page++;
+											getList();
+											$('.no-more').hide();
+										}else{
+											$('.no-more').show();
+										}
+									}
+								})
+				            });
+						}
+					})
+				}
+				getList();
+
 			}
 		}
 	}

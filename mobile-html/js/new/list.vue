@@ -18,6 +18,7 @@
 				</div>
 			</dd>
 		</dl>
+		<div class='no-more'>没有更多的内容了。</div>
 	</div>
 	<div class="fixed-edit">
 		<div class="btn">
@@ -65,12 +66,15 @@
 								scrollHeight = box[0].scrollHeight , 
 								height = box.height();
 							box.unbind().on('scroll',function(){
-								var scrollTop = $(this).scrollTop()+height+50;
+								var scrollTop = $(this).scrollTop()+height+100;
 								if(scrollTop>scrollHeight){
 									if(page<=_data.data.page.pageCount && loading==true){
-											page++;
-											getList();
-										}
+										page++;
+										getList();
+										$('.no-more').hide();
+									}else{
+										$('.no-more').show();
+									}
 								}
 							})
 			            });
@@ -119,7 +123,7 @@
 				});
 			},
 			search : function(){
-				var self = this , 
+				/*var self = this , 
 					txt = self.searchtxt;
 				T.ajax({
 					url : search.searchNew ,
@@ -136,7 +140,54 @@
 						})
 						self.list = list;
 					}
-				})
+				});*/
+
+				var self = this,
+					txt = self.searchtxt,
+					page = 1 ,
+					pageSize = 10 , 
+					loading = true;
+
+				function getList(){
+					if(loading==false) return;
+					loading = false;
+					T.ajax({
+						url : search.searchNew ,
+						type : 'post',
+						data : {
+							condition:txt,
+							page : page , 
+							pageSize : pageSize
+						},
+						success : function( _data ){
+							var list = _data.data.list;
+							if(!list || !list.length) return;
+							list.map((obj , i)=>{
+								obj.timeStr = obj.updateTimeStr.substr(5,11)
+							})
+							self.list = self.list.concat(list);
+							loading = true;
+							self.$nextTick(function(){
+				                var box = $('.new-list'),
+									scrollHeight = box[0].scrollHeight , 
+									height = box.height();
+								box.unbind().on('scroll',function(){
+									var scrollTop = $(this).scrollTop()+height+100;
+									if(scrollTop>scrollHeight){
+										if(page<=_data.data.page.pageCount && loading==true){
+											page++;
+											getList();
+											$('.no-more').hide();
+										}else{
+											$('.no-more').show();
+										}
+									}
+								})
+				            });
+						}
+					})
+				}
+				getList();
 			}
 		}
 	}

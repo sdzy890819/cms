@@ -42,6 +42,7 @@
 				</div>
 			</dd>
 		</dl>
+		<div class='no-more'>没有更多的内容了。</div>
 	</div>
 	<div class="fixed-edit">
 		<div class="btn">
@@ -106,11 +107,14 @@ Date.prototype.Format = function (fmt) { //author: meizz
 								scrollHeight = box[0].scrollHeight , 
 								height = box.height();
 							box.unbind().on('scroll',function(){
-								var scrollTop = $(this).scrollTop()+height+50;
+								var scrollTop = $(this).scrollTop()+height+100;
 								if(scrollTop>scrollHeight){
 									if(page<=_data.data.page.pageCount && loading==true){
 										page++;
 										getList();
+										$('.no-more').hide();
+									}else{
+										$('.no-more').show();
 									}
 								}
 							})
@@ -128,7 +132,7 @@ Date.prototype.Format = function (fmt) { //author: meizz
 
 			},
 			search : function(){
-				var self = this , 
+				/*var self = this , 
 					txt = self.searchtxt;
 				T.ajax({
 					url : search.searchVideo ,
@@ -145,7 +149,54 @@ Date.prototype.Format = function (fmt) { //author: meizz
 						})
 						self.list = list;
 					}
-				})
+				})*/
+				var self = this,
+					txt = self.searchtxt,
+					page = 1 ,
+					pageSize = 10 , 
+					loading = true;
+
+				function getList(){
+					if(loading==false) return;
+					loading = false;
+					T.ajax({
+						url : search.searchVideo ,
+						type : 'post',
+						data : {
+							condition:txt,
+							page : page , 
+							pageSize : pageSize
+						},
+						success : function( _data ){
+							var list = _data.data.list;
+							if(!list || !list.length) return;
+							var list = _data.data.list;
+							list.map((obj , i)=>{
+								obj.timeStr = new Date(obj.uploadTime).Format("MM-dd h:m")
+							})
+							self.list = self.list.concat(list);
+							loading = true;
+							self.$nextTick(function(){
+				                var box = $('.video-list'),
+									scrollHeight = box[0].scrollHeight , 
+									height = box.height();
+								box.unbind().on('scroll',function(){
+									var scrollTop = $(this).scrollTop()+height+100;
+									if(scrollTop>scrollHeight){
+										if(page<=_data.data.page.pageCount && loading==true){
+											page++;
+											getList();
+											$('.no-more').hide();
+										}else{
+											$('.no-more').show();
+										}
+									}
+								})
+				            });
+						}
+					})
+				}
+				getList();
 			}
 		}
 	}
