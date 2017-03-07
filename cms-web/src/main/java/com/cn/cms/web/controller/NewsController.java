@@ -174,7 +174,8 @@ public class NewsController extends BaseController {
                              @RequestParam(value = "field5", required = false) String field5,
                              @RequestParam(value = "autoPublish") Integer autoPublish,
                              @RequestParam(value = "timer", required = false) String timer,
-                             @RequestParam(value = "publish", required = false, defaultValue = "0") Integer publish){
+                             @RequestParam(value = "publish", required = false, defaultValue = "0") Integer publish,
+                             @RequestParam(value = "editPublishTime", required = false) String editPublishTime){
         String userID = getCurrentUserId(request);
         News news = new News();
         news.setTitle(title);
@@ -200,11 +201,19 @@ public class NewsController extends BaseController {
         news.setField5(field5);
         news.setPublish(publish);
         news.setAutoPublish(autoPublish);
-        if(StringUtils.isNotBlank(timer)) {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        if(StringUtils.isNotBlank(editPublishTime)){
+            SimpleDateFormat sdf = new SimpleDateFormat(StaticContants.YYYY_MM_DD_HH_MM_SS);
             try {
-                news.setTimer(sdf.parse(timer));
+                news.setEditPublishTime(sdf.parse(editPublishTime));
+            } catch (ParseException e) {
+                return ApiResponse.returnFail(StaticContants.ERROR_DATE_PARSE);
+            }
+        }
+        if(StringUtils.isNotBlank(timer)) {
+            SimpleDateFormat sdf = new SimpleDateFormat(StaticContants.YYYY_MM_DD_HH_MM);
+            try {
                 news.setBuildUserId(userID);
+                news.setTimer(sdf.parse(timer));
             } catch (ParseException e) {
                 log.error(StaticContants.ERROR_DATE_PARSE, e);
                 return ApiResponse.returnFail(StaticContants.ERROR_DATE_PARSE);
@@ -257,8 +266,10 @@ public class NewsController extends BaseController {
                              @RequestParam(value = "field5",required = false) String field5,
                              @RequestParam(value = "autoPublish",required = false) Integer autoPublish,
                              @RequestParam(value = "timer",required = false) String timer,
-                             @RequestParam(value = "publish", required = false, defaultValue = "0") Integer publish){
+                             @RequestParam(value = "publish", required = false, defaultValue = "0") Integer publish,
+                             @RequestParam(value = "editPublishTime", required = false) String editPublishTime){
         String userID = getCurrentUserId(request);
+        News old = newsBiz.findNews(id);
         News news = new News();
         news.setTitle(title);
         news.setSubTitle(subTitle);
@@ -281,13 +292,24 @@ public class NewsController extends BaseController {
         news.setField4(field4);
         news.setField5(field5);
         news.setAutoPublish(autoPublish);
-        news.setPublish(publish);
+        if(old.getPublish() != PublishEnum.YES.getType()) {
+            news.setPublish(publish);
+        }
         news.setId(id);
+        if(StringUtils.isNotBlank(editPublishTime)){
+            SimpleDateFormat sdf = new SimpleDateFormat(StaticContants.YYYY_MM_DD_HH_MM_SS);
+            try {
+                news.setEditPublishTime(sdf.parse(editPublishTime));
+            } catch (ParseException e) {
+                log.error(StaticContants.ERROR_DATE_PARSE, e);
+                return ApiResponse.returnFail(StaticContants.ERROR_DATE_PARSE);
+            }
+        }
         if(StringUtils.isNotBlank(timer)) {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(StaticContants.YYYY_MM_DD_HH_MM);
-            try {
+            try {news.setBuildUserId(userID);
                 news.setTimer(simpleDateFormat.parse(timer));
-                news.setBuildUserId(userID);
+
             } catch (ParseException e) {
                 log.error("timer参数错误", e);
                 return ApiResponse.returnFail(StaticContants.ERROR_DATE_PARSE);

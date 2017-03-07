@@ -199,8 +199,10 @@ public class UserBiz extends BaseBiz{
         user.setRealName(realName);
         user.setHeadImage(headImage);
         user.setIdfa(idfa);
-        User old = userService.findUser(userId);
-        user.setPwd(EncryptUtil.encryptPwd(old.getUserName(),pwd));
+        if(StringUtils.isNotBlank(pwd)) {
+            User old = userService.findUser(userId);
+            user.setPwd(EncryptUtil.encryptPwd(old.getUserName(), pwd));
+        }
         userService.updateUser(user);
         refreshUserCache(user);
     }

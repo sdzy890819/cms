@@ -12,6 +12,7 @@ import com.cn.cms.enums.TemplateClassifyEnum;
 import com.cn.cms.middleware.JedisClient;
 import com.cn.cms.po.*;
 import com.cn.cms.service.NewsService;
+import com.cn.cms.utils.HtmlUtils;
 import com.cn.cms.utils.Page;
 import com.cn.cms.utils.StringUtils;
 import org.springframework.stereotype.Component;
@@ -259,6 +260,7 @@ public class NewsBiz extends BaseBiz {
      */
     public void saveNews(News news){
         news.setImageUrl(getImagesUrl(news.getNewsDetail().getContent()));
+        news.setNewsStocks(getNewsStock(news.getNewsDetail().getContent(), news.getLastModifyUserId(), news.getId()));
         newsService.saveNews(news);
         String result = jedisClient.get(RedisKeyContants.getRedisAddNewPreviousColumnInfo(news.getLastModifyUserId()));
         PreviousColumn previousColumn = null ;
@@ -297,6 +299,7 @@ public class NewsBiz extends BaseBiz {
 
     public void updateNews(News news){
         news.setImageUrl(getImagesUrl(news.getNewsDetail().getContent()));
+        news.setNewsStocks(getNewsStock(news.getNewsDetail().getContent(), news.getLastModifyUserId(), news.getId()));
         newsService.updateNews(news);
     }
 
@@ -382,6 +385,33 @@ public class NewsBiz extends BaseBiz {
 
     public void publishListTemplate2(NewsColumn newsColumn){
         newsService.publishListTemplate2(newsColumn);
+    }
+
+
+    /**
+     * 获取新闻相关的股票代码.
+     * @param content
+     * @param lastModifyUserId
+     * @param newsId
+     * @return
+     */
+    private List<NewsStock> getNewsStock(String content, String lastModifyUserId, Long newsId){
+        List<String> list = HtmlUtils.matcher(content);
+        List<NewsStock> result = new ArrayList<>();
+        if(StringUtils.isNotEmpty(list)) {
+            for (int i = 0; i < list.size(); i++) {
+                String[] tmps = list.get(i).split(StaticContants.REGEX_SPLIT_STOCK);
+                if(tmps.length == 2) {
+                    NewsStock newsStock = new NewsStock();
+                    newsStock.setLastModifyUserId(lastModifyUserId);
+                    newsStock.setNewsId(newsId);
+                    newsStock.setStockCode(tmps[0]);
+                    newsStock.setStockName(tmps[1]);
+                    result.add(newsStock);
+                }
+            }
+        }
+        return result;
     }
 
 }

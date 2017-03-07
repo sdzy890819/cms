@@ -153,10 +153,11 @@ public class UserController extends BaseController{
      */
     @CheckToken
     @RequestMapping(value = "/updateUser",method = RequestMethod.POST)
-    public String updateUser(HttpServletRequest request, @RequestParam("userId") String userId,
-                            @RequestParam(value = "realName",required = false) String realName,
-                            @RequestParam(value = "headImage",required = false) String headImage,
-                            @RequestParam(value = "pwd",required = false) String pwd,
+    public String updateUser(HttpServletRequest request,
+                             @RequestParam("userId") String userId,
+                             @RequestParam(value = "realName",required = false) String realName,
+                             @RequestParam(value = "headImage",required = false) String headImage,
+                             @RequestParam(value = "pwd",required = false) String pwd,
                              @RequestParam(value = "idfa", required = false) String idfa){
         String userID = getCurrentUserId(request);
         if(!userId.equals(userID)){
@@ -166,6 +167,19 @@ public class UserController extends BaseController{
         return ApiResponse.returnSuccess();
     }
 
+    @CheckToken
+    @CheckAuth( name = "user:update" )
+    @RequestMapping(value = "/updateUser2",method = RequestMethod.POST)
+    public String updateUser2(HttpServletRequest request,
+                              @RequestParam("userId") String userId,
+                              @RequestParam(value = "realName",required = false) String realName,
+                              @RequestParam(value = "headImage",required = false) String headImage,
+                              @RequestParam(value = "pwd",required = false) String pwd,
+                              @RequestParam(value = "idfa", required = false) String idfa){
+        String userID = getCurrentUserId(request);
+        userBiz.updateUser(userID, userId, realName, headImage, pwd, idfa);
+        return ApiResponse.returnSuccess();
+    }
 
     /**
      * 随机生成12位密码

@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 新闻PO
@@ -172,6 +173,9 @@ public class News extends Base{
      */
     private String imageUrl;
 
+    /**
+     * 发布状态
+     */
     private String publishStr;
 
     /**
@@ -229,6 +233,16 @@ public class News extends Base{
      */
     protected Integer recommend = RecommendEnum.NO.getType();
 
+    //-----新增
+    /**
+     * 新闻股票列表
+     */
+    private List<NewsStock> newsStocks;
+
+    /**
+     * 可修改发布时间
+     */
+    private Date editPublishTime;
 
     public String getPublishStr(){
         PublishEnum publishEnum = PublishEnum.get(publish);

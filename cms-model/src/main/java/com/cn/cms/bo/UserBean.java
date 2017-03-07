@@ -14,6 +14,11 @@ public class UserBean {
     protected Long id ;
 
     /**
+     * 用户名
+     */
+    private String userName;
+
+    /**
      * 头像
      */
     private String headImage;
@@ -43,6 +48,7 @@ public class UserBean {
     public UserBean(User user){
         if(user!=null) {
             this.id = user.getId();
+            this.userName = user.getUserName();
             this.headImage = user.getHeadImage();
             this.realName = user.getRealName();
             this.userId = user.getUserId();

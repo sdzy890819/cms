@@ -1,9 +1,6 @@
 package com.cn.cms.service.impl;
 
-import com.cn.cms.dao.NewsColumnDao;
-import com.cn.cms.dao.NewsDao;
-import com.cn.cms.dao.NewsDetailDao;
-import com.cn.cms.dao.RecommendColumnDao;
+import com.cn.cms.dao.*;
 import com.cn.cms.enums.AutoPublishEnum;
 import com.cn.cms.enums.ESSearchTypeEnum;
 import com.cn.cms.enums.IndexOperEnum;
@@ -33,6 +30,9 @@ public class NewsServiceImpl implements NewsService {
 
     @Resource
     private NewsDetailDao newsDetailDao;
+
+    @Resource
+    private NewsStockDao newsStockDao;
 
     @Resource
     private RecommendColumnDao recommendColumnDao;
@@ -99,6 +99,7 @@ public class NewsServiceImpl implements NewsService {
         newsDao.saveNews(news);
         news.getNewsDetail().setNewsId(news.getId());
         newsDetailDao.saveNewsDetail(news.getNewsDetail());
+        newsStockDao.saveStocks(news.getNewsStocks());
         sendIndex(news);
     }
 
@@ -125,12 +126,15 @@ public class NewsServiceImpl implements NewsService {
     public void updateNews(News news) {
         newsDao.updateNews(news);
         newsDetailDao.updateNewsDetail(news.getNewsDetail());
+        newsStockDao.delStocks(news.getId());
+        newsStockDao.saveStocks(news.getNewsStocks());
         sendIndex(news);
     }
 
     public void delNews(String lastModifyUserId, Long id) {
         newsDao.delNews(lastModifyUserId, id);
         newsDetailDao.delNewsDetail(lastModifyUserId, id);
+        newsStockDao.delStocks(id);
         delIndex(id);
     }
 

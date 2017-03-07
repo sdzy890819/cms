@@ -56,7 +56,8 @@ public class ChannelController extends BaseController {
                                 @RequestParam(value = "channelPath") String channelPath,
                                 @RequestParam(value = "templatePath") String templatePath,
                                 @RequestParam(value = "channelDesc") String channelDesc,
-                                @RequestParam(value = "categoryId") Long categoryId){
+                                @RequestParam(value = "categoryId") Long categoryId,
+                                @RequestParam(value = "rsyncModelName") String rsyncModelName){
         Channel channel = new Channel();
         channel.setLastModifyUserId(getCurrentUserId(request));
         channel.setChannelDesc(channelDesc);
@@ -65,6 +66,7 @@ public class ChannelController extends BaseController {
         channel.setChannelPath(channelPath);
         channel.setTemplatePath(templatePath);
         channel.setChannelUrl(channelUrl);
+        channel.setRsyncModelName(rsyncModelName);
         channelBiz.saveChannel(channel);
         return ApiResponse.returnSuccess();
     }
@@ -90,7 +92,8 @@ public class ChannelController extends BaseController {
                                 @RequestParam(value = "channelPath",required = false) String channelPath,
                                 @RequestParam(value = "templatePath",required = false) String templatePath,
                                 @RequestParam(value = "channelDesc",required = false) String channelDesc,
-                                @RequestParam(value = "categoryId",required = false) Long categoryId){
+                                @RequestParam(value = "categoryId",required = false) Long categoryId,
+                                @RequestParam(value = "rsyncModelName",required = false) String rsyncModelName){
         Channel channel = new Channel();
         channel.setLastModifyUserId(getCurrentUserId(request));
         channel.setChannelDesc(channelDesc);
@@ -99,6 +102,7 @@ public class ChannelController extends BaseController {
         channel.setChannelPath(channelPath);
         channel.setTemplatePath(templatePath);
         channel.setChannelUrl(channelUrl);
+        channel.setRsyncModelName(rsyncModelName);
         channel.setId(id);
         channelBiz.updateChannel(channel);
         return ApiResponse.returnSuccess();

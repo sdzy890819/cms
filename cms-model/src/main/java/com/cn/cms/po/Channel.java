@@ -41,4 +41,9 @@ public class Channel extends Base {
      */
     private Long categoryId;
 
+    /**
+     * rsync模块名
+     */
+    private String rsyncModelName;
+
 }
