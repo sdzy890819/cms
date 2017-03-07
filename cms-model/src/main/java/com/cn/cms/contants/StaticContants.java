@@ -242,4 +242,6 @@ public class StaticContants {
 
     public static String REGEX_SPLIT_STOCK="[,，]";
 
+    public static String REGEX_SPLIT = "[,，\\s]";
+
 }

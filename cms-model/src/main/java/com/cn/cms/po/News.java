@@ -4,6 +4,7 @@ import com.cn.cms.contants.StaticContants;
 import com.cn.cms.enums.PlatformEnum;
 import com.cn.cms.enums.PublishEnum;
 import com.cn.cms.enums.RecommendEnum;
+import com.cn.cms.utils.StringUtils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -243,6 +244,21 @@ public class News extends Base{
      * 可修改发布时间
      */
     private Date editPublishTime;
+
+    /**
+     * 作者数组
+     */
+    private String[] authorArray;
+
+    /**
+     * 关键字数组
+     */
+    private String[] keywordArray;
+
+    /**
+     * 股票代码列表
+     */
+    private String[] stockArray;
 
     public String getPublishStr(){
         PublishEnum publishEnum = PublishEnum.get(publish);

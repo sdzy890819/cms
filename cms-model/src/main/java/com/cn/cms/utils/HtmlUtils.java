@@ -44,7 +44,8 @@ public class HtmlUtils {
 
 
     public static void main(String[] args){
-        List<String> list = matcher("<a stkcode=\"000001，ST天下\" stkname=\"add\">总的</a>");
+        List<String> list = matcher("<a stkcode=\"000001,ST天下\" stkname=\"add\">总的</a>");
+        System.out.println("000001 ST天下".split(StaticContants.REGEX_SPLIT_STOCK)[1]);
 
     }
 

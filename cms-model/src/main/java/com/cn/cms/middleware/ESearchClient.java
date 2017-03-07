@@ -1,5 +1,6 @@
 package com.cn.cms.middleware;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.enums.ESSearchTypeEnum;
@@ -13,6 +14,7 @@ import com.cn.cms.middleware.bo.VideoSearch;
 import com.cn.cms.middleware.po.QueryResult;
 import com.cn.cms.po.*;
 import com.cn.cms.utils.DateUtils;
+import com.cn.cms.utils.HtmlUtils;
 import com.cn.cms.utils.Page;
 import com.cn.cms.utils.StringUtils;
 import lombok.Getter;
@@ -192,8 +194,12 @@ public class ESearchClient {
      */
     public Date convertLongAndDate(Object obj){
         if(obj!=null){
-            calendar.setTimeInMillis(Long.parseLong(obj.toString()));
-            return calendar.getTime();
+            if(Long.parseLong(obj.toString()) > 0 ) {
+                calendar.setTimeInMillis(Long.parseLong(obj.toString()));
+                return calendar.getTime();
+            }else {
+                return null;
+            }
         }
         return null;
     }
@@ -394,6 +400,19 @@ public class ESearchClient {
             builder = builder.field("description", news.getDescription());
             builder = builder.field("source", news.getSource());
             builder = builder.field("author", news.getAuthor());
+
+            builder = builder.field("authorArray", JSONArray.toJSONString(news.getAuthor().split(StaticContants.REGEX_SPLIT)));
+            builder = builder.field("keywordArray", JSONArray.toJSONString(news.getKeyword().split(StaticContants.REGEX_SPLIT)));
+            builder = builder.field("editPublishTime", DateUtils.convertDateToMillis(news.getEditPublishTime()));
+            if(StringUtils.isNotEmpty(news.getNewsStocks())) {
+                String[] stockArray = new String[news.getNewsStocks().size()];
+                for(int i=0;i<news.getNewsStocks().size();i++){
+                    stockArray[i] = news.getNewsStocks().get(i).getStockCode();
+                }
+                builder = builder.field("stockArray", JSONArray.toJSONString(stockArray));
+            }
+            builder = builder.field("imageUrl", news.getImageUrl());
+
             builder = builder.field("buildTime", DateUtils.convertDateToMillis(news.getBuildTime()));
             builder = builder.field("writeTime", DateUtils.convertDateToMillis(news.getWriteTime()));
             builder = builder.field("categoryId", news.getCategoryId());
