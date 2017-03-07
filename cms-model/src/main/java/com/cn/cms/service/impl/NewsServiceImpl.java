@@ -204,4 +204,14 @@ public class NewsServiceImpl implements NewsService {
     public void publishListTemplate2(NewsColumn newsColumn) {
         newsColumnDao.publishListTemplate2(newsColumn);
     }
+
+    @Override
+    public List<NewsStock> findNewsStocks(List<Long> newsIds) {
+        return newsStockDao.findNewsStocks(newsIds);
+    }
+
+    @Override
+    public List<NewsStock> findNewsStockList(Long newsId) {
+        return newsStockDao.findNewsStockList(newsId);
+    }
 }

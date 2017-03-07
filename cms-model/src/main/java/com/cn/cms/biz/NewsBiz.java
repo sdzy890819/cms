@@ -414,5 +414,23 @@ public class NewsBiz extends BaseBiz {
         return result;
     }
 
+    public Map<Long, List<NewsStock>> findNewsStocks(List<Long> newsIds){
+        List<NewsStock> list = newsService.findNewsStocks(newsIds);
+        Map<Long, List<NewsStock>> map = new HashMap<>();
+        for(NewsStock newsStock : list){
+            List<NewsStock> tmp = map.get(newsStock);
+            if(StringUtils.isEmpty(tmp)){
+                tmp = new ArrayList<>();
+                map.put(newsStock.getNewsId() ,tmp);
+            }
+            tmp.add(newsStock);
+        }
+        return map;
+    }
+
+    public List<NewsStock> findNewsStockList(Long newsId){
+        return newsService.findNewsStockList(newsId);
+    }
+
 }
 

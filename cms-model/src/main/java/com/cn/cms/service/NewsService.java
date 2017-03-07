@@ -2,10 +2,7 @@ package com.cn.cms.service;
 
 import com.cn.cms.enums.AutoPublishEnum;
 import com.cn.cms.enums.PublishEnum;
-import com.cn.cms.po.News;
-import com.cn.cms.po.NewsColumn;
-import com.cn.cms.po.NewsRecommend;
-import com.cn.cms.po.RecommendColumn;
+import com.cn.cms.po.*;
 import com.cn.cms.utils.Page;
 
 import java.util.Date;
@@ -67,5 +64,9 @@ public interface NewsService {
     void updateRecommendColumn(RecommendColumn recommendColumn);
 
     void publishListTemplate2(NewsColumn newsColumn);
+
+    public List<NewsStock> findNewsStocks(List<Long> newsIds);
+
+    List<NewsStock> findNewsStockList(Long newsId);
 
 }

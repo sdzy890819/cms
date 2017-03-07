@@ -36,4 +36,15 @@
         delete from news_stock where news_id = #{newsId};
     </delete>
 
+    <select id="findNewsStocks" resultMap="newsStock">
+        select <include refid="sql_column"/> from news_stock <include refid="delTag" /> and news_id in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            ${item}
+        </foreach> ;
+    </select>
+
+    <select id="findNewsStockList" resultMap="newsStock">
+        SELECT <include refid="sql_column" /> from news_stock <include refid="delTag" /> and news_id = #{newsId} ;
+    </select>
+
 </mapper>

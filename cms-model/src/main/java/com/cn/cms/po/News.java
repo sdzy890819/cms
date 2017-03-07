@@ -248,17 +248,17 @@ public class News extends Base{
     /**
      * 作者数组
      */
-    private String[] authorArray;
+    //private String[] authorArray;
 
     /**
      * 关键字数组
      */
-    private String[] keywordArray;
+    //private String[] keywordArray;
 
     /**
      * 股票代码列表
      */
-    private String[] stockArray;
+    //private String[] stockArray;
 
     public String getPublishStr(){
         PublishEnum publishEnum = PublishEnum.get(publish);
