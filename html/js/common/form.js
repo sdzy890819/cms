@@ -231,7 +231,7 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 								  }											
 								}								
 								,http : function( value ){
-									var reg = /^http:\/\/([\w-]+\.)+[\w-]+(\/[\w-./?%&=]*)?$/;
+									var reg = /^(http|https):\/\/([\w-]+\.)+[\w-]+(\/[\w-./?%&=]*)?$/;
 									if(value.search(reg)<0){
 										return '请输入正确的域名（例：http://www.xy.com）';
 									};
