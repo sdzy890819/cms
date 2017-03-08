@@ -23,7 +23,7 @@ define(['require',"app",'jquery','search','./searchForm'
 									}else {
 										_data.data.writeTime = '';
 									}
-									if(formList){ //发果有1条以上的字段则显示
+									if(formList){ //如果有1条以上的字段则显示
 										var maxNum , index = 2 , 
 											title , name, inputMaxNum,type,
 											firstArr, lastArr;
@@ -136,9 +136,10 @@ define(['require',"app",'jquery','search','./searchForm'
 												layui.use(['layer'], function(){
 													var layer = layui.layer;
 													layer.msg(_data.message);
-													 setTimeout(function(){
+													getDataList();
+													 /*setTimeout(function(){
 													 	$state.reload();
-													 },300);
+													 },300);*/
 												});
 											}
 										});
@@ -147,7 +148,7 @@ define(['require',"app",'jquery','search','./searchForm'
 								$.each(list,function( i , obj){
 									if(obj.title == 'content'){
 										obj.width = '650px';
-									}			
+									}		
 
 									if(obj.type=='select'){
 										obj.callback = function( _object ){
@@ -163,7 +164,7 @@ define(['require',"app",'jquery','search','./searchForm'
 														var arr = [obj.select[1][0]];
 														obj.select[1] = arr;
 														obj.select[1] = obj.select[1].concat(Tool.changeObjectName(_data.data,[{name:'channelName',newName:'name'}]));
-									
+														obj.select[2] = [obj.select[2][0]]; //第三个select清空
 														$scope.$apply();
 														_object.callback();
 													}
@@ -315,14 +316,14 @@ define(['require',"app",'jquery','search','./searchForm'
 					var th = [
 						{name:'文章ID' , key:'id' , width : '50'},		
 						{name:'所属频道栏目' , key:'channelAndColumnName' , width : '200'},					
-						{name:'标题' , key:'title' , width : '200'},								
+						{name:'标题' , key:'title' , width : '300'},								
 						{name:'作者' , key:'author' , width: '100', class: 'center'},
 						{name:'发布人' , key:'buildUserName' , width: '100', class: 'center'},
 						{name:'修改人' , key:'lastModifyUserName' , width: '100', class: 'center'},
-						{name:'媒体来源' , key:'source' , width: '100', class: 'center'},
+						{name:'媒体来源' , key:'source' , width: '70', class: 'center'},
 												
-						{name:'发布时间' , key:'buildTimeStr' , width : '200', class: 'center'},
-						{name:'修改时间' , key:'updateTimeStr' , width : '200', class: 'center'},
+						{name:'发布时间' , key:'buildTimeStr' , width : '80', class: 'center'},
+						{name:'修改时间' , key:'updateTimeStr' , width : '80', class: 'center'},
 						{name:'状态' , key:'publishStr' , width: '100', class: 'center'},
 						{name:'操作' , width : '200' , class: 'center'},
 						{name:'权限' , width : '100' , class: 'center'}
@@ -330,6 +331,9 @@ define(['require',"app",'jquery','search','./searchForm'
 					
 					$.each(_data.data.list, function(i, obj){
 						obj.channelAndColumnName = [obj.channelName, obj.columnName].join('-');
+						if(Tool.getByteLen(obj.author)>6){
+							obj.author = Tool.getByteVal(obj.author,6)
+						}
 					})
 			
 					$scope.listdata = { //确认按钮
@@ -363,18 +367,16 @@ define(['require',"app",'jquery','search','./searchForm'
 							}
 						]*/
 					}
-
 					$.each($scope.listdata.table.td, function(i, obj){
-
 						if (obj.publish) {
 							obj.list[2].href = obj.url;
 						}
 					})
 
 					GenerateArrList.extendType($scope.listdata.table.td,th,['width','name','key']); //把TH 中的出name,key,width属性以外的属性合传给td							
-      		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');			        		
-      		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.permission,'permission');			        		
-      		$scope.$apply();						
+      				GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');			        		
+      				GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.permission,'permission');			        		
+      				$scope.$apply();						
 				}
 
 				//搜索
