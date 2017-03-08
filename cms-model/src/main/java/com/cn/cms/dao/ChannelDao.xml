@@ -18,7 +18,7 @@
         <result column="template_path" property="templatePath" />
         <result column="channel_desc" property="channelDesc" />
         <result column="category_id" property="categoryId" />
-        <result column="rsync_model_name" property="rsyncModelname" />
+        <result column="rsync_model_name" property="rsyncModelName" />
     </resultMap>
 
 
