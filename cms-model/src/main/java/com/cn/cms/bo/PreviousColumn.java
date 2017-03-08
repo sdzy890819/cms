@@ -16,4 +16,6 @@ public class PreviousColumn {
 
     private Long columnId;
 
+    private String source;
+
 }
