@@ -113,6 +113,12 @@ define(['require',"app",'jquery'
 								{name:'操作' , width : '120', class:'center'}
 							];						
 							
+							$.each(_data.data, function(i, obj) {
+								if (obj.rsyncModelName == undefined) {
+									obj.rsyncModelName = '';
+								}
+							})
+
 							$scope.listdata = { //确认按钮
 								title : $scope.title,
 								table : {
