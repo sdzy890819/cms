@@ -275,6 +275,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						//id:obj.id,
 						userId:obj.userId,
 						realName:obj.realName,
+						userName:obj.userName,
 						pwd:obj.pwd,
 						headImage:obj.headImage,
 						idfa:obj.idfa	

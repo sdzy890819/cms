@@ -63,6 +63,7 @@ define(['require',"app",'jquery',
         						getData.user.updateUser2({
 									//id:_detail.id,
 									userId:_detail.userId,
+									userName:obj.userName,
 									realName:obj.realName,
 									pwd:obj.pwd,
 									headImage:(imageInfo?imageInfo.imageUrl:_detail.headImage),
