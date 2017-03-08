@@ -59,9 +59,10 @@ define(["app",'jquery','./columnForm'
 													layui.use(['layer'], function(){
 														var layer = layui.layer;
 														layer.msg(_data.message);
-														setTimeout(function(){
+														getDataList();
+														/*setTimeout(function(){
 															$state.reload()
-														},300)
+														},300)*/
 													});
 												}
 											})

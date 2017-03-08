@@ -136,9 +136,10 @@ define(['require',"app",'jquery','search','./searchForm'
 												layui.use(['layer'], function(){
 													var layer = layui.layer;
 													layer.msg(_data.message);
-													 setTimeout(function(){
+													getDataList();
+													 /*setTimeout(function(){
 													 	$state.reload();
-													 },300);
+													 },300);*/
 												});
 											}
 										});
@@ -147,7 +148,7 @@ define(['require',"app",'jquery','search','./searchForm'
 								$.each(list,function( i , obj){
 									if(obj.title == 'content'){
 										obj.width = '650px';
-									}			
+									}		
 
 									if(obj.type=='select'){
 										obj.callback = function( _object ){

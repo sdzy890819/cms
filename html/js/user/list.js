@@ -40,17 +40,28 @@ define(['require',"app",'jquery',
 	  				});	
 					},
 					edit : function( obj ){
+						function getAddForm(callback , formList){ //填充数据
+							getData.user.detail({
+								id : obj.id,
+								callback : function(_data){
+									if(formList){ //发果有1条以上的字段则显示
+										
+									}else{
+										callback(_data);
+									}
+
+								}
+							})
+						}
 						editPop.init({
         					obj : obj,
         					list : list,
-        					updateData : function(){
-
-        					},
+        					updateData : getAddForm,
         					save : function(obj , _detail ){ //保存 新增 确认 等
         						
         					},
         					callback : function( list , callback ){ //返回获取的数据 用于操作  				
-								
+								callback(list);
         					},
         					$uibModal :$uibModal 
         				});
