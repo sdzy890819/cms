@@ -273,10 +273,18 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					data : {userId: obj.userId},
 					success : function( _data ){
 						obj.callback(_data);
-					},
-					error : function(){}
+					}
 				})
-			}					
+			},
+			detail : function( obj ){
+				T.ajax({
+					url : URL.user.detail , 
+					data : {userId: obj.id},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				})
+			}			
 		},
 
 		position : {
