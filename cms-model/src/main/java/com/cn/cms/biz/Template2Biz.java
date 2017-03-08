@@ -99,4 +99,8 @@ public class Template2Biz extends BaseBiz {
         template2Service.uploadTemplate(lastModifyUserId, id, upload);
     }
 
+
+    public Integer queryFilenameAndPathCount(Template2 template2){
+        return template2Service.queryFilenameAndPathCount(template2);
+    }
 }

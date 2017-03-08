@@ -72,6 +72,10 @@ public class TemplateBiz extends BaseBiz {
         }
     }
 
+    public Integer queryFilenameAndPathCount(Template template){
+        return templateService.queryFilenameAndPathCount(template);
+    }
+
     /**
      * 查询关系
      * @param templateId

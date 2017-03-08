@@ -29,4 +29,6 @@ public interface TopicDao {
     List<Topic> findTopicByColumn(@Param(value = "topicColumnId") Long topicColumnId, @Param(value = "page") Page page);
 
     void publishTopic(@Param(value = "p1") Topic topic);
+
+    Integer queryFilenameAndPathCount(@Param(value = "p1") Topic topic);
 }

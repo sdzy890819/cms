@@ -50,4 +50,6 @@ public interface TopicService {
 
     TopicColumn getTopicColumn(Long id);
 
+    Integer queryFilenameAndPathCount(Topic topic);
+
 }

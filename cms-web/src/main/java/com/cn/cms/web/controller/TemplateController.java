@@ -1,14 +1,14 @@
 package com.cn.cms.web.controller;
 
 import com.cn.cms.biz.ChannelBiz;
+import com.cn.cms.biz.Template2Biz;
 import com.cn.cms.biz.TemplateBiz;
+import com.cn.cms.biz.TopicBiz;
 import com.cn.cms.bo.RelationBean;
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.enums.UploadEnum;
 import com.cn.cms.exception.BizException;
-import com.cn.cms.po.Channel;
-import com.cn.cms.po.Template;
-import com.cn.cms.po.TemplateRelation;
+import com.cn.cms.po.*;
 import com.cn.cms.utils.FileUtil;
 import com.cn.cms.utils.Page;
 import com.cn.cms.utils.StringUtils;
@@ -41,6 +41,12 @@ public class TemplateController extends BaseController {
 
     @Resource
     private ChannelBiz channelBiz;
+
+    @Resource
+    private Template2Biz template2Biz;
+
+    @Resource
+    private TopicBiz topicBiz;
 
     /**
      * 模版列表［分页］
@@ -123,6 +129,7 @@ public class TemplateController extends BaseController {
                                  @RequestParam(value = "encoded",required = false) String encoded,
                                  @RequestParam(value = "channelId",required = false) Long channelId,
                                  @RequestParam(value = "sortNum",required = false) Integer sortNum){
+        Template oldTemplate = templateBiz.getTemplate(id);
         Template template = new Template();
         template.setId(id);
         template.setLastModifyUserId(getCurrentUserId(request));
@@ -135,6 +142,29 @@ public class TemplateController extends BaseController {
         template.setTemplateClassify(templateClassify);
         template.setTemplateDesc(templateDesc);
         template.setTemplateName(templateName);
+
+        if(!oldTemplate.getPath().equals(path) || !oldTemplate.getFilename().equals(filename)){
+            Integer a = templateBiz.queryFilenameAndPathCount(template);
+            if( a != null && a > 0){
+                return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
+            }
+            Template2 tmp = new Template2();
+            tmp.setFilename(filename);
+            tmp.setPath(path);
+            Integer b = template2Biz.queryFilenameAndPathCount(tmp);
+            if(b != null && b > 0){
+                return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
+            }
+
+            Topic topic = new Topic();
+            topic.setTopicPath(path);
+            topic.setTopicFilename(filename);
+            Integer c = topicBiz.queryFilenameAndPathCount(topic);
+            if(c != null && c > 0){
+                return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
+            }
+        }
+
         templateBiz.saveTemplate(template);
         return ApiResponse.returnSuccess();
     }
@@ -167,6 +197,7 @@ public class TemplateController extends BaseController {
                                  @RequestParam(value = "encoded") String encoded,
                                  @RequestParam(value = "channelId") Long channelId,
                                  @RequestParam(value = "sortNum") Integer sortNum){
+
         Template template = new Template();
         template.setLastModifyUserId(getCurrentUserId(request));
         template.setChannelId(channelId);
@@ -178,6 +209,27 @@ public class TemplateController extends BaseController {
         template.setTemplateClassify(templateClassify);
         template.setTemplateDesc(templateDesc);
         template.setTemplateName(templateName);
+
+        Integer a = templateBiz.queryFilenameAndPathCount(template);
+        if( a != null && a > 0){
+            return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
+        }
+        Template2 tmp = new Template2();
+        tmp.setFilename(filename);
+        tmp.setPath(path);
+        Integer b = template2Biz.queryFilenameAndPathCount(tmp);
+        if(b != null && b > 0){
+            return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
+        }
+
+        Topic topic = new Topic();
+        topic.setTopicPath(path);
+        topic.setTopicFilename(filename);
+        Integer c = topicBiz.queryFilenameAndPathCount(topic);
+        if(c != null && c > 0){
+            return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
+        }
+
         templateBiz.saveTemplate(template);
         return ApiResponse.returnSuccess();
     }

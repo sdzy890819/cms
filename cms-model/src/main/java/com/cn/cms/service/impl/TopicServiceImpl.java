@@ -140,4 +140,9 @@ public class TopicServiceImpl implements TopicService {
     public TopicColumn getTopicColumn(Long id) {
         return topicColumnDao.getTopicColumn(id);
     }
+
+    @Override
+    public Integer queryFilenameAndPathCount(Topic topic) {
+        return topicDao.queryFilenameAndPathCount(topic);
+    }
 }

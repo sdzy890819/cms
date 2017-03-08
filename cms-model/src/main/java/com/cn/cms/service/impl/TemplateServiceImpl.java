@@ -60,6 +60,11 @@ public class TemplateServiceImpl implements TemplateService {
         templateDao.saveTemplate(template);
     }
 
+    @Override
+    public Integer queryFilenameAndPathCount(Template template){
+        return templateDao.queryFilenameAndPathCount(template);
+    }
+
     public void updateTemplate(Template template) {
         templateDao.updateTemplate(template);
     }

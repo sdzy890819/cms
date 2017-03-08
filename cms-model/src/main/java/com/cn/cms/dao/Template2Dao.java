@@ -35,4 +35,5 @@ public interface Template2Dao {
                         @Param(value = "id") Long id,
                         @Param(value = "upload") Integer upload);
 
+    Integer queryFilenameAndPathCount(@Param(value = "p1") Template2 template);
 }

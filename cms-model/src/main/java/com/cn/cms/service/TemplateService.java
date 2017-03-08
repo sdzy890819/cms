@@ -26,6 +26,8 @@ public interface TemplateService {
 
     void saveTemplate(Template template);
 
+    Integer queryFilenameAndPathCount(Template template);
+
     void updateTemplate(Template template);
 
     Template getTemplate(Long id);

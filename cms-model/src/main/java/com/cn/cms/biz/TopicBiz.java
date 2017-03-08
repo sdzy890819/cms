@@ -1,5 +1,6 @@
 package com.cn.cms.biz;
 
+import com.cn.cms.po.Template;
 import com.cn.cms.po.Topic;
 import com.cn.cms.po.TopicClassify;
 import com.cn.cms.po.TopicColumn;
@@ -63,6 +64,7 @@ public class TopicBiz extends BaseBiz {
             topicService.saveTopic(topic);
         }
     }
+
 
     /**
      * 获取所有的系列专题列表
@@ -164,6 +166,10 @@ public class TopicBiz extends BaseBiz {
 
     public TopicColumn getTopicColumn(Long id){
         return topicService.getTopicColumn(id);
+    }
+
+    public Integer queryFilenameAndPathCount(Topic topic){
+        return topicService.queryFilenameAndPathCount(topic);
     }
 
 }

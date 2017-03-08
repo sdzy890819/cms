@@ -121,4 +121,11 @@
         publish = ${p1.publish} where id = ${p1.id};
     </update>
 
+    <select id="queryFilenameAndPathCount">
+        select count(1) from topic <include refid="delTag" /> and topic_path = #{p1.topicPath} and topic_filename = #{p1.topicFilename}
+        <if test="p1.id != null">
+            and id != #{p1.id}
+        </if>
+    </select>
+
 </mapper>
