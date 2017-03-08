@@ -866,7 +866,8 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						channelUrl   : obj.channelUrl,
 						channelPath  : obj.channelPath,
 						templatePath : obj.templatePath,
-						channelDesc  : obj.channelDesc						
+						channelDesc  : obj.channelDesc,
+						rsyncModelName : obj.rsyncModelName			
 					},
 					success : function( _data ){						
 						obj.callback(_data);

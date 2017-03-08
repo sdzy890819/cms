@@ -18,7 +18,8 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 			title : 'topicPath',
 			name : '专题相对路径',
 			type : 'text',
-			placeholder : '请输入视频说明'
+			placeholder : '请输入视频说明',
+			verify: 'path'
 		},
 		{
 			title : 'topicFilename',
