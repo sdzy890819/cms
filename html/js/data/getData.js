@@ -267,6 +267,23 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					}
 				})
 			},
+			updateUser2 : function( obj ){ //当前登录用户信息接口
+				$.ajax({
+					url : URL.user.updateUser2 ,
+					type : 'post' ,
+					data : {												
+						//id:obj.id,
+						userId:obj.userId,
+						realName:obj.realName,
+						pwd:obj.pwd,
+						headImage:obj.headImage,
+						idfa:obj.idfa	
+					},
+					success : function(_data){												
+						obj.callback(_data);
+					}
+				})
+			},
 			delUser : function( obj ){ //删除用户
 				T.ajax({
 					url : URL.user.delUser , 
@@ -279,7 +296,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 			detail : function( obj ){
 				T.ajax({
 					url : URL.user.detail , 
-					data : {userId: obj.id},
+					data : {userId: obj.userId},
 					success : function( _data ){
 						obj.callback(_data);
 					}
