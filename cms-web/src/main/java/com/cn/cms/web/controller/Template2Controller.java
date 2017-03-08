@@ -1,13 +1,17 @@
 package com.cn.cms.web.controller;
 
 import com.cn.cms.biz.Template2Biz;
+import com.cn.cms.biz.TemplateBiz;
+import com.cn.cms.biz.TopicBiz;
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.enums.Template2ClassifyEnum;
 import com.cn.cms.enums.TemplateClassifyEnum;
 import com.cn.cms.enums.UploadEnum;
 import com.cn.cms.exception.BizException;
+import com.cn.cms.po.Template;
 import com.cn.cms.po.Template2;
 import com.cn.cms.po.Template2Base;
+import com.cn.cms.po.Topic;
 import com.cn.cms.utils.FileUtil;
 import com.cn.cms.utils.Page;
 import com.cn.cms.utils.StringUtils;
@@ -39,6 +43,12 @@ public class Template2Controller extends BaseController  {
 
     @Resource
     private Template2Biz template2Biz;
+
+    @Resource
+    private TemplateBiz templateBiz;
+
+    @Resource
+    private TopicBiz topicBiz;
 
     /**
      * 第二模版列表［分页］
@@ -139,6 +149,7 @@ public class Template2Controller extends BaseController  {
                                  @RequestParam(value = "path",required = false) String path,
                                  @RequestParam(value = "templateClassify",required = false) Integer templateClassify,
                                  @RequestParam(value = "encoded",required = false) String encoded){
+        Template2 oldTemplate = template2Biz.getTemplate2(id);
         Template2 template2 = new Template2();
         template2.setId(id);
         template2.setLastModifyUserId(getCurrentUserId(request));
@@ -147,6 +158,32 @@ public class Template2Controller extends BaseController  {
         template2.setPath(path);
         template2.setTemplateClassify(templateClassify);
         template2.setTemplateName(templateName);
+
+        if(!oldTemplate.getPath().equals(path) || !oldTemplate.getFilename().equals(filename)){
+
+            Integer b = template2Biz.queryFilenameAndPathCount(template2);
+            if(b != null && b > 0){
+                return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
+            }
+
+            Template tmp = new Template();
+            tmp.setPath(path);
+            tmp.setFilename(filename);
+            Integer a = templateBiz.queryFilenameAndPathCount(tmp);
+            if( a != null && a > 0){
+                return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
+            }
+
+            Topic topic = new Topic();
+            topic.setTopicPath(path);
+            topic.setTopicFilename(filename);
+            Integer c = topicBiz.queryFilenameAndPathCount(topic);
+            if(c != null && c > 0){
+                return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
+            }
+
+        }
+
         template2Biz.saveTemplate2(template2);
         return ApiResponse.returnSuccess();
     }
@@ -178,6 +215,28 @@ public class Template2Controller extends BaseController  {
         template2.setPath(path);
         template2.setTemplateClassify(templateClassify);
         template2.setTemplateName(templateName);
+
+        Integer b = template2Biz.queryFilenameAndPathCount(template2);
+        if(b != null && b > 0){
+            return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
+        }
+
+        Template tmp = new Template();
+        tmp.setPath(path);
+        tmp.setFilename(filename);
+        Integer a = templateBiz.queryFilenameAndPathCount(tmp);
+        if( a != null && a > 0){
+            return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
+        }
+
+        Topic topic = new Topic();
+        topic.setTopicPath(path);
+        topic.setTopicFilename(filename);
+        Integer c = topicBiz.queryFilenameAndPathCount(topic);
+        if(c != null && c > 0){
+            return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
+        }
+
         template2Biz.saveTemplate2(template2);
         return ApiResponse.returnSuccess();
     }

@@ -82,4 +82,9 @@ public class Template2ServiceImpl implements Template2Service {
     public void uploadTemplate(String lastModifyUserId, Long id, Integer upload) {
         template2Dao.uploadTemplate(lastModifyUserId, id, upload);
     }
+
+    @Override
+    public Integer queryFilenameAndPathCount(Template2 template) {
+        return template2Dao.queryFilenameAndPathCount(template);
+    }
 }

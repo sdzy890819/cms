@@ -97,4 +97,11 @@
     <update id="uploadTemplate">
         update template2 set upload = ${upload}, last_modify_user_id = #{lastModifyUserId} where id = ${id};
     </update>
+
+    <select id="queryFilenameAndPathCount">
+        select count(1) from template2 <include refid="delTag"/> and filename = #{p1.filename} and path = #{p1.path}
+        <if test="p1.id != null">
+            and id != #{p1.id}
+        </if>
+    </select>
 </mapper>

@@ -1,13 +1,13 @@
 package com.cn.cms.web.controller;
 
 import com.cn.cms.biz.PublishBiz;
+import com.cn.cms.biz.Template2Biz;
+import com.cn.cms.biz.TemplateBiz;
 import com.cn.cms.biz.TopicBiz;
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.enums.CommonMessageSourceEnum;
 import com.cn.cms.exception.BizException;
-import com.cn.cms.po.Topic;
-import com.cn.cms.po.TopicClassify;
-import com.cn.cms.po.TopicColumn;
+import com.cn.cms.po.*;
 import com.cn.cms.utils.Page;
 import com.cn.cms.web.ann.CheckAuth;
 import com.cn.cms.web.ann.CheckToken;
@@ -38,6 +38,12 @@ public class TopicController extends BaseController {
 
     @Resource
     private PublishBiz publishBiz;
+
+    @Resource
+    private TemplateBiz templateBiz;
+
+    @Resource
+    private Template2Biz template2Biz;
 
     /**
      * 分页专题列表。
@@ -151,6 +157,31 @@ public class TopicController extends BaseController {
         topic.setTopicFilename(topicFilename);
         topic.setTopicPath(topicPath);
         topic.setTopicTitle(topicTitle);
+
+        Integer c = topicBiz.queryFilenameAndPathCount(topic);
+        if(c != null && c > 0){
+            return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
+        }
+
+        Template template = new Template();
+        template.setFilename(topicFilename);
+        template.setPath(topicPath);
+        Integer a = templateBiz.queryFilenameAndPathCount(template);
+        if( a != null && a > 0){
+            return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
+        }
+
+        Template2 tmp = new Template2();
+        tmp.setFilename(topicFilename);
+        tmp.setPath(topicPath);
+        Integer b = template2Biz.queryFilenameAndPathCount(tmp);
+        if(b != null && b > 0){
+            return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
+        }
+
+
+
+
         topicBiz.saveTopic(topic);
         publish(request, topic.getId());
         return ApiResponse.returnSuccess();
@@ -191,6 +222,7 @@ public class TopicController extends BaseController {
                              @RequestParam(value = "description",required = false) String description,
                              @RequestParam(value = "topicColumnId",required = false) Long topicColumnId) throws BizException {
         SimpleDateFormat sdf = new SimpleDateFormat(StaticContants.YYYY_MM_DD);
+        Topic oldTopic = topicBiz.getTopic(id);
         Topic topic = new Topic();
         topic.setId(id);
         topic.setLastModifyUserId(getCurrentUserId(request));
@@ -209,6 +241,29 @@ public class TopicController extends BaseController {
         topic.setTopicFilename(topicFilename);
         topic.setTopicPath(topicPath);
         topic.setTopicTitle(topicTitle);
+        if(!oldTopic.getTopicPath().equals(topicPath) || !oldTopic.getTopicFilename().equals(topicFilename)) {
+            Integer c = topicBiz.queryFilenameAndPathCount(topic);
+            if (c != null && c > 0) {
+                return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
+            }
+
+            Template template = new Template();
+            template.setFilename(topicFilename);
+            template.setPath(topicPath);
+            Integer a = templateBiz.queryFilenameAndPathCount(template);
+            if (a != null && a > 0) {
+                return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
+            }
+
+            Template2 tmp = new Template2();
+            tmp.setFilename(topicFilename);
+            tmp.setPath(topicPath);
+            Integer b = template2Biz.queryFilenameAndPathCount(tmp);
+            if (b != null && b > 0) {
+                return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
+            }
+        }
+
         topicBiz.saveTopic(topic);
         publish(request, topic.getId());
         return ApiResponse.returnSuccess();

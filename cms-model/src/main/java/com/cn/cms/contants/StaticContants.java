@@ -110,6 +110,8 @@ public class StaticContants {
 
     public static final String ERROR_TOPIC_NOT_FOUND = "找不到此模版";
 
+    public static final String ERROR_TEMPLATE_PATH_FILENAME_DUP = "模版目录或文件名已存在";
+
     public static final String getTimeParseErrorYYYYMMDD(){
         return ERROR_TIME_PARSE.concat(YYYY_MM_DD);
     }
