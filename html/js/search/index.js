@@ -48,9 +48,10 @@ define(['require',"app",'jquery','/js/moduls/Tool.js'
 									};
 								}
 								,path : function( value ){
-									//var reg = /^\/+([A-Za-z]{1}\/[\w\/]*)?\w+\/{1}[a-zA-Z]+$/;
-									var reg = /^[\/|\w|\d]+\/{1}[\w|\d]{1}[\/|\w|\d]+$/;
-									if(value.search(reg)<0){
+									var reg = /[\s,，.。\|\*\#]/;
+									
+									if(value.match(reg) != null){
+										console.log(value.match(reg));
 										return '请输入正确的路经（例：xy/xy）';
 									};
 								}

@@ -23,6 +23,7 @@ define(["app", '../data/getData', './form','form','position','fixedNav'], functi
 								"channelUrl"   : obj.channelUrl,
 								"templatePath" : obj.templatePath,
 								"channelDesc"  : obj.channelDesc,
+								"rsyncModelName" : obj.rsyncModelName,
 
 								callback : function(_data){
 
