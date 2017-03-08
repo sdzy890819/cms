@@ -35,7 +35,7 @@ public class RestTestController extends BaseController{
     @Resource
     private ESearchClient eSearchClient;
 
-    @Resource
+    @Resource(name="threadTaskExecutor")
     private ThreadPoolTaskExecutor threadPoolTaskExecutor;
 
     /**
