@@ -83,12 +83,12 @@ define(['require',"app",'jquery',
 
 				function setList(_data){
 					var th = [
-								{name:'头像' ,  key: 'headImage', width : '200'},										
-								{name:'真实名称', key: 'realName' },
-								//{name:'用户名', key: 'realName' },
-								{name: 'IDFA(MAC)', key: 'idfa'},
-								{name: '用户ID', key: 'userId'},
-								{name:'操作' , width : '300' , class:'center'}
+						{name:'头像' ,  key: 'headImage', width : '200'},										
+						{name:'真实名称', key: 'realName' },
+						{name:'用户名', key: 'userName' },
+						{name: 'IDFA(MAC)', key: 'idfa'},
+						{name: '用户ID', key: 'userId'},
+						{name:'操作' , width : '300' , class:'center'}
 					];				
 
 					$.each(_data.data.list, function(i, a){						
