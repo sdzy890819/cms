@@ -151,7 +151,11 @@ public class AppNewsController extends AppBaseController {
         news.setColumnId(columnId);
         news.setAuthor(author);
         news.setKeyword(keyword);
-        news.setDescription(description);
+        if(StringUtils.isNotBlank(news.getDescription())) {
+            news.setDescription(description);
+        }else {
+            news.setDescription(content.replaceAll(StaticContants.REGEX_SPLIT_HTML_CONTENT, "").replaceAll("\"", "“"));
+        }
         news.setSource(source);
         NewsDetail newsDetail = new NewsDetail();
         newsDetail.setLastModifyUserId(userID);
@@ -245,7 +249,11 @@ public class AppNewsController extends AppBaseController {
         news.setColumnId(columnId);
         news.setAuthor(author);
         news.setKeyword(keyword);
-        news.setDescription(description);
+        if(StringUtils.isNotBlank(news.getDescription())) {
+            news.setDescription(description);
+        }else {
+            news.setDescription(content.replaceAll(StaticContants.REGEX_SPLIT_HTML_CONTENT, "").replaceAll("\"", "“"));
+        }
         news.setSource(source);
         NewsDetail newsDetail = new NewsDetail();
         newsDetail.setLastModifyUserId(userID);

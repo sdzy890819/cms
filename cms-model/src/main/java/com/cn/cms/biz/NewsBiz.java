@@ -283,6 +283,9 @@ public class NewsBiz extends BaseBiz {
             previousColumn.setColumnId(news.getColumnId());
             tmp ++ ;
         }
+        if(news.getSource()!=null){
+            previousColumn.setSource(news.getSource());
+        }
         if(tmp>0){
             jedisClient.set(RedisKeyContants.getRedisAddNewPreviousColumnInfo(news.getLastModifyUserId())
                     , JSONObject.toJSONString(previousColumn));

@@ -160,7 +160,7 @@ public class NewsController extends BaseController {
                              @RequestParam(value = "title") String title,
                              @RequestParam(value = "subTitle", required = false) String subTitle,
                              @RequestParam(value = "keyword") String keyword,
-                             @RequestParam(value = "description") String description,
+                             @RequestParam(value = "description", required = false) String description,
                              @RequestParam(value = "source") String source,
                              @RequestParam(value = "author") String author,
                              @RequestParam(value = "categoryId") Long categoryId,
@@ -185,7 +185,11 @@ public class NewsController extends BaseController {
         news.setColumnId(columnId);
         news.setAuthor(author);
         news.setKeyword(keyword);
-        news.setDescription(description);
+        if(StringUtils.isNotBlank(news.getDescription())) {
+            news.setDescription(description);
+        }else {
+            news.setDescription(content.replaceAll(StaticContants.REGEX_SPLIT_HTML_CONTENT, "").replaceAll("\"", "“"));
+        }
         news.setSource(source);
         NewsDetail newsDetail = new NewsDetail();
         newsDetail.setLastModifyUserId(userID);
@@ -252,7 +256,7 @@ public class NewsController extends BaseController {
                              @RequestParam(value = "title",required = false) String title,
                              @RequestParam(value = "subTitle",required = false) String subTitle,
                              @RequestParam(value = "keyword",required = false) String keyword,
-                             @RequestParam(value = "description",required = false) String description,
+                             @RequestParam(value = "description", required = false) String description,
                              @RequestParam(value = "source",required = false) String source,
                              @RequestParam(value = "author",required = false) String author,
                              @RequestParam(value = "categoryId", required = false) Long categoryId,
@@ -278,7 +282,11 @@ public class NewsController extends BaseController {
         news.setColumnId(columnId);
         news.setAuthor(author);
         news.setKeyword(keyword);
-        news.setDescription(description);
+        if(StringUtils.isNotBlank(news.getDescription())) {
+            news.setDescription(description);
+        }else {
+            news.setDescription(content.replaceAll(StaticContants.REGEX_SPLIT_HTML_CONTENT, "").replaceAll("\"", "“"));
+        }
         news.setSource(source);
         NewsDetail newsDetail = new NewsDetail();
         newsDetail.setLastModifyUserId(userID);

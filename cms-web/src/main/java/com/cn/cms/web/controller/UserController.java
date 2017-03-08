@@ -181,6 +181,14 @@ public class UserController extends BaseController{
         return ApiResponse.returnSuccess();
     }
 
+    @CheckToken
+    @CheckAuth( name = "user:read" )
+    @RequestMapping(value = "/detail",method = RequestMethod.GET)
+    public String updateUser2(@RequestParam("userId") String userId){
+        UserBean userBean = userBiz.getUserBean(userId);
+        return ApiResponse.returnSuccess(userBean);
+    }
+
     /**
      * 随机生成12位密码
      * @return

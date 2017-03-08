@@ -244,4 +244,6 @@ public class StaticContants {
 
     public static String REGEX_SPLIT = "[,，\\s]";
 
+    public static String REGEX_SPLIT_HTML_CONTENT = "<[^>]*>";
+
 }
