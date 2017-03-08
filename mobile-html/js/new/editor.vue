@@ -62,6 +62,13 @@
                     </vue2-html5-editor> -->
                     <textarea v-model='content' class="text textedit" disabled='disabled' type="text" placeholder='请输入内容'></textarea>
                 </li>
+                <li class='time-date'>
+                    <div class='label'>发布时间：</div>
+                    <div class='text'>
+                        <input type='date' v-model='timer1' >
+                        <input type="time" v-model='datatime1' />
+                    </div>
+                </li>
                 <li>
                     <input class="text" placeholder="扩展字段1" type="text" v-model="field1">
                         <div class="fieldEdit">
@@ -125,7 +132,7 @@
                     </div>
                 </li>
                 <li class='time-date'>
-                    <div class='label'>请选择日期：</div>
+                    <div class='label'>定时发布：</div>
                     <div class='text'>
                         <input type='date' v-model='timer' >
                         <input type="time" v-model='datatime' />
@@ -192,6 +199,8 @@ var data = {
     autoPublish: 1, ////1 是自动发布。0是不自动发布.默认不自动发布
     timer: '', //yyyy-MM-dd HH:mm" //定时发布。//可不传
     datatime: '',
+    timer1:'',//yyyy-MM-dd HH:mm" //定时发布。//可不传
+    datatime1 : '',
     publish: 0, //0|2 //默认为0 ，正常保存。保存草稿使用2
     data: {
         listCategory: [],
@@ -499,7 +508,7 @@ export default {
                     });
                     return;
                 }
-                if(obj.description.length<5){
+                /*if(obj.description.length<5){
                     var pop = new Pop({
                         title : '提示',
                         content : '<center>描述不能小于5位数！</center>',
@@ -508,7 +517,7 @@ export default {
                         timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
                     });
                     return;
-                }
+                }*/
                 if(obj.categoryId.length<1){
                     var pop = new Pop({
                         title : '提示',
@@ -571,6 +580,7 @@ export default {
                         field5: obj.field5,
                         autoPublish: obj.autoPublish, //1 是自动发布。0是不自动发布.默认不自动发布
                         timer: obj.timer + ' ' + obj.datatime, //定时发布。//可不传
+                        editPublishTime:obj.timer1+' '+obj.datatime1, //
                         publish: publish //默认为0 ，正常保存。保存草稿使用2
                     },
                     success: function(_data) {
@@ -676,6 +686,7 @@ export default {
                     display:block; float:left; height:$s25; line-height:$s25;
                     border:$s1 solid #ddd; padding:$s4;
                     font-size:$s12;
+                    &:not(first-child){margin-left:$s5;};
                 }
             }
         }

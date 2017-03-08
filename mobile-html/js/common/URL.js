@@ -32,6 +32,7 @@ module.exports = {
         newsdetail: url + '/news/newsdetail', //详细信息
         updateNews: url + '/news/updateNews', //修改新闻
         publish: url + '/news/publish', //新闻发布
+        previousColumn : url + '/news/previousColumn',//获取上次发布新闻的部门 频道 栏目信息 接口
     },
     category: { //部门分类
         listCategory: url + '/category/listCategory', //获取部门分类列表
