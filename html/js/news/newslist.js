@@ -164,7 +164,7 @@ define(['require',"app",'jquery','search','./searchForm'
 														var arr = [obj.select[1][0]];
 														obj.select[1] = arr;
 														obj.select[1] = obj.select[1].concat(Tool.changeObjectName(_data.data,[{name:'channelName',newName:'name'}]));
-									
+														obj.select[2] = [obj.select[2][0]]; //第三个select清空
 														$scope.$apply();
 														_object.callback();
 													}
