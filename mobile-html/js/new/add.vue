@@ -437,7 +437,7 @@ var data = {
                         });
 						return;
 					}
-					if(obj.description.length<5){
+					/*if(obj.description.length<5){
 						var pop = new Pop({
                             title : '提示',
                             content : '<center>描述不能小于5位数！</center>',
@@ -446,7 +446,7 @@ var data = {
                             timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
                         });
 						return;
-					}
+					}*/
 					if(obj.categoryId.length<1){
 						var pop = new Pop({
                             title : '提示',
