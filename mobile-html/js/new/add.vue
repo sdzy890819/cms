@@ -166,12 +166,8 @@ var data = {
 		},
 		beforeCreate(){
 			var self = this;
-			T.ajax({
-				url : category.listCategory,
-				success : function( _data ){
-					self.data.listCategory = _data.data;
-				}
-			});
+			
+
 			/*require.ensure([],function(require){
 				var options = {
 				    name: "vue2-html5-editor",
@@ -304,8 +300,43 @@ var data = {
 				Vue.use(editor, options);
 			})*/
 		},
+		/*watch : {
+			categoryId:function(newVal, oldVal){//部门分类ID 1 
+
+			},
+			channelId:function(newVal, oldVal){//频道ID 2
+
+			},
+			columnId:function(newVal, oldVal){//栏目ID 3
+
+			},
+		},*/
 		mounted(){
 			var self = this;
+			T.ajax({ //获取部门分类
+				url : category.listCategory,
+				success : function( _data ){
+					self.data.listCategory = _data.data;
+					T.ajax({ //获取上一次操作时的 记录
+						url : news.previousColumn,
+						success : function( _data ){
+							try{
+								self.categoryId = _data.data.categoryId;
+								self.source = _data.data.source;
+								self.categoryEvent(function(){
+									self.channelId = _data.data.channelId;
+									self.listChannelEvent(function(){
+										self.columnId = _data.data.columnId;
+									})
+								});
+							}catch(e){
+								
+							}
+						}
+					});
+				}
+			});
+			//previousColumn
 		},
 		methods : {
 			addField : function(){
@@ -340,7 +371,7 @@ var data = {
 					}
 				}
 			},
-			categoryEvent : function( ){
+			categoryEvent : function( callback ){
 				var self = this;
 				if(self.categoryId<0){
 					require.ensure([],function(require){
@@ -363,10 +394,13 @@ var data = {
 					},
 					success : function( _data ){
 						self.$set(self.data,'currentChannelList',_data.data);
+						if($.type(callback)=='function'){
+							callback();
+						}
 					}
 				})
 			},
-			listChannelEvent : function(){
+			listChannelEvent : function(callback){
 				var self = this;
 				if(self.channelId<0){
 					require.ensure([],function(require){
@@ -389,6 +423,9 @@ var data = {
 					},
 					success : function( _data ){
 						self.$set(self.data,'newscolumnlist',_data.data);
+						if($.type(callback)=='function'){
+							callback();
+						}
 					}
 				})
 			}
