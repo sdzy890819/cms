@@ -11,7 +11,8 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 			title : 'subTitle',
 			name : '附标题',
 			placeholder : '请输入附标题',
-			type : 'text'			
+			type : 'text',
+			check : false			
 		},
 		[
 			{
@@ -19,21 +20,21 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 				name : '关键字',
 				placeholder : '关键字之间以 “,” 隔开',
 				type : 'text',
-				check : false
+				verify : 'required'
 			},
 			{
 				title : 'author',
 				name : '作者',
 				placeholder : '请输入作者',
 				type : 'text',
-				check : false
+				verify : 'required'
 			},
 			{
 				title : 'source',
 				name : '来源',
 				placeholder : '请输入作者来源',
 				type : 'text',
-				check : false
+				verify : 'required'
 			}
 		],
 		{
@@ -71,7 +72,15 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 			name : '内容',
 			width : '800px',
 			height : '200px',
-			type : 'edit'
+			type : 'edit',
+			verify : 'title'
+		},
+		{
+			title : 'editPublishTime',
+			name : '发布时间',
+			placeholder : '请选择时间 年/月/日 时:分:秒',
+			type : 'date',
+			check : false
 		},
 		{
 			title : 'field1',

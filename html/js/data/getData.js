@@ -548,6 +548,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						"content":obj.content,
 						"autoPublish":obj.autoPublish, //1 是自动发布。0是不自动发布.默认不自动发布
 						"timer":obj.timer, //定时发布。//可不传,
+						"editPublishTime":obj.editPublishTime,
 						"field1":obj.field1,
 						"field2":obj.field2,
 						"field3":obj.field3,
