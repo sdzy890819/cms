@@ -58,9 +58,9 @@
                     </div>
                 </li>
                 <li>
-                    <!-- <vue2-html5-editor :content.sync="content" :height="200" :value="content" v-model="content">
+                   <!--  <vue2-html5-editor :content.sync="content" :height="200" :value="content" v-model="content">
                     </vue2-html5-editor> -->
-                    <textarea v-model='content' class="text textedit" disabled='disabled' type="text" placeholder='请输入内容'></textarea>
+                    <textarea v-model='content' class="text textedit" type="text" placeholder='请输入内容'></textarea><!--  disabled='disabled' -->
                 </li>
                 <li class='time-date'>
                     <div class='label'>发布时间：</div>
@@ -301,7 +301,7 @@ export default {
                 });
             }
         });
-       /* require.ensure([], function(require) {
+        /*require.ensure([], function(require) {
             var options = {
                     name: "vue2-html5-editor",
                      i18n: {
@@ -412,7 +412,7 @@ export default {
                         "link",
                         "unlink",
                         "tabulation",
-                        "image",
+                        //"image",
                         "hr",
                         "eraser",
                         "undo",
