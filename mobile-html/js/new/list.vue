@@ -9,7 +9,7 @@
 			<dd>
 				<div class="aside">
 					<div class="submit">
-						<!-- <div class="btn" @click='edit(obj)'>修改</div> -->
+						<div v-if='obj.platform == 2 && obj.publish != 1 ' class="btn" @click='edit(obj)'>修改</div>
 						<div class="btn" @click='release(obj)'>发布</div>
 					</div>
 					<span class="author">作者：{{obj.writeUserName}}</span>
