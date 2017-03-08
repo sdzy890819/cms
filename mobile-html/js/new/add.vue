@@ -330,12 +330,12 @@ var data = {
 						url : news.previousColumn,
 						success : function( _data ){
 							try{
-								self.categoryId = _data.data.categoryId;
-								self.source = _data.data.source;
+								self.categoryId = _data.data.categoryId || -1;
+								self.source = _data.data.source||'';
 								self.categoryEvent(function(){
-									self.channelId = _data.data.channelId;
+									self.channelId = _data.data.channelId || -1;
 									self.listChannelEvent(function(){
-										self.columnId = _data.data.columnId;
+										self.columnId = _data.data.columnId || -1;
 									})
 								});
 							}catch(e){
