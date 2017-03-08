@@ -147,7 +147,7 @@
 					page = 1 ,
 					pageSize = 10 , 
 					loading = true;
-
+				self.list = [];
 				function getList(){
 					if(loading==false) return;
 					loading = false;
