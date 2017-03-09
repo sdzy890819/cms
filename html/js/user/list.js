@@ -46,6 +46,7 @@ define(['require',"app",'jquery',
 								userId : obj.userId,
 								callback : function(_data){
 									_data.pwd = '';
+									_data.userName = obj.userName;
 									if(formList){ //发果有1条以上的字段则显示
 										
 									}else{

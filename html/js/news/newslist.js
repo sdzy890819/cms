@@ -19,10 +19,13 @@ define(['require',"app",'jquery','search','./searchForm'
 								id : obj.id,
 								callback : function(_data){
 									if (_data.data.timer) {
-										_data.data.writeTime = new Date(_data.data.timer).format('yyyy-MM-dd h:m:s');
-										_data.data.editPublishTime = new Date(_data.data.editPublishTime).format('yyyy-MM-dd h:m:s');
+										_data.data.writeTime = new Date(_data.data.timer).format('yyyy-MM-dd h:m:s');										
 									}else {
 										_data.data.writeTime = '';
+									}
+
+									if (_data.data.editPublishTime) {
+										_data.data.editPublishTime = new Date(_data.data.editPublishTime).format('yyyy-MM-dd h:m:s');
 									}
 									if(formList){ //如果有1条以上的字段则显示
 										var maxNum , index = 2 , 
