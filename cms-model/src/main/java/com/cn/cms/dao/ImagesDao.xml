@@ -37,6 +37,13 @@
         image_title,upload_user_id,upload_time,image_path,watermark,compress,platform,fid,`size`
     </sql>
 
+    <sql id="all_column">
+        id,last_modify_user_id,
+        image_url,image_width_pixel,image_height_pixel,org_width_pixel,org_height_pixel,
+        image_title,upload_user_id,upload_time,image_path,watermark,compress,platform,fid,`size`
+        ,create_time,update_time,del_tag
+    </sql>
+
     <insert id="saveImages" useGeneratedKeys="true" keyProperty="p1.id">
         insert into images ( <include refid="sql_column"/> ) values
         (null,#{p1.lastModifyUserId},#{p1.imageUrl},${p1.imageWidthPixel},${p1.imageHeightPixel},${p1.orgWidthPixel}
@@ -106,7 +113,11 @@
     </select>
 
     <select id="findImages" resultMap="images">
-        select <include refid="sql_column" /> from images <include refid="delTag" /> and id = ${id};
+        select <include refid="all_column" /> from images <include refid="delTag" /> and id = ${id};
+    </select>
+
+    <select id="findImagesManage" resultMap="images">
+        select <include refid="all_column" /> from images where id = ${id};
     </select>
 
 </mapper>

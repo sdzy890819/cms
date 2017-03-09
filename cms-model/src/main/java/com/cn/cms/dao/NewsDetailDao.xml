@@ -27,6 +27,10 @@
       select <include refid="sql_column" /> from news_detail <include refid="delTag" /> and news_id = ${newsId};
     </select>
 
+    <select id="findNewsDetailManage" resultMap="newsDetail">
+        select <include refid="sql_column" /> from news_detail where news_id = ${newsId};
+    </select>
+
     <insert id="saveNewsDetail" useGeneratedKeys="true" keyProperty="p1.id">
         insert into news_detail ( <include refid="sql_column"/> ) values (
         null,#{p1.lastModifyUserId},#{p1.content},${p1.newsId}

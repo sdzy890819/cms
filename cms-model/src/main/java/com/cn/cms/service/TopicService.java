@@ -18,6 +18,8 @@ public interface TopicService {
 
     Topic getTopic(Long id);
 
+    Topic getTopicManage(Long id);
+
     void delTopic(String lastModifyUserId, Long id);
 
     void saveTopic(Topic topic);

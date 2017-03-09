@@ -44,6 +44,10 @@ public class TopicBiz extends BaseBiz {
         return topicService.getTopic(id);
     }
 
+
+    public Topic getTopicManage(Long id){
+        return topicService.getTopicManage(id);
+    }
     /**
      * 删除专题
      * @param lastModifyUserId

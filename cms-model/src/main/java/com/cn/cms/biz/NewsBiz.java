@@ -459,8 +459,12 @@ public class NewsBiz extends BaseBiz {
     }
 
 
-    public News findNewsAndDetailManage(Long id){
+    public News findNewsManage(Long id){
         return newsService.findNewsManage(id);
+    }
+
+    public News findNewsAndDetailManage(Long id){
+        return newsService.findNewsAndDetailManage(id);
     }
 
     /**

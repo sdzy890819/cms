@@ -69,6 +69,11 @@ public class ResourceServiceImpl implements ResourceService {
         return imagesDao.findImages(id);
     }
 
+    @Override
+    public Images findImagesManage(Long id) {
+        return imagesDao.findImagesManage(id);
+    }
+
     public Integer queryImagesCount() {
         return imagesDao.queryImagesCount();
     }
@@ -109,6 +114,11 @@ public class ResourceServiceImpl implements ResourceService {
         return videoDao.findVideo(id);
     }
 
+    @Override
+    public Video findVideoManage(Long id) {
+        return videoDao.findVideoManage(id);
+    }
+
     public Integer queryVideoCount() {
         return videoDao.queryVideoCount();
     }
@@ -119,11 +129,7 @@ public class ResourceServiceImpl implements ResourceService {
 
     private void sendIndex(Base base, ESSearchTypeEnum esSearchTypeEnum){
         IndexThread indexThread = new IndexThread();
-        if(esSearchTypeEnum == ESSearchTypeEnum.images) {
-            indexThread.setBase(findImages(base.getId()));
-        }else if(esSearchTypeEnum == ESSearchTypeEnum.video){
-            indexThread.setBase(findVideo(base.getId()));
-        }
+        indexThread.setId(base.getId());
         indexThread.setIndexOperEnum(IndexOperEnum.update);
         indexThread.setEsSearchTypeEnum(esSearchTypeEnum);
         threadTaskExecutor.execute(indexThread);
@@ -131,10 +137,8 @@ public class ResourceServiceImpl implements ResourceService {
 
 
     private void delIndex(Long id, ESSearchTypeEnum esSearchTypeEnum){
-        Base base = new Base();
-        base.setId(id);
         IndexThread indexThread = new IndexThread();
-        indexThread.setBase(base);
+        indexThread.setId(id);
         indexThread.setIndexOperEnum(IndexOperEnum.delete);
         indexThread.setEsSearchTypeEnum(esSearchTypeEnum);
         threadTaskExecutor.execute(indexThread);

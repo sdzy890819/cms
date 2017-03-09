@@ -13,7 +13,7 @@ import lombok.Setter;
 @Setter
 public class ESearchJobList {
 
-    private Base base;
+    private Long id;
 
     private ESSearchTypeEnum esSearchTypeEnum;
 

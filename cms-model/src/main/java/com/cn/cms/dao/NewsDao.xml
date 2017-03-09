@@ -61,7 +61,7 @@
     </sql>
 
     <sql id="all_column">
-        id,last_modify_user_id,title,sub_title,keyword
+        id,create_time,update_time,del_tag,last_modify_user_id,title,sub_title,keyword
         ,description,source,author,build_time,write_time,channel_id,column_id,write_user_id,build_user_id,platform,url,relative_path,publish,
         field1,field2,field3,field4,field5,auto_publish,timer,category_id,sort, recommend_title, recommend_description,
         recommend_images, recommend_column_id, recommend, recommend_user_id,image_url,edit_publish_time

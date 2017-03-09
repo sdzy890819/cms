@@ -18,6 +18,8 @@ public interface ImagesDao {
 
     Images findImages(@Param(value = "id") Long id);
 
+    Images findImagesManage(@Param(value = "id") Long id);
+
     void delImages(@Param(value = "lastModifyUserId") String lastModifyUserId, @Param(value = "id") Long id);
 
     Integer queryImagesCount();

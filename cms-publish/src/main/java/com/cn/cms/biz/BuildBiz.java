@@ -62,12 +62,12 @@ public class BuildBiz extends BaseBiz {
         Body body = JSONObject.parseObject(((JSONObject)commonMessage.getMessage()).toJSONString(),Body.class);
         switch (sourceEnum) {
             case NEWS: {
-                News news = newsBiz.findNewsAndDetailManage(body.getId());
+                News news = newsBiz.findNewsManage(body.getId());
                 Channel channel = channelBiz.getChannel(news.getChannelId());
                 news.setLastModifyUserId(body.getUserId());
                 news.setPublish(PublishEnum.rescind.getType());
                 newsBiz.rescind(news);
-                if(StaticContants.rsyncRoot == 1) {
+                if(StaticContants.rsyncRoot == StaticContants.RSYNC_ON) {
                     String path = this.getClass().getResource("/").getPath();
                     RsyncUtils.rsync(channel.getRsyncModelName(), news.getRelativePath(), StringUtils.concatUrl(path, StaticContants.rsyncRescindFile));
                 }

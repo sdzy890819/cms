@@ -27,6 +27,8 @@ public interface ResourceService {
 
     Images findImages(Long id);
 
+    Images findImagesManage(Long id);
+
     Integer queryImagesCount();
 
     List<Images> queryImagesList(Page page);
@@ -44,6 +46,8 @@ public interface ResourceService {
     void delVideo(String lastModifyUserId, Long id);
 
     Video findVideo(Long id);
+
+    Video findVideoManage(Long id);
 
     Integer queryVideoCount();
 

@@ -107,7 +107,7 @@ public class NewsServiceImpl implements NewsService {
     private void sendIndex(Base base){
 
         IndexThread indexThread = new IndexThread();
-        indexThread.setBase(findNewsAndDetail(base.getId()));
+        indexThread.setId(base.getId());
         indexThread.setIndexOperEnum(IndexOperEnum.update);
         indexThread.setEsSearchTypeEnum(ESSearchTypeEnum.news);
         threadTaskExecutor.execute(indexThread);
@@ -117,7 +117,7 @@ public class NewsServiceImpl implements NewsService {
         Base base = new Base();
         base.setId(id);
         IndexThread indexThread = new IndexThread();
-        indexThread.setBase(base);
+        indexThread.setId(base.getId());
         indexThread.setIndexOperEnum(IndexOperEnum.delete);
         indexThread.setEsSearchTypeEnum(ESSearchTypeEnum.news);
         threadTaskExecutor.execute(indexThread);
@@ -175,6 +175,17 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public News findNewsManage(Long id) {
         return newsDao.findNewsAndDetailManage(id);
+    }
+
+    @Override
+    public News findNewsAndDetailManage(Long id) {
+        News news = newsDao.findNewsAndDetailManage(id);
+        if(news!=null){
+            NewsDetail newsDetail = newsDetailDao.findNewsDetailManage(id);
+            news.setNewsDetail(newsDetail);
+            return news;
+        }
+        return null;
     }
 
     @Override

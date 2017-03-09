@@ -24,4 +24,6 @@ public interface VideoDao {
 
     Video findVideo(@Param(value = "id") Long id);
 
+    Video findVideoManage(@Param(value = "id") Long id);
+
 }

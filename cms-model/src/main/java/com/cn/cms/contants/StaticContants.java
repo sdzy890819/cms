@@ -256,6 +256,8 @@ public class StaticContants {
      */
     public static final Integer rsyncRoot = Integer.parseInt(PropertyManager.getRB("config", "rsync.root"));
 
+    public static final int RSYNC_ON = 1;
+
     /**
      * 发布文件名
      */

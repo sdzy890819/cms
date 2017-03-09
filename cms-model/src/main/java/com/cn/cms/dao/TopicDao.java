@@ -18,6 +18,8 @@ public interface TopicDao {
 
     Topic getTopic(@Param(value = "id") Long id);
 
+    Topic getTopicManage(@Param(value = "id") Long id);
+
     void delTopic(@Param(value = "lastModifyUserId") String lastModifyUserId, @Param(value = "id") Long id);
 
     void saveTopic(@Param(value = "p1") Topic topic);
