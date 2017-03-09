@@ -75,4 +75,14 @@ public class NewsSearch {
      * 修改人
      */
     private String lastModifyUserId;
+
+    /**
+     * 是否发布
+     */
+    private Integer publish;
+
+    /**
+     * 是否删除
+     */
+    private Integer delTag;
 }

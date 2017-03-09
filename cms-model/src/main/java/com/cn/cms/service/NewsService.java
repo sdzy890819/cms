@@ -53,6 +53,8 @@ public interface NewsService {
 
     News findNewsManage(Long id);
 
+    News findNewsAndDetailManage(Long id);
+
     NewsRecommend findNewsRecommend(Long id);
 
     List<NewsRecommend> findListByRecommedColumnId(Long recommendColumnId, Page page);

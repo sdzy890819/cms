@@ -456,9 +456,9 @@ public class NewsController extends BaseController {
      */
     @CheckToken
     @CheckAuth( name = "news:rescind" )
-    @RequestMapping(value = "/rescind", method = RequestMethod.POST)
+    @RequestMapping(value = "/rescind", method = RequestMethod.GET)
     public String newsManageList(HttpServletRequest request, @RequestParam(value = "id") Long id){
-        News news = newsBiz.findNewsAndDetailManage(id);
+        News news = newsBiz.findNewsManage(id);
         if(news == null ){
             return ApiResponse.returnFail(StaticContants.ERROR_NEWS_NOT_FOUND);
         }
@@ -477,8 +477,8 @@ public class NewsController extends BaseController {
      * @return
      */
     @CheckToken
-    @CheckAuth( name = "newsmanage:list" )
-    @RequestMapping(value = "/newsManageList", method = RequestMethod.POST)
+    @CheckAuth( name = "news:manage" )
+    @RequestMapping(value = "/newsManageList", method = RequestMethod.GET)
     public String newsManageList(@RequestParam(value = "page",required = false) Integer page,
                                  @RequestParam(value="pageSize",required = false) Integer pageSize){
         Page page1 = new Page(page, pageSize);

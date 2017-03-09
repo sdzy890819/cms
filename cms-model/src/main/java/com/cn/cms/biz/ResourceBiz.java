@@ -138,7 +138,15 @@ public class ResourceBiz {
         return resourceService.findImages(id);
     }
 
+    public Images getImagesManage(Long id){
+        return resourceService.findImagesManage(id);
+    }
+
     public Video getVideo(Long id){
         return resourceService.findVideo(id);
+    }
+
+    public Video getVideoManage(Long id){
+        return resourceService.findVideoManage(id);
     }
 }

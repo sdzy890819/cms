@@ -89,6 +89,8 @@ public class SearchController extends BaseController {
                              @RequestParam(value = "buildUserName", required = false) String buildUserName,
                              @RequestParam(value = "lastModifyUserName", required = false) String lastModifyUserName,
                              @RequestParam(value = "id", required = false) Integer id,
+                             @RequestParam(value = "publish", required = false) Integer publish,
+                             @RequestParam(value = "delTag", required = false, defaultValue = "1") Integer delTag,
                            @RequestParam(value = "page", required = false) Integer page,
                            @RequestParam(value = "pageSize", required = false) Integer pageSize){
 

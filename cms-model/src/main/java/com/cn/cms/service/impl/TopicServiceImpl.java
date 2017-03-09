@@ -49,6 +49,11 @@ public class TopicServiceImpl implements TopicService {
         return topicDao.getTopic(id);
     }
 
+    @Override
+    public Topic getTopicManage(Long id) {
+        return topicDao.getTopicManage(id);
+    }
+
     public void delTopic(String lastModifyUserId, Long id) {
         topicDao.delTopic(lastModifyUserId, id);
         delIndex(id);
@@ -114,7 +119,7 @@ public class TopicServiceImpl implements TopicService {
 
     private void sendIndex(Base base){
         IndexThread indexThread = new IndexThread();
-        indexThread.setBase(getTopic(base.getId()));
+        indexThread.setId(base.getId());
         indexThread.setIndexOperEnum(IndexOperEnum.update);
         indexThread.setEsSearchTypeEnum(ESSearchTypeEnum.topic);
         threadTaskExecutor.execute(indexThread);
@@ -122,10 +127,8 @@ public class TopicServiceImpl implements TopicService {
 
 
     private void delIndex(Long id){
-        Base base = new Base();
-        base.setId(id);
         IndexThread indexThread = new IndexThread();
-        indexThread.setBase(base);
+        indexThread.setId(id);
         indexThread.setIndexOperEnum(IndexOperEnum.delete);
         indexThread.setEsSearchTypeEnum(ESSearchTypeEnum.topic);
         threadTaskExecutor.execute(indexThread);

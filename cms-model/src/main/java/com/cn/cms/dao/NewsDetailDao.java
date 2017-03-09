@@ -14,6 +14,8 @@ public interface NewsDetailDao {
 
     NewsDetail findNewsDetail(@Param(value = "newsId") Long newsId);
 
+    NewsDetail findNewsDetailManage(@Param(value = "newsId") Long newsId);
+
     void delNewsDetail(@Param(value = "lastModifyUserId") String lastModifyUserId, @Param(value = "newsId") Long newsId);
 
     void saveNewsDetail(@Param(value = "p1") NewsDetail newsDetail);
