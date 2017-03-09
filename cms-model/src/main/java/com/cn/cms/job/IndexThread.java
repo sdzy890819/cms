@@ -46,8 +46,9 @@ public class IndexThread extends BaseTask {
         boolean bool = false;
         switch (esSearchTypeEnum){
             case news:{
-                Base base = newsBiz.findNewsAndDetailManage(id);
-                bool = eSearchClient.update(base, esSearchTypeEnum);
+                News news = newsBiz.findNewsAndDetailManage(id);
+                news.setNewsStocks(newsBiz.findNewsStockList(news.getId()));
+                bool = eSearchClient.update(news, esSearchTypeEnum);
                 break;
             }
             case topic:{
