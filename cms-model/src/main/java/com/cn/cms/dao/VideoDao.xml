@@ -29,11 +29,6 @@
         video_title,video_desc,upload_user_id,upload_time,video_url,video_path,platform,file_name
     </sql>
 
-    <sql id="sql_column">
-        id,last_modify_user_id,
-        video_title,video_desc,upload_user_id,upload_time,video_url,video_path,platform,file_name
-    </sql>
-
     <sql id="all_column" >
         id,last_modify_user_id,
         video_title,video_desc,upload_user_id,upload_time,video_url,video_path,platform,file_name
