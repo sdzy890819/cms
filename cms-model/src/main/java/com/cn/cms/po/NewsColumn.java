@@ -6,7 +6,7 @@ import lombok.Setter;
 
 /**
  * 新闻栏目PO
- * Created by zhangyang on 16/11/17.
+ * Created by 华盛信息科技有限公司(HS) on 16/11/17.
  */
 @Getter
 @Setter

@@ -3,7 +3,7 @@ package com.cn.cms.logfactory;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Created by zhangyang on 16/11/10.
+ * Created by 华盛信息科技有限公司(HS) on 16/11/10.
  */
 public class CommonLogFactory{
 

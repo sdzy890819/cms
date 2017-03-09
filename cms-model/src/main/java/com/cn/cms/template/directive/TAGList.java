@@ -40,7 +40,7 @@ import java.util.List;
  * size:20
  * #TAGList(String resultObjName,Integer type, String content, Integer count, Integer size)
  * #end
- * Created by zhangyang on 16/12/21.
+ * Created by 华盛信息科技有限公司(HS) on 16/12/21.
  */
 @Getter
 @Setter

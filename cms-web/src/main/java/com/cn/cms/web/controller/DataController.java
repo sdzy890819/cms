@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by zhangyang on 16/12/20.
+ * Created by 华盛信息科技有限公司(HS) on 16/12/20.
  */
 @RestController
 @RequestMapping(value="/webapi/data/",produces = "application/json; charset=UTF-8")

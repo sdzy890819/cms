@@ -8,7 +8,7 @@ import lombok.Setter;
 import java.io.Serializable;
 
 /**
- * Created by zhangyang on 16/12/27.
+ * Created by 华盛信息科技有限公司(HS) on 16/12/27.
  */
 @Getter
 @Setter

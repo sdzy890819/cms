@@ -28,7 +28,7 @@ import java.io.Writer;
  * content:传递ID或者SQL
  * #TAGDETAIL(String resultObjName,Integer type, String content)
  * #end
- * Created by zhangyang on 16/12/21.
+ * Created by 华盛信息科技有限公司(HS) on 16/12/21.
  */
 @Getter
 @Setter

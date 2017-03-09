@@ -1,63 +1,36 @@
 package com.cn.cms.job;
 
-import com.cn.cms.logfactory.CommonLog;
-import com.cn.cms.logfactory.CommonLogFactory;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.LineNumberReader;
-
 /**
- * Created by zhangyang on 16/12/23.
+ * 暂时废弃
+ * Created by 华盛信息科技有限公司(HS) on 17/3/9.
  */
 @Getter
 @Setter
 public class RsyncThread extends BaseTask {
 
-    private CommonLog log = CommonLogFactory.getLog(this.getClass());
+    private String filePath;
 
-    private String sendFilePath;
+    private String cmdPath;
 
-    private String absolutePath;
+    private String rsyncModel;
 
-
-    public RsyncThread(String sendFilePath, String absolutePath){
-        this.sendFilePath = sendFilePath;
-        this.absolutePath = absolutePath;
+    public RsyncThread(String filePath, String cmdPath, String rsyncModel){
+        this.filePath = filePath;
+        this.cmdPath = cmdPath;
+        this.rsyncModel = rsyncModel;
     }
 
     @Override
-    public void execute(){
-        try {
-            String ss = getCommand();
-            if(ss == null){
-                return;
-            }
-            log.info("脚本执行=====>" + ss);
-            Process process = Runtime.getRuntime().exec(ss);
-            InputStreamReader ir = new InputStreamReader(process
-                    .getInputStream());
-            LineNumberReader input = new LineNumberReader(ir);
-            String line;
-            String _ss = "";
-            while ((line = input.readLine()) != null) {
-                _ss = _ss + line + "\r\n";
-            }
-            process.destroy();
-//			log.info(_ss);
-        } catch (IOException e) {
-            log.error(e);
-        }
-    }
+    protected void execute() {
 
-    String getCommand(){
-        return "sh /data/app/a.sh";
     }
 
     @Override
     protected String getJobName() {
-        return "shell执行===>.".concat(getCommand()).concat(".");
+        return "rsync任务执行 开发";
     }
+
 }

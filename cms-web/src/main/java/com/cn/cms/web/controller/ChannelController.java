@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
- * Created by zhangyang on 16/12/7.
+ * Created by 华盛信息科技有限公司(HS) on 16/12/7.
  */
 @Controller
 @RequestMapping(value="/webapi/channel/",produces = "application/json; charset=UTF-8")

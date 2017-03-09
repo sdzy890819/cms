@@ -3,7 +3,7 @@ package com.cn.cms.enums;
 import lombok.Getter;
 
 /**
- * Created by zhangyang on 16/11/17.
+ * Created by 华盛信息科技有限公司(HS) on 16/11/17.
  */
 public enum Template2ClassifyEnum {
 

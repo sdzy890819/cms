@@ -11,7 +11,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * Created by zhangyang on 17/1/8.
+ * Created by 华盛信息科技有限公司(HS) on 17/1/8.
  */
 @Component
 public class Template2Biz extends BaseBiz {

@@ -10,7 +10,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- * Created by zhangyang on 17/1/17.
+ * Created by 华盛信息科技有限公司(HS) on 17/1/17.
  */
 public class UrlUtils {
 

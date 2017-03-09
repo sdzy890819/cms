@@ -3,13 +3,14 @@ package com.cn.cms.contants;
 import com.alibaba.fastjson.serializer.SerializeConfig;
 import com.cn.cms.enums.*;
 import com.cn.cms.enums.serializer.JSONEnumSerializer;
+import com.cn.cms.utils.PropertyManager;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
  * 所有静态类的变量定义。都在这个类里
- * Created by zhangyang on 16/11/15.
+ * Created by 华盛信息科技有限公司(HS) on 16/11/15.
  */
 public class StaticContants {
 
@@ -107,6 +108,8 @@ public class StaticContants {
     public static final String ERROR_CHANNEL_NOT_FOUND = "找不到新闻对应的频道";
 
     public static final String ERROR_NEWS_NOT_FOUND = "找不到此篇新闻";
+
+    public static final String ERROR_NEWS_CAN_NOT_RESCIND = "当前新闻不在发布状态，无法撤销";
 
     public static final String ERROR_TOPIC_NOT_FOUND = "找不到此模版";
 
@@ -247,5 +250,20 @@ public class StaticContants {
     public static String REGEX_SPLIT = "[,，\\s]";
 
     public static String REGEX_SPLIT_HTML_CONTENT = "<[^>]*>";
+
+    /**
+     * 开关 1 是开启。0是关闭
+     */
+    public static final Integer rsyncRoot = Integer.parseInt(PropertyManager.getRB("config", "rsync.root"));
+
+    /**
+     * 发布文件名
+     */
+    public static final String rsyncPublishFile = PropertyManager.getRB("config", "rsync.publish.shFileName");
+
+    /**
+     * 撤销文件名
+     */
+    public static final String rsyncRescindFile = PropertyManager.getRB("config", "rsync.rescind.shFileName");
 
 }

@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by zhangyang on 17/2/8.
+ * Created by 华盛信息科技有限公司(HS) on 17/2/8.
  */
 @RestController
 @RequestMapping(value = "/app",produces = "application/json; charset=UTF-8")

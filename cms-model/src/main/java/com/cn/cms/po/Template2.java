@@ -8,7 +8,7 @@ import lombok.Setter;
 
 /**
  * 模版PO
- * Created by zhangyang on 16/11/17.
+ * Created by 华盛信息科技有限公司(HS) on 16/11/17.
  */
 
 public class Template2 extends TemplateBasics {

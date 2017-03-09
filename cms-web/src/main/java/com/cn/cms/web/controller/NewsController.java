@@ -26,7 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
- * Created by zhangyang on 16/12/11.
+ * Created by 华盛信息科技有限公司(HS) on 16/12/11.
  */
 
 @Controller
@@ -457,11 +457,15 @@ public class NewsController extends BaseController {
     @CheckToken
     @CheckAuth( name = "news:rescind" )
     @RequestMapping(value = "/rescind", method = RequestMethod.POST)
-    public String newsManageList(@RequestParam(value = "id") Long id){
+    public String newsManageList(HttpServletRequest request, @RequestParam(value = "id") Long id){
         News news = newsBiz.findNewsAndDetailManage(id);
         if(news == null ){
             return ApiResponse.returnFail(StaticContants.ERROR_NEWS_NOT_FOUND);
         }
+        if(news.getPublish() != PublishEnum.YES.getType()){
+            return ApiResponse.returnFail(StaticContants.ERROR_NEWS_CAN_NOT_RESCIND);
+        }
+        publishBiz.rescind(id, getCurrentUserId(request), CommonMessageSourceEnum.NEWS);
         return ApiResponse.returnSuccess();
     }
 

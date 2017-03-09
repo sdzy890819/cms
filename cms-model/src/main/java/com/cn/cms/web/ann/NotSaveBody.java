@@ -3,7 +3,7 @@ package com.cn.cms.web.ann;
 import java.lang.annotation.*;
 
 /**
- * Created by zhangyang on 16/12/28.
+ * Created by 华盛信息科技有限公司(HS) on 16/12/28.
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)

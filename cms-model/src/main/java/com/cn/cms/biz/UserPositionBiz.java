@@ -10,7 +10,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * Created by zhangyang on 16/11/25.
+ * Created by 华盛信息科技有限公司(HS) on 16/11/25.
  */
 @Component
 public class UserPositionBiz extends BaseBiz {

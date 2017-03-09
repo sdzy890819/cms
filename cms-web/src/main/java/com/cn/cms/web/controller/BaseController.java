@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Created by zhangyang on 16/11/24.
+ * Created by 华盛信息科技有限公司(HS) on 16/11/24.
  */
 public class BaseController {
 

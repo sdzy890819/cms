@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 
 /**
- * Created by zhangyang on 16/12/28.
+ * Created by 华盛信息科技有限公司(HS) on 16/12/28.
  */
 @Component("autoPublishJob")
 public class AutoPublishJob extends JobTask {

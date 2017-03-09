@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by zhangyang on 16/11/18.
+ * Created by 华盛信息科技有限公司(HS) on 16/11/18.
  */
 @Repository
 public class NewsServiceImpl implements NewsService {
@@ -174,7 +174,7 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public News findNewsManage(Long id) {
-        return newsDao.findNewsAndDetail(id, DelTagEnum.DEL.getType());
+        return newsDao.findNewsAndDetailManage(id);
     }
 
     @Override
@@ -221,5 +221,10 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public List<NewsStock> findNewsStockList(Long newsId) {
         return newsStockDao.findNewsStockList(newsId);
+    }
+
+    @Override
+    public void updateRescind(News news) {
+        newsDao.updateRescind(news);
     }
 }

@@ -72,6 +72,9 @@
     <update id="updateUser" >
         update user
          <set>
+             <if test="user.userName != null">
+                 user_name = #{user.userName},
+             </if>
              <if test="user.realName != null">
          real_name=#{user.realName},
              </if>

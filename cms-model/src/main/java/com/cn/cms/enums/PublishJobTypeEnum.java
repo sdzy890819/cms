@@ -4,7 +4,7 @@ import lombok.Getter;
 
 /**
  * 文件名生成方式枚举
- * Created by zhangyang on 16/11/15.
+ * Created by 华盛信息科技有限公司(HS) on 16/11/15.
  */
 public enum PublishJobTypeEnum {
 

@@ -8,7 +8,7 @@ import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import redis.clients.jedis.JedisSentinelPool;
 
 /**
- * Created by zhangyang on 16/12/23.
+ * Created by 华盛信息科技有限公司(HS) on 16/12/23.
  */
 public class PublishApplication {
 

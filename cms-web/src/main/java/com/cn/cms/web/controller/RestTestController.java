@@ -19,7 +19,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.RunnableFuture;
 
 /**
- * Created by zhangyang on 16/12/24.
+ * Created by 华盛信息科技有限公司(HS) on 16/12/24.
  */
 @Controller
 @RequestMapping(value="/webapi/test/",produces = "application/json; charset=UTF-8")

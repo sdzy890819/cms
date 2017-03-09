@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.Properties;
 
 /**
- * Created by zhangyang on 16/12/21.
+ * Created by 华盛信息科技有限公司(HS) on 16/12/21.
  */
 public class VelocityUtils {
 

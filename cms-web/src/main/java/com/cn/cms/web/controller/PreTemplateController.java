@@ -1,7 +1,7 @@
 package com.cn.cms.web.controller;
 
 /**
- * Created by zhangyang on 17/1/3.
+ * Created by 华盛信息科技有限公司(HS) on 17/1/3.
  */
 
 import com.cn.cms.biz.PreTemplateBiz;

@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by zhangyang on 16/11/30.
+ * Created by 华盛信息科技有限公司(HS) on 16/11/30.
  */
 @Controller
 @RequestMapping(value="/webapi/images/",produces = "application/json; charset=UTF-8")

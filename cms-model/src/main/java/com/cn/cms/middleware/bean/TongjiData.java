@@ -6,7 +6,7 @@ import lombok.Setter;
 import java.lang.reflect.Array;
 
 /**
- * Created by zhangyang on 17/1/19.
+ * Created by 华盛信息科技有限公司(HS) on 17/1/19.
  */
 @Getter
 @Setter

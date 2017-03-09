@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * Dao层
- * Created by zhangyang on 16/11/17.
+ * Created by 华盛信息科技有限公司(HS) on 16/11/17.
  */
 public interface NewsDao {
 
@@ -22,6 +22,8 @@ public interface NewsDao {
     Integer queryNewsCount(@Param(value = "userId") String userId, @Param(value = "publish") Integer publish, @Param(value = "delTag") Integer delTag);
 
     News findNewsAndDetail(@Param(value = "id") Long id, @Param(value = "delTag") Integer delTag);
+
+    News findNewsAndDetailManage(@Param(value = "id") Long id);
 
     void delNews(@Param(value = "lastModifyUserId") String lastModifyUserId, @Param(value = "id") Long id);
 
@@ -43,4 +45,6 @@ public interface NewsDao {
     List<NewsRecommend> findListByRecommedColumnId(@Param(value = "recommendColumnId") Long recommendColumnId, @Param(value = "page") Page page);
 
     void updateNewsRecommend(@Param(value = "p1") NewsRecommend newsRecommend);
+
+    void updateRescind(@Param(value = "p1") News news);
 }

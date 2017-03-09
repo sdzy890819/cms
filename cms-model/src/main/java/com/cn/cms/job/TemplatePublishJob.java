@@ -9,10 +9,7 @@ import com.cn.cms.enums.TemplateClassifyEnum;
 import com.cn.cms.logfactory.CommonLog;
 import com.cn.cms.logfactory.CommonLogFactory;
 import com.cn.cms.po.*;
-import com.cn.cms.utils.ContextUtil;
-import com.cn.cms.utils.FileUtil;
-import com.cn.cms.utils.StringUtils;
-import com.cn.cms.utils.VelocityUtils;
+import com.cn.cms.utils.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by zhangyang on 16/12/24.
+ * Created by 华盛信息科技有限公司(HS) on 16/12/24.
  */
 @Getter
 @Setter
@@ -91,22 +88,31 @@ public class TemplatePublishJob extends BaseTask {
         }
         String publishPath;
         String fromPath;
+        String publishRelativePath;
         if(templateBasics.getTemplateClassify() == TemplateClassifyEnum.detail.getType()) {
             News news = (News)base;
-            publishPath = StringUtils.concatUrl(channel.getChannelPath(),news.getRelativePath());
+            publishRelativePath = news.getRelativePath();
+            publishPath = StringUtils.concatUrl(channel.getChannelPath(),publishRelativePath);
             fromPath = StringUtils.concatUrl(templatePath, templateBasics.getPath(), templateBasics.getFilename());
         }else{
             if(templateBasics instanceof Template2 && templateBasics.getTemplateClassify() == TemplateClassifyEnum.list.getType() && newsColumn != null){
-                publishPath = StringUtils.concatUrl(channel.getChannelPath(), templateBasics.getPath(),
-                        FileUtil.getFileNameByPage(newsColumn.getId().toString().concat(StaticContants.HTML_SUFFIX), getPage()));
+                publishRelativePath = StringUtils.concatUrl(templateBasics.getPath(), FileUtil.getFileNameByPage(newsColumn.getId().toString().concat(StaticContants.HTML_SUFFIX), getPage()));
+                publishPath = StringUtils.concatUrl(channel.getChannelPath(), publishRelativePath);
+
             }else{
-                publishPath = StringUtils.concatUrl(channel.getChannelPath(), templateBasics.getPath(), FileUtil.getFileNameByPage(templateBasics.getFilename(),getPage()));
+                publishRelativePath = StringUtils.concatUrl(templateBasics.getPath(), FileUtil.getFileNameByPage(templateBasics.getFilename(),getPage()));
+                publishPath = StringUtils.concatUrl(channel.getChannelPath(), publishRelativePath);
             }
 
             fromPath = StringUtils.concatUrl(templatePath, templateBasics.getPath(), templateBasics.getFilename());
         }
         VelocityUtils.publish(map, fromPath,
                 publishPath, templateBasics.getEncoded());
+
+        if(StaticContants.rsyncRoot == 1) {
+            String path = this.getClass().getResource("/").getPath();
+            RsyncUtils.rsync(channel.getRsyncModelName(), publishRelativePath, StringUtils.concatUrl(path, StaticContants.rsyncRescindFile));
+        }
 
     }
 

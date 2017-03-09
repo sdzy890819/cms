@@ -22,7 +22,7 @@ import java.util.Map;
 
 /**
  * 用户操作接口
- * Created by zhangyang on 16/11/23.
+ * Created by 华盛信息科技有限公司(HS) on 16/11/23.
  */
 
 @Controller
@@ -163,7 +163,7 @@ public class UserController extends BaseController{
         if(!userId.equals(userID)){
             return ApiResponse.returnFail(ErrorCodeEnum.ERROR_NO_PERMISSION.getType(),ErrorCodeEnum.ERROR_NO_PERMISSION.getMessage());
         }
-        userBiz.updateUser(userID, userId, realName, headImage, pwd, idfa);
+        userBiz.updateUser(userID, userId, realName, headImage, pwd, idfa, null);
         return ApiResponse.returnSuccess();
     }
 
@@ -175,9 +175,10 @@ public class UserController extends BaseController{
                               @RequestParam(value = "realName",required = false) String realName,
                               @RequestParam(value = "headImage",required = false) String headImage,
                               @RequestParam(value = "pwd",required = false) String pwd,
-                              @RequestParam(value = "idfa", required = false) String idfa){
+                              @RequestParam(value = "idfa", required = false) String idfa,
+                              @RequestParam(value = "userName", required = false) String userName){
         String userID = getCurrentUserId(request);
-        userBiz.updateUser(userID, userId, realName, headImage, pwd, idfa);
+        userBiz.updateUser(userID, userId, realName, headImage, pwd, idfa, userName);
         return ApiResponse.returnSuccess();
     }
 

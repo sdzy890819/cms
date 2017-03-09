@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Created by zhangyang on 16/11/29.
+ * Created by 华盛信息科技有限公司(HS) on 16/11/29.
  */
 @Controller
 @RequestMapping(value="/webapi/permission/",produces = "application/json; charset=UTF-8")

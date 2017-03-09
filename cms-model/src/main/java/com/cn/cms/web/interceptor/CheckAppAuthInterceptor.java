@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 检测当前用户是否有权限。如果没有权限的话 直接返回失败
- * Created by zhangyang on 16/11/15.
+ * Created by 华盛信息科技有限公司(HS) on 16/11/15.
  */
 public class CheckAppAuthInterceptor extends HandlerInterceptorAdapter {
 

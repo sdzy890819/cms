@@ -11,7 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by zhangyang on 17/3/7.
+ * Created by 华盛信息科技有限公司(HS) on 17/3/7.
  */
 public class HtmlUtils {
 

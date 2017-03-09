@@ -21,7 +21,7 @@ import java.util.Random;
 
 /**
  * 加密、编码
- * Created by zhangyang on 16/11/24.
+ * Created by 华盛信息科技有限公司(HS) on 16/11/24.
  */
 public class EncryptUtil {
 

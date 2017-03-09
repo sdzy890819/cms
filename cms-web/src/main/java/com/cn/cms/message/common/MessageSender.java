@@ -12,7 +12,7 @@ import javax.annotation.Resource;
 
 /**
  * 发送消息
- * Created by zhangyang on 16/11/15.
+ * Created by 华盛信息科技有限公司(HS) on 16/11/15.
  */
 
 @Getter

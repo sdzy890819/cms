@@ -14,6 +14,7 @@ import com.cn.cms.message.bean.Body;
 import com.cn.cms.message.common.CommonMessage;
 import com.cn.cms.po.*;
 import com.cn.cms.utils.FileUtil;
+import com.cn.cms.utils.RsyncUtils;
 import com.cn.cms.utils.StringUtils;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
@@ -25,7 +26,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by zhangyang on 16/12/24.
+ * Created by 华盛信息科技有限公司(HS) on 16/12/24.
  */
 @Component
 public class BuildBiz extends BaseBiz {
@@ -54,6 +55,39 @@ public class BuildBiz extends BaseBiz {
     private ThreadPoolTaskExecutor threadTaskExecutor;
 
     private CommonLog log = CommonLogFactory.getLog(this.getClass());
+
+    public void rescind(CommonMessage commonMessage){
+
+        CommonMessageSourceEnum sourceEnum = CommonMessageSourceEnum.get(commonMessage.getSource());
+        Body body = JSONObject.parseObject(((JSONObject)commonMessage.getMessage()).toJSONString(),Body.class);
+        switch (sourceEnum) {
+            case NEWS: {
+                News news = newsBiz.findNewsAndDetailManage(body.getId());
+                Channel channel = channelBiz.getChannel(news.getChannelId());
+                news.setLastModifyUserId(body.getUserId());
+                news.setPublish(PublishEnum.rescind.getType());
+                newsBiz.rescind(news);
+                if(StaticContants.rsyncRoot == 1) {
+                    String path = this.getClass().getResource("/").getPath();
+                    RsyncUtils.rsync(channel.getRsyncModelName(), news.getRelativePath(), StringUtils.concatUrl(path, StaticContants.rsyncRescindFile));
+                }
+                break;
+            }
+            case TOPIC: {
+                break;
+            }
+            case FRAGMENT: {
+                break;
+            }
+            case RECOMMEND: {
+                break;
+            }
+            default: {
+                log.info("无相关对应类型，不作处理!");
+                return;
+            }
+        }
+    }
 
     /**
      * 执行build动作.

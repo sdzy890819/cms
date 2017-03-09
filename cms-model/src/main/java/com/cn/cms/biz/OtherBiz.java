@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by zhangyang on 16/12/26.
+ * Created by 华盛信息科技有限公司(HS) on 16/12/26.
  */
 @Component
 public class OtherBiz {

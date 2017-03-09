@@ -122,6 +122,12 @@
         and id = ${id};
     </select>
 
+
+    <select id="findNewsAndDetailManage" resultMap="news">
+        select <include refid="all_column" /> from news where id = ${id};
+    </select>
+
+
     <insert id="saveNews" useGeneratedKeys="true" keyProperty="p1.id">
         insert into news ( <include refid="sql_column"/> ) values (
         null,#{p1.lastModifyUserId},#{p1.title},#{p1.subTitle},#{p1.keyword},#{p1.description},#{p1.source}
@@ -260,5 +266,14 @@
         select <include refid="recommend_sql_column" /> from news <include refid="delTag"/> and recommend_column_id = ${recommendColumnId}
         order by update_time desc limit ${page.start}, ${page.pageSize};
     </select>
+
+    <update id="updateRescind">
+        update news
+        <set>
+            publish = ${p1.publish},
+            last_modify_user_id = #{p1.lastModifyUserId}
+        </set>
+        where id = ${p1.id};
+    </update>
 
 </mapper>

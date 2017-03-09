@@ -24,7 +24,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by zhangyang on 16/12/11.
+ * Created by 华盛信息科技有限公司(HS) on 16/12/11.
  */
 @Component
 public class NewsBiz extends BaseBiz {
@@ -461,6 +461,14 @@ public class NewsBiz extends BaseBiz {
 
     public News findNewsAndDetailManage(Long id){
         return newsService.findNewsManage(id);
+    }
+
+    /**
+     * 撤销发布
+     * @param news
+     */
+    public void rescind(News news){
+        newsService.updateRescind(news);
     }
 }
 

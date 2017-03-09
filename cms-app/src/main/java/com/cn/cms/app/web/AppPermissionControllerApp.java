@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
- * Created by zhangyang on 17/2/8.
+ * Created by 华盛信息科技有限公司(HS) on 17/2/8.
  */
 @RestController
 @RequestMapping(value="/app/permission/",produces = "application/json; charset=UTF-8")

@@ -10,7 +10,7 @@ import javax.annotation.Resource;
 import java.util.Date;
 
 /**
- * Created by zhangyang on 16/12/24.
+ * Created by 华盛信息科技有限公司(HS) on 16/12/24.
  */
 @Component
 public class PublishBiz extends BaseBiz {
@@ -19,7 +19,7 @@ public class PublishBiz extends BaseBiz {
     private BuildSendMessage buildSendMessage;
 
     /**
-     * 发送指令给后端处理
+     * 发送指令给后端处理［发布］
      * @param id
      * @param commonMessageSourceEnum
      */
@@ -30,5 +30,17 @@ public class PublishBiz extends BaseBiz {
         buildSendMessage.sendBuild(body, commonMessageSourceEnum, MQQueueKeyEnum.BUILD);
     }
 
+    /**
+     * 发送指令给后端处理。［撤销］
+     * @param id
+     * @param userId
+     * @param commonMessageSourceEnum
+     */
+    public void rescind(Long id, String userId, CommonMessageSourceEnum commonMessageSourceEnum){
+        Body body = new Body();
+        body.setId(id);
+        body.setUserId(userId);
+        buildSendMessage.sendRescind(body, commonMessageSourceEnum, MQQueueKeyEnum.BUILD);
+    }
 
 }

@@ -5,7 +5,7 @@ import lombok.Setter;
 import org.springframework.context.ApplicationContext;
 
 /**
- * Created by zhangyang on 16/12/23.
+ * Created by 华盛信息科技有限公司(HS) on 16/12/23.
  */
 public class ContextUtil {
 

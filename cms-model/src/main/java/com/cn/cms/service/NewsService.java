@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by zhangyang on 16/11/18.
+ * Created by 华盛信息科技有限公司(HS) on 16/11/18.
  */
 public interface NewsService {
 
@@ -67,8 +67,10 @@ public interface NewsService {
 
     void publishListTemplate2(NewsColumn newsColumn);
 
-    public List<NewsStock> findNewsStocks(List<Long> newsIds);
+    List<NewsStock> findNewsStocks(List<Long> newsIds);
 
     List<NewsStock> findNewsStockList(Long newsId);
+
+    void updateRescind(News news);
 
 }

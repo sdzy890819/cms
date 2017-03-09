@@ -4,7 +4,7 @@ import lombok.Getter;
 
 /**
  * 关系类型枚举
- * Created by zhangyang on 16/11/16.
+ * Created by 华盛信息科技有限公司(HS) on 16/11/16.
  */
 public enum RelationTypeEnum {
 

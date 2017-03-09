@@ -19,7 +19,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 /**
- * Created by zhangyang on 17/1/17.
+ * Created by 华盛信息科技有限公司(HS) on 17/1/17.
  */
 @Getter
 @Setter

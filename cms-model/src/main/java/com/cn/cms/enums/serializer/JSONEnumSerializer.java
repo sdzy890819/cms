@@ -11,7 +11,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 
 /**
- * Created by zhangyang on 16/12/20.
+ * Created by 华盛信息科技有限公司(HS) on 16/12/20.
  */
 public class JSONEnumSerializer<T extends Enum> extends EnumSerializer {
 

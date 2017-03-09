@@ -25,7 +25,7 @@ import java.util.*;
 
 /**
  * 组装包。
- * Created by zhangyang on 16/11/18.
+ * Created by 华盛信息科技有限公司(HS) on 16/11/18.
  */
 @Component
 public class UserBiz extends BaseBiz{
@@ -192,16 +192,21 @@ public class UserBiz extends BaseBiz{
      * @param headImage
      * @param pwd
      */
-    public void updateUser(String lastModifyUserId, String userId, String realName, String headImage, String pwd, String idfa){
+    public void updateUser(String lastModifyUserId, String userId, String realName, String headImage, String pwd, String idfa, String userName){
         User user = new User();
         user.setUserId(userId);
         user.setLastModifyUserId(lastModifyUserId);
         user.setRealName(realName);
         user.setHeadImage(headImage);
         user.setIdfa(idfa);
+        user.setUserName(userName);
         if(StringUtils.isNotBlank(pwd)) {
-            User old = userService.findUser(userId);
-            user.setPwd(EncryptUtil.encryptPwd(old.getUserName(), pwd));
+            if(StringUtils.isNotBlank(userName)){
+                user.setPwd(EncryptUtil.encryptPwd(userName, pwd));
+            }else {
+                User old = userService.findUser(userId);
+                user.setPwd(EncryptUtil.encryptPwd(old.getUserName(), pwd));
+            }
         }
         userService.updateUser(user);
         refreshUserCache(user);

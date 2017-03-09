@@ -5,7 +5,7 @@ import com.cn.cms.logfactory.CommonLog;
 import com.cn.cms.logfactory.CommonLogFactory;
 
 /**
- * Created by zhangyang on 16/12/24.
+ * Created by 华盛信息科技有限公司(HS) on 16/12/24.
  */
 public class DefaultCommonMessageHandler implements CommonMessageHandler {
 
