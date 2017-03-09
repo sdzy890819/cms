@@ -213,7 +213,7 @@
     <update id="publishNews" >
         update news
          <set>
-          <if test="">
+          <if test="p1.editPublishTime != null">
               edit_publish_time = #{p1.editPublishTime},
           </if>
          url = #{p1.url},relative_path = #{p1.relativePath},publish = ${p1.publish}
