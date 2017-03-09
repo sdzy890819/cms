@@ -91,7 +91,15 @@
     </select>
     
     <select id="queryNewsList" resultMap="news">
-        select <include refid="sql_column_simple" /> from news <include refid="delTag" />
+        select <include refid="sql_column_simple" /> from news where
+        <choose>
+            <when test="delTag != null">
+                del_tag = ${delTag}
+            </when>
+            <otherwise>
+                del_tag = 1
+            </otherwise>
+        </choose>
         <if test="userId != null" >
            and write_user_id = #{userId}
         </if>
@@ -102,7 +110,16 @@
     </select>
     
     <select id="findNewsAndDetail" resultMap="news">
-        select <include refid="all_column" /> from news <include refid="delTag" /> and id = ${id};
+        select <include refid="all_column" /> from news where
+        <choose>
+            <when test="delTag != null">
+                del_tag = ${delTag}
+            </when>
+            <otherwise>
+                del_tag = 1
+            </otherwise>
+        </choose>
+        and id = ${id};
     </select>
 
     <insert id="saveNews" useGeneratedKeys="true" keyProperty="p1.id">

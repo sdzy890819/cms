@@ -29,9 +29,9 @@ public interface NewsService {
 
     void delNewsColumn(String lastModifyUserId, Long id);
 
-    List<News> queryNewsList(String userId, Integer publish, Page page);
+    List<News> queryNewsList(String userId, Integer publish, Integer delTag, Page page);
 
-    Integer queryNewsCount(String userId, Integer publish);
+    Integer queryNewsCount(String userId, Integer publish, Integer delTag);
 
     News findNewsAndDetail(Long id);
 
@@ -50,6 +50,8 @@ public interface NewsService {
     List<News> findNewsAndDetailList(List<Long> ids);
 
     News findNews(Long id);
+
+    News findNewsManage(Long id);
 
     NewsRecommend findNewsRecommend(Long id);
 

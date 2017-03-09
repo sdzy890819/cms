@@ -446,4 +446,46 @@ public class NewsController extends BaseController {
         newsBiz.saveRecommendColumn(p1);
         return ApiResponse.returnSuccess();
     }
+
+    //-------------------------------       新增功能
+
+    /**
+     * 撤销发布功能
+     * @param id
+     * @return
+     */
+    @CheckToken
+    @CheckAuth( name = "news:rescind" )
+    @RequestMapping(value = "/rescind", method = RequestMethod.POST)
+    public String newsManageList(@RequestParam(value = "id") Long id){
+        News news = newsBiz.findNewsAndDetailManage(id);
+        if(news == null ){
+            return ApiResponse.returnFail(StaticContants.ERROR_NEWS_NOT_FOUND);
+        }
+        return ApiResponse.returnSuccess();
+    }
+
+
+    /**
+     * 新闻管理页面列表
+     * @param page
+     * @param pageSize
+     * @return
+     */
+    @CheckToken
+    @CheckAuth( name = "newsmanage:list" )
+    @RequestMapping(value = "/newsManageList", method = RequestMethod.POST)
+    public String newsManageList(@RequestParam(value = "page",required = false) Integer page,
+                                 @RequestParam(value="pageSize",required = false) Integer pageSize){
+        Page page1 = new Page(page, pageSize);
+        List<News> list = newsBiz.listNewsManage(page1);
+        newsBiz.dataInit(list);
+        Map<String, Object> result = new HashMap<>();
+        result.put("page", page1);
+        result.put("list", list);
+        return ApiResponse.returnSuccess(result);
+    }
+
+
+
 }

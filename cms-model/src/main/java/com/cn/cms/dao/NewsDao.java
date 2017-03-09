@@ -14,11 +14,14 @@ import java.util.List;
  */
 public interface NewsDao {
 
-    List<News> queryNewsList(@Param(value = "userId") String userId, @Param(value = "publish") Integer publish ,@Param(value = "page") Page page);
+    List<News> queryNewsList(@Param(value = "userId") String userId,
+                             @Param(value = "publish") Integer publish,
+                             @Param(value = "delTag") Integer delTag,
+                             @Param(value = "page") Page page);
 
-    Integer queryNewsCount(@Param(value = "userId") String userId, @Param(value = "publish") Integer publish);
+    Integer queryNewsCount(@Param(value = "userId") String userId, @Param(value = "publish") Integer publish, @Param(value = "delTag") Integer delTag);
 
-    News findNewsAndDetail(@Param(value = "id") Long id);
+    News findNewsAndDetail(@Param(value = "id") Long id, @Param(value = "delTag") Integer delTag);
 
     void delNews(@Param(value = "lastModifyUserId") String lastModifyUserId, @Param(value = "id") Long id);
 
