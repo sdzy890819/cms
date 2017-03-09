@@ -12,21 +12,27 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 			name : '频道域名',
 			placeholder : '例如：http://www.p5w.net/',
 			type : 'text', //text textarea radio checkbox edit
-			verify : 'title'			
+			verify : 'http'	
+		},
+		{
+			title : 'rsyncModelName',
+			name : 'rsync模板名',
+			type : 'text',
+			placeholder : 'rsync模块名'			
 		},
 		{
 			title : 'channelPath',
 			name : '频道绝对路径',
 			type : 'text',
 			placeholder : '例如：/data/publish ',
-			verify : 'channelPath'			
+			verify : 'path'	
 		},
 		{
 			title : 'templatePath',
 			name : '模板位置',
 			placeholder : '例如/data/template',
 			type : 'text', //text textarea radio checkbox edit			
-			verify : 'title'
+			verify : 'path'	
 		},
 		{
 			title : 'channelDesc',
@@ -35,6 +41,7 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 			type : 'textarea', //text textarea radio checkbox edit			
 			verify : 'title'
 		},
+
 		{
 			title : 'category',
 			name : '部门分类',

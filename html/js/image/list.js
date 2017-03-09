@@ -81,6 +81,13 @@ define(['require',"app",'jquery','search','./searchForm'
 				});
 
 				function setList(_data){ //设置要显示的列表
+					$scope.page = _data.data.page;
+					$scope.page.jump = function( obj ){
+						if(page != obj.curr){
+							page = obj.curr;
+							getDataList();
+						}
+					}
 					var th = [
 							{name:'图片ID', key: 'id' },
 							{name:'图片标题', key: 'imageTitle' },
@@ -122,6 +129,7 @@ define(['require',"app",'jquery','search','./searchForm'
 						pageSize : 20,
 						callback : setList
 					});
+					
 				}
 				getDataList();
 				//end 显示列表

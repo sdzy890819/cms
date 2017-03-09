@@ -32,7 +32,7 @@ define(['require',"app",'jquery','/js/moduls/Tool.js'
 						return : function(){
 							$scope.list.return();
 						},
-						formRepeat : function(){ //全局更新
+						formRepeat : function( elem ){ //全局更新
 						  	form.render(); //更新全部
 						  	//自定义验证规则
 							form.verify({
@@ -48,9 +48,10 @@ define(['require',"app",'jquery','/js/moduls/Tool.js'
 									};
 								}
 								,path : function( value ){
-									//var reg = /^\/+([A-Za-z]{1}\/[\w\/]*)?\w+\/{1}[a-zA-Z]+$/;
-									var reg = /^[\/|\w|\d]+\/{1}[\w|\d]{1}[\/|\w|\d]+$/;
-									if(value.search(reg)<0){
+									var reg = /[\s,，.。\|\*\#]/;
+									
+									if(value.match(reg) != null){
+										console.log(value.match(reg));
 										return '请输入正确的路经（例：xy/xy）';
 									};
 								}
@@ -67,6 +68,14 @@ define(['require',"app",'jquery','/js/moduls/Tool.js'
 								}
 								//required（必填项）phone（手机号）email（邮箱）url（网址）number（数字）date（日期）identity（身份证）
 							});
+
+							
+							$('.search input').keydown(function (event) {
+							    if(event.keyCode==13){
+							    	//$('.search-form').submit();
+							    };
+							});
+
 							form.on('submit(searchForm)', function(data){
 								var b = false;
 								$.each(data.field,function( key , value ){

@@ -47,13 +47,15 @@ define(['require',"app",'jquery'
 										});
 
         						data.channel.updateChannel({
-    									id           : _detail.id,
+      									id           : _detail.id,
 										categoryId   : categoryId,
 										channelName  : obj.channelName,
 										channelUrl   : obj.channelUrl,
 										channelPath  : obj.channelPath,
 										templatePath : obj.templatePath,
 										channelDesc  : obj.channelDesc,
+										rsyncModelName : obj.rsyncModelName,
+
 
 											callback : function(_data){
 												layui.use(['layer'], function(){
@@ -107,9 +109,16 @@ define(['require',"app",'jquery'
 								{name:'频道绝对路径', key: 'channelPath'},
 								{name:'模版位置', key: 'templatePath'},
 								{name:'频道说明', key: 'channelDesc'},
+								{name:'rsync模块名', key: 'rsyncModelName' },
 								{name:'操作' , width : '120', class:'center'}
 							];						
 							
+							$.each(_data.data, function(i, obj) {
+								if (obj.rsyncModelName == undefined) {
+									obj.rsyncModelName = '';
+								}
+							})
+
 							$scope.listdata = { //确认按钮
 								title : $scope.title,
 								table : {

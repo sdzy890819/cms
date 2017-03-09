@@ -16,6 +16,7 @@ define(["app",'./addForm', '../upload/index', '../data/getData','form','position
 										layer.msg(content, {icon: 5});
 									})
 								}
+								
 								var suffix = $scope.imageInfo.name.match(/\w+$/)[0];
 								Upload.base64DataUrl($scope.imageInfo).then(function(urls){
 									if( urls ){

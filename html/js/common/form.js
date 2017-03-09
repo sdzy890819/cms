@@ -237,11 +237,13 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 									};
 								}
 								,path : function( value ){
-									//var reg = /^\/+([A-Za-z]{1}\/[\w\/]*)?\w+\/{1}[a-zA-Z]+$/;
-									 var reg = /^[\/|\w|\d]+\/{1}[\w|\d]{1}[\/|\w|\d]+$/;
-									 if(value.search(reg)<0){
-									 	return '请输入正确的路经（例：xy/xy）';
-									 };
+									console.log(value);
+									var reg = /[\s,，.。\|\*\#]/;
+									console.log(value.match(reg));
+									if(value.match(reg) != null){
+										console.log(value.match(reg));
+										return '请输入正确的路经（例：xy/xy）';
+									};
 								}
 								,select : function( value , ele){
 									if(value.indexOf('请选择')>-1 && ele.parentNode.selectedIndex == 0){

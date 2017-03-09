@@ -11,6 +11,7 @@ define(function(require){
 			currentUser : url+'/user/currentUser',//当前登录用户信息接口
 			createUser : url+'/user/createUser',//创建用户接口
 			updateUser : url+'/user/updateUser',//用户修改接口
+			updateUser2 : url+'/user/updateUser2',//用户修改接口
 			detail : url+'/user/detail',//逻辑删除
 			delUser : url+'/user/delUser'//逻辑删除
 		},

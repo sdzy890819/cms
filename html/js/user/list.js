@@ -1,16 +1,16 @@
 define(['require',"app",'jquery',
 	'../data/getData' , './addForm', 'search', './searchForm',
-	'../common/editPop',
+	'../common/editPop','../upload/index',
 	'formlist','position','fixedNav',
 	'../moduls/service','../moduls/factory'
-], function ( require , app , $ , getData , list, search, searchForm,editPop ) {
+], function ( require , app , $ , getData , list, search, searchForm,editPop,upload ) {
 	app.directive('userList',function(){
 		return {
 	    	restrict : 'E',
 	    	replace : true,
 	    	transclude : true,
 	        templateUrl : '../template/common/list.html',
-	        controller : function($scope , pop , $uibModal , $css,GenerateArrList){
+	        controller : function($scope , pop , $uibModal , $css,GenerateArrList,Upload){
 	        	$scope.title = '用户列表';
 				$scope.$parent.menu.push({name:$scope.title}); //栏目
 				$.extend($scope,{
@@ -40,10 +40,12 @@ define(['require',"app",'jquery',
 	  				});	
 					},
 					edit : function( obj ){
+						var imageInfo = null;
 						function getAddForm(callback , formList){ //填充数据
 							getData.user.detail({
-								id : obj.id,
+								userId : obj.userId,
 								callback : function(_data){
+									_data.pwd = '';
 									if(formList){ //发果有1条以上的字段则显示
 										
 									}else{
@@ -58,10 +60,78 @@ define(['require',"app",'jquery',
         					list : list,
         					updateData : getAddForm,
         					save : function(obj , _detail ){ //保存 新增 确认 等
-        						
+        						getData.user.updateUser2({
+									//id:_detail.id,
+									userId:_detail.userId,
+									userName:obj.userName,
+									realName:obj.realName,
+									pwd:obj.pwd,
+									headImage:(imageInfo?imageInfo.imageUrl:_detail.headImage),
+									idfa:obj.idfa,
+									callback : function(_data){
+										layui.use(['layer'], function(){
+											var layer = layui.layer;
+											layer.msg(_data.message);
+											getDataList();
+											 /*setTimeout(function(){
+											 	$state.reload();
+											 },300);*/
+										});
+									}
+								});
         					},
         					callback : function( list , callback ){ //返回获取的数据 用于操作  				
 								callback(list);
+								setTimeout(function(){
+									$('.layui-upload-button').unbind().click(function(){
+										upload.init({
+				        					data : {
+				        						obj : {},
+					        					title : '上传图片',
+					        					name : '请选择图片',
+					        					type : 'image',
+					        					event : function(file , $uibModalInstance){	        						
+					        						$scope.imageInfo = file;	     
+					        						function alert(content){
+														layui.use(['layer'], function(){
+															var layer = layui.layer;
+															layer.msg(content, {icon: 5});
+														})
+													}
+													
+													var suffix = $scope.imageInfo.name.match(/\w+$/)[0];
+													Upload.base64DataUrl($scope.imageInfo).then(function(urls){
+														var image = "<img src='" + file.$ngfDataUrl + "'width='100px' class='thumb'>";	        						
+						        						// $('.layui-upload-button').empty().append(image);												
+						        						$('.imagePre').empty().append(image);
+														if( urls ){
+															getData.upload.uploadImage({
+																"baseCode":urls.split(',')[1],
+																"suffix":suffix,//"文件后缀png|jpg"
+																"width" : 100,											
+
+																callback : function(_data) {
+																	imageInfo = _data.data;
+																	alert(_data.message)
+																}
+															})
+														}else if(!urls){
+															alert('请上传图片')
+														}else if(isSize=='yes' && selectSize=='yes' && !width ){
+															alert('请输入高度')
+														}else if(isSize=='yes' && selectSize=='no' && !height ){
+															alert('请输入高度')
+														}
+													});								
+													
+					        						
+					        						$uibModalInstance.dismiss('cancel');
+					        					}
+				        					},
+				        					$uibModal :$uibModal
+				        				});
+									});
+								},300)
         					},
         					$uibModal :$uibModal 
         				});

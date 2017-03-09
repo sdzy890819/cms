@@ -52,6 +52,7 @@ define(["require","app",'jquery',
 								{name:'频道绝对路径', key: 'channelPath' },
 								{name:'模版位置', key: 'templatePath' },
 								{name:'频道说明', key: 'channelDesc' },
+								{name:'rsync模块名', key: 'rsyncModelName' },
 								{name:'部门分类ID', key: 'categoryId' },
 								{name:'操作' , width : '120' , class:'center'}
 							];
