@@ -40,9 +40,9 @@ define(['require',"app",'jquery',
 	  				});	
 					},
 					edit : function( obj ){
-						var imageInfo = null;
+						var imageInfo = null;									
 						function getAddForm(callback , formList){ //填充数据
-							getData.user.detail({
+							getData.user.detail({								
 								userId : obj.userId,
 								callback : function(_data){
 									_data.pwd = '';
@@ -82,6 +82,12 @@ define(['require',"app",'jquery',
         					},
         					callback : function( list , callback ){ //返回获取的数据 用于操作  				
 								callback(list);
+
+									  $.each(list, function(i, obj){
+									  	if (obj.type == 'password') {
+									  		obj.verify = null;
+									  	}
+									  })
 								setTimeout(function(){
 									$('.layui-upload-button').unbind().click(function(){
 										upload.init({

@@ -39,6 +39,7 @@ define(["app",'jquery', '../upload/index', '../data/getData','form'],function (a
 								getData.user.updateUser({
 									userId : _obj.userId,
 									headImage : _obj.headImage,
+									userName : newData.userName,
 									realName : newData.realName,
 									idfa : newData.idfa,
 									pwd : newData.pwd,						
@@ -64,6 +65,7 @@ define(["app",'jquery', '../upload/index', '../data/getData','form'],function (a
 												getData.user.updateUser({													
 													headImage : data.imageUrl,
 													realName : newData.realName,
+													userName : newData.userName,
 													pwd : newData.pwd,
 													userId : _obj.userId,
 

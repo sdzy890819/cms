@@ -20,6 +20,7 @@ define(['require',"app",'jquery','search','./searchForm'
 								callback : function(_data){
 									if (_data.data.timer) {
 										_data.data.writeTime = new Date(_data.data.timer).format('yyyy-MM-dd h:m:s');
+										_data.data.editPublishTime = new Date(_data.data.editPublishTime).format('yyyy-MM-dd h:m:s');
 									}else {
 										_data.data.writeTime = '';
 									}
