@@ -7,6 +7,7 @@ import com.cn.cms.bo.UserBean;
 import com.cn.cms.contants.RedisKeyContants;
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.enums.AutoPublishEnum;
+import com.cn.cms.enums.DelTagEnum;
 import com.cn.cms.enums.PublishEnum;
 import com.cn.cms.enums.TemplateClassifyEnum;
 import com.cn.cms.middleware.JedisClient;
@@ -224,19 +225,28 @@ public class NewsBiz extends BaseBiz {
     }
 
     public List<News> listNews(Page page){
-        Integer count = newsService.queryNewsCount(null, null);
+        Integer count = newsService.queryNewsCount(null, null, null);
         page.setCount(count);
         if(page.isQuery()) {
-            return newsService.queryNewsList(null, null, page);
+            return newsService.queryNewsList(null, null, null, page);
         }
         return null;
     }
 
     public List<News> myNewsList(String userId, Integer publish, Page page){
-        Integer count = newsService.queryNewsCount(userId, publish);
+        Integer count = newsService.queryNewsCount(userId, publish, null);
         page.setCount(count);
         if(page.isQuery()) {
-            return newsService.queryNewsList(userId, publish, page);
+            return newsService.queryNewsList(userId, publish, null, page);
+        }
+        return null;
+    }
+
+    public List<News> listNewsManage(Page page){
+        Integer count = newsService.queryNewsCount(null, null, DelTagEnum.DEL.getType());
+        page.setCount(count);
+        if(page.isQuery()) {
+            return newsService.queryNewsList(null, null, DelTagEnum.DEL.getType(), page);
         }
         return null;
     }
@@ -385,7 +395,10 @@ public class NewsBiz extends BaseBiz {
         }
     }
 
-
+    /**
+     * 发布列表页模版
+     * @param newsColumn
+     */
     public void publishListTemplate2(NewsColumn newsColumn){
         newsService.publishListTemplate2(newsColumn);
     }
@@ -417,6 +430,11 @@ public class NewsBiz extends BaseBiz {
         return result;
     }
 
+    /**
+     * 查询新闻包含的股票列表
+     * @param newsIds
+     * @return
+     */
     public Map<Long, List<NewsStock>> findNewsStocks(List<Long> newsIds){
         List<NewsStock> list = newsService.findNewsStocks(newsIds);
         Map<Long, List<NewsStock>> map = new HashMap<>();
@@ -431,9 +449,18 @@ public class NewsBiz extends BaseBiz {
         return map;
     }
 
+    /**
+     * 查询新闻包含的股票列表
+     * @param newsId
+     * @return
+     */
     public List<NewsStock> findNewsStockList(Long newsId){
         return newsService.findNewsStockList(newsId);
     }
 
+
+    public News findNewsAndDetailManage(Long id){
+        return newsService.findNewsManage(id);
+    }
 }
 

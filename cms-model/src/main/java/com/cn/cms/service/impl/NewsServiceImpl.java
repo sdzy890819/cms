@@ -1,14 +1,12 @@
 package com.cn.cms.service.impl;
 
 import com.cn.cms.dao.*;
-import com.cn.cms.enums.AutoPublishEnum;
-import com.cn.cms.enums.ESSearchTypeEnum;
-import com.cn.cms.enums.IndexOperEnum;
-import com.cn.cms.enums.PublishEnum;
+import com.cn.cms.enums.*;
 import com.cn.cms.job.IndexThread;
 import com.cn.cms.po.*;
 import com.cn.cms.service.NewsService;
 import com.cn.cms.utils.Page;
+import com.cn.cms.utils.StringUtils;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Repository;
 
@@ -77,16 +75,16 @@ public class NewsServiceImpl implements NewsService {
         newsColumnDao.delNewsColumn(lastModifyUserId, id);
     }
 
-    public List<News> queryNewsList(String userId, Integer publish ,Page page) {
-        return newsDao.queryNewsList(userId, publish, page);
+    public List<News> queryNewsList(String userId, Integer publish, Integer delTag ,Page page) {
+        return newsDao.queryNewsList(userId, publish, delTag, page);
     }
 
-    public Integer queryNewsCount(String userId, Integer publish) {
-        return newsDao.queryNewsCount(userId, publish);
+    public Integer queryNewsCount(String userId, Integer publish, Integer delTag) {
+        return newsDao.queryNewsCount(userId, delTag, publish);
     }
 
     public News findNewsAndDetail(Long id) {
-        News news = newsDao.findNewsAndDetail(id);
+        News news = newsDao.findNewsAndDetail(id, null);
         if(news!=null){
             NewsDetail newsDetail = newsDetailDao.findNewsDetail(id);
             news.setNewsDetail(newsDetail);
@@ -95,11 +93,14 @@ public class NewsServiceImpl implements NewsService {
         return null;
     }
 
+
     public void saveNews(News news) {
         newsDao.saveNews(news);
         news.getNewsDetail().setNewsId(news.getId());
         newsDetailDao.saveNewsDetail(news.getNewsDetail());
-        newsStockDao.saveStocks(news.getNewsStocks());
+        if(StringUtils.isNotEmpty(news.getNewsStocks())) {
+            newsStockDao.saveStocks(news.getNewsStocks());
+        }
         sendIndex(news);
     }
 
@@ -127,7 +128,9 @@ public class NewsServiceImpl implements NewsService {
         newsDao.updateNews(news);
         newsDetailDao.updateNewsDetail(news.getNewsDetail());
         newsStockDao.delStocks(news.getId());
-        newsStockDao.saveStocks(news.getNewsStocks());
+        if(StringUtils.isNotEmpty(news.getNewsStocks())) {
+            newsStockDao.saveStocks(news.getNewsStocks());
+        }
         sendIndex(news);
     }
 
@@ -166,7 +169,12 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public News findNews(Long id) {
-        return newsDao.findNewsAndDetail(id);
+        return newsDao.findNewsAndDetail(id, null);
+    }
+
+    @Override
+    public News findNewsManage(Long id) {
+        return newsDao.findNewsAndDetail(id, DelTagEnum.DEL.getType());
     }
 
     @Override
