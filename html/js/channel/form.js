@@ -32,7 +32,7 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 			name : '模板位置',
 			placeholder : '例如/data/template',
 			type : 'text', //text textarea radio checkbox edit			
-			verify : 'title'
+			verify : 'path'	
 		},
 		{
 			title : 'channelDesc',
