@@ -377,6 +377,7 @@ $leftWidth : 225px;
         border:2px solid #4b5d6e;
         input{ 
             &.text{display:inline-block;}
+            &.w3{ width:80px;}
         }
         i{
             &.input-add{ margin-left:10px; vertical-align:middle;font-size:30px; color:#4d90fe;
@@ -470,7 +471,11 @@ $leftWidth : 225px;
     .layui-input-block{ margin-left:150px;}
     .date{ cursor:pointer;}
     .layui-form-item{
-        .layui-input-inline{ width:auto; }
+        .layui-input-inline{ width:auto; 
+            &.newselect{
+                .layui-select-title{ width:110px;}
+            }
+        }
     }
     .layui-inline{
         .layui-form-label{
