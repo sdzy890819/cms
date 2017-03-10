@@ -154,7 +154,7 @@ public class AppNewsController extends AppBaseController {
         if(StringUtils.isNotBlank(description)) {
             news.setDescription(description);
         }else {
-            news.setDescription(content.replaceAll(StaticContants.REGEX_SPLIT_HTML_CONTENT, "").replaceAll("\"", "“"));
+            news.setDescription(StringUtils.sub(content.replaceAll(StaticContants.REGEX_SPLIT_HTML_CONTENT, "").replaceAll("\"", "“"),200));
         }
         news.setSource(source);
         NewsDetail newsDetail = new NewsDetail();
@@ -252,7 +252,7 @@ public class AppNewsController extends AppBaseController {
         if(StringUtils.isNotBlank(description)) {
             news.setDescription(description);
         }else {
-            news.setDescription(content.replaceAll(StaticContants.REGEX_SPLIT_HTML_CONTENT, "").replaceAll("\"", "“"));
+            news.setDescription(StringUtils.sub(content.replaceAll(StaticContants.REGEX_SPLIT_HTML_CONTENT, "").replaceAll("\"", "“"),200));
         }
         news.setSource(source);
         NewsDetail newsDetail = new NewsDetail();

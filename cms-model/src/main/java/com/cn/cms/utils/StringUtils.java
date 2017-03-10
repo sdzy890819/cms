@@ -8,6 +8,20 @@ import java.util.List;
 
 public class StringUtils extends org.apache.commons.lang3.StringUtils{
 
+
+    /**
+     * 截取字符
+     * @param content
+     * @param length
+     * @return
+     */
+    public static String sub(String content, int length){
+        if(StringUtils.isNotBlank(content) && content.length() > length){
+            return content.substring(0, length);
+        }
+        return content;
+    }
+
     /**
      * 拼接URL数据
      * @param strings
