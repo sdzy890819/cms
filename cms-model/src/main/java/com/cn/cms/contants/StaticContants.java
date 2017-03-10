@@ -249,7 +249,7 @@ public class StaticContants {
 
     public static String REGEX_SPLIT = "[,，\\s]";
 
-    public static String REGEX_SPLIT_HTML_CONTENT = "<[^>]*>";
+    public static String REGEX_SPLIT_HTML_CONTENT = "(<[^>]*>|&lt;|&gt;|&quot;|&amp;|&nbsp;)";
 
     /**
      * 开关 1 是开启。0是关闭

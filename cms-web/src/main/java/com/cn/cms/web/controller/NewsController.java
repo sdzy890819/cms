@@ -185,7 +185,7 @@ public class NewsController extends BaseController {
         news.setColumnId(columnId);
         news.setAuthor(author);
         news.setKeyword(keyword);
-        if(StringUtils.isNotBlank(news.getDescription())) {
+        if(StringUtils.isNotBlank(description)) {
             news.setDescription(description);
         }else {
             news.setDescription(content.replaceAll(StaticContants.REGEX_SPLIT_HTML_CONTENT, "").replaceAll("\"", "“"));
@@ -282,7 +282,7 @@ public class NewsController extends BaseController {
         news.setColumnId(columnId);
         news.setAuthor(author);
         news.setKeyword(keyword);
-        if(StringUtils.isNotBlank(news.getDescription())) {
+        if(StringUtils.isNotBlank(description)) {
             news.setDescription(description);
         }else {
             news.setDescription(content.replaceAll(StaticContants.REGEX_SPLIT_HTML_CONTENT, "").replaceAll("\"", "“"));
