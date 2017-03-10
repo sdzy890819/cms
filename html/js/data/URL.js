@@ -83,7 +83,9 @@ define(function(require){
 			recommend : url + '/news/recommend',
 			recommendNewsInfo : url + '/news/recommendNewsInfo',
 			createRecommendColumn : url + '/news/createRecommendColumn',
-			updateRecommendColumn : url + '/news/updateRecommendColumn'			
+			updateRecommendColumn : url + '/news/updateRecommendColumn',		
+			newsManageList : url + '/news/newsManageList' //新闻管理列表	
+			rescind : url + '/news/rescind' //新闻管理列表	
 		},
 		category : {//部门分类
 			listCategory : url+'/category/listCategory', //获取部门分类列表
