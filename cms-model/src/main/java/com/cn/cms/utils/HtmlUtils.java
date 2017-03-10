@@ -44,7 +44,7 @@ public class HtmlUtils {
 
 
     public static void main(String[] args){
-        System.out.println("<p>asdasdas</p><img src=\"\"/> 测试< 上海 >.&nbsp;&nbsp;&nbsp;&nbsp;&amp;.\"aaa\"..........".replaceAll("(<[^>]*>|&lt;|&gt;|&quot;|&amp;|&nbsp;)","").replaceAll("\"", "“"));
+        System.out.println("<p>asdasdas</p><img src=\"\"/> 测试< 上海 >.&nbsp;&nbsp;&nbsp;&nbsp;&alt;.\"aaa\"..........".replaceAll(StaticContants.REGEX_SPLIT_HTML_CONTENT, "").replaceAll("\"", "“"));
     }
 
 

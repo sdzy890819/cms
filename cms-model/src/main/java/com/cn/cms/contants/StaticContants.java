@@ -243,7 +243,7 @@ public class StaticContants {
 
     public static String REGEX_IMG = "<(img|IMG)[^>]*(src|SRC)=['\"]{0,1}([^\"'\\s]*)['\"]{0,1}[^>]*>";
 
-    public static String REGEX_STOCK = "<(a|A)[^>]*(stkcode|STKCODE)=['\"]{0,1}([^\"'\\s]*)['\"]{0,1}[^>]*>";
+    public static String REGEX_STOCK = "<(a|A)[^>]*(stkcode|STKCODE)=['\"]{0,1}([^\"']*)['\"]{0,1}[^>]*>";
 
     public static String REGEX_SPLIT_STOCK="[,，]";
 
