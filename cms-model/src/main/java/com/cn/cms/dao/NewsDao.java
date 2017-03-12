@@ -27,6 +27,8 @@ public interface NewsDao {
 
     void delNews(@Param(value = "lastModifyUserId") String lastModifyUserId, @Param(value = "id") Long id);
 
+    void recoverNews(@Param(value = "lastModifyUserId") String lastModifyUserId, @Param(value = "id") Long id);
+
     void saveNews(@Param(value = "p1") News news);
 
     void updateNews(@Param(value = "p1") News news);

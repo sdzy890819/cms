@@ -105,7 +105,6 @@ public class NewsServiceImpl implements NewsService {
     }
 
     private void sendIndex(Base base){
-
         IndexThread indexThread = new IndexThread();
         indexThread.setId(base.getId());
         indexThread.setIndexOperEnum(IndexOperEnum.update);
@@ -139,6 +138,17 @@ public class NewsServiceImpl implements NewsService {
         newsDetailDao.delNewsDetail(lastModifyUserId, id);
         newsStockDao.delStocks(id);
         delIndex(id);
+    }
+
+    public void recoverNews(List<NewsStock> list, String lastModifyUserId, Long id){
+        newsDao.recoverNews(lastModifyUserId, id);
+        newsDetailDao.recoverNewsDetail(lastModifyUserId, id);
+        if(StringUtils.isNotEmpty(list)) {
+            newsStockDao.saveStocks(list);
+        }
+        Base base = new Base();
+        base.setId(id);
+        sendIndex(base);
     }
 
     @Override

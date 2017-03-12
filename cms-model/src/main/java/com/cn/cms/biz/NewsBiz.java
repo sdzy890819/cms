@@ -326,6 +326,14 @@ public class NewsBiz extends BaseBiz {
     }
 
     /**
+     * 恢复新闻
+     * @param news
+     */
+    public void recoverNews(News news, String lastModifyUserId){
+        newsService.recoverNews(getNewsStock(news.getNewsDetail().getContent(), news.getLastModifyUserId(), news.getId()), lastModifyUserId, news.getId());
+    }
+
+    /**
      * 根据columnId 分页获取当前信息
      * @param columnId
      * @param page

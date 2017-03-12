@@ -111,6 +111,8 @@ public class StaticContants {
 
     public static final String ERROR_NEWS_CAN_NOT_RESCIND = "当前新闻不在发布状态，无法撤销";
 
+    public static final String ERROR_NEWS_NOT_NEED_RECOVER = "此新闻已被恢复";
+
     public static final String ERROR_TOPIC_NOT_FOUND = "找不到此模版";
 
     public static final String ERROR_TEMPLATE_PATH_FILENAME_DUP = "模版目录或文件名已存在";

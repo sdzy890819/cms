@@ -140,6 +140,10 @@
         update news set last_modify_user_id = #{lastModifyUserId},del_tag = 0 where id = ${id} ;
     </update>
 
+    <update id="recoverNews">
+        update news set last_modify_user_id = #{lastModifyUserId},del_tag = 1 where id = ${id} ;
+    </update>
+
     <update id="updateNews">
         update news
         <set>
