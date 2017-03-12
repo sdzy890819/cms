@@ -59,6 +59,11 @@ define(["angular", "angularAMD","angularFileUpload","angular-ui-router",'angular
                 url: '/recommendcolumnadd',
                 template : '<recommendcolumn-add></recommendcolumn-add>',
                 controllerUrl: 'news/recommendcolumnadd'
+            })) 
+            .state('news.manage', angularAMD.route({
+                url: '/manage',
+                template : '<news-manage></news-manage>',
+                controllerUrl: 'news/manage'
             }))                          
 
             //新闻栏目

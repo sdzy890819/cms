@@ -452,6 +452,7 @@ define(['require',"app",'jquery','search','./searchForm'
 										"platform":obj.platform, //平台,
 										"startTime":obj.startTime,//创建时间
 										"endTime":obj.endTime,//创建时间
+										delTag : 1,
 										page : page,
 										pageSize : 20,
 										callback : function(_data){

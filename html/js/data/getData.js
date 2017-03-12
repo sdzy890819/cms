@@ -634,6 +634,16 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					}
 				})
 			},
+			newsManageList : function( obj ){ //新闻栏目列表
+				T.ajax({
+					url : URL.news.newsManageList , 
+					type : 'get',
+					data : {page:obj.page,pageSize:obj.pageSize},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				})
+			},
 			newscolumn : function( obj ){ //获取获取栏目信息
 				T.ajax({
 					url : URL.news.newscolumn , 
@@ -1864,6 +1874,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						"platform":obj.platform, //平台,
 						"startTime":obj.startTime,//创建时间
 						"endTime":obj.endTime,//创建时间
+						delTag : obj.delTag,
 						"page":obj.page,
 						"pageSize":obj.pageSize
 					},
@@ -1981,6 +1992,17 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						"condition":obj.condition,						
 						"page":obj.page,
 						"pageSize":obj.pageSize
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});
+			},
+			rescind : function( obj ){
+				T.ajax({
+					url : URL.search.rescind , 			
+					data : {
+						"id":obj.id,
 					},
 					success : function( _data ){
 						obj.callback(_data);

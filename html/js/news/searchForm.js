@@ -5,14 +5,14 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 			title : 'buildUserName',
 			name : '发布人',
 			placeholder : '发布人',
-			cls: "w90",
+			cls: "w3",
 			type : 'text'
 		},			
 		{
 			title : 'lastModifyUserName',
 			name : '修改人',
 			placeholder : '修改人',
-			cls: "w90",
+			cls: "w3",
 			type : 'text'
 		},	
 
@@ -24,7 +24,8 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 				'columnId'
 			],
 			name : '选择频道栏目',
-			type : 'select',			
+			type : 'select',
+			cls : 'newselect',		
 			select : [
 				[
 					{name:'请选择部门',title:'categoryId'}
@@ -40,6 +41,7 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 		{
 			title : 'source',
 			name : '来源',
+			cls: "w3",
 			placeholder : '请输入来源',
 			type : 'text'
 		},		
@@ -48,7 +50,7 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 			title : 'author',
 			name : '作者',			
 			placeholder : '作者',
-			cls: "w70",
+			cls: "w3",
 			type : 'text'
 		},		
 
@@ -56,14 +58,14 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 			title : 'condition',
 			name : '关键字',
 			placeholder : '请输入关键字',
-			cls: "w220",
+			cls: "w120",
 			type : 'text'
 		},
 		{
 			title : 'newsId',
 			name : '文章ID',
 			placeholder : '文章ID',
-			cls: "w70",
+			cls: "w120",
 			type : 'text'
 		},	
 		{
