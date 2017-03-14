@@ -6,6 +6,7 @@ import com.cn.cms.middleware.WeedfsClient;
 import com.cn.cms.po.Images;
 import com.cn.cms.po.ImagesBase;
 import com.cn.cms.utils.Page;
+import com.cn.cms.utils.StringUtils;
 import com.cn.cms.web.ann.CheckAuth;
 import com.cn.cms.web.ann.CheckToken;
 import com.cn.cms.web.result.ApiResponse;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -198,11 +200,20 @@ public class ImagesController extends BaseController{
     @CheckAuth( name = "images:delete" )
     @RequestMapping(value = "/delImages", method = RequestMethod.GET)
     public String delImages(HttpServletRequest request,
-                               @RequestParam("id") Long id) throws Exception{
+                            @RequestParam("id") Long id,
+                            @RequestParam(value = "force", required = false, defaultValue = "0") Integer force) throws Exception{
         Images images = resourceBiz.getImages(id);
-        if(images!=null) {
+        if(images != null) {
+            if(force == 1) {
+                ImagesBase imagesBase = resourceBiz.findImagesBase();
+                String filePath = StringUtils.concatUrl(imagesBase.getBasePath(), images.getImagePath());
+                File file = new File(filePath);
+                if(file.exists()){
+                    file.delete();
+                }
+                //weedfsClient.delete(images.getFid());
+            }
             resourceBiz.delImages(getCurrentUserId(request), id);
-            //weedfsClient.delete(images.getFid());
         }
         return ApiResponse.returnSuccess();
     }

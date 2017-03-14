@@ -1,5 +1,6 @@
 package com.cn.cms.middleware;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.exception.BizException;
@@ -17,6 +18,7 @@ import lombok.Setter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Collection;
 
 /**
  * Created by 华盛信息科技有限公司(HS) on 17/1/17.
@@ -34,6 +36,8 @@ public class MSSVideoClient {
     private String finishUrl = "http://upload.dvr.aodianyun.com/v2/DVR.UploadComplete";
 
     private String interruptUrl = "http://upload.dvr.aodianyun.com/v2/DVR.AbortUpload";
+
+    private String deleteUrl = "http://openapi.aodianyun.com/v2/DVR.RemoveUploadDvr";
 
     private String accessKey = "1p5Z7yUHsCqdLiCJbB8lwDPd3Ffe1q8f";
 
@@ -89,10 +93,18 @@ public class MSSVideoClient {
         UrlUtils.getConnStrForPOSTVideo(interruptUrl, StaticContants.UTF8, obj1.toJSONString());
     }
 
-    public static void main(String[] args) throws IOException, BizException {
-
-
+    public VideoResponse delete(String[] strings) throws BizException {
+        VideoResponse videoResponse = null;
+        JSONObject obj1 = new JSONObject();
+        obj1.put("url", strings);
+        obj1.put("access_id", this.getAccessId());
+        obj1.put("access_key", getAccessKey());
+        String finishResult = UrlUtils.getConnStrForPOSTVideo(deleteUrl, StaticContants.UTF8, obj1.toJSONString());
+        videoResponse = JSONObject.parseObject(finishResult, VideoFinishResponse.class);
+        return videoResponse;
     }
+
+
 
 
 }
