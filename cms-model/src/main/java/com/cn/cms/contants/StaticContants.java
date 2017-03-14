@@ -123,6 +123,8 @@ public class StaticContants {
 
     public static final String ERROR_CATEGORY_NAME_EXIST = "部门已经存在!";
 
+    public static final String ERROR_NOT_PUBLISH_NEWS = "用户没有发布权限!";
+
     public static final String getTimeParseErrorYYYYMMDD(){
         return ERROR_TIME_PARSE.concat(YYYY_MM_DD);
     }
@@ -149,7 +151,7 @@ public class StaticContants {
 
     public static final String CMS_OPERATION_USER_ID = "100000000000000001";
 
-    public static final int CMS_NUM = 300;
+    public static final int CMS_NUM = 100;
 
     public static final String FRAGMENT_REGEX = "\\{#([^#][^\\}]+)#\\}";
 

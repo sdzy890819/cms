@@ -195,6 +195,8 @@ public class AppNewsController extends AppBaseController {
 
             if(permissionBiz.checkPermission(userID, "news:publish")) {
                 publish(request, news.getId());
+            }else {
+                return ApiResponse.returnFail(StaticContants.ERROR_NOT_PUBLISH_NEWS);
             }
         }
         return ApiResponse.returnSuccess();
@@ -295,6 +297,8 @@ public class AppNewsController extends AppBaseController {
         if(autoPublish!=null && autoPublish == AutoPublishEnum.YES.getType() && news.getTimer() == null && publish != PublishEnum.draft.getType()){
             if(permissionBiz.checkPermission(userID, "news:publish")) {
                 publish(request, id);
+            }else {
+                return ApiResponse.returnFail(StaticContants.ERROR_NOT_PUBLISH_NEWS);
             }
         }
         return ApiResponse.returnSuccess();

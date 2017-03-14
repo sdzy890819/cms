@@ -225,6 +225,8 @@ public class NewsController extends BaseController {
 
             if(permissionBiz.checkPermission(userID, "news:publish")) {
                 publish(request, news.getId());
+            }else {
+                return ApiResponse.returnFail(StaticContants.ERROR_NOT_PUBLISH_NEWS);
             }
         }
         return ApiResponse.returnSuccess();
@@ -324,6 +326,8 @@ public class NewsController extends BaseController {
         if(autoPublish !=null && autoPublish == AutoPublishEnum.YES.getType() && news.getTimer() == null && publish != PublishEnum.draft.getType()){
             if(permissionBiz.checkPermission(userID, "news:publish")) {
                 publish(request, id);
+            }else {
+                return ApiResponse.returnFail(StaticContants.ERROR_NOT_PUBLISH_NEWS);
             }
         }
         return ApiResponse.returnSuccess();
@@ -495,7 +499,8 @@ public class NewsController extends BaseController {
     @CheckToken
     @CheckAuth( name = "news:recover" )
     @RequestMapping(value = "/recover", method = RequestMethod.GET)
-    public String recover(HttpServletRequest request, @RequestParam(value = "id") Long id){
+    public String recover(HttpServletRequest request, @RequestParam(value = "id") Long id,
+                          @RequestParam(value = "publish", defaultValue = "0", required = false) Integer publish){
         News news = newsBiz.findNewsManage(id);
         if(news == null ){
             return ApiResponse.returnFail(StaticContants.ERROR_NEWS_NOT_FOUND);
@@ -504,6 +509,13 @@ public class NewsController extends BaseController {
             return ApiResponse.returnFail(StaticContants.ERROR_NEWS_NOT_NEED_RECOVER);
         }
         newsBiz.recoverNews(news, getCurrentUserId(request));
+        if(publish == 1){
+            if(permissionBiz.checkPermission(getCurrentUserId(request), "news:publish")) {
+                publish(request, id);
+            }else {
+                return ApiResponse.returnFail(StaticContants.ERROR_NOT_PUBLISH_NEWS);
+            }
+        }
         return ApiResponse.returnSuccess();
     }
 
