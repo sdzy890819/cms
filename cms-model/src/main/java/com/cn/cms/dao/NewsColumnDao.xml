@@ -132,4 +132,7 @@
         select <include refid="sql_column" /> from news_column <include refid="delTag" /> and id = ${id};
     </select>
 
+    <select id="findColumnNameCount" resultType="java.lang.Integer">
+        select count(1) from news_column <include refid="delTag" /> and `column_name` = #{columnName} ;
+    </select>
 </mapper>

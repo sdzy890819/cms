@@ -18,6 +18,8 @@ public interface ChannelDao {
 
     void saveChannel(@Param(value = "p1") Channel channel);
 
+    Integer findChannelNameCount(@Param(value = "channelName") String channelName);
+
     void updateChannel(@Param(value = "p1") Channel channel);
 
     void delChannel(@Param(value = "lastModifyUserId") String lastModifyUserId, @Param(value = "id") Long id);

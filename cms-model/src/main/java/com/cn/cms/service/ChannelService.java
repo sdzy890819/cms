@@ -17,6 +17,8 @@ public interface ChannelService {
 
     void saveChannel(Channel channel);
 
+    Integer findChannelNameCount(String channelName);
+
     void updateChannel(Channel channel);
 
     void delChannel(String lastModifyUserId, Long id);

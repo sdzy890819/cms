@@ -3,6 +3,7 @@ package com.cn.cms.web.controller;
 import com.cn.cms.biz.NewsBiz;
 import com.cn.cms.biz.PreTemplateBiz;
 import com.cn.cms.bo.RelationColumn;
+import com.cn.cms.contants.StaticContants;
 import com.cn.cms.po.NewsColumn;
 import com.cn.cms.utils.Page;
 import com.cn.cms.web.ann.CheckAuth;
@@ -39,7 +40,7 @@ public class NewsColumnController extends BaseController {
      */
     @CheckToken
     @CheckAuth( name = "newscolumn:read" )
-    @RequestMapping(value = "/newscolumnlist",method = RequestMethod.GET)
+    @RequestMapping(value = "/newscolumnlist", method = RequestMethod.GET)
     public String list(@RequestParam(value = "channelId") Long channelId){
         List<NewsColumn> list = newsBiz.listNewsColumn(channelId);
         return ApiResponse.returnSuccess(list);
@@ -51,7 +52,7 @@ public class NewsColumnController extends BaseController {
      */
     @CheckToken
     @CheckAuth( name = "newscolumn:read" )
-    @RequestMapping(value = "/list",method = RequestMethod.GET)
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(@RequestParam(value = "page",required = false) Integer page,
                        @RequestParam(value="pageSize",required = false)Integer pageSize){
         Page page1 = new Page(page, pageSize);
@@ -72,7 +73,7 @@ public class NewsColumnController extends BaseController {
      */
     @CheckToken
     @CheckAuth( name = "newscolumn:write" )
-    @RequestMapping(value = "/createNewsColumn",method = RequestMethod.POST)
+    @RequestMapping(value = "/createNewsColumn", method = RequestMethod.POST)
     public String createNewsColumn(HttpServletRequest request,
                                    @RequestParam(value = "columnName") String columnName,
                                    @RequestParam(value = "channelId") Long channelId,
@@ -82,6 +83,10 @@ public class NewsColumnController extends BaseController {
                                    @RequestParam(value = "detailTemplate2Id", required = false) Long detailTemplate2Id,
                                    @RequestParam(value = "keywords", required = false) String keywords,
                                    @RequestParam(value = "description", required = false) String description){
+        Integer count = newsBiz.findColumnNameCount(columnName);
+        if ( count > 0 ) {
+            return ApiResponse.returnFail(StaticContants.ERROR_COLUMN_NAME_EXIST);
+        }
         NewsColumn newsColumn = new NewsColumn();
         newsColumn.setChannelId(channelId);
         newsColumn.setLastModifyUserId(getCurrentUserId(request));
@@ -121,6 +126,13 @@ public class NewsColumnController extends BaseController {
                                    @RequestParam(value = "detailTemplate2Id", required = false) Long detailTemplate2Id,
                                    @RequestParam(value = "keywords", required = false) String keywords,
                                    @RequestParam(value = "description", required = false) String description){
+        NewsColumn oldNewsColumn = newsBiz.getNewsColumn(id);
+        if( !oldNewsColumn.getColumnName().equals(columnName) ){
+            Integer count = newsBiz.findColumnNameCount(columnName);
+            if ( count > 0 ) {
+                return ApiResponse.returnFail(StaticContants.ERROR_COLUMN_NAME_EXIST);
+            }
+        }
         NewsColumn newsColumn = new NewsColumn();
         newsColumn.setId(id);
         newsColumn.setChannelId(channelId);

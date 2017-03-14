@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -195,11 +196,8 @@ public class FileUtil {
      */
     public static String getDatePath(){
         Calendar calendar = Calendar.getInstance();
-        int month = calendar.get(Calendar.MONTH) + 1;
-        int year = calendar.get(Calendar.YEAR);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        String relativePath = StringUtils.concatUrl(String.valueOf(year),
-                String.valueOf(month), String.valueOf(day));
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        String relativePath = sdf.format(calendar.getTime()).concat("/");
         return relativePath;
     }
 

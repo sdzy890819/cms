@@ -38,6 +38,11 @@ public class ChannelServiceImpl implements ChannelService {
     }
 
     @Override
+    public Integer findChannelNameCount(String channelName) {
+        return channelDao.findChannelNameCount(channelName);
+    }
+
+    @Override
     public void updateChannel(Channel channel) {
         channelDao.updateChannel(channel);
     }

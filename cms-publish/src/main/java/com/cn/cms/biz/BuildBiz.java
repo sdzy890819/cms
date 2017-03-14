@@ -250,23 +250,21 @@ public class BuildBiz extends BaseBiz {
      */
     void publishNews(News news, Body body){
         Channel channel = channelBiz.getChannel(news.getChannelId());
-        if(news.getPublish() != PublishEnum.YES.getType()) {
             Date date = new Date();
             news.setBuildTime(date);
             news.setBuildUserId(body.getUserId());
             news.setLastModifyUserId(body.getUserId());
             news.setPublish(PublishEnum.YES.getType());
-            if(news.getEditPublishTime()!=null){
+            if(news.getEditPublishTime() != null){
                 news.setEditPublishTime(date);
             }
-            if(StringUtils.isNotBlank(news.getRelativePath())) {
+            if(StringUtils.isBlank(news.getRelativePath())) {
                 news.setRelativePath(StringUtils.concatUrl(FileUtil.getDatePath(), String.valueOf(news.getId()).concat(StaticContants.HTML_SUFFIX)));
             }
-            if(StringUtils.isNotBlank(news.getUrl())) {
+            if(StringUtils.isBlank(news.getUrl())) {
                 news.setUrl(StringUtils.concatUrl(channel.getChannelUrl(), news.getRelativePath()));
             }
             newsBiz.publishNews(news);
-        }
     }
 
     /**

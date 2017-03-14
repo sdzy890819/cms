@@ -482,5 +482,9 @@ public class NewsBiz extends BaseBiz {
     public void rescind(News news){
         newsService.updateRescind(news);
     }
+
+    public Integer findColumnNameCount(String columnName){
+        return newsService.findColumnNameCount(columnName);
+    }
 }
 

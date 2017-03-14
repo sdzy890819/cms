@@ -77,4 +77,5 @@ public interface NewsService {
 
     void updateRescind(News news);
 
+    Integer findColumnNameCount(String columnName);
 }

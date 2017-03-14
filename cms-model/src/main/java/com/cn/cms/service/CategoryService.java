@@ -18,4 +18,6 @@ public interface CategoryService {
     void delCategory(String lastModifyUserId, Long id);
 
     Category findCategory(Long id);
+
+    Integer findCategoryNameCount(String categoryName);
 }

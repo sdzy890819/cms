@@ -248,4 +248,9 @@ public class NewsServiceImpl implements NewsService {
     public void updateRescind(News news) {
         newsDao.updateRescind(news);
     }
+
+    @Override
+    public Integer findColumnNameCount(String columnName) {
+        return newsColumnDao.findColumnNameCount(columnName);
+    }
 }

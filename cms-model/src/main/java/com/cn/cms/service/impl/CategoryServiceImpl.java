@@ -37,4 +37,9 @@ public class CategoryServiceImpl implements CategoryService {
     public Category findCategory(Long id) {
         return categoryDao.findCategory(id);
     }
+
+    @Override
+    public Integer findCategoryNameCount(String categoryName) {
+        return categoryDao.findCategoryNameCount(categoryName);
+    }
 }

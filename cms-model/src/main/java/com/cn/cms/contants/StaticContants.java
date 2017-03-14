@@ -117,6 +117,12 @@ public class StaticContants {
 
     public static final String ERROR_TEMPLATE_PATH_FILENAME_DUP = "模版目录或文件名已存在";
 
+    public static final String ERROR_CHANNEL_NAME_EXIST = "频道已经存在!";
+
+    public static final String ERROR_COLUMN_NAME_EXIST = "栏目已经存在!";
+
+    public static final String ERROR_CATEGORY_NAME_EXIST = "部门已经存在!";
+
     public static final String getTimeParseErrorYYYYMMDD(){
         return ERROR_TIME_PARSE.concat(YYYY_MM_DD);
     }

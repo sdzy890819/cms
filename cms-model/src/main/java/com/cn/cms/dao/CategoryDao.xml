@@ -55,4 +55,8 @@
         SELECT <include refid="sql_column"/> from category <include refid="delTag" /> and id = #{id};
     </select>
 
+    <select id="findCategoryNameCount" resultType="java.lang.Integer">
+        select count(1) from category <include refid="delTag" /> and category_name = #{categoryName} ;
+    </select>
+
 </mapper>

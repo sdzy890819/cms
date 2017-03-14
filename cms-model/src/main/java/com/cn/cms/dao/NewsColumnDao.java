@@ -33,4 +33,6 @@ public interface NewsColumnDao {
     void publishListTemplate2(@Param(value = "p1") NewsColumn newsColumn);
 
     void delNewsColumn(@Param(value = "lastModifyUserId") String lastModifyUserId, @Param(value = "id") Long id);
+
+    Integer findColumnNameCount(@Param(value = "columnName") String columnName);
 }

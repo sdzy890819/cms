@@ -1,6 +1,7 @@
 package com.cn.cms.web.controller;
 
 import com.cn.cms.biz.CategoryBiz;
+import com.cn.cms.contants.StaticContants;
 import com.cn.cms.po.Category;
 import com.cn.cms.web.ann.CheckAuth;
 import com.cn.cms.web.ann.CheckToken;
@@ -48,6 +49,10 @@ public class CategoryController extends BaseController {
     public String createCategory(HttpServletRequest request,
                                  @RequestParam(value = "categoryName") String categoryName,
                                  @RequestParam(value = "categoryDesc") String categoryDesc){
+        Integer count = categoryBiz.findCategoryNameCount(categoryName);
+        if( count > 0 ){
+            return ApiResponse.returnFail(StaticContants.ERROR_CATEGORY_NAME_EXIST);
+        }
         Category category = new Category();
         category.setLastModifyUserId(getCurrentUserId(request));
         category.setCategoryDesc(categoryDesc);
@@ -71,6 +76,13 @@ public class CategoryController extends BaseController {
                                  @RequestParam(value = "id") Long id,
                                  @RequestParam(value = "categoryName",required = false) String categoryName,
                                  @RequestParam(value = "categoryDesc",required = false) String categoryDesc){
+        Category oldCategory = categoryBiz.getCategory(id);
+        if( !oldCategory.getCategoryName().equals(categoryName) ){
+            Integer count = categoryBiz.findCategoryNameCount(categoryName);
+            if( count > 0 ){
+                return ApiResponse.returnFail(StaticContants.ERROR_CATEGORY_NAME_EXIST);
+            }
+        }
         Category category = new Category();
         category.setLastModifyUserId(getCurrentUserId(request));
         category.setCategoryDesc(categoryDesc);
