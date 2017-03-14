@@ -14,6 +14,7 @@ import com.cn.cms.message.bean.Body;
 import com.cn.cms.message.common.CommonMessage;
 import com.cn.cms.po.*;
 import com.cn.cms.utils.FileUtil;
+import com.cn.cms.utils.HtmlUtils;
 import com.cn.cms.utils.RsyncUtils;
 import com.cn.cms.utils.StringUtils;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -161,12 +162,18 @@ public class BuildBiz extends BaseBiz {
             }
             if(newsColumn.getDetailTemplate2Id() != null && newsColumn.getDetailTemplate2Id() > 0){
                 Template2 template2 = template2Biz.getTemplate2(newsColumn.getDetailTemplate2Id());
-                TemplatePublishJob templatePublishJob = new TemplatePublishJob();
-                templatePublishJob.setTemplateBasics(template2);
-                templatePublishJob.setChannelId(news.getChannelId());
-                templatePublishJob.setNewsColumn(newsColumn);
-                templatePublishJob.setBase(news);
-                threadTaskExecutor.execute(templatePublishJob);
+                String[] contents = HtmlUtils.splitNewsContent(news.getNewsDetail().getContent());
+                for(int i = 0; i< contents.length; i++) {
+                    News publishNews = new News(news);
+                    publishNews.getNewsDetail().setContent(contents[i]);
+                    TemplatePublishJob templatePublishJob = new TemplatePublishJob();
+                    templatePublishJob.setTemplateBasics(template2);
+                    templatePublishJob.setChannelId(news.getChannelId());
+                    templatePublishJob.setNewsColumn(newsColumn);
+                    templatePublishJob.setPage(i + 1);
+                    templatePublishJob.setBase(publishNews);
+                    threadTaskExecutor.execute(templatePublishJob);
+                }
             }
 
         }
@@ -214,10 +221,26 @@ public class BuildBiz extends BaseBiz {
             for (int i = 0; i < templates.size(); i++) {
                 TemplatePublishJob templatePublishJob = new TemplatePublishJob();
                 if(templates.get(i).getTemplateClassify() == TemplateClassifyEnum.detail.getType()) {
-                    templatePublishJob.setBase(base);
+                    if(base instanceof News) {
+                        News news = (News) base;
+                        String[] contents = HtmlUtils.splitNewsContent(news.getNewsDetail().getContent());
+                        for (int j = 0; j < contents.length; j++) {
+                            News publishNews = new News(news);
+                            publishNews.getNewsDetail().setContent(contents[i]);
+                            templatePublishJob.setBase(publishNews);
+                            templatePublishJob.setPage( j + 1 );
+                            templatePublishJob.setTemplateBasics(templates.get(i));
+                            threadTaskExecutor.execute(templatePublishJob);
+                        }
+                    } else {
+                        templatePublishJob.setBase(base);
+                        templatePublishJob.setTemplateBasics(templates.get(i));
+                        threadTaskExecutor.execute(templatePublishJob);
+                    }
+                }else {
+                    templatePublishJob.setTemplateBasics(templates.get(i));
+                    threadTaskExecutor.execute(templatePublishJob);
                 }
-                templatePublishJob.setTemplateBasics(templates.get(i));
-                threadTaskExecutor.execute(templatePublishJob);
             }
         }
     }

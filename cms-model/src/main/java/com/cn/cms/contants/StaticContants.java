@@ -259,6 +259,8 @@ public class StaticContants {
 
     public static String REGEX_SPLIT_HTML_CONTENT = "(<[^>]*>|&lt;|&gt;|&quot;|&amp;|&nbsp;)";
 
+    public static String REGEX_SPLIT_PAGE = "----*";
+
     /**
      * 开关 1 是开启。0是关闭
      */
