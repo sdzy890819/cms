@@ -3,10 +3,7 @@ package com.cn.cms.web.controller;
 import com.cn.cms.biz.*;
 import com.cn.cms.bo.UserBean;
 import com.cn.cms.contants.StaticContants;
-import com.cn.cms.enums.AutoPublishEnum;
-import com.cn.cms.enums.CommonMessageSourceEnum;
-import com.cn.cms.enums.PublishEnum;
-import com.cn.cms.enums.RecommendEnum;
+import com.cn.cms.enums.*;
 import com.cn.cms.po.*;
 import com.cn.cms.utils.Page;
 import com.cn.cms.utils.StringUtils;
@@ -228,6 +225,8 @@ public class NewsController extends BaseController {
 
             if(permissionBiz.checkPermission(userID, "news:publish")) {
                 publish(request, news.getId());
+            }else {
+                return ApiResponse.returnFail(StaticContants.ERROR_NOT_PUBLISH_NEWS);
             }
         }
         return ApiResponse.returnSuccess();
@@ -327,6 +326,8 @@ public class NewsController extends BaseController {
         if(autoPublish !=null && autoPublish == AutoPublishEnum.YES.getType() && news.getTimer() == null && publish != PublishEnum.draft.getType()){
             if(permissionBiz.checkPermission(userID, "news:publish")) {
                 publish(request, id);
+            }else {
+                return ApiResponse.returnFail(StaticContants.ERROR_NOT_PUBLISH_NEWS);
             }
         }
         return ApiResponse.returnSuccess();
@@ -490,6 +491,32 @@ public class NewsController extends BaseController {
         return ApiResponse.returnSuccess(result);
     }
 
-
+    /**
+     * 新闻恢复
+     * @param id
+     * @return
+     */
+    @CheckToken
+    @CheckAuth( name = "news:recover" )
+    @RequestMapping(value = "/recover", method = RequestMethod.GET)
+    public String recover(HttpServletRequest request, @RequestParam(value = "id") Long id,
+                          @RequestParam(value = "publish", defaultValue = "0", required = false) Integer publish){
+        News news = newsBiz.findNewsManage(id);
+        if(news == null ){
+            return ApiResponse.returnFail(StaticContants.ERROR_NEWS_NOT_FOUND);
+        }
+        if(news.getDelTag() == DelTagEnum.NORMAL.getType()){
+            return ApiResponse.returnFail(StaticContants.ERROR_NEWS_NOT_NEED_RECOVER);
+        }
+        newsBiz.recoverNews(news, getCurrentUserId(request));
+        if(publish == 1){
+            if(permissionBiz.checkPermission(getCurrentUserId(request), "news:publish")) {
+                publish(request, id);
+            }else {
+                return ApiResponse.returnFail(StaticContants.ERROR_NOT_PUBLISH_NEWS);
+            }
+        }
+        return ApiResponse.returnSuccess();
+    }
 
 }

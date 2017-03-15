@@ -20,4 +20,6 @@ public interface CategoryDao {
     void delCategory(@Param(value = "lastModifyUserId") String lastModifyUserId, @Param(value = "id") Long id);
 
     Category findCategory(@Param(value = "id") Long id);
+
+    Integer findCategoryNameCount(@Param(value = "categoryName") String categoryName);
 }

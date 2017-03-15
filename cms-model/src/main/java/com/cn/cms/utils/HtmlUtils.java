@@ -1,12 +1,12 @@
 package com.cn.cms.utils;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.cn.cms.contants.StaticContants;
+import com.cn.cms.po.News;
+import com.cn.cms.po.NewsDetail;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -42,9 +42,45 @@ public class HtmlUtils {
         return list;
     }
 
+    /**
+     * 分割新闻内容
+     * @param content
+     * @return
+     */
+    public static String[] splitNewsContent(String content){
+
+        String[] tmp = content.split(StaticContants.REGEX_SPLIT_PAGE);
+        for(int i = 1; i < tmp.length; i++){
+            int a = tmp[i].toLowerCase().indexOf("<p") ;
+            int b = tmp[i].toLowerCase().indexOf("</p");
+            if( a > b ){
+                int c = tmp[i].toLowerCase().indexOf(">", b) + 1;
+                tmp[i-1] = tmp[i-1] + tmp[i].substring(0, c);
+                tmp[i] = tmp[i].substring(c);
+            }
+        }
+        return tmp ;
+    }
+
 
     public static void main(String[] args){
-        System.out.println("<p>asdasdas</p><img src=\"\"/> 测试< 上海 >.&nbsp;&nbsp;&nbsp;&nbsp;&alt;.\"aaa\"..........".replaceAll(StaticContants.REGEX_SPLIT_HTML_CONTENT, "").replaceAll("\"", "“"));
+        News news = new News();
+        news.setId(10L);
+        news.setCreateTime(new Date());
+        NewsDetail newsDetail = new NewsDetail();
+        newsDetail.setContent("<p>AAAAAAAAAAAAAAAA</p>--------<p>1111121321313</p>");
+        news.setNewsDetail(newsDetail);
+        News publishNews = news.clone();
+        publishNews.getNewsDetail().setContent("11111");
+        publishNews.setId(12L);
+        System.out.println(publishNews.getNewsDetail().getContent());
+
+        System.out.println(news.getNewsDetail().getContent());
+
+        System.out.println(publishNews.getId());
+
+        System.out.println(news.getId());
+
     }
 
 

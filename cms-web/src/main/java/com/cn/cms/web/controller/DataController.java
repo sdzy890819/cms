@@ -123,6 +123,7 @@ public class DataController extends BaseController {
         map.put("compressMode", CompressModeEnum.values());
         map.put("compress", CompressEnum.values());
         map.put("platform", PlatformEnum.values());
+        map.put("publish", PublishEnum.values());
         return ApiResponse.returnSuccess(map);
     }
 

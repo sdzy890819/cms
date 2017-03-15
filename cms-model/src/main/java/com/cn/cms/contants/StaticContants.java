@@ -111,9 +111,19 @@ public class StaticContants {
 
     public static final String ERROR_NEWS_CAN_NOT_RESCIND = "当前新闻不在发布状态，无法撤销";
 
+    public static final String ERROR_NEWS_NOT_NEED_RECOVER = "此新闻已被恢复";
+
     public static final String ERROR_TOPIC_NOT_FOUND = "找不到此模版";
 
     public static final String ERROR_TEMPLATE_PATH_FILENAME_DUP = "模版目录或文件名已存在";
+
+    public static final String ERROR_CHANNEL_NAME_EXIST = "频道已经存在!";
+
+    public static final String ERROR_COLUMN_NAME_EXIST = "栏目已经存在!";
+
+    public static final String ERROR_CATEGORY_NAME_EXIST = "部门已经存在!";
+
+    public static final String ERROR_NOT_PUBLISH_NEWS = "用户没有发布权限!";
 
     public static final String getTimeParseErrorYYYYMMDD(){
         return ERROR_TIME_PARSE.concat(YYYY_MM_DD);
@@ -141,7 +151,7 @@ public class StaticContants {
 
     public static final String CMS_OPERATION_USER_ID = "100000000000000001";
 
-    public static final int CMS_NUM = 300;
+    public static final int CMS_NUM = 100;
 
     public static final String FRAGMENT_REGEX = "\\{#([^#][^\\}]+)#\\}";
 
@@ -250,6 +260,8 @@ public class StaticContants {
     public static String REGEX_SPLIT = "[,，\\s]";
 
     public static String REGEX_SPLIT_HTML_CONTENT = "(<[^>]*>|&lt;|&gt;|&quot;|&amp;|&nbsp;)";
+
+    public static String REGEX_SPLIT_PAGE = "----*";
 
     /**
      * 开关 1 是开启。0是关闭

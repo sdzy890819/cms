@@ -41,6 +41,8 @@ public interface NewsService {
 
     void delNews(String lastModifyUserId, Long id);
 
+    void recoverNews(List<NewsStock> list, String lastModifyUserId, Long id);
+
     List<News> findNewsByColumnId(Long columnId, Page page);
 
     void publishNews(News news);
@@ -75,4 +77,5 @@ public interface NewsService {
 
     void updateRescind(News news);
 
+    Integer findColumnNameCount(String columnName);
 }

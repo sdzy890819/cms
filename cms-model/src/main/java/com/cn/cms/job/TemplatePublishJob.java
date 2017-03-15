@@ -91,7 +91,7 @@ public class TemplatePublishJob extends BaseTask {
         String publishRelativePath;
         if(templateBasics.getTemplateClassify() == TemplateClassifyEnum.detail.getType()) {
             News news = (News)base;
-            publishRelativePath = news.getRelativePath();
+            publishRelativePath = FileUtil.getFileNameByPage(news.getRelativePath(), getPage());
             publishPath = StringUtils.concatUrl(channel.getChannelPath(),publishRelativePath);
             fromPath = StringUtils.concatUrl(templatePath, templateBasics.getPath(), templateBasics.getFilename());
         }else{

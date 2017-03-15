@@ -1,6 +1,7 @@
 package com.cn.cms.web.controller;
 
 import com.cn.cms.biz.ChannelBiz;
+import com.cn.cms.contants.StaticContants;
 import com.cn.cms.po.Channel;
 import com.cn.cms.web.ann.CheckAuth;
 import com.cn.cms.web.ann.CheckToken;
@@ -58,6 +59,10 @@ public class ChannelController extends BaseController {
                                 @RequestParam(value = "channelDesc") String channelDesc,
                                 @RequestParam(value = "categoryId") Long categoryId,
                                 @RequestParam(value = "rsyncModelName") String rsyncModelName){
+        Integer count = channelBiz.findChannelNameCount(channelName);
+        if ( count > 0 ) {
+            return ApiResponse.returnFail(StaticContants.ERROR_CHANNEL_NAME_EXIST);
+        }
         Channel channel = new Channel();
         channel.setLastModifyUserId(getCurrentUserId(request));
         channel.setChannelDesc(channelDesc);
@@ -94,6 +99,13 @@ public class ChannelController extends BaseController {
                                 @RequestParam(value = "channelDesc",required = false) String channelDesc,
                                 @RequestParam(value = "categoryId",required = false) Long categoryId,
                                 @RequestParam(value = "rsyncModelName",required = false) String rsyncModelName){
+        Channel oldChannel = channelBiz.getChannel(id);
+        if(!oldChannel.getChannelName().equals(channelName)){
+            Integer count = channelBiz.findChannelNameCount(channelName);
+            if ( count > 0 ) {
+                return ApiResponse.returnFail(StaticContants.ERROR_CHANNEL_NAME_EXIST);
+            }
+        }
         Channel channel = new Channel();
         channel.setLastModifyUserId(getCurrentUserId(request));
         channel.setChannelDesc(channelDesc);

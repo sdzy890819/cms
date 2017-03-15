@@ -19,7 +19,8 @@ public enum AuthEnum {
     DOWNLOAD("download", 9),
     PREVIEW("preview", 10),
     SEARCH("search", 11),
-    RESCIND("rescind", 12);
+    RESCIND("rescind", 12),
+    RECOVER("recover", 13);
 
     @Getter
     private int type;

@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -195,11 +196,8 @@ public class FileUtil {
      */
     public static String getDatePath(){
         Calendar calendar = Calendar.getInstance();
-        int month = calendar.get(Calendar.MONTH) + 1;
-        int year = calendar.get(Calendar.YEAR);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        String relativePath = StringUtils.concatUrl(String.valueOf(year),
-                String.valueOf(month), String.valueOf(day));
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        String relativePath = sdf.format(calendar.getTime()).concat("/");
         return relativePath;
     }
 
@@ -243,6 +241,19 @@ public class FileUtil {
         return fileName;
     }
 
+    /**
+     * 分页获取文件名，
+     * @param fileName
+     * @param page
+     * @return
+     */
+    public static String getFileNameByPageLine(String fileName, Integer page){
+        if(page != null && page > 1){
+            String[] arr = fileName.split("\\.");
+            fileName = arr[0].concat(StaticContants.UNDER_LINE).concat(String.valueOf(page)).concat(".").concat(arr[1]);
+        }
+        return fileName;
+    }
 
     public static void copyFile(String fromFile, String toFile) {
         try {

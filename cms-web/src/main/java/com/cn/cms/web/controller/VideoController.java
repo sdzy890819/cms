@@ -1,6 +1,10 @@
 package com.cn.cms.web.controller;
 
 import com.cn.cms.biz.ResourceBiz;
+import com.cn.cms.exception.BizException;
+import com.cn.cms.middleware.MSSVideoClient;
+import com.cn.cms.middleware.WeedfsClient;
+import com.cn.cms.middleware.bean.VideoResponse;
 import com.cn.cms.po.ImagesBase;
 import com.cn.cms.po.Video;
 import com.cn.cms.po.VideoBase;
@@ -28,6 +32,9 @@ public class VideoController extends BaseController{
 
     @Resource
     private ResourceBiz resourceBiz;
+
+    @Resource
+    private MSSVideoClient mssVideoClient;
 
     /**
      * 获取视频基础库。
@@ -166,7 +173,15 @@ public class VideoController extends BaseController{
     @CheckAuth( name = "video:delete" )
     @RequestMapping(value = "/delVideo", method = RequestMethod.GET)
     public String delVideo(HttpServletRequest request,
-                            @RequestParam("id") Long id){
+                           @RequestParam("id") Long id,
+                           @RequestParam(value = "force", required = false, defaultValue = "0") Integer force) throws BizException {
+        Video video = resourceBiz.getVideo(id);
+        if(force == 1){
+            VideoResponse videoResponse = mssVideoClient.delete(new String[]{video.getVideoUrl()});
+            if(videoResponse.getFlag() != 100){
+                return ApiResponse.returnFail(videoResponse.getFlagString());
+            }
+        }
         resourceBiz.delVideo(getCurrentUserId(request), id);
         return ApiResponse.returnSuccess();
     }

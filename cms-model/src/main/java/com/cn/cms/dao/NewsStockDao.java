@@ -15,6 +15,8 @@ public interface NewsStockDao {
 
     void delStocks(@Param(value = "newsId") Long newsId);
 
+    void recoverStocks(@Param(value = "newsId") Long newsId);
+
     List<NewsStock> findNewsStocks(@Param(value = "list") List<Long> newsIds);
 
     List<NewsStock> findNewsStockList(@Param(value = "newsId") Long newsId);

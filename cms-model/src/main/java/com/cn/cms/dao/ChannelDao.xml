@@ -100,5 +100,9 @@
     <select id="findChannelList" resultMap="channel">
         SELECT <include refid="sql_column" /> from channel <include refid="delTag" /> and category_id = #{categoryId}  order by update_time desc;
     </select>
+
+    <select id="findChannelNameCount" resultType="java.lang.Integer">
+        select count(1) from channel <include refid="delTag" /> and channel_name = #{channelName};
+    </select>
     
 </mapper>

@@ -71,4 +71,8 @@ public class CategoryBiz extends BaseBiz {
         jedisClient.del(RedisKeyContants.REDIS_CATEGORY_KEY);
     }
 
+    public Integer findCategoryNameCount(String categoryName){
+        return categoryService.findCategoryNameCount(categoryName);
+    }
+
 }

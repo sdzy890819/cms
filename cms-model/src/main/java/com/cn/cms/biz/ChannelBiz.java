@@ -64,6 +64,10 @@ public class ChannelBiz extends BaseBiz {
         setRedis(channel.getId());
     }
 
+    public Integer findChannelNameCount(String channelName){
+        return channelService.findChannelNameCount(channelName);
+    }
+
     /**
      * 清除Redis
      * @param id
