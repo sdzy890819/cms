@@ -99,9 +99,9 @@
 							self.list = self.list.concat(newarr);
 							loading = true;
 							self.$nextTick(function(){
+								var box = $('.image-list');
 								box.unbind().on('scroll',function(){
-					                var box = $('.image-list'),
-										scrollHeight = box[0].scrollHeight , 
+					                var scrollHeight = box[0].scrollHeight , 
 										height = box.height();
 									var scrollTop = $(this).scrollTop()+height+100;
 									if(scrollTop>scrollHeight){
