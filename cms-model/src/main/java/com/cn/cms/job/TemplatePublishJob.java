@@ -111,7 +111,7 @@ public class TemplatePublishJob extends BaseTask {
 
         if(StaticContants.rsyncRoot == StaticContants.RSYNC_ON) {
             String path = this.getClass().getResource("/").getPath();
-            RsyncUtils.rsync(channel.getRsyncModelName(), publishRelativePath, StringUtils.concatUrl(path, StaticContants.rsyncRescindFile));
+            RsyncUtils.rsync(channel.getRsyncModelName(), publishRelativePath, StringUtils.concatUrl(path, StaticContants.rsyncRescindFile), channel.getChannelPath());
         }
 
     }

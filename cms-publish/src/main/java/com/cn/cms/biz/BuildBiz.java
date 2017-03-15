@@ -21,6 +21,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -68,9 +69,14 @@ public class BuildBiz extends BaseBiz {
                 news.setLastModifyUserId(body.getUserId());
                 news.setPublish(PublishEnum.rescind.getType());
                 newsBiz.rescind(news);
+                String filePath = StringUtils.concatUrl(channel.getChannelPath(), news.getRelativePath());
+                File file = new File(filePath);
+                if(file.exists()){
+                    file.delete();
+                }
                 if(StaticContants.rsyncRoot == StaticContants.RSYNC_ON) {
                     String path = this.getClass().getResource("/").getPath();
-                    RsyncUtils.rsync(channel.getRsyncModelName(), news.getRelativePath(), StringUtils.concatUrl(path, StaticContants.rsyncRescindFile));
+                    RsyncUtils.rsync(channel.getRsyncModelName(), news.getRelativePath(), StringUtils.concatUrl(path, StaticContants.rsyncRescindFile), channel.getChannelPath());
                 }
                 break;
             }
