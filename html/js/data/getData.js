@@ -1623,7 +1623,18 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						obj.callback(_data)
 					}
 				});
+			},
+			preview: function( obj ){//专题预览	
+				T.ajax({
+					url : URL.topic.preview ,
+					type : 'POST',
+					data : {id:obj.id}, 
+					success : function( _data ){
+						obj.callback(_data)
+					}
+				});
 			}
+			
 		},
 		userchannel : { //用户频道编辑权限
 			channelId:function( callback ){//根据频道ID获取用户列表 接口

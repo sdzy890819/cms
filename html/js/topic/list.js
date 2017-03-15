@@ -145,7 +145,10 @@ define(['require',"app",'jquery','search','./searchForm'
 	 							getData.topic.delTopic(obj);
 							}
 	 					})
-					}
+					},
+					preview : function(obj){ //预览
+                        getData.topic.preview(obj);
+                    }
 				});
 				function setList(_data){ //设置要显示的列表
 					$.each(_data.data.list,function( i , obj){ //时间格示化
@@ -163,7 +166,7 @@ define(['require',"app",'jquery','search','./searchForm'
 						//{name:'关键字' , key:'keyword' },
 						//{name:'描述、SEO标准' , key:'description' },
 						//{name:'URL' , key:'topicUrl' },
-						{name:'操作' , width : '120', class:'center'}
+						{name:'操作' , width : '180', class:'center'}
 					];
 					$scope.listdata = { //确认按钮
 						title : $scope.title,
@@ -173,7 +176,8 @@ define(['require',"app",'jquery','search','./searchForm'
 							td : GenerateArrList.setArr(_data.data.list,th) ,
 							edit : [
 								{cls : 'edit' , name : '编辑',evt:$scope.edit},
-								{cls : 'del' , name : '删除',evt:$scope.del}
+								{cls : 'del' , name : '删除',evt:$scope.del},
+								{cls : 'edit' , name : '预览',evt:$scope.preview}
 							]
 						}
 					}

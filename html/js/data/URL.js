@@ -166,7 +166,8 @@ define(function(require){
 			topicColumnList:url+'/topic/topicColumnList',//专题分类列表
 			createTopicColumn:url+'/topic/createTopicColumn',//专题分类列表
 			updateTopicColumn:url+'/topic/updateTopicColumn',//
-			delTopicColumn:url+'/topic/delTopicColumn'//
+			delTopicColumn:url+'/topic/delTopicColumn',//
+			preview:url+'/topic/preview'//
 		},
 		userchannel : { //用户频道编辑权限
 			channelId:url+'/userchannel/list/channelId',//根据频道ID获取用户列表 
