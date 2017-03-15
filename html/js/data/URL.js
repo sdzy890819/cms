@@ -84,7 +84,7 @@ define(function(require){
 			recommendNewsInfo : url + '/news/recommendNewsInfo',
 			createRecommendColumn : url + '/news/createRecommendColumn',
 			updateRecommendColumn : url + '/news/updateRecommendColumn',		
-			newsManageList : url + '/news/newsManageList' //新闻管理列表	
+			newsManageList : url + '/news/newsManageList', //新闻管理列表	
 			rescind : url + '/news/rescind' //新闻管理列表	
 		},
 		category : {//部门分类

@@ -81,18 +81,40 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 			placeholder : '年/月/日 时:分:秒',
 			cls : 'w120',
 			type : 'date'
+		},
+		{
+			title : 'publish',
+			selectName : [
+				'publish'
+			],
+			name : '状态',
+			type : 'select',
+			cls : 'newselect',		
+			select : [
+				[
+					{name:'请选择状态',title:'publish'}
+				]
+			]
 		}
 	];
 	function getList(callback){
 		getData.category.listCategory({//部门
 			callback:function(_data){
-				$.each(list,function(i , obj){
-					if(obj.type=='select'){
-						if(obj.select[0][0].title=='categoryId'){
-							obj.select[0] = [obj.select[0][0]];
-							obj.select[0] = obj.select[0].concat(Tool.changeObjectName(_data.data,[{name:'categoryName',newName:'name'}]));
-							callback(list);
-						}
+				getData.data.all({
+					callback:function(_data1){
+						$.each(list,function(i , obj){
+							if(obj.type=='select'){
+								if(obj.select[0][0].title=='categoryId'){
+									obj.select[0] = [obj.select[0][0]];
+									obj.select[0] = obj.select[0].concat(Tool.changeObjectName(_data.data,[{name:'categoryName',newName:'name'}]));
+								}
+								if(obj.select[0][0].title=='publish'){
+									obj.select[0] = [obj.select[0][0]];
+									obj.select[0] = obj.select[0].concat(Tool.changeObjectName(_data1.data.publish,[{name:'type',newName:'id'}]));
+								}
+							}
+						})
+						callback(list);
 					}
 				})
 			}

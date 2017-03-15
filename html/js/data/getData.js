@@ -1875,6 +1875,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						"startTime":obj.startTime,//创建时间
 						"endTime":obj.endTime,//创建时间
 						delTag : obj.delTag,
+						publish:obj.publish,
 						"page":obj.page,
 						"pageSize":obj.pageSize
 					},

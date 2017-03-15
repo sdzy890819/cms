@@ -347,7 +347,7 @@ define(['require',"app",'jquery','search','./searchForm'
                             td : GenerateArrList.setArr(_data.data.list, th) ,
                             edit : [                                                                
                                 {cls : 'edit' , name : '撤销',evt:$scope.edit},
-                                {cls : 'edit' , name : '修改',evt:$scope.recommend},
+                                //{cls : 'edit' , name : '修改',evt:$scope.recommend},
                                 {cls : 'edit' , name : '恢复',evt:$scope.recommend},
                                 //{cls : 'del' , name : '发布',evt:$scope.del}
                             ]
@@ -421,7 +421,7 @@ define(['require',"app",'jquery','search','./searchForm'
                                 $scope.$$childHead.current = 1;
                             },                          
                             submit : function( obj , data ){
-                                var page = 1 , channelId , columnId , categoryId;
+                                var page = 1 , channelId , columnId , categoryId , publish;
                                 $.each(obj.selects,function(){
                                     if(this.title == 'channelId'){
                                         channelId = this.id;
@@ -431,6 +431,9 @@ define(['require',"app",'jquery','search','./searchForm'
                                     }
                                     if(this.title == 'categoryId'){
                                         categoryId = this.id;
+                                    }
+                                    if(this.title == 'publish'){
+                                        publish = this.id;
                                     }
                                 });
                                 function getSearchList(){
@@ -447,6 +450,7 @@ define(['require',"app",'jquery','search','./searchForm'
                                         "platform":obj.platform, //平台,
                                         "startTime":obj.startTime,//创建时间
                                         "endTime":obj.endTime,//创建时间
+                                        publish : publish,
                                         delTag : 0,
                                         page : page,
                                         pageSize : 20,

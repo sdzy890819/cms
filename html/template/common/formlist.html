@@ -12,15 +12,15 @@
 			<div class="table">
 				<table cellpadding="0" cellspacing="0">
 					<tr>
-						<th ng-if='data.table.select' class='select'><input type="checkbox"></th>
+						<!-- <th ng-if='data.table.select' class='select'><input type="checkbox"></th> -->
 						<th ng-repeat='obj in data.table.th' repeat-finish='thFinish' width='{{obj.width}}' class='{{obj.class}}'>
 							{{obj.name}}
 						</th>
 					</tr>
 					<tr ng-repeat='obj in data.table.td' repeat-finish='tdFinish' data-id='{{obj.id}}' class="{{obj.cls}}">
-						<td ng-if='data.table.select' class='select'>
+						<!-- <td ng-if='data.table.select' class='select'>
 							<input type="checkbox">
-						</td>
+						</td> -->
 						<td ng-repeat='item in obj.list' class='{{item.class}}'>
 							<span ng-if='item.name && !item.href'>{{item.name}}</span>
 							<a ng-if='item.name && item.href' href="{{item.href}}" target="_blank">{{item.name}}</a>

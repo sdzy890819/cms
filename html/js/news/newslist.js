@@ -319,18 +319,18 @@ define(['require',"app",'jquery','search','./searchForm'
 
 					var th = [
 						{name:'文章ID' , key:'id' , width : '50'},		
-						{name:'所属频道栏目' , key:'channelAndColumnName' , width : '200'},					
-						{name:'标题' , key:'title' , width : '300'},								
-						{name:'作者' , key:'author' , width: '100', class: 'center'},
-						{name:'发布人' , key:'buildUserName' , width: '100', class: 'center'},
-						{name:'修改人' , key:'lastModifyUserName' , width: '100', class: 'center'},
-						{name:'媒体来源' , key:'source' , width: '70', class: 'center'},
+						{name:'所属频道栏目' , key:'channelAndColumnName' , width : '80'},					
+						{name:'标题' , key:'title'},								
+						{name:'作者' , key:'author' , width: '50', class: 'center'},
+						{name:'发布人' , key:'buildUserName' , width: '50', class: 'center'},
+						{name:'修改人' , key:'lastModifyUserName' , width: '50', class: 'center'},
+						{name:'媒体来源' , key:'source' , width: '40', class: 'center'},
 												
 						{name:'发布时间' , key:'buildTimeStr' , width : '80', class: 'center'},
 						{name:'修改时间' , key:'updateTimeStr' , width : '80', class: 'center'},
-						{name:'状态' , key:'publishStr' , width: '100', class: 'center'},
-						{name:'操作' , width : '200' , class: 'center'},
-						{name:'权限' , width : '100' , class: 'center'}
+						{name:'状态' , key:'publishStr' , width: '50', class: 'center'},
+						{name:'操作' , width : '70' , class: 'center'},
+						{name:'权限' , width : '60' , class: 'center'}
 					];
 					
 					$.each(_data.data.list, function(i, obj){
@@ -426,18 +426,21 @@ define(['require',"app",'jquery','search','./searchForm'
 								$scope.$$childHead.current = 1;
 							},							
 							submit : function( obj , data ){
-								var page = 1 , channelId , columnId , categoryId;
-								$.each(obj.selects,function(){
-									if(this.title == 'channelId'){
-										channelId = this.id;
-									}
-									if(this.title == 'columnId'){
-										columnId = this.id;
-									}
-									if(this.title == 'categoryId'){
-										categoryId = this.id;
-									}
-								});
+								var page = 1 , channelId , columnId , categoryId , publish;
+                                $.each(obj.selects,function(){
+                                    if(this.title == 'channelId'){
+                                        channelId = this.id;
+                                    }
+                                    if(this.title == 'columnId'){
+                                        columnId = this.id;
+                                    }
+                                    if(this.title == 'categoryId'){
+                                        categoryId = this.id;
+                                    }
+                                    if(this.title == 'publish'){
+                                        publish = this.id;
+                                    }
+                                });
 								function getSearchList(){
 									getData.search.searchNew({
 										"newsId" : obj.newsId,
@@ -452,6 +455,7 @@ define(['require',"app",'jquery','search','./searchForm'
 										"platform":obj.platform, //平台,
 										"startTime":obj.startTime,//创建时间
 										"endTime":obj.endTime,//创建时间
+										publish : publish,
 										delTag : 1,
 										page : page,
 										pageSize : 20,
