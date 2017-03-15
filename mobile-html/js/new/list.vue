@@ -62,7 +62,7 @@
 						self.list = self.list.concat(list);
 						loading = true;
 						self.$nextTick(function(){
-							var box = $('.image-list');
+							var box = $('.new-list');
 							box.unbind().on('scroll',function(){
 				                var scrollHeight = box[0].scrollHeight , 
 									height = box.height();
