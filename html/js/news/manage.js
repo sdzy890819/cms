@@ -281,6 +281,46 @@ define(['require',"app",'jquery','search','./searchForm'
                             }
                         })
                     },
+                    rescind : function(obj){ //撤销
+                        obj.callback = function(_data){//撤销除成功
+                            layui.use(['layer'], function(){
+                                var layer = layui.layer;
+                                layer.msg(_data.message);
+                                                                                                
+                                if(_data.code == 0) {                                   
+                                    $('table').find("tr[data-id=" + obj.id + "]").hide();
+                                }
+
+                            });
+                        };
+                        pop.alert({
+                             text:'您确定要撤销"'+obj.title+'"吗'
+                            ,btn : ['确定','取消']
+                            ,fn : function(){
+                                getData.news.rescind(obj);
+                            }
+                        })
+                    },
+                    recover : function(obj){ //恢复
+                        obj.callback = function(_data){//恢复成功
+                            layui.use(['layer'], function(){
+                                var layer = layui.layer;
+                                layer.msg(_data.message);
+                                                                                                
+                                if(_data.code == 0) {                                   
+                                    $('table').find("tr[data-id=" + obj.id + "]").hide();
+                                }
+
+                            });
+                        };
+                        pop.alert({
+                             text:'您确定要恢复"'+obj.title+'"吗'
+                            ,btn : ['确定','取消']
+                            ,fn : function(){
+                                getData.news.recover(obj);
+                            }
+                        })
+                    },
 
                     publish : function(obj){
                         obj.callback = function(_data){//删除成功
@@ -346,9 +386,9 @@ define(['require',"app",'jquery','search','./searchForm'
                             th : th,                                    
                             td : GenerateArrList.setArr(_data.data.list, th) ,
                             edit : [                                                                
-                                {cls : 'edit' , name : '撤销',evt:$scope.edit},
+                                {cls : 'edit' , name : '撤销',evt:$scope.rescind},
                                 //{cls : 'edit' , name : '修改',evt:$scope.recommend},
-                                {cls : 'edit' , name : '恢复',evt:$scope.recommend},
+                                {cls : 'edit' , name : '恢复',evt:$scope.recover},
                                 //{cls : 'del' , name : '发布',evt:$scope.del}
                             ]
                         },

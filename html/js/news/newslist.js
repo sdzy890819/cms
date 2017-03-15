@@ -195,6 +195,46 @@ define(['require',"app",'jquery','search','./searchForm'
         					$uibModal :$uibModal 
         				});
 					},
+					rescind : function(obj){ //撤销
+                        obj.callback = function(_data){//撤销除成功
+                            layui.use(['layer'], function(){
+                                var layer = layui.layer;
+                                layer.msg(_data.message);
+                                                                                                
+                                if(_data.code == 0) {                                   
+                                    $('table').find("tr[data-id=" + obj.id + "]").hide();
+                                }
+
+                            });
+                        };
+                        pop.alert({
+                             text:'您确定要撤销"'+obj.title+'"吗'
+                            ,btn : ['确定','取消']
+                            ,fn : function(){
+                                getData.news.rescind(obj);
+                            }
+                        })
+                    },
+                    recover : function(obj){ //恢复
+                        obj.callback = function(_data){//恢复成功
+                            layui.use(['layer'], function(){
+                                var layer = layui.layer;
+                                layer.msg(_data.message);
+                                                                                                
+                                if(_data.code == 0) {                                   
+                                    $('table').find("tr[data-id=" + obj.id + "]").hide();
+                                }
+
+                            });
+                        };
+                        pop.alert({
+                             text:'您确定要恢复"'+obj.title+'"吗'
+                            ,btn : ['确定','取消']
+                            ,fn : function(){
+                                getData.news.recover(obj);
+                            }
+                        })
+                    },
 
 					recommend : function (obj) {
 						var newsId = obj.id;
@@ -349,6 +389,7 @@ define(['require',"app",'jquery','search','./searchForm'
 							edit : [																
 								{cls : 'edit' , name : '编辑',evt:$scope.edit},
 								{cls : 'edit' , name : ' 推荐',evt:$scope.recommend}
+								{cls : 'edit' , name : ' 撤销',evt:$scope.rescind}
 								// {cls : 'del' , name : '删除',evt:$scope.del}
 							],
 

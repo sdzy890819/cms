@@ -822,7 +822,30 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						obj.callback(_data);
 					}
 				})
-			},			
+			},
+			rescind : function( obj ){
+				T.ajax({
+					url : URL.news.rescind , 			
+					data : {
+						"id":obj.id,
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});
+			},
+			recover : function( obj ){
+				T.ajax({
+					url : URL.news.recover , 			
+					data : {
+						"id":obj.id,
+						publish:obj.publish,//可不传。如果传递1的话是 恢复并发布
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});
+			}		
 		},
 		category : { //部门分类
 			listCategory : function( obj ){ // 部门分类列表
@@ -1998,18 +2021,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						obj.callback(_data);
 					}
 				});
-			},
-			rescind : function( obj ){
-				T.ajax({
-					url : URL.search.rescind , 			
-					data : {
-						"id":obj.id,
-					},
-					success : function( _data ){
-						obj.callback(_data);
-					}
-				});
-			}								
+			}							
 		}
 	}
 	return public;
