@@ -235,6 +235,9 @@ define(['require',"app",'jquery','search','./searchForm'
                             }
                         })
                     },
+                    preview : function(obj){ //预览
+                        getData.news.preview(obj);
+                    },
 
 					recommend : function (obj) {
 						var newsId = obj.id;
@@ -388,8 +391,9 @@ define(['require',"app",'jquery','search','./searchForm'
 							td : GenerateArrList.setArr(_data.data.list, th) ,
 							edit : [																
 								{cls : 'edit' , name : '编辑',evt:$scope.edit},
-								{cls : 'edit' , name : ' 推荐',evt:$scope.recommend}
-								{cls : 'edit' , name : ' 撤销',evt:$scope.rescind}
+								{cls : 'edit' , name : ' 推荐',evt:$scope.recommend},
+								{cls : 'edit' , name : ' 撤销',evt:$scope.rescind},
+								{cls : 'edit' , name : ' 预览',evt:$scope.preview}
 								// {cls : 'del' , name : '删除',evt:$scope.del}
 							],
 

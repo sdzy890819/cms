@@ -845,7 +845,18 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						obj.callback(_data);
 					}
 				});
-			}		
+			},
+			preview	 : function( obj ){
+				T.ajax({
+					url : URL.news.preview , 			
+					data : {
+						"id":obj.id
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});
+			}	
 		},
 		category : { //部门分类
 			listCategory : function( obj ){ // 部门分类列表
