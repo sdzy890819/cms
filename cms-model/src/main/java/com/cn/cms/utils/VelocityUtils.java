@@ -123,7 +123,7 @@ public class VelocityUtils {
         } catch (IOException e) {
             throw new BizException("预览模版出现错误", e);
         } catch (ResourceNotFoundException e){
-            throw new BizException("模版找不到,模版位置：" + templateFile , e);
+            throw new BizException("模版找不到,请上传模版，模版位置：" + templateFile , e);
         }
     }
 
