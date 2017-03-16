@@ -203,6 +203,7 @@ define(['require',"app",'jquery','search','./searchForm'
                                                                                                 
                                 if(_data.code == 0) {                                   
                                     $('table').find("tr[data-id=" + obj.id + "]").hide();
+                                    getDataList();
                                 }
 
                             });

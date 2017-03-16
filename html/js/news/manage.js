@@ -289,6 +289,7 @@ define(['require',"app",'jquery','search','./searchForm'
                                                                                                 
                                 if(_data.code == 0) {                                   
                                     $('table').find("tr[data-id=" + obj.id + "]").hide();
+                                    getDataList();
                                 }
 
                             });
@@ -317,11 +318,30 @@ define(['require',"app",'jquery','search','./searchForm'
                              text:'您确定要恢复"'+obj.title+'"吗'
                             ,btn : ['确定','取消']
                             ,fn : function(){
-                                getData.news.recover(obj);
+                                getData.news.recover({id:obj.id});
                             }
                         })
                     },
+                    recoverRelease : function(obj){ //恢复并发布
+                        obj.callback = function(_data){//恢复并发布
+                            layui.use(['layer'], function(){
+                                var layer = layui.layer;
+                                layer.msg(_data.message);
+                                                                                                
+                                if(_data.code == 0) {                                   
+                                    $('table').find("tr[data-id=" + obj.id + "]").hide();
+                                }
 
+                            });
+                        };
+                        pop.alert({
+                             text:'您确定要恢复"'+obj.title+'"吗'
+                            ,btn : ['确定','取消']
+                            ,fn : function(){
+                                getData.news.recover({id:obj.id,publish:1});
+                            }
+                        })
+                    },
                     publish : function(obj){
                         obj.callback = function(_data){//删除成功
                             layui.use(['layer'], function(){
@@ -389,6 +409,7 @@ define(['require',"app",'jquery','search','./searchForm'
                                 {cls : 'edit' , name : '撤销',evt:$scope.rescind},
                                 //{cls : 'edit' , name : '修改',evt:$scope.recommend},
                                 {cls : 'edit' , name : '恢复',evt:$scope.recover},
+                                {cls : 'edit' , name : '恢复并发布',evt:$scope.recoverRelease},
                                 //{cls : 'del' , name : '发布',evt:$scope.del}
                             ]
                         },
