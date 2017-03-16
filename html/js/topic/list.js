@@ -177,7 +177,8 @@ define(['require',"app",'jquery','search','./searchForm'
 							edit : [
 								{cls : 'edit' , name : '编辑',evt:$scope.edit},
 								{cls : 'del' , name : '删除',evt:$scope.del},
-								{cls : 'edit' , name : '预览',evt:$scope.preview}
+								{cls : 'edit' , name : '预览',href:'/webapi/topic/preview/'}
+								
 							]
 						}
 					}
