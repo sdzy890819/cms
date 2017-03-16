@@ -1,12 +1,14 @@
 package com.cn.cms.utils;
 
 import com.cn.cms.contants.StaticContants;
+import com.cn.cms.exception.BizException;
 import com.cn.cms.logfactory.CommonLog;
 import com.cn.cms.logfactory.CommonLogFactory;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.app.VelocityEngine;
+import org.apache.velocity.exception.ResourceNotFoundException;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -38,7 +40,7 @@ public class VelocityUtils {
      * @param str
      * @return
      */
-    public static String parse(Map<String, Object> map, String str){
+    public static String parse(Map<String, Object> map, String str) throws BizException{
         VelocityEngine velocityEngine = new VelocityEngine(prop);
         VelocityContext context = new VelocityContext(map);
 
@@ -49,9 +51,8 @@ public class VelocityUtils {
             writer.close();
             return writer.toString();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new BizException("预览模版出现错误", e);
         }
-        return null;
     }
 
     /**
@@ -110,7 +111,7 @@ public class VelocityUtils {
      */
     public static String parseTemplate(Map<String, Object> map,
                                        String templateFile,
-                                       String encode){
+                                       String encode) throws BizException{
         VelocityEngine velocityEngine = new VelocityEngine(prop);
         VelocityContext context = new VelocityContext(map);
         try {
@@ -120,16 +121,17 @@ public class VelocityUtils {
             stringWriter.close();
             return stringWriter.toString();
         } catch (IOException e) {
-            log.error("发布模版出现错误" ,e);
+            throw new BizException("预览模版出现错误", e);
+        } catch (ResourceNotFoundException e){
+            throw new BizException("模版找不到,模版位置：" + templateFile , e);
         }
-        return null;
     }
 
     /**
      * Test
      * @param args
      */
-    public static void main(String[] args){
+    public static void main(String[] args) throws BizException{
         Map<String, Object> objectMap = new HashMap<>();
         parse(objectMap, "#TAGDETAIL(\"test\",1,\"shi\") ${test} #end");
     }
