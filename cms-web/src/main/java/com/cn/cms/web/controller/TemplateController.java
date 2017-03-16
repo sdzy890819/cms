@@ -163,6 +163,7 @@ public class TemplateController extends BaseController {
             if(c != null && c > 0){
                 return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
             }
+            template.setUpload(UploadEnum.NO.getType());
         }
 
         templateBiz.saveTemplate(template);
@@ -209,7 +210,7 @@ public class TemplateController extends BaseController {
         template.setTemplateClassify(templateClassify);
         template.setTemplateDesc(templateDesc);
         template.setTemplateName(templateName);
-
+        template.setUpload(UploadEnum.NO.getType());
         Integer a = templateBiz.queryFilenameAndPathCount(template);
         if( a != null && a > 0){
             return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);

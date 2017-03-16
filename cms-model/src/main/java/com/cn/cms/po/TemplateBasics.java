@@ -64,7 +64,7 @@ public class TemplateBasics extends Base {
      */
     @Getter
     @Setter
-    protected Integer upload = UploadEnum.NO.getType();
+    protected Integer upload;
 
 
     protected String uploadStr;

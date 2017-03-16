@@ -181,7 +181,7 @@ public class Template2Controller extends BaseController  {
             if(c != null && c > 0){
                 return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
             }
-
+            template2.setUpload(UploadEnum.NO.getType());
         }
 
         template2Biz.saveTemplate2(template2);
@@ -215,7 +215,7 @@ public class Template2Controller extends BaseController  {
         template2.setPath(path);
         template2.setTemplateClassify(templateClassify);
         template2.setTemplateName(templateName);
-
+        template2.setUpload(UploadEnum.NO.getType());
         Integer b = template2Biz.queryFilenameAndPathCount(template2);
         if(b != null && b > 0){
             return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
