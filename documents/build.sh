@@ -31,6 +31,8 @@ cp -rf /data/source/cms/cms-publish/target/cms-publish.jar /data/projects/cms-pu
 cp -rf /data/source/cms/html /data/
 cp -rf /data/source/cms/mobile-html /data/
 
+cp -rf /data/source/cms/cms-model/src/sh/* /data/sh/
+
 if [ ! -d "/data/projects/instance/cms-web-tomcat" ]; then
 	echo "-----创建cms-web-tomcat目录-----"
 	mkdir /data/projects/instance/cms-web-tomcat
@@ -49,6 +51,8 @@ cp -rf /data/source/cms/tomcat/* /data/projects/instance/cms-app-tomcat
 cp -rf /data/source/cms/cms-web/src/conf/* /data/projects/instance/cms-web-tomcat/conf/
 
 cp -rf /data/source/cms/cms-app/src/conf/* /data/projects/instance/cms-app-tomcat/conf/
+
+
 
 
 echo "#!/bin/bash" > /data/projects/instance/cms-web-tomcat/exec.sh
