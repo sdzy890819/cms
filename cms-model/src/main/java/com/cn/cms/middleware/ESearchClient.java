@@ -111,9 +111,16 @@ public class ESearchClient {
         if(StringUtils.isNotBlank(newsSearch.getLastModifyUserId())){
             qb = qb.must(QueryBuilders.termQuery("lastModifyUserId", newsSearch.getLastModifyUserId()));
         }
+        if(newsSearch.getDelTag() != null){
+            qb = qb.must(QueryBuilders.termQuery("delTag", newsSearch.getDelTag()));
+        }
+        if(newsSearch.getPublish() != null){
+            qb = qb.must(QueryBuilders.termQuery("publish", newsSearch.getPublish()));
+        }
         if(newsSearch.getId()!=null && newsSearch.getId()>0){
             qb = qb.must(QueryBuilders.termQuery("id", newsSearch.getId()));
         }
+
 
         SearchRequestBuilder builder = this.client.prepareSearch(ESSearchTypeEnum.news.getIndex())
                 .setTypes(ESSearchTypeEnum.news.getName())

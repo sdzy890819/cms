@@ -104,6 +104,8 @@ public class SearchController extends BaseController {
         newsSearch.setColumnId(columnId);
         newsSearch.setPlatform(platform);
         newsSearch.setSort(sort);
+        newsSearch.setPublish(publish);
+        newsSearch.setDelTag(delTag);
         List<String> realNames = new ArrayList<>();
         if(StringUtils.isNotBlank(buildUserName)){
             realNames.add(buildUserName);
