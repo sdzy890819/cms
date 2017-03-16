@@ -23,6 +23,19 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils{
     }
 
     /**
+     * 删除首个prefix
+     * @param content
+     * @param prefix
+     * @return
+     */
+    public static String delFirstPrefix(String content, String prefix){
+        while(isNotBlank(content) && isNotBlank(prefix) && content.startsWith(prefix)){
+            content = content.substring(prefix.length());
+        }
+        return content;
+    }
+
+    /**
      * 拼接URL数据
      * @param strings
      * @return

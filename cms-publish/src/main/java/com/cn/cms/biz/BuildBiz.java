@@ -75,7 +75,7 @@ public class BuildBiz extends BaseBiz {
                     file.delete();
                 }
                 if(StaticContants.rsyncRoot == StaticContants.RSYNC_ON) {
-                    RsyncUtils.rsync(channel.getRsyncModelName(), news.getRelativePath(), StaticContants.rsyncRescindFile, channel.getChannelPath());
+                    RsyncUtils.rsync(channel.getRsyncModelName(), StringUtils.delFirstPrefix(news.getRelativePath(), StaticContants.FILE_PATH_SP), StaticContants.rsyncRescindFile, channel.getChannelPath());
                 }
                 break;
             }
