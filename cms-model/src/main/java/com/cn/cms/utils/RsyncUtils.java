@@ -22,9 +22,19 @@ public class RsyncUtils {
      * @param shFile
      */
     public static void rsync(String rsyncModel, String filePath, String shFile, String absPath){
-        String cmdString = "sh ".concat(shFile).concat(" ").concat(rsyncModel).concat(" ").concat(filePath).concat(" ").concat(absPath);
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append("sh ");
+        stringBuffer.append(shFile);
+        stringBuffer.append(" ");
+        stringBuffer.append(rsyncModel);
+        stringBuffer.append(" ");
+        stringBuffer.append(filePath);
+        stringBuffer.append(" ");
+        stringBuffer.append(absPath);
+        String cmdString = stringBuffer.toString();
+        log.info("执行命令: "+ cmdString);
         try {
-            Process proc = Runtime.getRuntime().exec(shFile);
+            Process proc = Runtime.getRuntime().exec(cmdString);
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(proc.getInputStream()));
             BufferedReader errorReader = new BufferedReader(new InputStreamReader(proc.getErrorStream()));
             String tmp = null;

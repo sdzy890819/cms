@@ -64,6 +64,8 @@ public class RestTestController extends BaseController{
 
         Runnable runnable = () -> {
             List<News> list = newsBiz.listNews(page);
+            List<News> list2 = newsBiz.listNewsManage(page);
+            list.addAll(list2);
             if(StringUtils.isNotEmpty(list)){
                 for(News news : list){
                     News tmp = newsBiz.findNewsAndDetail(news.getId());
@@ -71,6 +73,7 @@ public class RestTestController extends BaseController{
                     eSearchClient.updateNews(tmp);
                 }
             }
+
         };
         threadPoolTaskExecutor.execute(runnable);
 
