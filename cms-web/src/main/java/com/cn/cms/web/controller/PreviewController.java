@@ -61,7 +61,7 @@ public class PreviewController extends BaseController {
     @RequestMapping(value = "/news/preview", method = RequestMethod.GET ,produces = "text/html; charset=UTF-8")
     public String preview(HttpServletResponse response,
                           @RequestParam(value = "id") Long id) throws IOException, BizException {
-        News news = newsBiz.findNews(id);
+        News news = newsBiz.findNewsAndDetail(id);
         if(news == null ){
             throw new BizException(StaticContants.ERROR_NEWS_NOT_FOUND);
         }
