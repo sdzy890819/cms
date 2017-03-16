@@ -81,6 +81,10 @@ public class TAGList extends Directive {
      */
     private Integer size;
 
+    /**
+     * 测试标记
+     */
+    private Integer testTag;
 
     //------------------------------------------
     private NewsColumn newsColumn;
@@ -117,6 +121,7 @@ public class TAGList extends Directive {
             channelId = (Long) context.get(StaticContants.TEMPLATE_KEY_CHANNELID);
             model = (Integer) context.get(StaticContants.TEMPLATE_KEY_PUBLISH_JOB_TYPE);
             newsColumn = (NewsColumn) context.get(StaticContants.TEMPLATE_KEY_COLUMN);
+            testTag = (Integer) context.get(StaticContants.TEMPLATE_TEST_TAG);
             for (int i = 0; i < node.jjtGetNumChildren(); i++) {
                 if (node.jjtGetChild(i) != null) {
                     if (!(node.jjtGetChild(i) instanceof ASTBlock)) {
@@ -184,7 +189,7 @@ public class TAGList extends Directive {
             }
         }
         context.put(resultObjName, list);
-        if(pageObj.hasNextPage() && list!=null && list.size() >= pageObj.getPageSize()){
+        if(pageObj.hasNextPage() && list!=null && list.size() >= pageObj.getPageSize() && (testTag == null || testTag < 1)){
             if(model!=null && model == PublishJobTypeEnum.template.getType()) {
                 TemplatePublishJob templatePublishJob = new TemplatePublishJob();
                 templatePublishJob.setBase(data);

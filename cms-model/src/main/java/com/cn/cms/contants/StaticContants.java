@@ -121,6 +121,8 @@ public class StaticContants {
 
     public static final String ERROR_COLUMN_NAME_EXIST = "栏目已经存在!";
 
+    public static final String ERROR_NEWSCOLUMN_NOT_FOUND = "新闻栏目找不到!";
+
     public static final String ERROR_CATEGORY_NAME_EXIST = "部门已经存在!";
 
     public static final String ERROR_NOT_PUBLISH_NEWS = "用户没有发布权限!";
@@ -214,6 +216,8 @@ public class StaticContants {
     public static final String TEMPLATE_KEY_DATA = "data";
 
     public static final String TEMPLATE_KEY_TEMPLATE = "template";
+
+    public static final String TEMPLATE_TEST_TAG = "testTag";
 
     public static final String TEMPLATE_KEY_CHANNELID = "channelId";
 
