@@ -554,7 +554,7 @@ public class NewsController extends BaseController {
      * @return
      */
     @CheckToken
-    @CheckAuth( name = "newsrecommend:read" )
+    @CheckAuth( name = "newsrecommend:delete" )
     @RequestMapping(value = "/deleteRecommend", method = RequestMethod.GET)
     public String delRecommend(HttpServletRequest request, @RequestParam(value = "id") Long id){
         newsBiz.deleteRecommend(id);
