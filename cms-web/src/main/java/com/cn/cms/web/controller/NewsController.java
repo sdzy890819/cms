@@ -508,7 +508,7 @@ public class NewsController extends BaseController {
     @RequestMapping(value = "/recover", method = RequestMethod.GET)
     public String recover(HttpServletRequest request, @RequestParam(value = "id") Long id,
                           @RequestParam(value = "publish", defaultValue = "0", required = false) Integer publish){
-        News news = newsBiz.findNewsManage(id);
+        News news = newsBiz.findNewsAndDetailManage(id);
         if(news == null ){
             return ApiResponse.returnFail(StaticContants.ERROR_NEWS_NOT_FOUND);
         }
