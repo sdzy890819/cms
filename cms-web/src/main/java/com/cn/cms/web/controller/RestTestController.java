@@ -69,8 +69,10 @@ public class RestTestController extends BaseController{
             if(StringUtils.isNotEmpty(list)){
                 for(News news : list){
                     News tmp = newsBiz.findNewsAndDetail(news.getId());
-                    tmp.setNewsStocks(newsBiz.findNewsStockList(news.getId()));
-                    eSearchClient.updateNews(tmp);
+                    if(tmp!=null) {
+                        tmp.setNewsStocks(newsBiz.findNewsStockList(news.getId()));
+                        eSearchClient.updateNews(tmp);
+                    }
                 }
             }
 

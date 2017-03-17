@@ -519,4 +519,12 @@ public class NewsController extends BaseController {
         return ApiResponse.returnSuccess();
     }
 
+    @CheckToken
+    @CheckAuth( name = "newsrecommend:read" )
+    @RequestMapping(value = "/recommendList", method = RequestMethod.GET)
+    public String recommendList(@RequestParam(value = "page",required = false) Integer page,
+                                @RequestParam(value="pageSize",required = false) Integer pageSize){
+
+            return null;
+    }
 }
