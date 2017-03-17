@@ -72,6 +72,7 @@ define(['app','jquery'],function(app,$){
 				setArr : function( list , th ){ //只显示 th 字段中的数据
 					var newArr = [] , arr = [] , li = [];
 					var showArr = [];
+					if(!list) return [];
 					$.each(list,function( i , obj ){
 						showArr = [];
 						$.each(th,function(_k , _thobj ){

@@ -624,6 +624,30 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					}
 				})
 			},
+			recommendList : function( obj ){ //获取新闻的推荐列表
+				var newobj = {
+					page:obj.page,pageSize:obj.pageSizex
+				}
+				if(obj.recommendColumnId){
+					newobj.recommendColumnId = obj.recommendColumnId
+				}
+				T.ajax({
+					url : URL.news.recommendList , 
+					data : newobj,//recommendColumnId:1,//可不传。推荐栏目ID，按照推荐栏目搜索使用
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				})
+			},
+			deleteRecommend : function( obj ){ //取消推荐列表
+				T.ajax({
+					url : URL.news.deleteRecommend , 
+					data : {id:obj.id},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				})
+			},
 			newslist : function( obj ){ //新闻栏目列表
 				T.ajax({
 					url : URL.news.newslist , 
@@ -836,8 +860,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 			},
 			recover : function( obj ){
 				var newobj = {
-					id : obj.id,
-					callback : obj.callback
+					id : obj.id
 				}
 				if(obj.publish){
 					newobj.publish = obj.publish;//可不传。如果传递1的话是 恢复并发布
@@ -1052,8 +1075,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 			},
 			delImage : function( obj ){ //栏目列表
 				var newobj = {
-					id : obj.id,
-					callback : obj.callback
+					id : obj.id
 				}
 				if(obj.force){
 					newobj.force = obj.force;
@@ -1166,8 +1188,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 
 			delVideo : function( obj ){ //获取视频列表
 				var newobj = {
-					id : obj.id,
-					callback : obj.callback
+					id : obj.id
 				}
 				if(obj.force){
 					newobj.force = obj.force
