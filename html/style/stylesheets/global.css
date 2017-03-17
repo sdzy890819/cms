@@ -1291,6 +1291,7 @@ input:focus{ border: 1px solid #bbb !important;} */
   width: 100%;
   border-left: 1px solid #ddd;
   border-top: 1px solid #ddd;
+  border-right: 1px solid #ddd;
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;

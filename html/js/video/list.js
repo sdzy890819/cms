@@ -43,13 +43,38 @@ define(['require',"app",'jquery'
 			  				});
 							},
 							del : function( obj ){ //删除
-								pop.alert({
+								/*pop.alert({
 									 text:'你确定删除：'+ obj.videoTitle
 									,btn : ['确定','取消']
 									,fn : function(index){//确定
 										getData.video.delVideo(obj);
 									}
-								})
+								})*/
+
+								layui.use(['layer'], function() {
+		                            var layer = layui.layer;
+		                            layer.alert('你确定删除：' + obj.imageTitle, {
+		                                skin: 'layui-layer-molv' //样式类名
+		                                    ,
+		                                title: '删除',
+		                                anim: 1 //动画类型
+		                                    ,
+		                                btn: ['普通删除', '物理删除', '取消'],
+		                                shadeClose: true,
+		                                yes: function(index) {
+		                                	getData.video.delVideo(obj);
+		                                    layer.close(index);
+		                                },
+		                                btn2: function(index) {
+		                                	getData.video.delVideo({
+		                                		id:obj.id ,
+		                                		force : 1,
+		                                		callback : obj.callback
+		                                	});
+		                                    layer.close(index);
+		                                }
+		                            });
+		                        });
 
 			 					obj.callback = function(_data) {
 									layui.use(['layer'], function(){
