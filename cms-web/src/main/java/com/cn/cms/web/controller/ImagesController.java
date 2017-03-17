@@ -211,7 +211,7 @@ public class ImagesController extends BaseController{
 //                if(file.exists()){
 //                    file.delete();
 //                }
-                weedfsClient.delete(images.getFid());
+                weedfsClient.delete(images.getFid(), images.getImageUrl());
             }
             resourceBiz.delImages(getCurrentUserId(request), id);
         }
