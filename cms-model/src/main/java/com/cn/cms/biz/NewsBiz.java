@@ -104,6 +104,45 @@ public class NewsBiz extends BaseBiz {
         }
     }
 
+    public void recommendInit(List<NewsRecommend> list){
+        Map<String, String> userIds = new HashMap<>();
+        Map<Long, Long> recommendIds = new HashMap<>();
+        if(StringUtils.isNotEmpty(list)){
+            for(int i=0;i<list.size();i++){
+                if(StringUtils.isNotBlank(list.get(i).getRecommendUserId())){
+                    userIds.put(list.get(i).getRecommendUserId(), list.get(i).getRecommendUserId());
+                }
+                if(list.get(i).getRecommendColumnId()!=null && list.get(i).getRecommendColumnId() > 0){
+                    recommendIds.put(list.get(i).getRecommendColumnId(), list.get(i).getRecommendColumnId());
+                }
+            }
+            Map<String, UserBean> map = userBiz.getUserBeanMap(new ArrayList<>(userIds.values()));
+            Map<Long, RecommendColumn> columnMap = getRecommendColumnMap(new ArrayList<>(recommendIds.values()));
+            for(int i=0;i<list.size();i++){
+                list.get(i).setRecommendUserName(map.get(list.get(i).getRecommendUserId())!=null ? map.get(list.get(i).getRecommendUserId()).getRealName() : "");
+                list.get(i).setRecommendColumnName(columnMap.get(list.get(i).getRecommendColumnId()) != null ? columnMap.get(list.get(i).getRecommendColumnId()).getColumnName() : "");
+            }
+        }
+    }
+
+    /**
+     * Recommend
+     * @param recommendIds
+     * @return
+     */
+    public Map<Long, RecommendColumn> getRecommendColumnMap(List<Long> recommendIds){
+        Map<Long ,RecommendColumn> map = new HashMap<>();
+        if(StringUtils.isNotEmpty(recommendIds)){
+            List<RecommendColumn> list = newsService.findRecommendColumnByIds(recommendIds);
+            if(StringUtils.isNotEmpty(list)){
+                for(int i=0;i<list.size();i++){
+                    map.put(list.get(i).getId(), list.get(i));
+                }
+            }
+        }
+        return map;
+    }
+
     public List<RelationColumn> getAll(){
         List<Channel> list = channelBiz.listChannel();
         List<Long> ids = new ArrayList<>();
@@ -383,6 +422,16 @@ public class NewsBiz extends BaseBiz {
         return newsService.findNewsRecommend(id);
     }
 
+    public NewsRecommend findNewsRecommendManage(Long id){
+        return newsService.findNewsRecommendManage(id);
+    }
+
+    /**
+     * 分页获取推荐信息
+     * @param recommendColumnId
+     * @param page
+     * @return
+     */
     public List<NewsRecommend> findListByRecommedColumnId(Long recommendColumnId, Page page){
         return newsService.findListByRecommedColumnId(recommendColumnId, page);
     }
@@ -485,6 +534,25 @@ public class NewsBiz extends BaseBiz {
 
     public Integer findColumnNameCount(String columnName){
         return newsService.findColumnNameCount(columnName);
+    }
+
+    /**
+     * 分页查询推荐列表
+     * @param page
+     * @param recommendColumnId
+     * @return
+     */
+    public List<NewsRecommend> listNewsRecommend(Page page, Long recommendColumnId){
+        Integer count = newsService.queryNewsRecommendCount(recommendColumnId);
+        page.setCount(count);
+        if(page.isQuery()){
+            return findListByRecommedColumnId(recommendColumnId, page);
+        }
+        return null;
+    }
+
+    public void deleteRecommend(Long id){
+        newsService.deleteRecommend(id);
     }
 }
 

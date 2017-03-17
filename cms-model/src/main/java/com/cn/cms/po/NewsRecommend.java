@@ -32,14 +32,20 @@ public class NewsRecommend extends News {
     private Long recommendColumnId;
 
     /**
+     * 推荐栏目名称
+     */
+    private String recommendColumnName;
+
+    /**
      * 推荐人
      */
     private String recommendUserId;
 
     /**
-     * 是否推荐
+     * 推荐人名称
      */
-    private Integer recommend = RecommendEnum.NO.getType();
+    private String recommendUserName;
+
 
     @Override
     public Integer getSort(){
