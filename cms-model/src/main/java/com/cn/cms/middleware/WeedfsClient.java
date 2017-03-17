@@ -97,7 +97,7 @@ public class WeedfsClient {
     public WeedfsResponse delete(String fid) throws Exception {
         WeedfsResponse weedfsResponse = null ;
         WeedfsResponse getWeedfs = this.get(fid);
-        UrlUtils.connect(getWeedfs.getFileUrl(), "POST");
+        UrlUtils.connect(getWeedfs.getFileUrl(), "DELETE");
         weedfsResponse = new WeedfsResponse();
         weedfsResponse.setFid(fid);
         weedfsResponse.setStatus(true);

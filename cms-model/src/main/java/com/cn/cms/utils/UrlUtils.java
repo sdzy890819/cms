@@ -27,8 +27,9 @@ public class UrlUtils {
         urlconn.setConnectTimeout(1000);
         urlconn.setReadTimeout(2000);
         urlconn.connect();
+
         if(urlconn.getResponseCode() != 200){
-            throw new BizException("连接失败");
+            throw new BizException(urlPath + "连接失败");
         }
         urlconn.disconnect();
     }
