@@ -28,6 +28,7 @@ public class UrlUtils {
         urlconn.setReadTimeout(2000);
         urlconn.connect();
 
+        log.info("请求地址" + urlPath);
         if(urlconn.getResponseCode() == 404){
             throw new BizException("文件已不存在");
         }
