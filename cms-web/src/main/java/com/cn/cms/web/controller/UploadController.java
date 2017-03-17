@@ -80,7 +80,6 @@ public class UploadController extends BaseController {
         //String urlPath = StringUtils.concatUrl(imagesBase.getBaseUrl(), relativePath);
         Map<String, Object> map = FileUtil.compressAndWatermark(bytes, width, height, absPath, watermark);
         WeedfsResponse weedfsResponse =weedfsClient.upload(new File(absPath));
-        log.info(JSONObject.toJSONString(weedfsResponse));
         map.put("imageUrl", weedfsResponse.getFileUrl());
         map.put("imagePath", weedfsResponse.getFid());
         map.put("fid",weedfsResponse.getFid());

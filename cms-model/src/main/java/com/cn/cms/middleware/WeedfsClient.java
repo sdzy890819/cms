@@ -80,7 +80,7 @@ public class WeedfsClient {
         String volumnId = fid.split(",")[0];
         String result = UrlUtils.getConnStr(StringUtils.concatUrl(masterHost, assign.concat("&volumeId=").concat(volumnId)));
         WeedfsAssignResponse weedfsAssignResponse = JSONObject.parseObject(result, WeedfsAssignResponse.class);
-        String url = StringUtils.concatUrl("http://",weedfsAssignResponse.getPublicUrl(),weedfsAssignResponse.getFid());
+        String url = StringUtils.concatUrl("http://",weedfsAssignResponse.getPublicUrl(),fid);
         weedfsResponse = new WeedfsResponse();
         weedfsResponse.setStatus(true);
         weedfsResponse.setFileUrl(url);
@@ -90,16 +90,19 @@ public class WeedfsClient {
 
     /**
      * 删除FID
-     * @param fileUrl
+     * @param fid
      * @return
      * @throws Exception
      */
-    public WeedfsResponse delete(String fid, String fileUrl) throws Exception {
-        UrlUtils.connect(fileUrl, "DELETE");
-        WeedfsResponse weedfsResponse = new WeedfsResponse();
+    public WeedfsResponse delete(String fid) throws Exception {
+        WeedfsResponse weedfsResponse = null ;
+        WeedfsResponse getWeedfs = this.get(fid);
+        UrlUtils.connect(getWeedfs.getFileUrl(), "DELETE");
+        weedfsResponse = new WeedfsResponse();
         weedfsResponse.setFid(fid);
         weedfsResponse.setStatus(true);
-        weedfsResponse.setFileUrl(fileUrl);
+        weedfsResponse.setFileUrl(getWeedfs.getFileUrl());
+        weedfsResponse.setSize(getWeedfs.getSize());
         return weedfsResponse;
     }
 
