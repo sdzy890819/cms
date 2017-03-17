@@ -284,4 +284,5 @@ public class StaticContants {
      */
     public static final String rsyncRescindFile = PropertyManager.getRB("config", "rsync.rescind.shFileName");
 
+
 }

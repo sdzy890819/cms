@@ -78,9 +78,9 @@ public class WeedfsClient {
     public WeedfsResponse get(String fid) throws Exception {
         WeedfsResponse weedfsResponse = null;
         String volumnId = fid.split(",")[0];
-        String result = UrlUtils.getConnStr(StringUtils.concatUrl(masterHost, assign.concat("?volumeId=").concat(volumnId)));
+        String result = UrlUtils.getConnStr(StringUtils.concatUrl(masterHost, assign.concat("&volumeId=").concat(volumnId)));
         WeedfsAssignResponse weedfsAssignResponse = JSONObject.parseObject(result, WeedfsAssignResponse.class);
-        String url = StringUtils.concatUrl("http://",weedfsAssignResponse.getPublicUrl(),weedfsAssignResponse.getFid());
+        String url = StringUtils.concatUrl("http://",weedfsAssignResponse.getPublicUrl(),fid);
         weedfsResponse = new WeedfsResponse();
         weedfsResponse.setStatus(true);
         weedfsResponse.setFileUrl(url);
