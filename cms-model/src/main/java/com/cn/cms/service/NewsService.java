@@ -59,11 +59,15 @@ public interface NewsService {
 
     NewsRecommend findNewsRecommend(Long id);
 
+    NewsRecommend findNewsRecommendManage(Long id);
+
     List<NewsRecommend> findListByRecommedColumnId(Long recommendColumnId, Page page);
 
     void updateNewsRecommend(NewsRecommend newsRecommend);
 
     List<RecommendColumn> findAll();
+
+    List<RecommendColumn> findRecommendColumnByIds(List<Long> ids);
 
     void createRecommendColumn(RecommendColumn recommendColumn);
 
@@ -78,4 +82,9 @@ public interface NewsService {
     void updateRescind(News news);
 
     Integer findColumnNameCount(String columnName);
+
+    Integer queryNewsRecommendCount(Long recommendColumnId);
+
+    void deleteRecommend(Long id);
+
 }

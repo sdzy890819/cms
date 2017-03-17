@@ -233,6 +233,15 @@ public class News extends Base implements Cloneable{
      */
     protected Integer recommend = RecommendEnum.NO.getType();
 
+    protected String recommendStr;
+
+    public String getRecommendStr(){
+        if(recommend!=null) {
+            return RecommendEnum.get(recommend).getName();
+        }
+        return recommendStr;
+    }
+
     //-----新增
     /**
      * 新闻股票列表
@@ -243,6 +252,7 @@ public class News extends Base implements Cloneable{
      * 可修改发布时间
      */
     private Date editPublishTime;
+
 
     /**
      * 作者数组

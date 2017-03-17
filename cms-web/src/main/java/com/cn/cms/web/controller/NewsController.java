@@ -112,7 +112,14 @@ public class NewsController extends BaseController {
     @CheckAuth( name = "news:delete" )
     @RequestMapping(value = "/delNews",method = RequestMethod.GET)
     public String delNews(HttpServletRequest request, @RequestParam(value = "id") Long id){
+        News news = newsBiz.findNews(id);
+        if(news == null){
+            return ApiResponse.returnSuccess("新闻已不存在!");
+        }
         newsBiz.delNews(getCurrentUserId(request), id);
+        if(news.getRecommend() == RecommendEnum.YES.getType()){
+            publishBiz.publish(id, getCurrentUserId(request), CommonMessageSourceEnum.RECOMMEND);
+        }
         return ApiResponse.returnSuccess();
     }
 
@@ -519,12 +526,40 @@ public class NewsController extends BaseController {
         return ApiResponse.returnSuccess();
     }
 
+    /**
+     * 推荐列表.
+     * @param page
+     * @param pageSize
+     * @param recommendColumnId
+     * @return
+     */
     @CheckToken
     @CheckAuth( name = "newsrecommend:read" )
     @RequestMapping(value = "/recommendList", method = RequestMethod.GET)
-    public String recommendList(@RequestParam(value = "page",required = false) Integer page,
-                                @RequestParam(value="pageSize",required = false) Integer pageSize){
-
-            return null;
+    public String recommendList(@RequestParam(value = "page",required = false, defaultValue = "1") Integer page,
+                                @RequestParam(value="pageSize",required = false, defaultValue = "20") Integer pageSize,
+                                @RequestParam(value = "recommendColumnId", required = false)Long recommendColumnId){
+        Page page1 = new Page(page, pageSize);
+        List<NewsRecommend> list = newsBiz.listNewsRecommend(page1, recommendColumnId);
+        newsBiz.recommendInit(list);
+        Map<String, Object> result = new HashMap<>();
+        result.put("page", page1);
+        result.put("list", list);
+        return ApiResponse.returnSuccess(result);
     }
+
+    /**
+     * 取消推荐。
+     * @param id
+     * @return
+     */
+    @CheckToken
+    @CheckAuth( name = "newsrecommend:read" )
+    @RequestMapping(value = "/deleteRecommend", method = RequestMethod.GET)
+    public String delRecommend(HttpServletRequest request, @RequestParam(value = "id") Long id){
+        newsBiz.deleteRecommend(id);
+        publishBiz.publish(id, getCurrentUserId(request), CommonMessageSourceEnum.RECOMMEND);
+        return ApiResponse.returnSuccess();
+    }
+
 }

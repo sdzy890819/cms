@@ -204,6 +204,11 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
+    public NewsRecommend findNewsRecommendManage(Long id) {
+        return newsDao.findNewsRecommendManage(id);
+    }
+
+    @Override
     public List<NewsRecommend> findListByRecommedColumnId(Long recommendColumnId, Page page) {
         return newsDao.findListByRecommedColumnId(recommendColumnId, page);
     }
@@ -217,6 +222,11 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public List<RecommendColumn> findAll() {
         return recommendColumnDao.findAll();
+    }
+
+    @Override
+    public List<RecommendColumn> findRecommendColumnByIds(List<Long> ids) {
+        return recommendColumnDao.findRecommendColumnByIds(ids);
     }
 
     @Override
@@ -252,5 +262,15 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public Integer findColumnNameCount(String columnName) {
         return newsColumnDao.findColumnNameCount(columnName);
+    }
+
+    @Override
+    public Integer queryNewsRecommendCount(Long recommendColumnId) {
+        return newsDao.queryNewsRecommendCount(recommendColumnId);
+    }
+
+    @Override
+    public void deleteRecommend(Long id) {
+        newsDao.deleteRecommend(id);
     }
 }

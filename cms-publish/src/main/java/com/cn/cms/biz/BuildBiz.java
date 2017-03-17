@@ -128,7 +128,7 @@ public class BuildBiz extends BaseBiz {
                 break;
             }
             case RECOMMEND: {
-                NewsRecommend newsRecommend = newsBiz.findNewsRecommend(body.getId());
+                NewsRecommend newsRecommend = newsBiz.findNewsRecommendManage(body.getId());
                 templates = templateBiz.findTemplateListByRelation(newsRecommend.getRecommendColumnId(), RelationTypeEnum.recommend.getType());
                 base = newsRecommend;
                 break;

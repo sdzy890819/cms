@@ -16,4 +16,6 @@ public interface RecommendColumnDao {
     void createRecommendColumn(@Param(value = "p1") RecommendColumn recommendColumn);
 
     void updateRecommendColumn(@Param(value = "p1") RecommendColumn recommendColumn);
+
+    List<RecommendColumn> findRecommendColumnByIds(@Param(value = "list") List<Long> ids);
 }

@@ -44,9 +44,16 @@ public interface NewsDao {
 
     NewsRecommend findNewsRecommend(@Param(value = "id") Long id);
 
+    NewsRecommend findNewsRecommendManage(@Param(value = "id") Long id);
+
     List<NewsRecommend> findListByRecommedColumnId(@Param(value = "recommendColumnId") Long recommendColumnId, @Param(value = "page") Page page);
 
     void updateNewsRecommend(@Param(value = "p1") NewsRecommend newsRecommend);
 
     void updateRescind(@Param(value = "p1") News news);
+
+    Integer queryNewsRecommendCount(@Param(value = "recommendColumnId") Long recommendColumnId);
+
+    void deleteRecommend(@Param(value = "id") Long id);
+
 }
