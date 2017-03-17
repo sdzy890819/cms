@@ -836,7 +836,8 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 			},
 			recover : function( obj ){
 				var newobj = {
-					id : obj.id
+					id : obj.id,
+					callback : obj.callback
 				}
 				if(obj.publish){
 					newobj.publish = obj.publish;//可不传。如果传递1的话是 恢复并发布
@@ -1050,12 +1051,17 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 				})				
 			},
 			delImage : function( obj ){ //栏目列表
+				var newobj = {
+					id : obj.id,
+					callback : obj.callback
+				}
+				if(obj.force){
+					newobj.force = obj.force;
+				}
 				T.ajax({
 					url : URL.images.delImages , 
 					type : 'get',
-					data : {
-						id : obj.id
-					},
+					data : newobj,
 					success : function( _data ){
 						obj.callback(_data);
 					},
@@ -1159,12 +1165,17 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 			},
 
 			delVideo : function( obj ){ //获取视频列表
+				var newobj = {
+					id : obj.id,
+					callback : obj.callback
+				}
+				if(obj.force){
+					newobj.force = obj.force
+				}
 				T.ajax({
 					url : URL.video.delVideo , 
 					type : 'get',
-					data : {
-						id : obj.id
-					},
+					data : newobj,
 					success : function( _data ){
 						obj.callback(_data);
 					},
