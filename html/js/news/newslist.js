@@ -363,18 +363,18 @@ define(['require',"app",'jquery','search','./searchForm'
 
 					var th = [
 						{name:'文章ID' , key:'id' , width : '50'},		
-						{name:'所属频道栏目' , key:'channelAndColumnName' , width : '80'},					
+						{name:'所属频道栏目' , key:'channelAndColumnName' , width : '70'},					
 						{name:'标题' , key:'title'},								
-						{name:'作者' , key:'author' , width: '50', class: 'center'},
-						{name:'发布人' , key:'buildUserName' , width: '50', class: 'center'},
-						{name:'修改人' , key:'lastModifyUserName' , width: '50', class: 'center'},
+						{name:'作者' , key:'author' , width: '40', class: 'center'},
+						{name:'发布人' , key:'buildUserName' , width: '40', class: 'center'},
+						{name:'修改人' , key:'lastModifyUserName' , width: '40', class: 'center'},
 						{name:'媒体来源' , key:'source' , width: '40', class: 'center'},
 												
 						{name:'发布时间' , key:'buildTimeStr' , width : '80', class: 'center'},
 						{name:'修改时间' , key:'updateTimeStr' , width : '80', class: 'center'},
-						{name:'状态' , key:'publishStr' , width: '50', class: 'center'},
-						{name:'操作' , width : '70' , class: 'center'},
-						{name:'权限' , width : '60' , class: 'center'}
+						{name:'状态' , key:'publishStr' , width: '40', class: 'center'},
+						{name:'操作' , width : '50' , class: 'center'},
+						{name:'权限' , width : '50' , class: 'center'}
 					];
 					
 					$.each(_data.data.list, function(i, obj){
@@ -391,15 +391,15 @@ define(['require',"app",'jquery','search','./searchForm'
 							th : th,									
 							td : GenerateArrList.setArr(_data.data.list, th) ,
 							edit : [																
-								{cls : 'edit' , name : '编辑',evt:$scope.edit},
-								{cls : 'edit' , name : ' 推荐',evt:$scope.recommend},
-								{cls : 'edit' , name : ' 撤销',evt:$scope.rescind},
+								{cls : '' , name : '编辑',evt:$scope.edit},
+								{cls : '' , name : ' 推荐',evt:$scope.recommend},
 								//{cls : 'edit' , name : ' 预览',evt:$scope.preview}
-								{cls : 'edit' , name : '预览',href:'/webapi/news/preview/'}
+								{cls : '' , name : '预览',href:'/webapi/news/preview/'}
 								// {cls : 'del' , name : '删除',evt:$scope.del}
 							],
 
 							permission : [
+								{cls : 'del' , name : ' 撤销',evt:$scope.rescind},
 								{cls : 'del' , name : '删除',evt:$scope.del}
 							]
 

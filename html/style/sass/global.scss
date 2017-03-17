@@ -486,10 +486,10 @@ $leftWidth : 225px;
 .table{
     table{ width:100%; border-left:1px solid #ddd; border-top:1px solid #ddd; border-right:1px solid #ddd; @include box-sizing;}
     img.img{ vertical-align:middle; width:30px; height:30px; border-radius:100%;}
-    th{ text-align:left; padding:8px; font-size:14px; font-weight:bold; border-bottom:1px solid #ddd; 
+    th{ text-align:left; padding:8px 1px; font-size:14px; font-weight:bold; border-bottom:1px solid #ddd; 
         &.center{ text-align:center;}
     }
-    td{ text-align:left; padding:2px 8px 2px 8px; height: 42px; font-size:14px;  border-bottom:1px solid #ddd; word-break:break-all; 
+    td{ text-align:left; padding:2px 1px 2px 1px; height: 42px; font-size:14px;  border-bottom:1px solid #ddd; word-break:break-all; 
         &.center{ text-align:center;}
         &.edits{ text-align:center; }
         a{ color:#488be7;
