@@ -28,8 +28,11 @@ public class UrlUtils {
         urlconn.setReadTimeout(2000);
         urlconn.connect();
 
-        if(urlconn.getResponseCode() != 200){
-            throw new BizException(urlPath + "连接失败");
+        if(urlconn.getResponseCode() == 404){
+            throw new BizException("文件已不存在");
+        }
+        if(urlconn.getResponseCode() != 202){
+            throw new BizException(urlconn.getResponseMessage());
         }
         urlconn.disconnect();
     }
