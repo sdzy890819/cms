@@ -42,7 +42,7 @@
     </select>
 
     <select id="findRecommendColumnByIds" resultMap="recommendColumn">
-        SELECT <include refid="sql_column" /> from recommend_column <include refid="deltag" /> and id in
+        SELECT <include refid="sql_column" /> from recommend_column <include refid="delTag" /> and id in
         <foreach collection="list" separator="," close=")" open="(" item="item">
             #{item}
         </foreach>
