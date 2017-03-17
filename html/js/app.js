@@ -6,7 +6,7 @@ define(["angular", "angularAMD","angularFileUpload","angular-ui-router",'angular
     // config
     app.config(["$stateProvider", '$urlRouterProvider','$locationProvider', function($stateProvider, $urlRouterProvider,$locationProvider){
         /*$locationProvider.html5Mode(true);*/
-        $urlRouterProvider.otherwise('/home/main');
+        $urlRouterProvider.otherwise('/home/welcome');
 
         $stateProvider
             .state("home", angularAMD.route({
@@ -14,12 +14,12 @@ define(["angular", "angularAMD","angularFileUpload","angular-ui-router",'angular
                 templateUrl: "template/main.html",
                 css: {href: 'js/stylesheets/home.css'}
             }))
-            .state('home.main', angularAMD.route({
-                url: '/main',
-                template : '<home-main></home-main>',
-                controllerUrl: 'home/index'
+            .state('home.welcome', angularAMD.route({
+                url: '/welcome',
+                template : '<home-welcome></home-welcome>',
+                controllerUrl: 'home/welcome'
             }))
-
+ 
             //登录
             .state('login', angularAMD.route({
                 url: '/login',

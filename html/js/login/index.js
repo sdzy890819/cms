@@ -21,7 +21,7 @@ define(["app",'require','../data/getInitInfo'], function ( app , require , dataI
 		  		data : data.field , 
 		  		callback : function(_data){
 		  			if (_data.code == 0){
-		  				$state.go('home.main');	
+		  				$state.go('home.welcome');	
 		  			}else{
 		  				layer.msg("登录失败，请检查用户名密码");
 		  			}
