@@ -835,12 +835,15 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 				});
 			},
 			recover : function( obj ){
+				var newobj = {
+					id : obj.id
+				}
+				if(obj.publish){
+					newobj.publish = obj.publish;//可不传。如果传递1的话是 恢复并发布
+				}
 				T.ajax({
 					url : URL.news.recover , 			
-					data : {
-						"id":obj.id,
-						publish:obj.publish,//可不传。如果传递1的话是 恢复并发布
-					},
+					data : newobj,
 					success : function( _data ){
 						obj.callback(_data);
 					}
@@ -1627,7 +1630,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 			preview: function( obj ){//专题预览	
 				T.ajax({
 					url : URL.topic.preview ,
-					type : 'POST',
+					type : 'get',
 					data : {id:obj.id}, 
 					success : function( _data ){
 						obj.callback(_data)
