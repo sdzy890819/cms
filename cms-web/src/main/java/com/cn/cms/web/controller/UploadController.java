@@ -1,5 +1,6 @@
 package com.cn.cms.web.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.cn.cms.biz.ResourceBiz;
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.enums.CompressEnum;
@@ -7,6 +8,7 @@ import com.cn.cms.exception.BizException;
 import com.cn.cms.middleware.MSSVideoClient;
 import com.cn.cms.middleware.WeedfsClient;
 import com.cn.cms.middleware.bean.VideoResponse;
+import com.cn.cms.middleware.bean.WeedfsResponse;
 import com.cn.cms.po.ImagesBase;
 import com.cn.cms.utils.EncryptUtil;
 import com.cn.cms.utils.FileUtil;
@@ -75,13 +77,14 @@ public class UploadController extends BaseController {
         ImagesBase imagesBase = resourceBiz.findImagesBase();
         String relativePath = FileUtil.getRelativePath(imagesBase.getBasePath(), suffix);
         String absPath = StringUtils.concatUrl(imagesBase.getBasePath(), relativePath);
-        String urlPath = StringUtils.concatUrl(imagesBase.getBaseUrl(), relativePath);
+        //String urlPath = StringUtils.concatUrl(imagesBase.getBaseUrl(), relativePath);
         Map<String, Object> map = FileUtil.compressAndWatermark(bytes, width, height, absPath, watermark);
-        //weedfsClient.upload(new File(StringUtils.concatUrl(urlPath, relativePath)));
-        map.put("imageUrl", urlPath);
-        map.put("imagePath", relativePath);
-        map.put("fid","19,1");
-        map.put("size", 100);
+        WeedfsResponse weedfsResponse =weedfsClient.upload(new File(absPath));
+        log.info(JSONObject.toJSONString(weedfsResponse));
+        map.put("imageUrl", weedfsResponse.getFileUrl());
+        map.put("imagePath", weedfsResponse.getFid());
+        map.put("fid",weedfsResponse.getFid());
+        map.put("size", weedfsResponse.getSize());
         map.put("uploadUserId", getCurrentUserId(request));
         map.put("watermark", watermark);
         map.put("compress", (width>0 || height>0)? CompressEnum.compress.getType() : CompressEnum.nocompress.getType());

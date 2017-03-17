@@ -205,13 +205,13 @@ public class ImagesController extends BaseController{
         Images images = resourceBiz.getImages(id);
         if(images != null) {
             if(force == 1) {
-                ImagesBase imagesBase = resourceBiz.findImagesBase();
-                String filePath = StringUtils.concatUrl(imagesBase.getBasePath(), images.getImagePath());
-                File file = new File(filePath);
-                if(file.exists()){
-                    file.delete();
-                }
-                //weedfsClient.delete(images.getFid());
+//                ImagesBase imagesBase = resourceBiz.findImagesBase();
+//                String filePath = StringUtils.concatUrl(imagesBase.getBasePath(), images.getImagePath());
+//                File file = new File(filePath);
+//                if(file.exists()){
+//                    file.delete();
+//                }
+                weedfsClient.delete(images.getFid());
             }
             resourceBiz.delImages(getCurrentUserId(request), id);
         }
