@@ -2,6 +2,7 @@ package com.cn.cms.web.controller;
 
 import com.cn.cms.biz.ResourceBiz;
 import com.cn.cms.bo.UserBean;
+import com.cn.cms.contants.StaticContants;
 import com.cn.cms.middleware.WeedfsClient;
 import com.cn.cms.po.Images;
 import com.cn.cms.po.ImagesBase;
@@ -205,13 +206,19 @@ public class ImagesController extends BaseController{
         Images images = resourceBiz.getImages(id);
         if(images != null) {
             if(force == 1) {
-//                ImagesBase imagesBase = resourceBiz.findImagesBase();
-//                String filePath = StringUtils.concatUrl(imagesBase.getBasePath(), images.getImagePath());
-//                File file = new File(filePath);
-//                if(file.exists()){
-//                    file.delete();
-//                }
-                weedfsClient.delete(images.getFid());
+                if(StaticContants.IMAGESON != 1){
+
+                    weedfsClient.delete(images.getFid());
+
+                } else {
+                    ImagesBase imagesBase = resourceBiz.findImagesBase();
+                    String filePath = StringUtils.concatUrl(imagesBase.getBasePath(), images.getImagePath());
+                    File file = new File(filePath);
+                    if (file.exists()) {
+                        file.delete();
+                    }
+                }
+
             }
             resourceBiz.delImages(getCurrentUserId(request), id);
         }

@@ -284,5 +284,8 @@ public class StaticContants {
      */
     public static final String rsyncRescindFile = PropertyManager.getRB("config", "rsync.rescind.shFileName");
 
-
+    /**
+     * image.test
+     */
+    public static final Integer IMAGESON = Integer.parseInt(PropertyManager.getRB("config", "image.test"));
 }

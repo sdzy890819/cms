@@ -77,13 +77,22 @@ public class UploadController extends BaseController {
         ImagesBase imagesBase = resourceBiz.findImagesBase();
         String relativePath = FileUtil.getRelativePath(imagesBase.getBasePath(), suffix);
         String absPath = StringUtils.concatUrl(imagesBase.getBasePath(), relativePath);
-        //String urlPath = StringUtils.concatUrl(imagesBase.getBaseUrl(), relativePath);
+        String urlPath = StringUtils.concatUrl(imagesBase.getBaseUrl(), relativePath);
         Map<String, Object> map = FileUtil.compressAndWatermark(bytes, width, height, absPath, watermark);
-        WeedfsResponse weedfsResponse =weedfsClient.upload(new File(absPath));
-        map.put("imageUrl", weedfsResponse.getFileUrl());
-        map.put("imagePath", weedfsResponse.getFid());
-        map.put("fid",weedfsResponse.getFid());
-        map.put("size", weedfsResponse.getSize());
+        if(StaticContants.IMAGESON != 1 ) {
+            File file = new File(absPath);
+            WeedfsResponse weedfsResponse = weedfsClient.upload(file);
+            map.put("imageUrl", weedfsResponse.getFileUrl());
+            map.put("imagePath", weedfsResponse.getFid());
+            map.put("fid", weedfsResponse.getFid());
+            map.put("size", weedfsResponse.getSize());
+            file.delete();
+        } else {
+            map.put("imageUrl", urlPath);
+            map.put("imagePath", relativePath);
+            map.put("fid", "19,1011212");
+            map.put("size", "100");
+        }
         map.put("uploadUserId", getCurrentUserId(request));
         map.put("watermark", watermark);
         map.put("compress", (width>0 || height>0)? CompressEnum.compress.getType() : CompressEnum.nocompress.getType());
