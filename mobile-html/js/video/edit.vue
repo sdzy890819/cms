@@ -221,7 +221,7 @@
                                         //$('.error').addClass('cur').text('请上传视频文件');
                                     var pop = new Pop({
                                         title : '提示',
-                                        content : '<center>上传失败！</center>',
+                                        content : _data.message,
                                         width: '70%',
                                         cancelBtn:false,
                                         timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
@@ -307,7 +307,7 @@
                             if(_data.code==0){
                                 text = '视频更新成功！';
                             }else{
-                                text = '视频更新失败！';
+                                text = _data.message;
                             }
                             var pop = new Pop({
                                 title : '提示',

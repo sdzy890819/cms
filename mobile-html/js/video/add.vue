@@ -196,7 +196,6 @@
 						contentType: false,  
 						processData: false,  
 						success: function (_data) { 
-
 						  	if(_data.code == 0){
 						  		self.videos = _data.data;
 						  		$('.error').addClass('right').text('上传成功');
@@ -209,7 +208,7 @@
 		                                //$('.error').addClass('cur').text('请上传视频文件');
 		                            var pop = new Pop({
 		                                title : '提示',
-		                                content : '<center>上传失败！</center>',
+		                                content : _data.message,
 		                                width: '70%',
 		                                cancelBtn:false,
 		                                timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
@@ -327,7 +326,7 @@
                                 //return;
                                 text = '视频上传成功';
                             }else{
-                                text = '视频上传失败'
+                                text = _data.message;
                             }
                             var pop = new Pop({
                                 title : '提示',
