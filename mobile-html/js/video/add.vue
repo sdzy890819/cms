@@ -167,9 +167,9 @@
                 	num = 0;
 
                 function updateTime(){
-                	size = size/1000;
-                	if(num>90){
-                		num = 90;
+                	size -= 500;
+                	if(num>95){
+                		num = 95;
                 		clearTimeout(timer)
                 	}
                 	num ++;
@@ -177,39 +177,46 @@
                 }
                 timer = setInterval(updateTime,1000);
 
-                $('<div class="load-mask"><div id="loadingnum"></div><div class="loadding"></div></div>');
-				var formData = new FormData($( "#uploadForm" )[0]); 
-				return;
-				$.ajax({  
-					url: upload.uploadVideo2 ,  
-					type: 'POST',  
-					data: formData,  
-					async: false,  
-					cache: false,  
-					contentType: false,  
-					processData: false,  
-					success: function (_data) {  
-					  	if(_data.code == 0){
-					  		$('.error').addClass('right').text('上传成功');
-							setTimeout(function(){
-								$('.error').removeClass('right');
-							},1000);
-					  	}else{
-					  		$('.error').addClass('cur').text('上传失败');
+                if(!self.showhtml){
+                	self.showhtml = $('<div class="load-mask"><div id="loadingnum"></div><div class="loadding"></div></div>').appendTo($('body'));
+                }
+                setTimeout(function(){
+					var formData = new FormData($( "#uploadForm" )[0]);
+					$.ajax({  
+						url: upload.uploadVideo2 ,  
+						type: 'POST',  
+						data: formData,  
+						async: false,  
+						cache: false,  
+						contentType: false,  
+						processData: false,  
+						success: function (_data) {  
+						  	if(_data.code == 0){
+						  		$('.error').addClass('right').text('上传成功');
+								setTimeout(function(){
+									$('.error').removeClass('right');
+								},1000);
+						  	}else{
+						  		$('.error').addClass('cur').text('上传失败');
+								setTimeout(function(){
+									$('.error').removeClass('cur');
+								},1000);
+						  	}
+						  	self.showhtml.remove();
+						  	self.showhtml = null;
+						  	self.$delete( self, showhtml )
+						},  
+						error: function (returndata) {  
+						  	$('.error').addClass('cur').text('上传失败');
 							setTimeout(function(){
 								$('.error').removeClass('cur');
 							},1000);
-					  	}
-					  	T.loadding(); 
-					},  
-					error: function (returndata) {  
-					  	$('.error').addClass('cur').text('上传失败');
-						setTimeout(function(){
-							$('.error').removeClass('cur');
-						},1000);
-						T.loadding(); 
-					}  
-				});  
+							self.showhtml.remove();
+						  	self.showhtml = null;
+						  	self.$delete( self, showhtml )
+						}  
+					});  
+                },300);
 
 				/*T.ajax({
 					type: 'POST',				
@@ -239,7 +246,7 @@
 					videos = this.videos;
 				require.ensure([],function(require){
 					var Pop = require('../widgets/pop.js');
-					if(base64<20){
+					if(!self.isSelect){
 						//$('.error').addClass('cur').text('请上传视频文件');
 						var pop = new Pop({
                             title : '提示',
