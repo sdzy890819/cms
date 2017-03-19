@@ -183,9 +183,25 @@ exports.default = {
 				}
 				return;
 			}
+			var timer = 0,
+			    size = file.size,
+			    time1 = _global2.default.getMS(),
+			    num = 0;
 
+			function updateTime() {
+				size = size / 1000;
+				if (num > 90) {
+					num = 90;
+					clearTimeout(timer);
+				}
+				num++;
+				$('#loadingnum').text(num + '%');
+			}
+			timer = setInterval(updateTime, 1000);
+
+			$('<div class="load-mask"><div id="loadingnum"></div><div class="loadding"></div></div>');
 			var formData = new FormData($("#uploadForm")[0]);
-			_global2.default.loadding(true);
+			return;
 			$.ajax({
 				url: _URL.upload.uploadVideo2,
 				type: 'POST',
@@ -528,4 +544,4 @@ module.exports = Component.exports
 /***/ })
 
 });
-//# sourceMappingURL=6_chunk.js.map?name=345c96c30724c4924364
+//# sourceMappingURL=6_chunk.js.map?name=7a4bb8fafe26ec3d031e

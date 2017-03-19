@@ -162,9 +162,24 @@
                     }
                     return;
                 }
+                var timer = 0, size = file.size,
+                	time1 = T.getMS(),
+                	num = 0;
 
+                function updateTime(){
+                	size = size/1000;
+                	if(num>90){
+                		num = 90;
+                		clearTimeout(timer)
+                	}
+                	num ++;
+                	$('#loadingnum').text(num+'%');
+                }
+                timer = setInterval(updateTime,1000);
+
+                $('<div class="load-mask"><div id="loadingnum"></div><div class="loadding"></div></div>');
 				var formData = new FormData($( "#uploadForm" )[0]); 
-				T.loadding(true); 
+				return;
 				$.ajax({  
 					url: upload.uploadVideo2 ,  
 					type: 'POST',  

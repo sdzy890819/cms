@@ -171,7 +171,7 @@ define(['require',"app",'jquery'
         				});
 					},
 
-					recommend : function (obj,_detail) {
+					recommend : function (obj) {
 						var newsId = obj.id;
 						require(['./recommendForm'], function(recommendFormList){
 							function getAddForm(callback){
@@ -188,7 +188,7 @@ define(['require',"app",'jquery'
 								list : recommendFormList,
 								updateData : getAddForm,
 
-								save : function(obj){				
+								save : function(obj,_detail){				
 									var recommendColumnId = _detail.recommendColumnId;									
 									$.each(obj.selects,function(){										
 										if(this.title == 'recommendColumnId'){
