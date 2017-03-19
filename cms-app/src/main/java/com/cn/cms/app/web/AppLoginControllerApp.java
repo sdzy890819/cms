@@ -96,6 +96,7 @@ public class AppLoginControllerApp extends AppBaseController {
         String key = EncryptUtil.encryptAESKey(randomPwd);
         String ttbase = EncryptUtil.base64(EncryptUtil.encryptAES(key, tt).concat(key).getBytes(StaticContants.UTF8));
         CookieUtil.addCookie(response, StaticContants.APP_COOKIE_TT, ttbase, 0);
+        CookieUtil.addCookie(response, StaticContants.APP_COOKIE_DEVICE_IDFA, "QJW-CA-BF-0F-0E-0A", 0);
         Map<String, String> map = new HashMap<>();
         map.put("tt", tt);
         return ApiResponse.returnSuccess(map);
@@ -107,10 +108,10 @@ public class AppLoginControllerApp extends AppBaseController {
      * 密匙
      * @return
      */
-    @RequestMapping(value = "/login/test/en", method = RequestMethod.GET)
-    public String en(HttpServletResponse response) throws IOException {
-        CookieUtil.addCookie(response, StaticContants.APP_COOKIE_DEVICE_IDFA, "AABBCC", 0);
-        return ApiResponse.returnSuccess();
-    }
+//    @RequestMapping(value = "/login/test/en", method = RequestMethod.GET)
+//    public String en(HttpServletResponse response) throws IOException {
+//        CookieUtil.addCookie(response, StaticContants.APP_COOKIE_DEVICE_IDFA, "AABBCC", 0);
+//        return ApiResponse.returnSuccess();
+//    }
 
 }

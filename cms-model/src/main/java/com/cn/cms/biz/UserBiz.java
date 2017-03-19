@@ -296,9 +296,9 @@ public class UserBiz extends BaseBiz{
             if(StringUtils.isNotBlank(currentToken) && StringUtils.isNotBlank(redisToken) &&
                     currentToken.equals(redisToken) && currentToken.equals(token)){
                 User user = this.getUserCache(userId);
-                //if(user.getIdfa().indexOf(idfa) > -1) {
+                if(user.getIdfa().indexOf(idfa) > -1) {
                     return true;
-                //}
+                }
             }
         }
         return false;
@@ -337,8 +337,7 @@ public class UserBiz extends BaseBiz{
         String rett = EncryptUtil.decryptAEC(rekey, reEncryptCode);
         pwd = EncryptUtil.base64(pwd.getBytes(StaticContants.UTF8));
         if( user != null ){
-            // && StringUtils.isNotBlank(user.getIdfa()) StringUtils.isNotBlank(idfa) && user.getIdfa().indexOf(idfa) > -1 &&
-            if(user.getPwd().equals(pwd)  &&
+            if(user.getPwd().equals(pwd)  && StringUtils.isNotBlank(user.getIdfa()) && StringUtils.isNotBlank(idfa) && user.getIdfa().indexOf(idfa) > -1 &&
                      rett.equals(tt)){
                 setAppCookie(response,user);
                 refreshUserCache(user);
