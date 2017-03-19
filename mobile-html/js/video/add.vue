@@ -176,9 +176,15 @@
                 	$('#loadingnum').text(num+'%');
                 }
                 timer = setInterval(updateTime,1000);
+                function clear(){
+                	self.showhtml.remove();
+				  	self.showhtml = null;
+				  	clearTimeout(timer);
+				  	num = 0;
+                }
 
                 if(!self.showhtml){
-                	self.showhtml = $('<div class="load-mask"><div id="loadingnum"></div><div class="loadding"></div></div>').appendTo($('body'));
+                	self.showhtml = $('<div class="load-mask"><div id="loadingnum">0%</div><div class="loadding"></div></div>').appendTo($('body'));
                 }
                 setTimeout(function(){
 					var formData = new FormData($( "#uploadForm" )[0]);
@@ -186,7 +192,7 @@
 						url: upload.uploadVideo2 ,  
 						type: 'POST',  
 						data: formData,  
-						async: false,  
+						//async: false,  
 						cache: false,  
 						contentType: false,  
 						processData: false,  
@@ -202,18 +208,14 @@
 									$('.error').removeClass('cur');
 								},1000);
 						  	}
-						  	self.showhtml.remove();
-						  	self.showhtml = null;
-						  	self.$delete( self, showhtml )
+						  	clear();
 						},  
 						error: function (returndata) {  
 						  	$('.error').addClass('cur').text('上传失败');
 							setTimeout(function(){
 								$('.error').removeClass('cur');
 							},1000);
-							self.showhtml.remove();
-						  	self.showhtml = null;
-						  	self.$delete( self, showhtml )
+							clear();
 						}  
 					});  
                 },300);
@@ -239,7 +241,6 @@
 			}
 			,submit : function(){
 				var self = this,
-					base64 = this.base64 ,
 					file = this.fileType, 
 					describe = this.describe,
 					title = this.title , 

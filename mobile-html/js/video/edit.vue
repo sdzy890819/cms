@@ -11,6 +11,7 @@
         }
         .btn-upload{ margin-left:$s10; background: #f85200; border-radius:$s3; }
         li{
+            #uploadForm{ width:100%; @include box; padding:$s10 0; }
             padding:$s10 0;
             .label{ width:5.625rem; padding-right: $s5; text-align:center; }
             .text{ @include box-flex; 
@@ -34,9 +35,11 @@
     <div class="form">
         <ul>
             <li>
-                <input id='file' type="file" value="文件上传"/>
-                <div @click='file' class="btn-file">+重新选择文伯</div>
-                <div class="btn-upload" @click='uploadFile'>上传</div>
+                <form id= "uploadForm">  
+                    <input id='file' type="file" name="file" value="文件上传"/>
+                    <div @click='file' class="btn-file">+重新选择文件</div>
+                    <div class="btn-upload" @click='uploadFile'>上传</div>
+                </form>  
             </li>
             <li>视频名称：{{name}}</li>
             <li v-show='videos' style='word-break: break-all;'>{{videos.location}}</li>
@@ -62,7 +65,8 @@
                 describe : '',
                 base64 : '',
                 name : '',
-                videos : ''
+                videos : '',
+                isSelect : false
             }
         },
         beforeCreate : function(){
@@ -87,16 +91,16 @@
             file : function(evet){
                 var self = this ,
                     tag = $(event.currentTarget),
-                    file = $('#file'),
+                    file = $('#file') , 
                     ispop = false;
                 require.ensure([], function(require) {
                     var Pop = require('../widgets/pop.js');
                     file.bind('change',function(){
-                        //self.filed = true;
-                        tag.removeClass('gray')
+                        /*self.filed = true;
+                        tag.removeClass('gray')*/
                         var file = this.files[0]; 
                         //这里我们判断下类型如果不是图片就返回 去掉就可以上传任意文件 
-                        if(file && !file.name.toLowerCase().search(/(video|kux|remb|avi|rmvb|rm|asf|divx|mpg|mpeg|mpe|wmv|mp4|mkv|vob)$/)){ 
+                        if(file && !file.name.toLowerCase().search(/(video|kux|rmvb|remb|avi|rmvb|rm|asf|divx|mpg|mpeg|mpe|wmv|mp4|mkv|vob)$/)){ 
                             //alert("请确保文件为视频类型"); 
                             if(!ispop){
                                 ispop = true;
@@ -112,20 +116,22 @@
                                     }
                                 });
                             }
-                            return false; 
-                        } 
-                        self.fileType = file;
-                        var reader = new FileReader(); 
-                        //reader.readAsArrayBuffer(file); 
-                        reader.readAsDataURL(file); 
-                        reader.onload = function(e){ 
-                            self.base64 = this.result;
-                            /*var data = reader.result;
-                            self.array = new Int8Array(data);*/
+                            self.isSelect = false;
+                        }else{
+                            self.isSelect = true;
+                            self.fileType = file;
+                            var reader = new FileReader(); 
+                            //reader.readAsArrayBuffer(file); 
+                            reader.readAsDataURL(file); 
+                            //reader.onload = function(e){ 
+                                //self.base64 = this.result;
+                                /*var data = reader.result;
+                                self.array = new Int8Array(data);*/
 
-                            //var num = 100*15000;
-                            //var str = JSON.stringify(array, null, '  ');
+                                //var num = 100*15000;
+                                //var str = JSON.stringify(array, null, '  ');
 
+                            //}
                         }
                     });
                 });
@@ -133,15 +139,21 @@
                     self.filed = false;
                     tag.addClass('gray')*/
                     file.unbind().click();
-               // }
+                //}
             }
             ,uploadFile : function(){
-                var self = this ,  ispop = false,
-                    base64 = this.base64 ,
+                var self = this , ispop = false , 
+                    base64 = [this.base64].join(',') ,
+                    //array = self.array,
+                    //len = array.length,
                     file = this.fileType, 
                     describe = this.describe,
-                    title = this.title;
-                if(base64<20){
+                    title = this.title , 
+                    bynum = 100*10000,
+                    b = 1024*1024*1  , 
+                    num = 0 ;
+
+                if(!self.isSelect){
                     if(!ispop){
                         ispop = true;
                         require.ensure([],function(require){
@@ -161,28 +173,66 @@
                     }
                     return;
                 }
-                self.name = file.name;
-                T.ajax({
-                    type: 'POST',               
-                    url : upload.uploadVideo , 
-                    data : {
-                        "baseCode":[base64].join(','),
-                        "fileName":file.name,
-                        //finish : 1
-                    },
-                    success : function(_data){
-                        $.extend(self.videos,_data.data)
-                        self.videos.videoUrl = _data.data.location;
-                        $('.error').addClass('right').text('上传成功');
-                        setTimeout(function(){
-                            $('.error').removeClass('right');
-                        },1000);
+                var timer = 0, size = file.size,
+                    time1 = T.getMS(),
+                    num = 0;
+
+                function updateTime(){
+                    size -= 500;
+                    if(num>95){
+                        num = 95;
+                        clearTimeout(timer)
                     }
-                })
+                    num ++;
+                    $('#loadingnum').text(num+'%');
+                }
+                timer = setInterval(updateTime,1000);
+                function clear(){
+                    self.showhtml.remove();
+                    self.showhtml = null;
+                    clearTimeout(timer);
+                    num = 0;
+                }
+
+                if(!self.showhtml){
+                    self.showhtml = $('<div class="load-mask"><div id="loadingnum">0%</div><div class="loadding"></div></div>').appendTo($('body'));
+                }
+                setTimeout(function(){
+                    var formData = new FormData($( "#uploadForm" )[0]);
+                    $.ajax({  
+                        url: upload.uploadVideo2 ,  
+                        type: 'POST',  
+                        data: formData,  
+                        //async: false,  
+                        cache: false,  
+                        contentType: false,  
+                        processData: false,  
+                        success: function (_data) {  
+                            if(_data.code == 0){
+                                $('.error').addClass('right').text('上传成功');
+                                setTimeout(function(){
+                                    $('.error').removeClass('right');
+                                },1000);
+                            }else{
+                                $('.error').addClass('cur').text('上传失败');
+                                setTimeout(function(){
+                                    $('.error').removeClass('cur');
+                                },1000);
+                            }
+                            clear();
+                        },  
+                        error: function (returndata) {  
+                            $('.error').addClass('cur').text('上传失败');
+                            setTimeout(function(){
+                                $('.error').removeClass('cur');
+                            },1000);
+                            clear();
+                        }  
+                    });  
+                },300);
             }
             ,submit : function(){
                 var self = this,
-                    base64 = this.base64 ,
                     file = this.fileType, 
                     describe = this.describe,
                     title = this.title , 
@@ -190,7 +240,7 @@
                     videos = this.videos;
                 require.ensure([],function(require){
                     var Pop = require('../widgets/pop.js');
-                    if(base64<20 && videoUrl.length<2){
+                    if(!self.isSelect){
                         //$('.error').addClass('cur').text('请上传视频文件');
                         var pop = new Pop({
                             title : '提示',
