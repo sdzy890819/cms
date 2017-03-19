@@ -464,6 +464,18 @@ $leftWidth : 225px;
     }
 }
 /*layui相关*/
+.layui-layer-molv{
+    &.newBtn{
+
+        .layui-layer-btn{
+            a{
+                &.layui-layer-btn0{}
+                &.layui-layer-btn1{ background:#eb1600; color:#fff;}
+                &.layui-layer-btn2{ background:#bcbcbc; }
+            }
+        }
+    }
+}
 .layui-form{ padding-top:20px;
     textarea.w80{ width:80%; max-width:600px; min-height:50px; }
     em{ padding-right:5px; color:#e50000; vertical-align:middle;}

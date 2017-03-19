@@ -53,7 +53,7 @@ define(['require', "app", 'jquery', 'search', './searchForm', '../data/getData',
                         layui.use(['layer'], function() {
                             var layer = layui.layer;
                             layer.alert('你确定删除：' + obj.imageTitle, {
-                                skin: 'layui-layer-molv' //样式类名
+                                skin: 'layui-layer-molv newBtn' //样式类名
                                     ,
                                 title: '删除',
                                 anim: 1 //动画类型
