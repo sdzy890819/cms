@@ -13,6 +13,14 @@ define(['require',"app",'jquery','search','./searchForm'
                 $scope.title = "删除新闻列表";
                 $scope.$parent.menu.push({name:$scope.title}); //栏目
                 angular.extend($scope,{
+                    isSearch : false, //是否是执行搜索
+                    getNewList : function(){
+                        if($scope.isSearch){
+                            $scope.getSearchList();
+                        }else{
+                            getDataList();
+                        }
+                    },
                     edit : function( obj ){ //保存
                         function getAddForm(callback , formList){ //填充数据
                             getData.news.newsdetail({
@@ -140,7 +148,7 @@ define(['require',"app",'jquery','search','./searchForm'
                                                 layui.use(['layer'], function(){
                                                     var layer = layui.layer;
                                                     layer.msg(_data.message);
-                                                    getDataList();
+                                                    $scope.getNewList();
                                                      /*setTimeout(function(){
                                                         $state.reload();
                                                      },300);*/
@@ -239,6 +247,7 @@ define(['require',"app",'jquery','search','./searchForm'
                                             layui.use(['layer'], function(){
                                                 var layer = layui.layer;
                                                 layer.msg(_data.message);
+                                                $scope.getNewList();
                                                 // setTimeout(function(){
                                                 //  location.reload();
                                                 // },300);
@@ -289,7 +298,7 @@ define(['require',"app",'jquery','search','./searchForm'
                                                                                                 
                                 if(_data.code == 0) {                                   
                                     $('table').find("tr[data-id=" + obj.id + "]").hide();
-                                    getDataList();
+                                    $scope.getNewList();
                                 }
 
                             });
@@ -309,7 +318,8 @@ define(['require',"app",'jquery','search','./searchForm'
                                 layer.msg(_data.message);
                                                                                                 
                                 if(_data.code == 0) {                                   
-                                    $('table').find("tr[data-id=" + obj.id + "]").hide();
+                                    //$('table').find("tr[data-id=" + obj.id + "]").hide();
+                                    $scope.getNewList();
                                 }
 
                             });
@@ -318,7 +328,7 @@ define(['require',"app",'jquery','search','./searchForm'
                              text:'您确定要恢复"'+obj.title+'"吗'
                             ,btn : ['确定','取消']
                             ,fn : function(){
-                                getData.news.recover({id:obj.id});
+                                getData.news.recover(obj);
                             }
                         })
                     },
@@ -329,7 +339,8 @@ define(['require',"app",'jquery','search','./searchForm'
                                 layer.msg(_data.message);
                                                                                                 
                                 if(_data.code == 0) {                                   
-                                    $('table').find("tr[data-id=" + obj.id + "]").hide();
+                                    //$('table').find("tr[data-id=" + obj.id + "]").hide();
+                                    $scope.getNewList();
                                 }
 
                             });
@@ -338,7 +349,8 @@ define(['require',"app",'jquery','search','./searchForm'
                              text:'您确定要恢复"'+obj.title+'"吗'
                             ,btn : ['确定','取消']
                             ,fn : function(){
-                                getData.news.recover({id:obj.id,publish:1});
+                                obj.publish = 1;
+                                getData.news.recover(obj);
                             }
                         })
                     },
@@ -347,6 +359,7 @@ define(['require',"app",'jquery','search','./searchForm'
                             layui.use(['layer'], function(){
                                 var layer = layui.layer;
                                 layer.msg(_data.message);
+                                $scope.getNewList();
                                 //$state.reload();
                             });
                         };
@@ -379,17 +392,17 @@ define(['require',"app",'jquery','search','./searchForm'
 
                     var th = [
                         {name:'文章ID' , key:'id' , width : '50'},        
-                        {name:'所属频道栏目' , key:'channelAndColumnName' , width : '200'},                   
-                        {name:'标题' , key:'title' , width : '300'},                              
-                        {name:'作者' , key:'author' , width: '100', class: 'center'},
-                        {name:'发布人' , key:'buildUserName' , width: '100', class: 'center'},
-                        {name:'修改人' , key:'lastModifyUserName' , width: '100', class: 'center'},
-                        {name:'媒体来源' , key:'source' , width: '70', class: 'center'},
+                        {name:'所属频道栏目' , key:'channelAndColumnName' , width : '70'},                    
+                        {name:'标题' , key:'title'},                              
+                        {name:'作者' , key:'author' , width: '40', class: 'center'},
+                        {name:'发布人' , key:'buildUserName' , width: '40', class: 'center'},
+                        {name:'修改人' , key:'lastModifyUserName' , width: '40', class: 'center'},
+                        {name:'媒体来源' , key:'source' , width: '40', class: 'center'},
                                                 
                         {name:'发布时间' , key:'buildTimeStr' , width : '80', class: 'center'},
                         {name:'修改时间' , key:'updateTimeStr' , width : '80', class: 'center'},
-                        {name:'状态' , key:'publishStr' , width: '100', class: 'center'},
-                        {name:'操作' , width : '200' , class: 'center'}
+                        {name:'状态' , key:'publishStr' , width: '40', class: 'center'},
+                        {name:'操作' , width : '50' , class: 'center'}
                     ];
                     
                     $.each(_data.data.list, function(i, obj){
@@ -406,10 +419,10 @@ define(['require',"app",'jquery','search','./searchForm'
                             th : th,                                    
                             td : GenerateArrList.setArr(_data.data.list, th) ,
                             edit : [                                                                
-                                {cls : 'edit' , name : '撤销',evt:$scope.rescind},
+                                {cls : '' , name : '撤销',evt:$scope.rescind},
                                 //{cls : 'edit' , name : '修改',evt:$scope.recommend},
-                                {cls : 'edit' , name : '恢复',evt:$scope.recover},
-                                {cls : 'edit' , name : '恢复并发布',evt:$scope.recoverRelease},
+                                {cls : '' , name : '恢复',evt:$scope.recover},
+                                {cls : '' , name : '恢复并发布',evt:$scope.recoverRelease},
                                 //{cls : 'del' , name : '发布',evt:$scope.del}
                             ]
                         },
@@ -482,6 +495,7 @@ define(['require',"app",'jquery','search','./searchForm'
                                 $scope.$$childHead.current = 1;
                             },                          
                             submit : function( obj , data ){
+                                $scope.isSearch = true;
                                 var page = 1 , channelId , columnId , categoryId , publish;
                                 $.each(obj.selects,function(){
                                     if(this.title == 'channelId'){
@@ -533,6 +547,7 @@ define(['require',"app",'jquery','search','./searchForm'
                                     })
                                 };
                                 getSearchList();
+                                $scope.getSearchList = getSearchList;
                             }
                         }
 
@@ -548,7 +563,7 @@ define(['require',"app",'jquery','search','./searchForm'
                 var page = 1;
 
                 function getDataList(){                 
-
+                    $scope.isSearch = false;
                     getData.news.newsManageList({
                         page : page,
                         pageSize : 20,

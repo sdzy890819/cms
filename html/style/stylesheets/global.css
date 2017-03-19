@@ -1245,48 +1245,58 @@ input:focus{ border: 1px solid #bbb !important;} */
 }
 
 /*layui相关*/
-/* line 467, ../sass/global.scss */
+/* line 473, ../sass/global.scss */
+.layui-layer-molv.newBtn .layui-layer-btn a.layui-layer-btn1 {
+  background: #eb1600;
+  color: #fff;
+}
+/* line 474, ../sass/global.scss */
+.layui-layer-molv.newBtn .layui-layer-btn a.layui-layer-btn2 {
+  background: #bcbcbc;
+}
+
+/* line 479, ../sass/global.scss */
 .layui-form {
   padding-top: 20px;
 }
-/* line 468, ../sass/global.scss */
+/* line 480, ../sass/global.scss */
 .layui-form textarea.w80 {
   width: 80%;
   max-width: 600px;
   min-height: 50px;
 }
-/* line 469, ../sass/global.scss */
+/* line 481, ../sass/global.scss */
 .layui-form em {
   padding-right: 5px;
   color: #e50000;
   vertical-align: middle;
 }
-/* line 470, ../sass/global.scss */
+/* line 482, ../sass/global.scss */
 .layui-form .layui-form-label {
   width: 120px;
 }
-/* line 471, ../sass/global.scss */
+/* line 483, ../sass/global.scss */
 .layui-form .layui-input-block {
   margin-left: 150px;
 }
-/* line 472, ../sass/global.scss */
+/* line 484, ../sass/global.scss */
 .layui-form .date {
   cursor: pointer;
 }
-/* line 474, ../sass/global.scss */
+/* line 486, ../sass/global.scss */
 .layui-form .layui-form-item .layui-input-inline {
   width: auto;
 }
-/* line 476, ../sass/global.scss */
+/* line 488, ../sass/global.scss */
 .layui-form .layui-form-item .layui-input-inline.newselect .layui-select-title {
   width: 110px;
 }
-/* line 482, ../sass/global.scss */
+/* line 494, ../sass/global.scss */
 .layui-form .layui-inline .layui-form-label.inline {
   width: auto;
 }
 
-/* line 487, ../sass/global.scss */
+/* line 499, ../sass/global.scss */
 .table table {
   width: 100%;
   border-left: 1px solid #ddd;
@@ -1298,14 +1308,14 @@ input:focus{ border: 1px solid #bbb !important;} */
   -o-box-sizing: border-box;
   -ms-box-sizing: border-box;
 }
-/* line 488, ../sass/global.scss */
+/* line 500, ../sass/global.scss */
 .table img.img {
   vertical-align: middle;
   width: 30px;
   height: 30px;
   border-radius: 100%;
 }
-/* line 489, ../sass/global.scss */
+/* line 501, ../sass/global.scss */
 .table th {
   text-align: left;
   padding: 8px 1px;
@@ -1313,11 +1323,11 @@ input:focus{ border: 1px solid #bbb !important;} */
   font-weight: bold;
   border-bottom: 1px solid #ddd;
 }
-/* line 490, ../sass/global.scss */
+/* line 502, ../sass/global.scss */
 .table th.center {
   text-align: center;
 }
-/* line 492, ../sass/global.scss */
+/* line 504, ../sass/global.scss */
 .table td {
   text-align: left;
   padding: 2px 1px 2px 1px;
@@ -1326,41 +1336,41 @@ input:focus{ border: 1px solid #bbb !important;} */
   border-bottom: 1px solid #ddd;
   word-break: break-all;
 }
-/* line 493, ../sass/global.scss */
+/* line 505, ../sass/global.scss */
 .table td.center {
   text-align: center;
 }
-/* line 494, ../sass/global.scss */
+/* line 506, ../sass/global.scss */
 .table td.edits {
   text-align: center;
 }
-/* line 495, ../sass/global.scss */
+/* line 507, ../sass/global.scss */
 .table td a {
   color: #488be7;
 }
-/* line 496, ../sass/global.scss */
+/* line 508, ../sass/global.scss */
 .table td a:hover {
   text-decoration: underline;
 }
-/* line 500, ../sass/global.scss */
+/* line 512, ../sass/global.scss */
 .table tr:nth-child(odd) {
   background: #f8f8f8;
 }
-/* line 501, ../sass/global.scss */
+/* line 513, ../sass/global.scss */
 .table tr:hover {
   background: #f2f2f2;
 }
-/* line 504, ../sass/global.scss */
+/* line 516, ../sass/global.scss */
 .table tr.special td {
   background: #FF9900;
   color: #fff;
 }
-/* line 508, ../sass/global.scss */
+/* line 520, ../sass/global.scss */
 .table .select {
   width: 20px;
   text-align: center;
 }
-/* line 510, ../sass/global.scss */
+/* line 522, ../sass/global.scss */
 .table .btn {
   display: inline-block;
   margin-left: 1px;
@@ -1376,70 +1386,70 @@ input:focus{ border: 1px solid #bbb !important;} */
   -o-transition-duration: 0.3s;
   -ms-transition-duration: 0.3s;
 }
-/* line 511, ../sass/global.scss */
+/* line 523, ../sass/global.scss */
 .table .btn i {
   margin-right: 3px;
 }
-/* line 512, ../sass/global.scss */
+/* line 524, ../sass/global.scss */
 .table .btn.add {
   background: #f24400;
   color: #fff;
 }
-/* line 513, ../sass/global.scss */
+/* line 525, ../sass/global.scss */
 .table .btn.add:hover {
   background: #da0000;
 }
-/* line 515, ../sass/global.scss */
+/* line 527, ../sass/global.scss */
 .table .btn.del {
   background: #f24400;
   color: #fff;
 }
-/* line 516, ../sass/global.scss */
+/* line 528, ../sass/global.scss */
 .table .btn.del:hover {
   background: #da0000;
 }
-/* line 519, ../sass/global.scss */
+/* line 531, ../sass/global.scss */
 .table .btn.edit {
   background: #4d90fe;
   color: #fff;
 }
-/* line 520, ../sass/global.scss */
+/* line 532, ../sass/global.scss */
 .table .btn.edit:hover {
   background: #2673f1;
 }
 
-/* line 524, ../sass/global.scss */
+/* line 536, ../sass/global.scss */
 .tablist {
   margin-top: 0;
 }
-/* line 526, ../sass/global.scss */
+/* line 538, ../sass/global.scss */
 .tablist .submit {
   padding-left: 25px;
 }
 
-/* line 529, ../sass/global.scss */
+/* line 541, ../sass/global.scss */
 .page .paginationjs {
   padding-top: 20px;
   text-align: right;
   font-size: 0;
 }
-/* line 530, ../sass/global.scss */
+/* line 542, ../sass/global.scss */
 .page .paginationjs .paginationjs-pages {
   display: inline-block;
   vertical-align: top;
 }
-/* line 532, ../sass/global.scss */
+/* line 544, ../sass/global.scss */
 .page .paginationjs .paginationjs-pages ul {
   display: inline-block;
   height: 30px;
   border-radius: 4px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
-/* line 533, ../sass/global.scss */
+/* line 545, ../sass/global.scss */
 .page .paginationjs .paginationjs-pages li {
   display: inline-block;
 }
-/* line 534, ../sass/global.scss */
+/* line 546, ../sass/global.scss */
 .page .paginationjs .paginationjs-pages li a {
   float: left;
   padding: 4px 12px;
@@ -1450,36 +1460,36 @@ input:focus{ border: 1px solid #bbb !important;} */
   font-size: 12px;
   color: #999;
 }
-/* line 535, ../sass/global.scss */
+/* line 547, ../sass/global.scss */
 .page .paginationjs .paginationjs-pages li a:hover {
   background: #eee;
 }
-/* line 537, ../sass/global.scss */
+/* line 549, ../sass/global.scss */
 .page .paginationjs .paginationjs-pages li:not(:first-child) a {
   border-left: none;
 }
-/* line 538, ../sass/global.scss */
+/* line 550, ../sass/global.scss */
 .page .paginationjs .paginationjs-pages li.active a {
   background: #eee;
 }
-/* line 541, ../sass/global.scss */
+/* line 553, ../sass/global.scss */
 .page .paginationjs .paginationjs-go-input {
   display: inline-block;
   vertical-align: top;
   padding-left: 10px;
 }
-/* line 542, ../sass/global.scss */
+/* line 554, ../sass/global.scss */
 .page .paginationjs .paginationjs-go-input input[type='text'] {
   width: 30px;
   height: 16px;
   line-height: 16px;
 }
-/* line 544, ../sass/global.scss */
+/* line 556, ../sass/global.scss */
 .page .paginationjs .paginationjs-go-button {
   display: inline-block;
   vertical-align: top;
 }
-/* line 545, ../sass/global.scss */
+/* line 557, ../sass/global.scss */
 .page .paginationjs .paginationjs-go-button .J-paginationjs-go-button {
   height: 30px;
   line-height: 30px;
@@ -1490,28 +1500,28 @@ input:focus{ border: 1px solid #bbb !important;} */
   background: #fff;
   cursor: pointer;
 }
-/* line 546, ../sass/global.scss */
+/* line 558, ../sass/global.scss */
 .page .paginationjs .paginationjs-go-button .J-paginationjs-go-button:hover {
   background: #eee;
 }
 
-/* line 553, ../sass/global.scss */
+/* line 565, ../sass/global.scss */
 .news.edit .boxtab {
   margin-top: 0;
 }
 
-/* line 556, ../sass/global.scss */
+/* line 568, ../sass/global.scss */
 .iframe {
   border: none;
   margin: 0;
   padding: 0;
 }
 
-/* line 559, ../sass/global.scss */
+/* line 571, ../sass/global.scss */
 .relationPopsuper .modal-dialog {
   width: 500px;
 }
-/* line 561, ../sass/global.scss */
+/* line 573, ../sass/global.scss */
 .relationPopsuper .relation-pop .relation-title {
   background: #4b5d6e;
   height: 35px;
@@ -1519,7 +1529,7 @@ input:focus{ border: 1px solid #bbb !important;} */
   padding-left: 15px;
   color: #fff;
 }
-/* line 563, ../sass/global.scss */
+/* line 575, ../sass/global.scss */
 .relationPopsuper .relation-pop .relation-title .close {
   float: right;
   padding: 0 5px;
@@ -1527,17 +1537,17 @@ input:focus{ border: 1px solid #bbb !important;} */
   color: #fff;
   cursor: pointer;
 }
-/* line 565, ../sass/global.scss */
+/* line 577, ../sass/global.scss */
 .relationPopsuper .relation-pop .container {
   margin: 20px;
   overflow: hidden;
 }
-/* line 567, ../sass/global.scss */
+/* line 579, ../sass/global.scss */
 .relationPopsuper .relation-pop .container .title {
   padding-bottom: 35px;
   border-bottom: 1px solid #ccc;
 }
-/* line 569, ../sass/global.scss */
+/* line 581, ../sass/global.scss */
 .relationPopsuper .relation-pop .container .title li {
   float: left;
   width: 103px;
@@ -1547,35 +1557,35 @@ input:focus{ border: 1px solid #bbb !important;} */
   text-align: center;
   border-right: 1px solid #ccc;
 }
-/* line 570, ../sass/global.scss */
+/* line 582, ../sass/global.scss */
 .relationPopsuper .relation-pop .container .title li:last-child, .relationPopsuper .relation-pop .container .title li .last {
   border-right: none;
 }
-/* line 571, ../sass/global.scss */
+/* line 583, ../sass/global.scss */
 .relationPopsuper .relation-pop .container .title li.current {
   background: #3597f2;
   color: #fff;
 }
-/* line 574, ../sass/global.scss */
+/* line 586, ../sass/global.scss */
 .relationPopsuper .relation-pop .container .content {
   padding-top: 20px;
 }
-/* line 576, ../sass/global.scss */
+/* line 588, ../sass/global.scss */
 .relationPopsuper .relation-pop .container .content .table {
   border-left: 1px solid #ccc;
   border-top: 1px solid #ccc;
 }
-/* line 577, ../sass/global.scss */
+/* line 589, ../sass/global.scss */
 .relationPopsuper .relation-pop .container .content .table th, .relationPopsuper .relation-pop .container .content .table td {
   padding: 5px;
   border-right: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
 }
-/* line 582, ../sass/global.scss */
+/* line 594, ../sass/global.scss */
 .relationPopsuper .relation-pop .container .submit {
   padding: 0 20px 20px;
 }
-/* line 584, ../sass/global.scss */
+/* line 596, ../sass/global.scss */
 .relationPopsuper .relation-pop .container .submit .btn {
   display: inline-block;
   height: 25px;
@@ -1587,37 +1597,37 @@ input:focus{ border: 1px solid #bbb !important;} */
   color: #fff;
 }
 
-/* line 590, ../sass/global.scss */
+/* line 602, ../sass/global.scss */
 .upload .boxtab {
   margin-top: 0;
 }
-/* line 591, ../sass/global.scss */
+/* line 603, ../sass/global.scss */
 .upload .upload-file {
   margin-top: 6px;
 }
-/* line 592, ../sass/global.scss */
+/* line 604, ../sass/global.scss */
 .upload .layui-form-label {
   width: 120px;
 }
-/* line 593, ../sass/global.scss */
+/* line 605, ../sass/global.scss */
 .upload .layui-input-block {
   margin-left: 150px;
 }
-/* line 594, ../sass/global.scss */
+/* line 606, ../sass/global.scss */
 .upload .content {
   padding-top: 20px;
 }
-/* line 597, ../sass/global.scss */
+/* line 609, ../sass/global.scss */
 .upload .content img.thumb {
   max-width: 200px;
   max-height: 200px;
 }
-/* line 601, ../sass/global.scss */
+/* line 613, ../sass/global.scss */
 .upload.videoPop .progress {
   width: 500px;
   padding-top: 10px;
 }
-/* line 602, ../sass/global.scss */
+/* line 614, ../sass/global.scss */
 .upload.videoPop .progress-bar {
   clear: both;
   float: left;
@@ -1635,7 +1645,7 @@ input:focus{ border: 1px solid #bbb !important;} */
   -ms-transition: width 0.6s ease 0s;
   -moz-transition: width 0.6s ease 0s;
 }
-/* line 605, ../sass/global.scss */
+/* line 617, ../sass/global.scss */
 .upload.videoPop .progress-bar.progress2 {
   background: green;
 }

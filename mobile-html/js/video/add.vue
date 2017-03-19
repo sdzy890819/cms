@@ -11,6 +11,7 @@
 		}
 		.btn-upload{ margin-left:$s10; background: #f85200; border-radius:$s3; }
 		li{
+			#uploadForm{ width:100%; @include box; padding:$s10 0; }
 			padding:$s10 0;
 			.label{ width:5.625rem; padding-right: $s5; text-align:center; }
 			.text{ @include box-flex; 
@@ -34,9 +35,14 @@
 	<div class="form">
 		<ul>
 			<li>
-				<input id='file' type="file" value="上传视频"/>
-				<div @click='file' class="btn-file">+选择视频</div>
-				<div class="btn-upload" @click='uploadFile'>上传</div>
+				<form id= "uploadForm">  
+			      	<input id='file' type="file" name="file" value="文件上传"/>
+			      	<div @click='file' class="btn-file">+选择文件</div>
+			      	<div class="btn-upload" @click='uploadFile'>上传</div>
+				</form>  
+				<!-- <input id='file' type="file" value="文件上传"/>
+				<div @click='file' class="btn-file">+选择文件</div>
+				<div class="btn-upload" @click='uploadFile'>上传</div> -->
 			</li>
 			<li v-show='fileType'>{{fileType.name}}</li>
 			<li v-show='videos' style='word-break: break-all;'>{{videos.location}}</li>
@@ -61,7 +67,8 @@
 				title : '' , 
 				describe : '',
 				base64 : '',
-				videos : ''
+				videos : '',
+				isSelect : false
 			}
 		},
 		mounted(){
@@ -82,7 +89,7 @@
 						tag.removeClass('gray')*/
 						var file = this.files[0]; 
 						//这里我们判断下类型如果不是图片就返回 去掉就可以上传任意文件 
-						if(file && !file.name.toLowerCase().search(/(video|kux|remb|avi|rmvb|rm|asf|divx|mpg|mpeg|mpe|wmv|mp4|mkv|vob)$/)){ 
+						if(file && !file.name.toLowerCase().search(/(video|kux|rmvb|remb|avi|rmvb|rm|asf|divx|mpg|mpeg|mpe|wmv|mp4|mkv|vob)$/)){ 
 							//alert("请确保文件为视频类型"); 
 							if(!ispop){
 								ispop = true;
@@ -98,20 +105,22 @@
 		                            }
 		                        });
 							}
-							return false; 
-						}
-						self.fileType = file;
-						var reader = new FileReader(); 
-						//reader.readAsArrayBuffer(file); 
-						reader.readAsDataURL(file); 
-						reader.onload = function(e){ 
-							self.base64 = this.result;
-							/*var data = reader.result;
-						    self.array = new Int8Array(data);*/
+							self.isSelect = false;
+						}else{
+							self.isSelect = true;
+							self.fileType = file;
+							var reader = new FileReader(); 
+							//reader.readAsArrayBuffer(file); 
+							reader.readAsDataURL(file); 
+							//reader.onload = function(e){ 
+								//self.base64 = this.result;
+								/*var data = reader.result;
+							    self.array = new Int8Array(data);*/
 
-						    //var num = 100*15000;
-						    //var str = JSON.stringify(array, null, '  ');
+							    //var num = 100*15000;
+							    //var str = JSON.stringify(array, null, '  ');
 
+							//}
 						}
 					});
                 });
@@ -133,7 +142,7 @@
 					b = 1024*1024*1  , 
 					num = 0 ;
 
-                if(base64<20){
+                if(!self.isSelect){
                     if(!ispop){
                         ispop = true;
                         require.ensure([],function(require){
@@ -154,7 +163,40 @@
                     return;
                 }
 
-				T.ajax({
+				var formData = new FormData($( "#uploadForm" )[0]); 
+				T.loadding(true); 
+				$.ajax({  
+					url: upload.uploadVideo2 ,  
+					type: 'POST',  
+					data: formData,  
+					async: false,  
+					cache: false,  
+					contentType: false,  
+					processData: false,  
+					success: function (_data) {  
+					  	if(_data.code == 0){
+					  		$('.error').addClass('right').text('上传成功');
+							setTimeout(function(){
+								$('.error').removeClass('right');
+							},1000);
+					  	}else{
+					  		$('.error').addClass('cur').text('上传失败');
+							setTimeout(function(){
+								$('.error').removeClass('cur');
+							},1000);
+					  	}
+					  	T.loadding(); 
+					},  
+					error: function (returndata) {  
+					  	$('.error').addClass('cur').text('上传失败');
+						setTimeout(function(){
+							$('.error').removeClass('cur');
+						},1000);
+						T.loadding(); 
+					}  
+				});  
+
+				/*T.ajax({
 					type: 'POST',				
 					url : upload.uploadVideo , 
 					data : {
@@ -171,8 +213,7 @@
 							$('.error').removeClass('right');
 						},1000);
 					}
-				})
-				return;
+				})*/
 			}
 			,submit : function(){
 				var self = this,

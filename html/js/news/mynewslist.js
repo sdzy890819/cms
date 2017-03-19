@@ -171,7 +171,7 @@ define(['require',"app",'jquery'
         				});
 					},
 
-					recommend : function (obj) {
+					recommend : function (obj,_detail) {
 						var newsId = obj.id;
 						require(['./recommendForm'], function(recommendFormList){
 							function getAddForm(callback){
@@ -189,7 +189,7 @@ define(['require',"app",'jquery'
 								updateData : getAddForm,
 
 								save : function(obj){				
-									var 	recommendColumnId;									
+									var recommendColumnId = _detail.recommendColumnId;									
 									$.each(obj.selects,function(){										
 										if(this.title == 'recommendColumnId'){
 											recommendColumnId = this.id;
@@ -292,19 +292,19 @@ define(['require',"app",'jquery'
 
 				function setList(_data){
 					var th = [
-						{name:'文章ID' , key:'id' , width : '50'},		
-						{name:'所属频道栏目' , key:'channelAndColumnName' , width : '200'},					
-						{name:'标题' , key:'title' , width : '200'},								
-						{name:'作者' , key:'author' , width: '100', class: 'center'},
-						{name:'发布人' , key:'buildUserName' , width: '100', class: 'center'},
-						{name:'修改人' , key:'lastModifyUserName' , width: '100', class: 'center'},
-						{name:'媒体来源' , key:'source' , width: '100', class: 'center'},
+                        {name:'文章ID' , key:'id' , width : '50'},		
+						{name:'所属频道栏目' , key:'channelAndColumnName' , width : '70'},					
+						{name:'标题' , key:'title'},								
+						{name:'作者' , key:'author' , width: '40', class: 'center'},
+						{name:'发布人' , key:'buildUserName' , width: '40', class: 'center'},
+						{name:'修改人' , key:'lastModifyUserName' , width: '40', class: 'center'},
+						{name:'媒体来源' , key:'source' , width: '40', class: 'center'},
 												
-						{name:'发布时间' , key:'buildTimeStr' , width : '200', class: 'center'},
-						{name:'修改时间' , key:'updateTimeStr' , width : '200', class: 'center'},
-						{name:'状态' , key:'publishStr' , width: '100', class: 'center'},
-						{name:'操作' , width : '200' , class: 'center'},
-						{name:'权限' , width : '100' , class: 'center'}
+						{name:'发布时间' , key:'buildTimeStr' , width : '80', class: 'center'},
+						{name:'修改时间' , key:'updateTimeStr' , width : '80', class: 'center'},
+						{name:'状态' , key:'publishStr' , width: '40', class: 'center'},
+						{name:'操作' , width : '50' , class: 'center'},
+						{name:'权限' , width : '50' , class: 'center'}
 					];
 					
 					$.each(_data.data.list, function(i, obj){
@@ -318,8 +318,8 @@ define(['require',"app",'jquery'
 							th : th,									
 							td : GenerateArrList.setArr(_data.data.list, th) ,
 							edit : [																
-								{cls : 'edit' , name : '编辑',evt:$scope.edit},
-								{cls : 'edit' , name : ' 推荐',evt:$scope.recommend}
+								{cls : '' , name : '编辑',evt:$scope.edit},
+								{cls : '' , name : ' 推荐',evt:$scope.recommend}
 								// {cls : 'del' , name : '删除',evt:$scope.del}
 							],
 
@@ -431,6 +431,7 @@ define(['require',"app",'jquery'
 									})
 								};
 								getSearchList();
+								$scope.getSearchList = getSearchList;
 							}
 						}
 					});

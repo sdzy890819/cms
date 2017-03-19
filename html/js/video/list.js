@@ -13,12 +13,21 @@ define(['require',"app",'jquery'
 	        	$scope.title = "视频管理";
 						$scope.$parent.menu.push({name:$scope.title}); //栏目
 						angular.extend($scope,{
+							isSearch : false, //是否是执行搜索
+							getNewList : function(){
+								if($scope.isSearch){
+									$scope.getSearchList();
+								}else{
+									getDataList();
+								}
+							},
 							add : function( id ){ //保存
 								pop.alert({
 									 text:'你的ID为：'+id
 									,btn : ['确定','取消']
 									,fn : function(index){//确定
-										layer.close(index)
+										layer.close(index);
+										$scope.getNewList();
 									}
 								})
 							},
@@ -31,16 +40,16 @@ define(['require',"app",'jquery'
 										callback(_data);
 									}
 
-	        				pop.init({
-	        					obj : obj,
-	        					list : list,
-	        					$uibModal :$uibModal,
-	        					updateData : getAddForm,
-	        					callback : function(list, callback){
-	        						callback(list);
-	        					}
-	        				});
-			  				});
+			        				pop.init({
+			        					obj : obj,
+			        					list : list,
+			        					$uibModal :$uibModal,
+			        					updateData : getAddForm,
+			        					callback : function(list, callback){
+			        						callback(list);
+			        					}
+			        				});
+				  				});
 							},
 							del : function( obj ){ //删除
 								/*pop.alert({
@@ -53,8 +62,8 @@ define(['require',"app",'jquery'
 
 								layui.use(['layer'], function() {
 		                            var layer = layui.layer;
-		                            layer.alert('你确定删除：' + obj.imageTitle, {
-		                                skin: 'layui-layer-molv' //样式类名
+		                            layer.alert('你确定删除：' + obj.videoTitle, {
+		                                skin: 'layui-layer-molv newBtn' //样式类名
 		                                    ,
 		                                title: '删除',
 		                                anim: 1 //动画类型
@@ -112,13 +121,14 @@ define(['require',"app",'jquery'
 								}
 							}
 							// GenerateArrList.extendType($scope.listdata.table.td,$scope.listdata.table.th,['width','name']); //把TH 中的出name属性以外的属性合传给td
-	        		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
-	        		$scope.$apply();									
+			        		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
+			        		$scope.$apply();									
 																					
 						}
 						
 						var page = 1
 						function getDataList(){
+							$scope.isSearch = false;
 							getData.video.videolist({
 								page : page,
 								pageSize: 20,
@@ -151,6 +161,7 @@ define(['require',"app",'jquery'
 										$scope.$$childHead.current = 1;
 									},
 									submit : function( obj , data ){
+										$scope.isSearch = true;
 										function getSearchList(){											
 											getData.search.searchVideo({
 												"condition":obj.condition,
@@ -174,6 +185,7 @@ define(['require',"app",'jquery'
 											})
 										};
 										getSearchList();
+										$scope.getSearchList = getSearchList;
 									}
 								}
 								if(!$scope.$$phase) { 

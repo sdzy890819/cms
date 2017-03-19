@@ -718,7 +718,8 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						"field4":obj.field4,
 						"field5":obj.field5,
 						"autoPublish":obj.autoPublish, //1 是自动发布。0是不自动发布.默认不自动发布
-						"timer":obj.timer //定时发布。
+						"timer":obj.timer, //定时发布。
+						"editPublishTime":obj.editPublishTime //定时发布。
 					},
 					success : function( _data ){
 						obj.callback(_data);
