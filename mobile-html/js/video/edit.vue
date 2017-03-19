@@ -210,23 +210,39 @@
                         processData: false,  
                         success: function (_data) {  
                             if(_data.code == 0){
+                                self.videos = _data.data;
+                                self.videos.videoUrl = _data.data.location;
                                 $('.error').addClass('right').text('上传成功');
                                 setTimeout(function(){
                                     $('.error').removeClass('right');
                                 },1000);
                             }else{
-                                $('.error').addClass('cur').text('上传失败');
-                                setTimeout(function(){
-                                    $('.error').removeClass('cur');
-                                },1000);
+                                require.ensure([],function(require){
+                                    var Pop = require('../widgets/pop.js');
+                                        //$('.error').addClass('cur').text('请上传视频文件');
+                                    var pop = new Pop({
+                                        title : '提示',
+                                        content : '<center>上传失败！</center>',
+                                        width: '70%',
+                                        cancelBtn:false,
+                                        timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+                                    });
+                                });
                             }
                             clear();
                         },  
                         error: function (returndata) {  
-                            $('.error').addClass('cur').text('上传失败');
-                            setTimeout(function(){
-                                $('.error').removeClass('cur');
-                            },1000);
+                           require.ensure([],function(require){
+                                var Pop = require('../widgets/pop.js');
+                                    //$('.error').addClass('cur').text('请上传视频文件');
+                                var pop = new Pop({
+                                    title : '提示',
+                                    content : '<center>上传失败！</center>',
+                                    width: '70%',
+                                    cancelBtn:false,
+                                    timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+                                });
+                            });
                             clear();
                         }  
                     });  
@@ -241,7 +257,7 @@
                     videos = this.videos;
                 require.ensure([],function(require){
                     var Pop = require('../widgets/pop.js');
-                    if(!self.isSelect){
+                    /*if(!self.isSelect){
                         //$('.error').addClass('cur').text('请上传视频文件');
                         var pop = new Pop({
                             title : '提示',
@@ -254,7 +270,7 @@
                             pop.close();
                         },3000)
                         return;
-                    }
+                    }*/
                     if(title.length<2){
                     //$('.error').addClass('cur').text('标题不能底于2个字符');
                         var Pop = require('../widgets/pop.js');

@@ -196,25 +196,41 @@
 						cache: false,  
 						contentType: false,  
 						processData: false,  
-						success: function (_data) {  
+						success: function (_data) { 
+
 						  	if(_data.code == 0){
+						  		self.videos = _data.data;
 						  		$('.error').addClass('right').text('上传成功');
 								setTimeout(function(){
 									$('.error').removeClass('right');
 								},1000);
 						  	}else{
-						  		$('.error').addClass('cur').text('上传失败');
-								setTimeout(function(){
-									$('.error').removeClass('cur');
-								},1000);
+						  		require.ensure([],function(require){
+		                            var Pop = require('../widgets/pop.js');
+		                                //$('.error').addClass('cur').text('请上传视频文件');
+		                            var pop = new Pop({
+		                                title : '提示',
+		                                content : '<center>上传失败！</center>',
+		                                width: '70%',
+		                                cancelBtn:false,
+		                                timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+		                            });
+		                        });
 						  	}
 						  	clear();
 						},  
 						error: function (returndata) {  
-						  	$('.error').addClass('cur').text('上传失败');
-							setTimeout(function(){
-								$('.error').removeClass('cur');
-							},1000);
+						  	require.ensure([],function(require){
+	                            var Pop = require('../widgets/pop.js');
+	                                //$('.error').addClass('cur').text('请上传视频文件');
+	                            var pop = new Pop({
+	                                title : '提示',
+	                                content : '<center>上传失败！</center>',
+	                                width: '70%',
+	                                cancelBtn:false,
+	                                timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+	                            });
+	                        });
 							clear();
 						}  
 					});  
