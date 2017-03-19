@@ -13,6 +13,14 @@ define(['require',"app",'jquery','search','./searchForm'
 				$scope.title = "新闻列表";
 				$scope.$parent.menu.push({name:$scope.title}); //栏目
 				angular.extend($scope,{
+					isSearch : false, //是否是执行搜索
+					getNewList : function(){
+						if($scope.isSearch){
+							$scope.getSearchList();
+						}else{
+							getDataList();
+						}
+					},
 					edit : function( obj ){ //保存
 						function getAddForm(callback , formList){ //填充数据
 							getData.news.newsdetail({
@@ -140,7 +148,7 @@ define(['require',"app",'jquery','search','./searchForm'
 												layui.use(['layer'], function(){
 													var layer = layui.layer;
 													layer.msg(_data.message);
-													getDataList();
+													$scope.getNewList();
 													 /*setTimeout(function(){
 													 	$state.reload();
 													 },300);*/
@@ -203,7 +211,7 @@ define(['require',"app",'jquery','search','./searchForm'
                                                                                                 
                                 if(_data.code == 0) {                                   
                                     $('table').find("tr[data-id=" + obj.id + "]").hide();
-                                    getDataList();
+                                    $scope.getNewList();
                                 }
 
                             });
@@ -257,9 +265,8 @@ define(['require',"app",'jquery','search','./searchForm'
 								list : recommendFormList,
 								updateData : getAddForm,
 
-								save : function(obj){		
-
-									var 	recommendColumnId;									
+								save : function(obj,_detail){		
+									var recommendColumnId = _detail.recommendColumnId;									
 									$.each(obj.selects,function(){										
 										if(this.title == 'recommendColumnId'){
 											recommendColumnId = this.id;
@@ -473,6 +480,7 @@ define(['require',"app",'jquery','search','./searchForm'
 								$scope.$$childHead.current = 1;
 							},							
 							submit : function( obj , data ){
+								$scope.isSearch = true;
 								var page = 1 , channelId , columnId , categoryId , publish;
                                 $.each(obj.selects,function(){
                                     if(this.title == 'channelId'){
@@ -539,7 +547,7 @@ define(['require',"app",'jquery','search','./searchForm'
 				var page = 1;
 
 				function getDataList(){					
-
+					$scope.isSearch = false;
 					getData.news.newslist({
 						page : page,
 						pageSize : 20,

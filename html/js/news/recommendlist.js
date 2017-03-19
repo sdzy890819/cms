@@ -13,6 +13,14 @@ define(['require',"app",'jquery','search','./recommendlistForm'
 				$scope.title = "推荐新闻列表";
 				$scope.$parent.menu.push({name:$scope.title}); //栏目
 				angular.extend($scope,{
+					isSearch : false, //是否是执行搜索
+					getNewList : function(){
+						if($scope.isSearch){
+							$scope.getSearchList();
+						}else{
+							getDataList();
+						}
+					},
 					edit : function( obj ){ //保存
 						var newsId = obj.id;
 						function getAddForm(callback){
@@ -29,9 +37,9 @@ define(['require',"app",'jquery','search','./recommendlistForm'
 							list : list,
 							updateData : getAddForm,
 
-							save : function(obj){		
+							save : function(obj , _detail){		
 
-								var recommendColumnId;									
+								var recommendColumnId = _detail.recommendColumnId;									
 								$.each(obj.selects,function(){										
 									if(this.title == 'recommendColumnId'){
 										recommendColumnId = this.id;
@@ -55,6 +63,9 @@ define(['require',"app",'jquery','search','./recommendlistForm'
 										layui.use(['layer'], function(){
 											var layer = layui.layer;
 											layer.msg(_data.message);
+											if(_data.code == 0) {									
+												$scope.getNewList();
+											}
 											// setTimeout(function(){
 											// 	location.reload();
 											// },300);
@@ -63,8 +74,8 @@ define(['require',"app",'jquery','search','./recommendlistForm'
 								})						
 							},
 
-							callback : function(list, callback){									
-								callback(list);
+							callback : function(list, callback){
+								callback(list)
 							}
 
 						})
@@ -76,7 +87,7 @@ define(['require',"app",'jquery','search','./recommendlistForm'
 								layer.msg(_data.message);
 																								
 								if(_data.code == 0) {									
-									getDataList();
+									$scope.getNewList();
 								}
 
 							});
@@ -163,6 +174,7 @@ define(['require',"app",'jquery','search','./recommendlistForm'
 								$scope.$$childHead.current = 1;
 							},							
 							submit : function( obj , data ){
+								$scope.isSearch = true;
 								var page = 1 , recommendColumnId;
                                 $.each(obj.selects,function(){
                                     if(this.title == 'recommendColumnId'){
@@ -193,6 +205,7 @@ define(['require',"app",'jquery','search','./recommendlistForm'
 									})
 								};
 								getSearchList();
+								$scope.getSearchList = getSearchList;
 							}
 						}
 					});
@@ -203,6 +216,7 @@ define(['require',"app",'jquery','search','./recommendlistForm'
 				var page = 1;
 
 				function getDataList(){
+					$scope.isSearch = false;
 					getData.news.recommendList({
 						page : page,
 						pageSize : 20,
