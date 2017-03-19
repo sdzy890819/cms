@@ -10,7 +10,7 @@ define(['require',"app",'jquery','search','./searchForm'
             transclude : true,
             templateUrl : '../template/common/list.html',
             controller : function($scope,pop,$uibModal , $css , GenerateArrList, $state){
-                $scope.title = "新闻列表";
+                $scope.title = "删除新闻列表";
                 $scope.$parent.menu.push({name:$scope.title}); //栏目
                 angular.extend($scope,{
                     edit : function( obj ){ //保存
