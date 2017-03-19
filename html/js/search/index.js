@@ -70,12 +70,12 @@ define(['require',"app",'jquery','/js/moduls/Tool.js'
 							});
 
 							
-							$('.search input').keydown(function (event) {
+							$('.search input,.search select').keydown(function (event) {
 							    if(event.keyCode==13){
 							    	//$('.search-form').submit();
+							    	layenter.call($('.search-submit .btn')[0]);
 							    };
 							});
-
 							form.on('submit(searchForm)', function(data){
 								var b = false;
 								$.each(data.field,function( key , value ){
