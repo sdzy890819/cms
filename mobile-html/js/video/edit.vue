@@ -41,7 +41,7 @@
                     <div class="btn-upload" @click='uploadFile'>上传</div>
                 </form>  
             </li>
-            <li>视频名称：{{name}}</li>
+            <li>视频名称：{{fileType.name}}</li>
             <li v-show='videos' style='word-break: break-all;'>{{videos.location}}</li>
             <li><input class="text" type="text" placeholder='视频标题' v-model='title'></li>
             <li><textarea class="text" type="text" placeholder='描述' v-model='describe'></textarea>
@@ -120,6 +120,7 @@
                         }else{
                             self.isSelect = true;
                             self.fileType = file;
+                            self.name 
                             var reader = new FileReader(); 
                             //reader.readAsArrayBuffer(file); 
                             reader.readAsDataURL(file); 

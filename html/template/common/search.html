@@ -45,7 +45,7 @@
 				</div>
 
 				<div class="layui-inline search-submit">
-				<div class='btn {{obj.cls}}' lay-submit="" lay-filter="searchForm">
+				<div class='btn {{obj.cls}}' ng-click='submit($event)' lay-filter="searchForm"> <!--  lay-submit="" -->
 					<i class="icon-search"></i>
 					<span>搜索</span>
 				</div>				

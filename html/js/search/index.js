@@ -32,6 +32,9 @@ define(['require',"app",'jquery','/js/moduls/Tool.js'
 						return : function(){
 							$scope.list.return();
 						},
+						submit : function($event){
+							layenter.call($('.search-submit .btn')[0]);
+						},
 						formRepeat : function( elem ){ //全局更新
 						  	form.render(); //更新全部
 						  	//自定义验证规则
