@@ -171,7 +171,7 @@ define(['require',"app",'jquery'
         				});
 					},
 
-					recommend : function (obj) {
+					recommend : function (obj,_detail) {
 						var newsId = obj.id;
 						require(['./recommendForm'], function(recommendFormList){
 							function getAddForm(callback){
@@ -189,7 +189,7 @@ define(['require',"app",'jquery'
 								updateData : getAddForm,
 
 								save : function(obj){				
-									var 	recommendColumnId;									
+									var recommendColumnId = _detail.recommendColumnId;									
 									$.each(obj.selects,function(){										
 										if(this.title == 'recommendColumnId'){
 											recommendColumnId = this.id;
@@ -431,6 +431,7 @@ define(['require',"app",'jquery'
 									})
 								};
 								getSearchList();
+								$scope.getSearchList = getSearchList;
 							}
 						}
 					});

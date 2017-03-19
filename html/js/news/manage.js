@@ -547,6 +547,7 @@ define(['require',"app",'jquery','search','./searchForm'
                                     })
                                 };
                                 getSearchList();
+                                $scope.getSearchList = getSearchList;
                             }
                         }
 

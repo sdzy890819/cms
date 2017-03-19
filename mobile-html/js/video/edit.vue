@@ -34,8 +34,8 @@
     <div class="form">
         <ul>
             <li>
-                <input id='file' type="file" value="上传视频"/>
-                <div @click='file' class="btn-file">+重新选择视频</div>
+                <input id='file' type="file" value="文件上传"/>
+                <div @click='file' class="btn-file">+重新选择文伯</div>
                 <div class="btn-upload" @click='uploadFile'>上传</div>
             </li>
             <li>视频名称：{{name}}</li>
