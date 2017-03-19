@@ -1,10 +1,9 @@
 <style lang='sass'>
 @import '../../css/global.scss';
 .video{
-	.form{ @include box-flex; overflow-y:scroll;
+	.form{ @include box-flex;overflow:hidden; overflow-y:scroll;
 		margin-top:$s15;
 		input[type='file']{ display:none; }
-		overflow:hidden;
 		.btn-file,.btn-upload{ @include box-flex; @include box-sizing; border-radius:$s3;
 			display: block; height:$s35; line-height: $s35; text-align: center; border:$s1 solid #ddd; background:#0999e0; color:#fff;
 			&.gray{ background:gray; } 

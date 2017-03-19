@@ -100,6 +100,7 @@ module.exports = {
             $ : 'zepto',
             Vue : 'Vue',
             VueRouter : 'VueRouter',
+            Promise: 'es6-promise-promise'
             //globalCss : '../../common/css/style/global.scss'
             //React : 'react',
             //ReactDOM : 'react-dom'

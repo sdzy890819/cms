@@ -33,7 +33,9 @@ module.exports = class Pop{
 			openDone : function(){} //加载完成
 		};
 		$.extend( this.config , obj);
-		this.init();
+		setTimeout(()=>{
+			this.init();
+		},300);
 	}
 	init( ){
 		var timing = this.config.timing;

@@ -4,7 +4,7 @@ li { list-style: none; }
 legend { color: #000; }
 fieldset, img { border: 0; }
 table { border-collapse: collapse; border-spacing: 0; }
-.pop{ perspective:600px; -webkit-perspective:600px; transition-duration:.5s; -webkit-transition-duration:.5s; display:box; display:-webkit-box; box-align:center; -webkit-box-align:center; box-pack:center; -webkit-box-pack:center; position:fixed; z-index:9999; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0);
+.pop{ transition-duration:.5s; -webkit-transition-duration:.5s; display:box; display:-webkit-box; box-align:center; -webkit-box-align:center; box-pack:center; -webkit-box-pack:center; position:fixed; z-index:999; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0);
 	&.cur{  background:rgba(0,0,0,.6);} 
 
 	.close{ position:absolute; right:-10px; top:-10px; width:24px; height:24px; background:#F24637; border-radius:100%; 
