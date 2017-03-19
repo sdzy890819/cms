@@ -283,7 +283,7 @@ public class BuildBiz extends BaseBiz {
             news.setBuildUserId(body.getUserId());
             news.setLastModifyUserId(body.getUserId());
             news.setPublish(PublishEnum.YES.getType());
-            if(news.getEditPublishTime() != null){
+            if(news.getEditPublishTime() == null){
                 news.setEditPublishTime(date);
             }
             if(StringUtils.isBlank(news.getRelativePath())) {
