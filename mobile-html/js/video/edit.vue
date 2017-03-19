@@ -210,7 +210,6 @@
                         processData: false,  
                         success: function (_data) {  
                             if(_data.code == 0){
-                                self.videos = _data.data;
                                 self.videos.videoUrl = _data.data.location;
                                 $('.error').addClass('right').text('上传成功');
                                 setTimeout(function(){
