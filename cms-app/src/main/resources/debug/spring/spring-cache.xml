@@ -13,19 +13,35 @@
         <property name="testOnReturn" value="${redis.testOnReturn}"/>
     </bean>
 
-    <bean id="jedisPool" class="redis.clients.jedis.JedisSentinelPool" scope="singleton">
-        <constructor-arg index="0" >
-            <value>${redis.master.group.name}</value>
+    <!--<bean id="jedisPool" class="redis.clients.jedis.JedisSentinelPool" scope="singleton">-->
+        <!--<constructor-arg index="0" >-->
+            <!--<value>${redis.master.group.name}</value>-->
+        <!--</constructor-arg>-->
+        <!--<constructor-arg index="1" >-->
+            <!--<set>-->
+                <!--<value>${redis.host}</value>-->
+            <!--</set>-->
+        <!--</constructor-arg>-->
+        <!--<constructor-arg index="2" ref="jedisPoolConfig" />-->
+        <!--<constructor-arg index="3">-->
+            <!--<value>${redis.pass}</value>-->
+        <!--</constructor-arg>-->
+    <!--</bean>-->
+
+    <bean id="jedisPool" class="redis.clients.jedis.JedisPool" scope="singleton">
+        <constructor-arg index="0" ref="jedisPoolConfig"/>
+        <constructor-arg index="1">
+            <value>${redis.host}</value>
         </constructor-arg>
-        <constructor-arg index="1" >
-            <set>
-                <value>${redis.host}</value>
-            </set>
+        <constructor-arg index="2">
+            <value type="java.lang.Integer">${redis.port}</value>
         </constructor-arg>
-        <constructor-arg index="2" ref="jedisPoolConfig" />
         <constructor-arg index="3">
+            <value type="java.lang.Integer">${redis.timeout}</value>
+        </constructor-arg>
+        <constructor-arg index="4">
             <value>${redis.pass}</value>
         </constructor-arg>
     </bean>
-  
+
 </beans>

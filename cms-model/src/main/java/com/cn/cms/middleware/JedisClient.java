@@ -2,6 +2,7 @@ package com.cn.cms.middleware;
 
 import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisSentinelPool;
 
 import javax.annotation.Resource;
@@ -16,8 +17,11 @@ import java.util.Set;
 @Component
 public class JedisClient {
 
+//    @Resource
+//    private JedisSentinelPool jedisPool;
+
     @Resource
-    private JedisSentinelPool jedisPool;
+    private JedisPool jedisPool;
 
     /**
      * 获取对应的Value
