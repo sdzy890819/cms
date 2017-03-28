@@ -61,46 +61,61 @@ public class PreviewController extends BaseController {
     @RequestMapping(value = "/news/preview", method = RequestMethod.GET ,produces = "text/html; charset=UTF-8")
     public String preview(HttpServletResponse response,
                           @RequestParam(value = "id") Long id) throws IOException, BizException {
-        News news = newsBiz.findNewsAndDetail(id);
-        if(news == null ){
-            throw new BizException(StaticContants.ERROR_NEWS_NOT_FOUND);
-        }
-        Channel channel = channelBiz.getChannel(news.getChannelId());
-        if(channel == null ){
-            throw new BizException(StaticContants.ERROR_CHANNEL_NOT_FOUND);
-        }
-        NewsColumn newsColumn = newsBiz.getNewsColumn(news.getColumnId());
-        if(newsColumn == null){
-            throw new BizException(StaticContants.ERROR_COLUMN_NAME_EXIST);
-        }
-        TemplateBasics templateBasics = null ;
-        String templateFile = null;
-        if(newsColumn.getDetailTemplate2Id()!=null && newsColumn.getDetailTemplate2Id() > 0){
-            templateBasics = template2Biz.getTemplate2(newsColumn.getDetailTemplate2Id());
-            Template2Base template2Base = template2Biz.getTemplate2Base();
-            templateFile = StringUtils.concatUrl(template2Base.getBasePath(),templateBasics.getPath(),templateBasics.getFilename());
-        }else {
-
-            TemplateBasics template = templateBiz.findTemplateByChannel(channel.getId(), TemplateClassifyEnum.detail.getType(),
-                    news.getColumnId(), RelationTypeEnum.column.getType(), JobEnum.trigger.getType());
-            if (template == null) {
-                throw new BizException(StaticContants.ERROR_TEMPLATE_NOT_FOUND);
+        try {
+            News news = newsBiz.findNewsAndDetail(id);
+            if(news == null ){
+                throw new BizException(StaticContants.ERROR_NEWS_NOT_FOUND);
             }
-            templateFile = StringUtils.concatUrl(channel.getTemplatePath(),templateBasics.getPath(),templateBasics.getFilename());
+            Channel channel = channelBiz.getChannel(news.getChannelId());
+            if(channel == null ){
+                throw new BizException(StaticContants.ERROR_CHANNEL_NOT_FOUND);
+            }
+            NewsColumn newsColumn = newsBiz.getNewsColumn(news.getColumnId());
+            if(newsColumn == null){
+                throw new BizException(StaticContants.ERROR_COLUMN_NAME_EXIST);
+            }
+            TemplateBasics templateBasics = null ;
+            String templateFile = null;
+            if(newsColumn.getDetailTemplate2Id()!=null && newsColumn.getDetailTemplate2Id() > 0){
+                templateBasics = template2Biz.getTemplate2(newsColumn.getDetailTemplate2Id());
+                Template2Base template2Base = template2Biz.getTemplate2Base();
+                templateFile = StringUtils.concatUrl(template2Base.getBasePath(),templateBasics.getPath(),templateBasics.getFilename());
+            }else {
+
+                TemplateBasics template = templateBiz.findTemplateByChannel(channel.getId(), TemplateClassifyEnum.detail.getType(),
+                        news.getColumnId(), RelationTypeEnum.column.getType(), JobEnum.trigger.getType());
+                if (template == null) {
+                    throw new BizException(StaticContants.ERROR_TEMPLATE_NOT_FOUND);
+                }
+                templateFile = StringUtils.concatUrl(channel.getTemplatePath(),templateBasics.getPath(),templateBasics.getFilename());
+            }
+
+            Map<String, Object> map = new HashMap<>();
+            map.put(StaticContants.TEMPLATE_KEY_TEMPLATE, templateBasics);
+            map.put(StaticContants.TEMPLATE_KEY_DATA, news);
+            map.put(StaticContants.TEMPLATE_TEST_TAG, 1);
+            map.put(StaticContants.TEMPLATE_KEY_PAGE, 1);
+            map.put(StaticContants.TEMPLATE_KEY_CHANNELID, channel.getId());
+            map.put(StaticContants.TEMPLATE_KEY_PUBLISH_JOB_TYPE, PublishJobTypeEnum.template.getType());
+            map.put(StaticContants.TEMPLATE_KEY_COLUMN, newsColumn);
+
+            String content = VelocityUtils.parseTemplate(map, templateFile, templateBasics.getEncoded());
+            response.getWriter().write(content);
+            response.getWriter().flush();
+            response.getWriter().close();
+        }catch (BizException e){
+            log.error("模版解析错误 ",e);
+            response.getWriter().write("模版解析错误：" + e.getMessage());
+            response.getWriter().flush();
+            response.getWriter().close();
+        }catch(Exception e){
+            log.error("模版解析错误 ",e);
+            response.getWriter().write("模版解析错误：" + e.getMessage());
+            e.printStackTrace(response.getWriter());
+            response.getWriter().flush();
+            response.getWriter().close();
         }
 
-        Map<String, Object> map = new HashMap<>();
-        map.put(StaticContants.TEMPLATE_KEY_TEMPLATE, templateBasics);
-        map.put(StaticContants.TEMPLATE_KEY_DATA, news);
-        map.put(StaticContants.TEMPLATE_TEST_TAG, 1);
-        map.put(StaticContants.TEMPLATE_KEY_PAGE, 1);
-        map.put(StaticContants.TEMPLATE_KEY_CHANNELID, channel.getId());
-        map.put(StaticContants.TEMPLATE_KEY_PUBLISH_JOB_TYPE, PublishJobTypeEnum.template.getType());
-        map.put(StaticContants.TEMPLATE_KEY_COLUMN, newsColumn);
-        String content = VelocityUtils.parseTemplate(map, templateFile, templateBasics.getEncoded());
-        response.getWriter().write(content);
-        response.getWriter().flush();
-        response.getWriter().close();
         return null;
     }
 
@@ -118,28 +133,41 @@ public class PreviewController extends BaseController {
     @RequestMapping(value = "/topic/preview", method = RequestMethod.GET ,produces = "text/html; charset=UTF-8")
     public String preview2(HttpServletResponse response,
                           @RequestParam(value = "id") Long id) throws IOException, BizException {
-        Topic topic = topicBiz.getTopic(id);
-        Channel channel = channelBiz.getChannel(topic.getChannelId());
-        if(channel == null){
-            throw new BizException(StaticContants.ERROR_CHANNEL_NOT_FOUND);
-        }
-        if(topic == null ){
-            throw new BizException(StaticContants.ERROR_TOPIC_NOT_FOUND);
-        }
+        try{
+            Topic topic = topicBiz.getTopic(id);
+            Channel channel = channelBiz.getChannel(topic.getChannelId());
+            if(channel == null){
+                throw new BizException(StaticContants.ERROR_CHANNEL_NOT_FOUND);
+            }
+            if(topic == null ){
+                throw new BizException(StaticContants.ERROR_TOPIC_NOT_FOUND);
+            }
 
-        Map<String, Object> map = new HashMap<>();
-        map.put(StaticContants.TEMPLATE_KEY_DATA, topic);
-        if(channel!=null) {
-            map.put(StaticContants.TEMPLATE_KEY_CHANNELID, channel.getId());
+            Map<String, Object> map = new HashMap<>();
+            map.put(StaticContants.TEMPLATE_KEY_DATA, topic);
+            if(channel!=null) {
+                map.put(StaticContants.TEMPLATE_KEY_CHANNELID, channel.getId());
+            }
+            map.put(StaticContants.TEMPLATE_KEY_PUBLISH_JOB_TYPE, PublishJobTypeEnum.topic.getType());
+            map.put(StaticContants.TEMPLATE_KEY_PAGE, 1);
+            map.put(StaticContants.TEMPLATE_TEST_TAG, 1);
+            map.put(StaticContants.TEMPLATE_KEY_DATA, topic);
+            String content = VelocityUtils.parse(map, topic.getTopicContent());
+            response.getWriter().write(content);
+            response.getWriter().flush();
+            response.getWriter().close();
+        }catch (BizException e){
+            log.error("模版解析错误 ",e);
+            response.getWriter().write("模版解析错误：" + e.getMessage());
+            response.getWriter().flush();
+            response.getWriter().close();
+        }catch(Exception e){
+            log.error("模版解析错误 ",e);
+            response.getWriter().write("模版解析错误：" + e.getMessage());
+            e.printStackTrace(response.getWriter());
+            response.getWriter().flush();
+            response.getWriter().close();
         }
-        map.put(StaticContants.TEMPLATE_KEY_PUBLISH_JOB_TYPE, PublishJobTypeEnum.topic.getType());
-        map.put(StaticContants.TEMPLATE_KEY_PAGE, 1);
-        map.put(StaticContants.TEMPLATE_TEST_TAG, 1);
-        map.put(StaticContants.TEMPLATE_KEY_DATA, topic);
-        String content = VelocityUtils.parse(map, topic.getTopicContent());
-        response.getWriter().write(content);
-        response.getWriter().flush();
-        response.getWriter().close();
         return null;
     }
 
