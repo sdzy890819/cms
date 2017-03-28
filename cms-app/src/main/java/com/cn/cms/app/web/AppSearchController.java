@@ -2,6 +2,7 @@ package com.cn.cms.app.web;
 
 import com.cn.cms.biz.NewsBiz;
 import com.cn.cms.contants.StaticContants;
+import com.cn.cms.enums.DelTagEnum;
 import com.cn.cms.middleware.ESearchClient;
 import com.cn.cms.middleware.bo.ImagesSearch;
 import com.cn.cms.middleware.bo.NewsSearch;
@@ -53,6 +54,7 @@ public class AppSearchController extends AppBaseController {
         SimpleDateFormat sdf = new SimpleDateFormat(StaticContants.YYYY_MM_DD_HH_MM);
         NewsSearch newsSearch = new NewsSearch();
         newsSearch.setCondition(condition);
+        newsSearch.setDelTag(DelTagEnum.NORMAL.getType());
         Page pageObj = new Page(page, pageSize);
         QueryResult<News> queryResult = eSearchClient.searchNews(newsSearch,pageObj);
         List<News> list = queryResult.getList();
