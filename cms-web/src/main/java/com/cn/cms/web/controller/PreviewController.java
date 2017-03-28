@@ -72,7 +72,7 @@ public class PreviewController extends BaseController {
             }
             NewsColumn newsColumn = newsBiz.getNewsColumn(news.getColumnId());
             if(newsColumn == null){
-                throw new BizException(StaticContants.ERROR_COLUMN_NAME_EXIST);
+                throw new BizException(StaticContants.ERROR_NEWSCOLUMN_NOT_FOUND);
             }
             TemplateBasics templateBasics = null ;
             String templateFile = null;
