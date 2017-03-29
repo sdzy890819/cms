@@ -248,8 +248,11 @@ public class TemplateController extends BaseController {
     @CheckAuth( name = "template:upload" )
     @RequestMapping(value = "/uploadTemplate", method = RequestMethod.POST)
     public String uploadTemplate(HttpServletRequest request,
-                             @RequestParam(value = "baseCode") String baseCode,
+                             @RequestParam(value = "baseCode", required = false) String baseCode,
                              @RequestParam(value = "id") Long id) throws BizException{
+        if(StringUtils.isBlank(baseCode)){
+            return ApiResponse.returnFail(StaticContants.ERROR_BASE_CODE);
+        }
         Template template = templateBiz.getTemplate(id);
         Channel channel = channelBiz.getChannel(template.getChannelId());
         byte[] bytes = FileUtil.base64Upload(baseCode);

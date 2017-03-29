@@ -127,6 +127,8 @@ public class StaticContants {
 
     public static final String ERROR_NOT_PUBLISH_NEWS = "用户没有发布权限!";
 
+    public static final String ERROR_BASE_CODE = "文件不可以为空";
+
     public static final String getTimeParseErrorYYYYMMDD(){
         return ERROR_TIME_PARSE.concat(YYYY_MM_DD);
     }
