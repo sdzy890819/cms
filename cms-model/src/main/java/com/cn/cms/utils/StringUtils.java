@@ -44,33 +44,35 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils{
         StringBuffer sbf = new StringBuffer();
         if(strings!=null && strings.length>0){
             for( int i = 0 ; i < strings.length ; i ++){
-                if(i == 0 ){
-                    if(strings[i].endsWith("/")){
-                        sbf.append(strings[i]);
-                    }else {
-                        sbf.append(strings[i]);
-                        sbf.append("/");
-                    }
-                }else if(i + 1 == strings.length){
-                    if(strings[i].startsWith("/")){
-                        sbf.append(strings[i].substring(1));
-                    }else{
-                        sbf.append(strings[i]);
-                    }
-                }else{
-                    if(strings[i].startsWith("/")){
-                        if(strings[i].endsWith("/")) {
-                            sbf.append(strings[i].substring(1));
-                        }else{
-                            sbf.append(strings[i].substring(1));
-                            sbf.append("/");
-                        }
-                    }else{
-                        if(strings[i].endsWith("/")) {
-                            sbf.append(strings[i].substring(0, strings[i].length()-1));
-                        }else{
+                if(isNotBlank(strings[i])) {
+                    if (i == 0) {
+                        if (strings[i].endsWith("/")) {
+                            sbf.append(strings[i]);
+                        } else {
                             sbf.append(strings[i]);
                             sbf.append("/");
+                        }
+                    } else if (i + 1 == strings.length) {
+                        if (strings[i].startsWith("/")) {
+                            sbf.append(strings[i].substring(1));
+                        } else {
+                            sbf.append(strings[i]);
+                        }
+                    } else {
+                        if (strings[i].startsWith("/")) {
+                            if (strings[i].endsWith("/")) {
+                                sbf.append(strings[i].substring(1));
+                            } else {
+                                sbf.append(strings[i].substring(1));
+                                sbf.append("/");
+                            }
+                        } else {
+                            if (strings[i].endsWith("/")) {
+                                sbf.append(strings[i].substring(0, strings[i].length() - 1));
+                            } else {
+                                sbf.append(strings[i]);
+                                sbf.append("/");
+                            }
                         }
                     }
                 }
