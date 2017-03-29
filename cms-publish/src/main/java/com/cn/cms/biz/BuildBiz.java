@@ -231,7 +231,7 @@ public class BuildBiz extends BaseBiz {
                         String[] contents = HtmlUtils.splitNewsContent(news.getNewsDetail().getContent());
                         for (int j = 0; j < contents.length; j++) {
                             News publishNews = new News(news);
-                            publishNews.getNewsDetail().setContent(contents[i]);
+                            publishNews.getNewsDetail().setContent(contents[j]);
                             templatePublishJob.setBase(publishNews);
                             templatePublishJob.setPage( j + 1 );
                             templatePublishJob.setTemplateBasics(templates.get(i));
