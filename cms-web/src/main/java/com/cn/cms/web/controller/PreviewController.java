@@ -82,9 +82,9 @@ public class PreviewController extends BaseController {
                 templateFile = StringUtils.concatUrl(template2Base.getBasePath(),templateBasics.getPath(),templateBasics.getFilename());
             }else {
 
-                TemplateBasics template = templateBiz.findTemplateByChannel(channel.getId(), TemplateClassifyEnum.detail.getType(),
+                templateBasics = templateBiz.findTemplateByChannel(channel.getId(), TemplateClassifyEnum.detail.getType(),
                         news.getColumnId(), RelationTypeEnum.column.getType(), JobEnum.trigger.getType());
-                if (template == null) {
+                if (templateBasics == null) {
                     throw new BizException(StaticContants.ERROR_TEMPLATE_NOT_FOUND);
                 }
                 templateFile = StringUtils.concatUrl(channel.getTemplatePath(),templateBasics.getPath(),templateBasics.getFilename());
