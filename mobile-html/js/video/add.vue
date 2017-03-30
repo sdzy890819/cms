@@ -192,10 +192,11 @@
 						url: upload.uploadVideo2 ,  
 						type: 'POST',  
 						data: formData,  
+                        timeout : 0,
 						//async: false,  
 						cache: false,  
-						contentType: false,  
-						processData: false,  
+						//contentType: false,  
+						//processData: false,  
 						success: function (_data) { 
 						  	if(_data.code == 0){
 						  		self.videos = _data.data;
