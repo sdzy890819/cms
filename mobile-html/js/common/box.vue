@@ -10,8 +10,8 @@
 </div>
 </template>
 <script>
-	import Header from '../common/Header';
-	import Nav from '../common/Nav';
+	import Header from './Header';
+	import Nav from './Nav';
 	export default {
 		components : {
 			Header,
