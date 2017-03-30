@@ -35,7 +35,8 @@
 		<ul>
 			<li>
 				<form id= "uploadForm">  
-			      	<input id='file' type="file" name="file" value="文件上传"/>
+                    <input id='file' type="file" name="file" value="文件上传"/>
+			      	<input type="hidden" name="enctype" value="multipart/form-data"/>
 			      	<div @click='file' class="btn-file">+选择文件</div>
 			      	<!-- <div class="btn-upload" @click='uploadFile'>上传</div> -->
 				</form>  
@@ -191,7 +192,6 @@
 						url: upload.uploadVideo2 ,  
 						type: 'POST',  
 						data: formData,  
-                        timeout : 6000000,
 						//async: false,  
 						cache: false,  
 						contentType: false,  
