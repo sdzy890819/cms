@@ -43,7 +43,7 @@ public class UploadController extends BaseController {
     @Resource
     private WeedfsClient weedfsClient;
 
-    private int size = 4*1024*1024;
+    private int size = 6*1024*1024;
 
     @Resource
     private MSSVideoClient mssVideoClient;
