@@ -155,24 +155,7 @@
                     num = 0 ;
 
                 if(!self.isSelect){
-                    if(!ispop){
-                        ispop = true;
-                        require.ensure([],function(require){
-                            var Pop = require('../widgets/pop.js');
-                                //$('.error').addClass('cur').text('请上传视频文件');
-                            var pop = new Pop({
-                                title : '提示',
-                                content : '<center>请选择视频文件</center>',
-                                width: '70%',
-                                cancelBtn:false,
-                                timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
-                                closeCallback : function(){
-                                    ispop = false;
-                                }
-                            });
-                        });
-                    }
-                    return;
+                    return callback();
                 }
                 var timer = 0, size = file.size,
                     time1 = T.getMS(),
