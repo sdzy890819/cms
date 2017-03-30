@@ -191,6 +191,7 @@
 						url: upload.uploadVideo2 ,  
 						type: 'POST',  
 						data: formData,  
+                        timeout : 6000000,
 						//async: false,  
 						cache: false,  
 						contentType: false,  
