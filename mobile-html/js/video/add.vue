@@ -34,9 +34,8 @@
 	<div class="form">
 		<ul>
 			<li>
-				<form id= "uploadForm">  
-                    <input id='file' type="file" name="file" value="文件上传"/>
-			      	<input type="hidden" name="enctype" value="multipart/form-data"/>
+				<form id= "uploadForm" method="post" enctype="multipart/form-data">  
+                    <input id='file' type="file" name="file" value="文件上传" />
 			      	<div @click='file' class="btn-file">+选择文件</div>
 			      	<!-- <div class="btn-upload" @click='uploadFile'>上传</div> -->
 				</form>  
@@ -186,56 +185,77 @@
                 if(!self.showhtml){
                 	self.showhtml = $('<div class="load-mask"><div id="loadingnum">0%</div><div class="loadding"></div></div>').appendTo($('body'));
                 }
-                setTimeout(function(){
-					var formData = new FormData($( "#uploadForm" )[0]);
-					$.ajax({  
-						url: upload.uploadVideo2 ,  
-						type: 'POST',  
-						data: formData,  
-                        timeout : 0,
-						//async: false,  
-						cache: false,  
-						//contentType: false,  
-						//processData: false,  
-						success: function (_data) { 
-						  	if(_data.code == 0){
-						  		self.videos = _data.data;
-                                callback();
-						  		/*$('.error').addClass('right').text('上传成功');
-								setTimeout(function(){
-									$('.error').removeClass('right');
-								},1000);*/
-						  	}else{
-						  		require.ensure([],function(require){
-		                            var Pop = require('../widgets/pop.js');
-		                                //$('.error').addClass('cur').text('请上传视频文件');
-		                            var pop = new Pop({
-		                                title : '提示',
-		                                content : _data.message,
-		                                width: '70%',
-		                                cancelBtn:false,
-		                                timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
-		                            });
-		                        });
-						  	}
-						  	clear();
-						},  
-						error: function (returndata) {  
-						  	require.ensure([],function(require){
+                function showResponse(_data){
+                    if(_data.code == 0){
+                        self.videos = _data.data;
+                        callback();
+                        /*$('.error').addClass('right').text('上传成功');
+                        setTimeout(function(){
+                            $('.error').removeClass('right');
+                        },1000);*/
+                    }else{
+                        require.ensure([],function(require){
+                            var Pop = require('../widgets/pop.js');
+                                //$('.error').addClass('cur').text('请上传视频文件');
+                            var pop = new Pop({
+                                title : '提示',
+                                content : _data.message,
+                                width: '70%',
+                                cancelBtn:false,
+                                timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+                            });
+                        });
+                    }
+                    clear();
+                }
+				var formData = new FormData($( "#uploadForm" )[0]);
+				$.ajax({  
+					url: upload.uploadVideo2 ,  
+					type: 'POST',  
+					data: formData,  
+                    timeout : 0,
+					//async: false,  
+					cache: false,  
+					contentType: false,  
+					processData: false,  
+					success: function (_data) { 
+					  	if(_data.code == 0){
+					  		self.videos = _data.data;
+                            callback();
+					  		/*$('.error').addClass('right').text('上传成功');
+							setTimeout(function(){
+								$('.error').removeClass('right');
+							},1000);*/
+					  	}else{
+					  		require.ensure([],function(require){
 	                            var Pop = require('../widgets/pop.js');
 	                                //$('.error').addClass('cur').text('请上传视频文件');
 	                            var pop = new Pop({
 	                                title : '提示',
-	                                content : '<center>上传失败！</center>',
+	                                content : _data.message,
 	                                width: '70%',
 	                                cancelBtn:false,
 	                                timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
 	                            });
 	                        });
-							clear();
-						}  
-					});  
-                },300);
+					  	}
+					  	clear();
+					},  
+					error: function (returndata) {  
+					  	require.ensure([],function(require){
+                            var Pop = require('../widgets/pop.js');
+                                //$('.error').addClass('cur').text('请上传视频文件');
+                            var pop = new Pop({
+                                title : '提示',
+                                content : '<center>上传失败！</center>',
+                                width: '70%',
+                                cancelBtn:false,
+                                timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+                            });
+                        });
+						clear();
+					}  
+				});  
 
 				/*T.ajax({
 					type: 'POST',				
@@ -257,47 +277,36 @@
 				})*/
 			}
 			,submit : function(){
-                var self = this;
-                self.uploadFile(()=>{
-    				var file = self.fileType, 
-                        describe = self.describe,
-                        title = self.title , 
-                        videos = self.videos;
-                    require.ensure([],function(require){
-                        var Pop = require('../widgets/pop.js');
-                        if(!self.isSelect){
-                            //$('.error').addClass('cur').text('请上传视频文件');
-                            var pop = new Pop({
-                                title : '提示',
-                                content : '<center>请选择视频文件</center>',
-                                width: '70%',
-                                cancelBtn:false,
-                                timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
-                            });
-                            return;
-                        }
-                        if(videos==''){
-                            //$('.error').addClass('cur').text('请上传视频文件');
-                            var pop = new Pop({
-                                title : '提示',
-                                content : '<center>请上传视频文件</center>',
-                                width: '70%',
-                                cancelBtn:false,
-                                timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
-                            });
-                            return;
-                        }
-                        if(title.length<2){
-                            //$('.error').addClass('cur').text('标题不能底于2个字符');
-                            var pop = new Pop({
-                                title : '提示',
-                                content : '<center>标题不能底于2个字符</center>',
-                                width: '70%',
-                                cancelBtn:false,
-                                timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
-                            });
-                            return;
-                        }
+                var self = this,
+                    describe = self.describe,
+                    title = self.title;
+                require.ensure([],function(require){
+                    var Pop = require('../widgets/pop.js');
+                    /*if(!self.isSelect){
+                        //$('.error').addClass('cur').text('请上传视频文件');
+                        var pop = new Pop({
+                            title : '提示',
+                            content : '<center>请选择视频文件</center>',
+                            width: '70%',
+                            cancelBtn:false,
+                            timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+                        });
+                        return;
+                    }*/
+                    if(title.length<2){
+                        //$('.error').addClass('cur').text('标题不能底于2个字符');
+                        var pop = new Pop({
+                            title : '提示',
+                            content : '<center>标题不能底于2个字符</center>',
+                            width: '70%',
+                            cancelBtn:false,
+                            timing : 'errorcur', //rotate3d , slideOutUp , slideOutDown , bounceIn , flipInX , flipInY , fadeIn
+                        });
+                        return;
+                    }
+                    self.uploadFile(()=>{
+                        var file = self.fileType,
+                            videos = self.videos;
                         T.ajax({
                             type: 'POST',               
                             url : video.createVideo , 
