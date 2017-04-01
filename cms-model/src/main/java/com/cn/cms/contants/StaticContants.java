@@ -129,6 +129,8 @@ public class StaticContants {
 
     public static final String ERROR_BASE_CODE = "文件不可以为空";
 
+    public static final String ERROR_KEY_API = "无访问权限";
+
     public static final String getTimeParseErrorYYYYMMDD(){
         return ERROR_TIME_PARSE.concat(YYYY_MM_DD);
     }
@@ -268,6 +270,8 @@ public class StaticContants {
     public static String REGEX_SPLIT_HTML_CONTENT = "(<[^>]*>|&lt;|&gt;|&quot;|&amp;|&nbsp;)";
 
     public static String REGEX_SPLIT_PAGE = "----*";
+
+    public static String LOCALIZED_KEY = "4667ssvcGpEaAqLwQdDU2VIAorwBrbT06VrXBfE";
 
     /**
      * 开关 1 是开启。0是关闭
