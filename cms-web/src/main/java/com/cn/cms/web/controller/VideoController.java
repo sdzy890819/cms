@@ -1,6 +1,7 @@
 package com.cn.cms.web.controller;
 
 import com.cn.cms.biz.ResourceBiz;
+import com.cn.cms.biz.UserBiz;
 import com.cn.cms.exception.BizException;
 import com.cn.cms.middleware.MSSVideoClient;
 import com.cn.cms.middleware.WeedfsClient;
@@ -35,6 +36,9 @@ public class VideoController extends BaseController{
 
     @Resource
     private MSSVideoClient mssVideoClient;
+
+    @Resource
+    private UserBiz userBiz;
 
     /**
      * 获取视频基础库。
@@ -90,6 +94,7 @@ public class VideoController extends BaseController{
         videoBase.setBasePath(basePath);
         videoBase.setBaseUrl(baseUrl);
         videoBase.setLastModifyUserId(getCurrentUserId(request));
+        videoBase.setCreateUserId(getCurrentUserId(request));
         resourceBiz.saveVideoBase(videoBase);
         return ApiResponse.returnSuccess();
     }
@@ -117,6 +122,7 @@ public class VideoController extends BaseController{
         String userID = getCurrentUserId(request);
         Video video = new Video();
         video.setLastModifyUserId(userID);
+        video.setCreateUserId(userID);
         video.setUploadTime(new Date());
         video.setUploadUserId(userID);
         video.setVideoDesc(videoDesc);
@@ -200,6 +206,7 @@ public class VideoController extends BaseController{
                              @RequestParam(value="pageSize",required = false)Integer pageSize){
         Page pageObj = new Page(page,pageSize);
         List<Video> videos = resourceBiz.listVideo(pageObj);
+        userBiz.dataInitBase(videos);
         Map<String, Object> result = new HashMap<String, Object>();
         result.put("page",pageObj);
         result.put("list",videos);

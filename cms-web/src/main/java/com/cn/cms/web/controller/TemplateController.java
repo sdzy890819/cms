@@ -1,9 +1,6 @@
 package com.cn.cms.web.controller;
 
-import com.cn.cms.biz.ChannelBiz;
-import com.cn.cms.biz.Template2Biz;
-import com.cn.cms.biz.TemplateBiz;
-import com.cn.cms.biz.TopicBiz;
+import com.cn.cms.biz.*;
 import com.cn.cms.bo.RelationBean;
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.enums.UploadEnum;
@@ -48,6 +45,9 @@ public class TemplateController extends BaseController {
     @Resource
     private TopicBiz topicBiz;
 
+    @Resource
+    private UserBiz userBiz;
+
     /**
      * 模版列表［分页］
      * @param request
@@ -63,6 +63,7 @@ public class TemplateController extends BaseController {
                                @RequestParam(value="pageSize",required = false)Integer pageSize){
         Page pageObj = new Page(page,pageSize);
         List<Template> list = templateBiz.listTemplate(pageObj);
+        userBiz.dataInitBase(list);
         Map<String, Object> result = new HashMap<String, Object>();
         result.put("page",pageObj);
         result.put("list",list);
@@ -201,6 +202,7 @@ public class TemplateController extends BaseController {
 
         Template template = new Template();
         template.setLastModifyUserId(getCurrentUserId(request));
+        template.setCreateUserId(getCurrentUserId(request));
         template.setChannelId(channelId);
         template.setEncoded(encoded);
         template.setFilename(filename);
@@ -334,6 +336,7 @@ public class TemplateController extends BaseController {
             tr.setRelationId(relations.get(i).getRelationId());
             tr.setRelationType(relations.get(i).getRelationType());
             tr.setLastModifyUserId(userID);
+            tr.setCreateUserId(userID);
             tr.setTemplateId(templateId);
             list.add(tr);
         }
@@ -361,6 +364,7 @@ public class TemplateController extends BaseController {
         templateRelation.setTemplateId(templateId);
         templateRelation.setRelationType(relationType);
         templateRelation.setLastModifyUserId(getCurrentUserId(request));
+        templateRelation.setCreateUserId(getCurrentUserId(request));
         templateRelation.setRelationId(relationId);
         templateBiz.saveRelation(templateRelation);
         return ApiResponse.returnSuccess();

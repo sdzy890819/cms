@@ -8,6 +8,7 @@ import com.cn.cms.contants.StaticContants;
 import com.cn.cms.enums.PlatformEnum;
 import com.cn.cms.middleware.JedisClient;
 import com.cn.cms.middleware.bo.UserSearch;
+import com.cn.cms.po.Base;
 import com.cn.cms.po.User;
 import com.cn.cms.service.UserService;
 import com.cn.cms.utils.CookieUtil;
@@ -148,6 +149,7 @@ public class UserBiz extends BaseBiz{
         user.setHeadImage(headImage);
         user.setRealName(realName);
         user.setLastModifyUserId(lastModifyUserId);
+        user.setCreateUserId(lastModifyUserId);
         user.setIdfa(idfa);
         userService.createUser(user);
         refreshUserCache(user);
@@ -426,6 +428,58 @@ public class UserBiz extends BaseBiz{
             }
         }
         return map;
+    }
+
+    /**
+     * 加载创建人和修改人
+     * @param list
+     */
+    public void dataInit(List<UserBean> list){
+        List<String> userIds = new ArrayList<>();
+        for(int i=0;i<list.size();i++){
+            UserBean userBean = list.get(i);
+            if(StringUtils.isNotBlank(userBean.getCreateUserId())){
+                userIds.add(userBean.getCreateUserId());
+            }
+            if(StringUtils.isNotBlank(userBean.getLastModifyUserId())){
+                userIds.add(userBean.getLastModifyUserId());
+            }
+        }
+        if(userIds.size()>0){
+            Map<String, UserBean> map = getUserBeanMap(userIds);
+            for(int i=0;i<list.size();i++){
+                UserBean userBean = list.get(i);
+                userBean.setCreateUserName(map.get(userBean.getCreateUserId())!=null?map.get(userBean.getCreateUserId()).getRealName():"");
+                userBean.setLastModifyUserName(map.get(userBean.getLastModifyUserId())!=null?map.get(userBean.getLastModifyUserId()).getRealName():"");
+            }
+        }
+
+    }
+
+    /**
+     * 加载创建人和修改人
+     * @param list
+     */
+    public void dataInitBase(List<? extends Base> list){
+        List<String> userIds = new ArrayList<>();
+        for(int i=0;i<list.size();i++){
+            Base base = list.get(i);
+            if(StringUtils.isNotBlank(base.getCreateUserId())){
+                userIds.add(base.getCreateUserId());
+            }
+            if(StringUtils.isNotBlank(base.getLastModifyUserId())){
+                userIds.add(base.getLastModifyUserId());
+            }
+        }
+        if(userIds.size()>0){
+            Map<String, UserBean> map = getUserBeanMap(userIds);
+            for(int i=0;i<list.size();i++){
+                Base base = list.get(i);
+                base.setCreateUserName(map.get(base.getCreateUserId())!=null?map.get(base.getCreateUserId()).getRealName():"");
+                base.setLastModifyUserName(map.get(base.getLastModifyUserId())!=null?map.get(base.getLastModifyUserId()).getRealName():"");
+            }
+        }
+
     }
 
 }

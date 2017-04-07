@@ -68,6 +68,7 @@ public class FragmentServiceImpl implements FragmentService {
         fragmentHistory.setLastModifyUserId(fragment.getLastModifyUserId());
         fragmentHistory.setFragmentContent(fragment.getFragmentContent());
         fragmentHistory.setUserId(fragment.getLastModifyUserId());
+        fragmentHistory.setCreateUserId(fragment.getLastModifyUserId());
         fragmentHistory.setCurrTime(new Date());
         fragmentHistory.setChannelId(fragment.getChannelId());
         fragmentHistory.setFragmentClassifyId(fragment.getFragmentClassifyId());

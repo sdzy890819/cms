@@ -48,6 +48,7 @@ public class AppVideoController extends AppBaseController {
         String userID = getCurrentUserId(request);
         Video video = new Video();
         video.setLastModifyUserId(userID);
+        video.setCreateUserId(userID);
         video.setUploadTime(new Date());
         video.setUploadUserId(userID);
         video.setVideoDesc(videoDesc);

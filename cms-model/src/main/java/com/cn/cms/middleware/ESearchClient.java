@@ -334,6 +334,10 @@ public class ESearchClient {
             images.setWatermark(convertInteger(hit.getSource().get("watermark")));
             images.setCompress(convertInteger(hit.getSource().get("compress")));
             images.setPlatform(convertInteger(hit.getSource().get("platform")));
+            images.setCreateUserId((String)hit.getSource().get("createUserId"));
+            images.setLastModifyUserId((String)hit.getSource().get("lastModifyUserId"));
+            images.setCreateTime(convertLongAndDate(hit.getSource().get("createTime")));
+            images.setUpdateTime(convertLongAndDate(hit.getSource().get("updateTime")));
 
             imagesList.add(images);
         }
@@ -383,6 +387,11 @@ public class ESearchClient {
             video.setVideoUrl((String)hit.getSource().get("videoUrl"));
             video.setVideoPath((String) hit.getSource().get("videoPath"));
             video.setPlatform(convertInteger(hit.getSource().get("platform")));
+
+            video.setCreateUserId((String)hit.getSource().get("createUserId"));
+            video.setLastModifyUserId((String)hit.getSource().get("lastModifyUserId"));
+            video.setCreateTime(convertLongAndDate(hit.getSource().get("createTime")));
+            video.setUpdateTime(convertLongAndDate(hit.getSource().get("updateTime")));
 
             videos.add(video);
         }
@@ -450,6 +459,7 @@ public class ESearchClient {
             builder = builder.field("updateTime", DateUtils.convertDateToMillis(news.getUpdateTime()));
             builder = builder.field("delTag", news.getDelTag());
             builder = builder.field("lastModifyUserId", news.getLastModifyUserId());
+            builder = builder.field("createUserId", news.getCreateUserId());
             builder = builder.endObject();
             IndexResponse response = client.prepareIndex(ESSearchTypeEnum.news.getIndex(),
                     ESSearchTypeEnum.news.getName(), String.valueOf(news.getId()))
@@ -539,6 +549,7 @@ public class ESearchClient {
             builder = builder.field("updateTime", DateUtils.convertDateToMillis(topic.getUpdateTime()));
             builder = builder.field("delTag", topic.getDelTag());
             builder = builder.field("lastModifyUserId", topic.getLastModifyUserId());
+            builder = builder.field("createUserId", topic.getCreateUserId());
             builder = builder.endObject();
             IndexResponse response = client.prepareIndex(ESSearchTypeEnum.topic.getIndex(),
                     ESSearchTypeEnum.topic.getName(), String.valueOf(topic.getId()))
@@ -577,6 +588,7 @@ public class ESearchClient {
             builder = builder.field("updateTime", DateUtils.convertDateToMillis(images.getUpdateTime()));
             builder = builder.field("delTag", images.getDelTag());
             builder = builder.field("lastModifyUserId", images.getLastModifyUserId());
+            builder = builder.field("createUserId", images.getCreateUserId());
             builder = builder.endObject();
             IndexResponse response = client.prepareIndex(ESSearchTypeEnum.images.getIndex(),
                     ESSearchTypeEnum.images.getName(), String.valueOf(images.getId()))
@@ -610,6 +622,7 @@ public class ESearchClient {
             builder = builder.field("updateTime", DateUtils.convertDateToMillis(video.getUpdateTime()));
             builder = builder.field("delTag", video.getDelTag());
             builder = builder.field("lastModifyUserId", video.getLastModifyUserId());
+            builder = builder.field("createUserId", video.getCreateUserId());
             builder = builder.endObject();
             IndexResponse response = client.prepareIndex(ESSearchTypeEnum.video.getIndex(),
                     ESSearchTypeEnum.video.getName(), String.valueOf(video.getId()))

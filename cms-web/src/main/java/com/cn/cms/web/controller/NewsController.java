@@ -194,9 +194,11 @@ public class NewsController extends BaseController {
         news.setSource(source);
         NewsDetail newsDetail = new NewsDetail();
         newsDetail.setLastModifyUserId(userID);
+        newsDetail.setCreateUserId(userID);
         newsDetail.setContent(content);
         news.setNewsDetail(newsDetail);
         news.setLastModifyUserId(userID);
+        news.setCreateUserId(userID);
         news.setWriteTime(new Date());
         news.setWriteUserId(userID);
         news.setField1(field1);
@@ -427,6 +429,7 @@ public class NewsController extends BaseController {
         RecommendColumn p1 = new RecommendColumn();
         p1.setColumnName(columnName);
         p1.setLastModifyUserId(getCurrentUserId(request));
+        p1.setCreateUserId(getCurrentUserId(request));
         newsBiz.saveRecommendColumn(p1);
         return ApiResponse.returnSuccess();
     }

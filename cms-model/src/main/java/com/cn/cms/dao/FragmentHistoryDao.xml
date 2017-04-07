@@ -9,6 +9,7 @@
         <result column="update_time" property="updateTime" />
         <result column="del_tag" property="delTag" />
         <result column="last_modify_user_id" property="lastModifyUserId" />
+        <result column="create_user_id" property="createUserId" />
     </resultMap>
 
     <resultMap type="com.cn.cms.po.FragmentHistory" id="fragmentHistory" extends="base">
@@ -25,13 +26,13 @@
 
     <sql id="sql_column">
       id,last_modify_user_id,fragment_classify_id,
-      fragment_content,fragment_name,user_id,curr_time,fragment_id,channel_id
+      fragment_content,fragment_name,user_id,curr_time,fragment_id,channel_id,create_user_id
     </sql>
 
     <insert id="saveFragmentHistory" useGeneratedKeys="true" keyProperty="p1.id">
         insert into fragment_history ( <include refid="sql_column" /> )
         values ( null,#{p1.lastModifyUserId},${p1.fragmentClassifyId},#{p1.fragmentContent},
-        #{p1.fragmentName},#{p1.userId},#{p1.currTime},${p1.fragmentId},${p1.channelId} );
+        #{p1.fragmentName},#{p1.userId},#{p1.currTime},${p1.fragmentId},${p1.channelId},#{p1.createUserId} );
     </insert>
 
     <select id="queryHistoryList" resultMap="fragmentHistory" >

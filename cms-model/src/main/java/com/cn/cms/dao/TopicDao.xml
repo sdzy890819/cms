@@ -9,6 +9,7 @@
         <result column="update_time" property="updateTime" />
         <result column="del_tag" property="delTag" />
         <result column="last_modify_user_id" property="lastModifyUserId" />
+        <result column="create_user_id" property="createUserId" />
     </resultMap>
     <resultMap type="com.cn.cms.po.Topic" id="topic" extends="base">
         <result column="topic_title" property="topicTitle" />
@@ -33,15 +34,18 @@
     <sql id="sql_column">
         id,last_modify_user_id,topic_title,topic_content,topic_path,topic_filename,topic_classify_id,category_id
         ,channel_id,release_time,keyword,description,topic_column_id,topic_url,publish,build_user_id,build_time
+        ,create_user_id
     </sql>
 
     <sql id="all_column">
         id, create_time, update_time,del_tag, last_modify_user_id,topic_title,topic_content,topic_path,topic_filename,topic_classify_id,category_id
         ,channel_id,release_time,keyword,description,topic_column_id,topic_url,publish,build_user_id,build_time
+        ,create_user_id
     </sql>
 
     <sql id="sql_column_simple">
         id,last_modify_user_id,topic_title,topic_path,topic_filename,topic_classify_id,category_id,channel_id,release_time,topic_column_id,topic_url,publish,build_user_id
+        ,create_user_id
     </sql>
 
     <select id="queryTopicCount" resultType="java.lang.Integer">
@@ -67,7 +71,8 @@
     <insert id="saveTopic" useGeneratedKeys="true" keyProperty="p1.id">
       insert into topic ( <include refid="sql_column"/> ) VALUES
         ( null,#{p1.lastModifyUserId},#{p1.topicTitle},#{p1.topicContent},#{p1.topicPath},#{p1.topicFilename},${p1.topicClassifyId},
-        ${p1.categoryId},${p1.channelId},#{p1.releaseTime},#{p1.keyword},#{p1.description},#{p1.topicColumnId},#{p1.topicUrl},${p1.publish},#{p1.buildUserId},#{p1.buildTime} );
+        ${p1.categoryId},${p1.channelId},#{p1.releaseTime},#{p1.keyword},#{p1.description},#{p1.topicColumnId},#{p1.topicUrl},${p1.publish},#{p1.buildUserId},#{p1.buildTime}
+        ,#{p1.createUserId});
     </insert>
 
     <update id="updateTopic">

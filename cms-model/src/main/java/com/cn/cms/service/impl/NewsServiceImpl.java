@@ -80,7 +80,7 @@ public class NewsServiceImpl implements NewsService {
     }
 
     public Integer queryNewsCount(String userId, Integer publish, Integer delTag) {
-        return newsDao.queryNewsCount(userId, delTag, publish);
+        return newsDao.queryNewsCount(userId, publish, delTag);
     }
 
     public News findNewsAndDetail(Long id) {

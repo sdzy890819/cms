@@ -9,6 +9,7 @@
         <result column="update_time" property="updateTime" />
         <result column="del_tag" property="delTag" />
         <result column="last_modify_user_id" property="lastModifyUserId" />
+        <result column="create_user_id" property="createUserId" />
     </resultMap>
 
     <resultMap type="com.cn.cms.po.User" id="user" extends="base" >
@@ -24,14 +25,20 @@
 
     <sql id="all_column">
         id,last_modify_user_id,
-        user_name,head_image,real_name,pwd,user_id,idfa
+        user_name,head_image,real_name,pwd,user_id,idfa,create_user_id
+
+    </sql>
+
+    <sql id="all_column_find">
+        id,last_modify_user_id,
+        user_name,head_image,real_name,pwd,user_id,idfa,create_user_id,create_time,update_time,del_tag
 
     </sql>
 
     <sql id="delTag"> where del_tag = 1 </sql>
 
     <select id="test" resultMap="user">
-        select <include refid="all_column" /> from user <include refid="delTag" /> and id=10000;
+        select <include refid="all_column_find" /> from user <include refid="delTag" /> and id=10000;
     </select>
 
     <select id="queryUserCount" resultType="java.lang.Integer">
@@ -39,16 +46,16 @@
     </select>
 
     <select id="queryUserList" resultMap="user">
-        select <include refid="all_column" /> from user <include refid="delTag" />  order by update_time desc
+        select <include refid="all_column_find" /> from user <include refid="delTag" />  order by update_time desc
         limit ${page.start},${page.pageSize};
     </select>
 
     <select id="findUser" resultMap="user">
-        select <include refid="all_column" /> from user <include refid="delTag" /> and user_id=#{userId};
+        select <include refid="all_column_find" /> from user <include refid="delTag" /> and user_id=#{userId};
     </select>
 
     <select id="findUserList" resultMap="user">
-        select <include refid="all_column" /> from user <include refid="delTag" /> and user_id in 
+        select <include refid="all_column_find" /> from user <include refid="delTag" /> and user_id in
         <foreach collection="list" item="item" separator="," open="(" close=")">
         ${item}
         </foreach>
@@ -58,7 +65,7 @@
     <insert id="createUser" useGeneratedKeys="true" keyProperty="user.id">
         insert into user (<include refid="all_column" />) value (null,
         #{user.lastModifyUserId},#{user.userName},#{user.headImage},#{user.realName}
-        ,#{user.pwd},#{user.userId},#{user.idfa});
+        ,#{user.pwd},#{user.userId},#{user.idfa},#{user.createUserId});
     </insert>
 
     <select id="queryUserName" resultType="java.lang.Integer">
@@ -93,11 +100,11 @@
     </update>
 
     <select id="findUserName" resultMap="user">
-        select <include refid="all_column" /> from user <include refid="delTag" /> and user_name = #{userName};
+        select <include refid="all_column_find" /> from user <include refid="delTag" /> and user_name = #{userName};
     </select>
 
     <select id="findUserForLogin" resultMap="user">
-        select <include refid="all_column" /> from user <include refid="delTag" /> and user_name = #{userName} and pwd = #{pwd};
+        select <include refid="all_column_find" /> from user <include refid="delTag" /> and user_name = #{userName} and pwd = #{pwd};
     </select>
 
     <select id="searchUsersCount" resultType="java.lang.Integer">
@@ -108,7 +115,7 @@
     </select>
 
     <select id="searchUsers" resultMap="user">
-        select <include refid="all_column" /> from user <include refid="delTag" />
+        select <include refid="all_column_find" /> from user <include refid="delTag" />
         <if test="p1.condition != null ">
             and real_name like CONCAT('%',#{p1.condition},'%')
         </if>
@@ -116,7 +123,7 @@
     </select>
 
     <select id="getUserForRealName" resultMap="user">
-        select <include refid="all_column" /> from user <include refid="delTag" />
+        select <include refid="all_column_find" /> from user <include refid="delTag" />
         and real_name in
         <foreach collection="list" item="item" separator="," open="(" close=")">
             #{item}

@@ -1,6 +1,7 @@
 package com.cn.cms.web.controller;
 
 import com.cn.cms.biz.CategoryBiz;
+import com.cn.cms.biz.UserBiz;
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.po.Category;
 import com.cn.cms.web.ann.CheckAuth;
@@ -24,6 +25,9 @@ public class CategoryController extends BaseController {
     @Resource
     private CategoryBiz categoryBiz;
 
+    @Resource
+    private UserBiz userBiz;
+
     /**
      * 获取部门分类列表
      * @return
@@ -31,8 +35,11 @@ public class CategoryController extends BaseController {
     @CheckToken
     @CheckAuth( name = "category:read")
     @RequestMapping(value = "/listCategory", method = RequestMethod.GET)
-    public String listCategory(){
+    public String listCategory(@RequestParam(value = "info", defaultValue = "0") Integer p){
         List<Category> list = categoryBiz.listCategory();
+        if(p != 0) {
+            userBiz.dataInitBase(list);
+        }
         return ApiResponse.returnSuccess(list);
     }
 
@@ -55,6 +62,7 @@ public class CategoryController extends BaseController {
         }
         Category category = new Category();
         category.setLastModifyUserId(getCurrentUserId(request));
+        category.setCreateUserId(getCurrentUserId(request));
         category.setCategoryDesc(categoryDesc);
         category.setCategoryName(categoryName);
         categoryBiz.saveCategory(category);

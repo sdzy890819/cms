@@ -477,6 +477,7 @@ public class NewsBiz extends BaseBiz {
                 if(tmps.length == 2) {
                     NewsStock newsStock = new NewsStock();
                     newsStock.setLastModifyUserId(lastModifyUserId);
+                    newsStock.setCreateUserId(lastModifyUserId);
                     newsStock.setNewsId(newsId);
                     newsStock.setStockCode(tmps[0]);
                     newsStock.setStockName(tmps[1]);

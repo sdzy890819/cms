@@ -9,6 +9,7 @@
         <result column="update_time" property="updateTime" />
         <result column="del_tag" property="delTag" />
         <result column="last_modify_user_id" property="lastModifyUserId" />
+        <result column="create_user_id" property="createUserId" />
     </resultMap>
 
     <resultMap type="com.cn.cms.po.Video" id="video" extends="base">
@@ -26,19 +27,24 @@
 
     <sql id="sql_column">
         id,last_modify_user_id,
-        video_title,video_desc,upload_user_id,upload_time,video_url,video_path,platform,file_name
+        video_title,video_desc,upload_user_id,upload_time,video_url,video_path,platform,file_name,create_user_id
+    </sql>
+
+    <sql id="sql_column_find">
+        id,last_modify_user_id,
+        video_title,video_desc,upload_user_id,upload_time,video_url,video_path,platform,file_name,create_user_id,create_time,update_time,del_tag
     </sql>
 
     <sql id="all_column" >
         id,last_modify_user_id,
         video_title,video_desc,upload_user_id,upload_time,video_url,video_path,platform,file_name
-        ,create_time,update_time,del_tag
+        ,create_time,update_time,del_tag,create_user_id
     </sql>
 
     <insert id="saveVideo" useGeneratedKeys="true" keyProperty="p1.id">
     insert into video ( <include refid="sql_column"/> ) values (
         null,#{p1.lastModifyUserId},#{p1.videoTitle},#{p1.videoDesc},#{p1.uploadUserId},
-        #{p1.uploadTime},#{p1.videoUrl},#{p1.videoPath},#{p1.platform},#{p1.fileName} );
+        #{p1.uploadTime},#{p1.videoUrl},#{p1.videoPath},#{p1.platform},#{p1.fileName},#{p1.createUserId} );
     </insert>
 
     <update id="updateVideo">
@@ -82,7 +88,7 @@
     </select>
 
     <select id="queryVideoList" resultMap="video">
-        select <include refid="sql_column" /> from video <include refid="delTag" />  order by update_time desc limit ${page.start},${page.pageSize};
+        select <include refid="sql_column_find" /> from video <include refid="delTag" />  order by update_time desc limit ${page.start},${page.pageSize};
     </select>
 
     <select id="findVideo" resultMap="video">

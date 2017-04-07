@@ -115,6 +115,7 @@ public class UserChannelController extends BaseController {
                                     @RequestParam(value = "channelId") Long channelId){
         UserChannel userChannel = new UserChannel();
         userChannel.setLastModifyUserId(getCurrentUserId(request));
+        userChannel.setCreateUserId(getCurrentUserId(request));
         userChannel.setChannelId(channelId);
         userChannel.setUserId(userId);
         channelBiz.saveUserChannel(userChannel);

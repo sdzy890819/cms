@@ -1,6 +1,7 @@
 package com.cn.cms.web.controller;
 
 import com.cn.cms.biz.ChannelBiz;
+import com.cn.cms.biz.UserBiz;
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.po.Channel;
 import com.cn.cms.web.ann.CheckAuth;
@@ -25,6 +26,8 @@ public class ChannelController extends BaseController {
     @Resource
     private ChannelBiz channelBiz;
 
+    @Resource
+    private UserBiz userBiz;
 
     /**
      * 获取频道分类列表
@@ -33,8 +36,11 @@ public class ChannelController extends BaseController {
     @CheckToken
     @CheckAuth( name = "channel:read")
     @RequestMapping(value = "/listChannel", method = RequestMethod.GET)
-    public String listChannel(){
+    public String listChannel(@RequestParam(value = "info", defaultValue = "0") Integer p){
         List<Channel> list = channelBiz.listChannel();
+        if(p != 0) {
+            userBiz.dataInitBase(list);
+        }
         return ApiResponse.returnSuccess(list);
     }
 
@@ -65,6 +71,7 @@ public class ChannelController extends BaseController {
         }
         Channel channel = new Channel();
         channel.setLastModifyUserId(getCurrentUserId(request));
+        channel.setCreateUserId(getCurrentUserId(request));
         channel.setChannelDesc(channelDesc);
         channel.setChannelName(channelName);
         channel.setCategoryId(categoryId);

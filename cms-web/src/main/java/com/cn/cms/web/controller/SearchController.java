@@ -218,6 +218,9 @@ public class SearchController extends BaseController {
         imagesSearch.setCondition(condition);
         Page pageObj = new Page(page, pageSize);
         QueryResult<Images> queryResult = eSearchClient.searchImages(imagesSearch,pageObj);
+        if(StringUtils.isNotEmpty(queryResult.getList())){
+            userBiz.dataInitBase(queryResult.getList());
+        }
         return ApiResponse.returnSuccess(queryResult);
     }
 
@@ -239,6 +242,9 @@ public class SearchController extends BaseController {
         videoSearch.setCondition(condition);
         Page pageObj = new Page(page, pageSize);
         QueryResult<Video> queryResult = eSearchClient.searchVideo(videoSearch,pageObj);
+        if(StringUtils.isNotEmpty(queryResult.getList())){
+            userBiz.dataInitBase(queryResult.getList());
+        }
         return ApiResponse.returnSuccess(queryResult);
     }
 
@@ -264,6 +270,7 @@ public class SearchController extends BaseController {
         fragmentSearch.setChannelId(channelId);
         fragmentSearch.setFragmentClassifyId(fragmentClassifyId);
         List<Fragment> result = fragmentBiz.searchFragement(fragmentSearch, pageObj);
+        userBiz.dataInitBase(result);
         QueryResult<Fragment> queryResult = new QueryResult<>();
         queryResult.setPage(pageObj);
         queryResult.setList(result);
@@ -290,6 +297,7 @@ public class SearchController extends BaseController {
         templateSearch.setCondition(condition);
         templateSearch.setChannelId(channelId);
         List<Template> result = templateBiz.searchTemplate(templateSearch, pageObj);
+        userBiz.dataInitBase(result);
         QueryResult<Template> queryResult = new QueryResult<>();
         queryResult.setPage(pageObj);
         queryResult.setList(result);
@@ -314,6 +322,7 @@ public class SearchController extends BaseController {
         Template2Search template2Search = new Template2Search();
         template2Search.setCondition(condition);
         List<Template2> result = template2Biz.searchTemplate2(template2Search, pageObj);
+        userBiz.dataInitBase(result);
         QueryResult<Template2> queryResult = new QueryResult<>();
         queryResult.setPage(pageObj);
         queryResult.setList(result);
@@ -337,6 +346,7 @@ public class SearchController extends BaseController {
         UserSearch userSearch = new UserSearch();
         userSearch.setCondition(condition);
         List<UserBean> list = userBiz.searchUsers(userSearch, pageObj);
+        userBiz.dataInit(list);
         QueryResult<UserBean> queryResult = new QueryResult<>();
         queryResult.setPage(pageObj);
         queryResult.setList(list);

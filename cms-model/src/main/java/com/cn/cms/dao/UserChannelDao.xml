@@ -9,6 +9,7 @@
         <result column="update_time" property="updateTime" />
         <result column="del_tag" property="delTag" />
         <result column="last_modify_user_id" property="lastModifyUserId" />
+        <result column="create_user_id" property="createUserId" />
     </resultMap>
 
     <resultMap type="com.cn.cms.po.UserChannel" id="userChannel" extends="base" >
@@ -20,7 +21,7 @@
     <sql id="delTag"> where del_tag = 1 </sql>
 
     <sql id="sql_column">
-        id,last_modify_user_id,user_id,channel_id
+        id,last_modify_user_id,user_id,channel_id,create_user_id
     </sql>
 
     <select id="queryCountForUserId" resultType="java.lang.Integer">
@@ -42,7 +43,7 @@
     <insert id="saveUserChannel">
         insert into user_channel ( <include refid="sql_column" /> ) values
         <foreach collection="list" item="item" separator=",">
-            ( null,#{item.lastModifyUserId},#{item.userId},${item.channelId} )
+            ( null,#{item.lastModifyUserId},#{item.userId},${item.channelId},#{item.createUserId} )
         </foreach>
         ;
     </insert>

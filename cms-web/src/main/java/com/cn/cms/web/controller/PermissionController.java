@@ -85,6 +85,7 @@ public class PermissionController extends BaseController {
                                    @RequestParam(value = "platform") Integer platform){
         Permission p = new Permission();
         p.setLastModifyUserId(getCurrentUserId(request));
+        p.setCreateUserId(getCurrentUserId(request));
         p.setDescription(description);
         p.setName(name);
         p.setParentId(parentId);
@@ -207,6 +208,7 @@ public class PermissionController extends BaseController {
         positionPermission.setPositionId(positionId);
         positionPermission.setPermissionId(permissionId);
         positionPermission.setLastModifyUserId(userID);
+        positionPermission.setCreateUserId(userID);
         this.permissionBiz.createPositionPermission(positionPermission);
         return ApiResponse.returnSuccess();
     }
