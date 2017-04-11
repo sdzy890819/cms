@@ -65,11 +65,11 @@ public class FragmentServiceImpl implements FragmentService {
     public void editFragment(Fragment fragment) {
         fragmentDao.editFragment(fragment);
         FragmentHistory fragmentHistory = new FragmentHistory();
-        fragmentHistory.setLastModifyUserId(fragment.getLastModifyUserId());
+        fragmentHistory.setLastModifyUserId(fragment.getEditUserId());
         fragmentHistory.setFragmentContent(fragment.getFragmentContent());
-        fragmentHistory.setUserId(fragment.getLastModifyUserId());
-        fragmentHistory.setCreateUserId(fragment.getLastModifyUserId());
-        fragmentHistory.setCurrTime(new Date());
+        fragmentHistory.setUserId(fragment.getEditUserId());
+        fragmentHistory.setCreateUserId(fragment.getEditUserId());
+        fragmentHistory.setCurrTime(fragment.getEditTime());
         fragmentHistory.setChannelId(fragment.getChannelId());
         fragmentHistory.setFragmentClassifyId(fragment.getFragmentClassifyId());
         fragmentHistory.setFragmentName(fragment.getFragmentName());

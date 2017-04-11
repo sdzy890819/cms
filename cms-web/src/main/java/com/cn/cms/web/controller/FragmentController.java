@@ -54,7 +54,7 @@ public class FragmentController extends BaseController {
                                @RequestParam(value="pageSize",required = false)Integer pageSize){
         Page pageObj = new Page(page, pageSize);
         List<Fragment> list = fragmentBiz.listFragment(pageObj);
-        userBiz.dataInitBase(list);
+        userBiz.dataInitFragment(list);
         Map<String, Object> map = new HashMap<>();
         map.put("page", pageObj);
         map.put("list", list);
@@ -118,7 +118,8 @@ public class FragmentController extends BaseController {
         if(list == null || list.size() != jsonObject.size()){
             return ApiResponse.returnFail(StaticContants.ERROR_FRAGMENT_LENGTH);
         }
-        fragment.setLastModifyUserId(getCurrentUserId(request));
+        fragment.setEditUserId(getCurrentUserId(request));
+        fragment.setEditTime(new Date());
         String fragmentModel = fragment.getFragmentModel();
         for(int i=0; i<list.size(); i++){
             fragmentModel = fragmentModel.replace(list.get(i),
@@ -196,6 +197,7 @@ public class FragmentController extends BaseController {
         fragment.setFragmentContent("");
         fragment.setSortNum(sortNum);
         fragment.setLastModifyUserId(getCurrentUserId(request));
+        fragment.setUpdateTime(new Date());
         fragmentBiz.updateFragment(fragment);
         return ApiResponse.returnSuccess();
     }

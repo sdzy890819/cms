@@ -9,6 +9,7 @@ import com.cn.cms.enums.PlatformEnum;
 import com.cn.cms.middleware.JedisClient;
 import com.cn.cms.middleware.bo.UserSearch;
 import com.cn.cms.po.Base;
+import com.cn.cms.po.Fragment;
 import com.cn.cms.po.User;
 import com.cn.cms.service.UserService;
 import com.cn.cms.utils.CookieUtil;
@@ -477,6 +478,36 @@ public class UserBiz extends BaseBiz{
                 Base base = list.get(i);
                 base.setCreateUserName(map.get(base.getCreateUserId())!=null?map.get(base.getCreateUserId()).getRealName():"");
                 base.setLastModifyUserName(map.get(base.getLastModifyUserId())!=null?map.get(base.getLastModifyUserId()).getRealName():"");
+            }
+        }
+
+    }
+
+    /**
+     * 加载创建人和修改人
+     * @param list
+     */
+    public void dataInitFragment(List<Fragment> list){
+        List<String> userIds = new ArrayList<>();
+        for(int i=0;i<list.size();i++){
+            Fragment base = list.get(i);
+            if(StringUtils.isNotBlank(base.getCreateUserId())){
+                userIds.add(base.getCreateUserId());
+            }
+            if(StringUtils.isNotBlank(base.getLastModifyUserId())){
+                userIds.add(base.getLastModifyUserId());
+            }
+            if(StringUtils.isNotBlank(base.getEditUserId())){
+                userIds.add(base.getEditUserId());
+            }
+        }
+        if(userIds.size()>0){
+            Map<String, UserBean> map = getUserBeanMap(userIds);
+            for(int i=0;i<list.size();i++){
+                Fragment base = list.get(i);
+                base.setCreateUserName(map.get(base.getCreateUserId())!=null?map.get(base.getCreateUserId()).getRealName():"");
+                base.setLastModifyUserName(map.get(base.getLastModifyUserId())!=null?map.get(base.getLastModifyUserId()).getRealName():"");
+                base.setEditUserName(map.get(base.getEditUserId())!=null?map.get(base.getEditUserId()).getRealName():"");
             }
         }
 
