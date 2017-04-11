@@ -3,6 +3,7 @@ package com.cn.cms.web.controller;
 import com.cn.cms.biz.*;
 import com.cn.cms.bo.RelationBean;
 import com.cn.cms.contants.StaticContants;
+import com.cn.cms.enums.RelationTypeEnum;
 import com.cn.cms.enums.UploadEnum;
 import com.cn.cms.exception.BizException;
 import com.cn.cms.po.*;
@@ -410,6 +411,37 @@ public class TemplateController extends BaseController {
         return null;
     }
 
+    /**
+     * 根据新闻栏目获取模版信息.
+     * @param request
+     * @param columnId
+     * @return
+     */
+    @CheckToken
+    @CheckAuth( name = "newscolumntemplate:read" )
+    @RequestMapping(value = "/listTemplateBycolumnId", method = RequestMethod.GET)
+    public String listTemplateBycolumnId(HttpServletRequest request,
+                              @RequestParam(value = "columnId") Long columnId){
+        List<Template> list = this.templateBiz.findTemplateListByRelation(columnId, RelationTypeEnum.column.getType());
+        return ApiResponse.returnSuccess(list);
+    }
 
+    /**
+     * 从新闻栏目删除模版关系.
+     * @param request
+     * @param templateId
+     * @param relationId
+     * @param relationType
+     * @return
+     */
+    @CheckToken
+    @CheckAuth( name = "newscolumntemplate:delete" )
+    @RequestMapping(value = "/delRelationByColumnList", method = RequestMethod.POST)
+    public String delRelationByColumnList(HttpServletRequest request,
+                              @RequestParam(value = "templateId") Long templateId,
+                              @RequestParam(value = "relationId") Long relationId,
+                              @RequestParam(value = "relationType") Integer relationType){
+        return delRelation(request, templateId, relationId, relationType);
+    }
 
 }

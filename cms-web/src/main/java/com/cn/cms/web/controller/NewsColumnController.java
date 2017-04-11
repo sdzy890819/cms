@@ -1,5 +1,6 @@
 package com.cn.cms.web.controller;
 
+import com.cn.cms.biz.ChannelBiz;
 import com.cn.cms.biz.NewsBiz;
 import com.cn.cms.biz.PreTemplateBiz;
 import com.cn.cms.biz.UserBiz;
@@ -37,6 +38,9 @@ public class NewsColumnController extends BaseController {
     @Resource
     private UserBiz userBiz;
 
+    @Resource
+    private ChannelBiz channelBiz;
+
     /**
      * 栏目列表
      * @param channelId
@@ -62,6 +66,7 @@ public class NewsColumnController extends BaseController {
         Page page1 = new Page(page, pageSize);
         List<NewsColumn> list = newsBiz.listNewsColumn(page1);
         userBiz.dataInitBase(list);
+        channelBiz.dataInitChannel(list);
         Map<String, Object> map = new HashMap<>();
         map.put("page" ,page1);
         map.put("list", list);
