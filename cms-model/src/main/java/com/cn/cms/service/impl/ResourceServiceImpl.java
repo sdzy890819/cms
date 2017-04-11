@@ -74,6 +74,11 @@ public class ResourceServiceImpl implements ResourceService {
         return imagesDao.findImagesManage(id);
     }
 
+    @Override
+    public Images doFindImagesManage(Long id) {
+        return imagesDao.findImagesManage(id);
+    }
+
     public Integer queryImagesCount() {
         return imagesDao.queryImagesCount();
     }
@@ -116,6 +121,11 @@ public class ResourceServiceImpl implements ResourceService {
 
     @Override
     public Video findVideoManage(Long id) {
+        return videoDao.findVideoManage(id);
+    }
+
+    @Override
+    public Video doFindVideoManage(Long id) {
         return videoDao.findVideoManage(id);
     }
 

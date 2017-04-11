@@ -57,6 +57,8 @@ public interface NewsService {
 
     News findNewsAndDetailManage(Long id);
 
+    News doFindNewsAndDetailManage(Long id);
+
     NewsRecommend findNewsRecommend(Long id);
 
     NewsRecommend findNewsRecommendManage(Long id);
@@ -78,6 +80,8 @@ public interface NewsService {
     List<NewsStock> findNewsStocks(List<Long> newsIds);
 
     List<NewsStock> findNewsStockList(Long newsId);
+
+    List<NewsStock> doFindNewsStockList(Long newsId);
 
     void updateRescind(News news);
 

@@ -523,6 +523,9 @@ public class NewsBiz extends BaseBiz {
         return newsService.findNewsStockList(newsId);
     }
 
+    public List<NewsStock> doFindNewsStockList(Long newsId){
+        return newsService.doFindNewsStockList(newsId);
+    }
 
     public News findNewsManage(Long id){
         return newsService.findNewsManage(id);
@@ -530,6 +533,10 @@ public class NewsBiz extends BaseBiz {
 
     public News findNewsAndDetailManage(Long id){
         return newsService.findNewsAndDetailManage(id);
+    }
+
+    public News doFindNewsAndDetailManage(Long id){
+        return newsService.doFindNewsAndDetailManage(id);
     }
 
     /**

@@ -46,23 +46,23 @@ public class IndexThread extends BaseTask {
         boolean bool = false;
         switch (esSearchTypeEnum){
             case news:{
-                News news = newsBiz.findNewsAndDetailManage(id);
-                news.setNewsStocks(newsBiz.findNewsStockList(news.getId()));
+                News news = newsBiz.doFindNewsAndDetailManage(id);
+                news.setNewsStocks(newsBiz.doFindNewsStockList(news.getId()));
                 bool = eSearchClient.update(news, esSearchTypeEnum);
                 break;
             }
             case topic:{
-                Base base = topicBiz.getTopicManage(id);
+                Base base = topicBiz.doGetTopicManage(id);
                 bool = eSearchClient.update(base, esSearchTypeEnum);
                 break;
             }
             case images:{
-                Base base = resourceBiz.getImagesManage(id);
+                Base base = resourceBiz.doGetImagesManage(id);
                 bool = eSearchClient.update(base, esSearchTypeEnum);
                 break;
             }
             case video:{
-                Base base = resourceBiz.getVideoManage(id);
+                Base base = resourceBiz.doGetVideoManage(id);
                 bool = eSearchClient.update(base, esSearchTypeEnum);
                 break;
             }
