@@ -9,6 +9,7 @@
         <result column="update_time" property="updateTime" />
         <result column="del_tag" property="delTag" />
         <result column="last_modify_user_id" property="lastModifyUserId" />
+        <result column="create_user_id" property="createUserId" />
     </resultMap>
 
     <resultMap type="com.cn.cms.po.Category" id="category" extends="base">
@@ -20,16 +21,20 @@
     <sql id="delTag"> where del_tag = 1 </sql>
 
     <sql id="sql_column">
-        id,last_modify_user_id,category_name,category_desc
+        id,last_modify_user_id,category_name,category_desc,create_user_id
+    </sql>
+
+    <sql id="sql_column_find">
+        id,last_modify_user_id,category_name,category_desc,create_user_id,create_time,update_time,del_tag
     </sql>
 
     <select id="findCategoryAll" resultMap="category">
-        SELECT <include refid="sql_column"/> from category <include refid="delTag" /> order by update_time desc;
+        SELECT <include refid="sql_column_find"/> from category <include refid="delTag" /> order by update_time desc;
     </select>
 
     <insert id="saveCategory" useGeneratedKeys="true" keyProperty="p1.id">
       insert into category ( <include refid="sql_column"/> ) values
-        ( null,#{p1.lastModifyUserId},#{p1.categoryName},#{p1.categoryDesc} );
+        ( null,#{p1.lastModifyUserId},#{p1.categoryName},#{p1.categoryDesc} ,#{p1.createUserId});
     </insert>
 
     <update id="updateCategory">
@@ -52,7 +57,7 @@
     </update>
 
     <select id="findCategory" resultMap="category">
-        SELECT <include refid="sql_column"/> from category <include refid="delTag" /> and id = #{id};
+        SELECT <include refid="sql_column_find"/> from category <include refid="delTag" /> and id = #{id};
     </select>
 
     <select id="findCategoryNameCount" resultType="java.lang.Integer">

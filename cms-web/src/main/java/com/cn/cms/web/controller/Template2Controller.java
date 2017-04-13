@@ -3,6 +3,7 @@ package com.cn.cms.web.controller;
 import com.cn.cms.biz.Template2Biz;
 import com.cn.cms.biz.TemplateBiz;
 import com.cn.cms.biz.TopicBiz;
+import com.cn.cms.biz.UserBiz;
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.enums.Template2ClassifyEnum;
 import com.cn.cms.enums.TemplateClassifyEnum;
@@ -50,6 +51,9 @@ public class Template2Controller extends BaseController  {
     @Resource
     private TopicBiz topicBiz;
 
+    @Resource
+    private UserBiz userBiz;
+
     /**
      * 第二模版列表［分页］
      * @param request
@@ -65,6 +69,7 @@ public class Template2Controller extends BaseController  {
                                @RequestParam(value="pageSize",required = false)Integer pageSize){
         Page pageObj = new Page(page,pageSize);
         List<Template2> list = template2Biz.listTemplate2(pageObj);
+        userBiz.dataInitBase(list);
         Map<String, Object> result = new HashMap<>();
         result.put("page",pageObj);
         result.put("list",list);
@@ -210,6 +215,7 @@ public class Template2Controller extends BaseController  {
                                  @RequestParam(value = "encoded") String encoded){
         Template2 template2 = new Template2();
         template2.setLastModifyUserId(getCurrentUserId(request));
+        template2.setCreateUserId(getCurrentUserId(request));
         template2.setEncoded(encoded);
         template2.setFilename(filename);
         template2.setPath(path);
@@ -325,6 +331,7 @@ public class Template2Controller extends BaseController  {
         Template2Base template2Base = new Template2Base();
         template2Base.setId(id);
         template2Base.setLastModifyUserId(getCurrentUserId(request));
+        template2Base.setCreateUserId(getCurrentUserId(request));
         template2Base.setBasePath(basePath);
         template2Biz.saveTemplate2Base(template2Base);
         return ApiResponse.returnSuccess(template2Base);

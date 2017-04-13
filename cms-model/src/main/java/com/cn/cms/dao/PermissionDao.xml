@@ -9,6 +9,7 @@
         <result column="update_time" property="updateTime" />
         <result column="del_tag" property="delTag" />
         <result column="last_modify_user_id" property="lastModifyUserId" />
+        <result column="create_user_id" property="createUserId" />
     </resultMap>
 
     <resultMap type="com.cn.cms.po.Permission" id="permission" extends="base">
@@ -27,7 +28,7 @@
     <sql id="delTag"> where del_tag = 1 </sql>
 
     <sql id="sql_column">
-        id,last_modify_user_id,name,description,type,url,sort,parent_id,show_flag,permission,platform
+        id,last_modify_user_id,name,description,type,url,sort,parent_id,show_flag,permission,platform,create_user_id
     </sql>
 
     <select id="findPermissionList" resultMap="permission">
@@ -36,7 +37,7 @@
 
     <insert id="createPermission" useGeneratedKeys="true" keyProperty="p1.id">
         insert into permission (<include refid="sql_column" /> ) value(null,#{p1.lastModifyUserId},#{p1.name},#{p1.description},${p1.type},#{p1.url}
-        ,#{p1.sort},#{p1.parentId},#{p1.showFlag},#{p1.permission},${p1.platform});
+        ,#{p1.sort},#{p1.parentId},#{p1.showFlag},#{p1.permission},${p1.platform},#{p1.createUserId});
     </insert>
 
     <update id="updatePermission">

@@ -1,7 +1,9 @@
 package com.cn.cms.web.controller;
 
+import com.cn.cms.biz.ChannelBiz;
 import com.cn.cms.biz.NewsBiz;
 import com.cn.cms.biz.PreTemplateBiz;
+import com.cn.cms.biz.UserBiz;
 import com.cn.cms.bo.RelationColumn;
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.po.NewsColumn;
@@ -33,6 +35,12 @@ public class NewsColumnController extends BaseController {
     @Resource
     private PreTemplateBiz preTemplateBiz;
 
+    @Resource
+    private UserBiz userBiz;
+
+    @Resource
+    private ChannelBiz channelBiz;
+
     /**
      * 栏目列表
      * @param channelId
@@ -57,6 +65,8 @@ public class NewsColumnController extends BaseController {
                        @RequestParam(value="pageSize",required = false)Integer pageSize){
         Page page1 = new Page(page, pageSize);
         List<NewsColumn> list = newsBiz.listNewsColumn(page1);
+        userBiz.dataInitBase(list);
+        channelBiz.dataInitChannel(list);
         Map<String, Object> map = new HashMap<>();
         map.put("page" ,page1);
         map.put("list", list);
@@ -90,6 +100,7 @@ public class NewsColumnController extends BaseController {
         NewsColumn newsColumn = new NewsColumn();
         newsColumn.setChannelId(channelId);
         newsColumn.setLastModifyUserId(getCurrentUserId(request));
+        newsColumn.setCreateUserId(getCurrentUserId(request));
         newsColumn.setColumnName(columnName);
         newsColumn.setDetailId(detailId);
         newsColumn.setListId(listId);

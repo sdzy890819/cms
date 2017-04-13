@@ -3,6 +3,7 @@ package com.cn.cms.web.controller;
 import com.cn.cms.biz.UserBiz;
 import com.cn.cms.bo.UserBean;
 import com.cn.cms.enums.ErrorCodeEnum;
+import com.cn.cms.po.User;
 import com.cn.cms.utils.EncryptUtil;
 import com.cn.cms.utils.Page;
 import com.cn.cms.web.ann.CheckAuth;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -79,11 +81,15 @@ public class UserController extends BaseController{
                         @RequestParam(value="pageSize",required = false)Integer pageSize){
         Page pageObj = new Page(page,pageSize);
         List<UserBean> users= userBiz.listUser(pageObj);
-        Map<String, Object> result = new HashMap<String, Object>();
+        userBiz.dataInit(users);
+        Map<String, Object> result = new HashMap<>();
         result.put("page",pageObj);
         result.put("list",users);
         return ApiResponse.returnSuccess(result);
     }
+
+
+
 
     /**
      * 获取当前登录用户信息

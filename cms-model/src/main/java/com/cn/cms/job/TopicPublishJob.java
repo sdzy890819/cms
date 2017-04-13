@@ -1,16 +1,15 @@
 package com.cn.cms.job;
 
 import com.cn.cms.biz.ChannelBiz;
+import com.cn.cms.contants.RedisKeyContants;
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.enums.PublishJobTypeEnum;
 import com.cn.cms.logfactory.CommonLog;
 import com.cn.cms.logfactory.CommonLogFactory;
+import com.cn.cms.middleware.JedisClient;
 import com.cn.cms.po.Channel;
 import com.cn.cms.po.Topic;
-import com.cn.cms.utils.ContextUtil;
-import com.cn.cms.utils.FileUtil;
-import com.cn.cms.utils.StringUtils;
-import com.cn.cms.utils.VelocityUtils;
+import com.cn.cms.utils.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,6 +26,8 @@ public class TopicPublishJob extends BaseTask {
     private static CommonLog log = CommonLogFactory.getLog(TopicPublishJob.class);
 
     private ChannelBiz channelBiz = ContextUtil.getContextUtil().getBean(ChannelBiz.class);
+
+    private JedisClient jedisClient = ContextUtil.getContextUtil().getBean(JedisClient.class);
 
     private Topic topic;
 
@@ -66,7 +67,38 @@ public class TopicPublishJob extends BaseTask {
         }
         map.put(StaticContants.TEMPLATE_KEY_PUBLISH_JOB_TYPE, MODEL);
         map.put(StaticContants.TEMPLATE_KEY_PAGE, page);
-        VelocityUtils.publish(map, content, StringUtils.concatUrl(channel.getChannelPath(), topic.getTopicPath(), FileUtil.getFileNameByPage(topic.getTopicFilename(),page)));
+        String publishRelativePath = StringUtils.concatUrl(topic.getTopicPath(), FileUtil.getFileNameByPage(topic.getTopicFilename(),page));
+        String publishPath = StringUtils.concatUrl(channel.getChannelPath(), publishRelativePath);
+        try {
+            if (lock(publishPath)) {
+                VelocityUtils.publish(map, content, publishPath);
+                if (StaticContants.rsyncRoot == StaticContants.RSYNC_ON) {
+                    RsyncUtils.rsync(channel.getRsyncModelName(),
+                            StringUtils.delFirstPrefix(publishRelativePath, StaticContants.FILE_PATH_SP),
+                            StaticContants.rsyncPublishFile, channel.getChannelPath());
+                }
+            }
+        }finally {
+            unlock(publishPath);
+        }
+
+    }
+
+    protected boolean lock(String path){
+        Long p = jedisClient.setnx(RedisKeyContants.getRedisLockKey(getKey(path)));
+        log.info(this.getCurrentName().concat( "LOCK=" + p) );
+        if( p!=null && p >0){
+            return true;
+        }
+        return false;
+    }
+
+    protected void unlock(String path){
+        jedisClient.del(RedisKeyContants.getRedisLockKey(path));
+    }
+
+    protected String getKey(String path){
+        return EncryptUtil.md5(path.replaceAll("//", "/"));
     }
 
     @Override

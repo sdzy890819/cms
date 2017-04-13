@@ -58,6 +58,7 @@ public class HistoryInterceptor extends HandlerInterceptorAdapter {
         try {
             OperationHistory operationHistory = new OperationHistory();
             operationHistory.setLastModifyUserId(StaticContants.CMS_OPERATION_USER_ID);
+            operationHistory.setCreateUserId(StaticContants.CMS_OPERATION_USER_ID);
             operationHistory.setCurrTime(new Date());
             if (handler instanceof HandlerMethod) {
                 HandlerMethod hm = (HandlerMethod) handler;

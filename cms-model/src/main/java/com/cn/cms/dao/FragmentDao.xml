@@ -9,6 +9,7 @@
         <result column="update_time" property="updateTime" />
         <result column="del_tag" property="delTag" />
         <result column="last_modify_user_id" property="lastModifyUserId" />
+        <result column="create_user_id" property="createUserId" />
     </resultMap>
 
     <resultMap type="com.cn.cms.po.Fragment" id="fragment" extends="base" >
@@ -18,6 +19,8 @@
         <result column="sort_num" property="sortNum" />
         <result column="fragment_model" property="fragmentModel" />
         <result column="channel_id" property="channelId" />
+        <result column="edit_user_id" property="editUserId" />
+        <result column="edit_time" property="editTime" />
     </resultMap>
 
 
@@ -25,10 +28,14 @@
 
     <sql id="sql_column">
         id,last_modify_user_id,fragment_classify_id,fragment_content,fragment_name,sort_num,fragment_model
-        ,channel_id
+        ,channel_id,create_user_id,edit_user_id,edit_time
     </sql>
     <sql id="sql_column_1">
-        id,last_modify_user_id,fragment_classify_id,fragment_name,channel_id
+        id,last_modify_user_id,fragment_classify_id,fragment_name,channel_id,create_user_id,edit_user_id,edit_time
+    </sql>
+
+    <sql id="sql_column_1_find">
+        id,last_modify_user_id,fragment_classify_id,fragment_name,channel_id,create_user_id,create_time,update_time,del_tag,edit_user_id,edit_time
     </sql>
 
     <select id="queryFragmentCount" resultType="java.lang.Integer">
@@ -36,7 +43,7 @@
     </select>
 
     <select id="queryFragmentList" resultMap="fragment">
-        select <include refid="sql_column_1" /> from fragment <include refid="delTag" />  order by update_time desc limit #{page.start},#{page.pageSize};
+        select <include refid="sql_column_1_find" /> from fragment <include refid="delTag" />  order by update_time desc limit #{page.start},#{page.pageSize};
     </select>
 
     <select id="searchFragementCount" resultType="java.lang.Integer">
@@ -54,7 +61,7 @@
     </select>
 
     <select id="searchFragement" resultMap="fragment">
-        select <include refid="sql_column_1" /> from fragment <include refid="delTag" />
+        select <include refid="sql_column_1_find" /> from fragment <include refid="delTag" />
         <if test="p1.condition != null" >
           and fragment_name like CONCAT('%',#{p1.condition},'%')
         </if>
@@ -76,7 +83,7 @@
     </update>
 
     <update id="editFragment">
-        update fragment set last_modify_user_id = #{p1.lastModifyUserId}, fragment_content = #{p1.fragmentContent} where id = ${p1.id};
+        update fragment set edit_user_id = #{p1.editUserId}, edit_time = #{p1.editTime}, fragment_content = #{p1.fragmentContent} where id = ${p1.id};
     </update>
 
     <update id="updateFragment">
@@ -98,7 +105,8 @@
               fragment_model = #{p1.fragmentModel},
               fragment_content = #{p1.fragmentContent},
           </if>
-          last_modify_user_id = #{p1.lastModifyUserId}
+          last_modify_user_id = #{p1.lastModifyUserId},
+          update_time = #{p1.updateTime}
       </set>
       where id = ${p1.id} ;
     </update>
@@ -106,7 +114,7 @@
     <insert id="saveFragment" useGeneratedKeys="true" keyProperty="p1.id">
       insert into fragment ( <include refid="sql_column"/> ) values
         ( null,#{p1.lastModifyUserId}, ${p1.fragmentClassifyId}, null, #{p1.fragmentName},
-        ${p1.sortNum}, #{p1.fragmentModel},${p1.channelId});
+        ${p1.sortNum}, #{p1.fragmentModel},${p1.channelId},#{p1.createUserId},#{p1.editUserId},#{p1.editTime});
     </insert>
 
     <select id="findAll" resultMap="fragment">

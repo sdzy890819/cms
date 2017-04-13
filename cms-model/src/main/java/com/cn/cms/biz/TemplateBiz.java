@@ -166,4 +166,6 @@ public class TemplateBiz extends BaseBiz {
                                Integer upload){
         templateService.uploadTemplate(lastModifyUserId, id, upload);
     }
+
+
 }

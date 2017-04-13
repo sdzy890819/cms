@@ -9,6 +9,7 @@
         <result column="update_time" property="updateTime" />
         <result column="del_tag" property="delTag" />
         <result column="last_modify_user_id" property="lastModifyUserId" />
+        <result column="create_user_id" property="createUserId" />
     </resultMap>
 
     <resultMap type="com.cn.cms.po.Images" id="images" extends="base" >
@@ -35,19 +36,27 @@
         id,last_modify_user_id,
         image_url,image_width_pixel,image_height_pixel,org_width_pixel,org_height_pixel,
         image_title,upload_user_id,upload_time,image_path,watermark,compress,platform,fid,`size`
+        ,create_user_id
+    </sql>
+
+    <sql id="sql_column_find">
+        id,last_modify_user_id,
+        image_url,image_width_pixel,image_height_pixel,org_width_pixel,org_height_pixel,
+        image_title,upload_user_id,upload_time,image_path,watermark,compress,platform,fid,`size`
+        ,create_user_id,create_time,update_time,del_tag
     </sql>
 
     <sql id="all_column">
         id,last_modify_user_id,
         image_url,image_width_pixel,image_height_pixel,org_width_pixel,org_height_pixel,
         image_title,upload_user_id,upload_time,image_path,watermark,compress,platform,fid,`size`
-        ,create_time,update_time,del_tag
+        ,create_time,update_time,del_tag,create_user_id
     </sql>
 
     <insert id="saveImages" useGeneratedKeys="true" keyProperty="p1.id">
         insert into images ( <include refid="sql_column"/> ) values
         (null,#{p1.lastModifyUserId},#{p1.imageUrl},${p1.imageWidthPixel},${p1.imageHeightPixel},${p1.orgWidthPixel}
-        ,${p1.orgHeightPixel},#{p1.imageTitle},#{p1.uploadUserId},#{p1.uploadTime},#{p1.imagePath},${p1.watermark},${p1.compress},${p1.platform},#{p1.fid},#{p1.size});
+        ,${p1.orgHeightPixel},#{p1.imageTitle},#{p1.uploadUserId},#{p1.uploadTime},#{p1.imagePath},${p1.watermark},${p1.compress},${p1.platform},#{p1.fid},#{p1.size},#{p1.createUserId});
     </insert>
 
     <update id="updateImages">
@@ -109,7 +118,7 @@
     </select>
 
     <select id="queryImagesList" resultMap="images">
-        select <include refid="sql_column" /> from images <include refid="delTag" />  order by update_time desc limit ${page.start},${page.pageSize}
+        select <include refid="sql_column_find" /> from images <include refid="delTag" />  order by update_time desc limit ${page.start},${page.pageSize}
     </select>
 
     <select id="findImages" resultMap="images">

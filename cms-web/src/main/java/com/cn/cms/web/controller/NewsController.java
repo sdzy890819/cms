@@ -11,10 +11,7 @@ import com.cn.cms.web.ann.CheckAuth;
 import com.cn.cms.web.ann.CheckToken;
 import com.cn.cms.web.result.ApiResponse;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -197,9 +194,11 @@ public class NewsController extends BaseController {
         news.setSource(source);
         NewsDetail newsDetail = new NewsDetail();
         newsDetail.setLastModifyUserId(userID);
+        newsDetail.setCreateUserId(userID);
         newsDetail.setContent(content);
         news.setNewsDetail(newsDetail);
         news.setLastModifyUserId(userID);
+        news.setCreateUserId(userID);
         news.setWriteTime(new Date());
         news.setWriteUserId(userID);
         news.setField1(field1);
@@ -430,6 +429,7 @@ public class NewsController extends BaseController {
         RecommendColumn p1 = new RecommendColumn();
         p1.setColumnName(columnName);
         p1.setLastModifyUserId(getCurrentUserId(request));
+        p1.setCreateUserId(getCurrentUserId(request));
         newsBiz.saveRecommendColumn(p1);
         return ApiResponse.returnSuccess();
     }
@@ -560,6 +560,168 @@ public class NewsController extends BaseController {
         newsBiz.deleteRecommend(id);
         publishBiz.publish(id, getCurrentUserId(request), CommonMessageSourceEnum.RECOMMEND);
         return ApiResponse.returnSuccess();
+    }
+
+
+
+    //-------固定KEY获取
+
+    /**
+     * 删除接口
+     * @param request
+     * @param id
+     * @param key
+     * @return
+     */
+    @RequestMapping(value = "/api/delete", method = RequestMethod.POST)
+    public String deleteApi(HttpServletRequest request,
+                          @RequestParam(value = "id") Long id,
+                          @RequestParam(value = "key") String key){
+        if(validKey(key)){
+            return delNews(request, id);
+        }
+        return ApiResponse.returnFail(StaticContants.ERROR_KEY_API);
+    }
+
+    /**
+     *
+     * @param key
+     * @return
+     */
+    private boolean validKey(String key){
+        if(StringUtils.isNotBlank(key) && StaticContants.LOCALIZED_KEY.equals(key)){
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 创建新闻 保存草稿。
+     * @param request
+     * @param title
+     * @param subTitle
+     * @param keyword
+     * @param description
+     * @param source
+     * @param author
+     * @param categoryId
+     * @param channelId
+     * @param columnId
+     * @param content
+     * @param field1
+     * @param field2
+     * @param field3
+     * @param field4
+     * @param field5
+     * @param autoPublish
+     * @param timer
+     * @param publish
+     * @param editPublishTime
+     * @param key
+     * @return
+     */
+    @RequestMapping(value = "/api/create",method = RequestMethod.POST)
+    public String create(HttpServletRequest request,
+                             @RequestParam(value = "title") String title,
+                             @RequestParam(value = "subTitle", required = false) String subTitle,
+                             @RequestParam(value = "keyword") String keyword,
+                             @RequestParam(value = "description", required = false) String description,
+                             @RequestParam(value = "source") String source,
+                             @RequestParam(value = "author") String author,
+                             @RequestParam(value = "categoryId") Long categoryId,
+                             @RequestParam(value = "channelId") Long channelId,
+                             @RequestParam(value = "columnId") Long columnId,
+                             @RequestParam(value = "content") String content,
+                             @RequestParam(value = "field1", required = false) String field1,
+                             @RequestParam(value = "field2", required = false) String field2,
+                             @RequestParam(value = "field3", required = false) String field3,
+                             @RequestParam(value = "field4", required = false) String field4,
+                             @RequestParam(value = "field5", required = false) String field5,
+                             @RequestParam(value = "autoPublish") Integer autoPublish,
+                             @RequestParam(value = "timer", required = false) String timer,
+                             @RequestParam(value = "publish", required = false, defaultValue = "0") Integer publish,
+                             @RequestParam(value = "editPublishTime", required = false) String editPublishTime,
+                             @RequestParam(value = "key") String key){
+        if(validKey(key)){
+            return createNews(request, title, subTitle, keyword, description, source, author,
+                    categoryId, channelId, columnId, content, field1, field2, field3, field4, field5, autoPublish, timer, publish, editPublishTime);
+        }
+        return ApiResponse.returnFail(StaticContants.ERROR_KEY_API);
+    }
+
+    /**
+     * 修改新闻
+     * @param request
+     * @param id
+     * @param title
+     * @param subTitle
+     * @param keyword
+     * @param description
+     * @param source
+     * @param author
+     * @param categoryId
+     * @param channelId
+     * @param columnId
+     * @param content
+     * @param field1
+     * @param field2
+     * @param field3
+     * @param field4
+     * @param field5
+     * @param autoPublish
+     * @param timer
+     * @param publish
+     * @param editPublishTime
+     * @param key
+     * @return
+     */
+    @RequestMapping(value = "/api/update", method = RequestMethod.POST)
+    public String update(HttpServletRequest request,
+                             @RequestParam(value = "id",required = false) Long id,
+                             @RequestParam(value = "title",required = false) String title,
+                             @RequestParam(value = "subTitle",required = false) String subTitle,
+                             @RequestParam(value = "keyword",required = false) String keyword,
+                             @RequestParam(value = "description", required = false) String description,
+                             @RequestParam(value = "source",required = false) String source,
+                             @RequestParam(value = "author",required = false) String author,
+                             @RequestParam(value = "categoryId", required = false) Long categoryId,
+                             @RequestParam(value = "channelId",required = false) Long channelId,
+                             @RequestParam(value = "columnId",required = false) Long columnId,
+                             @RequestParam(value = "content",required = false) String content,
+                             @RequestParam(value = "field1",required = false) String field1,
+                             @RequestParam(value = "field2",required = false) String field2,
+                             @RequestParam(value = "field3",required = false) String field3,
+                             @RequestParam(value = "field4",required = false) String field4,
+                             @RequestParam(value = "field5",required = false) String field5,
+                             @RequestParam(value = "autoPublish",required = false) Integer autoPublish,
+                             @RequestParam(value = "timer",required = false) String timer,
+                             @RequestParam(value = "publish", required = false, defaultValue = "0") Integer publish,
+                             @RequestParam(value = "editPublishTime", required = false) String editPublishTime,
+                             @RequestParam(value = "key") String key){
+        if(validKey(key)){
+            return updateNews(request, id, title, subTitle, keyword, description, source, author, categoryId, channelId,
+                    columnId, content, field1, field2, field3, field4, field5, autoPublish, timer, publish, editPublishTime);
+        }
+        return ApiResponse.returnFail(StaticContants.ERROR_KEY_API);
+    }
+
+
+
+    /**
+     * 新闻发布
+     * @param request
+     * @param id
+     * @param key
+     * @return
+     */
+    @RequestMapping(value = "/api/publish", method = RequestMethod.GET)
+    public String publish(HttpServletRequest request,
+                          @RequestParam(value = "id") Long id,
+                          @RequestParam(value = "key") String key){
+        if(validKey(key)){
+            return publish(request, id);
+        }
+        return ApiResponse.returnFail(StaticContants.ERROR_KEY_API);
     }
 
 }

@@ -1,11 +1,9 @@
 package com.cn.cms.web.controller;
 
-import com.cn.cms.biz.ChannelBiz;
-import com.cn.cms.biz.Template2Biz;
-import com.cn.cms.biz.TemplateBiz;
-import com.cn.cms.biz.TopicBiz;
+import com.cn.cms.biz.*;
 import com.cn.cms.bo.RelationBean;
 import com.cn.cms.contants.StaticContants;
+import com.cn.cms.enums.RelationTypeEnum;
 import com.cn.cms.enums.UploadEnum;
 import com.cn.cms.exception.BizException;
 import com.cn.cms.po.*;
@@ -48,6 +46,9 @@ public class TemplateController extends BaseController {
     @Resource
     private TopicBiz topicBiz;
 
+    @Resource
+    private UserBiz userBiz;
+
     /**
      * 模版列表［分页］
      * @param request
@@ -63,6 +64,7 @@ public class TemplateController extends BaseController {
                                @RequestParam(value="pageSize",required = false)Integer pageSize){
         Page pageObj = new Page(page,pageSize);
         List<Template> list = templateBiz.listTemplate(pageObj);
+        userBiz.dataInitBase(list);
         Map<String, Object> result = new HashMap<String, Object>();
         result.put("page",pageObj);
         result.put("list",list);
@@ -201,6 +203,7 @@ public class TemplateController extends BaseController {
 
         Template template = new Template();
         template.setLastModifyUserId(getCurrentUserId(request));
+        template.setCreateUserId(getCurrentUserId(request));
         template.setChannelId(channelId);
         template.setEncoded(encoded);
         template.setFilename(filename);
@@ -334,6 +337,7 @@ public class TemplateController extends BaseController {
             tr.setRelationId(relations.get(i).getRelationId());
             tr.setRelationType(relations.get(i).getRelationType());
             tr.setLastModifyUserId(userID);
+            tr.setCreateUserId(userID);
             tr.setTemplateId(templateId);
             list.add(tr);
         }
@@ -361,6 +365,7 @@ public class TemplateController extends BaseController {
         templateRelation.setTemplateId(templateId);
         templateRelation.setRelationType(relationType);
         templateRelation.setLastModifyUserId(getCurrentUserId(request));
+        templateRelation.setCreateUserId(getCurrentUserId(request));
         templateRelation.setRelationId(relationId);
         templateBiz.saveRelation(templateRelation);
         return ApiResponse.returnSuccess();
@@ -406,6 +411,37 @@ public class TemplateController extends BaseController {
         return null;
     }
 
+    /**
+     * 根据新闻栏目获取模版信息.
+     * @param request
+     * @param columnId
+     * @return
+     */
+    @CheckToken
+    @CheckAuth( name = "newscolumntemplate:read" )
+    @RequestMapping(value = "/listTemplateBycolumnId", method = RequestMethod.GET)
+    public String listTemplateBycolumnId(HttpServletRequest request,
+                              @RequestParam(value = "columnId") Long columnId){
+        List<Template> list = this.templateBiz.findTemplateListByRelation(columnId, RelationTypeEnum.column.getType());
+        return ApiResponse.returnSuccess(list);
+    }
 
+    /**
+     * 从新闻栏目删除模版关系.
+     * @param request
+     * @param templateId
+     * @param relationId
+     * @param relationType
+     * @return
+     */
+    @CheckToken
+    @CheckAuth( name = "newscolumntemplate:delete" )
+    @RequestMapping(value = "/delRelationByColumnList", method = RequestMethod.POST)
+    public String delRelationByColumnList(HttpServletRequest request,
+                              @RequestParam(value = "templateId") Long templateId,
+                              @RequestParam(value = "relationId") Long relationId,
+                              @RequestParam(value = "relationType") Integer relationType){
+        return delRelation(request, templateId, relationId, relationType);
+    }
 
 }

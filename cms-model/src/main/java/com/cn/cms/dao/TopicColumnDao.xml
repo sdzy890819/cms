@@ -9,6 +9,7 @@
         <result column="update_time" property="updateTime" />
         <result column="del_tag" property="delTag" />
         <result column="last_modify_user_id" property="lastModifyUserId" />
+        <result column="create_user_id" property="createUserId" />
     </resultMap>
 
     <resultMap type="com.cn.cms.po.TopicColumn" id="topicColumn" extends="base">
@@ -18,7 +19,7 @@
     <sql id="delTag"> where del_tag = 1 </sql>
 
     <sql id="sql_column">
-        id, last_modify_user_id, `column_name`
+        id, last_modify_user_id, `column_name`,create_user_id
     </sql>
 
     <select id="findAll" resultMap="topicColumn">
@@ -27,7 +28,7 @@
 
     <insert id="saveTopicColumn" useGeneratedKeys="true" keyProperty="p1.id">
         insert into topic_column ( <include refid="sql_column"/> ) VALUES
-        ( null,#{p1.lastModifyUserId},#{p1.columnName} );
+        ( null,#{p1.lastModifyUserId},#{p1.columnName} ,#{p1.createUserId});
     </insert>
     
     <update id="delTopicColumn">

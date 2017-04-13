@@ -80,7 +80,7 @@ public class NewsServiceImpl implements NewsService {
     }
 
     public Integer queryNewsCount(String userId, Integer publish, Integer delTag) {
-        return newsDao.queryNewsCount(userId, delTag, publish);
+        return newsDao.queryNewsCount(userId, publish, delTag);
     }
 
     public News findNewsAndDetail(Long id) {
@@ -199,6 +199,17 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
+    public News doFindNewsAndDetailManage(Long id) {
+        News news = newsDao.findNewsAndDetailManage(id);
+        if(news!=null){
+            NewsDetail newsDetail = newsDetailDao.findNewsDetailManage(id);
+            news.setNewsDetail(newsDetail);
+            return news;
+        }
+        return null;
+    }
+
+    @Override
     public NewsRecommend findNewsRecommend(Long id) {
         return newsDao.findNewsRecommend(id);
     }
@@ -251,6 +262,11 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public List<NewsStock> findNewsStockList(Long newsId) {
+        return newsStockDao.findNewsStockList(newsId);
+    }
+
+    @Override
+    public List<NewsStock> doFindNewsStockList(Long newsId) {
         return newsStockDao.findNewsStockList(newsId);
     }
 

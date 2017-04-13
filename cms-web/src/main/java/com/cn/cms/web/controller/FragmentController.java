@@ -3,6 +3,7 @@ package com.cn.cms.web.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.cn.cms.biz.FragmentBiz;
 import com.cn.cms.biz.PublishBiz;
+import com.cn.cms.biz.UserBiz;
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.enums.CommonMessageSourceEnum;
 import com.cn.cms.enums.RegexNumEnum;
@@ -37,6 +38,9 @@ public class FragmentController extends BaseController {
     @Resource
     private PublishBiz publishBiz;
 
+    @Resource
+    private UserBiz userBiz;
+
     /**
      * 获取碎片列表
      * @param page
@@ -50,6 +54,7 @@ public class FragmentController extends BaseController {
                                @RequestParam(value="pageSize",required = false)Integer pageSize){
         Page pageObj = new Page(page, pageSize);
         List<Fragment> list = fragmentBiz.listFragment(pageObj);
+        userBiz.dataInitFragment(list);
         Map<String, Object> map = new HashMap<>();
         map.put("page", pageObj);
         map.put("list", list);
@@ -113,7 +118,8 @@ public class FragmentController extends BaseController {
         if(list == null || list.size() != jsonObject.size()){
             return ApiResponse.returnFail(StaticContants.ERROR_FRAGMENT_LENGTH);
         }
-        fragment.setLastModifyUserId(getCurrentUserId(request));
+        fragment.setEditUserId(getCurrentUserId(request));
+        fragment.setEditTime(new Date());
         String fragmentModel = fragment.getFragmentModel();
         for(int i=0; i<list.size(); i++){
             fragmentModel = fragmentModel.replace(list.get(i),
@@ -191,6 +197,7 @@ public class FragmentController extends BaseController {
         fragment.setFragmentContent("");
         fragment.setSortNum(sortNum);
         fragment.setLastModifyUserId(getCurrentUserId(request));
+        fragment.setUpdateTime(new Date());
         fragmentBiz.updateFragment(fragment);
         return ApiResponse.returnSuccess();
     }
@@ -221,6 +228,7 @@ public class FragmentController extends BaseController {
         fragment.setFragmentModel(fragmentModel);
         fragment.setSortNum(sortNum);
         fragment.setLastModifyUserId(getCurrentUserId(request));
+        fragment.setCreateUserId(getCurrentUserId(request));
         fragmentBiz.updateFragment(fragment);
         return ApiResponse.returnSuccess();
     }
@@ -269,6 +277,7 @@ public class FragmentController extends BaseController {
     public String createClassify(HttpServletRequest request, @RequestParam("classifyName") String classifyName){
         FragmentClassify classify = new FragmentClassify();
         classify.setLastModifyUserId(getCurrentUserId(request));
+        classify.setCreateUserId(getCurrentUserId(request));
         classify.setClassifyName(classifyName);
         fragmentBiz.saveClassify(classify);
         return ApiResponse.returnSuccess();

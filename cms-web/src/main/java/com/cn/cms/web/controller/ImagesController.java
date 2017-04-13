@@ -1,6 +1,7 @@
 package com.cn.cms.web.controller;
 
 import com.cn.cms.biz.ResourceBiz;
+import com.cn.cms.biz.UserBiz;
 import com.cn.cms.bo.UserBean;
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.middleware.WeedfsClient;
@@ -35,6 +36,9 @@ public class ImagesController extends BaseController{
 
     @Resource
     private WeedfsClient weedfsClient;
+
+    @Resource
+    private UserBiz userBiz;
 
     /**
      * 图片基础信息查询
@@ -87,6 +91,7 @@ public class ImagesController extends BaseController{
                                    @RequestParam("basePath") String basePath){
         ImagesBase imagesBase = new ImagesBase();
         imagesBase.setLastModifyUserId(getCurrentUserId(request));
+        imagesBase.setCreateUserId(getCurrentUserId(request));
         imagesBase.setBasePath(basePath);
         imagesBase.setBaseUrl(baseUrl);
         resourceBiz.saveImagesBase(imagesBase);
@@ -131,6 +136,7 @@ public class ImagesController extends BaseController{
         images.setImageUrl(imageUrl);
         images.setImageWidthPixel(imageWidthPixel);
         images.setUploadUserId(getCurrentUserId(request));
+        images.setCreateUserId(getCurrentUserId(request));
         images.setOrgHeightPixel(orgHeightPixel);
         images.setOrgWidthPixel(orgWidthPixel);
         images.setWatermark(watermark);
@@ -239,6 +245,7 @@ public class ImagesController extends BaseController{
                            @RequestParam(value="pageSize",required = false)Integer pageSize){
         Page pageObj = new Page(page,pageSize);
         List<Images> images = resourceBiz.listImages(pageObj);
+        userBiz.dataInitBase(images);
         Map<String, Object> result = new HashMap<>();
         result.put("page",pageObj);
         result.put("list",images);

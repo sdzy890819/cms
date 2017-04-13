@@ -63,6 +63,7 @@ public class PositionBiz extends BaseBiz {
     public void insertPosition(String lastModifyUserId, String positionName){
         Position position = new Position();
         position.setLastModifyUserId(lastModifyUserId);
+        position.setCreateUserId(lastModifyUserId);
         position.setPositionName(positionName);
         userService.insertPosition(position);
     }

@@ -122,10 +122,12 @@ public class PreTemplateBiz extends BaseBiz {
             template.setSortNum(StaticContants.SORT_DETAIL_NUM);
             template.setTemplateClassify(classifyEnum.getType());
             template.setUserId(newsColumn.getLastModifyUserId());
+            template.setCreateUserId(newsColumn.getLastModifyUserId());
             TemplateRelation templateRelation = new TemplateRelation();
             templateRelation.setRelationId(newsColumn.getId());
             templateRelation.setRelationType(RelationTypeEnum.column.getType());
             templateRelation.setLastModifyUserId(newsColumn.getLastModifyUserId());
+            templateRelation.setCreateUserId(newsColumn.getLastModifyUserId());
             templateService.saveTemplateAndRelationAndNewsColumn(template,templateRelation,newsColumn);
             String fromFilePath = StringUtils.concatUrl(preTemplateBase.getBasePath(), preTemplate.getTemplatePath());
             String toFilePath = StringUtils.concatUrl(channel.getTemplatePath(),template.getPath(),template.getFilename());
@@ -171,10 +173,12 @@ public class PreTemplateBiz extends BaseBiz {
                 template.setSortNum(StaticContants.SORT_DETAIL_NUM);
                 template.setTemplateClassify(classifyEnum.getType());
                 template.setUserId(newsColumn.getLastModifyUserId());
+                template.setCreateUserId(newsColumn.getLastModifyUserId());
                 TemplateRelation templateRelation = new TemplateRelation();
                 templateRelation.setRelationId(newsColumn.getId());
                 templateRelation.setRelationType(RelationTypeEnum.column.getType());
                 templateRelation.setLastModifyUserId(newsColumn.getLastModifyUserId());
+                templateRelation.setCreateUserId(newsColumn.getLastModifyUserId());
                 templateService.saveTemplateAndRelationAndNewsColumn(template,templateRelation,newsColumn);
                 String fromFilePath = StringUtils.concatUrl(preTemplateBase.getBasePath(), preTemplate.getTemplatePath());
                 String toFilePath = StringUtils.concatUrl(channel.getTemplatePath(),template.getPath(),template.getFilename());
@@ -186,6 +190,7 @@ public class PreTemplateBiz extends BaseBiz {
                     templateRelation.setRelationId(newsColumn.getId());
                     templateRelation.setRelationType(RelationTypeEnum.column.getType());
                     templateRelation.setLastModifyUserId(newsColumn.getLastModifyUserId());
+                    templateRelation.setCreateUserId(newsColumn.getLastModifyUserId());
                 }
                 templateService.saveTemplateAndRelationAndNewsColumn(template,templateRelation,newsColumn);
             }

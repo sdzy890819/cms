@@ -64,6 +64,7 @@ public class AppImagesController extends AppBaseController {
         images.setImageUrl(imageUrl);
         images.setImageWidthPixel(imageWidthPixel);
         images.setUploadUserId(getCurrentUserId(request));
+        images.setCreateUserId(getCurrentUserId(request));
         images.setOrgHeightPixel(orgHeightPixel);
         images.setOrgWidthPixel(orgWidthPixel);
         images.setWatermark(watermark);

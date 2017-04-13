@@ -9,6 +9,7 @@
         <result column="update_time" property="updateTime" />
         <result column="del_tag" property="delTag" />
         <result column="last_modify_user_id" property="lastModifyUserId" />
+        <result column="create_user_id" property="createUserId" />
     </resultMap>
     <resultMap type="com.cn.cms.po.Template" id="template" extends="base">
         <result column="template_name" property="templateName" />
@@ -29,20 +30,25 @@
 
     <sql id="sql_column">
         id,last_modify_user_id,
-        template_name,template_desc,filename,path,template_classify,user_id,job,encoded,channel_id,sort_num,publish,update_time,create_time,upload
+        template_name,template_desc,filename,path,template_classify,user_id,job,encoded,channel_id,sort_num,publish,update_time,create_time,upload,create_user_id
     </sql>
     <sql id="insert_sql_column">
         id,last_modify_user_id,
-        template_name,template_desc,filename,path,template_classify,user_id,job,encoded,channel_id,sort_num,publish,upload
+        template_name,template_desc,filename,path,template_classify,user_id,job,encoded,channel_id,sort_num,publish,upload,create_user_id
     </sql>
 
+    <sql id="sql_column_find">
+        id,last_modify_user_id,
+        template_name,template_desc,filename,path,template_classify,user_id,job,encoded,channel_id,sort_num,publish,update_time,create_time,upload,create_user_id
+        ,create_time,update_time,del_tag
+    </sql>
 
     <select id="queryTemplateCount" resultType="java.lang.Integer">
         select count(1) from template <include refid="delTag" />;
     </select>
     
     <select id="queryTemplateList" resultMap="template">
-        select <include refid="sql_column" /> from template <include refid="delTag" />  order by update_time desc limit ${page.start},${page.pageSize} ;
+        select <include refid="sql_column_find" /> from template <include refid="delTag" />  order by update_time desc limit ${page.start},${page.pageSize} ;
     </select>
 
     <select id="searchTemplateCount" resultType="java.lang.Integer">
@@ -56,7 +62,7 @@
     </select>
 
     <select id="searchTemplate" resultMap="template">
-        select <include refid="sql_column" /> from template <include refid="delTag" />
+        select <include refid="sql_column_find" /> from template <include refid="delTag" />
         <if test="p1.condition != null">
             and template_name like CONCAT('%',#{p1.condition},'%')
         </if>
@@ -76,7 +82,7 @@
     <insert id="saveTemplate" useGeneratedKeys="true" keyProperty="p1.id">
         insert into template ( <include refid="insert_sql_column" /> ) values (
         null,#{p1.lastModifyUserId},#{p1.templateName},#{p1.templateDesc},#{p1.filename},#{p1.path},${p1.templateClassify},
-        #{p1.userId},${p1.job},#{p1.encoded},${p1.channelId},${p1.sortNum},${p1.publish},${p1.upload});
+        #{p1.userId},${p1.job},#{p1.encoded},${p1.channelId},${p1.sortNum},${p1.publish},${p1.upload},#{p1.createUserId});
     </insert>
 
     <update id="updateTemplate">

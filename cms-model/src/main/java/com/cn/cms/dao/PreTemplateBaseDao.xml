@@ -9,6 +9,7 @@
         <result column="update_time" property="updateTime" />
         <result column="del_tag" property="delTag" />
         <result column="last_modify_user_id" property="lastModifyUserId" />
+        <result column="create_user_id" property="createUserId" />
     </resultMap>
 
     <resultMap type="com.cn.cms.po.PreTemplateBase" id="preTemplateBase" extends="base">
@@ -19,7 +20,7 @@
     <sql id="delTag"> where del_tag = 1 </sql>
 
     <sql id="sql_column">
-        id,last_modify_user_id,base_path
+        id,last_modify_user_id,base_path,create_user_id
     </sql>
 
     <select id="queryPreTemplateBase" resultMap="preTemplateBase">
@@ -28,7 +29,7 @@
 
     <insert id="savePreTemplateBase" useGeneratedKeys="true" keyProperty="p1.id" >
         insert into pre_template_base ( <include refid="sql_column" /> ) values
-        (null,#{p1.lastModifyUserId},#{p1.basePath});
+        (null,#{p1.lastModifyUserId},#{p1.basePath},#{p1.createUserId});
     </insert>
 
     <update id="updatePreTemplateBase">

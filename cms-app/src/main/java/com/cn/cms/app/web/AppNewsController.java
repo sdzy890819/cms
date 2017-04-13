@@ -159,9 +159,11 @@ public class AppNewsController extends AppBaseController {
         news.setSource(source);
         NewsDetail newsDetail = new NewsDetail();
         newsDetail.setLastModifyUserId(userID);
+        newsDetail.setCreateUserId(userID);
         newsDetail.setContent(content);
         news.setNewsDetail(newsDetail);
         news.setLastModifyUserId(userID);
+        news.setCreateUserId(userID);
         news.setWriteTime(new Date());
         news.setWriteUserId(userID);
         news.setField1(field1);

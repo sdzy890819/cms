@@ -142,6 +142,7 @@ public class TopicController extends BaseController {
         SimpleDateFormat sdf = new SimpleDateFormat(StaticContants.YYYY_MM_DD);
         Topic topic = new Topic();
         topic.setLastModifyUserId(getCurrentUserId(request));
+        topic.setCreateUserId(getCurrentUserId(request));
         topic.setTopicClassifyId(topicClassifyId);
         topic.setCategoryId(categoryId);
         topic.setChannelId(channelId);
@@ -295,6 +296,7 @@ public class TopicController extends BaseController {
         TopicClassify topicClassify = new TopicClassify();
         topicClassify.setClassifyName(name);
         topicClassify.setLastModifyUserId(getCurrentUserId(request));
+        topicClassify.setCreateUserId(getCurrentUserId(request));
         topicBiz.saveTopicClassify(topicClassify);
         return ApiResponse.returnSuccess();
     }
@@ -361,6 +363,7 @@ public class TopicController extends BaseController {
         TopicColumn topicColumn = new TopicColumn();
         topicColumn.setColumnName(name);
         topicColumn.setLastModifyUserId(getCurrentUserId(request));
+        topicColumn.setCreateUserId(getCurrentUserId(request));
         topicBiz.saveTopicColumn(topicColumn);
         return ApiResponse.returnSuccess();
     }

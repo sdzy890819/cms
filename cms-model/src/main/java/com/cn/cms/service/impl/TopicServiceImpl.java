@@ -54,6 +54,11 @@ public class TopicServiceImpl implements TopicService {
         return topicDao.getTopicManage(id);
     }
 
+    @Override
+    public Topic doGetTopicManage(Long id) {
+        return topicDao.getTopicManage(id);
+    }
+
     public void delTopic(String lastModifyUserId, Long id) {
         topicDao.delTopic(lastModifyUserId, id);
         delIndex(id);

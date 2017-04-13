@@ -56,4 +56,9 @@ public class NewsColumn extends Base {
      * 描述
      */
     private String description;
+
+    /**
+     * 额外赋值
+     */
+    private String channelName;
 }

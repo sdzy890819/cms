@@ -65,62 +65,66 @@ public class NewsBiz extends BaseBiz {
      * @param list
      */
     public void dataInit(List<News> list ){
-        List<String> userIds = new ArrayList<>();
-        List<Long> channelIds = new ArrayList<>();
-        List<Long> columnIds = new ArrayList<>();
         if(StringUtils.isNotEmpty(list)) {
-            for (int i = 0; i < list.size(); i++) {
-                if(StringUtils.isNotBlank(list.get(i).getWriteUserId())) {
-                    userIds.add(list.get(i).getWriteUserId());
+            List<String> userIds = new ArrayList<>();
+            List<Long> channelIds = new ArrayList<>();
+            List<Long> columnIds = new ArrayList<>();
+            if (StringUtils.isNotEmpty(list)) {
+                for (int i = 0; i < list.size(); i++) {
+                    if (StringUtils.isNotBlank(list.get(i).getWriteUserId())) {
+                        userIds.add(list.get(i).getWriteUserId());
+                    }
+                    if (StringUtils.isNotBlank(list.get(i).getLastModifyUserId())) {
+                        userIds.add(list.get(i).getLastModifyUserId());
+                    }
+                    if (StringUtils.isNotBlank(list.get(i).getBuildUserId())) {
+                        userIds.add(list.get(i).getBuildUserId());
+                    }
+                    if (list.get(i).getChannelId() != null) {
+                        channelIds.add(list.get(i).getChannelId());
+                    }
+                    if (list.get(i).getColumnId() != null) {
+                        columnIds.add(list.get(i).getColumnId());
+                    }
                 }
-                if(StringUtils.isNotBlank(list.get(i).getLastModifyUserId())) {
-                    userIds.add(list.get(i).getLastModifyUserId());
+                Map<String, UserBean> map = userBiz.getUserBeanMap(userIds);
+                Map<Long, Channel> channelMap = channelBiz.getChannelsMap(channelIds);
+                Map<Long, NewsColumn> newsColumnMap = this.getNewsColumnMap(columnIds);
+                for (int i = 0; i < list.size(); i++) {
+                    list.get(i).setWriteUserName(map.get(list.get(i).getWriteUserId()) != null ?
+                            map.get(list.get(i).getWriteUserId()).getRealName() : "");
+                    list.get(i).setLastModifyUserName(map.get(list.get(i).getLastModifyUserId()) != null ?
+                            map.get(list.get(i).getLastModifyUserId()).getRealName() : "");
+                    list.get(i).setBuildUserName(map.get(list.get(i).getBuildUserId()) != null ?
+                            map.get(list.get(i).getBuildUserId()).getRealName() : "");
+                    list.get(i).setChannelName(channelMap.get(list.get(i).getChannelId()) != null ?
+                            channelMap.get(list.get(i).getChannelId()).getChannelName() : "");
+                    list.get(i).setColumnName(newsColumnMap.get(list.get(i).getColumnId()) != null ?
+                            newsColumnMap.get(list.get(i).getColumnId()).getColumnName() : "");
                 }
-                if(StringUtils.isNotBlank(list.get(i).getBuildUserId())){
-                    userIds.add(list.get(i).getBuildUserId());
-                }
-                if(list.get(i).getChannelId()!=null) {
-                    channelIds.add(list.get(i).getChannelId());
-                }
-                if(list.get(i).getColumnId()!=null) {
-                    columnIds.add(list.get(i).getColumnId());
-                }
-            }
-            Map<String, UserBean> map = userBiz.getUserBeanMap(userIds);
-            Map<Long ,Channel> channelMap = channelBiz.getChannelsMap(channelIds);
-            Map<Long, NewsColumn> newsColumnMap = this.getNewsColumnMap(columnIds);
-            for (int i = 0; i < list.size(); i++) {
-                list.get(i).setWriteUserName(map.get(list.get(i).getWriteUserId())!=null?
-                        map.get(list.get(i).getWriteUserId()).getRealName():"");
-                list.get(i).setLastModifyUserName(map.get(list.get(i).getLastModifyUserId())!=null?
-                        map.get(list.get(i).getLastModifyUserId()).getRealName():"");
-                list.get(i).setBuildUserName(map.get(list.get(i).getBuildUserId())!=null?
-                        map.get(list.get(i).getBuildUserId()).getRealName():"");
-                list.get(i).setChannelName(channelMap.get(list.get(i).getChannelId())!=null?
-                        channelMap.get(list.get(i).getChannelId()).getChannelName():"");
-                list.get(i).setColumnName(newsColumnMap.get(list.get(i).getColumnId())!=null?
-                        newsColumnMap.get(list.get(i).getColumnId()).getColumnName():"");
             }
         }
     }
 
     public void recommendInit(List<NewsRecommend> list){
-        Map<String, String> userIds = new HashMap<>();
-        Map<Long, Long> recommendIds = new HashMap<>();
-        if(StringUtils.isNotEmpty(list)){
-            for(int i=0;i<list.size();i++){
-                if(StringUtils.isNotBlank(list.get(i).getRecommendUserId())){
-                    userIds.put(list.get(i).getRecommendUserId(), list.get(i).getRecommendUserId());
+        if(StringUtils.isNotEmpty(list)) {
+            Map<String, String> userIds = new HashMap<>();
+            Map<Long, Long> recommendIds = new HashMap<>();
+            if (StringUtils.isNotEmpty(list)) {
+                for (int i = 0; i < list.size(); i++) {
+                    if (StringUtils.isNotBlank(list.get(i).getRecommendUserId())) {
+                        userIds.put(list.get(i).getRecommendUserId(), list.get(i).getRecommendUserId());
+                    }
+                    if (list.get(i).getRecommendColumnId() != null && list.get(i).getRecommendColumnId() > 0) {
+                        recommendIds.put(list.get(i).getRecommendColumnId(), list.get(i).getRecommendColumnId());
+                    }
                 }
-                if(list.get(i).getRecommendColumnId()!=null && list.get(i).getRecommendColumnId() > 0){
-                    recommendIds.put(list.get(i).getRecommendColumnId(), list.get(i).getRecommendColumnId());
+                Map<String, UserBean> map = userBiz.getUserBeanMap(new ArrayList<>(userIds.values()));
+                Map<Long, RecommendColumn> columnMap = getRecommendColumnMap(new ArrayList<>(recommendIds.values()));
+                for (int i = 0; i < list.size(); i++) {
+                    list.get(i).setRecommendUserName(map.get(list.get(i).getRecommendUserId()) != null ? map.get(list.get(i).getRecommendUserId()).getRealName() : "");
+                    list.get(i).setRecommendColumnName(columnMap.get(list.get(i).getRecommendColumnId()) != null ? columnMap.get(list.get(i).getRecommendColumnId()).getColumnName() : "");
                 }
-            }
-            Map<String, UserBean> map = userBiz.getUserBeanMap(new ArrayList<>(userIds.values()));
-            Map<Long, RecommendColumn> columnMap = getRecommendColumnMap(new ArrayList<>(recommendIds.values()));
-            for(int i=0;i<list.size();i++){
-                list.get(i).setRecommendUserName(map.get(list.get(i).getRecommendUserId())!=null ? map.get(list.get(i).getRecommendUserId()).getRealName() : "");
-                list.get(i).setRecommendColumnName(columnMap.get(list.get(i).getRecommendColumnId()) != null ? columnMap.get(list.get(i).getRecommendColumnId()).getColumnName() : "");
             }
         }
     }
@@ -197,17 +201,20 @@ public class NewsBiz extends BaseBiz {
      * @return
      */
     public Map<Long, NewsColumn> getNewsColumnMap(List<Long> list){
-        Map<Long, String> map = new HashMap<>();
-        for(int i=0;i<list.size();i++){
-            map.put(list.get(i), RedisKeyContants.getRedisNewcolumnId(list.get(i)));
-        }
         Map<Long, NewsColumn> result = new HashMap<>();
-        List<String> tmp = jedisClient.mget(map.values().toArray(new String[map.size()]));
-        if(StringUtils.isNotEmpty(tmp)){
-            for(int i=0;i<tmp.size();i++){
-                NewsColumn newsColumn = JSONObject.parseObject(tmp.get(i), NewsColumn.class);
-                if(newsColumn!=null) {
-                    result.put(newsColumn.getId(), newsColumn);
+        if(StringUtils.isNotEmpty(list)) {
+            Map<Long, String> map = new HashMap<>();
+            for (int i = 0; i < list.size(); i++) {
+                map.put(list.get(i), RedisKeyContants.getRedisNewcolumnId(list.get(i)));
+            }
+
+            List<String> tmp = jedisClient.mget(map.values().toArray(new String[map.size()]));
+            if (StringUtils.isNotEmpty(tmp)) {
+                for (int i = 0; i < tmp.size(); i++) {
+                    NewsColumn newsColumn = JSONObject.parseObject(tmp.get(i), NewsColumn.class);
+                    if (newsColumn != null) {
+                        result.put(newsColumn.getId(), newsColumn);
+                    }
                 }
             }
         }
@@ -477,6 +484,7 @@ public class NewsBiz extends BaseBiz {
                 if(tmps.length == 2) {
                     NewsStock newsStock = new NewsStock();
                     newsStock.setLastModifyUserId(lastModifyUserId);
+                    newsStock.setCreateUserId(lastModifyUserId);
                     newsStock.setNewsId(newsId);
                     newsStock.setStockCode(tmps[0]);
                     newsStock.setStockName(tmps[1]);
@@ -515,6 +523,9 @@ public class NewsBiz extends BaseBiz {
         return newsService.findNewsStockList(newsId);
     }
 
+    public List<NewsStock> doFindNewsStockList(Long newsId){
+        return newsService.doFindNewsStockList(newsId);
+    }
 
     public News findNewsManage(Long id){
         return newsService.findNewsManage(id);
@@ -522,6 +533,10 @@ public class NewsBiz extends BaseBiz {
 
     public News findNewsAndDetailManage(Long id){
         return newsService.findNewsAndDetailManage(id);
+    }
+
+    public News doFindNewsAndDetailManage(Long id){
+        return newsService.doFindNewsAndDetailManage(id);
     }
 
     /**

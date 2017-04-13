@@ -72,8 +72,12 @@ public class Test {
 //        System.out.println(channel.getChannelName());
 //        System.out.println(StaticContants.OS_NAME);
         //System.out.println(JSONObject.toJSONString(ErrorCodeEnum.ERROR_CODE_DEFAULT, StaticContants.config));
-
-        System.out.println("{#1234#}".substring(2,"{#1234#}".length()-2));
+        String path = "//data/template中国/aa.html";
+        System.out.println(path = path.replaceAll("//", "/"));
+        System.out.println(EncryptUtil.md5(path));
+        String path1 = "/data/template中国/aa.html";
+        System.out.println(path1 = path1.replaceAll("//", "/"));
+        System.out.println(EncryptUtil.md5(path1));
 
     }
 

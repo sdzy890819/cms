@@ -29,6 +29,8 @@ public interface ResourceService {
 
     Images findImagesManage(Long id);
 
+    Images doFindImagesManage(Long id);
+
     Integer queryImagesCount();
 
     List<Images> queryImagesList(Page page);
@@ -48,6 +50,8 @@ public interface ResourceService {
     Video findVideo(Long id);
 
     Video findVideoManage(Long id);
+
+    Video doFindVideoManage(Long id);
 
     Integer queryVideoCount();
 

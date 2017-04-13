@@ -6,6 +6,7 @@ import com.cn.cms.contants.RedisKeyContants;
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.middleware.JedisClient;
 import com.cn.cms.po.Channel;
+import com.cn.cms.po.NewsColumn;
 import com.cn.cms.po.UserChannel;
 import com.cn.cms.service.ChannelService;
 import com.cn.cms.utils.Page;
@@ -223,6 +224,23 @@ public class ChannelBiz extends BaseBiz {
 
     public void delUserChannel(String userId, Long channelId){
         channelService.delUserChannel(userId, channelId);
+    }
+
+
+    public void dataInitChannel(List<NewsColumn> list){
+        if(StringUtils.isNotEmpty(list)) {
+            Map<Long, Long> map = new HashMap<>();
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).getChannelId() != null) {
+                    map.put(list.get(i).getChannelId(), list.get(i).getChannelId());
+                }
+            }
+            Map<Long, Channel> channelMap = getChannelsMap(new ArrayList<>(map.values()));
+            for (int i = 0; i < list.size(); i++) {
+                list.get(i).setChannelName(channelMap.get(list.get(i).getChannelId()) != null ? channelMap.get(list.get(i).getChannelId()).getChannelName() : "");
+            }
+        }
+
     }
 
 }

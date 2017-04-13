@@ -30,6 +30,7 @@ public class UserPositionBiz extends BaseBiz {
             UserPosition userPosition = new UserPosition();
             userPosition.setUserId(userId);
             userPosition.setLastModifyUserId(lastModifyId);
+            userPosition.setCreateUserId(lastModifyId);
             userPosition.setPositionId(position.getId());
             userService.insertUserPosition(userPosition);
         }

@@ -10,6 +10,7 @@
         <result column="update_time" property="updateTime" />
         <result column="del_tag" property="delTag" />
         <result column="last_modify_user_id" property="lastModifyUserId" />
+        <result column="create_user_id" property="createUserId" />
     </resultMap>
 
     <resultMap type="com.cn.cms.po.NewsColumn" id="newsColumn" extends="base">
@@ -29,6 +30,12 @@
 
     <sql id="sql_column">
         id,last_modify_user_id,`column_name`,channel_id,list_id,detail_id,list_template2_id,detail_template2_id,keywords,description, list_url
+        ,create_user_id
+    </sql>
+
+    <sql id="sql_column_find">
+        id,last_modify_user_id,`column_name`,channel_id,list_id,detail_id,list_template2_id,detail_template2_id,keywords,description, list_url
+        ,create_user_id,create_time,update_time,del_tag
     </sql>
 
     <select id="queryListCount" resultType="java.lang.Integer">
@@ -37,19 +44,19 @@
     </select>
 
     <select id="queryListForPage" resultMap="newsColumn">
-        select <include refid="sql_column" /> from news_column <include refid="delTag" />
+        select <include refid="sql_column_find" /> from news_column <include refid="delTag" />
         order by update_time desc limit ${page.start}, ${page.pageSize};
     </select>
 
     <select id="queryList" resultMap="newsColumn">
-        select <include refid="sql_column"/> from news_column <include refid="delTag" />
+        select <include refid="sql_column_find"/> from news_column <include refid="delTag" />
         <if test="channelId != null ">
             and channel_id = ${channelId}
         </if>  order by update_time desc
     </select>
 
     <select id="getListForChannelIds" resultMap="newsColumn">
-        select <include refid="sql_column"/> from news_column <include refid="delTag" /> and channel_id in
+        select <include refid="sql_column_find"/> from news_column <include refid="delTag" /> and channel_id in
         <foreach collection="list" item="item" open="(" close=");" separator=",">
             ${item}
         </foreach>
@@ -57,7 +64,7 @@
 
     <insert id="saveNewsColumn" useGeneratedKeys="true" keyProperty="p1.id">
         insert into news_column ( <include refid="sql_column"/> ) values (null,#{p1.lastModifyUserId},#{p1.columnName},#{p1.channelId},#{p1.listId},
-        #{p1.detailId},#{p1.listTemplate2Id},#{p1.detailTemplate2Id},#{p1.keywords},#{p1.description},#{p1.listUrl});
+        #{p1.detailId},#{p1.listTemplate2Id},#{p1.detailTemplate2Id},#{p1.keywords},#{p1.description},#{p1.listUrl},#{p1.createUserId});
     </insert>
 
     <update id="updateNewsColumn">
@@ -129,7 +136,7 @@
     </update>
 
     <select id="getNewsColumn" resultMap="newsColumn" >
-        select <include refid="sql_column" /> from news_column <include refid="delTag" /> and id = ${id};
+        select <include refid="sql_column_find" /> from news_column <include refid="delTag" /> and id = ${id};
     </select>
 
     <select id="findColumnNameCount" resultType="java.lang.Integer">

@@ -186,6 +186,7 @@ public class PreTemplateController extends BaseController {
         PreTemplateBase preTemplateBase = new PreTemplateBase();
         preTemplateBase.setId(id);
         preTemplateBase.setLastModifyUserId(getCurrentUserId(request));
+        preTemplateBase.setCreateUserId(getCurrentUserId(request));
         preTemplateBase.setBasePath(basePath);
         preTemplateBiz.savePreTemplateBase(preTemplateBase);
         return ApiResponse.returnSuccess(preTemplateBase);
