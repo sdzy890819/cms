@@ -89,7 +89,8 @@ define(function(require){
 			recover : url + '/news/recover', //恢复	
 			preview : url + '/news/preview', //预览	
 			recommendList : url + '/news/recommendList', //获取新闻的推荐列表 接口
-			deleteRecommend : url + '/news/deleteRecommend' //取消推荐
+			deleteRecommend : url + '/news/deleteRecommend', //取消推荐
+			deleteRecommendColumn : url + '/news/deleteRecommendColumn' //取消栏目推荐
 		},
 		category : {//部门分类
 			listCategory : url+'/category/listCategory', //获取部门分类列表

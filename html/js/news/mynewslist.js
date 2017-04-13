@@ -401,6 +401,8 @@ define(['require',"app",'jquery'
 									publish = 0;									
 								}else if(obj.publish == '草稿'){
 									publish = 2;									
+								}else if(obj.publish == '已撤销'){
+									publish = 3;									
 								}
 								
 								function getSearchList(){								

@@ -23,7 +23,11 @@ define(function(getData,Tool){
 					{
 						title : 2,
 						name : '草稿'
-					}					
+					},
+					{
+						title : 3,
+						name : '已撤销'
+					}				
 				]
 			]
 		}
