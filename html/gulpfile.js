@@ -1,8 +1,8 @@
 var gulp = require('gulp') , 
 	concat = require('gulp-concat'),           //合并  
-	jshint = require('gulp-jshint'),           //js规范验证  
-	uglify = require('gulp-uglify'),           //压缩  
-	rename = require('gulp-rename'),          //文件名命名  
+	//jshint = require('gulp-jshint'),           //js规范验证  
+	uglify = require('gulp-uglify');           //压缩  
+	/*rename = require('gulp-rename'),          //文件名命名  
 	autoprefixer = require('gulp-autoprefixer'), 
     fontSpider = require( 'gulp-font-spider' ),
     htmlmin = require('gulp-htmlmin'),
@@ -12,7 +12,7 @@ var gulp = require('gulp') ,
     amdOptimize = require("amd-optimize"),
     cache = require('gulp-cache'),
 	watch = require('gulp-watch');   
-
+*/
 gulp.task('testHtmlmin', function () {
     var options = {
         removeComments: true,//清除HTML注释
@@ -28,23 +28,7 @@ gulp.task('testHtmlmin', function () {
         .pipe(htmlmin(options))
         .pipe(gulp.dest('dist'));
 });
-gulp.task('testAutoFx', function () {
-    const options = {
-        browsers: ['last 2 versions', 'Android >= 4.0'],
-        cascade: true, //是否美化属性值 默认：true 像这样：
-        //-webkit-transform: rotate(45deg);
-        //        transform: rotate(45deg);
-        remove:true //是否去掉不必要的前缀 默认：true 
-    };
-    gulp.src(['./*.css','./**/*.css','!./dist/*.css','!./dist/**/*.css'])
-        .pipe(autoprefixer(options))
-        .pipe(gulp.dest('dist'));
-    
-});
-gulp.task('testfont',function () {
-    gulp.src(['*.html','*.css','./**/*.html','./**/*.css'])
-        .pipe(fontSpider());
-});
+
 gulp.task('testImagemin', function () {
     gulp.src('images/*.{png,jpg,gif,ico}')
         .pipe(cache(imagemin({

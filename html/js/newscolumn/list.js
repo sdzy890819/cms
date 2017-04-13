@@ -34,38 +34,38 @@ define(['require',"app",'jquery','./columnForm'
         							listTemplate2Id = _detail.listTemplate2Id , 
         							detailTemplate2Id = _detail.detailTemplate2Id;
         							
-											$.each(obj.selects,function(){
-												if(this.title == 'channelId'){
-													channelId = this.id;
-												}
-												if(this.title == 'listTemplate2Id'){
-													listTemplate2Id = this.id;
-												}
-												if(this.title == 'detailTemplate2Id'){
-													detailTemplate2Id = this.id;
-												}
-											});
-											getData.news.updateNewsColumn({
-												id:_detail.id,
-												channelId:channelId,//频道ID
-												columnName:obj.columnName,
-												listId:obj.listId,//预模版list接口返回的预模版ID. 不是必须
-												detailId:obj.detailId,//预模版detail接口返回的预模版ID. 不是必须
-												listTemplate2Id:listTemplate2Id, //第二套模版接口模版ID，不是必须。如果选择则传参。参考B19文档
-												detailTemplate2Id:detailTemplate2Id,//第二套模版接口模版ID，不是必须。如果选择则传参。参考B19文档
-												keywords:obj.keywords, //不是必须
-												description:obj.description, //不是必须
-												callback : function(_data){
-													layui.use(['layer'], function(){
-														var layer = layui.layer;
-														layer.msg(_data.message);
-														getDataList();
-														/*setTimeout(function(){
-															$state.reload()
-														},300)*/
-													});
-												}
-											})
+								$.each(obj.selects,function(){
+									if(this.title == 'channelId'){
+										channelId = this.id;
+									}
+									if(this.title == 'listTemplate2Id'){
+										listTemplate2Id = this.id;
+									}
+									if(this.title == 'detailTemplate2Id'){
+										detailTemplate2Id = this.id;
+									}
+								});
+								getData.news.updateNewsColumn({
+									id:_detail.id,
+									channelId:channelId,//频道ID
+									columnName:obj.columnName,
+									listId:obj.listId,//预模版list接口返回的预模版ID. 不是必须
+									detailId:obj.detailId,//预模版detail接口返回的预模版ID. 不是必须
+									listTemplate2Id:listTemplate2Id, //第二套模版接口模版ID，不是必须。如果选择则传参。参考B19文档
+									detailTemplate2Id:detailTemplate2Id,//第二套模版接口模版ID，不是必须。如果选择则传参。参考B19文档
+									keywords:obj.keywords, //不是必须
+									description:obj.description, //不是必须
+									callback : function(_data){
+										layui.use(['layer'], function(){
+											var layer = layui.layer;
+											layer.msg(_data.message);
+											getDataList();
+											/*setTimeout(function(){
+												$state.reload()
+											},300)*/
+										});
+									}
+								});
         					},
         					callback : function( list , callback ){ //返回获取的数据 用于操作
 								callback(list);
@@ -141,13 +141,6 @@ define(['require',"app",'jquery','./columnForm'
 							editPopList.init({
 	        					obj : null,
 	        					list : getList,
-	        					updateData : ()=>{ return 'd'},
-	        					save : function(obj , _detail){ //保存或新增
-	        						
-	        					},
-	        					callback : function( list , callback ){ //返回获取的数据 用于操作
-									callback([]);
-	        					},
 	        					$uibModal :$uibModal 
 	        				});
 						})
