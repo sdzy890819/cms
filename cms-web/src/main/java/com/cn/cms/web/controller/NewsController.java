@@ -458,7 +458,7 @@ public class NewsController extends BaseController {
 
     @CheckToken
     @CheckAuth( name = "recommendcolumn:delete" )
-    @RequestMapping(value = "/deleteRecommendColumn", method = RequestMethod.POST)
+    @RequestMapping(value = "/deleteRecommendColumn", method = RequestMethod.GET)
     public String deleteRecommendColumn(HttpServletRequest request,
                                         @RequestParam(value = "id") Long id){
         newsBiz.deleteRecommendColumn(id, getCurrentUserId(request));
