@@ -191,11 +191,17 @@ define(['require',"app",'jquery'
 						
 						function setList(_data){
 							var th = [							
-								{name: '碎片ID', width: '100', key: 'id'},
+								{name: '碎片ID', width: '50', key: 'id'},
 								{name:'碎片名称', key: 'fragmentName' },
-								{name:'最后维护人', key: 'editUserName' },
-								{name:'最后维护时间', key: 'editTimeStr' },						
-								{name:'操作' , width : '400', class:'center'}
+								{name:'最后维护人', key: 'editUserName',width:60 },
+								{name:'最后维护时间', key: 'editTimeStr',width:60 },						
+								
+								{name: '创建人', key: 'createUserName' , width:60},
+								{name: '创建时间', key: 'createTimeStr' , width:80},
+								{name: '修改人', key: 'lastModifyUserName' , width:60},
+								{name: '修改时间', key: 'updateTimeStr' , width:80},
+
+								{name:'操作' , width : '100', class:'center'}
 							];
 
 							$scope.listdata = { //确认按钮

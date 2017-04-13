@@ -181,8 +181,8 @@ define(['require',"app",'jquery','./columnForm'
 
 							var th = [
 								{name:'ID' , key:'id' , width : '50'},
-								{name:'栏目名' , key:'columnName' , width : '500'},
-								{name:'频道ID' , key:'channelId' },
+								{name:'栏目名' , key:'columnName'},
+								{name:'频道ID' , key:'channelId' , width : '50' },
 								{name:'频道名称' , key:'channelName' },
 
 								{name: '创建人', key: 'createUserName' , width:60},
@@ -190,7 +190,7 @@ define(['require',"app",'jquery','./columnForm'
 								{name: '修改人', key: 'lastModifyUserName' , width:60},
 								{name: '修改时间', key: 'updateTimeStr' , width:80},
 								
-								{name:'操作' , width : '200' , class:'center'}
+								{name:'操作' , width : 150 , class:'center'}
 							];
 							$scope.listdata = { //确认按钮
 								title : $scope.title,

@@ -171,7 +171,7 @@ define(['require',"app",'jquery',
 
 				function setList(_data){
 					var th = [
-						{name:'头像' ,  key: 'headImage', width : '200'},										
+						{name:'头像' ,  key: 'headImage', width : '50'},										
 						{name:'真实名称', key: 'realName' },
 						{name:'用户名', key: 'userName' },
 						{name: 'IDFA(MAC)', key: 'idfa'},
@@ -182,7 +182,7 @@ define(['require',"app",'jquery',
 						{name: '修改人', key: 'lastModifyUserName' , width:60},
 						{name: '修改时间', key: 'updateTimeStr' , width:80},
 
-						{name:'操作' , width : '300' , class:'center'}
+						{name:'操作' , width : '100' , class:'center'}
 					];				
 
 					$.each(_data.data.list, function(i, a){						

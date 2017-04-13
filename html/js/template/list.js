@@ -195,7 +195,7 @@ define(['require',"app",'jquery'
 						{name: '创建时间', key: 'createTimeStr' , width:80},
 						{name: '修改人', key: 'lastModifyUserName' , width:60},
 						{name: '修改时间', key: 'updateTimeStr' , width:80},
-						{name:'操作' , width : '350',class:'center'}
+						{name:'操作' , width : 150,class:'center'}
 					];
 					$scope.listdata = { //确认按钮
 						title : $scope.title,
