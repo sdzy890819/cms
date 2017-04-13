@@ -93,7 +93,7 @@ define(['require',"app",'jquery','./columnForm'
 					},
 					template : function( obj ){
 						require(['../common/editPopList'],function(editPopList){
-							obj.size = 'modal-sm';
+							obj.size = 'sm';
 							function del( obj ){
 								obj.relationType = 1;
 								obj.relationId = obj.channelId; //栏目
