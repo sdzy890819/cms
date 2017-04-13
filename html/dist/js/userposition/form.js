@@ -1,1 +1,1 @@
-define(function(getData,Tool){return[{title:"positionName",name:" 用户组名称",type:"text",placeholder:"请输入用户组名称",verify:"title"}]});
+define(function(getData,Tool){var list=[{title:"positionName",name:" 用户组名称",type:"text",placeholder:"请输入用户组名称",verify:"title"}];return list});
