@@ -91,4 +91,6 @@ public interface NewsService {
 
     void deleteRecommend(Long id);
 
+    void deleteRecommendColumn(Long id, String lastModifyUserId);
+
 }

@@ -289,4 +289,9 @@ public class NewsServiceImpl implements NewsService {
     public void deleteRecommend(Long id) {
         newsDao.deleteRecommend(id);
     }
+
+    @Override
+    public void deleteRecommendColumn(Long id, String lastModifyUserId) {
+        recommendColumnDao.deleteRecommendColumn(id, lastModifyUserId);
+    }
 }

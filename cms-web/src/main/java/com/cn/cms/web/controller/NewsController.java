@@ -455,6 +455,16 @@ public class NewsController extends BaseController {
         return ApiResponse.returnSuccess();
     }
 
+
+    @CheckToken
+    @CheckAuth( name = "recommendcolumn:delete" )
+    @RequestMapping(value = "/deleteRecommendColumn", method = RequestMethod.POST)
+    public String deleteRecommendColumn(HttpServletRequest request,
+                                        @RequestParam(value = "id") Long id){
+        newsBiz.deleteRecommendColumn(id, getCurrentUserId(request));
+        return ApiResponse.returnSuccess();
+    }
+
     //-------------------------------       新增功能
 
     /**

@@ -459,6 +459,8 @@ public class NewsBiz extends BaseBiz {
         }
     }
 
+
+
     /**
      * 发布列表页模版
      * @param newsColumn
@@ -568,6 +570,11 @@ public class NewsBiz extends BaseBiz {
 
     public void deleteRecommend(Long id){
         newsService.deleteRecommend(id);
+    }
+
+
+    public void deleteRecommendColumn(Long id, String lastModifyUserId) {
+        newsService.deleteRecommendColumn(id, lastModifyUserId);
     }
 }
 
