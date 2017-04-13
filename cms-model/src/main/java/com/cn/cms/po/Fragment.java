@@ -58,12 +58,12 @@ public class Fragment extends Base {
     /**
      * 碎片维护人名称
      */
-    private String editUserName;
+    private String editUserName = "";
 
     /**
      * 碎片维护时间串
      */
-    private String editTimeStr;
+    private String editTimeStr = "";
 
 
     public String getEditTimeStr(){
