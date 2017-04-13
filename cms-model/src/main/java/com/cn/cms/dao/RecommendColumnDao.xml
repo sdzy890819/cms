@@ -49,4 +49,8 @@
         </foreach>
     </select>
 
+    <update id="deleteRecommendColumn" >
+        update recommend_column set last_modify_user_id=#{lastModifyUserId}, del_tag=0 where id=${id};
+    </update>
+
 </mapper>

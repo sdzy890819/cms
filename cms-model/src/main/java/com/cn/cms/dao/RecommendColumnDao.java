@@ -18,4 +18,6 @@ public interface RecommendColumnDao {
     void updateRecommendColumn(@Param(value = "p1") RecommendColumn recommendColumn);
 
     List<RecommendColumn> findRecommendColumnByIds(@Param(value = "list") List<Long> ids);
+
+    void deleteRecommendColumn(@Param(value = "id") Long id, @Param(value = "lastModifyUserId") String lastModifyUserId);
 }
