@@ -18,8 +18,6 @@
         <result column="real_name" property="realName" />
         <result column="pwd" property="pwd" />
         <result column="user_id" property="userId" />
-        <result column="position_id" property="positionId" />
-        <result column="position_name" property="position_name" />
         <result column="idfa" property="idfa" />
     </resultMap>
 
