@@ -45,6 +45,7 @@ define(["app",'jquery','../../data/URL'],function (app,$,URL) {
 			        };
 
 			        uploader.onProgressItem = function(fileItem, progress) { //进行中
+			        	$('.videoPop .progress').show();
 			        	$('.videoPop .progress1').css({width:progress+'%'});
 			        };
 			        

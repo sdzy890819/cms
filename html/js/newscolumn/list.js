@@ -1,8 +1,8 @@
-define(["app",'jquery','./columnForm'
+define(['require',"app",'jquery','./columnForm'
 		,'../data/getData','../common/editPop','formlist'
 		,'position','fixedNav'
 		,'../moduls/service','../moduls/factory',
-], function ( app , $ , list , getData , editPop) {
+], function ( require, app , $ , list , getData , editPop) {
 	app.directive('newscolumnList',function(){
 		return {
 	    	restrict : 'E',
@@ -34,38 +34,38 @@ define(["app",'jquery','./columnForm'
         							listTemplate2Id = _detail.listTemplate2Id , 
         							detailTemplate2Id = _detail.detailTemplate2Id;
         							
-											$.each(obj.selects,function(){
-												if(this.title == 'channelId'){
-													channelId = this.id;
-												}
-												if(this.title == 'listTemplate2Id'){
-													listTemplate2Id = this.id;
-												}
-												if(this.title == 'detailTemplate2Id'){
-													detailTemplate2Id = this.id;
-												}
-											});
-											getData.news.updateNewsColumn({
-												id:_detail.id,
-												channelId:channelId,//频道ID
-												columnName:obj.columnName,
-												listId:obj.listId,//预模版list接口返回的预模版ID. 不是必须
-												detailId:obj.detailId,//预模版detail接口返回的预模版ID. 不是必须
-												listTemplate2Id:listTemplate2Id, //第二套模版接口模版ID，不是必须。如果选择则传参。参考B19文档
-												detailTemplate2Id:detailTemplate2Id,//第二套模版接口模版ID，不是必须。如果选择则传参。参考B19文档
-												keywords:obj.keywords, //不是必须
-												description:obj.description, //不是必须
-												callback : function(_data){
-													layui.use(['layer'], function(){
-														var layer = layui.layer;
-														layer.msg(_data.message);
-														getDataList();
-														/*setTimeout(function(){
-															$state.reload()
-														},300)*/
-													});
-												}
-											})
+								$.each(obj.selects,function(){
+									if(this.title == 'channelId'){
+										channelId = this.id;
+									}
+									if(this.title == 'listTemplate2Id'){
+										listTemplate2Id = this.id;
+									}
+									if(this.title == 'detailTemplate2Id'){
+										detailTemplate2Id = this.id;
+									}
+								});
+								getData.news.updateNewsColumn({
+									id:_detail.id,
+									channelId:channelId,//频道ID
+									columnName:obj.columnName,
+									listId:obj.listId,//预模版list接口返回的预模版ID. 不是必须
+									detailId:obj.detailId,//预模版detail接口返回的预模版ID. 不是必须
+									listTemplate2Id:listTemplate2Id, //第二套模版接口模版ID，不是必须。如果选择则传参。参考B19文档
+									detailTemplate2Id:detailTemplate2Id,//第二套模版接口模版ID，不是必须。如果选择则传参。参考B19文档
+									keywords:obj.keywords, //不是必须
+									description:obj.description, //不是必须
+									callback : function(_data){
+										layui.use(['layer'], function(){
+											var layer = layui.layer;
+											layer.msg(_data.message);
+											getDataList();
+											/*setTimeout(function(){
+												$state.reload()
+											},300)*/
+										});
+									}
+								});
         					},
         					callback : function( list , callback ){ //返回获取的数据 用于操作
 								callback(list);
@@ -90,6 +90,60 @@ define(["app",'jquery','./columnForm'
 	 							getData.news.delNewsColumn(obj);
 							}
 	 					})
+					},
+					template : function( obj ){
+						require(['../common/editPopList'],function(editPopList){
+							obj.size = 'sm';
+							function del( obj ){
+								obj.relationType = 1;
+								obj.relationId = obj.channelId; //栏目
+								obj.templateId = obj.id; //模版
+								obj.callback = function(_data){//删除成功
+									layui.use(['layer'], function(){
+										var layer = layui.layer;
+										layer.msg(_data.message);
+										if(_data.code == 0) {									
+											$('table').find("tr[data-id=" + obj.id + "]").hide();
+										}
+									});
+								};
+								pop.alert({
+			 						 text:'您确定要删除"'+obj.templateName+'"吗'
+			 						,btn : ['确定','取消']
+			 						,fn : function(){
+			 							getData.template.delRelationByColumnList(obj);
+									}
+			 					})
+							}
+							function getList(callback){ //填充数据
+								getData.template.listTemplateBycolumnId({
+									columnId : obj.id,
+									callback : function(_data){
+										var th = [
+			                                {name:'模板标题' , key:'templateName'},
+			                                {name:'操作' , width : '200' , class:'center'}
+			                            ];
+			                            var listdata = { //确认按钮
+			                                title : '对应模版',
+			                                table : {
+			                                    th : th,
+			                                    td : GenerateArrList.setArr(_data.data,th) ,
+			                                    edit : [
+			                                        {cls : 'del' , name : '删除',evt:del}
+			                                    ]
+			                                },
+			                            }
+			                            GenerateArrList.extendChild(listdata.table.td,listdata.table.edit,'edit');
+										callback(_data , listdata);
+									}
+								})
+							}
+							editPopList.init({
+	        					obj : null,
+	        					list : getList,
+	        					$uibModal :$uibModal 
+	        				});
+						})
 					}
 				});
 				 
@@ -127,9 +181,16 @@ define(["app",'jquery','./columnForm'
 
 							var th = [
 								{name:'ID' , key:'id' , width : '50'},
-								{name:'栏目名' , key:'columnName' , width : '500'},
-								{name:'频道ID' , key:'channelId' },
-								{name:'操作' , width : '200' , class:'center'}
+								{name:'栏目名' , key:'columnName'},
+								{name:'频道ID' , key:'channelId' , width : '50' },
+								{name:'频道名称' , key:'channelName' },
+
+								{name: '创建人', key: 'createUserName' , width:60},
+								{name: '创建时间', key: 'createTimeStr' , width:80},
+								{name: '修改人', key: 'lastModifyUserName' , width:60},
+								{name: '修改时间', key: 'updateTimeStr' , width:80},
+								
+								{name:'操作' , width : 150 , class:'center'}
 							];
 							$scope.listdata = { //确认按钮
 								title : $scope.title,
@@ -139,6 +200,7 @@ define(["app",'jquery','./columnForm'
 									td : GenerateArrList.setArr(_data.data.list,th) ,
 									edit : [
 										{cls : 'edit' , name : '编辑',evt:$scope.edit},
+										{cls : 'edit' , name : '对应模版',evt:$scope.template},
 									/*	{cls : 'edit' , name : '添加权限到组',evt:$scope.edit},*/
 										{cls : 'del' , name : '删除',evt:$scope.del}
 									]
@@ -165,8 +227,8 @@ define(["app",'jquery','./columnForm'
 									obj.list[1].href = obj.listUrl;
 								}
 							})							
-	        		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
-	        		$scope.$apply();
+	        				GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
+	        				$scope.$apply();
 						}
 					});
 				};

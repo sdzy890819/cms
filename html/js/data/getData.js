@@ -888,8 +888,13 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 		},
 		category : { //部门分类
 			listCategory : function( obj ){ // 部门分类列表
+				var newobj = {}
+				if(obj.info){
+					newobj.info = obj.info;
+				}
 				T.ajax({
 					url : URL.category.listCategory , 
+					data : newobj,
 					type : 'get',
 					success : function( _data ){
 						obj.callback(_data);
@@ -937,8 +942,13 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 		},
 		channel : {//取频道分类管理
 			listChannel : function( obj ){ //栏目列表
+				var newobj = {}
+				if(obj.info){
+					newobj.info = obj.info;
+				}
 				T.ajax({
 					url : URL.channel.listChannel , 
+					data : newobj,
 					success : function( _data ){
 						obj.callback(_data);
 					}
@@ -1301,6 +1311,31 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						"encoded":obj.encoded,
 						"channelId":obj.channelId,//频道ID
 						"sortNum":obj.sortNum,//排序值
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});
+			},
+			listTemplateBycolumnId : function( obj ){//读取所有的模版对应的关系列表 接口
+				T.ajax({
+					url : URL.template.listTemplateBycolumnId , 
+					data : {
+						"columnId":obj.columnId
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});
+			},
+			delRelationByColumnList : function( obj ){//读取所有的模版对应的关系列表 接口
+				T.ajax({
+					url : URL.template.delRelationByColumnList , 
+					type : 'POST',
+					data : {
+						"templateId":obj.templateId, //模版ID
+						"relationId":obj.relationId, //新闻栏目ID
+						"relationType":obj.relationType //使用1即可
 					},
 					success : function( _data ){
 						obj.callback(_data);

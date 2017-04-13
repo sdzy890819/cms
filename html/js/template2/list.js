@@ -171,14 +171,18 @@ define(['require',"app",'jquery'
 						}
 					});
 					var th = [
-						{name:'模版名称' , key:'templateName', width : '200'},
+						{name:'模版名称' , key:'templateName'},
 						//{name:'模版说明' , key:'templateDesc' },
 						//{name:'文件名',width:'90' , key:'filename'},
 						//{name:'发布目录',width:'100' , key:'path'},
-						{name:'模版分类',width:'200' , key:'templateClassifyStr'},
-						{name:'编码',width:'80',class:'center' , key:'encoded'},
+						{name:'模版分类',width:'200' , key:'templateClassifyStr',width:80},
+						{name:'编码',width:'80',class:'center' , key:'encoded' , width:60},
 						//{name:'排序值', width:'90',class:'center' , key:'sortNum'},
-						{name:'操作' , width : '250',class:'center'}
+						{name: '创建人', key: 'createUserName' , width:60},
+						{name: '创建时间', key: 'createTimeStr' , width:80},
+						{name: '修改人', key: 'lastModifyUserName' , width:60},
+						{name: '修改时间', key: 'updateTimeStr' , width:80},
+						{name:'操作' , width : 100,class:'center'}
 					];
 					$scope.listdata = { //确认按钮
 						title : $scope.title,

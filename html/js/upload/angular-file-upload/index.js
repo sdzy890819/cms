@@ -57,12 +57,13 @@ define(["app",'jquery','../../data/URL' , '../../data/getData'],function (app,$,
 							};
 
 			        uploader.onProgressItem = function(fileItem, progress) { //进行中
+			        	$('.videoPop .progress').show();
 			        	$('.videoPop .progress1').css({width:progress+'%'});
 			        };
 			        
 			        uploader.onProgressAll = function(progress) {//成功
 			        	$('.videoPop .progress1').css({width:progress+'%'});
-			        	$('.videoPop .progress2').css({width:'90%',transitionDuration:'100s'});
+			        	
 			        };
 			        uploader.onErrorItem = function(fileItem, response, status, headers) {
 			            layui.use(['layer'], function(){
@@ -74,7 +75,21 @@ define(["app",'jquery','../../data/URL' , '../../data/getData'],function (app,$,
 						});
 			        };
 
-					uploader.onCompleteItem = function(fileItem, response, status, headers) {				       
+			        var iresponse = true;
+					uploader.onCompleteItem = function(fileItem, response, status, headers) {
+						iresponse = true;
+						if(response.code = -111){
+							layui.use(['layer'], function(){
+								layer.open({
+							 		type: 0, icon: 2,
+									title:'上传',
+							  		content: response.message
+								});
+							});
+							iresponse = false
+							return;
+						}
+						$('.videoPop .progress2').css({width:'90%',transitionDuration:'100s'});
 						obj.obj && obj.obj.success && obj.obj.success(fileItem, response, status, headers);
 						 var $dom = $('.layui-box.layui-upload-button');
 						 var videoMsg = "<span class='layui-upload-icon ng-binding ng-scope'>" + response.data.fileName + "</span>";
@@ -86,7 +101,9 @@ define(["app",'jquery','../../data/URL' , '../../data/getData'],function (app,$,
 
 
 			        uploader.onCompleteAll = function() {
+			        	if(!iresponse) return;
 			        	$('.videoPop .progress2').css({width:'500px',transitionDuration:'10s'});
+			        	debugger;
 			            layui.use(['layer'], function(){
 							var layer = layui.layer;
 							layer.msg('上传成功！');

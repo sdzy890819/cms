@@ -19,9 +19,19 @@
                                 <input type="file" class="fileUpload" nv-file-select name='file' uploader="uploader"/>
                                 </a>
                                 <span class="fileinfo" ng-bind="item.file.name"></span>
-                                <div class="progress">
-                                    <span class="progress-bar progress1" width></span>
-                                    <span class="progress-bar progress2"></span>
+                                <div class="progress" style="display:none">
+                                    <div>
+                                        <div style='width:420px'>
+                                            <span class="progress-bar progress1" width></span>
+                                        </div>
+                                        <span>&nbsp;&nbsp;总长度</span>
+                                    </div>
+                                    <div>
+                                        <div style='width:420px'>
+                                            <span class="progress-bar progress2"></span>
+                                        </div>
+                                        <span>&nbsp;&nbsp;当前进度</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
