@@ -151,6 +151,8 @@ define(function(require){
 			downTemplate2 : url+'/template2/downTemplate2',//下载
 			template2Info : url+'/template2/template2Info',//第二模版详细信息 接口
 			template2base : url + '/template2/template2Base', //第二模板基础信息
+			listTemplateBycolumnId : url + '/template/listTemplateBycolumnId',
+			delRelationByColumnList : url + '/template/delRelationByColumnList',
 			updateTemplate2base : url + '/template2/base/update' //第二模板基础信息
 		},
 		topic : { //专题

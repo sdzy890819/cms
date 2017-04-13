@@ -3,6 +3,9 @@
 	<search list='searchform'></search>
 	<div class="boxtab tablist {{data.cls}}">
 		<div class="title">
+			<div class="right-sider">
+				<button ng-if='title_close==true' type="button" class="close" ng-click='close()'>&times;</button>
+			</div>
 			<i class="icon-reorder"></i>
 			{{data.title}}
 		</div>
@@ -24,7 +27,10 @@
 						<td ng-repeat='item in obj.list' class='{{item.class}}'>
 							<span ng-if='item.name && !item.href'>{{item.name}}</span>
 							<a ng-if='item.name && item.href' href="{{item.href}}" target="_blank">{{item.name}}</a>
+
 							<a ng-if='item.image' ng-href='{{item.image}}' target="_blank"> <img ng-if='item.image' class="img" ng-src='{{item.image}}'></a>
+
+							<!-- <span ng-if='!item.name'>-</span> -->
 						</td>
 						<td class="edits">
 							<div ng-repeat='item in obj.list.edit' ng-if='!item.href' ng-click='submit(item.evt,obj,$event)' class="btn {{item.cls}}" repeat-finish='editsFinish'>

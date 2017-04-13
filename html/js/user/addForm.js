@@ -4,7 +4,8 @@ define(function(){
 			title : 'title',
 			name : '上传头像',
 			type : 'file', //text textarea radio checkbox edit
-			typeName : 'images'
+			typeName : 'images',
+			verify : 'userName'
 		},
 		{
 			title : 'userName',

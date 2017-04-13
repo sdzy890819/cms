@@ -191,6 +191,10 @@ define(['require',"app",'jquery'
 						{name:'模版分类', key:'templateClassifyStr'},
 						{name:'编码',width:'80',class:'center' , key:'encoded'},
 						//{name:'排序值', width:'90',class:'center' , key:'sortNum'},
+						{name: '创建人', key: 'createUserName' , width:60},
+						{name: '创建时间', key: 'createTimeStr' , width:80},
+						{name: '修改人', key: 'lastModifyUserName' , width:60},
+						{name: '修改时间', key: 'updateTimeStr' , width:80},
 						{name:'操作' , width : '350',class:'center'}
 					];
 					$scope.listdata = { //确认按钮

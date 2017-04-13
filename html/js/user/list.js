@@ -176,6 +176,12 @@ define(['require',"app",'jquery',
 						{name:'用户名', key: 'userName' },
 						{name: 'IDFA(MAC)', key: 'idfa'},
 						{name: '用户ID', key: 'userId'},
+
+						{name: '创建人', key: 'createUserName' , width:60},
+						{name: '创建时间', key: 'createTimeStr' , width:80},
+						{name: '修改人', key: 'lastModifyUserName' , width:60},
+						{name: '修改时间', key: 'updateTimeStr' , width:80},
+
 						{name:'操作' , width : '300' , class:'center'}
 					];				
 
@@ -183,7 +189,8 @@ define(['require',"app",'jquery',
 						if (!a.idfa) {
 							a.idfa = '';
 						}
-					})
+					});
+					
 					
 					$scope.listdata = { //确认按钮
 						title : $scope.title,
@@ -200,15 +207,15 @@ define(['require',"app",'jquery',
 						}
 					}		
 					
-		        GenerateArrList.changeTypeName($scope.listdata.table.td,[{name:'headImage',newName:'image'}]);
-		        
-		        $.each($scope.listdata.table.td, function(i, obj){
-		        	obj.list[0].image = obj.headImage;
-		        	obj.list[0].name = false;
-		        })
-		        
-        		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
-        		$scope.$apply();							
+			        GenerateArrList.changeTypeName($scope.listdata.table.td,[{name:'headImage',newName:'image'}]);
+			        
+			        $.each($scope.listdata.table.td, function(i, obj){
+			        	obj.list[0].image = obj.headImage;
+			        	obj.list[0].name = false;
+			        })
+			        
+	        		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
+	        		$scope.$apply();							
 					
 				}
 

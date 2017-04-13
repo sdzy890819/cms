@@ -10,11 +10,14 @@ define(["app",'./addForm', '../upload/index', '../data/getData','form','position
 	        	angular.extend($scope,{
 							save : function( obj ){ //保存
 							 
-								function alert(content){
+								function alert(content , icon){
 									layui.use(['layer'], function(){
 										var layer = layui.layer;
-										layer.msg(content, {icon: 5});
+										layer.msg(content, {icon: icon||5});
 									})
+								}
+								if(!$scope.imageInfo){
+									return alert("请上传头像")
 								}
 								
 								var suffix = $scope.imageInfo.name.match(/\w+$/)[0];

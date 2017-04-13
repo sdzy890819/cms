@@ -101,7 +101,7 @@ define(['require',"app",'jquery'
 				function getDataList(){
 
 					data.channel.listChannel({
-
+						info : 1,
 						callback : function(_data){
 							var th = [
 								{name:'频道名称' , key: 'channelName', width : '200'},
@@ -110,6 +110,12 @@ define(['require',"app",'jquery'
 								{name:'模版位置', key: 'templatePath'},
 								{name:'频道说明', key: 'channelDesc'},
 								{name:'rsync模块名', key: 'rsyncModelName' },
+
+								{name: '创建人', key: 'createUserName' , width:60},
+								{name: '创建时间', key: 'createTimeStr' , width:80},
+								{name: '修改人', key: 'lastModifyUserName' , width:60},
+								{name: '修改时间', key: 'updateTimeStr' , width:80},
+
 								{name:'操作' , width : '120', class:'center'}
 							];						
 							
