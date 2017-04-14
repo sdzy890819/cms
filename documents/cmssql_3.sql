@@ -68,4 +68,12 @@ BEGIN;
 INSERT INTO `video_base` VALUES ('10000', '2017-01-11 21:47:38', '2017-01-20 23:56:32', '1', '14840345528522311094', 'http://120.110.2.120/videos', '/data/videos', null);
 COMMIT;
 
+
+-- ----------------------------
+--  Records of `template2_base_copy`
+-- ----------------------------
+BEGIN;
+INSERT INTO `template2_base` VALUES ('10000', '2017-01-11 22:18:14', '2017-02-21 16:02:09', '1', '14876486542639647361', '/data/template_2', null);
+COMMIT;
+
 SET FOREIGN_KEY_CHECKS = 1;
