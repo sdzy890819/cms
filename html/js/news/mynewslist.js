@@ -171,6 +171,28 @@ define(['require',"app",'jquery'
         				});
 					},
 
+					rescind : function(obj){ //撤销
+                        obj.callback = function(_data){//撤销除成功
+                            layui.use(['layer'], function(){
+                                var layer = layui.layer;
+                                layer.msg(_data.message);
+                                                                                                
+                                if(_data.code == 0) {                                   
+                                    $('table').find("tr[data-id=" + obj.id + "]").hide();
+                                    $scope.getNewList();
+                                }
+
+                            });
+                        };
+                        pop.alert({
+                             text:'您确定要撤销"'+obj.title+'"吗'
+                            ,btn : ['确定','取消']
+                            ,fn : function(){
+                                getData.news.rescind(obj);
+                            }
+                        })
+                    },
+
 					recommend : function (obj) {
 						var newsId = obj.id;
 						require(['./recommendForm'], function(recommendFormList){
@@ -319,11 +341,13 @@ define(['require',"app",'jquery'
 							td : GenerateArrList.setArr(_data.data.list, th) ,
 							edit : [																
 								{cls : '' , name : '编辑',evt:$scope.edit},
-								{cls : '' , name : ' 推荐',evt:$scope.recommend}
+								{cls : '' , name : ' 推荐',evt:$scope.recommend},
+								{cls : '' , name : '预览',href:'/webapi/news/preview/'}
 								// {cls : 'del' , name : '删除',evt:$scope.del}
 							],
 
 							permission : [
+								{cls : 'del' , name : ' 撤销',evt:$scope.rescind},
 								{cls : 'del' , name : '删除',evt:$scope.del}
 							]
 

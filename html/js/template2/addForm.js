@@ -20,7 +20,6 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 				name : '发布目录',
 				placeholder : '例如：/list/',
 				type : 'text', //text textarea radio checkbox edit
-				verify : 'path'
 			}
 		],
 		{

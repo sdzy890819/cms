@@ -85,7 +85,7 @@ define(['require',"app",'jquery'
 											var layer = layui.layer;
 											layer.msg(_data.message);
 											setTimeout(function(){
-												$state.reload();
+												getDataList();
 											},300)
 										});
 									}
@@ -142,6 +142,7 @@ define(['require',"app",'jquery'
 													layer.msg(_data.message);
 												});
 												setTimeout(function(){
+													getDataList();
 													$uibModalInstance.dismiss('cancel');
 												},400)
 	        								}

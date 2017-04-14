@@ -62,6 +62,7 @@ define(['require',"app",'jquery'
 										_data.data.job = '定时生成';
 									}
 									callback(_data);
+									getDataList();
 								}
 							})
 						}										
@@ -95,9 +96,7 @@ define(['require',"app",'jquery'
 										layui.use(['layer'], function(){
 											var layer = layui.layer;
 											layer.msg(_data.message);
-											setTimeout(function(){
-												$state.reload();
-											},300)
+											getDataList();
 										});
 									}
 								});
@@ -130,7 +129,7 @@ define(['require',"app",'jquery'
 						getData.template.downTemplate({
 							id : obj.id,
 							callback : function(){
-
+								getDataList();
 							}
 						})
 					},
@@ -154,6 +153,7 @@ define(['require',"app",'jquery'
 												});
 												setTimeout(function(){
 													$uibModalInstance.dismiss('cancel');
+													getDataList();
 												},400)
 	        								}
 	        							})
@@ -175,7 +175,7 @@ define(['require',"app",'jquery'
 				});
 
 				
-				function setList(_data){					
+				function setList(_data){
 					$.each(_data.data.list,function( i , obj){ //时间格示化
 						obj.releaseTime = new Date(obj.releaseTime).format('yyyy-MM-dd h:m:s');
 						if(obj.publish==1){//需要加链接 把topicUrl值 复制到 href 生成新的 href
@@ -214,40 +214,22 @@ define(['require',"app",'jquery'
 					}
 
 					GenerateArrList.extendType($scope.listdata.table.td,$scope.listdata.table.th,['width','name']); //把TH 中的出name属性以外的属性合传给td
-        	GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
-        	$.each($scope.listdata.table.td,function( i , item ){
-				if (item.publish) {
-					item.list[0].href = '/webapi/template/redirect/'+item.id;
-				}
-                // if(item.upload==1){//1是上传过。0是未上传
-					// var arr = [];
-					// $.each(item.list.edit,function( j , obj ){
-					// 	if(obj.name!='下载'){
-					// 		arr.push(obj);
-					// 	}
-					// });
-					// item.list.edit = arr;
-                // }
-        		// if(item.job==1){//1是定时生成。0是触发生成
-        		// 	var arr = [];
-        		// 	$.each(item.list.edit,function( j , obj ){
-        		// 		if(obj.name!='关联'){
-        		// 			arr.push(obj);
-        		// 		}
-        		// 	});
-        		// 	item.list.edit = arr;
-        		// }
-				var arr = [];
-				$.each(item.list.edit,function( j , obj ){
-					if((obj.name == '关联' && item.job == 1) || (obj.name == '下载' && item.upload == 0)){
-					}else {
-						arr.push(obj);
-					}
-				});
-				item.list.edit = arr;
-        	});
-        	$scope.$apply();
+        			GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
+        			$.each($scope.listdata.table.td,function( i , item ){
+						if (item.publish) {
+							item.list[0].href = '/webapi/template/redirect/'+item.id;
+						}
+						var arr = [];
+						$.each(item.list.edit,function( j , obj ){
+							if((obj.name == '关联' && item.job == 1) || (obj.name == '下载' && item.upload == 0)){
 
+							}else {
+								arr.push(obj);
+							}
+						});
+						item.list.edit = arr;
+	        		});
+        			$scope.$apply();
 				}
 
 				var page =1;
