@@ -118,6 +118,8 @@ public class TemplatePublishJob extends BaseTask {
                     RsyncUtils.rsync(channel.getRsyncModelName(), StringUtils.delFirstPrefix(publishRelativePath, StaticContants.FILE_PATH_SP), StaticContants.rsyncPublishFile, channel.getChannelPath());
                 }
             }
+        }catch (Exception e){
+            log.error(e);
         }finally {
             unlock(publishPath);
         }

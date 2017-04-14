@@ -78,6 +78,8 @@ public class TopicPublishJob extends BaseTask {
                             StaticContants.rsyncPublishFile, channel.getChannelPath());
                 }
             }
+        }catch (Exception e){
+            log.error(e);
         }finally {
             unlock(publishPath);
         }
