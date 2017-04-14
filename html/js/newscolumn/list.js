@@ -121,7 +121,8 @@ define(['require',"app",'jquery','./columnForm'
 									callback : function(_data){
 										var th = [
 			                                {name:'模板标题' , key:'templateName'},
-			                                {name:'操作' , width : '200' , class:'center'}
+			                                {name:'模版类型' , key:'templateClassifyStr',width:100},
+			                                {name:'操作' , class:'center'}
 			                            ];
 			                            var listdata = { //确认按钮
 			                                title : '对应模版',
@@ -134,6 +135,12 @@ define(['require',"app",'jquery','./columnForm'
 			                                },
 			                            }
 			                            GenerateArrList.extendChild(listdata.table.td,listdata.table.edit,'edit');
+										
+			                            $.each(listdata.table.td,function( i , item ){
+											if (item.publish==1) {
+												item.list[1].href = '/webapi/template/redirect/'+item.id;
+											}
+						        		});
 										callback(_data , listdata);
 									}
 								})
@@ -181,9 +188,11 @@ define(['require',"app",'jquery','./columnForm'
 
 							var th = [
 								{name:'ID' , key:'id' , width : '50'},
+                                
 								{name:'栏目名' , key:'columnName'},
 								{name:'频道ID' , key:'channelId' , width : '50' },
 								{name:'频道名称' , key:'channelName' },
+
 
 								{name: '创建人', key: 'createUserName' , width:60},
 								{name: '创建时间', key: 'createTimeStr' , width:80},
