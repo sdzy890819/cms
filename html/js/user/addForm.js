@@ -19,7 +19,7 @@ define(function(){
 			name : '真实姓名',
 			placeholder : '请输入真实姓名',
 			type : 'text',
-			check : false
+			verify : 'title'
 		},
 		{
 			title : 'idfa',

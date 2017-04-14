@@ -109,27 +109,35 @@ define(['require', "app", 'jquery', 'search', './searchForm', '../data/getData',
                     }
                     var th = [{
                         name: '图片ID',
-                        key: 'id'
+                        key: 'id',
+                        width:50
                     }, {
                         name: '图片标题',
-                        key: 'imageTitle'
+                        key: 'imageTitle',
+                        width:70
                     }, {
                         name: '图片地址',
                         key: 'imageUrl',
-                        width: '200'
                     }, {
                         name: '预览图',
                         key: 'imageUrl',
                         width: '50'
                     }, {
                         name: '图片宽度',
-                        key: 'imageWidthPixel'
+                        key: 'imageWidthPixel',
+                        width:60
                     }, {
                         name: '图片高度',
-                        key: 'imageHeightPixel'
-                    }, {
+                        key: 'imageHeightPixel',
+                        width:60
+                    }, 
+                    {name: '创建人', key: 'createUserName' , width:60},
+                    {name: '创建时间', key: 'createTimeStr' , width:80},
+                    {name: '修改人', key: 'lastModifyUserName' , width:60},
+                    {name: '修改时间', key: 'updateTimeStr' , width:80},
+                    {
                         name: '操作',
-                        width: '150',
+                        width: '100',
                         class: 'center'
                     }];
                     $scope.listdata = { //确认按钮

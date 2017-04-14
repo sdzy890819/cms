@@ -392,6 +392,12 @@ define(['require',"app",'jquery'
 						});
 						$scope.searchform = {
 							list : data,
+							return : function(){ //返回列表
+								getDataList();
+								$scope.searchform.search = null;
+								page = 1;
+								$scope.$$childHead.current = 1;
+							},
 							submit : function( obj , data ){
 								var publish;
 
@@ -401,6 +407,8 @@ define(['require',"app",'jquery'
 									publish = 0;									
 								}else if(obj.publish == '草稿'){
 									publish = 2;									
+								}else if(obj.publish == '已撤销'){
+									publish = 3;									
 								}
 								
 								function getSearchList(){								

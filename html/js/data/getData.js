@@ -647,6 +647,14 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						obj.callback(_data);
 					}
 				})
+			},deleteRecommendColumn : function( obj ){ //取消推荐列表
+				T.ajax({
+					url : URL.news.deleteRecommendColumn , 
+					data : {id:obj.id},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				})
 			},
 			newslist : function( obj ){ //新闻栏目列表
 				T.ajax({
