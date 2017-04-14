@@ -136,7 +136,7 @@ public class TemplatePublishJob extends BaseTask {
     }
 
     protected void unlock(String path){
-        jedisClient.del(RedisKeyContants.getRedisLockKey(path));
+        jedisClient.del(RedisKeyContants.getRedisLockKey(getKey(path)));
     }
 
     protected String getKey(String path){
