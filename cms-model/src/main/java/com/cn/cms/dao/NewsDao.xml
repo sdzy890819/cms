@@ -221,7 +221,7 @@
     </update>
 
     <select id="findNewsByColumnId" resultMap="news">
-        select <include refid="sql_column" /> from news <include refid="delTag" /> and publish = 1 and column_id = ${columnId}
+        select <include refid="all_column" /> from news <include refid="delTag" /> and publish = 1 and column_id = ${columnId}
         order by update_time desc limit ${page.start}, ${page.pageSize};
     </select>
 
