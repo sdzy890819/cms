@@ -9,6 +9,7 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.exception.ResourceNotFoundException;
+import org.apache.velocity.tools.generic.DateTool;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -33,6 +34,16 @@ public class VelocityUtils {
         prop.put(Velocity.FILE_RESOURCE_LOADER_PATH, "/");
     }
 
+    /**
+     * 加载
+     * @param map
+     */
+    public static void loadMap(Map<String, Object> map){
+        if(map!=null) {
+            map.put("dateTools", new DateTool());
+            map.put("stringTools", StringUtils.class);
+        }
+    }
 
     /**
      * 解析代码片段
@@ -41,6 +52,7 @@ public class VelocityUtils {
      * @return
      */
     public static String parse(Map<String, Object> map, String str) throws BizException{
+        loadMap(map);
         VelocityEngine velocityEngine = new VelocityEngine(prop);
         VelocityContext context = new VelocityContext(map);
 
@@ -62,6 +74,7 @@ public class VelocityUtils {
      * @param publishFile
      */
     public static void publish(Map<String, Object> map, String content, String publishFile){
+        loadMap(map);
         log.info("生成目录：" + publishFile +  " 根据内容文件发布发布开始");
         VelocityEngine velocityEngine = new VelocityEngine(prop);
         VelocityContext context = new VelocityContext(map);
@@ -87,6 +100,7 @@ public class VelocityUtils {
      */
     public static void publish(Map<String, Object> map, String templateFile,
                                String publishFile, String encode){
+        loadMap(map);
         log.info("模版文件：" + templateFile + ", 生成目录：" + publishFile + ", 编码：" + encode + " 文件发布开始");
         VelocityEngine velocityEngine = new VelocityEngine(prop);
         VelocityContext context = new VelocityContext(map);
@@ -112,6 +126,7 @@ public class VelocityUtils {
     public static String parseTemplate(Map<String, Object> map,
                                        String templateFile,
                                        String encode) throws BizException{
+        loadMap(map);
         VelocityEngine velocityEngine = new VelocityEngine(prop);
         VelocityContext context = new VelocityContext(map);
         try {
