@@ -34,9 +34,9 @@ public class VelocityUtils {
         prop.put(Velocity.FILE_RESOURCE_LOADER_PATH, "/");
         prop.put(Velocity.RUNTIME_LOG_LOGSYSTEM_CLASS, "org.apache.velocity.runtime.log.SimpleLog4JLogSystem");
         prop.put("runtime.log.logsystem.log4j.category", "velocity_log");
-        prop.put("runtime.log.error.stacktrace", "true");
-        prop.put("runtime.log.warn.stacktrace", "true");
-        prop.put("runtime.log.info.stacktrace", "true");
+        prop.put("runtime.log.error.stacktrace", "false");
+        prop.put("runtime.log.warn.stacktrace", "false");
+        prop.put("runtime.log.info.stacktrace", "false");
         prop.put("runtime.log.invalid.reference", "true");
         prop.put("directive.foreach.counter.initial.value", "1");
         prop.put("directive.foreach.counter.name", "velocityCount");
