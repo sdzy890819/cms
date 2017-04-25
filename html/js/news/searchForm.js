@@ -65,21 +65,21 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 			title : 'newsId',
 			name : '文章ID',
 			placeholder : '文章ID',
-			cls: "w120",
+			cls: "w70",
 			type : 'text'
 		},	
 		{
 			title : 'startTime',
 			name : '发布时间',
 			placeholder : '年/月/日 时:分:秒',
-			cls : 'w150',
+			cls : 'w135',
 			type : 'date'
 		},
 		{
 			title : 'endTime',
 			name : '结束时间',			
 			placeholder : '年/月/日 时:分:秒',
-			cls : 'w150',
+			cls : 'w135',
 			type : 'date'
 		},
 		{
