@@ -315,17 +315,18 @@ define(['require',"app",'jquery'
 				function setList(_data){
 					var th = [
                         {name:'文章ID' , key:'id' , width : '50'},		
-						{name:'所属频道栏目' , key:'channelAndColumnName' , width : '70'},					
+						{name:'所属栏目' , key:'channelAndColumnName' , width : '70'},					
 						{name:'标题' , key:'title'},								
 						{name:'作者' , key:'author' , width: '40', class: 'center'},
-						{name:'发布人' , key:'buildUserName' , width: '40', class: 'center'},
-						{name:'修改人' , key:'lastModifyUserName' , width: '40', class: 'center'},
-						{name:'媒体来源' , key:'source' , width: '40', class: 'center'},
+						{name:'发布人' , key:'buildUserName' , width: '55', class: 'center'},
+						{name:'修改人' , key:'lastModifyUserName' , width: '55', class: 'center'},
+						{name:'媒体来源' , key:'source' , width: '80', class: 'center'},
 												
 						{name:'发布时间' , key:'buildTimeStr' , width : '80', class: 'center'},
 						{name:'修改时间' , key:'updateTimeStr' , width : '80', class: 'center'},
 						{name:'状态' , key:'publishStr' , width: '40', class: 'center'},
 						{name:'操作' , width : '50' , class: 'center'},
+						{name:'预览' , width : '50' , class: 'center'},
 						{name:'权限' , width : '50' , class: 'center'}
 					];
 					
@@ -342,10 +343,12 @@ define(['require',"app",'jquery'
 							edit : [																
 								{cls : '' , name : '编辑',evt:$scope.edit},
 								{cls : '' , name : ' 推荐',evt:$scope.recommend},
-								{cls : '' , name : '预览',href:'/webapi/news/preview/'}
+								//{cls : '' , name : '预览',href:'/webapi/news/preview/'}
 								// {cls : 'del' , name : '删除',evt:$scope.del}
 							],
-
+							edit1 : [												
+								{cls : 'zoom_in' , name : '预览',href:'/webapi/news/preview/'}
+							],
 							permission : [
 								{cls : 'del' , name : ' 撤销',evt:$scope.rescind},
 								{cls : 'del' , name : '删除',evt:$scope.del}

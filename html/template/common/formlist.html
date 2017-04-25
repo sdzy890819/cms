@@ -40,6 +40,14 @@
 								<i class='icon-{{item.icon}}'></i>{{item.name}}
 							</a>
 						</td>
+						<td class="edits" ng-if="obj.list.edit1">
+							<div ng-repeat='item in obj.list.edit1' ng-if='!item.href' ng-click='submit(item.evt,obj,$event)' class="btn {{item.cls}}" repeat-finish='editsFinish'>
+								<i class='icon-{{item.icon}}'></i>{{item.name}}{{item.href}}
+							</div>
+							<a ng-repeat='item in obj.list.edit1' ng-if='item.href' href='{{item.href}}?id={{obj.id}}' target='_blank' class="btn {{item.cls}}" repeat-finish='editsFinish'>
+								<i class='icon-{{item.icon}}'></i>{{item.name}}
+							</a>
+						</td>
 
 						<td class="edits" ng-if="obj.list.permission">						
 							<div ng-repeat='item in obj.list.permission' ng-click='submit(item.evt,obj,$event)' class="btn {{item.cls}}" repeat-finish='editsFinish'>

@@ -1,11 +1,12 @@
 define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 	var list = [ //表单
-		[
+		
 			{
 				title : 'title',
 				name : '标题',
 				placeholder : '请输入标题',
 				type : 'text', //text textarea radio checkbox edit
+				cls : 'w600',
 				verify : 'title'
 			},
 			{
@@ -13,9 +14,10 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 				name : '附标题',
 				placeholder : '请输入附标题',
 				type : 'text',
+				cls : 'w600',
 				check : false			
 			}
-		],
+		,
 		[
 			{
 				title : 'keyword',
@@ -72,8 +74,8 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 			title : 'content',
 			cls : 'newsEdit',
 			name : '内容',
-			width : '800px',
-			height : '400px',
+			width : '1100px',
+			height : '600px',
 			type : 'edit',
 			verify : 'title'
 		},
