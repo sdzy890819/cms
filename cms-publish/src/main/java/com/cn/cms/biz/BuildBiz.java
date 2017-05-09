@@ -2,10 +2,7 @@ package com.cn.cms.biz;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cn.cms.contants.StaticContants;
-import com.cn.cms.enums.CommonMessageSourceEnum;
-import com.cn.cms.enums.PublishEnum;
-import com.cn.cms.enums.RelationTypeEnum;
-import com.cn.cms.enums.TemplateClassifyEnum;
+import com.cn.cms.enums.*;
 import com.cn.cms.job.TemplatePublishJob;
 import com.cn.cms.job.TopicPublishJob;
 import com.cn.cms.logfactory.CommonLog;
@@ -51,6 +48,9 @@ public class BuildBiz extends BaseBiz {
 
     @Resource
     private Template2Biz template2Biz;
+
+    @Resource
+    private PublishInfoBiz publishInfoBiz;
 
 
     @Resource(name = "threadTaskExecutor")
@@ -138,7 +138,7 @@ public class BuildBiz extends BaseBiz {
                 return;
             }
         }
-        this.publishTemplate(templates, base);
+        this.publishTemplate(templates, base, sourceEnum);
     }
 
 
@@ -161,6 +161,11 @@ public class BuildBiz extends BaseBiz {
                 templatePublishJob.setChannelId(news.getChannelId());
                 templatePublishJob.setNewsColumn(newsColumn);
                 templatePublishJob.setTemplateBasics(template2);
+                //--------
+                PublishInfo publishInfo = publishInfoBiz.recordInfo(PublishStatusEnum.EXECING, news.getId(),
+                        TriggerTypeEnum.NEWS, TemplateTypeEnum.TEMPLATE2, template2.getId(), null);
+                templatePublishJob.setPublishInfo(publishInfo);
+                //--------
                 threadTaskExecutor.execute(templatePublishJob);
 
 
@@ -168,6 +173,10 @@ public class BuildBiz extends BaseBiz {
             if(newsColumn.getDetailTemplate2Id() != null && newsColumn.getDetailTemplate2Id() > 0){
                 Template2 template2 = template2Biz.getTemplate2(newsColumn.getDetailTemplate2Id());
                 String[] contents = HtmlUtils.splitNewsContent(news.getNewsDetail().getContent());
+                //---------------
+                PublishInfo publishInfo = publishInfoBiz.recordInfo(PublishStatusEnum.EXECING, news.getId(),
+                        TriggerTypeEnum.NEWS, TemplateTypeEnum.TEMPLATE2, template2.getId(), null);
+                //---------------
                 for(int i = 0; i< contents.length; i++) {
                     News publishNews = new News(news);
                     publishNews.getNewsDetail().setContent(contents[i]);
@@ -177,6 +186,9 @@ public class BuildBiz extends BaseBiz {
                     templatePublishJob.setNewsColumn(newsColumn);
                     templatePublishJob.setPage(i + 1);
                     templatePublishJob.setBase(publishNews);
+                    //--------
+                    templatePublishJob.setPublishInfo(publishInfo);
+                    //--------
                     threadTaskExecutor.execute(templatePublishJob);
                 }
             }
@@ -189,7 +201,7 @@ public class BuildBiz extends BaseBiz {
      */
     public void buildAuto(){
         List<Template> templates = templateBiz.findTemplateListByAuto();
-        this.publishTemplate(templates, null);
+        this.publishTemplate(templates, null, CommonMessageSourceEnum.OTHER);
     }
 
     /**
@@ -220,11 +232,16 @@ public class BuildBiz extends BaseBiz {
      * @param templates
      * @param base
      */
-    void publishTemplate(List<Template> templates, Base base){
+    void publishTemplate(List<Template> templates, Base base, CommonMessageSourceEnum sourceEnum){
         if(StringUtils.isNotEmpty(templates)) {
             this.publishTemplate(templates);
             for (int i = 0; i < templates.size(); i++) {
                 TemplatePublishJob templatePublishJob = new TemplatePublishJob();
+                //--------
+                PublishInfo publishInfo = publishInfoBiz.recordInfo(PublishStatusEnum.EXECING, base!=null?base.getId():null,
+                        sourceEnum.getTriggerTypeEnum(), TemplateTypeEnum.TEMPLATE, templates.get(i).getId(), null);
+                templatePublishJob.setPublishInfo(publishInfo);
+                //--------
                 if(templates.get(i).getTemplateClassify() == TemplateClassifyEnum.detail.getType()) {
                     if(base instanceof News) {
                         News news = (News) base;
@@ -309,6 +326,15 @@ public class BuildBiz extends BaseBiz {
         topic.setBuildTime(new Date());
         topicBiz.publishTopic(topic);
         TopicPublishJob topicPublishJob = new TopicPublishJob(topic,channel);
+        //--------
+        PublishInfo publishInfo = publishInfoBiz.recordInfo(PublishStatusEnum.EXECING, topic.getId(),
+                TriggerTypeEnum.TOPIC, TemplateTypeEnum.NONE, null, null);
+        topicPublishJob.setPublishInfo(publishInfo);
+        //--------
         threadTaskExecutor.execute(topicPublishJob);
     }
+
+
+
+
 }

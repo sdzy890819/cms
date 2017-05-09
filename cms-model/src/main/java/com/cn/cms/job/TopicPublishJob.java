@@ -1,13 +1,16 @@
 package com.cn.cms.job;
 
 import com.cn.cms.biz.ChannelBiz;
+import com.cn.cms.biz.PublishInfoBiz;
 import com.cn.cms.contants.RedisKeyContants;
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.enums.PublishJobTypeEnum;
+import com.cn.cms.enums.PublishStatusEnum;
 import com.cn.cms.logfactory.CommonLog;
 import com.cn.cms.logfactory.CommonLogFactory;
 import com.cn.cms.middleware.JedisClient;
 import com.cn.cms.po.Channel;
+import com.cn.cms.po.PublishInfo;
 import com.cn.cms.po.Topic;
 import com.cn.cms.utils.*;
 import lombok.Getter;
@@ -23,9 +26,14 @@ import java.util.Map;
 @Setter
 public class TopicPublishJob extends BaseTask {
 
+
+    private PublishInfo publishInfo;
+
     private static CommonLog log = CommonLogFactory.getLog(TopicPublishJob.class);
 
     private ChannelBiz channelBiz = ContextUtil.getContextUtil().getBean(ChannelBiz.class);
+
+    private PublishInfoBiz publishInfoBiz = ContextUtil.getContextUtil().getBean(PublishInfoBiz.class);
 
     private JedisClient jedisClient = ContextUtil.getContextUtil().getBean(JedisClient.class);
 
@@ -59,17 +67,19 @@ public class TopicPublishJob extends BaseTask {
 
     @Override
     protected void execute(){
-        Map<String, Object> map = new HashMap<>();
-        String content = topic.getTopicContent();
-        map.put(StaticContants.TEMPLATE_KEY_DATA, topic);
-        if(channel!=null) {
-            map.put(StaticContants.TEMPLATE_KEY_CHANNELID, channel.getId());
-        }
-        map.put(StaticContants.TEMPLATE_KEY_PUBLISH_JOB_TYPE, MODEL);
-        map.put(StaticContants.TEMPLATE_KEY_PAGE, page);
-        String publishRelativePath = StringUtils.concatUrl(topic.getTopicPath(), FileUtil.getFileNameByPage(topic.getTopicFilename(),page));
-        String publishPath = StringUtils.concatUrl(channel.getChannelPath(), publishRelativePath);
+        String publishPath = null;
         try {
+            Map<String, Object> map = new HashMap<>();
+            String content = topic.getTopicContent();
+            map.put(StaticContants.TEMPLATE_KEY_DATA, topic);
+            if(channel!=null) {
+                map.put(StaticContants.TEMPLATE_KEY_CHANNELID, channel.getId());
+            }
+            map.put(StaticContants.TEMPLATE_KEY_PUBLISH_JOB_TYPE, MODEL);
+            map.put(StaticContants.TEMPLATE_KEY_PAGE, page);
+            String publishRelativePath = StringUtils.concatUrl(topic.getTopicPath(), FileUtil.getFileNameByPage(topic.getTopicFilename(),page));
+            publishPath = StringUtils.concatUrl(channel.getChannelPath(), publishRelativePath);
+
             if (lock(publishPath)) {
                 VelocityUtils.publish(map, content, publishPath);
                 if (StaticContants.rsyncRoot == StaticContants.RSYNC_ON) {
@@ -77,11 +87,24 @@ public class TopicPublishJob extends BaseTask {
                             StringUtils.delFirstPrefix(publishRelativePath, StaticContants.FILE_PATH_SP),
                             StaticContants.rsyncPublishFile, channel.getChannelPath());
                 }
+
+            }
+            if(publishInfo!=null){
+                publishInfo.setStatus(PublishStatusEnum.SUCCESS.getType());
+                publishInfo.setMessage(PublishStatusEnum.SUCCESS.getMessage());
             }
         }catch (Exception e){
             log.error(e);
+            if(publishInfo!=null){
+                publishInfo.setStatus(PublishStatusEnum.ERROR.getType());
+                publishInfo.setMessage(PublishStatusEnum.ERROR.getMessage());
+                publishInfo.setErrorMessage(e.getLocalizedMessage());
+            }
         }finally {
             unlock(publishPath);
+            if(publishInfo!=null){
+                publishInfoBiz.update(publishInfo);
+            }
         }
 
     }
@@ -96,7 +119,9 @@ public class TopicPublishJob extends BaseTask {
     }
 
     protected void unlock(String path){
-        jedisClient.del(RedisKeyContants.getRedisLockKey(getKey(path)));
+        if(StringUtils.isNotBlank(path)) {
+            jedisClient.del(RedisKeyContants.getRedisLockKey(getKey(path)));
+        }
     }
 
     protected String getKey(String path){

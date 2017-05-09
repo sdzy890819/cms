@@ -8,11 +8,11 @@ import lombok.Getter;
  */
 public enum CommonMessageSourceEnum {
 
-    NEWS("NEWS", 1),
-    TOPIC("TOPIC", 2),
-    FRAGMENT("FRAGMENT", 3),
-    RECOMMEND("RECOMMEND", 4),
-    OTHER("OTHER", 5);
+    NEWS("NEWS", 1, TriggerTypeEnum.NEWS),
+    TOPIC("TOPIC", 2, TriggerTypeEnum.TOPIC),
+    FRAGMENT("FRAGMENT", 3, TriggerTypeEnum.FRAGMENT),
+    RECOMMEND("RECOMMEND", 4, TriggerTypeEnum.RECOMMEND),
+    OTHER("OTHER", 5, TriggerTypeEnum.OTHER);
 
     @Getter
     private Integer type;
@@ -20,10 +20,14 @@ public enum CommonMessageSourceEnum {
     @Getter
     private String name;
 
+    @Getter
+    private TriggerTypeEnum triggerTypeEnum;
 
-    CommonMessageSourceEnum(String name, int type){
+
+    CommonMessageSourceEnum(String name, int type, TriggerTypeEnum triggerTypeEnum){
         this.type = type;
         this.name = name;
+        this.triggerTypeEnum = triggerTypeEnum;
     }
 
     public static CommonMessageSourceEnum get(int type){

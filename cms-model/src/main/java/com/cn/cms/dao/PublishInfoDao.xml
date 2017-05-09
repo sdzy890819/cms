@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cn.cms.dao.PublishInfoDao" >
+
+    <resultMap id="base" type="com.cn.cms.po.Base">
+        <id column="id" property="id" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="del_tag" property="delTag" />
+        <result column="last_modify_user_id" property="lastModifyUserId" />
+        <result column="create_user_id" property="createUserId" />
+    </resultMap>
+
+    <resultMap type="com.cn.cms.po.PublishInfo" id="publishInfo" extends="base">
+        <result column="trigger_type" property="triggerType" />
+        <result column="trigger_id" property="triggerId" />
+        <result column="template_type" property="templateType" />
+        <result column="template_id" property="templateId" />
+        <result column="message" property="message" />
+        <result column="status" property="status" />
+        <result column="error_message" property="errorMessage" />
+    </resultMap>
+
+    <sql id="delTag"> where del_tag = 1 </sql>
+
+    <sql id="sql_column" >
+        id, create_time, update_time, del_tag, last_modify_user_id, create_user_id, trigger_type,
+        trigger_id,template_type,template_id,message,status,error_message
+    </sql>
+
+    <sql id="insert_column" >
+        id, last_modify_user_id, create_user_id, trigger_type,
+        trigger_id,template_type,template_id,message,status,error_message
+    </sql>
+
+    <insert id="savePublishInfo" useGeneratedKeys="true" keyProperty="p1.id">
+        insert into publish_info ( <include refid="insert_column" /> ) values
+        (null, #{p1.lastModifyUserId}, #{p1.createUserId}, #{p1.triggerType}, #{p1.triggerId},
+        #{p1.templateType},#{p1.templateId},#{p1.message},#{p1.status}, #{p1.errorMessage});
+    </insert>
+
+    <insert id="savePublishInfos" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+        insert into publish_info ( <include refid="insert_column" /> ) values
+        <foreach collection="list" separator="," item="p1" >
+        (null, #{p1.lastModifyUserId}, #{p1.createUserId}, #{p1.triggerType}, #{p1.triggerId},
+        #{p1.templateType},#{p1.templateId},#{p1.message},#{p1.status}, #{p1.errorMessage})
+        </foreach>
+    </insert>
+
+    <update id="updatePublishInfo">
+        update publish_info
+        <set>
+            last_modify_user_id = #{p1.lastModifyUserId},
+            trigger_type = #{p1.triggerType},
+            trigger_id = #{p1.triggerId},
+            template_type = #{p1.templateType},
+            template_id = #{p1.templateId},
+            message = #{p1.message},
+            status = #{p1.status},
+            error_message = #{p1.errorMessage}
+        </set>
+        where id = #{p1.id};
+    </update>
+
+    <select id="findPublishInfoList" resultMap="publishInfo">
+        select <include refid="sql_column" /> from publish_info
+        <include refid="delTag" />
+        <include refid="where_find_list" />
+        limit #{page.start}, #{page.pageSize};
+    </select>
+
+    <select id="findPublishInfoCount" resultType="java.lang.Integer">
+        select count(1) from publish_info
+        <include refid="delTag" />
+        <include refid="where_find_list" />
+    </select>
+
+
+
+    <sql id="where_find_list">
+        <if test="p1.triggerType !=null">
+            and trigger_type = #{p1.triggerType}
+        </if>
+        <if test="p1.triggerId != null">
+            and trigger_id = #{p1.triggerId}
+        </if>
+        <if test="p1.templateType != null">
+            and template_type = #{p1.templateType}
+        </if>
+        <if test="p1.templateId != null">
+            and template_type = #{p1.templateId}
+        </if>
+        <if test="p1.status != null">
+            and status = #{p1.status}
+        </if>
+    </sql>
+
+</mapper>
