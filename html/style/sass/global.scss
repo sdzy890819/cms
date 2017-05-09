@@ -421,11 +421,16 @@ $leftWidth : 225px;
     .uploadify-button{ border:1px solid #ccc; border-radius:5px; background:#3d82e1; color:#fff; }
     &.popedit{ margin-top:0; }
     .w50 {width: 50px; }
+    .w70 {width: 70px; }
     .w100{ width:100%;}
     .w120{ width:120px; }
+    .w135{ width:135px; }
+    .w140{ width:140px; }
+    .w150{ width:150px; }
     .w180{ width:180px; }
     .w220{ width:220px; }
     .w320{ width:320px; }
+    .w600{ width:600px; }
 
     &.search{
         z-index: 99;
@@ -501,7 +506,8 @@ $leftWidth : 225px;
     th{ text-align:left; padding:8px 1px; font-size:14px; font-weight:bold; border-bottom:1px solid #ddd; 
         &.center{ text-align:center;}
     }
-    td{ text-align:left; padding:2px 1px 2px 1px; height: 42px; font-size:14px;  border-bottom:1px solid #ddd; word-break:break-all; 
+    td{ text-align:left; padding:2px 1px 2px 1px; height: 42px; 
+        font-size:14px;  border-bottom:1px solid #ddd; word-break:break-all; 
         &.center{ text-align:center;}
         &.edits{ text-align:center; }
         a{ color:#488be7;
@@ -519,7 +525,7 @@ $leftWidth : 225px;
     }
     .select{ width:20px; text-align:center;}
     .edits{ }
-    .btn{ display:inline-block; margin-left:1px; margin-bottom:3px; padding:2px 10px; font-size:12px; background:#4d90fe; cursor:pointer; color:#fff; @include transition-duration(.3s);
+    .btn{ display:inline-block; margin-left:1px; margin-bottom:3px; padding:2px 5px; font-size:12px; background:#4d90fe; cursor:pointer; color:#fff; @include transition-duration(.3s);
         i{ margin-right:3px; }
         &.add{ background:#f24400; color:#fff;
             &:hover{background:#da0000; }
@@ -531,6 +537,9 @@ $leftWidth : 225px;
         &.edit{ background:#4d90fe; color:#fff;
             &:hover{  background:#2673f1;}
         }
+        &.zoom_in{ background:#ff6000; border-radius:10px;
+          &:hover{  background:#ff6000; text-decoration:none;}
+         }
     }
 }
 .tablist{

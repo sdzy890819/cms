@@ -19,6 +19,7 @@ define(["app",'jquery','./moduls/directive'], function ( app , $ ) {
 					edit:'pencil',//编辑
 					down:'download-alt',// 下载
 					upload : 'upload-alt',//上传
+					zoom_in : 'zoom-in',//上传
 					del:'trash'//删除					
 				};
 
@@ -29,6 +30,11 @@ define(["app",'jquery','./moduls/directive'], function ( app , $ ) {
 						$.each($scope.data.table.edit,function( i , obj ){
 							obj.icon = icon[obj.cls];
 						});
+						if($scope.data.table.edit1){
+							$.each($scope.data.table.edit1,function( i , obj ){
+								obj.icon = icon[obj.cls];
+							});
+						}
 						return;
 					};
 				},true);
