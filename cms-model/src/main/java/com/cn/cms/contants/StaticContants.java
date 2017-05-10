@@ -202,7 +202,9 @@ public class StaticContants {
         config.put(TAGListTypeEnum.class, new JSONEnumSerializer());
         config.put(TemplateClassifyEnum.class, new JSONEnumSerializer());
         config.put(WatermarkEnum.class, new JSONEnumSerializer());
-
+        config.put(PublishStatusEnum.class, new JSONEnumSerializer());
+        config.put(TriggerTypeEnum.class, new JSONEnumSerializer());
+        config.put(TemplateTypeEnum.class, new JSONEnumSerializer());
 
     }
 
