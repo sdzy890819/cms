@@ -64,18 +64,30 @@ public class BuildBiz extends BaseBiz {
         Body body = JSONObject.parseObject(((JSONObject)commonMessage.getMessage()).toJSONString(),Body.class);
         switch (sourceEnum) {
             case NEWS: {
-                News news = newsBiz.findNewsManage(body.getId());
-                Channel channel = channelBiz.getChannel(news.getChannelId());
-                news.setLastModifyUserId(body.getUserId());
-                news.setPublish(PublishEnum.rescind.getType());
-                newsBiz.rescind(news);
-                String filePath = StringUtils.concatUrl(channel.getChannelPath(), news.getRelativePath());
-                File file = new File(filePath);
-                if(file.exists()){
-                    file.delete();
-                }
-                if(StaticContants.rsyncRoot == StaticContants.RSYNC_ON) {
-                    RsyncUtils.rsync(channel.getRsyncModelName(), StringUtils.delFirstPrefix(news.getRelativePath(), StaticContants.FILE_PATH_SP), StaticContants.rsyncRescindFile, channel.getChannelPath());
+                try {
+                    News news = newsBiz.findNewsManage(body.getId());
+                    Channel channel = channelBiz.getChannel(news.getChannelId());
+                    news.setLastModifyUserId(body.getUserId());
+                    news.setPublish(PublishEnum.rescind.getType());
+                    newsBiz.rescind(news);
+                    String filePath = StringUtils.concatUrl(channel.getChannelPath(), news.getRelativePath());
+                    File file = new File(filePath);
+                    if (file.exists()) {
+                        file.delete();
+                    }
+                    if (StaticContants.rsyncRoot == StaticContants.RSYNC_ON) {
+                        RsyncUtils.rsync(channel.getRsyncModelName(), StringUtils.delFirstPrefix(news.getRelativePath(), StaticContants.FILE_PATH_SP), StaticContants.rsyncRescindFile, channel.getChannelPath());
+                    }
+                    //--------
+                    PublishInfo publishInfo = publishInfoBiz.recordInfo(PublishStatusEnum.RE_SUCCESS, body.getId(),
+                            TriggerTypeEnum.NEWS, TemplateTypeEnum.NONE, null, null);
+                    //--------
+                }catch (Exception e){
+                    log.error(e);
+                    //--------
+                    PublishInfo publishInfo = publishInfoBiz.recordInfo(PublishStatusEnum.RE_ERROR, body.getId(),
+                            TriggerTypeEnum.NEWS, TemplateTypeEnum.NONE, null, e.getLocalizedMessage());
+                    //--------
                 }
                 break;
             }

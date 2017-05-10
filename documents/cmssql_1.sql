@@ -21,6 +21,7 @@ DROP INDEX `user_id_sel` ON `user_channel`;
 DROP INDEX `channel_id_sel` ON `user_channel`;
 DROP INDEX `template_classify_sel` ON `template2`;
 
+
 ALTER TABLE `news`DROP PRIMARY KEY;
 ALTER TABLE `news_detail`DROP PRIMARY KEY;
 ALTER TABLE `news_column`DROP PRIMARY KEY;
@@ -70,6 +71,7 @@ DROP TABLE `template2`;
 DROP TABLE `template2_base`;
 DROP TABLE `recommend_column`;
 DROP TABLE `news_stock`;
+DROP TABLE IF EXISTS `publish_info`;
 
 CREATE TABLE `news` (
 `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键ID。',
@@ -578,3 +580,20 @@ DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
 AUTO_INCREMENT=10000
 COMMENT='股票代码表';
 
+
+CREATE TABLE `publish_info` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID。',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  `del_tag` tinyint(3) DEFAULT '1' COMMENT '删除位。0删除、1正常',
+  `last_modify_user_id` varchar(20) DEFAULT NULL COMMENT '最后一次修改时间',
+  `create_user_id` varchar(20) DEFAULT NULL COMMENT '创建人',
+  `trigger_type` tinyint(2) DEFAULT NULL COMMENT '发布类型专题、新闻、',
+  `trigger_id` bigint(20) DEFAULT NULL COMMENT '触发类型对应的ID',
+  `template_type` tinyint(2) DEFAULT NULL COMMENT '模版类型',
+  `template_id` bigint(20) DEFAULT NULL COMMENT '模版ID',
+  `message` varchar(100) DEFAULT NULL COMMENT '发布状况',
+  `status` tinyint(2) DEFAULT NULL COMMENT '状态',
+  `error_message` varchar(255) DEFAULT NULL COMMENT '错误日志,只存储255个字符',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10000 DEFAULT CHARSET=utf8 COMMENT='发布日志表';

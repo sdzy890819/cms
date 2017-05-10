@@ -7,11 +7,11 @@ import lombok.Getter;
  */
 public enum PublishStatusEnum {
 
-    //-- ERROR_CODE_DEFAULT是动态可变。的messages
-    //-- SUCCESS_CODE_DETAIL是动态可变化的message
-    SUCCESS("SUCCESS", 1, "发布成功!"),
-    ERROR("ERROR",-1,"发布失败"),
-    EXECING("EXECING",0,"发布中");
+    PUBLISH_SUCCESS("PUBLISH_SUCCESS", 8, "发布成功"),
+    ERROR("ERROR", 4, "发布失败"),
+    RE_SUCCESS("RE_SUCCESS", 9, "撤销成功"),
+    RE_ERROR("RE_ERROR", 3, "撤销失败"),
+    EXECING("EXECING", 1, "发布中");
 
     @Getter
     private int type;

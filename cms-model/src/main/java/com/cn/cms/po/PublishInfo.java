@@ -1,8 +1,5 @@
 package com.cn.cms.po;
 
-import com.cn.cms.enums.PublishStatusEnum;
-import com.cn.cms.enums.TemplateTypeEnum;
-import com.cn.cms.enums.TriggerTypeEnum;
 import lombok.Getter;
 import lombok.Setter;
 

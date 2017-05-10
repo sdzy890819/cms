@@ -90,8 +90,8 @@ public class TopicPublishJob extends BaseTask {
 
             }
             if(publishInfo!=null){
-                publishInfo.setStatus(PublishStatusEnum.SUCCESS.getType());
-                publishInfo.setMessage(PublishStatusEnum.SUCCESS.getMessage());
+                publishInfo.setStatus(PublishStatusEnum.PUBLISH_SUCCESS.getType());
+                publishInfo.setMessage(PublishStatusEnum.PUBLISH_SUCCESS.getMessage());
             }
         }catch (Exception e){
             log.error(e);

@@ -44,7 +44,47 @@ public class PublishInfoBiz extends BaseBiz {
         return publishInfo;
     }
 
+
+    /**
+     * 初始创建
+     * @param publishStatusEnum
+     * @param triggerId
+     * @param triggerTypeEnum
+     * @return
+     */
+    public PublishInfo createInfo(PublishStatusEnum publishStatusEnum, Long triggerId, TriggerTypeEnum triggerTypeEnum){
+        PublishInfo publishInfo = new PublishInfo();
+        publishInfo.setStatus(publishStatusEnum.getType());
+        publishInfo.setMessage(publishStatusEnum.getMessage());
+        publishInfo.setTriggerType(triggerTypeEnum.getType());
+        publishInfo.setTriggerId(triggerId);
+        publishInfoService.savePublishInfo(publishInfo);
+        return publishInfo;
+
+    }
+
+    /**
+     * 更新现有状态
+     * @param publishInfo
+     * @param publishStatusEnum
+     * @param errorMessage
+     */
+    public void renewInfo(PublishInfo publishInfo, PublishStatusEnum publishStatusEnum, String errorMessage){
+        if(publishInfo != null){
+            publishInfo.setErrorMessage(errorMessage);
+            publishInfo.setMessage(publishStatusEnum.getMessage());
+            publishInfo.setStatus(publishStatusEnum.getType());
+        }
+    }
+
+
+    /**
+     * 修改信息
+     * @param publishInfo
+     */
     public void update(PublishInfo publishInfo){
-        publishInfoService.updatePublishInfo(publishInfo);
+        if(publishInfo != null) {
+            publishInfoService.updatePublishInfo(publishInfo);
+        }
     }
 }
