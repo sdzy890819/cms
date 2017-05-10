@@ -5,9 +5,11 @@ import com.cn.cms.enums.TemplateTypeEnum;
 import com.cn.cms.enums.TriggerTypeEnum;
 import com.cn.cms.po.PublishInfo;
 import com.cn.cms.service.PublishInfoService;
+import com.cn.cms.utils.Page;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by zhangyang on 17/5/9.
@@ -87,4 +89,25 @@ public class PublishInfoBiz extends BaseBiz {
             publishInfoService.updatePublishInfo(publishInfo);
         }
     }
+
+    /**
+     * 查询列表
+     * @param publishInfo
+     * @param page
+     * @return
+     */
+    public List<PublishInfo> findPublishInfoList(PublishInfo publishInfo, Page page){
+        Integer count = publishInfoService.findPublishInfoCount(publishInfo);
+        page.setCount(count);
+        if(page.isQuery()){
+            return publishInfoService.findPublishInfoList(publishInfo, page);
+        }
+        return null;
+    }
+
+    public PublishInfo getPublishInfo(Long id){
+        return publishInfoService.getPublishInfo(id);
+    }
+
+
 }

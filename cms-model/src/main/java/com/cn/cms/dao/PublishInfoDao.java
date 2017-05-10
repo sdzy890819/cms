@@ -21,4 +21,6 @@ public interface PublishInfoDao {
 
     Integer findPublishInfoCount(@Param(value = "p1")PublishInfo publishInfo);
 
+    PublishInfo getPublishInfo(@Param(value = "id") Long id);
+
 }
