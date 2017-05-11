@@ -5,6 +5,8 @@ import com.cn.cms.enums.*;
 import com.cn.cms.enums.serializer.JSONEnumSerializer;
 import com.cn.cms.utils.PropertyManager;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -156,6 +158,17 @@ public class StaticContants {
     public static final String FILE_PATH_SP = "/";
 
     public static final String CMS_OPERATION_USER_ID = "100000000000000001";
+
+    public static final String CMS_SPIDER_USER_ID = "100000000000000010";
+
+    public static final Map<String, String> CMSMAP = new HashMap<>();
+
+    static {
+        CMSMAP.put(CMS_OPERATION_USER_ID, CMS_OPERATION_USER_ID);
+        CMSMAP.put(CMS_SPIDER_USER_ID, CMS_SPIDER_USER_ID);
+    }
+
+    public static final String CMS_INSIDE_USER_KEY = "CMS_INSIDE_USER_KEY";
 
     public static final int CMS_NUM = 100;
 

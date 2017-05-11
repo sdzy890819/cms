@@ -1,8 +1,11 @@
 package com.cn.cms.po;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.enums.PlatformEnum;
 import com.cn.cms.enums.PublishEnum;
+import com.cn.cms.enums.PushTagEnum;
 import com.cn.cms.enums.RecommendEnum;
 import lombok.Getter;
 import lombok.Setter;
@@ -179,6 +182,21 @@ public class News extends Base implements Cloneable{
     private String publishStr;
 
     /**
+     * 维护的stockCode
+     */
+    private String stockCode;
+
+    /**
+     * 股票名称
+     */
+    private String stockName;
+
+    /**
+     * 是否推送其他栏目
+     */
+    private Integer pushTag;
+
+    /**
      * 推荐排序
      */
     protected Integer sort = 1000;
@@ -247,6 +265,12 @@ public class News extends Base implements Cloneable{
      * 新闻股票列表
      */
     private List<NewsStock> newsStocks;
+
+    /**
+     * 临时新闻推送栏目信息JSON
+     * [{title:"",val:""},{title:"",val:""}]
+     */
+    private JSONArray columnIds;
 
     /**
      * 可修改发布时间

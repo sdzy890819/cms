@@ -133,6 +133,13 @@
         ) and job = ${job}  order by sort_num desc;
     </select>
 
+    <select id="findTemplateListByNewsPushColumnAndNotDetail" resultMap="template">
+        select <include refid="sql_column" /> from template <include refid="delTag"/> and id in (
+        select template_id from template_relation where relation_type = ${relationType}
+        and relation_id in (select column_id from news_push_column where news_id = #{newsId})
+        ) and template_classify != 3 and job = ${job}  order by sort_num desc;
+    </select>
+
     <update id="publishTemplate" >
         update template set publish=${publish} where id in
         <foreach collection="list" separator="," close=");" open="(" item="item">

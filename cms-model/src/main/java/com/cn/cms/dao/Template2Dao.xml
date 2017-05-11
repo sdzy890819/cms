@@ -59,6 +59,11 @@
         </if>  order by update_time desc limit ${page.start},${page.pageSize};
     </select>
 
+    <select id="findTemplate2ByNewsIds" resultMap="template2">
+        select <include refid="sql_column" /> from template2 <include refid="delTag" /> and id in
+        (select detail_template2_id from news_column where del_tag = 1 and id in (select column_id from news_push_column where news_id = #{newsId}));
+    </select>
+
     <update id="delTemplate2">
         update template2 set last_modify_user_id = #{lastModifyUserId}, del_tag = 0 where id = ${id};
     </update>

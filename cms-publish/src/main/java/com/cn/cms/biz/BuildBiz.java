@@ -19,10 +19,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by 华盛信息科技有限公司(HS) on 16/12/24.
@@ -121,6 +118,14 @@ public class BuildBiz extends BaseBiz {
             case NEWS: {
                 News news = newsBiz.findNewsAndDetail(body.getId());
                 templates = templateBiz.findTemplateListByRelation(news.getColumnId(), RelationTypeEnum.column.getType());
+                if(news.getPushTag() == PushTagEnum.YES.getType()) {
+                    List<Template> templates1 = templateBiz.findTemplateListByNewsPushColumnAndNotDetail(news.getId());
+                    if(templates!=null && templates1!=null){
+                        templates.addAll(templates1);
+                    }else if(templates==null && templates1!=null){
+                        templates = templates1;
+                    }
+                }
                 this.publishNews(news, body);
                 this.publishTemplate2(news);
                 base = news;
@@ -163,7 +168,6 @@ public class BuildBiz extends BaseBiz {
             NewsColumn newsColumn = newsBiz.getNewsColumn(news.getColumnId());
             if(newsColumn.getListTemplate2Id()!=null && newsColumn.getListTemplate2Id() > 0){
                 Template2 template2 = template2Biz.getTemplate2(newsColumn.getListTemplate2Id());
-
                 Channel channel = channelBiz.getChannel(newsColumn.getChannelId());
                 newsColumn.setListUrl(StringUtils.concatUrl(channel.getChannelUrl(), template2.getPath(),
                         newsColumn.getId().toString().concat(StaticContants.HTML_SUFFIX)));
@@ -205,6 +209,45 @@ public class BuildBiz extends BaseBiz {
                 }
             }
 
+        }
+
+        if(news.getPushTag() == PushTagEnum.YES.getType()) {
+            List<NewsPushColumn> list = newsBiz.findNewsPushColumnsByNewsId(news.getId());
+            if(StringUtils.isNotEmpty(list)){
+                List<Long> columnIds = new ArrayList<>();
+                List<Long> channelIds = new ArrayList<>();
+                for(int i=0;i<list.size();i++){
+                    columnIds.add(list.get(i).getColumnId());
+                    channelIds.add(list.get(i).getChannelId());
+                }
+                List<NewsColumn> newsColumns = newsBiz.getNewsColumns(columnIds);
+                Map<Long, Channel> channelMap = channelBiz.getChannelsMap(channelIds);
+                if(StringUtils.isNotEmpty(newsColumns)) {
+                    for (int i = 0; i < newsColumns.size(); i++) {
+                        NewsColumn newsColumn = newsColumns.get(i);
+                        if(newsColumn.getListTemplate2Id()!=null && newsColumn.getListTemplate2Id() > 0){
+                            Template2 template2 = template2Biz.getTemplate2(newsColumn.getListTemplate2Id());
+                            Channel channel = channelMap.get(newsColumn.getChannelId());
+                            newsColumn.setListUrl(StringUtils.concatUrl(channel.getChannelUrl(), template2.getPath(),
+                                    newsColumn.getId().toString().concat(StaticContants.HTML_SUFFIX)));
+                            newsBiz.publishListTemplate2(newsColumn);
+
+                            TemplatePublishJob templatePublishJob = new TemplatePublishJob();
+                            templatePublishJob.setChannelId(news.getChannelId());
+                            templatePublishJob.setNewsColumn(newsColumn);
+                            templatePublishJob.setTemplateBasics(template2);
+                            //--------
+                            PublishInfo publishInfo = publishInfoBiz.recordInfo(PublishStatusEnum.EXECING, news.getId(),
+                                    TriggerTypeEnum.NEWS, TemplateTypeEnum.TEMPLATE2, template2.getId(), null);
+                            templatePublishJob.setPublishInfo(publishInfo);
+                            //--------
+                            threadTaskExecutor.execute(templatePublishJob);
+
+
+                        }
+                    }
+                }
+            }
         }
     }
 
