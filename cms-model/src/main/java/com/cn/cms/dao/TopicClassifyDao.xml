@@ -23,7 +23,7 @@
     </sql>
 
     <select id="findAll" resultMap="topicClassify">
-        select <include refid="sql_column" /> from topic_classify <include refid="delTag" />  order by update_time desc;
+        select <include refid="sql_column" /> from topic_classify <include refid="delTag" />  order by id desc;
     </select>
     
     <insert id="saveTopicClassify" useGeneratedKeys="true" keyProperty="p1.id">

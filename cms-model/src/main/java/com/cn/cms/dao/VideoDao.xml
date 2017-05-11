@@ -88,7 +88,7 @@
     </select>
 
     <select id="queryVideoList" resultMap="video">
-        select <include refid="sql_column_find" /> from video <include refid="delTag" />  order by update_time desc limit ${page.start},${page.pageSize};
+        select <include refid="sql_column_find" /> from video <include refid="delTag" />  order by id desc limit ${page.start},${page.pageSize};
     </select>
 
     <select id="findVideo" resultMap="video">

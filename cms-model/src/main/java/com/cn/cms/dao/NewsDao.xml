@@ -120,7 +120,7 @@
         <if test="publish != null" >
             and publish = ${publish}
         </if>
-        order by update_time desc limit ${page.start},${page.pageSize};
+        order by id desc limit ${page.start},${page.pageSize};
     </select>
     
     <select id="findNewsAndDetail" resultMap="news">
@@ -228,7 +228,7 @@
 
     <select id="findNewsByColumnId" resultMap="news">
         select <include refid="all_column" /> from news <include refid="delTag" /> and publish = 1 and column_id = ${columnId}
-        order by update_time desc limit ${page.start}, ${page.pageSize};
+        order by id desc limit ${page.start}, ${page.pageSize};
     </select>
 
     <update id="publishNews" >

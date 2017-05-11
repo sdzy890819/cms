@@ -38,11 +38,11 @@
     </select>
     
     <select id="queryTemplate2List" resultMap="template2">
-        select <include refid="sql_column_find" /> from template2 <include refid="delTag" />  order by update_time desc limit ${page.start},${page.pageSize} ;
+        select <include refid="sql_column_find" /> from template2 <include refid="delTag" />  order by id desc limit ${page.start},${page.pageSize} ;
     </select>
 
     <select id="queryTemplate2ByClassify" resultMap="template2">
-        select <include refid="sql_column" /> from template2 <include refid="delTag" /> and template_classify = ${templateClassify}  order by update_time desc
+        select <include refid="sql_column" /> from template2 <include refid="delTag" /> and template_classify = ${templateClassify}  order by id desc
     </select>
 
     <select id="searchTemplate2Count" resultType="java.lang.Integer">
@@ -56,7 +56,7 @@
         select <include refid="sql_column_find" /> from template2 <include refid="delTag" />
         <if test="p1.condition != null">
             and template_name like CONCAT('%',#{p1.condition},'%')
-        </if>  order by update_time desc limit ${page.start},${page.pageSize};
+        </if>  order by id desc limit ${page.start},${page.pageSize};
     </select>
 
     <select id="findTemplate2ByNewsIds" resultMap="template2">

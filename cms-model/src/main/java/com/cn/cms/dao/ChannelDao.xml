@@ -36,7 +36,7 @@
     </sql>
 
     <select id="findChannelAll" resultMap="channel">
-        SELECT <include refid="sql_column_find" /> from channel <include refid="delTag" />  order by update_time desc;
+        SELECT <include refid="sql_column_find" /> from channel <include refid="delTag" />  order by id desc;
     </select>
 
     <select id="findChannelByUserId" resultMap="channel">
@@ -46,7 +46,7 @@
         </if>
          and id in (
         select channel_id from user_channel <include refid="delTag" /> and user_id = #{userId}
-        )  order by update_time desc;
+        )  order by id desc;
     </select>
 
 
@@ -100,11 +100,11 @@
         <foreach collection="list" item="item" open="(" close=")" separator=",">
             #{item}
         </foreach>
-        order by update_time desc;
+        order by id desc;
     </select>
 
     <select id="findChannelList" resultMap="channel">
-        SELECT <include refid="sql_column_find" /> from channel <include refid="delTag" /> and category_id = #{categoryId}  order by update_time desc;
+        SELECT <include refid="sql_column_find" /> from channel <include refid="delTag" /> and category_id = #{categoryId}  order by id desc;
     </select>
 
     <select id="findChannelNameCount" resultType="java.lang.Integer">

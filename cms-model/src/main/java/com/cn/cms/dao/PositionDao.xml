@@ -45,11 +45,11 @@
     </select>
 
     <select id="findPositionList" resultMap="position">
-        select <include refid="sql_column" /> from position <include refid="delTag" />  order by update_time desc limit ${page.start},${page.pageSize} ;
+        select <include refid="sql_column" /> from position <include refid="delTag" />  order by id desc limit ${page.start},${page.pageSize} ;
     </select>
 
     <select id="findPositionListAll" resultMap="position">
-        select <include refid="sql_column" /> from position <include refid="delTag" />  order by update_time desc;
+        select <include refid="sql_column" /> from position <include refid="delTag" />  order by id desc;
     </select>
 
 </mapper>

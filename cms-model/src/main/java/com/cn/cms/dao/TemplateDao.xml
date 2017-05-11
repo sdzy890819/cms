@@ -48,7 +48,7 @@
     </select>
     
     <select id="queryTemplateList" resultMap="template">
-        select <include refid="sql_column_find" /> from template <include refid="delTag" />  order by update_time desc limit ${page.start},${page.pageSize} ;
+        select <include refid="sql_column_find" /> from template <include refid="delTag" />  order by id desc limit ${page.start},${page.pageSize} ;
     </select>
 
     <select id="searchTemplateCount" resultType="java.lang.Integer">
@@ -68,7 +68,7 @@
         </if>
         <if test="p1.channelId != null">
             and channel_id = ${p1.channelId}
-        </if>  order by update_time desc limit ${page.start},${page.pageSize};
+        </if>  order by id desc limit ${page.start},${page.pageSize};
     </select>
 
     <update id="delTemplate">
