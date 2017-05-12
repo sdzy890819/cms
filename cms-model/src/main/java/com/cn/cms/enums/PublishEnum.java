@@ -7,10 +7,10 @@ import lombok.Getter;
  */
 public enum PublishEnum {
 
-    YES("已发布", 1),
-    NO("未发布", 0),
+    YES("已发", 1),
+    NO("未发", 0),
     draft("草稿", 2),
-    rescind("已撤销", 3);
+    rescind("已撤", 3);
 
     @Getter
     private int type;

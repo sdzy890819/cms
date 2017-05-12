@@ -350,9 +350,13 @@ public class BuildBiz extends BaseBiz {
      */
     void publishNews(News news, Body body){
         Channel channel = channelBiz.getChannel(news.getChannelId());
-            Date date = new Date();
+        Date date = new Date();
+        if(news.getBuildTime() == null) {
             news.setBuildTime(date);
+        }
+        if(StringUtils.isBlank(news.getBuildUserId())) {
             news.setBuildUserId(body.getUserId());
+        }
             news.setLastModifyUserId(body.getUserId());
             news.setPublish(PublishEnum.YES.getType());
             if(news.getEditPublishTime() == null){
