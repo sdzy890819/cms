@@ -98,7 +98,7 @@ public class NewsController extends BaseController {
     @RequestMapping(value = "/newsdetail",method = RequestMethod.GET)
     public String newsdetail(@RequestParam(value = "id") Long id){
         News news = newsBiz.findNewsAndDetail(id);
-        if(news.getPushTag() == PushTagEnum.YES.getType()){
+        if(news.getPushTag()!=null && news.getPushTag() == PushTagEnum.YES.getType()){
             List<NewsPushColumn> list = newsBiz.getNewsPushColumns(news.getId());
             if(StringUtils.isNotEmpty(list)) {
                 List<Long> channelIds = new ArrayList<>();
