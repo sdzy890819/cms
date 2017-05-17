@@ -310,6 +310,7 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public void updateRescind(News news) {
         newsDao.updateRescind(news);
+        sendIndex(news);
     }
 
     @Override
