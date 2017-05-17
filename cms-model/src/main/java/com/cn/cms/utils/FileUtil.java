@@ -1,10 +1,13 @@
 package com.cn.cms.utils;
 
+import com.alibaba.fastjson.JSONObject;
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.enums.WatermarkEnum;
 import com.cn.cms.exception.BizException;
 import com.cn.cms.logfactory.CommonLog;
 import com.cn.cms.logfactory.CommonLogFactory;
+import com.sun.image.codec.jpeg.JPEGCodec;
+import com.sun.image.codec.jpeg.JPEGImageEncoder;
 import sun.misc.BASE64Decoder;
 
 import javax.imageio.ImageIO;
@@ -13,6 +16,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.List;
 
 /**
  * Created by 华盛信息科技有限公司(HS) on 16/11/30.
@@ -95,35 +99,13 @@ public class FileUtil {
      * @param watermark
      * @return
      */
-    public static Map<String,Object> compressAndWatermark(byte[] bytes, int width, int height, String filePath, int watermark){
+    public static void compressAndWatermark(byte[] bytes, int width, int height, String filePath, int watermark) throws BizException{
 
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
         Map<String, Object> map = new HashMap<>();
         try {
             Image image = ImageIO.read(byteArrayInputStream);
-            int w = image.getWidth(null);
-            int h = image.getHeight(null);
-            map.put("orgWidthPixel", w);
-            map.put("orgHeightPixel", h);
-            double bili = 0D;
-            if((width == 0 && height == 0) || width > w || height > h){
-                width = w;
-                height = h;
-            }else {
-                if (width > 0) {
-                    bili = width / (double) w;
-                    height = (int) (h * bili);
-                } else {
-                    if (height > 0) {
-                        bili = height / (double) h;
-                        width = (int) (w * bili);
-                    }
-                }
-            }
-            map.put("imageWidthPixel", width);
-            map.put("imageHeightPixel", height);
-            String suffix = "jpg";
-            suffix = filePath.substring(filePath.lastIndexOf(".")+1);
+            String suffix = filePath.substring(filePath.lastIndexOf(".") + 1).toLowerCase();
             BufferedImage buffImg = null;
             if(suffix.equals("png")){
                 buffImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
@@ -134,7 +116,6 @@ public class FileUtil {
             graphics.setBackground(new Color(255,255,255));
             graphics.setColor(new Color(255,255,255));
             graphics.fillRect(0, 0, width, height);
-
             graphics.drawImage(image.getScaledInstance(width, height, Image.SCALE_SMOOTH), 0, 0, null);
 
             //-----水印
@@ -153,10 +134,119 @@ public class FileUtil {
             ImageIO.write(buffImg, suffix, new File(filePath));
 
         } catch (IOException e) {
+            log.error("图片压缩出现错误", e);
+            throw new BizException("图片压缩出现错误");
+        }
+    }
+
+
+    public static byte[] compressAndWatermark(byte[] bytes, int width, int height, int watermark){
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
+        try {
+            Image image = ImageIO.read(byteArrayInputStream);
+
+            BufferedImage buffImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+            Graphics2D graphics = buffImg.createGraphics();
+            graphics.setBackground(new Color(255,255,255));
+            graphics.setColor(new Color(255,255,255));
+            graphics.fillRect(0, 0, width, height);
+
+            graphics.drawImage(image.getScaledInstance(width, height, Image.SCALE_SMOOTH), 0, 0, null);
+            //-----水印
+            if(watermark == WatermarkEnum.watermark.getType()) {
+                int y = height - 10 * 2;
+                int x = width - 10 * 5;
+                int x1 = width - 10 * 7;
+                int y1 = height - 10 ;
+                graphics.setColor(Color.BLACK);
+                graphics.setFont(new Font("Serif", Font.PLAIN ,10));
+                graphics.drawString(StaticContants.WATERMARK_TEXT_EN, x, y);
+                graphics.drawString(StaticContants.WATERMARK_TEXT_URL, x1, y1);
+            }
+            //-----水印结束
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            ImageIO.write(buffImg, "jpeg", out);
+            byte[] result = out.toByteArray();
+            return result;
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        return map;
+        return null;
     }
+
+    public static Map<String,Object> compress(byte[] bytes, int width, int height, String filePath, int watermark)throws BizException{
+        Map<String, Object> map = new HashMap<>();
+        try {
+            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
+            Image image = ImageIO.read(byteArrayInputStream);
+            int w = image.getWidth(null);
+            int h = image.getHeight(null);
+            map.put("orgWidthPixel", w);
+            map.put("orgHeightPixel", h);
+            double bili = 0D;
+            boolean isZip = true;
+            if((width == 0 && height == 0) || width > w || height > h){
+                height = h;
+                width = w;
+                isZip = false;
+            }else {
+                if (width > 0) {
+                    bili = width / (double) w;
+                    height = (int) (h * bili);
+                } else {
+                    if (height > 0) {
+                        width = (int) (w * bili);
+                        bili = height / (double) h;
+                    }
+                }
+            }
+            map.put("imageWidthPixel", width);
+            map.put("imageHeightPixel", height);
+            if(!isZip && watermark == WatermarkEnum.notwatermark.getType()){
+                fileUpload(bytes, filePath);
+            }else {
+                String suffix = filePath.substring(filePath.lastIndexOf(".") + 1).toLowerCase();
+                if ("gif".equals(suffix)) {
+                    compressGif(bytes, width, height, filePath, watermark);
+                } else {
+                    compressAndWatermark(bytes, width, height, filePath, watermark);
+                }
+            }
+            return map;
+        }catch (Exception e){
+            log.error("压缩出现错误", e);
+            throw new BizException("压缩错误问题."+e.getMessage());
+        }
+
+    }
+
+
+    public synchronized static void compressGif(byte[] bytes, int width, int height, String filePath, int watermark) throws BizException{
+        try {
+            GifDecoder decoder = new GifDecoder();
+            decoder.read(bytes);
+            int n = decoder.getFrameCount();
+            //-----jpg结合
+            AnimatedGifEncoder e = new AnimatedGifEncoder();
+            e.setRepeat(0);
+            e.start(filePath);
+            //------
+            for (int i = 0; i < n; i++) {
+                BufferedImage frame = decoder.getFrame(i);
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                ImageIO.write(frame, "jpeg", byteArrayOutputStream);
+//                JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(byteArrayOutputStream);
+//                encoder.encode(frame);
+                e.setDelay(decoder.getDelay(i));
+                e.addFrame(ImageIO.read(new ByteArrayInputStream(compressAndWatermark(byteArrayOutputStream.toByteArray(), width, height, watermark)))); // 添加到帧中
+            }
+            e.finish();//刷新任何未决的数据，并关闭输出文件
+        } catch (Exception e) {
+            log.error("splitGif Failed!", e);
+            throw new BizException("splitGif Failed!");
+        }
+    }
+
 
 
     /**
@@ -308,6 +398,19 @@ public class FileUtil {
         return null;
     }
 
+
+
+    public static void main(String[] args) throws IOException, BizException {
+        File file = new File("/Users/zhangyang/Documents/gif.gif");
+        File newFile = new File("/Users/zhangyang/Documents/gif_zipaa.gif");
+        FileInputStream fileInputStream = new FileInputStream(file);
+        byte[] bytes = new byte[fileInputStream.available()];
+        fileInputStream.read(bytes);
+
+        Map<String, Object> map = compress(bytes, 200, 0, "/Users/zhangyang/Documents/gif_zip.gif", 1);
+        System.out.println(JSONObject.toJSONString(map));
+
+    }
 
 
 }
