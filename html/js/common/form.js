@@ -271,7 +271,7 @@ define(["app",'require','jquery','./moduls/directive'], function ( app , require
 							form.on('submit(demo1)', function(data){
 								var event = $(data.elem).attr('data-event');
 
-								if(window.Editor){
+								/*if(window.Editor){
 								 	// 获取编辑器区域完整html代码
 							        var html = Editor.$txt.html();
 							        // 获取编辑器纯文本内容
@@ -281,7 +281,11 @@ define(["app",'require','jquery','./moduls/directive'], function ( app , require
 							        data.field.html = html;
 							        data.field.text = text;
 							        data.field.formatText = formatText;
-								}
+								}*/
+								try{
+									var html = window.top.document.getElementById("editor").contentWindow.getContent();
+									data.field.html = html;
+								}catch(e){}
 								data.field.selects = $scope.selects;
 								//if(data.nodeName!='A'){
 									$scope.$parent[event](data.field);
