@@ -58,6 +58,11 @@ define(["app",'jquery','form'],function (app,$) {
 							}
 							obj.updateData(function(_data){
 								$scope.data = _data.data;
+								try{
+									window.top.document.getElementById("editor").contentWindow.insertHtml(_data.data.newsDetail.content);
+								}catch(e){
+									
+								}
 								if(!$scope.$$phase) { 
 									$scope.$apply();
 								} 

@@ -28,11 +28,17 @@
     //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
     var editor = UE.getEditor('editor');
     editor.addListener( 'ready', function( ) {
-         editor.setHeight(window.top.document.getElementById("editor").contentWindow.frameElement.scrollHeight-150);
+        var height = document.getElementById('edui1_toolbarbox').offsetHeight+50;
+         editor.setHeight(window.top.document.getElementById("editor").contentWindow.frameElement.scrollHeight-height);
     });
     function getContent() {
-        var content = UE.getEditor('editor').getContent();
+        var content = editor.getContent();
         return content;
+    }
+    function insertHtml(value) {
+        editor.addListener( 'ready', function( ) {
+            editor.execCommand('insertHtml', value)
+        });
     }
 
 </script>
