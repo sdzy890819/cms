@@ -95,7 +95,7 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 				getList(function(list){
 					$.each(list,function( i , obj){
 						if(obj.title == 'content'){
-							obj.width = '800px';
+							obj.width = '1100px';
 						}
 						if(obj.type=='select'){
 							getData.news.previousColumn({ //默认显示 1级2级3级栏目

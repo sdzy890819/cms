@@ -23,6 +23,8 @@ public interface Template2Service {
 
     List<Template2> searchTemplate2(Template2Search template2Search, Page page);
 
+    List<Template2> findTemplate2ByNewsIds(Long newsIds);
+
     void delTemplate2(String lastModifyUserId, Long id);
 
     void saveTemplate2(Template2 template);

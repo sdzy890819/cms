@@ -1,5 +1,6 @@
 package com.cn.cms.web.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.cn.cms.biz.*;
 import com.cn.cms.bo.UserBean;
 import com.cn.cms.contants.StaticContants;
@@ -7,6 +8,7 @@ import com.cn.cms.enums.*;
 import com.cn.cms.po.*;
 import com.cn.cms.utils.Page;
 import com.cn.cms.utils.StringUtils;
+import com.cn.cms.utils.TextUtils;
 import com.cn.cms.web.ann.CheckAuth;
 import com.cn.cms.web.ann.CheckToken;
 import com.cn.cms.web.result.ApiResponse;
@@ -96,6 +98,21 @@ public class NewsController extends BaseController {
     @RequestMapping(value = "/newsdetail",method = RequestMethod.GET)
     public String newsdetail(@RequestParam(value = "id") Long id){
         News news = newsBiz.findNewsAndDetail(id);
+        if(news.getPushTag()!=null && news.getPushTag() == PushTagEnum.YES.getType()){
+            List<NewsPushColumn> list = newsBiz.getNewsPushColumns(news.getId());
+            if(StringUtils.isNotEmpty(list)) {
+                List<Long> channelIds = new ArrayList<>();
+                List<Long> columnIds = new ArrayList<>();
+                for (int i = 0; i < list.size(); i++) {
+                    NewsPushColumn newsPushColumn = list.get(i);
+                    channelIds.add(newsPushColumn.getChannelId());
+                    columnIds.add(newsPushColumn.getColumnId());
+                }
+                Map<Long, Channel> channelMap = channelBiz.getChannelsMap(channelIds);
+                Map<Long, NewsColumn> newsColumnMap = newsBiz.getNewsColumnMap(columnIds);
+                news.setColumnIds(TextUtils.restoreNewsPushColumns(list, channelMap, newsColumnMap));
+            }
+        }
         return ApiResponse.returnSuccess(news);
     }
 
@@ -176,7 +193,10 @@ public class NewsController extends BaseController {
                              @RequestParam(value = "autoPublish") Integer autoPublish,
                              @RequestParam(value = "timer", required = false) String timer,
                              @RequestParam(value = "publish", required = false, defaultValue = "0") Integer publish,
-                             @RequestParam(value = "editPublishTime", required = false) String editPublishTime){
+                             @RequestParam(value = "editPublishTime", required = false) String editPublishTime,
+                             @RequestParam(value = "stockCode", required = false) String stockCode,
+                             @RequestParam(value = "stockName", required = false) String stockName,
+                             @RequestParam(value = "columnIds", required = false) String columnIds){
         String userID = getCurrentUserId(request);
         News news = new News();
         news.setTitle(title);
@@ -208,6 +228,11 @@ public class NewsController extends BaseController {
         news.setField5(field5);
         news.setPublish(publish);
         news.setAutoPublish(autoPublish);
+        news.setStockCode(stockCode);
+        news.setStockName(stockName);
+        if(StringUtils.isNotBlank(columnIds)){
+            news.setColumnIds(JSONArray.parseArray(columnIds));
+        }
         if(StringUtils.isNotBlank(editPublishTime)){
             SimpleDateFormat sdf = new SimpleDateFormat(StaticContants.YYYY_MM_DD_HH_MM_SS);
             try {
@@ -229,7 +254,7 @@ public class NewsController extends BaseController {
         newsBiz.saveNews(news);
         if(autoPublish!=null && autoPublish == AutoPublishEnum.YES.getType() && news.getTimer() == null && publish != PublishEnum.draft.getType()){
 
-            if(permissionBiz.checkPermission(userID, "news:publish")) {
+            if(StringUtils.isNotBlank(StaticContants.CMSMAP.get(userID)) || permissionBiz.checkPermission(userID, "news:publish")) {
                 publish(request, news.getId());
             }else {
                 return ApiResponse.returnFail(StaticContants.ERROR_NOT_PUBLISH_NEWS);
@@ -276,7 +301,10 @@ public class NewsController extends BaseController {
                              @RequestParam(value = "autoPublish",required = false) Integer autoPublish,
                              @RequestParam(value = "timer",required = false) String timer,
                              @RequestParam(value = "publish", required = false, defaultValue = "0") Integer publish,
-                             @RequestParam(value = "editPublishTime", required = false) String editPublishTime){
+                             @RequestParam(value = "editPublishTime", required = false) String editPublishTime,
+                             @RequestParam(value = "stockCode", required = false) String stockCode,
+                             @RequestParam(value = "stockName", required = false) String stockName,
+                             @RequestParam(value = "columnIds", required = false) String columnIds){
         String userID = getCurrentUserId(request);
         News old = newsBiz.findNews(id);
         News news = new News();
@@ -305,10 +333,15 @@ public class NewsController extends BaseController {
         news.setField4(field4);
         news.setField5(field5);
         news.setAutoPublish(autoPublish);
+        news.setStockCode(stockCode);
+        news.setStockName(stockName);
         if(old.getPublish() != PublishEnum.YES.getType()) {
             news.setPublish(publish);
         }
         news.setId(id);
+        if(StringUtils.isNotBlank(columnIds)){
+            news.setColumnIds(JSONArray.parseArray(columnIds));
+        }
         if(StringUtils.isNotBlank(editPublishTime)){
             SimpleDateFormat sdf = new SimpleDateFormat(StaticContants.YYYY_MM_DD_HH_MM_SS);
             try {
@@ -330,7 +363,7 @@ public class NewsController extends BaseController {
         }
         newsBiz.updateNews(news);
         if(autoPublish !=null && autoPublish == AutoPublishEnum.YES.getType() && news.getTimer() == null && publish != PublishEnum.draft.getType()){
-            if(permissionBiz.checkPermission(userID, "news:publish")) {
+            if(StringUtils.isNotBlank(StaticContants.CMSMAP.get(userID)) || permissionBiz.checkPermission(userID, "news:publish")) {
                 publish(request, id);
             }else {
                 return ApiResponse.returnFail(StaticContants.ERROR_NOT_PUBLISH_NEWS);
@@ -651,10 +684,14 @@ public class NewsController extends BaseController {
                              @RequestParam(value = "timer", required = false) String timer,
                              @RequestParam(value = "publish", required = false, defaultValue = "0") Integer publish,
                              @RequestParam(value = "editPublishTime", required = false) String editPublishTime,
+                             @RequestParam(value = "stockCode", required = false) String stockCode,
+                             @RequestParam(value = "stockName", required = false) String stockName,
+                         @RequestParam(value = "columnIds", required = false) String columnIds,
                              @RequestParam(value = "key") String key){
         if(validKey(key)){
+            request.setAttribute(StaticContants.CMS_INSIDE_USER_KEY, StaticContants.CMS_SPIDER_USER_ID);
             return createNews(request, title, subTitle, keyword, description, source, author,
-                    categoryId, channelId, columnId, content, field1, field2, field3, field4, field5, autoPublish, timer, publish, editPublishTime);
+                    categoryId, channelId, columnId, content, field1, field2, field3, field4, field5, autoPublish, timer, publish, editPublishTime, stockCode, stockName,columnIds);
         }
         return ApiResponse.returnFail(StaticContants.ERROR_KEY_API);
     }
@@ -707,10 +744,14 @@ public class NewsController extends BaseController {
                              @RequestParam(value = "timer",required = false) String timer,
                              @RequestParam(value = "publish", required = false, defaultValue = "0") Integer publish,
                              @RequestParam(value = "editPublishTime", required = false) String editPublishTime,
+                             @RequestParam(value = "stockCode", required = false) String stockCode,
+                             @RequestParam(value = "stockName", required = false) String stockName,
+                         @RequestParam(value = "columnIds", required = false) String columnIds,
                              @RequestParam(value = "key") String key){
         if(validKey(key)){
+            request.setAttribute(StaticContants.CMS_INSIDE_USER_KEY, StaticContants.CMS_SPIDER_USER_ID);
             return updateNews(request, id, title, subTitle, keyword, description, source, author, categoryId, channelId,
-                    columnId, content, field1, field2, field3, field4, field5, autoPublish, timer, publish, editPublishTime);
+                    columnId, content, field1, field2, field3, field4, field5, autoPublish, timer, publish, editPublishTime, stockCode,stockName, columnIds);
         }
         return ApiResponse.returnFail(StaticContants.ERROR_KEY_API);
     }
@@ -729,6 +770,7 @@ public class NewsController extends BaseController {
                           @RequestParam(value = "id") Long id,
                           @RequestParam(value = "key") String key){
         if(validKey(key)){
+            request.setAttribute(StaticContants.CMS_INSIDE_USER_KEY, StaticContants.CMS_SPIDER_USER_ID);
             return publish(request, id);
         }
         return ApiResponse.returnFail(StaticContants.ERROR_KEY_API);

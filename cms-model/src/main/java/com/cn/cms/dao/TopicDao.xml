@@ -43,6 +43,12 @@
         ,create_user_id
     </sql>
 
+    <sql id="all_column_not_content">
+        id, create_time, update_time,del_tag, last_modify_user_id,topic_title,topic_path,topic_filename,topic_classify_id,category_id
+        ,channel_id,release_time,keyword,description,topic_column_id,topic_url,publish,build_user_id,build_time
+        ,create_user_id
+    </sql>
+
     <sql id="sql_column_simple">
         id,last_modify_user_id,topic_title,topic_path,topic_filename,topic_classify_id,category_id,channel_id,release_time,topic_column_id,topic_url,publish,build_user_id
         ,create_user_id
@@ -53,7 +59,7 @@
     </select>
     
     <select id="queryTopicList" resultMap="topic">
-        select <include refid="sql_column_simple" /> from topic <include refid="delTag" />  order by update_time desc limit ${page.start},${page.pageSize};
+        select <include refid="sql_column_simple" /> from topic <include refid="delTag" />  order by id desc limit ${page.start},${page.pageSize};
     </select>
 
     <select id="getTopic" resultMap="topic" >
@@ -121,12 +127,12 @@
     </update>
 
     <select id="findTopicByClassify" resultMap="topic">
-        select <include refid="sql_column" /> from topic <include refid="delTag" /> and publish = 1 and topic_classify_id = ${topicClassifyId}
+        select <include refid="all_column_not_content" /> from topic <include refid="delTag" /> and publish = 1 and topic_classify_id = ${topicClassifyId}
         order by id desc limit ${page.start}, ${page.pageSize} ;
     </select>
 
     <select id="findTopicByColumn" resultMap="topic">
-        select <include refid="sql_column" /> from topic <include refid="delTag" /> and publish = 1 and topic_column_id = ${topicColumnId}
+        select <include refid="all_column_not_content" /> from topic <include refid="delTag" /> and publish = 1 and topic_column_id = ${topicColumnId}
         order by id desc limit ${page.start}, ${page.pageSize} ;
     </select>
 

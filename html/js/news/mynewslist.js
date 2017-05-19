@@ -171,6 +171,28 @@ define(['require',"app",'jquery'
         				});
 					},
 
+					rescind : function(obj){ //撤销
+                        obj.callback = function(_data){//撤销除成功
+                            layui.use(['layer'], function(){
+                                var layer = layui.layer;
+                                layer.msg(_data.message);
+                                                                                                
+                                if(_data.code == 0) {                                   
+                                    $('table').find("tr[data-id=" + obj.id + "]").hide();
+                                    $scope.getNewList();
+                                }
+
+                            });
+                        };
+                        pop.alert({
+                             text:'您确定要撤销"'+obj.title+'"吗'
+                            ,btn : ['确定','取消']
+                            ,fn : function(){
+                                getData.news.rescind(obj);
+                            }
+                        })
+                    },
+
 					recommend : function (obj) {
 						var newsId = obj.id;
 						require(['./recommendForm'], function(recommendFormList){
@@ -293,17 +315,18 @@ define(['require',"app",'jquery'
 				function setList(_data){
 					var th = [
                         {name:'文章ID' , key:'id' , width : '50'},		
-						{name:'所属频道栏目' , key:'channelAndColumnName' , width : '70'},					
+						{name:'所属栏目' , key:'channelAndColumnName' , width : '70'},					
 						{name:'标题' , key:'title'},								
 						{name:'作者' , key:'author' , width: '40', class: 'center'},
-						{name:'发布人' , key:'buildUserName' , width: '40', class: 'center'},
-						{name:'修改人' , key:'lastModifyUserName' , width: '40', class: 'center'},
-						{name:'媒体来源' , key:'source' , width: '40', class: 'center'},
+						{name:'发布人' , key:'buildUserName' , width: '55', class: 'center'},
+						{name:'修改人' , key:'lastModifyUserName' , width: '55', class: 'center'},
+						{name:'媒体来源' , key:'source' , width: '80', class: 'center'},
 												
 						{name:'发布时间' , key:'buildTimeStr' , width : '80', class: 'center'},
 						{name:'修改时间' , key:'updateTimeStr' , width : '80', class: 'center'},
 						{name:'状态' , key:'publishStr' , width: '40', class: 'center'},
 						{name:'操作' , width : '50' , class: 'center'},
+						{name:'预览' , width : '50' , class: 'center'},
 						{name:'权限' , width : '50' , class: 'center'}
 					];
 					
@@ -319,11 +342,15 @@ define(['require',"app",'jquery'
 							td : GenerateArrList.setArr(_data.data.list, th) ,
 							edit : [																
 								{cls : '' , name : '编辑',evt:$scope.edit},
-								{cls : '' , name : ' 推荐',evt:$scope.recommend}
+								{cls : '' , name : ' 推荐',evt:$scope.recommend},
+								//{cls : '' , name : '预览',href:'/webapi/news/preview/'}
 								// {cls : 'del' , name : '删除',evt:$scope.del}
 							],
-
+							edit1 : [												
+								{cls : 'zoom_in' , name : '预览',href:'/webapi/news/preview/'}
+							],
 							permission : [
+								{cls : 'del' , name : ' 撤销',evt:$scope.rescind},
 								{cls : 'del' , name : '删除',evt:$scope.del}
 							]
 
@@ -392,6 +419,12 @@ define(['require',"app",'jquery'
 						});
 						$scope.searchform = {
 							list : data,
+							return : function(){ //返回列表
+								getDataList();
+								$scope.searchform.search = null;
+								page = 1;
+								$scope.$$childHead.current = 1;
+							},
 							submit : function( obj , data ){
 								var publish;
 

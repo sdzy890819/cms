@@ -4,6 +4,7 @@ import com.cn.cms.contants.StaticContants;
 import com.cn.cms.logfactory.CommonLog;
 import com.cn.cms.logfactory.CommonLogFactory;
 import com.cn.cms.utils.CookieUtil;
+import com.cn.cms.utils.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -17,6 +18,10 @@ public class BaseController {
     public CommonLog log = CommonLogFactory.getLog(this.getClass());
 
     protected String getCurrentUserId(HttpServletRequest request){
-        return CookieUtil.getCookieVal(request, StaticContants.COOKIE_USER_ID);
+        String userId = CookieUtil.getCookieVal(request, StaticContants.COOKIE_USER_ID);
+        if(StringUtils.isBlank(userId)){
+            userId = String.valueOf(request.getAttribute(StaticContants.CMS_INSIDE_USER_KEY));
+        }
+        return userId;
     }
 }

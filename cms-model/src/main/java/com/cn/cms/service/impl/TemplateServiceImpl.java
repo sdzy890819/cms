@@ -114,6 +114,11 @@ public class TemplateServiceImpl implements TemplateService {
     }
 
     @Override
+    public List<Template> findTemplateListByNewsPushColumnAndNotDetail(Long newsId, Integer relationType) {
+        return templateDao.findTemplateListByNewsPushColumnAndNotDetail(newsId, relationType, JobEnum.trigger.getType());
+    }
+
+    @Override
     public void publishTemplate(List<Long> list) {
         templateDao.publishTemplate(list, PublishEnum.YES.getType());
     }

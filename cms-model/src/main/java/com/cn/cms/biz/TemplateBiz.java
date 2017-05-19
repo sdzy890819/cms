@@ -1,6 +1,7 @@
 package com.cn.cms.biz;
 
 import com.cn.cms.bo.TemplateSearch;
+import com.cn.cms.enums.RelationTypeEnum;
 import com.cn.cms.enums.TemplateClassifyEnum;
 import com.cn.cms.po.Template;
 import com.cn.cms.po.TemplateRelation;
@@ -133,6 +134,10 @@ public class TemplateBiz extends BaseBiz {
      */
     public List<Template> findTemplateListByRelation(Long relationId, Integer relationType){
         return templateService.findTemplateListByRelation(relationId, relationType);
+    }
+
+    public List<Template> findTemplateListByNewsPushColumnAndNotDetail(Long newsId){
+        return templateService.findTemplateListByNewsPushColumnAndNotDetail(newsId, RelationTypeEnum.column.getType());
     }
 
 

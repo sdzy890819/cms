@@ -44,6 +44,10 @@ public class Template2Biz extends BaseBiz {
         return null;
     }
 
+    public List<Template2> findTemplate2ByNewsIds(Long newsIds){
+        return template2Service.findTemplate2ByNewsIds(newsIds);
+    }
+
     public Template2 getTemplate2(Long id){
         return template2Service.getTemplate2(id);
     }

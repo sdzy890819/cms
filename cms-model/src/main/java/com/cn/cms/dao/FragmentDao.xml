@@ -43,7 +43,7 @@
     </select>
 
     <select id="queryFragmentList" resultMap="fragment">
-        select <include refid="sql_column_1_find" /> from fragment <include refid="delTag" />  order by update_time desc limit #{page.start},#{page.pageSize};
+        select <include refid="sql_column_1_find" /> from fragment <include refid="delTag" />  order by id desc limit #{page.start},#{page.pageSize};
     </select>
 
     <select id="searchFragementCount" resultType="java.lang.Integer">
@@ -118,7 +118,7 @@
     </insert>
 
     <select id="findAll" resultMap="fragment">
-        select <include refid="sql_column_1" /> from fragment <include refid="delTag" /> order by update_time desc;
+        select <include refid="sql_column_1" /> from fragment <include refid="delTag" /> order by id desc;
     </select>
 
 </mapper>

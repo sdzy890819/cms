@@ -1,18 +1,20 @@
 package com.cn.cms.service.impl;
 
+import com.cn.cms.contants.StaticContants;
 import com.cn.cms.dao.*;
 import com.cn.cms.enums.*;
 import com.cn.cms.job.IndexThread;
 import com.cn.cms.po.*;
 import com.cn.cms.service.NewsService;
+import com.cn.cms.utils.HtmlUtils;
 import com.cn.cms.utils.Page;
 import com.cn.cms.utils.StringUtils;
+import com.cn.cms.utils.TextUtils;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by 华盛信息科技有限公司(HS) on 16/11/18.
@@ -34,6 +36,9 @@ public class NewsServiceImpl implements NewsService {
 
     @Resource
     private RecommendColumnDao recommendColumnDao;
+
+    @Resource
+    private NewsPushColumnDao newsPushColumnDao;
 
     @Resource(name = "threadTaskExecutor")
     private ThreadPoolTaskExecutor threadTaskExecutor;
@@ -93,16 +98,33 @@ public class NewsServiceImpl implements NewsService {
         return null;
     }
 
+    @Override
+    public List<NewsPushColumn> getNewsPushColumns(Long newsId) {
+        return newsPushColumnDao.findListByNewsId(newsId);
+    }
 
     public void saveNews(News news) {
+        List<NewsPushColumn> newsPushColumns = TextUtils.packagingNewsPushColumns(news);
+        if(StringUtils.isNotEmpty(newsPushColumns)){
+            news.setPushTag(PushTagEnum.YES.getType());
+        } else {
+            news.setPushTag(PushTagEnum.NO.getType());
+        }
         newsDao.saveNews(news);
         news.getNewsDetail().setNewsId(news.getId());
         newsDetailDao.saveNewsDetail(news.getNewsDetail());
+        news.setNewsStocks(TextUtils.getNewsStock(news.getNewsDetail().getContent(), news.getLastModifyUserId(), news.getId(), news));
+
         if(StringUtils.isNotEmpty(news.getNewsStocks())) {
             newsStockDao.saveStocks(news.getNewsStocks());
         }
+        if(StringUtils.isNotEmpty(newsPushColumns)){
+            newsPushColumnDao.saveNewsPushColumns(newsPushColumns);
+        }
         sendIndex(news);
     }
+
+
 
     private void sendIndex(Base base){
         IndexThread indexThread = new IndexThread();
@@ -124,11 +146,21 @@ public class NewsServiceImpl implements NewsService {
 
 
     public void updateNews(News news) {
+        List<NewsPushColumn> newsPushColumns = TextUtils.packagingNewsPushColumns(news);
+        if(StringUtils.isNotEmpty(newsPushColumns)){
+            news.setPushTag(PushTagEnum.YES.getType());
+        }else{
+            news.setPushTag(PushTagEnum.NO.getType());
+        }
         newsDao.updateNews(news);
         newsDetailDao.updateNewsDetail(news.getNewsDetail());
         newsStockDao.delStocks(news.getId());
         if(StringUtils.isNotEmpty(news.getNewsStocks())) {
             newsStockDao.saveStocks(news.getNewsStocks());
+        }
+        newsPushColumnDao.delNewsPushColumns(news.getId());
+        if(StringUtils.isNotEmpty(newsPushColumns)){
+            newsPushColumnDao.saveNewsPushColumns(newsPushColumns);
         }
         sendIndex(news);
     }
@@ -136,16 +168,16 @@ public class NewsServiceImpl implements NewsService {
     public void delNews(String lastModifyUserId, Long id) {
         newsDao.delNews(lastModifyUserId, id);
         newsDetailDao.delNewsDetail(lastModifyUserId, id);
-        newsStockDao.delStocks(id);
+        //newsStockDao.delStocks(id);
         delIndex(id);
     }
 
     public void recoverNews(List<NewsStock> list, String lastModifyUserId, Long id){
         newsDao.recoverNews(lastModifyUserId, id);
         newsDetailDao.recoverNewsDetail(lastModifyUserId, id);
-        if(StringUtils.isNotEmpty(list)) {
-            newsStockDao.saveStocks(list);
-        }
+//        if(StringUtils.isNotEmpty(list)) {
+//            newsStockDao.saveStocks(list);
+//        }
         Base base = new Base();
         base.setId(id);
         sendIndex(base);
@@ -246,6 +278,11 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
+    public List<NewsPushColumn> findNewsPushColumnsByNewsId(Long newsId) {
+        return newsPushColumnDao.findListByNewsId(newsId);
+    }
+
+    @Override
     public void updateRecommendColumn(RecommendColumn recommendColumn) {
         recommendColumnDao.updateRecommendColumn(recommendColumn);
     }
@@ -273,6 +310,7 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public void updateRescind(News news) {
         newsDao.updateRescind(news);
+        sendIndex(news);
     }
 
     @Override

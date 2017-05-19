@@ -47,6 +47,11 @@ public class Template2ServiceImpl implements Template2Service {
         return template2Dao.searchTemplate2(template2Search, page);
     }
 
+    @Override
+    public List<Template2> findTemplate2ByNewsIds(Long newsId) {
+        return template2Dao.findTemplate2ByNewsIds(newsId);
+    }
+
     public void delTemplate2(String lastModifyUserId, Long id) {
         template2Dao.delTemplate2(lastModifyUserId, id);
     }

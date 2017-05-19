@@ -141,7 +141,9 @@ public class AppNewsController extends AppBaseController {
                              @RequestParam(value = "autoPublish") Integer autoPublish,
                              @RequestParam(value = "timer", required = false) String timer,
                              @RequestParam(value = "publish", required = false, defaultValue = "0") Integer publish,
-                             @RequestParam(value = "editPublishTime", required = false) String editPublishTime){
+                             @RequestParam(value = "editPublishTime", required = false) String editPublishTime,
+                             @RequestParam(value = "stockCode", required = false) String stockCode,
+                             @RequestParam(value = "stockName", required = false) String stockName){
         String userID = getCurrentUserId(request);
         News news = new News();
         news.setTitle(title);
@@ -173,6 +175,8 @@ public class AppNewsController extends AppBaseController {
         news.setField5(field5);
         news.setPublish(publish);
         news.setAutoPublish(autoPublish);
+        news.setStockCode(stockCode);
+        news.setStockName(stockName);
         news.setPlatform(PlatformEnum.APP.getType());
         if(StringUtils.isNotBlank(editPublishTime)){
             SimpleDateFormat sdf = new SimpleDateFormat(StaticContants.YYYY_MM_DD_HH_MM_SS);
@@ -242,7 +246,9 @@ public class AppNewsController extends AppBaseController {
                              @RequestParam(value = "autoPublish",required = false) Integer autoPublish,
                              @RequestParam(value = "timer",required = false) String timer,
                              @RequestParam(value = "publish", required = false, defaultValue = "0") Integer publish,
-                             @RequestParam(value = "editPublishTime", required = false) String editPublishTime){
+                             @RequestParam(value = "editPublishTime", required = false) String editPublishTime,
+                             @RequestParam(value = "stockCode", required = false) String stockCode,
+                             @RequestParam(value = "stockName", required = false) String stockName){
         String userID = getCurrentUserId(request);
         News old = this.newsBiz.findNews(id);
         News news = new News();
@@ -271,6 +277,8 @@ public class AppNewsController extends AppBaseController {
         news.setField4(field4);
         news.setField5(field5);
         news.setAutoPublish(autoPublish);
+        news.setStockCode(stockCode);
+        news.setStockName(stockName);
         if(old.getPublish() != PublishEnum.YES.getType()) {
             news.setPublish(publish);
         }

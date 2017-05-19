@@ -2,10 +2,7 @@ package com.cn.cms.biz;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cn.cms.contants.StaticContants;
-import com.cn.cms.enums.CommonMessageSourceEnum;
-import com.cn.cms.enums.PublishEnum;
-import com.cn.cms.enums.RelationTypeEnum;
-import com.cn.cms.enums.TemplateClassifyEnum;
+import com.cn.cms.enums.*;
 import com.cn.cms.job.TemplatePublishJob;
 import com.cn.cms.job.TopicPublishJob;
 import com.cn.cms.logfactory.CommonLog;
@@ -22,10 +19,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by 华盛信息科技有限公司(HS) on 16/12/24.
@@ -52,6 +46,9 @@ public class BuildBiz extends BaseBiz {
     @Resource
     private Template2Biz template2Biz;
 
+    @Resource
+    private PublishInfoBiz publishInfoBiz;
+
 
     @Resource(name = "threadTaskExecutor")
     private ThreadPoolTaskExecutor threadTaskExecutor;
@@ -64,18 +61,30 @@ public class BuildBiz extends BaseBiz {
         Body body = JSONObject.parseObject(((JSONObject)commonMessage.getMessage()).toJSONString(),Body.class);
         switch (sourceEnum) {
             case NEWS: {
-                News news = newsBiz.findNewsManage(body.getId());
-                Channel channel = channelBiz.getChannel(news.getChannelId());
-                news.setLastModifyUserId(body.getUserId());
-                news.setPublish(PublishEnum.rescind.getType());
-                newsBiz.rescind(news);
-                String filePath = StringUtils.concatUrl(channel.getChannelPath(), news.getRelativePath());
-                File file = new File(filePath);
-                if(file.exists()){
-                    file.delete();
-                }
-                if(StaticContants.rsyncRoot == StaticContants.RSYNC_ON) {
-                    RsyncUtils.rsync(channel.getRsyncModelName(), StringUtils.delFirstPrefix(news.getRelativePath(), StaticContants.FILE_PATH_SP), StaticContants.rsyncRescindFile, channel.getChannelPath());
+                try {
+                    News news = newsBiz.findNewsManage(body.getId());
+                    Channel channel = channelBiz.getChannel(news.getChannelId());
+                    news.setLastModifyUserId(body.getUserId());
+                    news.setPublish(PublishEnum.rescind.getType());
+                    newsBiz.rescind(news);
+                    String filePath = StringUtils.concatUrl(channel.getChannelPath(), news.getRelativePath());
+                    File file = new File(filePath);
+                    if (file.exists()) {
+                        file.delete();
+                    }
+                    if (StaticContants.rsyncRoot == StaticContants.RSYNC_ON) {
+                        RsyncUtils.rsync(channel.getRsyncModelName(), StringUtils.delFirstPrefix(news.getRelativePath(), StaticContants.FILE_PATH_SP), StaticContants.rsyncRescindFile, channel.getChannelPath());
+                    }
+                    //--------
+                    PublishInfo publishInfo = publishInfoBiz.recordInfo(PublishStatusEnum.RE_SUCCESS, body.getId(),
+                            TriggerTypeEnum.NEWS, TemplateTypeEnum.NONE, null, null);
+                    //--------
+                }catch (Exception e){
+                    log.error(e);
+                    //--------
+                    PublishInfo publishInfo = publishInfoBiz.recordInfo(PublishStatusEnum.RE_ERROR, body.getId(),
+                            TriggerTypeEnum.NEWS, TemplateTypeEnum.NONE, null, e.getLocalizedMessage());
+                    //--------
                 }
                 break;
             }
@@ -109,6 +118,14 @@ public class BuildBiz extends BaseBiz {
             case NEWS: {
                 News news = newsBiz.findNewsAndDetail(body.getId());
                 templates = templateBiz.findTemplateListByRelation(news.getColumnId(), RelationTypeEnum.column.getType());
+                if(news.getPushTag() == PushTagEnum.YES.getType()) {
+                    List<Template> templates1 = templateBiz.findTemplateListByNewsPushColumnAndNotDetail(news.getId());
+                    if(templates!=null && templates1!=null){
+                        templates.addAll(templates1);
+                    }else if(templates==null && templates1!=null){
+                        templates = templates1;
+                    }
+                }
                 this.publishNews(news, body);
                 this.publishTemplate2(news);
                 base = news;
@@ -138,7 +155,7 @@ public class BuildBiz extends BaseBiz {
                 return;
             }
         }
-        this.publishTemplate(templates, base);
+        this.publishTemplate(templates, base, sourceEnum);
     }
 
 
@@ -151,7 +168,6 @@ public class BuildBiz extends BaseBiz {
             NewsColumn newsColumn = newsBiz.getNewsColumn(news.getColumnId());
             if(newsColumn.getListTemplate2Id()!=null && newsColumn.getListTemplate2Id() > 0){
                 Template2 template2 = template2Biz.getTemplate2(newsColumn.getListTemplate2Id());
-
                 Channel channel = channelBiz.getChannel(newsColumn.getChannelId());
                 newsColumn.setListUrl(StringUtils.concatUrl(channel.getChannelUrl(), template2.getPath(),
                         newsColumn.getId().toString().concat(StaticContants.HTML_SUFFIX)));
@@ -161,6 +177,11 @@ public class BuildBiz extends BaseBiz {
                 templatePublishJob.setChannelId(news.getChannelId());
                 templatePublishJob.setNewsColumn(newsColumn);
                 templatePublishJob.setTemplateBasics(template2);
+                //--------
+                PublishInfo publishInfo = publishInfoBiz.recordInfo(PublishStatusEnum.EXECING, news.getId(),
+                        TriggerTypeEnum.NEWS, TemplateTypeEnum.TEMPLATE2, template2.getId(), null);
+                templatePublishJob.setPublishInfo(publishInfo);
+                //--------
                 threadTaskExecutor.execute(templatePublishJob);
 
 
@@ -168,6 +189,10 @@ public class BuildBiz extends BaseBiz {
             if(newsColumn.getDetailTemplate2Id() != null && newsColumn.getDetailTemplate2Id() > 0){
                 Template2 template2 = template2Biz.getTemplate2(newsColumn.getDetailTemplate2Id());
                 String[] contents = HtmlUtils.splitNewsContent(news.getNewsDetail().getContent());
+                //---------------
+                PublishInfo publishInfo = publishInfoBiz.recordInfo(PublishStatusEnum.EXECING, news.getId(),
+                        TriggerTypeEnum.NEWS, TemplateTypeEnum.TEMPLATE2, template2.getId(), null);
+                //---------------
                 for(int i = 0; i< contents.length; i++) {
                     News publishNews = new News(news);
                     publishNews.getNewsDetail().setContent(contents[i]);
@@ -177,10 +202,52 @@ public class BuildBiz extends BaseBiz {
                     templatePublishJob.setNewsColumn(newsColumn);
                     templatePublishJob.setPage(i + 1);
                     templatePublishJob.setBase(publishNews);
+                    //--------
+                    templatePublishJob.setPublishInfo(publishInfo);
+                    //--------
                     threadTaskExecutor.execute(templatePublishJob);
                 }
             }
 
+        }
+
+        if(news.getPushTag() == PushTagEnum.YES.getType()) {
+            List<NewsPushColumn> list = newsBiz.findNewsPushColumnsByNewsId(news.getId());
+            if(StringUtils.isNotEmpty(list)){
+                List<Long> columnIds = new ArrayList<>();
+                List<Long> channelIds = new ArrayList<>();
+                for(int i=0;i<list.size();i++){
+                    columnIds.add(list.get(i).getColumnId());
+                    channelIds.add(list.get(i).getChannelId());
+                }
+                List<NewsColumn> newsColumns = newsBiz.getNewsColumns(columnIds);
+                Map<Long, Channel> channelMap = channelBiz.getChannelsMap(channelIds);
+                if(StringUtils.isNotEmpty(newsColumns)) {
+                    for (int i = 0; i < newsColumns.size(); i++) {
+                        NewsColumn newsColumn = newsColumns.get(i);
+                        if(newsColumn.getListTemplate2Id()!=null && newsColumn.getListTemplate2Id() > 0){
+                            Template2 template2 = template2Biz.getTemplate2(newsColumn.getListTemplate2Id());
+                            Channel channel = channelMap.get(newsColumn.getChannelId());
+                            newsColumn.setListUrl(StringUtils.concatUrl(channel.getChannelUrl(), template2.getPath(),
+                                    newsColumn.getId().toString().concat(StaticContants.HTML_SUFFIX)));
+                            newsBiz.publishListTemplate2(newsColumn);
+
+                            TemplatePublishJob templatePublishJob = new TemplatePublishJob();
+                            templatePublishJob.setChannelId(news.getChannelId());
+                            templatePublishJob.setNewsColumn(newsColumn);
+                            templatePublishJob.setTemplateBasics(template2);
+                            //--------
+                            PublishInfo publishInfo = publishInfoBiz.recordInfo(PublishStatusEnum.EXECING, news.getId(),
+                                    TriggerTypeEnum.NEWS, TemplateTypeEnum.TEMPLATE2, template2.getId(), null);
+                            templatePublishJob.setPublishInfo(publishInfo);
+                            //--------
+                            threadTaskExecutor.execute(templatePublishJob);
+
+
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -189,7 +256,7 @@ public class BuildBiz extends BaseBiz {
      */
     public void buildAuto(){
         List<Template> templates = templateBiz.findTemplateListByAuto();
-        this.publishTemplate(templates, null);
+        this.publishTemplate(templates, null, CommonMessageSourceEnum.OTHER);
     }
 
     /**
@@ -220,11 +287,16 @@ public class BuildBiz extends BaseBiz {
      * @param templates
      * @param base
      */
-    void publishTemplate(List<Template> templates, Base base){
+    void publishTemplate(List<Template> templates, Base base, CommonMessageSourceEnum sourceEnum){
         if(StringUtils.isNotEmpty(templates)) {
             this.publishTemplate(templates);
             for (int i = 0; i < templates.size(); i++) {
                 TemplatePublishJob templatePublishJob = new TemplatePublishJob();
+                //--------
+                PublishInfo publishInfo = publishInfoBiz.recordInfo(PublishStatusEnum.EXECING, base!=null?base.getId():null,
+                        sourceEnum.getTriggerTypeEnum(), TemplateTypeEnum.TEMPLATE, templates.get(i).getId(), null);
+                templatePublishJob.setPublishInfo(publishInfo);
+                //--------
                 if(templates.get(i).getTemplateClassify() == TemplateClassifyEnum.detail.getType()) {
                     if(base instanceof News) {
                         News news = (News) base;
@@ -278,9 +350,13 @@ public class BuildBiz extends BaseBiz {
      */
     void publishNews(News news, Body body){
         Channel channel = channelBiz.getChannel(news.getChannelId());
-            Date date = new Date();
+        Date date = new Date();
+        if(news.getBuildTime() == null) {
             news.setBuildTime(date);
+        }
+        if(StringUtils.isBlank(news.getBuildUserId())) {
             news.setBuildUserId(body.getUserId());
+        }
             news.setLastModifyUserId(body.getUserId());
             news.setPublish(PublishEnum.YES.getType());
             if(news.getEditPublishTime() == null){
@@ -309,6 +385,15 @@ public class BuildBiz extends BaseBiz {
         topic.setBuildTime(new Date());
         topicBiz.publishTopic(topic);
         TopicPublishJob topicPublishJob = new TopicPublishJob(topic,channel);
+        //--------
+        PublishInfo publishInfo = publishInfoBiz.recordInfo(PublishStatusEnum.EXECING, topic.getId(),
+                TriggerTypeEnum.TOPIC, TemplateTypeEnum.NONE, null, null);
+        topicPublishJob.setPublishInfo(publishInfo);
+        //--------
         threadTaskExecutor.execute(topicPublishJob);
     }
+
+
+
+
 }
