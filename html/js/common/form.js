@@ -1,4 +1,5 @@
-define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app , $ , textEdit ) {
+//define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app , $ , textEdit ) {
+define(["app",'require','jquery','./moduls/directive'], function ( app , require , $ ) {
 	layui.link('js/plug/layui/css/layui.css');
 	app.directive('formHorizontal',function(){
 		return {
@@ -121,13 +122,16 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 						var inputNum = 0;
 						$.each($scope.formdata.list,function(){
 							var self = this;
-							if(this.type=='edit'){
+							/*if(this.type=='edit'){
 								$scope.editorContent = '';
 					        	$css.add('../../wangEditor/dist/css/wangEditor.css');
 					        	textEdit.init($scope,{
 					        		callback : function(editor){
 					        		}
 					        	});
+							}*/
+							if(this.type=='edit'){
+								
 							}else if(this.inputMaxNum){
 								inputNum++;
 							}
