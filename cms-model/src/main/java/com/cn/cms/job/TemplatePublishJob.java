@@ -2,10 +2,12 @@ package com.cn.cms.job;
 
 import com.cn.cms.biz.ChannelBiz;
 import com.cn.cms.biz.NewsBiz;
+import com.cn.cms.biz.PublishInfoBiz;
 import com.cn.cms.biz.Template2Biz;
 import com.cn.cms.contants.RedisKeyContants;
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.enums.PublishJobTypeEnum;
+import com.cn.cms.enums.PublishStatusEnum;
 import com.cn.cms.enums.TemplateClassifyEnum;
 import com.cn.cms.logfactory.CommonLog;
 import com.cn.cms.logfactory.CommonLogFactory;
@@ -26,6 +28,8 @@ import java.util.Map;
 public class TemplatePublishJob extends BaseTask {
 
     private static CommonLog log = CommonLogFactory.getLog(TemplatePublishJob.class);
+
+    private PublishInfo publishInfo;
 
     /**
      * 详情页使用
@@ -57,6 +61,8 @@ public class TemplatePublishJob extends BaseTask {
 
     private Template2Biz template2Biz = ContextUtil.getContextUtil().getBean(Template2Biz.class);
 
+    private PublishInfoBiz publishInfoBiz = ContextUtil.getContextUtil().getBean(PublishInfoBiz.class);
+
     private static int MODEL = PublishJobTypeEnum.template.getType();
 
     public TemplatePublishJob(){}
@@ -69,47 +75,48 @@ public class TemplatePublishJob extends BaseTask {
 
     @Override
     protected void execute(){
-        Map<String, Object> map = new HashMap<>();
-        map.put(StaticContants.TEMPLATE_KEY_TEMPLATE, templateBasics);
-        map.put(StaticContants.TEMPLATE_KEY_DATA, base);
-        map.put(StaticContants.TEMPLATE_KEY_PAGE, page);
-        map.put(StaticContants.TEMPLATE_KEY_CHANNELID, channelId);
-        map.put(StaticContants.TEMPLATE_KEY_PUBLISH_JOB_TYPE, MODEL);
-        map.put(StaticContants.TEMPLATE_KEY_COLUMN, newsColumn);
-        Channel channel ;
-        String templatePath;
-        if(templateBasics instanceof Template2){
-            channel = channelBiz.getChannel(channelId);
-            Template2Base template2Base = template2Biz.getTemplate2Base();
-            templatePath = template2Base.getBasePath();
-
-        }else{
-            Template template = (Template) templateBasics;
-            channel = channelBiz.getChannel(template.getChannelId());
-            templatePath = channel.getTemplatePath();
-
-        }
-        String publishPath;
-        String fromPath;
-        String publishRelativePath;
-        if(templateBasics.getTemplateClassify() == TemplateClassifyEnum.detail.getType()) {
-            News news = (News)base;
-            publishRelativePath = FileUtil.getFileNameByPage(news.getRelativePath(), getPage());
-            publishPath = StringUtils.concatUrl(channel.getChannelPath(),publishRelativePath);
-            fromPath = StringUtils.concatUrl(templatePath, templateBasics.getPath(), templateBasics.getFilename());
-        }else{
-            if(templateBasics instanceof Template2 && templateBasics.getTemplateClassify() == TemplateClassifyEnum.list.getType() && newsColumn != null){
-                publishRelativePath = StringUtils.concatUrl(templateBasics.getPath(), FileUtil.getFileNameByPage(newsColumn.getId().toString().concat(StaticContants.HTML_SUFFIX), getPage()));
-                publishPath = StringUtils.concatUrl(channel.getChannelPath(), publishRelativePath);
+        String publishPath = null;
+        try {
+            Map<String, Object> map = new HashMap<>();
+            map.put(StaticContants.TEMPLATE_KEY_TEMPLATE, templateBasics);
+            map.put(StaticContants.TEMPLATE_KEY_DATA, base);
+            map.put(StaticContants.TEMPLATE_KEY_PAGE, page);
+            map.put(StaticContants.TEMPLATE_KEY_CHANNELID, channelId);
+            map.put(StaticContants.TEMPLATE_KEY_PUBLISH_JOB_TYPE, MODEL);
+            map.put(StaticContants.TEMPLATE_KEY_COLUMN, newsColumn);
+            Channel channel ;
+            String templatePath;
+            if(templateBasics instanceof Template2){
+                channel = channelBiz.getChannel(channelId);
+                Template2Base template2Base = template2Biz.getTemplate2Base();
+                templatePath = template2Base.getBasePath();
 
             }else{
-                publishRelativePath = StringUtils.concatUrl(templateBasics.getPath(), FileUtil.getFileNameByPage(templateBasics.getFilename(),getPage()));
-                publishPath = StringUtils.concatUrl(channel.getChannelPath(), publishRelativePath);
+                Template template = (Template) templateBasics;
+                channel = channelBiz.getChannel(template.getChannelId());
+                templatePath = channel.getTemplatePath();
+
+            }
+            String fromPath;
+            String publishRelativePath;
+            if(templateBasics.getTemplateClassify() == TemplateClassifyEnum.detail.getType()) {
+                News news = (News)base;
+                publishRelativePath = FileUtil.getFileNameByPage(news.getRelativePath(), getPage());
+                publishPath = StringUtils.concatUrl(channel.getChannelPath(),publishRelativePath);
+                fromPath = StringUtils.concatUrl(templatePath, templateBasics.getPath(), templateBasics.getFilename());
+            }else{
+                if(templateBasics instanceof Template2 && templateBasics.getTemplateClassify() == TemplateClassifyEnum.list.getType() && newsColumn != null){
+                    publishRelativePath = StringUtils.concatUrl(templateBasics.getPath(), FileUtil.getFileNameByPage(newsColumn.getId().toString().concat(StaticContants.HTML_SUFFIX), getPage()));
+                    publishPath = StringUtils.concatUrl(channel.getChannelPath(), publishRelativePath);
+
+                }else{
+                    publishRelativePath = StringUtils.concatUrl(templateBasics.getPath(), FileUtil.getFileNameByPage(templateBasics.getFilename(),getPage()));
+                    publishPath = StringUtils.concatUrl(channel.getChannelPath(), publishRelativePath);
+                }
+
+                fromPath = StringUtils.concatUrl(templatePath, templateBasics.getPath(), templateBasics.getFilename());
             }
 
-            fromPath = StringUtils.concatUrl(templatePath, templateBasics.getPath(), templateBasics.getFilename());
-        }
-        try {
             if (lock(publishPath)) {
                 VelocityUtils.publish(map, fromPath,
                         publishPath, templateBasics.getEncoded());
@@ -118,10 +125,22 @@ public class TemplatePublishJob extends BaseTask {
                     RsyncUtils.rsync(channel.getRsyncModelName(), StringUtils.delFirstPrefix(publishRelativePath, StaticContants.FILE_PATH_SP), StaticContants.rsyncPublishFile, channel.getChannelPath());
                 }
             }
+            if(publishInfo!=null){
+                publishInfo.setStatus(PublishStatusEnum.PUBLISH_SUCCESS.getType());
+                publishInfo.setMessage(PublishStatusEnum.PUBLISH_SUCCESS.getMessage());
+            }
         }catch (Exception e){
             log.error(e);
+            if(publishInfo!=null){
+                publishInfo.setStatus(PublishStatusEnum.ERROR.getType());
+                publishInfo.setMessage(PublishStatusEnum.ERROR.getMessage());
+                publishInfo.setErrorMessage(e.getLocalizedMessage());
+            }
         }finally {
             unlock(publishPath);
+            if(publishInfo!=null){
+                publishInfoBiz.update(publishInfo);
+            }
         }
 
 
@@ -138,7 +157,9 @@ public class TemplatePublishJob extends BaseTask {
     }
 
     protected void unlock(String path){
-        jedisClient.del(RedisKeyContants.getRedisLockKey(getKey(path)));
+        if(StringUtils.isNotBlank(path)) {
+            jedisClient.del(RedisKeyContants.getRedisLockKey(getKey(path)));
+        }
     }
 
     protected String getKey(String path){

@@ -16,6 +16,7 @@ import com.cn.cms.service.NewsService;
 import com.cn.cms.utils.HtmlUtils;
 import com.cn.cms.utils.Page;
 import com.cn.cms.utils.StringUtils;
+import com.cn.cms.utils.TextUtils;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -207,7 +208,6 @@ public class NewsBiz extends BaseBiz {
             for (int i = 0; i < list.size(); i++) {
                 map.put(list.get(i), RedisKeyContants.getRedisNewcolumnId(list.get(i)));
             }
-
             List<String> tmp = jedisClient.mget(map.values().toArray(new String[map.size()]));
             if (StringUtils.isNotEmpty(tmp)) {
                 for (int i = 0; i < tmp.size(); i++) {
@@ -220,6 +220,27 @@ public class NewsBiz extends BaseBiz {
         }
         return result;
     }
+
+    public List<NewsColumn> getNewsColumns(List<Long> list){
+        List<NewsColumn> result = new ArrayList<>();
+        if(StringUtils.isNotEmpty(list)) {
+            Map<Long, String> map = new HashMap<>();
+            for (int i = 0; i < list.size(); i++) {
+                map.put(list.get(i), RedisKeyContants.getRedisNewcolumnId(list.get(i)));
+            }
+            List<String> tmp = jedisClient.mget(map.values().toArray(new String[map.size()]));
+            if (StringUtils.isNotEmpty(tmp)) {
+                for (int i = 0; i < tmp.size(); i++) {
+                    NewsColumn newsColumn = JSONObject.parseObject(tmp.get(i), NewsColumn.class);
+                    if (newsColumn != null) {
+                        result.add(newsColumn);
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
 
     /**
      * 修改新闻栏目
@@ -301,6 +322,10 @@ public class NewsBiz extends BaseBiz {
         return newsService.findNewsAndDetail(id);
     }
 
+    public List<NewsPushColumn> getNewsPushColumns(Long newsId){
+        return newsService.getNewsPushColumns(newsId);
+    }
+
     public String getImagesUrl(String content){
         Pattern pattern = Pattern.compile(StaticContants.REGEX_IMG);
         Matcher matcher = pattern.matcher(content);
@@ -316,7 +341,6 @@ public class NewsBiz extends BaseBiz {
      */
     public void saveNews(News news){
         news.setImageUrl(getImagesUrl(news.getNewsDetail().getContent()));
-        news.setNewsStocks(getNewsStock(news.getNewsDetail().getContent(), news.getLastModifyUserId(), news.getId()));
         newsService.saveNews(news);
         String result = jedisClient.get(RedisKeyContants.getRedisAddNewPreviousColumnInfo(news.getLastModifyUserId()));
         PreviousColumn previousColumn = null ;
@@ -358,7 +382,7 @@ public class NewsBiz extends BaseBiz {
 
     public void updateNews(News news){
         news.setImageUrl(getImagesUrl(news.getNewsDetail().getContent()));
-        news.setNewsStocks(getNewsStock(news.getNewsDetail().getContent(), news.getLastModifyUserId(), news.getId()));
+        news.setNewsStocks(TextUtils.getNewsStock(news.getNewsDetail().getContent(), news.getLastModifyUserId(), news.getId(), news));
         newsService.updateNews(news);
     }
 
@@ -376,7 +400,7 @@ public class NewsBiz extends BaseBiz {
      * @param news
      */
     public void recoverNews(News news, String lastModifyUserId){
-        newsService.recoverNews(getNewsStock(news.getNewsDetail().getContent(), news.getLastModifyUserId(), news.getId()), lastModifyUserId, news.getId());
+        newsService.recoverNews(TextUtils.getNewsStock(news.getNewsDetail().getContent(), news.getLastModifyUserId(), news.getId(), news), lastModifyUserId, news.getId());
     }
 
     /**
@@ -460,6 +484,15 @@ public class NewsBiz extends BaseBiz {
     }
 
 
+    /**
+     * 根据新闻ID查询推送的新闻栏目
+     * @param newsId
+     * @return
+     */
+    public List<NewsPushColumn> findNewsPushColumnsByNewsId(Long newsId){
+        return newsService.findNewsPushColumnsByNewsId(newsId);
+    }
+
 
     /**
      * 发布列表页模版
@@ -467,35 +500,9 @@ public class NewsBiz extends BaseBiz {
      */
     public void publishListTemplate2(NewsColumn newsColumn){
         newsService.publishListTemplate2(newsColumn);
+        this.jedisClient.set(RedisKeyContants.getRedisNewcolumnId(newsColumn.getId()), JSONObject.toJSONString(newsColumn));
     }
 
-
-    /**
-     * 获取新闻相关的股票代码.
-     * @param content
-     * @param lastModifyUserId
-     * @param newsId
-     * @return
-     */
-    private List<NewsStock> getNewsStock(String content, String lastModifyUserId, Long newsId){
-        List<String> list = HtmlUtils.matcher(content);
-        List<NewsStock> result = new ArrayList<>();
-        if(StringUtils.isNotEmpty(list)) {
-            for (int i = 0; i < list.size(); i++) {
-                String[] tmps = list.get(i).split(StaticContants.REGEX_SPLIT_STOCK);
-                if(tmps.length == 2) {
-                    NewsStock newsStock = new NewsStock();
-                    newsStock.setLastModifyUserId(lastModifyUserId);
-                    newsStock.setCreateUserId(lastModifyUserId);
-                    newsStock.setNewsId(newsId);
-                    newsStock.setStockCode(tmps[0]);
-                    newsStock.setStockName(tmps[1]);
-                    result.add(newsStock);
-                }
-            }
-        }
-        return result;
-    }
 
     /**
      * 查询新闻包含的股票列表
@@ -576,5 +583,7 @@ public class NewsBiz extends BaseBiz {
     public void deleteRecommendColumn(Long id, String lastModifyUserId) {
         newsService.deleteRecommendColumn(id, lastModifyUserId);
     }
+
+
 }
 

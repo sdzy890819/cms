@@ -124,9 +124,28 @@ public class DataController extends BaseController {
         map.put("compress", CompressEnum.values());
         map.put("platform", PlatformEnum.values());
         map.put("publish", PublishEnum.values());
+        map.put("publishStatus", PublishStatusEnum.values());
+        map.put("triggerType", TriggerTypeEnum.values());
         return ApiResponse.returnSuccess(map);
     }
 
+    /**
+     * 发布状态
+     * @return
+     */
+    @RequestMapping(value = "/publishStatus", method = RequestMethod.GET)
+    public String publishStatus(){
+        return ApiResponse.returnSuccess(PublishStatusEnum.values());
+    }
+
+    /**
+     * 触发类型
+     * @return
+     */
+    @RequestMapping(value = "/triggerType", method = RequestMethod.GET)
+    public String triggerType(){
+        return ApiResponse.returnSuccess(TriggerTypeEnum.values());
+    }
 
 
     public static void main(String[] args){

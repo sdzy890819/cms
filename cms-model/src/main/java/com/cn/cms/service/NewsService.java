@@ -35,6 +35,8 @@ public interface NewsService {
 
     News findNewsAndDetail(Long id);
 
+    List<NewsPushColumn> getNewsPushColumns(Long newsId);
+
     void saveNews(News news);
 
     void updateNews(News news);
@@ -72,6 +74,8 @@ public interface NewsService {
     List<RecommendColumn> findRecommendColumnByIds(List<Long> ids);
 
     void createRecommendColumn(RecommendColumn recommendColumn);
+
+    List<NewsPushColumn> findNewsPushColumnsByNewsId(Long newsId);
 
     void updateRecommendColumn(RecommendColumn recommendColumn);
 

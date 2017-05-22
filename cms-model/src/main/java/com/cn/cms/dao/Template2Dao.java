@@ -23,6 +23,8 @@ public interface Template2Dao {
 
     List<Template2> searchTemplate2(@Param(value = "p1") Template2Search templateSearch, @Param(value = "page") Page page);
 
+    List<Template2> findTemplate2ByNewsIds(@Param(value = "newsId") Long newsId);
+
     void delTemplate2(@Param(value = "lastModifyUserId") String lastModifyUserId, @Param(value = "id") Long id);
 
     void saveTemplate2(@Param(value = "p1") Template2 template);

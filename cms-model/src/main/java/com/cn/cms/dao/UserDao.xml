@@ -44,7 +44,7 @@
     </select>
 
     <select id="queryUserList" resultMap="user">
-        select <include refid="all_column_find" /> from user <include refid="delTag" />  order by update_time desc
+        select <include refid="all_column_find" /> from user <include refid="delTag" />  order by id desc
         limit ${page.start},${page.pageSize};
     </select>
 

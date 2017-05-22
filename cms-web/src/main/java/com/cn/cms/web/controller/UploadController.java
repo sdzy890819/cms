@@ -78,7 +78,7 @@ public class UploadController extends BaseController {
         String relativePath = FileUtil.getRelativePath(imagesBase.getBasePath(), suffix);
         String absPath = StringUtils.concatUrl(imagesBase.getBasePath(), relativePath);
         String urlPath = StringUtils.concatUrl(imagesBase.getBaseUrl(), relativePath);
-        Map<String, Object> map = FileUtil.compressAndWatermark(bytes, width, height, absPath, watermark);
+        Map<String, Object> map = FileUtil.compress(bytes, width, height, absPath, watermark);
         if(StaticContants.IMAGESON != 1 ) {
             File file = new File(absPath);
             WeedfsResponse weedfsResponse = weedfsClient.upload(file);

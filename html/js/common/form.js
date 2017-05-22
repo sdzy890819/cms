@@ -1,4 +1,5 @@
-define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app , $ , textEdit ) {
+//define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app , $ , textEdit ) {
+define(["app",'require','jquery','./moduls/directive'], function ( app , require , $ ) {
 	layui.link('js/plug/layui/css/layui.css');
 	app.directive('formHorizontal',function(){
 		return {
@@ -121,13 +122,16 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 						var inputNum = 0;
 						$.each($scope.formdata.list,function(){
 							var self = this;
-							if(this.type=='edit'){
+							/*if(this.type=='edit'){
 								$scope.editorContent = '';
 					        	$css.add('../../wangEditor/dist/css/wangEditor.css');
 					        	textEdit.init($scope,{
 					        		callback : function(editor){
 					        		}
 					        	});
+							}*/
+							if(this.type=='edit'){
+								
 							}else if(this.inputMaxNum){
 								inputNum++;
 							}
@@ -267,7 +271,7 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 							form.on('submit(demo1)', function(data){
 								var event = $(data.elem).attr('data-event');
 
-								if(window.Editor){
+								/*if(window.Editor){
 								 	// 获取编辑器区域完整html代码
 							        var html = Editor.$txt.html();
 							        // 获取编辑器纯文本内容
@@ -277,7 +281,11 @@ define(["app",'jquery','./common/textEdit','./moduls/directive'], function ( app
 							        data.field.html = html;
 							        data.field.text = text;
 							        data.field.formatText = formatText;
-								}
+								}*/
+								try{
+									var html = window.top.document.getElementById("editor").contentWindow.getContent();
+									data.field.html = html;
+								}catch(e){}
 								data.field.selects = $scope.selects;
 								//if(data.nodeName!='A'){
 									$scope.$parent[event](data.field);
