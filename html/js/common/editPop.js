@@ -16,7 +16,7 @@ define(["app",'jquery','form'],function (app,$) {
 				//windowTemplateUrl : '../../template/common/window.html',
 				//template : 'asdfsadf',
 				templateUrl: '../template/common/addAndEdit.html',
-				size: 'lg',
+				size: (obj.obj.size ||'lg'),
 				controller: function($scope,$uibModalInstance,$css) {
 					$scope.data = null;					
 					angular.extend($scope,{
