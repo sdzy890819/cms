@@ -1,0 +1,191 @@
+pc : 
+
+使用AMD搭建整站
+使用gulp进行网站压缩
+
+使用的匡架有以下：
+1、jquery（DOM操作）
+2、wangEditor（富文本）
+3、angular (页面重构MVC)
+4、angularAMD (angular相关)
+5、angular-ui-router (angular相关)
+6、angular-css (angular相关)
+7、angular-ui-bootstrap (angular相关)
+8、ngFileUpload（图片上传）
+9、uploadify （视频上传）
+10、angularFileUpload （文件上传）
+11、layui（表单，弹窗，加载，等常用功能）
+12、requireJS(AMD+require按需加载)
+13、自定义或自己手写的匡架如：
+	1)、常用表单
+	2)、常用弹窗工具（编辑，修改等）
+	3)、面包屑
+	4)、报错、验证等。
+	5)、栏目导航
+	6)、搜索
+	7)、列表
+
+
+MOBILE:
+网站整体搭建为：
+1、webpack2 + vue2 + vue-router + es5\es6\es7
+2、网整使用 按需请求加载（懒加载）方式。
+3、所有页面为单页面应用，通过webpack打包分离为独立的JS，
+4、CSS单独打包生成。
+5、图片等通过webpack打包生成文件夹
+6、页面通过hash值解决缓存问题。
+
+使用的技术和匡加如下：
+1、vue2
+2、vue-router
+3、es5\es6\es7
+4、base64
+5、zepto
+6、sass
+7、Promise
+
+以下为wepback配置用到的插件（注：用于打包使用）package.json：
+{
+  "name": "focus",
+  "version": "1.0.0",
+  "description": "zhuanti",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config webpack.config.js",
+    "dev": "webpack-dev-server"
+  },
+  "keywords": [],
+  "author": "bo.peng",
+  "license": "ISC",
+  "devDependencies": {
+    "amd-optimize": "^0.6.1",
+    "autoprefixer": "^6.7.7",
+    "babel-cli": "^6.24.0",
+    "babel-core": "^6.22.1",
+    "babel-helper-vue-jsx-merge-props": "^2.0.2",
+    "babel-loader": "^6.2.10",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-react-html-attrs": "^2.0.0",
+    "babel-plugin-syntax-jsx": "^6.18.0",
+    "babel-plugin-transform-es2015-ie8-classes": "^0.1.8",
+    "babel-plugin-transform-es3-member-expression-literals": "^6.22.0",
+    "babel-plugin-transform-es3-property-literals": "^6.22.0",
+    "babel-plugin-transform-vue-jsx": "^3.3.0",
+    "babel-plugin-webpack-loaders": "^0.8.0",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-es2015": "^6.24.0",
+    "babel-preset-es2015-loose": "^8.0.0",
+    "babel-preset-es2015-loose-ie8": "0.0.4",
+    "babel-preset-react": "^6.23.0",
+    "bundle-loader": "^0.5.5",
+    "clean-webpack-plugin": "^0.1.15",
+    "css-loader": "^0.26.1",
+    "es3ify-loader": "^0.2.0",
+    "es6-promise": "^4.1.0",
+    "es6-promise-promise": "^1.0.0",
+    "eslint": "^3.15.0",
+    "eslint-loader": "^1.6.1",
+    "eslint-plugin-html": "^2.0.1",
+    "extract-text-plus-webpack-plugin": "^1.0.0",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "fetch-ie8": "^1.5.0",
+    "file-loader": "^0.10.0",
+    "ftps": "^1.0.0",
+    "gulp-amd-optimizer": "^0.6.0",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-cache": "^0.4.6",
+    "gulp-clean-css": "^3.0.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-font-spider": "^0.3.6",
+    "gulp-ftp": "^1.1.0",
+    "gulp-htmlmin": "^3.0.0",
+    "gulp-imagemin": "^3.1.1",
+    "gulp-jshint": "^2.0.4",
+    "gulp-rename": "^1.2.2",
+    "gulp-requirejs": "^1.0.0-rc1",
+    "gulp-requirejs-optimize": "^1.2.0",
+    "gulp-rev": "^7.1.2",
+    "gulp-sass": "^3.1.0",
+    "gulp-sftp": "^0.1.5",
+    "gulp-uglify": "^2.1.2",
+    "gulp-watch": "^4.3.11",
+    "gulp-webpack": "^1.5.0",
+    "html-webpack-plugin": "^2.28.0",
+    "image-webpack-loader": "^3.2.0",
+    "jshint": "^2.9.4",
+    "jsx-loader": "^0.13.2",
+    "less": "^2.7.2",
+    "less-loader": "^2.2.3",
+    "node-sass": "^4.5.0",
+    "postcss": "^5.2.17",
+    "postcss-assets": "^4.1.0",
+    "postcss-comment": "^1.0.3",
+    "postcss-cssnext": "^2.10.0",
+    "postcss-define-property": "^0.4.0",
+    "postcss-each": "^0.9.3",
+    "postcss-extend": "^1.0.5",
+    "postcss-for": "^2.1.1",
+    "postcss-loader": "^1.3.3",
+    "postcss-mixins": "^5.4.1",
+    "postcss-nested": "^1.0.0",
+    "postcss-pxtorem": "^4.0.0",
+    "postcss-scss": "^0.4.1",
+    "postcss-simple-vars": "^3.1.0",
+    "postcss-sprites": "^4.2.0",
+    "precss": "^1.4.0",
+    "react": "^15.4.2",
+    "react-addons-css-transition-group": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-hot-loader": "^1.3.1",
+    "react-router": "^4.0.0",
+    "react-router-dom": "^4.0.0",
+    "react-router-transition": "0.0.6",
+    "redux": "^3.6.0",
+    "sass-loader": "^5.0.1",
+    "vinyl-ftp": "^0.6.0",
+    "vue": "^2.1.10",
+    "vue-calendar": "^0.1.5",
+    "vue-html5-editor": "^0.5.1",
+    "vue-router": "^2.2.1",
+    "vue-style-loader": "^2.0.4",
+    "vue2-editor": "^1.1.0",
+    "vue2-html5-editor": "^0.6.0",
+    "vuex": "^2.2.1",
+    "webpack": "^2.3.2",
+    "webpack-uglify-parallel": "^0.1.3",
+    "zepto": "^1.2.0",
+    "zepto-webpack": "^1.2.0"
+  },
+  "dependencies": {
+    "console-polyfill": "^0.2.3",
+    "es5-shim": "^4.5.9",
+    "gulp-rev-collector": "^1.1.1",
+    "react-router": "^4.0.0"
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "react",
+      "stage-0"
+    ],
+    "plugins": [
+      "react-html-attrs",
+      "transform-vue-jsx"
+    ]
+  },
+  "eslintConfig": {
+    "env": {
+      "node": true,
+      "browser": true
+    },
+    "rules": {
+      "quotes": [
+        2,
+        "single"
+      ]
+    }
+  }
+}
+
+
