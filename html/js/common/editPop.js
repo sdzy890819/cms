@@ -16,7 +16,7 @@ define(["app",'jquery','form'],function (app,$) {
 				//windowTemplateUrl : '../../template/common/window.html',
 				//template : 'asdfsadf',
 				templateUrl: '../template/common/addAndEdit.html',
-				size: 'lg',
+				size: (obj.obj.size ||'lg'),
 				controller: function($scope,$uibModalInstance,$css) {
 					$scope.data = null;					
 					angular.extend($scope,{
@@ -58,6 +58,11 @@ define(["app",'jquery','form'],function (app,$) {
 							}
 							obj.updateData(function(_data){
 								$scope.data = _data.data;
+								try{
+									window.top.document.getElementById("editor").contentWindow.insertHtml(_data.data.newsDetail.content);
+								}catch(e){
+									
+								}
 								if(!$scope.$$phase) { 
 									$scope.$apply();
 								} 

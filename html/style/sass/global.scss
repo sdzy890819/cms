@@ -268,14 +268,23 @@ $leftWidth : 225px;
 /*right*/
 #Container{
     padding-left: $leftWidth+20; padding-right: 20px; padding-top:20px;
+    transition-duration:.5s; -ms-transition-duration:.5s; -webkit-transition-duration:.5s; -moz-transition-duration:.5s;
+    &.cur{ padding-left: 20px; }
 }
 /*end right*/
 
 @mixin leftMenuA{display:block;  position: relative; margin: 0; border: 0px; padding: 10px 15px; text-decoration: none; font-size: 14px; font-weight: 300;border-top: 1px solid #5c5c5c; color: #ffffff;}
 /* left */
-.sidebar-menu{ position:absolute; z-index: 998; left:0; top:45px; bottom:0; width:$leftWidth; background: #3d3d3d; overflow: hidden; 
+.sidebar-menu{ position:absolute; z-index: 998; left:0; top:45px; bottom:0; width:$leftWidth; background: #3d3d3d; overflow: hidden; transition-duration:.5s; -ms-transition-duration:.5s; -webkit-transition-duration:.5s; -moz-transition-duration:.5s;
+    &.cur{
+        width:0px;
+    }
     .sidebar-toggler{ width: 29px; height: 29px; margin:15px 0 15px 175px; cursor: pointer; background: url(../../images/sidebar-toggler.jpg) right 0 no-repeat; opacity: 0.5; filter: alpha(opacity=50);
         &:hover{opacity: 1; filter: alpha(opacity=100);}
+    }
+    .jian{ position:fixed; top:50%; left:225px; width:15px; height:20px; line-height:20px; text-align:center; background:#303030; color:#fff; font-size:12px; font-weight:normal; border-top-right-radius:3px; border-bottom-right-radius:3px; cursor:pointer;
+        transition-duration:.5s; -ms-transition-duration:.5s; -webkit-transition-duration:.5s; -moz-transition-duration:.5s;
+      &.cur{ left:0px; }
     }
     .webapp-tab{
         height: 28px; line-height: 28px; margin: 15px 15px 20px; color: #4d4d4d; border: 1px solid #5c5c5c;
@@ -361,7 +370,11 @@ $leftWidth : 225px;
     }
 
 }
-
+.modal.in .modal-dialog{
+    &.modal-news{
+        width:98%;
+    }
+}
 .boxtab{
      position:relative; z-index:9;
     .position-fixed{

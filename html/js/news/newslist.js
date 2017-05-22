@@ -22,6 +22,7 @@ define(['require',"app",'jquery','search','./searchForm'
 						}
 					},
 					edit : function( obj ){ //保存
+						obj.size = 'news';
 						function getAddForm(callback , formList){ //填充数据
 							getData.news.newsdetail({
 								id : obj.id,

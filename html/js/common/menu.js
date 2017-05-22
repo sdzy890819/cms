@@ -110,6 +110,27 @@ define(["app",'jquery','./data/getData','./moduls/directive'], function ( app,$,
 				        			showMenu();
 				        		}, 500);
 				        	});
+
+				        	//收缩菜单
+				        	(function(){
+				        		var menu = $('.sidebar-menu') , 
+				        			right = $('#Container'),
+				        			jian = $('.sidebar-menu .jian') , 
+				        			open = true;
+
+				        		jian.click(function(){
+				        			open = !open;
+				        			if(open){
+				        				jian.removeClass('cur').html('<');
+				        				menu.removeClass('cur');
+				        				right.removeClass('cur');
+				        			}else{
+				        				jian.addClass('cur').html('>');
+				        				menu.addClass('cur');
+				        				right.addClass('cur');
+				        			}
+				        		})
+				        	})();
 	        			})
 			        }
 	        	}
