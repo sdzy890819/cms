@@ -315,7 +315,15 @@ public class StaticContants {
      */
     public static final Integer IMAGESON = Integer.parseInt(PropertyManager.getRB("config", "image.test"));
 
+    /**
+     *
+     */
+    public static final Integer RSYNC_TEMPLATE_ON = Integer.parseInt(PropertyManager.getRB("config", "rsync.template.root"));
 
+    /**
+     *
+     */
+    public static final String RSYNC_TEMPLATE_FILE = PropertyManager.getRB("config", "rsync.template.shFileName");
 
     public static final Map<String, Integer> mapping = new HashMap() {
         {

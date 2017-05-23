@@ -26,8 +26,10 @@ public class RsyncUtils {
         stringBuffer.append("sh ");
         stringBuffer.append(shFile);
         stringBuffer.append(" ");
-        stringBuffer.append(rsyncModel);
-        stringBuffer.append(" ");
+        if(StringUtils.isNotBlank(rsyncModel)) {
+            stringBuffer.append(rsyncModel);
+            stringBuffer.append(" ");
+        }
         stringBuffer.append(filePath);
         stringBuffer.append(" ");
         stringBuffer.append(absPath);
