@@ -6,8 +6,6 @@ import com.cn.cms.enums.WatermarkEnum;
 import com.cn.cms.exception.BizException;
 import com.cn.cms.logfactory.CommonLog;
 import com.cn.cms.logfactory.CommonLogFactory;
-import com.sun.image.codec.jpeg.JPEGCodec;
-import com.sun.image.codec.jpeg.JPEGImageEncoder;
 import sun.misc.BASE64Decoder;
 
 import javax.imageio.ImageIO;
@@ -16,7 +14,6 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.List;
 
 /**
  * Created by 华盛信息科技有限公司(HS) on 16/11/30.

@@ -1,7 +1,7 @@
 package com.cn.cms.utils;
 
-import com.sun.image.codec.jpeg.JPEGCodec;
-import com.sun.image.codec.jpeg.JPEGImageEncoder;
+//import com.sun.image.codec.jpeg.JPEGCodec;
+//import com.sun.image.codec.jpeg.JPEGImageEncoder;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -110,8 +110,9 @@ public class ImageSpek {
 				FileOutputStream out = new FileOutputStream(outputDir + "\\"
 						+ outputFileName);
 				// JPEGImageEncoder可适用于其他图片类型的转换
-				JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
-				encoder.encode(tag);
+//				JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
+//				encoder.encode(tag);
+				ImageIO.write(tag, "jpeg", out);
 				out.close();
 			}
 		} catch (IOException ex) {
@@ -252,8 +253,9 @@ public class ImageSpek {
 				subPic[i] = path + "\\" + String.valueOf(i) + ".jpg";
 				FileOutputStream out = new FileOutputStream(subPic[i]);
 				ImageIO.write(frame, "jpeg", out);
-				JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
-				encoder.encode(frame); // 存盘
+				//JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
+				//encoder.encode(frame); // 存盘
+				ImageIO.write(frame, "jpeg", out);
 				out.flush();
 				out.close();
 			}
@@ -275,8 +277,9 @@ public class ImageSpek {
 				BufferedImage frame = decoder.getFrame(i); // 得到帧
 				ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 				ImageIO.write(frame, "jpeg", byteArrayOutputStream);
-				JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(byteArrayOutputStream);
-				encoder.encode(frame); // 存盘
+				//JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(byteArrayOutputStream);
+				//encoder.encode(frame); // 存盘
+				ImageIO.write(frame, "jpeg", byteArrayOutputStream);
 				byte[] by = byteArrayOutputStream.toByteArray();
 				byteArrayOutputStream.flush();
 				byteArrayOutputStream.close();
