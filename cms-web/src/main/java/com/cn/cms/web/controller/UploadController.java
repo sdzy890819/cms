@@ -197,7 +197,6 @@ public class UploadController extends BaseController {
 
     @NotSaveBody
     @CheckToken
-    @CheckAuth( name = "news:upload" )
     @RequestMapping(value="/controller")
     public String controller(@RequestParam(value = "action", required = false) String action,
                              HttpServletRequest request)
