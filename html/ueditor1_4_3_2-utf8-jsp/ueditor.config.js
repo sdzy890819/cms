@@ -31,7 +31,8 @@
 
         // 服务器统一请求接口路径
         //, serverUrl: URL + "jsp/controller.jsp"
-        , serverUrl: URL + "/webapi/upload/controller"
+        //, serverUrl: URL + "/webapi/upload/controller"
+        , serverUrl: "/webapi/upload/controller"
 
         //工具栏上的所有的功能按钮和下拉框，可以在new编辑器的实例时选择自己需要的从新定义
         /*, toolbars: [[
@@ -55,7 +56,7 @@
             'directionalityltr', 'directionalityrtl', 'indent', '|',
             'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase', '|',
             'link', 'unlink', 'anchor', '|',
-            'simpleupload', 'emotion', 'insertvideo', 'map',
+            'simpleupload','insertimage' , 'attachment', 'emotion','scrawl', 'insertvideo', 'map',
             'pagebreak', 'template','|',
             'horizontal', 'date', 'time', '|',
             'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols',  '|',
