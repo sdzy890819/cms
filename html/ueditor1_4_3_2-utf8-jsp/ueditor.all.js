@@ -8068,7 +8068,8 @@ UE.Editor.defaultOptions = function(editor){
                 me._serverConfigLoaded = false;
 
 
-                configUrl && UE.ajax.request('/webapi/upload/controller?action=config',{
+                //configUrl && UE.ajax.request('/webapi/upload/controller?action=config',{
+                configUrl && UE.ajax.request(configUrl,{
                     'method': 'GET',
                     'dataType': isJsonp ? 'jsonp':'',
                     'onsuccess':function(r){
@@ -24429,7 +24430,7 @@ UE.plugin.register('simpleupload', function (){
             btnIframeBody = btnIframeDoc.body;
             wrapper = btnIframeDoc.createElement('div');
 
-            wrapper.innerHTML = '<form id="edui_form_' + timestrap + '" target="edui_iframe_' + timestrap + '" method="POST" enctype="multipart/form-data" action="' + src + '" ' +
+            wrapper.innerHTML = '<form id="edui_form_' + timestrap + '" target="edui_iframe_' + timestrap + '" method="POST" enctype="multipart/form-data" action="' + me.getOpt('serverUrl') + '" ' +
             'style="' + btnStyle + '">' +
             '<input id="edui_input_' + timestrap + '" type="file" accept="image/*" name="' + me.options.imageFieldName + '" ' +
             'style="' + btnStyle + '">' +
@@ -24514,7 +24515,7 @@ UE.plugin.register('simpleupload', function (){
                 }
 
                 domUtils.on(iframe, 'load', callback);
-                var  imageActionUrl = '/webapi/upload/controller?action=uploadimage';
+                //var  imageActionUrl = '/webapi/upload/controller?action=uploadimage';
                 form.action = utils.formatUrl(imageActionUrl + (imageActionUrl.indexOf('?') == -1 ? '?':'&') + params);
                 console.log(form.action)
                 form.submit();

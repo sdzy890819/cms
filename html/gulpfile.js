@@ -72,12 +72,16 @@ gulp.task('jsmin', function () {
         ])
         .pipe(uglify(options))
         .pipe(gulp.dest('dist/js'));
+
+
      gulp.src([
-             'wangEditor/*.js', 'wangEditor/**/*.js',
-             '!wangEditor/src/js/parts/*.js'
+             'ueditor1_4_3_2-utf8-jsp/ueditor.all.js',
+             'ueditor1_4_3_2-utf8-jsp/ueditor.config.js',
+             'ueditor1_4_3_2-utf8-jsp/ueditor.parse.js',
+             'ueditor1_4_3_2-utf8-jsp/webuploader/**/*.js',
          ])
          .pipe(uglify(options))
-         .pipe(gulp.dest('dist/wangEditor'))
+         .pipe(gulp.dest('dist/ueditor1_4_3_2-utf8-jsp'))
 });
 
 
