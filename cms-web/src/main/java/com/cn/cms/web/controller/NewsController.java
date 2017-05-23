@@ -180,7 +180,7 @@ public class NewsController extends BaseController {
                              @RequestParam(value = "keyword") String keyword,
                              @RequestParam(value = "description", required = false) String description,
                              @RequestParam(value = "source") String source,
-                             @RequestParam(value = "author") String author,
+                             @RequestParam(value = "author", required = false) String author,
                              @RequestParam(value = "categoryId") Long categoryId,
                              @RequestParam(value = "channelId") Long channelId,
                              @RequestParam(value = "columnId") Long columnId,
