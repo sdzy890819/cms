@@ -206,6 +206,10 @@ define(function(require){
 			searchTemplate : url+'/search/searchTemplate', // post
 			searchTemplate2 : url+'/search/searchTemplate2', // post
 			searchUser : url+'/search/searchUser' // post
+		},
+		publishInfo : {
+			list : url+'/publishInfo/list',
+			detail : url+'/publishInfo/detail',
 		}
 	}
 })
