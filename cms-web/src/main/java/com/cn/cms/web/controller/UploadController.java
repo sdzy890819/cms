@@ -197,7 +197,7 @@ public class UploadController extends BaseController {
 
     @NotSaveBody
     @CheckToken
-    @RequestMapping(value="/controller")
+    @RequestMapping(value="/baidu")
     public String controller(@RequestParam(value = "action", required = false) String action,
                              HttpServletRequest request)
             throws Exception {
