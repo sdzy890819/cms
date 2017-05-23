@@ -2,24 +2,19 @@ package com.cn.cms.utils;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.TypeReference;
-import com.cn.cms.contants.StaticContants;
-import com.cn.cms.enums.ErrorCodeEnum;
-import com.cn.cms.enums.RegexNumEnum;
 import com.cn.cms.logfactory.CommonLog;
 import com.cn.cms.logfactory.CommonLogFactory;
-import com.cn.cms.po.Channel;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * Created by 华盛信息科技有限公司(HS) on 16/12/28.
@@ -72,12 +67,23 @@ public class Test {
 //        System.out.println(channel.getChannelName());
 //        System.out.println(StaticContants.OS_NAME);
         //System.out.println(JSONObject.toJSONString(ErrorCodeEnum.ERROR_CODE_DEFAULT, StaticContants.config));
-        String path = "//data/template中国/aa.html";
-        System.out.println(path = path.replaceAll("//", "/"));
-        System.out.println(EncryptUtil.md5(path));
-        String path1 = "/data/template中国/aa.html";
-        System.out.println(path1 = path1.replaceAll("//", "/"));
-        System.out.println(EncryptUtil.md5(path1));
+//        String path = "//data/template中国/aa.html";
+//        System.out.println(path = path.replaceAll("//", "/"));
+//        System.out.println(EncryptUtil.md5(path));
+//        String path1 = "/data/template中国/aa.html";
+//        System.out.println(path1 = path1.replaceAll("//", "/"));
+//        System.out.println(EncryptUtil.md5(path1));
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("abc", "777");
+        Set<String> set  = new HashSet<>();
+        set.add(jsonObject.toJSONString());
+        Iterator<String> it = set.iterator();
+        JSONArray jsonArray = new JSONArray();
+        while(it.hasNext()){
+            JSONObject jsonObject1 = JSONObject.parseObject(it.next());
+            jsonArray.add(jsonObject1);
+        }
+        System.out.println(jsonArray.getJSONObject(0).getString("abc"));
 
     }
 

@@ -1,5 +1,9 @@
 package com.cn.cms.biz;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.cn.cms.contants.RedisKeyContants;
+import com.cn.cms.middleware.JedisClient;
 import com.cn.cms.po.Images;
 import com.cn.cms.po.ImagesBase;
 import com.cn.cms.po.Video;
@@ -9,7 +13,9 @@ import com.cn.cms.utils.Page;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by 华盛信息科技有限公司(HS) on 16/11/30.
@@ -20,6 +26,8 @@ public class ResourceBiz {
     @Resource
     private ResourceService resourceService;
 
+    @Resource
+    private JedisClient jedisClient;
 
     /**
      * 获取ImagesBase信息。
@@ -156,5 +164,39 @@ public class ResourceBiz {
 
     public Video doGetVideoManage(Long id){
         return resourceService.doFindVideoManage(id);
+    }
+
+
+    /**
+     * 获取附件列表
+     * @param page
+     * @return
+     */
+    public JSONArray findFileList(Page page){
+        Long count = jedisClient.len(RedisKeyContants.REDIS_FILE_LIST);
+        if( count > 0 ){
+            page.setCount(count.intValue());
+        }
+        Set<String> set = jedisClient.zrevrange(RedisKeyContants.REDIS_FILE_LIST, page.getStart(), page.getEnd());
+        if(set != null){
+            Iterator<String> it = set.iterator();
+            JSONArray jsonArray = new JSONArray();
+            while (it.hasNext()){
+                JSONObject jsonObject = JSONObject.parseObject(it.next());
+                jsonArray.add(jsonObject);
+            }
+            return jsonArray;
+        }
+        return null;
+    }
+
+    public void setFileInfoToRedis(String url, String originFileName, String fileName){
+        long time = System.currentTimeMillis()/1000;
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("url", url);
+        jsonObject.put("mtime", time);
+        jsonObject.put("fileName", fileName);
+        jsonObject.put("originFileName", originFileName);
+        jedisClient.zadd(RedisKeyContants.REDIS_FILE_LIST, jsonObject.toJSONString(), time);
     }
 }

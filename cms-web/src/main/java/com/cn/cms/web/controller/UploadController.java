@@ -251,6 +251,27 @@ public class UploadController extends BaseController {
                 case StaticContants.UPLOAD_FILE:{
                     return JSONObject.toJSONString(uploadBaiduFile(request, upfile));
                 }
+                case StaticContants.LIST_FILE:{
+                    String startStr = request.getParameter("start");
+                    int start = 0;
+                    if(StringUtils.isNotBlank(startStr)){
+                        start = Integer.parseInt(startStr);
+                    }
+                    String sizeStr = request.getParameter("size");
+                    int size = 0;
+                    if(StringUtils.isNotBlank(sizeStr)){
+                        size = Integer.parseInt(sizeStr);
+                    }
+                    int page = start / size + 1;
+                    Page pageObj = new Page(page,size);
+                    JSONArray jsonArray = resourceBiz.findFileList(pageObj);
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("list", jsonArray);
+                    jsonObject.put("start", start);
+                    jsonObject.put("state", "SUCCESS");
+                    jsonObject.put("total", pageObj.getCount());
+                    return jsonObject.toJSONString();
+                }
                 default:{
                     return ApiResponse.returnFail(StaticContants.ERROR_URL_ERROR);
                 }
@@ -363,12 +384,14 @@ public class UploadController extends BaseController {
                         map.put("type", "." + suffix);
                         map.put("original", originFileName);
                         map.put("size", weedfsResponse.getSize());
+                        resourceBiz.setFileInfoToRedis(weedfsResponse.getFileUrl(), originFileName, relativePath.substring(relativePath.lastIndexOf("/")));
                         file.delete();
                     } else {
                         map.put("url", urlPath);
                         map.put("type", "." + suffix);
                         map.put("original", originFileName);
                         map.put("size", bytes.length);
+                        resourceBiz.setFileInfoToRedis(urlPath, originFileName, relativePath.substring(relativePath.lastIndexOf("/")));
                     }
                     map.put("uploadUserId", getCurrentUserId(request));
                     map.put("title", relativePath.substring(relativePath.lastIndexOf("/")));
