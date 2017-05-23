@@ -35,6 +35,8 @@ public interface NewsDao {
 
     List<News> findNewsByColumnId(@Param(value = "columnId") Long columnId, @Param(value = "page") Page page);
 
+    Integer findNewsByColumnIdCount(@Param(value = "columnId") Long columnId);
+
     void publishNews(@Param(value = "p1") News news);
 
     List<News> findNewsByAutoPublish(@Param(value = "publish") Integer publish,
@@ -47,6 +49,8 @@ public interface NewsDao {
     NewsRecommend findNewsRecommendManage(@Param(value = "id") Long id);
 
     List<NewsRecommend> findListByRecommedColumnId(@Param(value = "recommendColumnId") Long recommendColumnId, @Param(value = "page") Page page);
+
+    Integer findListByRecommedColumnIdCount(@Param(value = "recommendColumnId") Long recommendColumnId);
 
     void updateNewsRecommend(@Param(value = "p1") NewsRecommend newsRecommend);
 

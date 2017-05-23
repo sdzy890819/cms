@@ -28,7 +28,11 @@ public interface TopicDao {
 
     List<Topic> findTopicByClassify(@Param(value = "topicClassifyId") Long topicClassifyId, @Param(value = "page") Page page);
 
+    Integer findTopicByClassifyCount(@Param(value = "topicClassifyId") Long topicClassifyId);
+
     List<Topic> findTopicByColumn(@Param(value = "topicColumnId") Long topicColumnId, @Param(value = "page") Page page);
+
+    Integer findTopicByColumnCount(@Param(value = "topicColumnId") Long topicColumnId);
 
     void publishTopic(@Param(value = "p1") Topic topic);
 

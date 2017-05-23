@@ -131,9 +131,18 @@
         order by id desc limit ${page.start}, ${page.pageSize} ;
     </select>
 
+    <select id="findTopicByClassifyCount" resultType="java.lang.Integer">
+        select count(1) from topic <include refid="delTag" /> and publish = 1 and topic_classify_id = ${topicClassifyId};
+    </select>
+
+
     <select id="findTopicByColumn" resultMap="topic">
         select <include refid="all_column_not_content" /> from topic <include refid="delTag" /> and publish = 1 and topic_column_id = ${topicColumnId}
         order by id desc limit ${page.start}, ${page.pageSize} ;
+    </select>
+
+    <select id="findTopicByColumnCount" resultType="java.lang.Integer">
+        select count(1) from topic <include refid="delTag" /> and publish = 1 and topic_column_id = ${topicColumnId};
     </select>
 
     <update id="publishTopic">

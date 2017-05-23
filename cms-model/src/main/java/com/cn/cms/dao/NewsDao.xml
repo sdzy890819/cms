@@ -231,6 +231,10 @@
         order by id desc limit ${page.start}, ${page.pageSize};
     </select>
 
+    <select id="findNewsByColumnIdCount" resultType="java.lang.Integer">
+        select count(1) from news <include refid="delTag" /> and publish = 1 and column_id = ${columnId}
+    </select>
+
     <update id="publishNews" >
         update news
          <set>
@@ -295,6 +299,14 @@
         </if>
         and recommend = 1
         order by sort desc limit ${page.start}, ${page.pageSize};
+    </select>
+
+    <select id="findListByRecommedColumnIdCount" resultType="java.lang.Integer">
+        select count(1) from news <include refid="delTag"/>
+        <if test="recommendColumnId != null">
+            and recommend_column_id = ${recommendColumnId}
+        </if>
+        and recommend = 1;
     </select>
 
     <update id="updateRescind">
