@@ -6,10 +6,12 @@ import com.cn.cms.bo.UserBean;
 import com.cn.cms.contants.RedisKeyContants;
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.enums.PlatformEnum;
+import com.cn.cms.exception.BizException;
 import com.cn.cms.middleware.JedisClient;
 import com.cn.cms.middleware.bo.UserSearch;
 import com.cn.cms.po.Base;
 import com.cn.cms.po.Fragment;
+import com.cn.cms.po.Position;
 import com.cn.cms.po.User;
 import com.cn.cms.service.UserService;
 import com.cn.cms.utils.CookieUtil;
@@ -40,6 +42,12 @@ public class UserBiz extends BaseBiz{
 
     @Resource
     private JedisClient jedisClient;
+
+    @Resource
+    private PositionBiz positionBiz;
+
+    @Resource
+    private UserPositionBiz userPositionBiz;
 
 
 
@@ -142,7 +150,7 @@ public class UserBiz extends BaseBiz{
      * @param headImage
      * @param realName
      */
-    public void createUser(String lastModifyUserId,String userName,String pwd,String headImage,String realName, String idfa){
+    public void createUser(String lastModifyUserId,String userName,String pwd,String headImage,String realName, String idfa, Long[] positionIds) throws BizException{
         User user = new User();
         user.setUserName(userName);
         user.setUserId(EncryptUtil.buildUserId());
@@ -154,6 +162,14 @@ public class UserBiz extends BaseBiz{
         user.setIdfa(idfa);
         userService.createUser(user);
         refreshUserCache(user);
+        if(positionIds!=null && positionIds.length >0) {
+            for(int i=0;i<positionIds.length;i++) {
+                Position position = positionBiz.findPosition(positionIds[i]);
+                if (position != null) {
+                    userPositionBiz.insertUserPositon(lastModifyUserId, user.getUserId(), position);
+                }
+            }
+        }
     }
 
     /**

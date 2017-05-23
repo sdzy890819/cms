@@ -3,6 +3,7 @@ package com.cn.cms.web.controller;
 import com.cn.cms.biz.UserBiz;
 import com.cn.cms.bo.UserBean;
 import com.cn.cms.enums.ErrorCodeEnum;
+import com.cn.cms.exception.BizException;
 import com.cn.cms.po.User;
 import com.cn.cms.utils.EncryptUtil;
 import com.cn.cms.utils.Page;
@@ -122,14 +123,15 @@ public class UserController extends BaseController{
     public String createUser(HttpServletRequest request, @RequestParam(value="userName")String userName,
                              @RequestParam(value="realName")String realName,
                              @RequestParam(value="pwd")String pwd,
-                             @RequestParam(value="headImage")String headImage,
-                             @RequestParam(value = "idfa", required = false) String idfa){
+                             @RequestParam(value="headImage", required = false)String headImage,
+                             @RequestParam(value = "idfa", required = false) String idfa,
+                             @RequestParam(value = "positionIds", required = false) Long[] positionIds) throws BizException{
         String userID = getCurrentUserId(request);
         Integer a = userBiz.queryUserName(userName);
         if(a>0){
             return ApiResponse.returnFail(ErrorCodeEnum.ERROR_USERNAME_RE.getType(),ErrorCodeEnum.ERROR_USERNAME_RE.getMessage());
         }
-        userBiz.createUser(userID,userName,pwd,headImage,realName, idfa);
+        userBiz.createUser(userID,userName,pwd,headImage,realName, idfa, positionIds);
         return ApiResponse.returnSuccess();
     }
 
