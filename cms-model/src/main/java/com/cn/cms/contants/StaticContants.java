@@ -373,7 +373,7 @@ public class StaticContants {
                                 /* 具请体看线上文档: fex.baidu.com/ueditor/#use-format_upload_filename */
         /* 涂鸦图片上传配置项 */
         configObject.put("scrawlActionName", "uploadscrawl");
-        configObject.put("scrawlFieldName", "upfile");
+        configObject.put("scrawlFieldName", "upfileCode");
         configObject.put("scrawlPathFormat", "/ueditor/jsp/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}"); /* 上传保存路径,可以自定义保存路径和文件名格式 */
         configObject.put("scrawlMaxSize", 3072000);/* 上传大小限制，单位B */
         configObject.put("scrawlUrlPrefix", "");/* 图片访问路径前缀 */

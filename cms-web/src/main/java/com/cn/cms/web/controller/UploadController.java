@@ -196,10 +196,11 @@ public class UploadController extends BaseController {
 
 
     @NotSaveBody
-    @CheckToken
+    //@CheckToken
     @RequestMapping(value="/controller", method = {RequestMethod.POST, RequestMethod.GET})
     public String controller(HttpServletRequest request,
-                             @RequestParam(value = "action", required = false) String action) throws Exception {
+                             @RequestParam(value = "action", required = false) String action,
+                             @RequestParam(value = "upfile", required = false) MultipartFile upfile) throws Exception {
         if(StringUtils.isNotBlank(action) && StaticContants.mapping.containsKey(action)){
             int actionCode = StaticContants.mapping.get(action).intValue();
             switch (actionCode){
@@ -207,7 +208,7 @@ public class UploadController extends BaseController {
                     return config().toJSONString();
                 }
                 case StaticContants.UPLOAD_IMAGE:{
-                    return JSONObject.toJSONString(uploadBaiduImage(request));
+                    return JSONObject.toJSONString(uploadBaiduImage(request, upfile));
                 }
                 case StaticContants.LIST_IMAGE:{
                     String startStr = request.getParameter("start");
@@ -241,14 +242,14 @@ public class UploadController extends BaseController {
                     return jsonObject.toJSONString();
                 }
                 case StaticContants.UPLOAD_VIDEO:{
-                    return JSONObject.toJSONString(uploadBaiduVideo(request));
+                    return JSONObject.toJSONString(uploadBaiduVideo(request, upfile));
                 }
                 case StaticContants.UPLOAD_SCRAWL:{
-                    String upfile = request.getParameter("upfile");
-                    return JSONObject.toJSONString(uploadBaiduScrawl(upfile));
+                    String upfileCode = request.getParameter("upfileCode");
+                    return JSONObject.toJSONString(uploadBaiduScrawl(upfileCode));
                 }
                 case StaticContants.UPLOAD_FILE:{
-                    return JSONObject.toJSONString(uploadBaiduFile(request));
+                    return JSONObject.toJSONString(uploadBaiduFile(request, upfile));
                 }
                 default:{
                     return ApiResponse.returnFail(StaticContants.ERROR_URL_ERROR);
@@ -270,32 +271,12 @@ public class UploadController extends BaseController {
      * @return
      * @throws Exception
      */
-    private Map<String ,Object> uploadBaiduImage(HttpServletRequest request) throws Exception{
-        FileItemStream fileStream = null;
-        boolean isAjaxUpload = request.getHeader("X_Requested_With") != null;
-        if(!ServletFileUpload.isMultipartContent(request)) {
-            throw new BizException("上传表单不是multipart/form-data类型");
-        } else {
-            ServletFileUpload upload = new ServletFileUpload(new DiskFileItemFactory());
-            if(isAjaxUpload) {
-                upload.setHeaderEncoding("UTF-8");
-            }
-
+    private Map<String ,Object> uploadBaiduImage(HttpServletRequest request, MultipartFile upfile) throws Exception{
             try {
-                for(FileItemIterator e = upload.getItemIterator(request); e.hasNext(); fileStream = null) {
-                    fileStream = e.next();
-                    if(!fileStream.isFormField()) {
-                        break;
-                    }
-                }
-
-                if(fileStream == null) {
-                    throw new BizException("未找到上传数据");
-                } else {
                     ImagesBase imagesBase = resourceBiz.findImagesBase();
-                    String originFileName = fileStream.getName();
+                    String originFileName = upfile.getOriginalFilename();
 
-                    InputStream in = fileStream.openStream();
+                    InputStream in = upfile.getInputStream();
                     byte[] bytes = new byte[in.available()];
                     in.read(bytes);
                     String suffix = originFileName.substring(originFileName.lastIndexOf(".") + 1).toLowerCase();
@@ -346,14 +327,13 @@ public class UploadController extends BaseController {
                     map.put("title", relativePath.substring(relativePath.lastIndexOf("/")));
                     map.put("state", "SUCCESS");
                     return map;
-                }
 
             } catch (FileUploadException var14) {
                 throw new BizException("解析上传表单错误");
             } catch (IOException var15) {
                 throw new BizException("IO错误");
             }
-        }
+
     }
 
     /**
@@ -362,30 +342,12 @@ public class UploadController extends BaseController {
      * @return
      * @throws Exception
      */
-    private Map<String ,Object> uploadBaiduFile(HttpServletRequest request) throws Exception{
-        FileItemStream fileStream = null;
-        boolean isAjaxUpload = request.getHeader("X_Requested_With") != null;
-        if(!ServletFileUpload.isMultipartContent(request)) {
-            throw new BizException("上传表单不是multipart/form-data类型");
-        } else {
-            ServletFileUpload upload = new ServletFileUpload(new DiskFileItemFactory());
-            if(isAjaxUpload) {
-                upload.setHeaderEncoding("UTF-8");
-            }
+    private Map<String ,Object> uploadBaiduFile(HttpServletRequest request, MultipartFile upfile) throws Exception{
 
             try {
-                for(FileItemIterator e = upload.getItemIterator(request); e.hasNext(); fileStream = null) {
-                    fileStream = e.next();
-                    if(!fileStream.isFormField()) {
-                        break;
-                    }
-                }
-                if(fileStream == null) {
-                    throw new BizException("未找到上传数据");
-                } else {
                     ImagesBase imagesBase = resourceBiz.findImagesBase();
-                    String originFileName = fileStream.getName();
-                    InputStream in = fileStream.openStream();
+                    String originFileName = upfile.getOriginalFilename();
+                    InputStream in = upfile.getInputStream();
                     byte[] bytes = new byte[in.available()];
                     in.read(bytes);
                     String suffix = originFileName.substring(originFileName.lastIndexOf(".") + 1).toLowerCase();
@@ -412,14 +374,13 @@ public class UploadController extends BaseController {
                     map.put("title", relativePath.substring(relativePath.lastIndexOf("/")));
                     map.put("state", "SUCCESS");
                     return map;
-                }
 
             } catch (FileUploadException var14) {
                 throw new BizException("解析上传表单错误");
             } catch (IOException var15) {
                 throw new BizException("IO错误");
             }
-        }
+
     }
 
 
@@ -429,33 +390,15 @@ public class UploadController extends BaseController {
      * @return
      * @throws Exception
      */
-    private Map<String ,Object> uploadBaiduVideo(HttpServletRequest request) throws Exception{
-        FileItemStream fileStream = null;
-        boolean isAjaxUpload = request.getHeader("X_Requested_With") != null;
-        if(!ServletFileUpload.isMultipartContent(request)) {
-            throw new BizException("上传表单不是multipart/form-data类型");
-        } else {
-            ServletFileUpload upload = new ServletFileUpload(new DiskFileItemFactory());
-            if(isAjaxUpload) {
-                upload.setHeaderEncoding("UTF-8");
-            }
+    private Map<String ,Object> uploadBaiduVideo(HttpServletRequest request, MultipartFile upfile) throws Exception{
             try {
-                for(FileItemIterator e = upload.getItemIterator(request); e.hasNext(); fileStream = null) {
-                    fileStream = e.next();
-                    if(!fileStream.isFormField()) {
-                        break;
-                    }
-                }
 
-                if(fileStream == null) {
-                    throw new BizException("未找到上传数据");
-                } else {
                     Map<String, Object> map = new HashMap<>();
-                    String originFileName = fileStream.getName();
+                    String originFileName = upfile.getOriginalFilename();
 
                     String fileName = originFileName.replaceAll(" ","_");
                     String suffix = originFileName.substring(originFileName.lastIndexOf(".") + 1).toLowerCase();
-                    InputStream in = fileStream.openStream();
+                    InputStream in = upfile.getInputStream();
                     int length = (in.available()-1)/size + 1;
                     byte[] bytes = null ;
                     int finish = 0;
@@ -500,14 +443,10 @@ public class UploadController extends BaseController {
                     map.put("title", fileName);
                     map.put("state", "SUCCESS");
                     return map;
-                }
 
-            } catch (FileUploadException var14) {
-                throw new BizException("解析上传表单错误");
-            } catch (IOException var15) {
+            }  catch (IOException var15) {
                 throw new BizException("IO错误");
             }
-        }
     }
 
 
