@@ -189,6 +189,7 @@ public class TAGList extends Directive {
             }
         }
         context.put(resultObjName, list);
+        context.put("page" , pageObj);
         if(pageObj.hasNextPage() && list!=null && list.size() >= pageObj.getPageSize() && (testTag == null || testTag < 1)){
             if(model!=null && model == PublishJobTypeEnum.template.getType()) {
                 TemplatePublishJob templatePublishJob = new TemplatePublishJob();

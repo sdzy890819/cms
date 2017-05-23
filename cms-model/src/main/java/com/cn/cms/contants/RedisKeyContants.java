@@ -45,6 +45,8 @@ public class RedisKeyContants {
 
     public static final String REDIS_ADD_NEW_PREVIOUS_COLUMN_INFO = "CMS_PREVIOUS_COLUMN_INFO_";
 
+    public static final String REDIS_FILE_LIST = "CMS_FILE_UPLOAD_LIST";
+
     /**
      * 获取上一次发布新闻选择的频道栏目。
      * @param userId
