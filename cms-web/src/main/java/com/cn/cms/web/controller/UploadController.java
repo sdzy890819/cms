@@ -197,10 +197,9 @@ public class UploadController extends BaseController {
 
     @NotSaveBody
     @CheckToken
-    @RequestMapping(value="/controller", method = {RequestMethod.POST, RequestMethod.GET})
-    public String controller(@RequestParam(value = "action", required = false) String action,
-                             HttpServletRequest request)
-            throws Exception {
+    @RequestMapping(value="/baidu", method = {RequestMethod.POST, RequestMethod.GET})
+    public String baidu(HttpServletRequest request,
+                             @RequestParam(value = "action", required = false) String action) throws Exception {
         if(StringUtils.isNotBlank(action) && StaticContants.mapping.containsKey(action)){
             int actionCode = StaticContants.mapping.get(action).intValue();
             switch (actionCode){
