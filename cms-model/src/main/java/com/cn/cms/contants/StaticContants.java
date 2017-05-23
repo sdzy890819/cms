@@ -1,5 +1,7 @@
 package com.cn.cms.contants;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializeConfig;
 import com.cn.cms.enums.*;
 import com.cn.cms.enums.serializer.JSONEnumSerializer;
@@ -105,6 +107,7 @@ public class StaticContants {
 
     public static final String ERROR_VIDEO_SIZE_0 = "视频不可以为0";
 
+
     public static final String ERROR_TEMPLATE_NOT_FOUND = "找不到频道、栏目对应的模版";
 
     public static final String ERROR_CHANNEL_NOT_FOUND = "找不到新闻对应的频道";
@@ -132,6 +135,8 @@ public class StaticContants {
     public static final String ERROR_BASE_CODE = "文件不可以为空";
 
     public static final String ERROR_KEY_API = "无访问权限";
+
+    public static final String ERROR_URL_ERROR = "无访问的方法";
 
     public static final String getTimeParseErrorYYYYMMDD(){
         return ERROR_TIME_PARSE.concat(YYYY_MM_DD);
@@ -309,4 +314,176 @@ public class StaticContants {
      * image.test
      */
     public static final Integer IMAGESON = Integer.parseInt(PropertyManager.getRB("config", "image.test"));
+
+
+
+    public static final Map<String, Integer> mapping = new HashMap() {
+        {
+            this.put("config", Integer.valueOf(0));
+            this.put("uploadimage", Integer.valueOf(1));
+            this.put("uploadscrawl", Integer.valueOf(2));
+            this.put("uploadvideo", Integer.valueOf(3));
+            this.put("uploadfile", Integer.valueOf(4));
+            this.put("catchimage", Integer.valueOf(5));
+            this.put("listfile", Integer.valueOf(6));
+            this.put("listimage", Integer.valueOf(7));
+        }
+    };
+
+    public static final int CONFIG = 0;
+    public static final int UPLOAD_IMAGE = 1;
+    public static final int UPLOAD_SCRAWL = 2;
+    public static final int UPLOAD_VIDEO = 3;
+    public static final int UPLOAD_FILE = 4;
+    public static final int CATCH_IMAGE = 5;
+    public static final int LIST_FILE = 6;
+    public static final int LIST_IMAGE = 7;
+
+
+
+    public static JSONObject configObject = new JSONObject();
+    static {
+        /* 上传图片配置项 */
+        configObject.put("imageActionName", "uploadimage");/* 执行上传图片的action名称 */
+        configObject.put("imageFieldName", "upfile");/* 提交的图片表单名称 */
+        configObject.put("imageMaxSize", 3072000);/* 上传大小限制，单位B */
+        JSONArray arr1 = new JSONArray();
+        arr1.add(".png");
+        arr1.add(".jpg");
+        arr1.add(".jpeg");
+        arr1.add(".gif");
+        arr1.add(".bmp");
+        configObject.put("imageAllowFiles", arr1);/* 上传图片格式显示 */
+        configObject.put("imageCompressEnable", true);/* 是否压缩图片,默认是true */
+        configObject.put("imageCompressBorder", 1600);/* 图片压缩最长边限制 */
+        configObject.put("imageInsertAlign", "none");/* 插入的图片浮动方式 */
+        configObject.put("imageUrlPrefix", "");/* 图片访问路径前缀 */
+        configObject.put("imagePathFormat", "/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}");/* 上传保存路径,可以自定义保存路径和文件名格式 */
+                                /* {filename} 会替换成原文件名,配置这项需要注意中文乱码问题 */
+                                /* {rand:6} 会替换成随机数,后面的数字是随机数的位数 */
+                                /* {time} 会替换成时间戳 */
+                                /* {yyyy} 会替换成四位年份 */
+                                /* {yy} 会替换成两位年份 */
+                                /* {mm} 会替换成两位月份 */
+                                /* {dd} 会替换成两位日期 */
+                                /* {hh} 会替换成两位小时 */
+                                /* {ii} 会替换成两位分钟 */
+                                /* {ss} 会替换成两位秒 */
+                                /* 非法字符 \ : * ? " < > | */
+                                /* 具请体看线上文档: fex.baidu.com/ueditor/#use-format_upload_filename */
+        /* 涂鸦图片上传配置项 */
+        configObject.put("scrawlActionName", "uploadscrawl");
+        configObject.put("scrawlFieldName", "upfile");
+        configObject.put("scrawlPathFormat", "/ueditor/jsp/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}"); /* 上传保存路径,可以自定义保存路径和文件名格式 */
+        configObject.put("scrawlMaxSize", 3072000);/* 上传大小限制，单位B */
+        configObject.put("scrawlUrlPrefix", "");/* 图片访问路径前缀 */
+        configObject.put("scrawlInsertAlign", "none");
+
+        /* 截图工具上传 */
+        configObject.put("snapscreenActionName", "uploadimage");/* 执行上传截图的action名称 */
+        configObject.put("snapscreenPathFormat", "/ueditor/jsp/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}");
+        configObject.put("snapscreenUrlPrefix", "");
+        configObject.put("snapscreenInsertAlign", "none");
+
+        /* 抓取远程图片配置 */
+        configObject.put("catcherLocalDomain", "");
+        configObject.put("catcherActionName", "catchimage");/* 执行抓取远程图片的action名称 */
+        configObject.put("catcherFieldName", "source");/* 提交的图片列表表单名称 */
+        configObject.put("catcherPathFormat", "/ueditor/jsp/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}");
+        configObject.put("catcherUrlPrefix", "");
+        configObject.put("catcherMaxSize", 3072000);
+        configObject.put("catcherAllowFiles", arr1);
+
+        /* 上传视频配置 */
+        configObject.put("videoActionName", "uploadvideo");/* 执行上传视频的action名称 */
+        configObject.put("videoFieldName", "upfile");
+        configObject.put("videoPathFormat", "/ueditor/jsp/upload/video/{yyyy}{mm}{dd}/{time}{rand:6}");
+        configObject.put("videoUrlPrefix", "");
+        configObject.put("videoMaxSize", 102400000);
+        JSONArray arr2 = new JSONArray();
+        arr2.add(".flv");
+        arr2.add(".swf");
+        arr2.add(".mkv");
+        arr2.add(".avi");
+        arr2.add(".rm");
+        arr2.add(".rmvb");
+        arr2.add(".mpeg");
+        arr2.add(".mpg");
+        arr2.add(".ogg");
+        arr2.add(".ogv");
+        arr2.add(".mov");
+        arr2.add(".wmv");
+        arr2.add(".mp4");
+        arr2.add(".mp3");
+        arr2.add(".wav");
+        configObject.put("videoAllowFiles", arr2);
+
+        /* 上传文件配置 */
+
+        configObject.put("fileActionName", "uploadfile");
+        configObject.put("fileFieldName", "upfile");
+        configObject.put("filePathFormat", "/ueditor/jsp/upload/file/{yyyy}{mm}{dd}/{time}{rand:6}");
+        configObject.put("fileUrlPrefix", "");
+        configObject.put("fileMaxSize", 51200000);
+        JSONArray array3 = new JSONArray();
+        array3.add(".png");
+        array3.add(".jpg");
+        array3.add(".jpeg");
+        array3.add(".gif");
+        array3.add(".bmp");
+        array3.add(".flv");
+        array3.add(".swf");
+        array3.add(".mkv");
+        array3.add(".avi");
+        array3.add(".rm");
+        array3.add(".rmvb");
+        array3.add(".mpeg");
+        array3.add(".mpg");
+        array3.add(".ogg");
+        array3.add(".ogv");
+        array3.add(".mov");
+        array3.add(".wmv");
+        array3.add(".mp4");
+        array3.add(".webm");
+        array3.add(".mp3");
+        array3.add(".wav");
+        array3.add(".mid");
+        array3.add(".rar");
+        array3.add(".zip");
+        array3.add(".tar");
+        array3.add(".gz");
+        array3.add(".7z");
+        array3.add(".bz2");
+        array3.add(".cab");
+        array3.add(".iso");
+        array3.add(".doc");
+        array3.add(".docx");
+        array3.add(".xls");
+        array3.add(".xlsx");
+        array3.add(".ppt");
+        array3.add(".pptx");
+        array3.add(".pdf");
+        array3.add(".txt");
+        array3.add(".md");
+        array3.add(".xml");
+        configObject.put("fileAllowFiles", array3);
+
+
+        /* 列出指定目录下的图片 */
+        configObject.put("imageManagerActionName", "listimage");
+        configObject.put("imageManagerListPath", "/ueditor/jsp/upload/image/");
+        configObject.put("imageManagerListSize", 20);
+        configObject.put("imageManagerUrlPrefix", "");
+        configObject.put("imageManagerInsertAlign", "none");
+        configObject.put("imageManagerAllowFiles", arr1);
+
+        /* 列出指定目录下的文件 */
+        configObject.put("fileManagerActionName", "listfile");
+        configObject.put("fileManagerListPath", "/ueditor/jsp/upload/file/");
+        configObject.put("fileManagerUrlPrefix", "");
+        configObject.put("fileManagerListSize", 20);
+        configObject.put("fileManagerAllowFiles", array3);
+    }
+
+
 }

@@ -1,22 +1,33 @@
 package com.cn.cms.web.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.cn.cms.biz.ResourceBiz;
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.enums.CompressEnum;
+import com.cn.cms.enums.WatermarkEnum;
 import com.cn.cms.exception.BizException;
 import com.cn.cms.middleware.MSSVideoClient;
 import com.cn.cms.middleware.WeedfsClient;
+import com.cn.cms.middleware.bean.VideoFinishResponse;
 import com.cn.cms.middleware.bean.VideoResponse;
 import com.cn.cms.middleware.bean.WeedfsResponse;
+import com.cn.cms.po.Images;
 import com.cn.cms.po.ImagesBase;
+import com.cn.cms.po.Video;
 import com.cn.cms.utils.EncryptUtil;
 import com.cn.cms.utils.FileUtil;
+import com.cn.cms.utils.Page;
 import com.cn.cms.utils.StringUtils;
 import com.cn.cms.web.ann.CheckAuth;
 import com.cn.cms.web.ann.CheckToken;
 import com.cn.cms.web.ann.NotSaveBody;
 import com.cn.cms.web.result.ApiResponse;
+import org.apache.commons.fileupload.FileItemIterator;
+import org.apache.commons.fileupload.FileItemStream;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,7 +37,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.awt.*;
 import java.io.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -174,6 +189,361 @@ public class UploadController extends BaseController {
         mssVideoClient.interrupt(fileName);
         return ApiResponse.returnSuccess();
     }
+
+
+
+
+
+
+    @NotSaveBody
+    @CheckToken
+    @RequestMapping(value="/controller", method = {RequestMethod.POST, RequestMethod.GET})
+    public String controller(HttpServletRequest request,
+                             @RequestParam(value = "action", required = false) String action) throws Exception {
+        if(StringUtils.isNotBlank(action) && StaticContants.mapping.containsKey(action)){
+            int actionCode = StaticContants.mapping.get(action).intValue();
+            switch (actionCode){
+                case StaticContants.CONFIG:{
+                    return config().toJSONString();
+                }
+                case StaticContants.UPLOAD_IMAGE:{
+                    return JSONObject.toJSONString(uploadBaiduImage(request));
+                }
+                case StaticContants.LIST_IMAGE:{
+                    String startStr = request.getParameter("start");
+                    int start = 0;
+                    if(StringUtils.isNotBlank(startStr)){
+                        start = Integer.parseInt(startStr);
+                    }
+                    String sizeStr = request.getParameter("size");
+                    int size = 0;
+                    if(StringUtils.isNotBlank(sizeStr)){
+                        size = Integer.parseInt(sizeStr);
+                    }
+                    int page = start / size + 1;
+                    Page pageObj = new Page(page,size);
+                    List<Images> images = resourceBiz.listImages(pageObj);
+                    JSONObject jsonObject = new JSONObject();
+                    if(StringUtils.isNotEmpty(images)){
+                        JSONArray jsonArray = new JSONArray();
+                        for(int i=0;i<images.size();i++){
+                            Images tmp = images.get(i);
+                            JSONObject jsonObject1 = new JSONObject();
+                            jsonObject1.put("url", tmp.getImageUrl());
+                            jsonObject1.put("state", "SUCCESS");
+                            jsonArray.add(jsonObject1);
+                        }
+                        jsonObject.put("list", jsonArray);
+                    }
+                    jsonObject.put("start", start);
+                    jsonObject.put("state", "SUCCESS");
+                    jsonObject.put("total", pageObj.getCount());
+                    return jsonObject.toJSONString();
+                }
+                case StaticContants.UPLOAD_VIDEO:{
+                    return JSONObject.toJSONString(uploadBaiduVideo(request));
+                }
+                case StaticContants.UPLOAD_SCRAWL:{
+                    String upfile = request.getParameter("upfile");
+                    return JSONObject.toJSONString(uploadBaiduScrawl(upfile));
+                }
+                case StaticContants.UPLOAD_FILE:{
+                    return JSONObject.toJSONString(uploadBaiduFile(request));
+                }
+                default:{
+                    return ApiResponse.returnFail(StaticContants.ERROR_URL_ERROR);
+                }
+            }
+        }else{
+            return ApiResponse.returnFail();
+        }
+
+    }
+
+    private JSONObject config(){
+        return StaticContants.configObject;
+    }
+
+    /**
+     * 上传并保存图片。
+     * @param request
+     * @return
+     * @throws Exception
+     */
+    private Map<String ,Object> uploadBaiduImage(HttpServletRequest request) throws Exception{
+        FileItemStream fileStream = null;
+        boolean isAjaxUpload = request.getHeader("X_Requested_With") != null;
+        if(!ServletFileUpload.isMultipartContent(request)) {
+            throw new BizException("上传表单不是multipart/form-data类型");
+        } else {
+            ServletFileUpload upload = new ServletFileUpload(new DiskFileItemFactory());
+            if(isAjaxUpload) {
+                upload.setHeaderEncoding("UTF-8");
+            }
+
+            try {
+                for(FileItemIterator e = upload.getItemIterator(request); e.hasNext(); fileStream = null) {
+                    fileStream = e.next();
+                    if(!fileStream.isFormField()) {
+                        break;
+                    }
+                }
+
+                if(fileStream == null) {
+                    throw new BizException("未找到上传数据");
+                } else {
+                    ImagesBase imagesBase = resourceBiz.findImagesBase();
+                    String originFileName = fileStream.getName();
+
+                    InputStream in = fileStream.openStream();
+                    byte[] bytes = new byte[in.available()];
+                    in.read(bytes);
+                    String suffix = originFileName.substring(originFileName.lastIndexOf(".") + 1).toLowerCase();
+                    String relativePath = FileUtil.getRelativePath(imagesBase.getBasePath(), suffix);
+                    String absPath = StringUtils.concatUrl(imagesBase.getBasePath(), relativePath);
+                    String urlPath = StringUtils.concatUrl(imagesBase.getBaseUrl(), relativePath);
+                    Map<String, Object> map = FileUtil.compress(bytes, 0, 0, absPath, WatermarkEnum.notwatermark.getType());
+
+                    Images images = new Images();
+                    images.setLastModifyUserId(getCurrentUserId(request));
+                    images.setCompress(CompressEnum.nocompress.getType());
+                    images.setImageHeightPixel(Integer.parseInt(map.get("imageHeightPixel").toString()));
+
+                    images.setImageTitle(originFileName.substring(0, originFileName.length() - (suffix.length() + 1) ));
+
+                    images.setImageWidthPixel(Integer.parseInt(map.get("imageHeightPixel").toString()));
+                    images.setUploadUserId(getCurrentUserId(request));
+                    images.setCreateUserId(getCurrentUserId(request));
+                    images.setOrgHeightPixel(Integer.parseInt(map.get("imageHeightPixel").toString()));
+                    images.setOrgWidthPixel(Integer.parseInt(map.get("imageHeightPixel").toString()));
+                    images.setWatermark(WatermarkEnum.notwatermark.getType());
+                    images.setUploadTime(new Date());
+
+                    if(StaticContants.IMAGESON != 1 ) {
+                        File file = new File(absPath);
+                        WeedfsResponse weedfsResponse = weedfsClient.upload(file);
+                        map.put("url", weedfsResponse.getFileUrl());
+                        map.put("type", "." + suffix);
+                        map.put("original", originFileName);
+                        map.put("size", weedfsResponse.getSize());
+                        file.delete();
+                        images.setSize(weedfsResponse.getSize());
+                        images.setFid(weedfsResponse.getFid());
+                        images.setImagePath(weedfsResponse.getFid());
+                        images.setImageUrl(weedfsResponse.getFileUrl());
+                    } else {
+                        map.put("url", urlPath);
+                        map.put("type", "." + suffix);
+                        map.put("original", originFileName);
+                        map.put("size", bytes.length);
+                        images.setSize(bytes.length);
+                        images.setFid("19");
+                        images.setImagePath(relativePath);
+                        images.setImageUrl(urlPath);
+                    }
+                    resourceBiz.saveImages(images);
+                    map.put("uploadUserId", getCurrentUserId(request));
+                    map.put("title", relativePath.substring(relativePath.lastIndexOf("/")));
+                    map.put("state", "SUCCESS");
+                    return map;
+                }
+
+            } catch (FileUploadException var14) {
+                throw new BizException("解析上传表单错误");
+            } catch (IOException var15) {
+                throw new BizException("IO错误");
+            }
+        }
+    }
+
+    /**
+     * 百度上传附件。
+     * @param request
+     * @return
+     * @throws Exception
+     */
+    private Map<String ,Object> uploadBaiduFile(HttpServletRequest request) throws Exception{
+        FileItemStream fileStream = null;
+        boolean isAjaxUpload = request.getHeader("X_Requested_With") != null;
+        if(!ServletFileUpload.isMultipartContent(request)) {
+            throw new BizException("上传表单不是multipart/form-data类型");
+        } else {
+            ServletFileUpload upload = new ServletFileUpload(new DiskFileItemFactory());
+            if(isAjaxUpload) {
+                upload.setHeaderEncoding("UTF-8");
+            }
+
+            try {
+                for(FileItemIterator e = upload.getItemIterator(request); e.hasNext(); fileStream = null) {
+                    fileStream = e.next();
+                    if(!fileStream.isFormField()) {
+                        break;
+                    }
+                }
+                if(fileStream == null) {
+                    throw new BizException("未找到上传数据");
+                } else {
+                    ImagesBase imagesBase = resourceBiz.findImagesBase();
+                    String originFileName = fileStream.getName();
+                    InputStream in = fileStream.openStream();
+                    byte[] bytes = new byte[in.available()];
+                    in.read(bytes);
+                    String suffix = originFileName.substring(originFileName.lastIndexOf(".") + 1).toLowerCase();
+                    String relativePath = FileUtil.getRelativePath(imagesBase.getBasePath(), suffix);
+                    String absPath = StringUtils.concatUrl(imagesBase.getBasePath(), relativePath);
+                    String urlPath = StringUtils.concatUrl(imagesBase.getBaseUrl(), relativePath);
+                    Map<String, Object> map = new HashMap<>();
+                    FileUtil.fileUpload(bytes, absPath);
+                    if(StaticContants.IMAGESON != 1 ) {
+                        File file = new File(absPath);
+                        WeedfsResponse weedfsResponse = weedfsClient.upload(file);
+                        map.put("url", weedfsResponse.getFileUrl());
+                        map.put("type", "." + suffix);
+                        map.put("original", originFileName);
+                        map.put("size", weedfsResponse.getSize());
+                        file.delete();
+                    } else {
+                        map.put("url", urlPath);
+                        map.put("type", "." + suffix);
+                        map.put("original", originFileName);
+                        map.put("size", bytes.length);
+                    }
+                    map.put("uploadUserId", getCurrentUserId(request));
+                    map.put("title", relativePath.substring(relativePath.lastIndexOf("/")));
+                    map.put("state", "SUCCESS");
+                    return map;
+                }
+
+            } catch (FileUploadException var14) {
+                throw new BizException("解析上传表单错误");
+            } catch (IOException var15) {
+                throw new BizException("IO错误");
+            }
+        }
+    }
+
+
+    /**
+     * 百度上传视频并保存视频.
+     * @param request
+     * @return
+     * @throws Exception
+     */
+    private Map<String ,Object> uploadBaiduVideo(HttpServletRequest request) throws Exception{
+        FileItemStream fileStream = null;
+        boolean isAjaxUpload = request.getHeader("X_Requested_With") != null;
+        if(!ServletFileUpload.isMultipartContent(request)) {
+            throw new BizException("上传表单不是multipart/form-data类型");
+        } else {
+            ServletFileUpload upload = new ServletFileUpload(new DiskFileItemFactory());
+            if(isAjaxUpload) {
+                upload.setHeaderEncoding("UTF-8");
+            }
+            try {
+                for(FileItemIterator e = upload.getItemIterator(request); e.hasNext(); fileStream = null) {
+                    fileStream = e.next();
+                    if(!fileStream.isFormField()) {
+                        break;
+                    }
+                }
+
+                if(fileStream == null) {
+                    throw new BizException("未找到上传数据");
+                } else {
+                    Map<String, Object> map = new HashMap<>();
+                    String originFileName = fileStream.getName();
+
+                    String fileName = originFileName.replaceAll(" ","_");
+                    String suffix = originFileName.substring(originFileName.lastIndexOf(".") + 1).toLowerCase();
+                    InputStream in = fileStream.openStream();
+                    int length = (in.available()-1)/size + 1;
+                    byte[] bytes = null ;
+                    int finish = 0;
+                    VideoResponse videoResponse = null;
+                    if(in.available() > 0 ) {
+                        for (int i = 1; i <= length; i++) {
+                            if (length > i) {
+                                bytes = new byte[size];
+                            } else {
+                                bytes = new byte[in.available()];
+                                finish = 1;
+                            }
+                            in.read(bytes, 0, bytes.length);
+                            log.info("APP 视频上传到第三方" + i + " - " + finish);
+                            videoResponse = mssVideoClient.upload(EncryptUtil.base64(bytes).replaceAll("\\r|\\n", ""), fileName, i, finish);
+                            if (videoResponse == null) {
+                                throw new BizException("视频上传失败.");
+                            }
+                            if (videoResponse.getFlag() != 100) {
+                                throw new BizException(videoResponse.getFlagString());
+                            }
+                        }
+                    }else{
+                        throw new BizException("视频的size:0B.");
+                    }
+                    Video video = new Video();
+                    video.setLastModifyUserId(getCurrentUserId(request));
+                    video.setCreateUserId(getCurrentUserId(request));
+                    video.setUploadTime(new Date());
+                    video.setUploadUserId(getCurrentUserId(request));
+                    video.setVideoDesc("");
+                    video.setVideoPath(((VideoFinishResponse)videoResponse).getLocation());
+                    video.setVideoTitle(fileName.substring(0, fileName.length() - (suffix.length() + 1) ));
+                    video.setVideoUrl(((VideoFinishResponse)videoResponse).getLocation());
+                    video.setFileName(fileName);
+                    resourceBiz.saveVideo(video);
+
+                    map.put("url", ((VideoFinishResponse)videoResponse).getLocation());
+                    map.put("type", "." + suffix);
+                    map.put("original", originFileName);
+                    map.put("size", bytes.length);
+                    map.put("title", fileName);
+                    map.put("state", "SUCCESS");
+                    return map;
+                }
+
+            } catch (FileUploadException var14) {
+                throw new BizException("解析上传表单错误");
+            } catch (IOException var15) {
+                throw new BizException("IO错误");
+            }
+        }
+    }
+
+
+
+    private Map<String, Object> uploadBaiduScrawl(String baseCode) throws Exception {
+        String suffix = "jpg";
+        String[] baseCodes = baseCode.split(",");
+        if(baseCodes.length>1){
+            baseCode = baseCodes[1];
+        }
+        byte[] bytes = FileUtil.base64Upload(baseCode);
+        ImagesBase imagesBase = resourceBiz.findImagesBase();
+        String relativePath = FileUtil.getRelativePath(imagesBase.getBasePath(), suffix);
+        String absPath = StringUtils.concatUrl(imagesBase.getBasePath(), relativePath);
+        String urlPath = StringUtils.concatUrl(imagesBase.getBaseUrl(), relativePath);
+        Map<String, Object> map = FileUtil.compress(bytes, 0, 0, absPath, WatermarkEnum.notwatermark.getType());
+        if(StaticContants.IMAGESON != 1 ) {
+            File file = new File(absPath);
+            WeedfsResponse weedfsResponse = weedfsClient.upload(file);
+            map.put("url", weedfsResponse.getFileUrl());
+            map.put("type", "." + suffix);
+            map.put("original", "");
+            map.put("size", weedfsResponse.getSize());
+            file.delete();
+        } else {
+            map.put("url", urlPath);
+            map.put("type", "." + suffix);
+            map.put("original", "");
+            map.put("size", bytes.length);
+        }
+        map.put("title", relativePath.substring(relativePath.lastIndexOf("/")));
+        map.put("state", "SUCCESS");
+        return map;
+    }
+
+
 
 
     public static void main(String[] args) throws IOException, BizException {
