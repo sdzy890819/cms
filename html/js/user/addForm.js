@@ -1,5 +1,5 @@
-define(function(){
-	return [ //表单
+define(['../data/getData','../moduls/Tool'],function(getData,Tool){
+	var list =  [ //表单
 		{
 			title : 'title',
 			name : '上传头像',
@@ -34,6 +34,26 @@ define(function(){
 			placeholder : '请输入密码',
 			type : 'password', //text textarea radio checkbox edit
 			verify : 'password'
+		},
+		{
+			title : 'userGroup',
+			name : '请选择用户组',
+			type : 'checkbox', //text textarea radio checkbox edit
+			checkbox : []
+			//verify : 'password'
 		}
 	];
+	function getList(callback){
+		getData.position.listPosition({//部门
+			callback:function(_data){
+				$.each(list,function(i , obj){
+					if(obj.type=='checkbox'){
+						obj.checkbox = Tool.changeObjectName(_data.data,[{name:'positionName',newName:'name'}]);
+					}
+				})
+				callback(list);
+			}
+		});
+	}
+	return getList;
 })

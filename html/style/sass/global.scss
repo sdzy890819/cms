@@ -504,6 +504,13 @@ $leftWidth : 225px;
     .date{ cursor:pointer;}
     .layui-form-item{
         .layui-input-inline{ width:auto; 
+            .w100{ width:100%;}
+            .w120{ width:120px; }
+            .w135{ width:135px; }
+            .w140{ width:140px; }
+            .w150{ width:150px; }
+            .w180{ width:180px; }
+            .w220{ width:220px; }
             &.newselect{
                 .layui-select-title{ width:110px;}
             }

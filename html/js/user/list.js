@@ -81,14 +81,23 @@ define(['require',"app",'jquery',
 									}
 								});
         					},
-        					callback : function( list , callback ){ //返回获取的数据 用于操作  				
+        					callback : function( list , callback ){ //返回获取的数据 用于操作  	
 								callback(list);
 
-									  $.each(list, function(i, obj){
-									  	if (obj.type == 'password') {
-									  		obj.verify = null;
-									  	}
-									  })
+								  $.each(list, function(i, obj){
+								  	if (obj.type == 'password') {
+								  		obj.verify = null;
+								  	}
+								  })
+								function go(){
+									var checkbox = $('.layui-form-checkbox').parent().parent();
+									if(checkbox.length){
+										checkbox.remove();
+									}else{
+										setTimeout(go,1000/60);
+									}
+								}
+								go();
 								setTimeout(function(){
 									$('.layui-upload-button').unbind().click(function(){
 										upload.init({

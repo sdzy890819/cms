@@ -143,7 +143,8 @@ define(["app",'require','jquery','./moduls/directive'], function ( app , require
 			},
 			link : function($scope , element , arrt , controller){
 				var ele = $(element[0]);
-			      $scope.selects = [];
+			     $scope.selects = [];
+			     $scope.checkboxs = [];
 				layui.use(['form', 'layedit', 'laydate'], function(){
 					var form = layui.form()
 				 		,layer = layui.layer
@@ -287,6 +288,7 @@ define(["app",'require','jquery','./moduls/directive'], function ( app , require
 									data.field.html = html;
 								}catch(e){}
 								data.field.selects = $scope.selects;
+								data.field.checkboxs = $scope.checkboxs;
 								//if(data.nodeName!='A'){
 									$scope.$parent[event](data.field);
 								//}else{
@@ -347,6 +349,27 @@ define(["app",'require','jquery','./moduls/directive'], function ( app , require
 				  					}
 								})
 						  	});
+						  	form.on('checkbox',function(_obj){
+						  		var index = parseInt($(_obj.elem).attr('data-index')) , 
+						  			newobj;
+						  		$.each($scope.formdata.list,function( i , obj ){
+						  			if(this.type =='checkbox'){
+										if(_obj.elem.checked){
+											newobj = obj.checkbox[index];
+											newobj._index = index;
+											$scope.checkboxs.push(newobj);
+										}else{
+											var _obj1 = [];
+											$.each($scope.checkboxs,function( j , object ){
+												if(object._index != index){
+													_obj1.push(object);
+												}
+											});
+											$scope.checkboxs = _obj1;
+										}
+									}
+								})
+						  	})
 
 						},
 						selectRpeatDone : function(){ //更新 select

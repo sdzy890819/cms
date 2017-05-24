@@ -54,9 +54,6 @@
 
 					    <!-- 上传按钮 并不能上传需要点击事件 -->
 					    <div ng-if="obj.type=='file'" class="layui-box layui-upload-button" style="cursor:pointer" >
-					    	
-
-
 			    			<span ng-if="data['videoUrl']"  class="layui-upload-icon">    	
 					    		{{data['fileName']}}
 					    	</span>	
@@ -75,7 +72,7 @@
 					    <input ng-if="obj.type=='radio'" ng-repeat="item in obj.radio" ng-value='item.title' type="radio" title="{{item.name}}" name="{{obj.title}}"  ng-checked="data[obj.title]?(item.name==data[obj.title])?true:false:item.checked" repeat-finish='radioRpeatDone'>
 
 					    <!-- checkbox -->
-					    <input ng-if="obj.type=='checkbox'" ng-repeat="item in obj.checkbox" type="checkbox" name="{{obj.title}}" ng-value='{{item.title}}' ng-checked="{{item.checked}}" repeat-finish='checkboxRpeatDone'>
+					    <input ng-if="obj.type=='checkbox'" ng-repeat="(index , item) in obj.checkbox" type="checkbox" name="{{obj.title}}" title='{{item.name}}' data-index='{{index}}' ng-checked="{{item.checked}}" repeat-finish='checkboxRpeatDone'>
 
 					</div>
 					<!-- 不换行 -->

@@ -1,12 +1,5 @@
 define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 	var list = [ //表单		
-		{
-			title : 'lastModifyUserName',
-			name : '触发ID',
-			placeholder : '触发ID',
-			cls: "w3",
-			type : 'text'
-		},	
 
 		{
 			title : '触发类型',
@@ -15,12 +8,18 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 			],
 			name : '触发类型',
 			type : 'select',
-			cls : 'w180',		
+			cls : 'w140',		
 			select : [
 				[
 					{name:'请选择触发类型',title:'triggerTypeStr'}
 				]
 			]
+		},	
+		{
+			title : 'lastModifyUserName',
+			name : '触发ID',
+			placeholder : '触发ID',
+			type : 'text'
 		},	
 		{
 			title : '状态',
@@ -29,10 +28,10 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 			],
 			name : '状态',
 			type : 'select',
-			cls : 'w180',		
+			cls : 'w140',		
 			select : [
 				[
-					{name:'请选择触发类型',title:'statusStr'}
+					{name:'请选择发布状态',title:'statusStr'}
 				]
 			]
 		}
