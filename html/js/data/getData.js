@@ -2123,6 +2123,34 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					}
 				});
 			}							
+		},
+		publishInfo : {
+			list: function( obj ){
+				T.ajax({
+					url : URL.publishInfo.list , 
+					data : {
+						page:obj.page,
+						pageSize:obj.pageSize,
+						status:obj.status,//状态 
+						triggerId:obj.triggerId,//ID 对应的新闻、专题、碎片、推荐 的ID
+						triggerType:obj.triggerType//1|2|3|4 //新闻、专题、碎片、推荐 
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});
+			},
+			detail: function( obj ){
+				T.ajax({
+					url : URL.publishInfo.detail , 
+					data : {
+						id : obj.id
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				});
+			}						
 		}
 	}
 	return public;

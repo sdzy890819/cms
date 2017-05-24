@@ -132,7 +132,7 @@ define(['require',"app",'jquery'
         					callback : function(list , callback ){ //返回获取的数据 用于操作        						
 										$.each(list,function( i , obj){
 											if(obj.title == 'content'){
-												obj.width = '600px';
+												obj.width = '800px';
 											}
 											if(obj.type=='select'){
 

@@ -3,14 +3,14 @@ define(['require',"app",'jquery','search','./searchForm'
 	,'formlist','fixedNav','position'
 	,'../moduls/service','../moduls/factory'
 ], function ( require , app , $ , search , searchForm , list , editPop ,getData , Tool  ) {
-	app.directive('newsList',function(){
+	app.directive('publishinfoList',function(){
 		return {
 	    	restrict : 'E',
 	    	replace : true,
 	    	transclude : true,
 	        templateUrl : '../template/common/list.html',
-	        controller : function($scope,pop,$uibModal , $css , GenerateArrList, $state){
-				$scope.title = "新闻列表";
+	        controller : function($scope,pop,$uibModal , $css , GenerateArrList, $state , $timeout){
+				$scope.title = "日志列表";
 				$scope.$parent.menu.push({name:$scope.title}); //栏目
 				angular.extend($scope,{
 					isSearch : false, //是否是执行搜索
@@ -21,21 +21,12 @@ define(['require',"app",'jquery','search','./searchForm'
 							getDataList();
 						}
 					},
-					edit : function( obj ){ //保存
+					/*edit : function( obj ){ //保存
 						obj.size = 'news';
 						function getAddForm(callback , formList){ //填充数据
-							getData.news.newsdetail({
+							getData.publishInfo.detail({
 								id : obj.id,
 								callback : function(_data){
-									if (_data.data.timer) {
-										_data.data.writeTime = new Date(_data.data.timer).format('yyyy-MM-dd h:m:s');										
-									}else {
-										_data.data.writeTime = '';
-									}
-
-									if (_data.data.editPublishTime) {
-										_data.data.editPublishTime = new Date(_data.data.editPublishTime).format('yyyy-MM-dd h:m:s');
-									}
 									if(formList){ //如果有1条以上的字段则显示
 										var maxNum , index = 2 , 
 											title , name, inputMaxNum,type,
@@ -151,9 +142,6 @@ define(['require',"app",'jquery','search','./searchForm'
 													var layer = layui.layer;
 													layer.msg(_data.message);
 													$scope.getNewList();
-													 /*setTimeout(function(){
-													 	$state.reload();
-													 },300);*/
 												});
 											}
 										});
@@ -161,7 +149,7 @@ define(['require',"app",'jquery','search','./searchForm'
         					callback : function( list , callback ){ //返回获取的数据 用于操作  				
 								$.each(list,function( i , obj){
 									if(obj.title == 'content'){
-										obj.width = '800px';
+										obj.width = '650px';
 									}		
 
 									if(obj.type=='select'){
@@ -204,153 +192,15 @@ define(['require',"app",'jquery','search','./searchForm'
         					},
         					$uibModal :$uibModal 
         				});
-					},
-					rescind : function(obj){ //撤销
-                        obj.callback = function(_data){//撤销除成功
-                            layui.use(['layer'], function(){
-                                var layer = layui.layer;
-                                layer.msg(_data.message);
-                                                                                                
-                                if(_data.code == 0) {                                   
-                                    $('table').find("tr[data-id=" + obj.id + "]").hide();
-                                    $scope.getNewList();
-                                }
-
-                            });
-                        };
-                        pop.alert({
-                             text:'您确定要撤销"'+obj.title+'"吗'
-                            ,btn : ['确定','取消']
-                            ,fn : function(){
-                                getData.news.rescind(obj);
-                            }
-                        })
-                    },
-                    recover : function(obj){ //恢复
-                        obj.callback = function(_data){//恢复成功
-                            layui.use(['layer'], function(){
-                                var layer = layui.layer;
-                                layer.msg(_data.message);
-                                                                                                
-                                if(_data.code == 0) {                                   
-                                    $('table').find("tr[data-id=" + obj.id + "]").hide();
-                                }
-
-                            });
-                        };
-                        pop.alert({
-                             text:'您确定要恢复"'+obj.title+'"吗'
-                            ,btn : ['确定','取消']
-                            ,fn : function(){
-                                getData.news.recover(obj);
-                            }
-                        })
-                    },
-                    preview : function(obj){ //预览
-                        getData.news.preview(obj);
-                    },
-
-					recommend : function (obj) {
-						var newsId = obj.id;
-						require(['./recommendForm'], function(recommendFormList){
-							function getAddForm(callback){
-								getData.news.recommendNewsInfo({
-									id : obj.id,
-									callback : function(_data){										
-										callback(_data);
-									}
-								})
-							}
-							editPop.init({
-								obj : obj,
-								$uibModal : $uibModal,
-								list : recommendFormList,
-								updateData : getAddForm,
-
-								save : function(obj,_detail){		
-									var recommendColumnId = _detail.recommendColumnId;									
-									$.each(obj.selects,function(){										
-										if(this.title == 'recommendColumnId'){
-											recommendColumnId = this.id;
-										}										
-									})
-
-									if(recommendColumnId == undefined) {											
-										alert('请选择推荐栏目');
-										return;
-									}							
-									
-									getData.news.recommend({
-										id : newsId,
-										recommendTitle : obj.recommendTitle,
-										recommendDescription : obj.recommendDescription,
-										recommendImages : obj.recommendImages,
-										recommendColumnId : recommendColumnId,
-										sort : obj.sort,
-
-										callback : function(_data){
-											layui.use(['layer'], function(){
-												var layer = layui.layer;
-												layer.msg(_data.message);
-												// setTimeout(function(){
-												// 	location.reload();
-												// },300);
-											});											
-										}
-									})						
-								},
-
-								callback : function(list, callback){									
-									callback(list);
-								}
-
-							})
-						})
-					},
-
+					},*/
+					
 					info : function( obj ){ //详情
 						pop.alert({
 	 						 text:'去相关页面，因为还没有页面所以这样提示：<br>ID为：'+obj.id
 	 						,btn : ['确定','取消']
 	 					})
 					},
-					del : function( obj ){ //保存
-						obj.callback = function(_data){//删除成功
-							layui.use(['layer'], function(){
-								var layer = layui.layer;
-								layer.msg(_data.message);
-																								
-								if(_data.code == 0) {									
-									$('table').find("tr[data-id=" + obj.id + "]").hide();
-								}
-
-							});
-						};
-						pop.alert({
-	 						 text:'您确定要删除"'+obj.title+'"吗'
-	 						,btn : ['确定','取消']
-	 						,fn : function(){
-	 							getData.news.delNews(obj);
-							}
-	 					})
-					},
-
-					publish : function(obj){
-						obj.callback = function(_data){//删除成功
-							layui.use(['layer'], function(){
-								var layer = layui.layer;
-								layer.msg(_data.message);
-								//$state.reload();
-							});
-						};
-						pop.alert({
-	 						 text:'您确定要发布"'+obj.title+'"吗'
-	 						,btn : ['确定','取消']
-	 						,fn : function(){
-	 							getData.news.publish(obj);	 								 							
-							}
-	 					})						
-					}
+					
 				});
 				/*$scope.navEdit = { //导航操作按钮
 					//nav : [selectAll],
@@ -368,31 +218,23 @@ define(['require',"app",'jquery','search','./searchForm'
 					]
 				}*/
 
+				/*每一条可以点击详情 查看详情信息。
+详情信息展示所有的字段。
+0. 日志：id。 1。 触发类型 triggerTypeStr 2. 触发ID：triggerId 3. 触发的模版：templateTypeStr、4. 模版ID：templateId 5. 状态：statusStr 6. 创建时间
+少个时间。
+可以去掉 0 */
+
 				function setList(_data){
 
-					var th = [
-						{name:'文章ID' , key:'id' , width : '50'},		
-						{name:'所属栏目' , key:'channelAndColumnName' , width : '70'},					
-						{name:'标题' , key:'title'},								
-						{name:'作者' , key:'author' , width: '40', class: 'center'},
-						{name:'发布人' , key:'buildUserName' , width: '55', class: 'center'},
-						{name:'修改人' , key:'lastModifyUserName' , width: '55', class: 'center'},
-						{name:'媒体来源' , key:'source' , width: '80', class: 'center'},
-												
-						{name:'发布时间' , key:'buildTimeStr' , width : '80', class: 'center'},
-						{name:'修改时间' , key:'updateTimeStr' , width : '80', class: 'center'},
-						{name:'状态' , key:'publishStr' , width: '50', class: 'center'},
-						{name:'操作' , width : '40' , class: 'center'},
-						{name:'预览' , width : '50' , class: 'center'},
-						{name:'权限' , width : '40' , class: 'center'}
+					var th = [	
+						{name:'触发类型' , key:'triggerTypeStr' , width : '70'},					
+						{name:'触发ID' , key:'triggerId' , width: '50', class: 'center'},
+						{name:'触发的模版' , key:'templateTypeStr'},								
+						{name:'模版ID' , key:'templateId' , width: '80', class: 'center'},
+						{name:'状态' , key:'statusStr' , width: '155', class: 'center'},
+						{name:'操作' , width : '40' , class: 'center'}
 					];
 					
-					$.each(_data.data.list, function(i, obj){
-						obj.channelAndColumnName = [obj.channelName, obj.columnName].join('-');
-						if(Tool.getByteLen(obj.author)>6){
-							obj.author = Tool.getByteVal(obj.author,6)
-						}
-					})
 			
 					$scope.listdata = { //确认按钮
 						title : $scope.title + "（共" + _data.data.page.count + "条数据）",
@@ -402,17 +244,10 @@ define(['require',"app",'jquery','search','./searchForm'
 							td : GenerateArrList.setArr(_data.data.list, th) ,
 							edit : [																
 								{cls : '' , name : '编辑',evt:$scope.edit},
-								{cls : '' , name : ' 推荐',evt:$scope.recommend},
+								//{cls : '' , name : ' 推荐',evt:$scope.recommend},
 								//{cls : 'edit' , name : ' 预览',evt:$scope.preview}
 								//{cls : 'zoom_in' , name : '预览',href:'/webapi/news/preview/'}
 								// {cls : 'del' , name : '删除',evt:$scope.del}
-							],
-							edit1 : [												
-								{cls : 'zoom_in' , name : '预览',href:'/webapi/news/preview/'}
-							],
-							permission : [
-								{cls : 'del' , name : ' 撤销',evt:$scope.rescind},
-								{cls : 'del' , name : '删除',evt:$scope.del}
 							]
 
 						},
@@ -437,10 +272,55 @@ define(['require',"app",'jquery','search','./searchForm'
 					})
 
 					GenerateArrList.extendType($scope.listdata.table.td,th,['width','name','key']); //把TH 中的出name,key,width属性以外的属性合传给td							
-      				GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');			        		
-      				GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit1,'edit1');			        		
-      				GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.permission,'permission');
-      				$scope.$apply();						
+      				GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
+      				$scope.$apply();
+
+      				$timeout(function(){
+      					$('.form-horizontal .table tr').each(function( i ){
+      						var td = $(this).find('td:first') , 
+      							obj = $scope.listdata.table.td;
+      						td.click(function(){
+      							require(['../common/editPopList'],function(editPopList){
+									obj.size = 'sm';
+									function getList(callback){ //填充数据
+										getData.publishInfo.detail({
+											id : obj[i].id,
+											callback : function(_data){
+												var th = [
+					                                {name:'模板标题' , key:'templateName'},
+					                                {name:'模版类型' , key:'templateClassifyStr',width:100},
+					                                {name:'操作' , class:'center'}
+					                            ];
+					                            var listdata = { //确认按钮
+					                                title : '对应模版',
+					                                table : {
+					                                    th : th,
+					                                    td : GenerateArrList.setArr(_data.data,th) ,
+					                                    edit : [
+					                                        {cls : 'del' , name : '删除',evt:del}
+					                                    ]
+					                                },
+					                            }
+					                            GenerateArrList.extendChild(listdata.table.td,listdata.table.edit,'edit');
+												
+					                            $.each(listdata.table.td,function( i , item ){
+													if (item.publish==1) {
+														item.list[1].href = '/webapi/template/redirect/'+item.id;
+													}
+								        		});
+												callback(_data , listdata);
+											}
+										})
+									}
+									editPopList.init({
+			        					obj : null,
+			        					list : getList,
+			        					$uibModal :$uibModal 
+			        				});
+								})
+      						})
+      					})
+      				},500)
 				}
 
 				//搜索
@@ -449,30 +329,6 @@ define(['require',"app",'jquery','search','./searchForm'
 						$.each(data,function( i , obj){
 							if(obj.type=='select'){
 								obj.callback = function( _object ){
-									if(_object.title == 'categoryId'){
-										getData.channel.currentChannelList({
-											categoryId : _object.obj.id,
-											callback : function(_data){
-												var arr = [obj.select[1][0]];
-												obj.select[1] = arr;
-												obj.select[1] = obj.select[1].concat(Tool.changeObjectName(_data.data,[{name:'channelName',newName:'name'}]));
-							
-												$scope.$apply();
-												_object.callback();
-											}
-										})
-									}else if(_object.title == 'channelId'){
-										getData.news.newscolumnlist({
-											channelId : _object.obj.id,
-											callback : function(_data){
-												var arr = [obj.select[2][0]];
-												obj.select[2] = arr;
-												obj.select[2] = obj.select[2].concat(Tool.changeObjectName(_data.data,[{name:'columnName',newName:'name'}]));
-												$scope.$apply();
-												_object.callback();
-											}
-										})
-									}
 								}
 							}
 						});
@@ -487,39 +343,22 @@ define(['require',"app",'jquery','search','./searchForm'
 							},							
 							submit : function( obj , data ){
 								$scope.isSearch = true;
-								var page = 1 , channelId , columnId , categoryId , publish;
+								var page = 1 , status , triggerType;
                                 $.each(obj.selects,function(){
-                                    if(this.title == 'channelId'){
-                                        channelId = this.id;
+                                    if(this.title == 'statusStr'){
+                                        status = this.id;
                                     }
-                                    if(this.title == 'columnId'){
-                                        columnId = this.id;
-                                    }
-                                    if(this.title == 'categoryId'){
-                                        categoryId = this.id;
-                                    }
-                                    if(this.title == 'publish'){
-                                        publish = this.id;
+                                    if(this.title == 'triggerTypeStr'){
+                                        triggerType = this.id;
                                     }
                                 });
 								function getSearchList(){
-									getData.search.searchNew({
-										"newsId" : obj.newsId,
-										"buildUserName" : obj.buildUserName,
-										"lastModifyUserName" : obj.lastModifyUserName,
-										"condition":obj.condition,
-										"author":obj.author,
-										"source":obj.source,
-										"categoryId":categoryId,//部门分类ID
-										"channelId":channelId,//频道ID
-										"columnId":columnId,//栏目ID
-										"platform":obj.platform, //平台,
-										"startTime":obj.startTime,//创建时间
-										"endTime":obj.endTime,//创建时间
-										publish : publish,
-										delTag : 1,
-										page : page,
-										pageSize : 20,
+									getData.publishInfo.list({
+										page:page,
+										pageSize:20,
+										status:status,//状态 
+										triggerId:obj.lastModifyUserName,//ID 对应的新闻、专题、碎片、推荐 的ID
+										triggerType:triggerType,//1|2|3|4 //新闻、专题、碎片、推荐 
 										callback : function(_data){
 											//分页
 											$scope.page = _data.data.page;
@@ -553,9 +392,9 @@ define(['require',"app",'jquery','search','./searchForm'
 
 				var page = 1;
 
-				function getDataList(){					
+				function getDataList(){
 					$scope.isSearch = false;
-					getData.news.newslist({
+					getData.publishInfo.list({
 						page : page,
 						pageSize : 20,
 						callback : function(_data){
