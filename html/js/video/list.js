@@ -104,7 +104,7 @@ define(['require',"app",'jquery'
 						function setList(_data){
 							var th = [
 										{name:'ID' , key: 'id', width : '50'},
-										{name:'视频标题' , key: 'videoTitle', width : '100'},												
+										{name:'视频标题' , key: 'videoTitle', width : 180},												
 										{name:'视频链接URL', key: 'videoUrl' },
 										{name: '创建人', key: 'createUserName' , width:60},
 					                    {name: '创建时间', key: 'createTimeStr' , width:80},

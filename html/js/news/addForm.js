@@ -31,7 +31,36 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 				name : '作者',
 				placeholder : '请输入作者',
 				type : 'text',
+				//verify : 'required'
+			},
+			{
+				title : 'source',
+				name : '来源',
+				placeholder : '请输入作者来源',
+				type : 'text',
 				verify : 'required'
+			}
+		],
+		[
+			{
+				title : 'keyword',
+				name : '推送栏目',
+				type : 'select',
+				selectName : [
+					'categoryId'
+				],
+				name : '选择频道栏目',
+				select : [
+					[
+						{name:'请选择部门',title:'categoryId'}
+					]
+				]
+			},
+			{
+				title : 'author',
+				name : '股票代码',
+				placeholder : '股票代码'
+				//verify : 'required'
 			},
 			{
 				title : 'source',

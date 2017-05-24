@@ -22,6 +22,22 @@ define(["app",'jquery','./data/getData','./moduls/directive'], function ( app,$,
 				        		column = $(element[0]).find('.option >ul >li >a') , 
 				        		submenu = $(element[0]).find('.sub-menu a');
 
+				        	$('.sub-menu li a').click(function(){ //刷新
+				        		var myhref = $(this).attr('ui-sref') , 
+				        			href = window.location.href.match(/\#[\w|\/]+/);
+
+				        		try{
+				        			href = href[0].replace('#/','');
+				        			href = href.replace(/\//g,'.');
+				        			if(href == myhref){
+				        				location.reload();
+				        			}
+				        		}catch(e){
+
+				        		}
+				        		
+				        	});
+
 				        	element = $(element[0]);
 				        	function getHeight(){
 				        		var body = $('body'),
@@ -72,7 +88,6 @@ define(["app",'jquery','./data/getData','./moduls/directive'], function ( app,$,
 					        			nameAr = name.split('.'),
 					        			len = nameAr.length-1,  //总长度
 					        			parent = $(this).parent();
-
 					        		parent.removeClass('cur');
 					        		
 					        		if(aName == name){

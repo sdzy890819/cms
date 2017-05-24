@@ -373,6 +373,7 @@ $leftWidth : 225px;
 .modal.in .modal-dialog{
     &.modal-news{
         width:98%;
+        .imagePre{ display:none;}
     }
 }
 .boxtab{

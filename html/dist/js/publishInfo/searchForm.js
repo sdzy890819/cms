@@ -1,0 +1,1 @@
+define(function(){return function(callback){callback([{title:"condition",name:"关键字",placeholder:"请输入关键字",type:"text"}])}});

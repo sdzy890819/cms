@@ -334,6 +334,18 @@ define(["angular", "angularAMD","angularFileUpload","angular-ui-router",'angular
                 controllerUrl: 'statistics/list'
             }))
 
+            //发布日起
+            .state('publishinfo', angularAMD.route({
+                url: '/publishInfo',
+                templateUrl: 'template/common/index.html',
+                controllerUrl: 'publishInfo/index'
+            }))
+            .state('publishInfo.list', angularAMD.route({
+                url: '/list',
+                template: '<publishInfo-list></publishInfo-list>',
+                controllerUrl: 'publishInfo/list'
+            }))
+
     }]);
 
     layui.config({
