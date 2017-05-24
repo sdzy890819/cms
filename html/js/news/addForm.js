@@ -53,6 +53,7 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 				title : 'push',
 				name : '推送栏目',
 				type : 'select',
+				cls : 'w150 hide-select tuisonglanmu',
 				selectName : [
 					'push'
 				],
@@ -66,12 +67,13 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 				title : 'ispush',
 				name : '已推送',
 				type : 'select',
+				cls : 'w150 hide-select istuisong',
 				selectName : [
-					'push'
+					'ispush'
 				],
 				select : [
 					[
-						{name:'请选择推送栏目',title:'push'}
+						{name:'暂无',title:'ispush'}
 					]
 				]
 			}

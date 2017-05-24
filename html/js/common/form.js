@@ -375,6 +375,11 @@ define(["app",'require','jquery','./moduls/directive'], function ( app , require
 						selectRpeatDone : function(){ //更新 select
 							setTimeout(function(){
 								form.render('select');
+								var hide = $('.hide-select');
+								if(hide.length){
+									hide.find('.layui-form-select').remove();
+									hide.find('select').show();
+								}
 							},100)
 						},
 						checkboxRpeatDone : function(){ //更新 checkbox

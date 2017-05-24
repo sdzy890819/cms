@@ -91,6 +91,30 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 				// 	]
 				// }
 
+				//推送栏目
+				function istuisong(){
+					var _istuisong = $('.istuisong');
+					if(_istuisong.length){
+						var select = _istuisong.find('select');
+						//select.find('option:first').remove();
+						select.attr({size:5})
+					}else{
+						setTimeout(istuisong,20);
+					}
+				}
+				function tuisong(){
+					var tuisonglanmu = $('.tuisonglanmu');
+
+					if(tuisonglanmu.length){
+						var select = tuisonglanmu.find('select');
+						select.find('option:first').remove();
+						select.attr({size:5});
+						istuisong();
+					}else{
+						setTimeout(tuisong,20);
+					}
+				}
+
 				getList(function(list){
 					$.each(list,function( i , obj){
 						if(obj.title == 'content'){
@@ -193,6 +217,7 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 						]
 					}
 					$scope.$apply();
+					tuisong();
 				})
 	        }
 

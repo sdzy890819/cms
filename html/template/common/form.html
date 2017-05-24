@@ -93,9 +93,12 @@
 							<textarea ng-if="item.type=='textarea'" class="layui-textarea text w80 {{item.cls}}" name="{{item.title}}" lay-verify="content" placeholder="{{item.placeholder}}">{{data[item.title]}}</textarea>
 
 						    <!-- select -->
-					      	<select ng-if="item.type=='select'" name="{{item.selectName[$index]}}" ng-repeat="select in item.select"  repeat-finish='selectRpeatDone'>
-					        	<option lay-verify="{{item.verify}}" ng-repeat="option in select" ng-selected="option.id && option.id==data[select[0].title]">{{option.name}}</option>
-					     	</select>
+						    <div ng-if="item.type=='select'" ng-repeat="select in item.select"  repeat-finish='selectRpeatDone' class='{{item.cls}}'>
+						      	<select name="{{item.selectName[$index]}}">
+						        	<option lay-verify="{{item.verify}}" ng-repeat="option in select" ng-selected="option.id && option.id==data[select[0].title]">{{option.name}}</option>
+						     	</select>
+					     	</div>
+					     	<!-- select -->
 
 						    <!-- 时间 -->
 						    <input ng-if="item.type=='date'" ng-value="data[item.title]" type="text" name="{{item.title}}" id="date"placeholder="{{item.placeholder}}" readonly='readonly' autocomplete="off" class="layui-input date {{item.cls||'w220'}}" ng-click="selectDate($event)"><!--  lay-verify="date"  -->
