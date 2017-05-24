@@ -114,10 +114,11 @@ define(['require', "app", 'jquery', 'search', './searchForm', '../data/getData',
                     }, {
                         name: '图片标题',
                         key: 'imageTitle',
-                        width:70
+                        width:180
                     }, {
                         name: '图片地址',
                         key: 'imageUrl',
+                        width:60
                     }, {
                         name: '预览图',
                         key: 'imageUrl',

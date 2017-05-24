@@ -43,31 +43,37 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 		],
 		[
 			{
-				title : 'keyword',
+				title : 'stock',
+				name : '股票代码',
+				placeholder : '股票代码',
+				type : 'text'
+				//verify : 'required'
+			},
+			{
+				title : 'push',
 				name : '推送栏目',
 				type : 'select',
 				selectName : [
-					'categoryId'
+					'push'
 				],
-				name : '选择频道栏目',
 				select : [
 					[
-						{name:'请选择部门',title:'categoryId'}
+						{name:'请选择推送栏目',title:'push'}
 					]
 				]
 			},
 			{
-				title : 'author',
-				name : '股票代码',
-				placeholder : '股票代码'
-				//verify : 'required'
-			},
-			{
-				title : 'source',
-				name : '来源',
-				placeholder : '请输入作者来源',
-				type : 'text',
-				verify : 'required'
+				title : 'ispush',
+				name : '已推送',
+				type : 'select',
+				selectName : [
+					'push'
+				],
+				select : [
+					[
+						{name:'请选择推送栏目',title:'push'}
+					]
+				]
 			}
 		],
 		{
@@ -150,15 +156,28 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 	function getList(callback){
 		getData.category.listCategory({//部门
 			callback:function(_data){
-				$.each(list,function(i , obj){
-					if(obj.type=='select'){
-						if(obj.select[0][0].title=='categoryId'){
-							obj.select[0] = [obj.select[0][0]];
-							obj.select[0] = obj.select[0].concat(Tool.changeObjectName(_data.data,[{name:'categoryName',newName:'name'}]));
-							callback(list);
-						}
+				getData.news.relationColumnList({
+					callback:function(_data1){
+						$.each(list,function(i , obj){
+							if($.type(obj)=='array'){
+								$.each(obj,function(i , obj1){
+									if(obj1.type=='select'){
+										if(obj1.select[0][0].title=='push'){
+											obj1.select[0] = [obj1.select[0][0]];
+											obj1.select[0] = obj1.select[0].concat(Tool.changeObjectName(_data1.data[0].list,[{name:'columnName',newName:'name'}]));
+										}
+									}
+								})
+							}else if(obj.type=='select'){
+								if(obj.select[0][0].title=='categoryId'){
+									obj.select[0] = [obj.select[0][0]];
+									obj.select[0] = obj.select[0].concat(Tool.changeObjectName(_data.data,[{name:'categoryName',newName:'name'}]));
+								}
+							}
+						})
+						callback(list);
 					}
-				})
+				});
 			}
 		});
 	}
