@@ -200,6 +200,24 @@ define(['require',"app",'jquery','search','./searchForm'
 	 						,btn : ['确定','取消']
 	 					})
 					},
+					look : function( obj ){ //详情
+						require(['./showDetial'],function(editPopList){
+							obj.size = 'sm';
+							function getList(callback){ //填充数据
+								getData.publishInfo.detail({
+									id : obj.id,
+									callback : function(_data){
+										callback(_data);
+									}
+								})
+							}
+							editPopList.init({
+	        					obj : null,
+	        					list : getList,
+	        					$uibModal :$uibModal 
+	        				});
+						});
+					}
 					
 				});
 				/*$scope.navEdit = { //导航操作按钮
@@ -218,7 +236,7 @@ define(['require',"app",'jquery','search','./searchForm'
 					]
 				}*/
 
-				/*每一条可以点击详情 查看详情信息。
+				/* 每一条可以点击详情 查看详情信息。
 详情信息展示所有的字段。
 0. 日志：id。 1。 触发类型 triggerTypeStr 2. 触发ID：triggerId 3. 触发的模版：templateTypeStr、4. 模版ID：templateId 5. 状态：statusStr 6. 创建时间
 少个时间。
@@ -227,11 +245,12 @@ define(['require',"app",'jquery','search','./searchForm'
 				function setList(_data){
 
 					var th = [	
+						{name:'id' , key:'id' , width : '70'},					
 						{name:'触发类型' , key:'triggerTypeStr' , width : '70'},					
-						{name:'触发ID' , key:'triggerId' , width: '50', class: 'center'},
+						{name:'触发ID' , key:'triggerId' , width: '80', class: 'center'},
 						{name:'触发的模版' , key:'templateTypeStr'},								
 						{name:'模版ID' , key:'templateId' , width: '80', class: 'center'},
-						{name:'状态' , key:'statusStr' , width: '155', class: 'center'},
+						{name:'操作信息' , key:'message' , width: '160', class: 'center'},
 						{name:'操作' , width : '40' , class: 'center'}
 					];
 					
@@ -243,7 +262,7 @@ define(['require',"app",'jquery','search','./searchForm'
 							th : th,									
 							td : GenerateArrList.setArr(_data.data.list, th) ,
 							edit : [																
-								{cls : '' , name : '编辑',evt:$scope.edit},
+								{cls : '' , name : '查看',evt:$scope.look},
 								//{cls : '' , name : ' 推荐',evt:$scope.recommend},
 								//{cls : 'edit' , name : ' 预览',evt:$scope.preview}
 								//{cls : 'zoom_in' , name : '预览',href:'/webapi/news/preview/'}
@@ -275,7 +294,7 @@ define(['require',"app",'jquery','search','./searchForm'
       				GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
       				$scope.$apply();
 
-      				$timeout(function(){
+      				/*$timeout(function(){
       					$('.form-horizontal .table tr').each(function( i ){
       						var td = $(this).find('td:first') , 
       							obj = $scope.listdata.table.td;
@@ -320,7 +339,7 @@ define(['require',"app",'jquery','search','./searchForm'
 								})
       						})
       					})
-      				},500)
+      				},500)*/
 				}
 
 				//搜索
