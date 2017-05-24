@@ -160,7 +160,7 @@ public class TAGList extends Directive {
         if(size == null || size == 0){
             size = StaticContants.TEMPLATE_SIZE;
         }
-        Page pageObj = new Page(page, size, count);
+        Page pageObj = new Page(page, size);
         TAGListTypeEnum tagListTypeEnum = TAGListTypeEnum.get(type);
         List<?> list = null;
         switch (tagListTypeEnum){
@@ -187,6 +187,9 @@ public class TAGList extends Directive {
             default:{
                 break;
             }
+        }
+        if(pageObj.getCount()!=null && pageObj.getCount()>count){
+            pageObj.setCount(count);
         }
         context.put(resultObjName, list);
         context.put("page" , pageObj);

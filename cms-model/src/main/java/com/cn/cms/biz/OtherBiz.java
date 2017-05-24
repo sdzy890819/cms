@@ -32,8 +32,14 @@ public class OtherBiz {
             if(tmp.indexOf("LIMIT")>0){
                 content = content.substring(0,tmp.indexOf("LIMIT"));
             }
-            content = content.concat(" LIMIT ").concat(String.valueOf(page.getStart())).concat(",").concat(String.valueOf(page.getPageSize()));
-            return otherService.execSql(content);
+            String countContent = "SELECT COUNT(1) " + content.substring(content.indexOf("FROM"), content.length());
+
+            String limitContent = content.concat(" LIMIT ").concat(String.valueOf(page.getStart())).concat(",").concat(String.valueOf(page.getPageSize()));
+            Integer count = otherService.execSqlCount(countContent);
+            page.setCount(count);
+            if(page.isQuery()) {
+                return otherService.execSql(limitContent);
+            }
         }
         return null;
     }

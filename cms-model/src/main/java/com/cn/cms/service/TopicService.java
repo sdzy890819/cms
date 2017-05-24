@@ -46,7 +46,11 @@ public interface TopicService {
 
     List<Topic> findTopicByClassify(Long topicClassifyId, Page page);
 
+    Integer findTopicByClassifyCount(Long topicClassifyId);
+
     List<Topic> findTopicByColumn(Long topicColumnId, Page page);
+
+    Integer findTopicByColumnCount(Long topicColumnId);
 
     void publishTopic(Topic topic);
 

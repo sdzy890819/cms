@@ -23,7 +23,14 @@ public class OtherServiceImpl implements OtherService {
     }
 
     @Override
+    public Integer execSqlCount(String sql) {
+        return otherDao.execSqlCount(sql);
+    }
+
+    @Override
     public Map<String, Object> execSqlOne(String sql) {
         return otherDao.execSqlOne(sql);
     }
+
+
 }

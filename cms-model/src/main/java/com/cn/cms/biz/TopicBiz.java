@@ -148,7 +148,12 @@ public class TopicBiz extends BaseBiz {
      * @return
      */
     public List<Topic> findTopicByClassify(Long topicClassifyId, Page page){
-        return topicService.findTopicByClassify(topicClassifyId, page);
+        Integer count = topicService.findTopicByClassifyCount(topicClassifyId);
+        page.setCount(count);
+        if(page.isQuery()) {
+            return topicService.findTopicByClassify(topicClassifyId, page);
+        }
+        return null;
     }
 
     /**
@@ -158,7 +163,12 @@ public class TopicBiz extends BaseBiz {
      * @return
      */
     public List<Topic> findTopicByColumn(Long topicColumnId, Page page){
-        return topicService.findTopicByColumn(topicColumnId, page);
+        Integer count = topicService.findTopicByColumnCount(topicColumnId);
+        page.setCount(count);
+        if(page.isQuery()) {
+            return topicService.findTopicByColumn(topicColumnId, page);
+        }
+        return null;
     }
 
     /**

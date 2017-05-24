@@ -10,6 +10,8 @@ public interface OtherService {
 
     List<Map<String, Object>> execSql(String sql);
 
+    Integer execSqlCount(String sql);
+
     Map<String, Object> execSqlOne(String sql);
 
 }

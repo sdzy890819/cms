@@ -333,17 +333,16 @@ define(["angular", "angularAMD","angularFileUpload","angular-ui-router",'angular
                 template: '<statistics-list></statistics-list>',
                 controllerUrl: 'statistics/list'
             }))
-
-            //发布日起
+            //发布日志
             .state('publishinfo', angularAMD.route({
-                url: '/publishInfo',
+                url: '/publishinfo',
                 templateUrl: 'template/common/index.html',
-                controllerUrl: 'publishInfo/index'
+                controllerUrl: 'publishinfo/index'
             }))
-            .state('publishInfo.list', angularAMD.route({
+            .state('publishinfo.list', angularAMD.route({
                 url: '/list',
-                template: '<publishInfo-list></publishInfo-list>',
-                controllerUrl: 'publishInfo/list'
+                template: '<publishinfo-list></publishinfo-list>',
+                controllerUrl: 'publishinfo/list'
             }))
 
     }]);

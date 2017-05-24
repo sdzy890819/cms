@@ -112,8 +112,18 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
+    public Integer findTopicByClassifyCount(Long topicClassifyId) {
+        return topicDao.findTopicByClassifyCount(topicClassifyId);
+    }
+
+    @Override
     public List<Topic> findTopicByColumn(Long topicColumnId, Page page) {
         return topicDao.findTopicByColumn(topicColumnId, page);
+    }
+
+    @Override
+    public Integer findTopicByColumnCount(Long topicColumnId) {
+        return topicDao.findTopicByColumnCount(topicColumnId);
     }
 
     @Override

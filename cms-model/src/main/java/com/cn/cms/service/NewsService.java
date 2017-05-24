@@ -47,6 +47,8 @@ public interface NewsService {
 
     List<News> findNewsByColumnId(Long columnId, Page page);
 
+    Integer findNewsByColumnIdCount(Long columnId);
+
     void publishNews(News news);
 
     List<News> findNewsByAutoPublish(PublishEnum publishEnum, AutoPublishEnum autoPublishEnum, Date timer);
@@ -66,6 +68,8 @@ public interface NewsService {
     NewsRecommend findNewsRecommendManage(Long id);
 
     List<NewsRecommend> findListByRecommedColumnId(Long recommendColumnId, Page page);
+
+    Integer findListByRecommedColumnIdCount(Long recommendColumnId);
 
     void updateNewsRecommend(NewsRecommend newsRecommend);
 

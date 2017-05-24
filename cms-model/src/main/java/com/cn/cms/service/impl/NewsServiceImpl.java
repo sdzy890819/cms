@@ -189,6 +189,11 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
+    public Integer findNewsByColumnIdCount(Long columnId) {
+        return newsDao.findNewsByColumnIdCount(columnId);
+    }
+
+    @Override
     public void publishNews(News news) {
         newsDao.publishNews(news);
         sendIndex(news);
@@ -254,6 +259,11 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public List<NewsRecommend> findListByRecommedColumnId(Long recommendColumnId, Page page) {
         return newsDao.findListByRecommedColumnId(recommendColumnId, page);
+    }
+
+    @Override
+    public Integer findListByRecommedColumnIdCount(Long recommendColumnId) {
+        return newsDao.findListByRecommedColumnIdCount(recommendColumnId);
     }
 
     @Override

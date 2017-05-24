@@ -410,7 +410,12 @@ public class NewsBiz extends BaseBiz {
      * @return
      */
     public List<News> findNewsByColumnId(Long columnId, Page page){
-        return newsService.findNewsByColumnId(columnId, page);
+        Integer count = newsService.findNewsByColumnIdCount(columnId);
+        page.setCount(count);
+        if(page.isQuery()) {
+            return newsService.findNewsByColumnId(columnId, page);
+        }
+        return null;
     }
 
     /**
@@ -464,7 +469,12 @@ public class NewsBiz extends BaseBiz {
      * @return
      */
     public List<NewsRecommend> findListByRecommedColumnId(Long recommendColumnId, Page page){
-        return newsService.findListByRecommedColumnId(recommendColumnId, page);
+        Integer count = newsService.findListByRecommedColumnIdCount(recommendColumnId);
+        page.setCount(count);
+        if(page.isQuery()) {
+            return newsService.findListByRecommedColumnId(recommendColumnId, page);
+        }
+        return null;
     }
 
     public void recommendNews(NewsRecommend newsRecommend){
