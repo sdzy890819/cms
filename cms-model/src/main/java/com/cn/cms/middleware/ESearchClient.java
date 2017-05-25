@@ -65,6 +65,10 @@ public class ESearchClient {
 
     private Calendar calendar = Calendar.getInstance();
 
+    private String clusterName;
+
+    private String timeout;
+
 
     /**
      * 新闻检索
@@ -644,8 +648,8 @@ public class ESearchClient {
         try {
             Settings settings = Settings.builder()
                     .put("client.transport.sniff", false)
-                    .put("cluster.name", "cms-p5wc")
-                    .put("client.transport.ping_timeout", "20s").build();
+                    .put("cluster.name", clusterName)
+                    .put("client.transport.ping_timeout", timeout).build();
             this.client = new PreBuiltTransportClient(settings);
             if(clusterList!=null){
                 for(int i=0; i<clusterList.size(); i++){
