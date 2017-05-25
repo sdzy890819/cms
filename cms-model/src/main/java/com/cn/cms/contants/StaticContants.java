@@ -249,6 +249,12 @@ public class StaticContants {
 
     public static final String TEMPLATE_KEY_COLUMN = "column";
 
+    public static final String TEMPLATE_KEY_PAGE_DETAIL = "pageDetail";
+
+    public static final String TEMPLATE_KEY_CURRENT_FILE_NAME = "currentFileName";
+
+    public static final String TEMPLATE_KEY_CURRENT_FILE_SUFFIX = "currentFileSuffix";
+
     public static final int TEMPLATE_SIZE = 100;
 
     public static final int TEMPLATE_COUNT = 100;

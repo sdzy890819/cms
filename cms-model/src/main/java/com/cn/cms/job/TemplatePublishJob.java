@@ -51,6 +51,8 @@ public class TemplatePublishJob extends BaseTask {
      */
     private Integer page = StaticContants.PAGE;
 
+    private Page pageDetail;
+
     private Long channelId;
 
     private ChannelBiz channelBiz = ContextUtil.getContextUtil().getBean(ChannelBiz.class);
@@ -80,10 +82,13 @@ public class TemplatePublishJob extends BaseTask {
             Map<String, Object> map = new HashMap<>();
             map.put(StaticContants.TEMPLATE_KEY_TEMPLATE, templateBasics);
             map.put(StaticContants.TEMPLATE_KEY_DATA, base);
+            map.put(StaticContants.TEMPLATE_KEY_PAGE_DETAIL, pageDetail);
             map.put(StaticContants.TEMPLATE_KEY_PAGE, page);
             map.put(StaticContants.TEMPLATE_KEY_CHANNELID, channelId);
             map.put(StaticContants.TEMPLATE_KEY_PUBLISH_JOB_TYPE, MODEL);
             map.put(StaticContants.TEMPLATE_KEY_COLUMN, newsColumn);
+
+
             Channel channel ;
             String templatePath;
             if(templateBasics instanceof Template2){
@@ -104,6 +109,7 @@ public class TemplatePublishJob extends BaseTask {
                 publishRelativePath = FileUtil.getFileNameByPage(news.getRelativePath(), getPage());
                 publishPath = StringUtils.concatUrl(channel.getChannelPath(),publishRelativePath);
                 fromPath = StringUtils.concatUrl(templatePath, templateBasics.getPath(), templateBasics.getFilename());
+
             }else{
                 if(templateBasics instanceof Template2 && templateBasics.getTemplateClassify() == TemplateClassifyEnum.list.getType() && newsColumn != null){
                     publishRelativePath = StringUtils.concatUrl(templateBasics.getPath(), FileUtil.getFileNameByPage(newsColumn.getId().toString().concat(StaticContants.HTML_SUFFIX), getPage()));
@@ -116,6 +122,9 @@ public class TemplatePublishJob extends BaseTask {
 
                 fromPath = StringUtils.concatUrl(templatePath, templateBasics.getPath(), templateBasics.getFilename());
             }
+
+            map.put(StaticContants.TEMPLATE_KEY_CURRENT_FILE_NAME, FileUtil.getFileNamePrefix(publishPath));
+            map.put(StaticContants.TEMPLATE_KEY_CURRENT_FILE_SUFFIX, FileUtil.getFileNameSuffix(publishPath));
 
             if (lock(publishPath)) {
                 VelocityUtils.publish(map, fromPath,

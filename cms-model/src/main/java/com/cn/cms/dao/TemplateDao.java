@@ -35,6 +35,11 @@ public interface TemplateDao {
                                               @Param(value = "relationType") Integer relationType,
                                               @Param(value = "job") int job);
 
+    List<Template> findTemplateListByRelationNotDetail(@Param(value = "relationId") Long relationId,
+                                              @Param(value = "relationType") Integer relationType,
+                                              @Param(value = "job") int job);
+
+
     List<Template> findTemplateListByNewsPushColumnAndNotDetail(@Param(value = "newsId") Long newsId,
                                                           @Param(value = "relationType") Integer relationType,
                                                           @Param(value = "job") int job);

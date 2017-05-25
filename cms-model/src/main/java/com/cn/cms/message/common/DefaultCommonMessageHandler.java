@@ -14,8 +14,9 @@ public class DefaultCommonMessageHandler implements CommonMessageHandler {
     @Override
     public void handleMessage(CommonMessage message) {
         if(message != null){
-            log.info(message.toString());
+            log.info("消息队列接收到消息：" + message.toString());
         }else{
+            log.info("消息队列接收到消息：空!");
             return;
         }
 

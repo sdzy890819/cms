@@ -136,6 +136,17 @@ public class TemplateBiz extends BaseBiz {
         return templateService.findTemplateListByRelation(relationId, relationType);
     }
 
+    /**
+     * 根据对应关系查询需要更新的模版列表［不包含详情页］
+     * @param relationId
+     * @param relationType
+     * @return
+     */
+    public List<Template> findTemplateListByRelationNotDetail(Long relationId, Integer relationType){
+        return templateService.findTemplateListByRelationNotDetail(relationId, relationType);
+    }
+
+
     public List<Template> findTemplateListByNewsPushColumnAndNotDetail(Long newsId){
         return templateService.findTemplateListByNewsPushColumnAndNotDetail(newsId, RelationTypeEnum.column.getType());
     }

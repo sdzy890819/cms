@@ -50,6 +50,8 @@ public interface TemplateService {
 
     List<Template> findTemplateListByRelation(Long relationId, Integer relationType);
 
+    List<Template> findTemplateListByRelationNotDetail(Long relationId, Integer relationType);
+
     List<Template> findTemplateListByNewsPushColumnAndNotDetail(Long newsId, Integer relationType);
 
     void publishTemplate(List<Long> list);

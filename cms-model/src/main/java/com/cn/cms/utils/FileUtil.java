@@ -329,6 +329,37 @@ public class FileUtil {
     }
 
     /**
+     * 获取文件名前缀
+     * @param fileName
+     * @return
+     */
+    public static String getFileNamePrefix(String fileName){
+        if(StringUtils.isNotBlank(fileName) && fileName.indexOf(".")> -1){
+            String[] arr = fileName.split("\\.");
+            if(arr[0].indexOf("/")>-1){
+                return arr[0].substring(arr[0].lastIndexOf("/")+1);
+            }else if(arr[0].indexOf("\\") > -1) {
+                return arr[0].substring(arr[0].lastIndexOf("\\")+1);
+            }
+            return arr[0];
+        }
+        return null;
+    }
+
+    /**
+     * 获取文件名后缀
+     * @param fileName
+     * @return
+     */
+    public static String getFileNameSuffix(String fileName){
+        if(StringUtils.isNotBlank(fileName) && fileName.indexOf(".") > -1){
+            String[] arr = fileName.split("\\.");
+            return arr[1];
+        }
+        return null;
+    }
+
+    /**
      * 分页获取文件名，
      * @param fileName
      * @param page

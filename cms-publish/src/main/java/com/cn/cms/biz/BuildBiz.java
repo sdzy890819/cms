@@ -10,10 +10,7 @@ import com.cn.cms.logfactory.CommonLogFactory;
 import com.cn.cms.message.bean.Body;
 import com.cn.cms.message.common.CommonMessage;
 import com.cn.cms.po.*;
-import com.cn.cms.utils.FileUtil;
-import com.cn.cms.utils.HtmlUtils;
-import com.cn.cms.utils.RsyncUtils;
-import com.cn.cms.utils.StringUtils;
+import com.cn.cms.utils.*;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 
@@ -59,6 +56,8 @@ public class BuildBiz extends BaseBiz {
 
         CommonMessageSourceEnum sourceEnum = CommonMessageSourceEnum.get(commonMessage.getSource());
         Body body = JSONObject.parseObject(((JSONObject)commonMessage.getMessage()).toJSONString(),Body.class);
+        Base base = null;
+        List<Template> templates = null;
         switch (sourceEnum) {
             case NEWS: {
                 try {
@@ -75,6 +74,10 @@ public class BuildBiz extends BaseBiz {
                     if (StaticContants.rsyncRoot == StaticContants.RSYNC_ON) {
                         RsyncUtils.rsync(channel.getRsyncModelName(), StringUtils.delFirstPrefix(news.getRelativePath(), StaticContants.FILE_PATH_SP), StaticContants.rsyncRescindFile, channel.getChannelPath());
                     }
+                    //---获取涉及的所有模版[不包含详情页]
+                    templates = findTemplateForNewsNotDetail(news);
+                    this.publishTemplate2(news, false);
+                    base = news;
                     //--------
                     PublishInfo publishInfo = publishInfoBiz.recordInfo(PublishStatusEnum.RE_SUCCESS, body.getId(),
                             TriggerTypeEnum.NEWS, TemplateTypeEnum.NONE, null, null);
@@ -102,6 +105,7 @@ public class BuildBiz extends BaseBiz {
                 return;
             }
         }
+        this.publishTemplate(templates, base, sourceEnum);
     }
 
     /**
@@ -117,17 +121,9 @@ public class BuildBiz extends BaseBiz {
         switch (sourceEnum) {
             case NEWS: {
                 News news = newsBiz.findNewsAndDetail(body.getId());
-                templates = templateBiz.findTemplateListByRelation(news.getColumnId(), RelationTypeEnum.column.getType());
-                if(news.getPushTag() == PushTagEnum.YES.getType()) {
-                    List<Template> templates1 = templateBiz.findTemplateListByNewsPushColumnAndNotDetail(news.getId());
-                    if(templates!=null && templates1!=null){
-                        templates.addAll(templates1);
-                    }else if(templates==null && templates1!=null){
-                        templates = templates1;
-                    }
-                }
+                templates = findTemplateForNews(news);
                 this.publishNews(news, body);
-                this.publishTemplate2(news);
+                this.publishTemplate2(news, true);
                 base = news;
                 break;
             }
@@ -159,11 +155,37 @@ public class BuildBiz extends BaseBiz {
     }
 
 
+    public List<Template> findTemplateForNews(News news){
+        List<Template> templates = templateBiz.findTemplateListByRelation(news.getColumnId(), RelationTypeEnum.column.getType());
+        templates = findPushTemplate(news, templates);
+        return templates;
+    }
+
+    public List<Template> findPushTemplate(News news, List<Template> templates){
+        if(news.getPushTag() == PushTagEnum.YES.getType()) {
+            List<Template> templates1 = templateBiz.findTemplateListByNewsPushColumnAndNotDetail(news.getId());
+            if(templates!=null && templates1!=null){
+                templates.addAll(templates1);
+            }else if(templates==null && templates1!=null){
+                templates = templates1;
+            }
+        }
+        return templates;
+    }
+
+    public List<Template> findTemplateForNewsNotDetail(News news){
+        List<Template> templates = templateBiz.findTemplateListByRelationNotDetail(news.getColumnId(), RelationTypeEnum.column.getType());
+        templates = findPushTemplate(news, templates);
+        return templates;
+    }
+
+
+
     /**
      * 第二模版发布
      * @param news
      */
-    public void publishTemplate2(News news){
+    public void publishTemplate2(News news, boolean isContainDetail){
         if(news.getColumnId()!=null && news.getColumnId()>0) {
             NewsColumn newsColumn = newsBiz.getNewsColumn(news.getColumnId());
             if(newsColumn.getListTemplate2Id()!=null && newsColumn.getListTemplate2Id() > 0){
@@ -183,10 +205,9 @@ public class BuildBiz extends BaseBiz {
                 templatePublishJob.setPublishInfo(publishInfo);
                 //--------
                 threadTaskExecutor.execute(templatePublishJob);
-
-
             }
-            if(newsColumn.getDetailTemplate2Id() != null && newsColumn.getDetailTemplate2Id() > 0){
+
+            if( isContainDetail && newsColumn.getDetailTemplate2Id() != null && newsColumn.getDetailTemplate2Id() > 0){
                 Template2 template2 = template2Biz.getTemplate2(newsColumn.getDetailTemplate2Id());
                 String[] contents = HtmlUtils.splitNewsContent(news.getNewsDetail().getContent());
                 //---------------
@@ -194,6 +215,7 @@ public class BuildBiz extends BaseBiz {
                         TriggerTypeEnum.NEWS, TemplateTypeEnum.TEMPLATE2, template2.getId(), null);
                 //---------------
                 for(int i = 0; i< contents.length; i++) {
+                    Page pageDetail = new Page(i+1, 1, contents.length);
                     News publishNews = new News(news);
                     publishNews.getNewsDetail().setContent(contents[i]);
                     TemplatePublishJob templatePublishJob = new TemplatePublishJob();
@@ -201,6 +223,7 @@ public class BuildBiz extends BaseBiz {
                     templatePublishJob.setChannelId(news.getChannelId());
                     templatePublishJob.setNewsColumn(newsColumn);
                     templatePublishJob.setPage(i + 1);
+                    templatePublishJob.setPageDetail(pageDetail);
                     templatePublishJob.setBase(publishNews);
                     //--------
                     templatePublishJob.setPublishInfo(publishInfo);
@@ -242,7 +265,6 @@ public class BuildBiz extends BaseBiz {
                             templatePublishJob.setPublishInfo(publishInfo);
                             //--------
                             threadTaskExecutor.execute(templatePublishJob);
-
 
                         }
                     }
@@ -302,10 +324,12 @@ public class BuildBiz extends BaseBiz {
                         News news = (News) base;
                         String[] contents = HtmlUtils.splitNewsContent(news.getNewsDetail().getContent());
                         for (int j = 0; j < contents.length; j++) {
+                            Page pageDetail = new Page(i+1, 1, contents.length);
                             News publishNews = new News(news);
                             publishNews.getNewsDetail().setContent(contents[j]);
                             templatePublishJob.setBase(publishNews);
                             templatePublishJob.setPage( j + 1 );
+                            templatePublishJob.setPageDetail(pageDetail);
                             templatePublishJob.setTemplateBasics(templates.get(i));
                             threadTaskExecutor.execute(templatePublishJob);
                         }

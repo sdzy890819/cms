@@ -73,17 +73,19 @@ public class Test {
 //        String path1 = "/data/template中国/aa.html";
 //        System.out.println(path1 = path1.replaceAll("//", "/"));
 //        System.out.println(EncryptUtil.md5(path1));
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("abc", "777");
-        Set<String> set  = new HashSet<>();
-        set.add(jsonObject.toJSONString());
-        Iterator<String> it = set.iterator();
-        JSONArray jsonArray = new JSONArray();
-        while(it.hasNext()){
-            JSONObject jsonObject1 = JSONObject.parseObject(it.next());
-            jsonArray.add(jsonObject1);
-        }
-        System.out.println(jsonArray.getJSONObject(0).getString("abc"));
+//        JSONObject jsonObject = new JSONObject();
+//        jsonObject.put("abc", "777");
+//        Set<String> set  = new HashSet<>();
+//        set.add(jsonObject.toJSONString());
+//        Iterator<String> it = set.iterator();
+//        JSONArray jsonArray = new JSONArray();
+//        while(it.hasNext()){
+//            JSONObject jsonObject1 = JSONObject.parseObject(it.next());
+//            jsonArray.add(jsonObject1);
+//        }
+//        System.out.println(jsonArray.getJSONObject(0).getString("abc"));
+        Page pageDetail = new Page(1, 1, 3);
+        System.out.println(pageDetail.getNextPage());
 
     }
 
