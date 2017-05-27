@@ -124,7 +124,7 @@
 						    	<div class='select-right'>
 						    		<div class='name'>{{item.toName}}：</div>
 									<ul>
-										<li ng-repeat="select in item.toSelect">
+										<li ng-repeat="select in item.toSelect" ng-click='selectSizeRight(select , $event)'>
 											{{select.name}}
 										</li>
 									</ul>

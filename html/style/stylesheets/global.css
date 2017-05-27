@@ -440,7 +440,7 @@ input:focus{ border: 1px solid #bbb !important;} */
 /* line 242, ../sass/global.scss */
 .nav-sider > ul > li {
   position: relative;
-  z-index: 9999;
+  z-index: 999;
   height: 45px;
   padding: 0 10px;
 }

@@ -239,7 +239,7 @@ input:focus{ border: 1px solid #bbb !important;} */
     .logo{ display: block; float: left; width:88px; height:30px; margin-top:8px; background: url(../../images/logo.png) no-repeat; }
 }
 .nav-sider{ float: right; font-style: 13px; 
-  >ul > li{ position: relative; z-index: 9999; height: 45px; padding:0 10px;
+  >ul > li{ position: relative; z-index: 999; height: 45px; padding:0 10px;
     &:hover{ background-color:#303030; }
   }
   .badge{ white-space: nowrap; vertical-align: baseline; position: absolute; font-size: 11px !important; font-weight: 300; top: 8px; right: -10px; text-align: center; height: 14px; line-height: 14px; background-color: #e02222; padding: 2px 5px 2px 5px; border-radius: 100%; }
