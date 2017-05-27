@@ -11,7 +11,7 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 	        	function addNews( obj ){
 	        		obj.selectSizeChoose = Tool.changeObjectName(obj.selectSizeChoose,[{name:'id',newName:'val'},{name:'name',newName:'title'}]);
 	        		$.each(obj.selectSizeChoose,function( i , obj ){
-	        			columnIds += "{'title':'"+obj.title+"','val':'"+obj.val+"'},";
+	        			columnIds += "{\"title\":\""+obj.title+"\",\"val\":\""+obj.val+"\"},";
 	        			/*columnIds.push({
 	        				title : obj.title , 
 	        				val : obj.val
