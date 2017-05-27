@@ -104,13 +104,14 @@ public class NewsServiceImpl implements NewsService {
     }
 
     public void saveNews(News news) {
+
+        newsDao.saveNews(news);
         List<NewsPushColumn> newsPushColumns = TextUtils.packagingNewsPushColumns(news);
         if(StringUtils.isNotEmpty(newsPushColumns)){
             news.setPushTag(PushTagEnum.YES.getType());
         } else {
             news.setPushTag(PushTagEnum.NO.getType());
         }
-        newsDao.saveNews(news);
         news.getNewsDetail().setNewsId(news.getId());
         newsDetailDao.saveNewsDetail(news.getNewsDetail());
         news.setNewsStocks(TextUtils.getNewsStock(news.getNewsDetail().getContent(), news.getLastModifyUserId(), news.getId(), news));
@@ -146,13 +147,14 @@ public class NewsServiceImpl implements NewsService {
 
 
     public void updateNews(News news) {
+
+        newsDao.updateNews(news);
         List<NewsPushColumn> newsPushColumns = TextUtils.packagingNewsPushColumns(news);
         if(StringUtils.isNotEmpty(newsPushColumns)){
             news.setPushTag(PushTagEnum.YES.getType());
         }else{
             news.setPushTag(PushTagEnum.NO.getType());
         }
-        newsDao.updateNews(news);
         newsDetailDao.updateNewsDetail(news.getNewsDetail());
         newsStockDao.delStocks(news.getId());
         if(StringUtils.isNotEmpty(news.getNewsStocks())) {
