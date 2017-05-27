@@ -5,6 +5,7 @@ define(["angular", "angularAMD","angularFileUpload","angular-ui-router",'angular
     var app = angular.module("app", ["ui.router",'angularCSS','ui.bootstrap','ngFileUpload','angularFileUpload']);
     // config
     app.config(["$stateProvider", '$urlRouterProvider','$locationProvider', function($stateProvider, $urlRouterProvider,$locationProvider){
+        
         /*$locationProvider.html5Mode(true);*/
         $urlRouterProvider.otherwise('/home/welcome');
 

@@ -7,8 +7,18 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 	        templateUrl : '../template/common/addAndEdit.html',
 	        controller : function($scope, $state){
 	        	$scope.$parent.menu.push({name:"新增新闻"});
-	        	var categoryId,channelId,columnId;
+	        	var categoryId,channelId,columnId,columnIds = '[';
 	        	function addNews( obj ){
+	        		obj.selectSizeChoose = Tool.changeObjectName(obj.selectSizeChoose,[{name:'id',newName:'val'},{name:'name',newName:'title'}]);
+	        		$.each(obj.selectSizeChoose,function( i , obj ){
+	        			columnIds += "{\"title\":\""+obj.title+"\",\"val\":\""+obj.val+"\"},";
+	        			/*columnIds.push({
+	        				title : obj.title , 
+	        				val : obj.val
+	        			})*/
+	        		})
+	        		columnIds = columnIds.substr(0,columnIds.length-1);
+	        		columnIds += ']';
 					$.each(obj.selects,function(){
 						if(this.title == 'channelId'){
 							channelId = this.id;
@@ -46,6 +56,7 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 						"field3":obj.field3,
 						"field4":obj.field4,
 						"field5":obj.field5,
+						columnIds : columnIds,
 						publish : obj.publish,
 						callback : function(_data){
 							layui.use(['layer'], function(){

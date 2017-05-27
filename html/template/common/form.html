@@ -74,10 +74,11 @@
 					    <!-- checkbox -->
 					    <input ng-if="obj.type=='checkbox'" ng-repeat="(index , item) in obj.checkbox" type="checkbox" name="{{obj.title}}" title='{{item.name}}' data-index='{{index}}' ng-checked="{{item.checked}}" repeat-finish='checkboxRpeatDone'>
 
+
 					</div>
 					<!-- 不换行 -->
 					<div class="layui-inline" ng-if='isArray(obj)' ng-repeat="item in obj" repeat-finish='formRepeat'>
-						<label ng-if='item.type!="button"' class="layui-form-label {{$index!==0?'inline':''}}"><em ng-show='item.check!=false&&item.verify'>*</em>{{item.name}}</label>
+						<label ng-if='item.type!="button" && item.type!="selectSize"' class="layui-form-label {{$index!==0?'inline':''}}"><em ng-show='item.check!=false&&item.verify'>*</em>{{item.name}}</label>
 					    <div class="layui-input-inline"> <!-- 不换行 -->
 					        <!-- 输入匡 或 密码 -->
 							<input ng-if="item.type=='text'||item.type=='password'" 
@@ -107,6 +108,28 @@
 
 					    	<!-- radio -->
 					    	<input ng-if="item.type=='radio'" ng-repeat="ob in item.radio" ng-value='ob.title' type="radio" name="{{item.title}}" title='{{ob.name}}' ng-checked="data[item.title]?(ob.name==data[item.title])?true:false:ob.checked" repeat-finish='radioRpeatDone'>
+
+					    	<!--select 添加 size 请况下-->
+						    <div ng-if='item.type=="selectSize"' class="selectSize {{item.cls}}">
+						    	<div class='select-left'>
+						    		<div class='name'>{{item.fromName}}：</div>
+									<ul>
+										<li ng-repeat="select in item.fromSelect" ng-click='selectSize(select , $event)'>{{select.name}}</li>
+									</ul>
+						    	</div>
+						    	<div class='select-edit'>
+									<div class='btn' ng-click='addSelectSize(item , $event,1)'><i class=" icon-chevron-right"></i>添加</div>
+									<div ng-click='addSelectSize(item , $event,0)' class='btn remove'><i class="icon-chevron-left"></i>移除</div>
+						    	</div>
+						    	<div class='select-right'>
+						    		<div class='name'>{{item.toName}}：</div>
+									<ul>
+										<li ng-repeat="select in item.toSelect" ng-click='selectSizeRight(select , $event)'>
+											{{select.name}}
+										</li>
+									</ul>
+						    	</div>
+						    </div>
 					    </div>
 					</div>
 				</div>

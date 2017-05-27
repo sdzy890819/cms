@@ -110,6 +110,113 @@ define(["app",'require','jquery','./moduls/directive'], function ( app , require
 						if ($scope.$root.$$phase != '$apply' && $scope.$root.$$phase != '$digest') {
 							$scope.$apply();
 	  					}
+					},
+					selectSizes : [],
+					selectSize : function( obj , $event ){ //addForm js 中 type = 'selectSize' 时
+						var tag = $event.target , 
+							self = $(tag);
+						if(tag.isclick == void 0){
+							tag.isclick = false;
+						}
+						tag.isclick = !tag.isclick;
+						if(tag.isclick){
+							self.addClass('cur');
+							$scope.selectSizes.push(obj);
+						}else{
+							var arr = [];
+							$.each($scope.selectSizes,function( i , _obj){
+								if(obj.id != _obj.id){
+									arr.push(_obj)
+								}
+							});
+							$scope.selectSizes = arr;
+							self.removeClass('cur');
+						}
+					},
+					selectSizeRights : [],
+					selectSizeRight : function( obj , $event ){ //addForm js 中 type = 'selectSize' 时
+						var tag = $event.target , 
+							self = $(tag);
+						if(tag.isclick == void 0){
+							tag.isclick = false;
+						}
+						tag.isclick = !tag.isclick;
+						if(tag.isclick){
+							self.addClass('cur');
+							$scope.selectSizeRights.push(obj);
+						}else{
+							var arr = [];
+							$.each($scope.selectSizeRights,function( i , _obj){
+								if(obj.id != _obj.id){
+									arr.push(_obj)
+								}
+							});
+							$scope.selectSizeRights = arr;
+							self.removeClass('cur');
+						}
+					},
+					addSelectSize : function(select , $event , status){ //type = 'selectSize' 添加和删除
+						function setVal( obj ){
+							if(obj.title == select.title){
+								if(status==1){//添加
+									var arrs = $scope.selectSizes.slice(0) , 
+										b = true,
+										oldarr = [];
+									if(arrs.length){
+										$.each(obj.fromSelect , function( i , _obj ){
+											b = true;
+											for( var j=0;j<arrs.length;j++){
+												if(arrs[j].id == _obj.id ){
+													b = false;
+													break;
+												}
+											}
+											if(b==true){
+												oldarr.push(_obj);
+											}
+										});
+										select.fromSelect = oldarr;
+										$scope.selectSizes = [];
+									}
+									obj.toSelect = obj.toSelect.concat(arrs);
+								}else{//删除
+									var arrs = $scope.selectSizeRights.slice(0) , 
+										b = true,
+										oldarr = [];
+									if(arrs.length){
+										$.each(obj.toSelect , function( i , _obj ){
+											b = true;
+											for( var j=0;j<arrs.length;j++){
+												if(arrs[j].id == _obj.id ){
+													b = false;
+													break;
+												}
+											}
+											if(b==true){
+												oldarr.push(_obj);
+											}
+										});
+										select.toSelect = oldarr;
+										$scope.selectSizeRights = [];
+									}
+									obj.fromSelect = obj.fromSelect.concat(arrs);
+								}
+
+								$scope.selectSizeChoose = obj.toSelect;
+							}
+						}
+
+						$.each($scope.formdata.list,function( i , obj){
+							if($.type(obj)=='array'){
+								$.each( obj,function( j , _obj ){
+									setVal(_obj);
+								});
+							}else{
+								setVal(obj);
+							}
+							
+						});
+						//$scope.$apply();
 					}
 				});
 				$scope.$watch(function(){
@@ -289,6 +396,7 @@ define(["app",'require','jquery','./moduls/directive'], function ( app , require
 								}catch(e){}
 								data.field.selects = $scope.selects;
 								data.field.checkboxs = $scope.checkboxs;
+								data.field.selectSizeChoose = $scope.selectSizeChoose;
 								//if(data.nodeName!='A'){
 									$scope.$parent[event](data.field);
 								//}else{
