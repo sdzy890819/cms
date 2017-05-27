@@ -51,31 +51,11 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 			},
 			{
 				title : 'push',
-				name : '推送栏目',
-				type : 'select',
-				cls : 'w150 hide-select tuisonglanmu',
-				selectName : [
-					'push'
-				],
-				select : [
-					[
-						{name:'请选择推送栏目',title:'push'}
-					]
-				]
-			},
-			{
-				title : 'ispush',
-				name : '已推送',
-				type : 'select',
-				cls : 'w150 hide-select istuisong',
-				selectName : [
-					'ispush'
-				],
-				select : [
-					[
-						{name:'暂无',title:'ispush'}
-					]
-				]
+				fromName : '推送栏目',
+				toName : '已推送',
+				type : 'selectSize',
+				fromSelect : [],
+				toSelect : []
 			}
 		],
 		{
@@ -163,11 +143,20 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 						$.each(list,function(i , obj){
 							if($.type(obj)=='array'){
 								$.each(obj,function(i , obj1){
-									if(obj1.type=='select'){
-										if(obj1.select[0][0].title=='push'){
-											obj1.select[0] = [obj1.select[0][0]];
-											obj1.select[0] = obj1.select[0].concat(Tool.changeObjectName(_data1.data[0].list,[{name:'columnName',newName:'name'}]));
-										}
+									if(obj1.type=='selectSize'){
+										var arr = [];
+										$.each(_data1.data,function( i , _arr ){
+											$.each(_arr.list,function( j , _arr1){
+												arr.push({
+													id : _arr.channel.id+'-'+_arr1.id,
+													name : _arr.channel.channelName+'—'+_arr1.columnName,
+													parent : _arr.channel,
+													child : _arr1
+												})
+											})
+										})
+										obj1.fromSelect = arr;
+										//obj1.fromSelect = Tool.changeObjectName(_data1.data[0].list,[{name:'columnName',newName:'name'}]);
 									}
 								})
 							}else if(obj.type=='select'){

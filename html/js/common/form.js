@@ -110,6 +110,68 @@ define(["app",'require','jquery','./moduls/directive'], function ( app , require
 						if ($scope.$root.$$phase != '$apply' && $scope.$root.$$phase != '$digest') {
 							$scope.$apply();
 	  					}
+					},
+					selectSizes : [],
+					selectSize : function( obj , $event ){ //addForm js 中 type = 'selectSize' 时
+						var tag = $event.target , 
+							self = $(tag);
+						if(tag.isclick == void 0){
+							tag.isclick = false;
+						}
+						tag.isclick = !tag.isclick;
+						if(tag.isclick){
+							self.addClass('cur');
+							$scope.selectSizes.push(obj);
+						}else{
+							var arr = [];
+							$.each($scope.selectSizes,function( i , _obj){
+								if(obj.id != _obj.id){
+									arr.push(_obj)
+								}
+							});
+							$scope.selectSizes = arr;
+							self.removeClass('cur');
+						}
+					},
+					addSelectSize : function(select , $event , status){ //type = 'selectSize' 添加和删除
+						function setVal( obj ){
+							if(obj.title == select.title){
+								if(status==1){//添加
+									var arrs = $scope.selectSizes.slice(0) , 
+										_arr = [];
+
+									if(obj.toSelect.length){ //把新增的列表添加进来，排除掉重复的列表
+										debugger;
+										$.each(obj.toSelect,function( i , oldarr ){
+											$.each(arrs,function( j , newarr ){
+												if(newarr.id != oldarr.id ){
+													_arr.push(newarr);
+												}
+											})
+										});
+									}else{
+										_arr = arrs;
+									}
+
+
+									obj.toSelect = obj.toSelect.concat(_arr);
+								}else{//删除
+
+								}
+							}
+						}
+
+						$.each($scope.formdata.list,function( i , obj){
+							if($.type(obj)=='array'){
+								$.each( obj,function( j , _obj ){
+									setVal(_obj);
+								});
+							}else{
+								setVal(obj);
+							}
+							
+						});
+						//$scope.$apply();
 					}
 				});
 				$scope.$watch(function(){
