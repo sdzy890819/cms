@@ -32,7 +32,7 @@
 
     <insert id="saveNewsPushColumns">
         insert into news_push_column ( <include refid="ins_sql_column"/> ) values
-        <foreach collection="list" item="item" separator=",">
+        <foreach collection="list" item="p1" separator=",">
             (null, #{p1.lastModifyUserId}, #{p1.createUserId}, #{p1.newsId}, #{p1.channelId}, #{p1.columnId})
         </foreach>
     </insert>
