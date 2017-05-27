@@ -172,6 +172,11 @@ public class News extends Base implements Cloneable{
     private Date timer;
 
     /**
+     * 定时文字
+     */
+    private String timerStr;
+
+    /**
      * 图片URL
      */
     private String imageUrl;
@@ -242,6 +247,14 @@ public class News extends Base implements Cloneable{
         if(buildTime!=null){
             SimpleDateFormat sdf = new SimpleDateFormat(StaticContants.YYYY_MM_DD_HH_MM_SS);
             return sdf.format(buildTime);
+        }
+        return " ";
+    }
+
+    public String getTimerStr(){
+        if(timer!=null){
+            SimpleDateFormat sdf = new SimpleDateFormat(StaticContants.YYYY_MM_DD_HH_MM_SS);
+            return sdf.format(timer);
         }
         return " ";
     }
