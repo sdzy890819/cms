@@ -12,6 +12,7 @@ define(['require',"app",'jquery'
 	        controller : function($scope,pop,$uibModal , $css , GenerateArrList){
 				$scope.title = "我的新闻列表";
 				$scope.$parent.menu.push({name:$scope.title}); //栏目
+
 				angular.extend($scope,{
 
 					edit : function( obj ){ //保存
@@ -25,7 +26,6 @@ define(['require',"app",'jquery'
 									}else {
 										_data.data.writeTime = '';
 									}
-
 									if (_data.data.editPublishTime) {
 										_data.data.editPublishTime = new Date(_data.data.editPublishTime).format('yyyy-MM-dd h:m:s');
 									}
@@ -372,11 +372,11 @@ define(['require',"app",'jquery'
 						{name:'预览' , width : '50' , class: 'center'},
 						{name:'权限' , width : '50' , class: 'center'}
 					];
-					
-					$.each(_data.data.list, function(i, obj){
-						obj.channelAndColumnName = [obj.channelName, obj.columnName].join('-');
-					})
-			
+					if(_data.data.list){
+						$.each(_data.data.list, function(i, obj){
+							obj.channelAndColumnName = [obj.channelName, obj.columnName].join('-');
+						})
+					}
 					$scope.listdata = { //确认按钮
 						title : $scope.title,
 						table : {
@@ -413,7 +413,6 @@ define(['require',"app",'jquery'
 							}
 						]*/
 					}
-
 					$.each($scope.listdata.table.td, function(i, obj){
 
 						if (obj.publish) {
@@ -422,9 +421,9 @@ define(['require',"app",'jquery'
 					})
 
 					GenerateArrList.extendType($scope.listdata.table.td,th,['width','name','key']); //把TH 中的出name,key,width属性以外的属性合传给td							
-      		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');			        		
-      		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.permission,'permission');			        		
-      		$scope.$apply();						
+		      		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');			        		
+		      		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.permission,'permission');			        		
+		      		$scope.$apply();						
 				}
 
 				//搜索
