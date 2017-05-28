@@ -20,8 +20,18 @@ define(['require',"app",'jquery'
 							getData.news.newsdetail({
 								id : obj.id,
 								callback : function(_data){
-									_data.data.writeTime = new Date(_data.data.writeTime).format('yyyy-MM-dd h:m:s');
-									
+									if (_data.data.timer) {
+										_data.data.writeTime = new Date(_data.data.timer).format('yyyy-MM-dd h:m:s');										
+									}else {
+										_data.data.writeTime = '';
+									}
+
+									if (_data.data.editPublishTime) {
+										_data.data.editPublishTime = new Date(_data.data.editPublishTime).format('yyyy-MM-dd h:m:s');
+									}
+									if (_data.data.timer) {
+										_data.data.timer = new Date(_data.data.timer).format('yyyy-MM-dd h:m:s');
+									}
 									if(formList){ //发果有1条以上的字段则显示
 										var maxNum , index = 2 , 
 											title , name, inputMaxNum,type,
@@ -143,7 +153,8 @@ define(['require',"app",'jquery'
 									"categoryId": categoryId, //部门分类ID
 									"content":obj.html,
 									"autoPublish":(obj.show=='yes'?1:0), //1 是自动发布。0是不自动发布.默认不自动发布
-									"timer":obj.writeTime, //定时发布。//可不传
+									"timer":obj.timer, //定时发布。//可不传
+									"editPublishTime":obj.editPublishTime, //发布时间
 									"field1":obj.field1,
 									"field2":obj.field2,
 									"field3":obj.field3,

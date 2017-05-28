@@ -36,6 +36,9 @@ define(['require',"app",'jquery','search','./searchForm'
 									if (_data.data.editPublishTime) {
 										_data.data.editPublishTime = new Date(_data.data.editPublishTime).format('yyyy-MM-dd h:m:s');
 									}
+									if (_data.data.timer) {
+										_data.data.timer = new Date(_data.data.timer).format('yyyy-MM-dd h:m:s');
+									}
 									if(formList){ //如果有1条以上的字段则显示
 										var maxNum , index = 2 , 
 											title , name, inputMaxNum,type,
@@ -140,56 +143,56 @@ define(['require',"app",'jquery','search','./searchForm'
         						var channelId = _detail.channelId , 
         							columnId = _detail.columnId , 
         							categoryId = _detail.categoryId;
-										$.each(obj.selects,function(){
-											if(this.title == 'channelId'){
-												channelId = this.id;
-											}
-											if(this.title == 'columnId'){
-												columnId = this.id;
-											}
-											if(this.title == 'categoryId'){
-												categoryId = this.id;
-											}
-										})
+								$.each(obj.selects,function(){
+									if(this.title == 'channelId'){
+										channelId = this.id;
+									}
+									if(this.title == 'columnId'){
+										columnId = this.id;
+									}
+									if(this.title == 'categoryId'){
+										categoryId = this.id;
+									}
+								})
 
-										var now = new Date().valueOf();
+								var now = new Date().valueOf();
 
-										if (new Date(obj.writeTime).valueOf() < now ) {
-											alert("发布时间必须大于当前时间");
-											return;
-										}
+								if (new Date(obj.timer).valueOf() < now ) {
+									alert("发布时间必须大于当前时间");
+									return;
+								}
 
-										getData.news.updateNews({
-											"id":_detail.id,
-											"title":obj.title,
-											"subTitle":obj.subTitle,
-											"keyword":obj.keyword,
-											"description":obj.description,
-											"source":obj.source,
-											"author":obj.author,
-											"channelId":channelId,//频道ID
-											"columnId":columnId,//栏目ID
-											"categoryId": categoryId, //部门分类ID
-											"content":obj.html,
-											"autoPublish":(obj.show=='yes'?1:0), //1 是自动发布。0是不自动发布.默认不自动发布
-											"timer":obj.writeTime, //定时发布。//可不传
-											"editPublishTime":obj.editPublishTime, //定时发布。//可不传
-											"field1":obj.field1,
-											"field2":obj.field2,
-											"field3":obj.field3,
-											"field4":obj.field4,
-											"field5":obj.field5,
-											callback : function(_data){
-												layui.use(['layer'], function(){
-													var layer = layui.layer;
-													layer.msg(_data.message);
-													$scope.getNewList();
-													 /*setTimeout(function(){
-													 	$state.reload();
-													 },300);*/
-												});
-											}
+								getData.news.updateNews({
+									"id":_detail.id,
+									"title":obj.title,
+									"subTitle":obj.subTitle,
+									"keyword":obj.keyword,
+									"description":obj.description,
+									"source":obj.source,
+									"author":obj.author,
+									"channelId":channelId,//频道ID
+									"columnId":columnId,//栏目ID
+									"categoryId": categoryId, //部门分类ID
+									"content":obj.html,
+									"autoPublish":(obj.show=='yes'?1:0), //1 是自动发布。0是不自动发布.默认不自动发布
+									"timer":obj.timer, //定时发布。//可不传
+									"editPublishTime":obj.editPublishTime, //发布时间
+									"field1":obj.field1,
+									"field2":obj.field2,
+									"field3":obj.field3,
+									"field4":obj.field4,
+									"field5":obj.field5,
+									callback : function(_data){
+										layui.use(['layer'], function(){
+											var layer = layui.layer;
+											layer.msg(_data.message);
+											$scope.getNewList();
+											 /*setTimeout(function(){
+											 	$state.reload();
+											 },300);*/
 										});
+									}
+								});
         					},
         					callback : function( list , callback ){ //返回获取的数据 用于操作  				
 								$.each(list,function( i , obj){

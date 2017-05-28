@@ -14,7 +14,7 @@ define(['./URL','./loginAndOut','jquery','./getData'],function(URL , user ,$ , g
 				data : obj.data,
 				callback : function(_data){
 					$.ajax({ //当前登录用户信息接口
-						url : URL.user.currentUser , 
+						url : URL.user.currentUser+'?time='+Math.random()*999 , 
 						type : 'get',
 						dataType : 'json',
 						success : function(_data){												

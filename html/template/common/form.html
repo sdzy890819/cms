@@ -38,7 +38,7 @@
 						<!-- <div ng-if="obj.type=='edit'" class='wangEditor {{obj.cls}}' data-html='{{data.newsDetail.content}}' style="width:{{obj.width}}; max-width:800px;">
 							<div ng-model="text" contenteditable="true" name="{{obj.title}}" style="height:{{obj.height}};"></div>
 						</div> -->
-						<iframe ng-if="obj.type=='edit'" id="editor" class='iframe' type="text/plain" style="width:{{obj.width}}; max-width:800px; height:500px;" src='/ueditor1_4_3_2-utf8-jsp/'>
+						<iframe ng-if="obj.type=='edit'" id="editor" class='iframe' type="text/plain" ng-style="{'width':obj.width}" style="min-width:600px; width:700px; max-width:1000px; height:500px;" src='/ueditor1_4_3_2-utf8-jsp/'>
 						</iframe>
 
 						<!-- select -->

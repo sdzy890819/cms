@@ -35,9 +35,11 @@
 						<textarea ng-if="obj.type=='textarea'" class="layui-textarea text w80 {{obj.cls}}" name="{{obj.title}}" style="height:{{obj.height}}px" lay-verify="content" placeholder="{{obj.placeholder}}">{{data[obj.title]}}</textarea>
 
 						<!-- 富文本编辑器 -->
-						<div ng-if="obj.type=='edit'" class='wangEditor {{obj.cls}}' data-html='{{data.newsDetail.content}}' style="width:{{obj.width}}; max-width:800px;">
+						<!-- <div ng-if="obj.type=='edit'" class='wangEditor {{obj.cls}}' data-html='{{data.newsDetail.content}}' style="width:{{obj.width}}; max-width:800px;">
 							<div ng-model="text" contenteditable="true" name="{{obj.title}}" style="height:{{obj.height}};"></div>
-						</div>
+						</div> -->
+						<iframe ng-if="obj.type=='edit'" id="editor" class='iframe' type="text/plain" ng-style="{'width':obj.width}" style="min-width:600px; width:700px; max-width:1000px; height:500px;" src='/ueditor1_4_3_2-utf8-jsp/'>
+						</iframe>
 
 						<!-- select -->
 						<div ng-if="obj.type=='select'" class="layui-input-inline {{obj.cls}}" ng-repeat="select in obj.select" repeat-finish='selectRpeatDone'>
@@ -52,9 +54,6 @@
 
 					    <!-- 上传按钮 并不能上传需要点击事件 -->
 					    <div ng-if="obj.type=='file'" class="layui-box layui-upload-button" style="cursor:pointer" >
-					    	
-
-
 			    			<span ng-if="data['videoUrl']"  class="layui-upload-icon">    	
 					    		{{data['fileName']}}
 					    	</span>	
@@ -73,16 +72,17 @@
 					    <input ng-if="obj.type=='radio'" ng-repeat="item in obj.radio" ng-value='item.title' type="radio" title="{{item.name}}" name="{{obj.title}}"  ng-checked="data[obj.title]?(item.name==data[obj.title])?true:false:item.checked" repeat-finish='radioRpeatDone'>
 
 					    <!-- checkbox -->
-					    <input ng-if="obj.type=='checkbox'" ng-repeat="item in obj.checkbox" type="checkbox" name="{{obj.title}}" ng-value='{{item.title}}' ng-checked="{{item.checked}}" repeat-finish='checkboxRpeatDone'>
+					    <input ng-if="obj.type=='checkbox'" ng-repeat="(index , item) in obj.checkbox" type="checkbox" name="{{obj.title}}" title='{{item.name}}' data-index='{{index}}' ng-checked="{{item.checked}}" repeat-finish='checkboxRpeatDone'>
+
 
 					</div>
 					<!-- 不换行 -->
 					<div class="layui-inline" ng-if='isArray(obj)' ng-repeat="item in obj" repeat-finish='formRepeat'>
-						<label ng-if='item.type!="button"' class="layui-form-label {{$index!==0?'inline':''}}"><em ng-show='item.check!=false&&item.verify'>*</em>{{item.name}}</label>
+						<label ng-if='item.type!="button" && item.type!="selectSize"' class="layui-form-label {{$index!==0?'inline':''}}"><em ng-show='item.check!=false&&item.verify'>*</em>{{item.name}}</label>
 					    <div class="layui-input-inline"> <!-- 不换行 -->
 					        <!-- 输入匡 或 密码 -->
 							<input ng-if="item.type=='text'||item.type=='password'" 
-								class="text layui-input {{item.cls||'w100'}}" 
+								class="text layui-input {{item.cls||'w180'}}" 
 								type="{{item.type=='text'?'text':'password'}}" 
 								name="{{item.title}}" 
 								ng-value="data[item.title]"
@@ -94,9 +94,12 @@
 							<textarea ng-if="item.type=='textarea'" class="layui-textarea text w80 {{item.cls}}" name="{{item.title}}" lay-verify="content" placeholder="{{item.placeholder}}">{{data[item.title]}}</textarea>
 
 						    <!-- select -->
-					      	<select ng-if="item.type=='select'" name="{{item.selectName[$index]}}" ng-repeat="select in item.select"  repeat-finish='selectRpeatDone'>
-					        	<option lay-verify="{{item.verify}}" ng-repeat="option in select" ng-selected="option.id && option.id==data[select[0].title]">{{option.name}}</option>
-					     	</select>
+						    <div ng-if="item.type=='select'" ng-repeat="select in item.select"  repeat-finish='selectRpeatDone' class='{{item.cls}}'>
+						      	<select name="{{item.selectName[$index]}}">
+						        	<option lay-verify="{{item.verify}}" ng-repeat="option in select" ng-selected="option.id && option.id==data[select[0].title]">{{option.name}}</option>
+						     	</select>
+					     	</div>
+					     	<!-- select -->
 
 						    <!-- 时间 -->
 						    <input ng-if="item.type=='date'" ng-value="data[item.title]" type="text" name="{{item.title}}" id="date"placeholder="{{item.placeholder}}" readonly='readonly' autocomplete="off" class="layui-input date {{item.cls||'w220'}}" ng-click="selectDate($event)"><!--  lay-verify="date"  -->
@@ -105,6 +108,28 @@
 
 					    	<!-- radio -->
 					    	<input ng-if="item.type=='radio'" ng-repeat="ob in item.radio" ng-value='ob.title' type="radio" name="{{item.title}}" title='{{ob.name}}' ng-checked="data[item.title]?(ob.name==data[item.title])?true:false:ob.checked" repeat-finish='radioRpeatDone'>
+
+					    	<!--select 添加 size 请况下-->
+						    <div ng-if='item.type=="selectSize"' class="selectSize {{item.cls}}">
+						    	<div class='select-left'>
+						    		<div class='name'>{{item.fromName}}：</div>
+									<ul>
+										<li ng-repeat="select in item.fromSelect" ng-click='selectSize(select , $event)'>{{select.name}}</li>
+									</ul>
+						    	</div>
+						    	<div class='select-edit'>
+									<div class='btn' ng-click='addSelectSize(item , $event,1)'><i class=" icon-chevron-right"></i>添加</div>
+									<div ng-click='addSelectSize(item , $event,0)' class='btn remove'><i class="icon-chevron-left"></i>移除</div>
+						    	</div>
+						    	<div class='select-right'>
+						    		<div class='name'>{{item.toName}}：</div>
+									<ul>
+										<li ng-repeat="select in item.toSelect" ng-click='selectSizeRight(select , $event)'>
+											{{select.name}}
+										</li>
+									</ul>
+						    	</div>
+						    </div>
 					    </div>
 					</div>
 				</div>

@@ -445,6 +445,8 @@ $leftWidth : 225px;
     .w180{ width:180px; }
     .w220{ width:220px; }
     .w320{ width:320px; }
+    .w350{ width:350px; }
+    .w450{ width:450px; }
     .w600{ width:600px; }
 
     &.search{
@@ -465,9 +467,9 @@ $leftWidth : 225px;
     }
     .selectSize{
         .name{ float:left; padding-right:5px;}
-        ul{ float:left; min-width:100px; height:100px; border:1px solid #ccc; overflow-y:scroll;
+        ul{ float:left; min-width:150px; height:70px; border:1px solid #ccc; overflow-y:scroll;
 
-            li{ height:22px; line-height:22px; padding:3px 10px; cursor:pointer;
+            li{ height:22px; line-height:22px; padding:3px 15px; cursor:pointer;
                 &:hover{ background:#eaeaea}
                 &.cur{ background:#bed2ff}
             }
@@ -483,7 +485,7 @@ $leftWidth : 225px;
             float:left;
             padding:0 20px;
             i{ margin-right:2px; }
-            .btn{ height:25px; line-height:25px; margin-top:15px; padding:0 10px; color:#fff; background:#009afb; border-radius:3px;
+            .btn{ height:25px; line-height:25px; margin-top:7px; padding:0 10px; color:#fff; background:#009afb; border-radius:3px;
                 cursor:pointer; 
                 &:hover{ background:#0091ec }
                 &.remove{ background:#fb4d00;&:hover{ background:#e14500 }}
@@ -524,7 +526,12 @@ $leftWidth : 225px;
     }
 }
 .layui-form{ padding-top:20px;
-    textarea.w80{ width:80%; max-width:600px; min-height:50px; }
+    textarea{ 
+      &.w80{
+        width:80%; max-width:600px; min-height:70px; 
+      }
+      &.w320{ width:320px;}
+    }
     em{ padding-right:5px; color:#e50000; vertical-align:middle;}
     .layui-form-label{ width:120px;}    
     .layui-input-block{ margin-left:150px;}

@@ -1,0 +1,1 @@
+<div class="position"><ul><li><i class="icon-home"></i> <a ui-sref="{{position.link}}">{{position.name}}</a> <span class="icon-angle-right"></span></li><li ng-repeat="item in menu"><a ng-if="item.link" ui-sref="{{item.link}}">{{item.name}}</a> <span ng-if="!item.link" class="cur">{{item.name}}</span> <span ng-if="item.link" class="icon-angle-right"></span></li></ul></div>
