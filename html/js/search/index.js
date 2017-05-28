@@ -79,26 +79,28 @@ define(['require',"app",'jquery','/js/moduls/Tool.js'
 							    	layenter.call($('.search-submit .btn')[0]);
 							    };
 							});
-							form.on('submit(searchForm)', function(data){
-								var b = false;
-								$.each(data.field,function( key , value ){
-									if(value.length && value.indexOf('请选择')<0){
-										b = true;
-									}
-								})
+							setTimeout(function(){
+								form.on('submit(searchForm)', function(data){
+									var b = false;
+									$.each(data.field,function( key , value ){
+										if(value.length && value.indexOf('请选择')<0){
+											b = true;
+										}
+									})
 
-								if(!b){
-									layui.use('layer', function(){
-									  var layer = layui.layer;
-									  
-									  layer.msg('请至少填写一项',{icon: 2,anim:6});
-									});   
-									return false;
-								}
-								data.field.selects = $scope.selects;
-								$scope.list.submit(data.field,data);
-							    return false;
-						  	});
+									if(!b){
+										layui.use('layer', function(){
+										  var layer = layui.layer;
+										  
+										  layer.msg('请至少填写一项',{icon: 2,anim:6});
+										});   
+										return false;
+									}
+									data.field.selects = $scope.selects;
+									$scope.list.submit(data.field,data);
+								    return false;
+							  	});
+							},300);
 
 							function getSelect(_obj){ //获取选择匡的option
 								var self = this;

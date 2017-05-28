@@ -399,11 +399,6 @@ define(['require',"app",'jquery','search','./searchForm'
 								$scope.getSearchList(page , status , obj , triggerType);
 							}
 						}
-
-						setTimeout(function(){
-							var input = $('.layui-form input[name="condition"');
-							$("<br>").insertBefore(input.parent().parent());
-						},300)
 					});
 				}
 				search();
