@@ -171,7 +171,12 @@ public class TemplateController extends BaseController {
 //            template.setUpload(UploadEnum.NO.getType());
 //        }
         if(!oldTemplate.getPath().equals(path) || !oldTemplate.getFilename().equals(filename) || ( channelId != null && !oldTemplate.getChannelId().equals(channelId))){
-            Channel channel = channelBiz.getChannel(channelId);
+            Channel channel = null;
+            if(channelId!=null){
+                channel = channelBiz.getChannel(channelId);
+            }else{
+                channel = channelBiz.getChannel(oldTemplate.getChannelId());
+            }
             if(channel == null){
                 return ApiResponse.returnFail(StaticContants.ERROR_CHANNEL_NOT_FOUND);
             }
