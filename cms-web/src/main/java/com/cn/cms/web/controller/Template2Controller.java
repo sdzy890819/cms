@@ -12,6 +12,7 @@ import com.cn.cms.po.Template2;
 import com.cn.cms.po.Template2Base;
 import com.cn.cms.utils.FileUtil;
 import com.cn.cms.utils.Page;
+import com.cn.cms.utils.RsyncUtils;
 import com.cn.cms.utils.StringUtils;
 import com.cn.cms.web.ann.CheckAuth;
 import com.cn.cms.web.ann.CheckToken;
@@ -287,10 +288,10 @@ public class Template2Controller extends BaseController  {
         String fileName = StringUtils.concatUrl(template2Base.getBasePath(), template2.getPath(), template2.getFilename());
         FileUtil.fileUpload(bytes, fileName);
         template2Biz.uploadTemplate(getCurrentUserId(request), id, UploadEnum.YES.getType());
-//        if(StaticContants.RSYNC_TEMPLATE_ON == StaticContants.RSYNC_ON){
-//            RsyncUtils.rsync(null , StringUtils.delFirstPrefix(StringUtils.concatUrl(template2.getPath(), template2.getFilename()), StaticContants.FILE_PATH_SP),
-//                    StaticContants.RSYNC_TEMPLATE_FILE, template2Base.getBasePath());
-//        }
+        if(StaticContants.RSYNC_TEMPLATE_ON == StaticContants.RSYNC_ON){
+            RsyncUtils.rsync(null , StringUtils.delFirstPrefix(StringUtils.concatUrl(template2.getPath(), template2.getFilename()), StaticContants.FILE_PATH_SP),
+                    StaticContants.RSYNC_TEMPLATE_FILE, template2Base.getBasePath());
+        }
         Map<String,Object> map = new HashMap<String,Object>();
         map.put("fileName",fileName);
         return ApiResponse.returnSuccess(map);
