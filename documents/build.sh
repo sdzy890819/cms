@@ -28,8 +28,8 @@ if [ ! -d "/data/projects/cms-publish/" ]; then
 fi
 
 cp -rf /data/source/cms/cms-publish/target/cms-publish.jar /data/projects/cms-publish/
-cp -rf /data/source/cms/html /data/
-cp -rf /data/source/cms/mobile-html /data/
+cp -rf /data/source/cms/html/dist/* /data/html
+cp -rf /data/source/cms/mobile-html/dist/* /data/html
 
 cp -rf /data/source/cms/cms-model/src/sh/* /data/sh/
 
