@@ -365,10 +365,10 @@ define(['require',"app",'jquery','search','./searchForm'
 								var page = 1 , status , triggerType;
                                 $.each(obj.selects,function(){
                                     if(this.title == 'statusStr'){
-                                        status = this.id;
+                                        status = this.type;
                                     }
                                     if(this.title == 'triggerTypeStr'){
-                                        triggerType = this.id;
+                                        triggerType = this.type;
                                     }
                                 });
 								function getSearchList(){
