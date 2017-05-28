@@ -122,7 +122,7 @@ public class BuildBiz extends BaseBiz {
             case NEWS: {
                 News news = newsBiz.findNewsAndDetail(body.getId());
                 if(news == null){
-                    publishInfoBiz.recordInfo(PublishStatusEnum.ERROR, news.getId(),
+                    publishInfoBiz.recordInfo(PublishStatusEnum.ERROR, body.getId(),
                             TriggerTypeEnum.NEWS, TemplateTypeEnum.NONE, null, "ID为"+ body.getId() +" 的新闻已不存在");
                 }
                 templates = findTemplateForNews(news);
