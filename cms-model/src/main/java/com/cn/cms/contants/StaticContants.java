@@ -120,7 +120,7 @@ public class StaticContants {
 
     public static final String ERROR_TOPIC_NOT_FOUND = "找不到此模版";
 
-    public static final String ERROR_TEMPLATE_PATH_FILENAME_DUP = "模版目录或文件名已存在";
+    public static final String ERROR_TEMPLATE_PATH_FILENAME_DUP = "模版文件已存在，模版文件位置：";
 
     public static final String ERROR_CHANNEL_NAME_EXIST = "频道已经存在!";
 

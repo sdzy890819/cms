@@ -159,26 +159,26 @@ public class TopicController extends BaseController {
         topic.setTopicPath(topicPath);
         topic.setTopicTitle(topicTitle);
 
-        Integer c = topicBiz.queryFilenameAndPathCount(topic);
-        if(c != null && c > 0){
-            return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
-        }
-
-        Template template = new Template();
-        template.setFilename(topicFilename);
-        template.setPath(topicPath);
-        Integer a = templateBiz.queryFilenameAndPathCount(template);
-        if( a != null && a > 0){
-            return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
-        }
-
-        Template2 tmp = new Template2();
-        tmp.setFilename(topicFilename);
-        tmp.setPath(topicPath);
-        Integer b = template2Biz.queryFilenameAndPathCount(tmp);
-        if(b != null && b > 0){
-            return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
-        }
+//        Integer c = topicBiz.queryFilenameAndPathCount(topic);
+//        if(c != null && c > 0){
+//            return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
+//        }
+//
+//        Template template = new Template();
+//        template.setFilename(topicFilename);
+//        template.setPath(topicPath);
+//        Integer a = templateBiz.queryFilenameAndPathCount(template);
+//        if( a != null && a > 0){
+//            return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
+//        }
+//
+//        Template2 tmp = new Template2();
+//        tmp.setFilename(topicFilename);
+//        tmp.setPath(topicPath);
+//        Integer b = template2Biz.queryFilenameAndPathCount(tmp);
+//        if(b != null && b > 0){
+//            return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
+//        }
 
 
 
@@ -242,28 +242,28 @@ public class TopicController extends BaseController {
         topic.setTopicFilename(topicFilename);
         topic.setTopicPath(topicPath);
         topic.setTopicTitle(topicTitle);
-        if(!oldTopic.getTopicPath().equals(topicPath) || !oldTopic.getTopicFilename().equals(topicFilename)) {
-            Integer c = topicBiz.queryFilenameAndPathCount(topic);
-            if (c != null && c > 0) {
-                return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
-            }
-
-            Template template = new Template();
-            template.setFilename(topicFilename);
-            template.setPath(topicPath);
-            Integer a = templateBiz.queryFilenameAndPathCount(template);
-            if (a != null && a > 0) {
-                return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
-            }
-
-            Template2 tmp = new Template2();
-            tmp.setFilename(topicFilename);
-            tmp.setPath(topicPath);
-            Integer b = template2Biz.queryFilenameAndPathCount(tmp);
-            if (b != null && b > 0) {
-                return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
-            }
-        }
+//        if(!oldTopic.getTopicPath().equals(topicPath) || !oldTopic.getTopicFilename().equals(topicFilename)) {
+//            Integer c = topicBiz.queryFilenameAndPathCount(topic);
+//            if (c != null && c > 0) {
+//                return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
+//            }
+//
+//            Template template = new Template();
+//            template.setFilename(topicFilename);
+//            template.setPath(topicPath);
+//            Integer a = templateBiz.queryFilenameAndPathCount(template);
+//            if (a != null && a > 0) {
+//                return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
+//            }
+//
+//            Template2 tmp = new Template2();
+//            tmp.setFilename(topicFilename);
+//            tmp.setPath(topicPath);
+//            Integer b = template2Biz.queryFilenameAndPathCount(tmp);
+//            if (b != null && b > 0) {
+//                return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
+//            }
+//        }
 
         topicBiz.saveTopic(topic);
         publish(request, topic.getId());

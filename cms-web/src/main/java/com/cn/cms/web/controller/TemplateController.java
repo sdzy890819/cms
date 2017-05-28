@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -146,27 +147,38 @@ public class TemplateController extends BaseController {
         template.setTemplateDesc(templateDesc);
         template.setTemplateName(templateName);
 
-        if(!oldTemplate.getPath().equals(path) || !oldTemplate.getFilename().equals(filename)){
-            Integer a = templateBiz.queryFilenameAndPathCount(template);
-            if( a != null && a > 0){
-                return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
+//        if(!oldTemplate.getPath().equals(path) || !oldTemplate.getFilename().equals(filename)){
+//            Integer a = templateBiz.queryFilenameAndPathCount(template);
+//            if( a != null && a > 0){
+//                return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
+//            }
+//            Template2 tmp = new Template2();
+//            tmp.setFilename(filename);
+//            tmp.setPath(path);
+//            Integer b = template2Biz.queryFilenameAndPathCount(tmp);
+//            if(b != null && b > 0){
+//                return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
+//            }
+//
+//            Topic topic = new Topic();
+//            topic.setTopicPath(path);
+//            topic.setTopicFilename(filename);
+//            Integer c = topicBiz.queryFilenameAndPathCount(topic);
+//            if(c != null && c > 0){
+//                return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
+//            }
+//            template.setUpload(UploadEnum.NO.getType());
+//        }
+        if(!oldTemplate.getPath().equals(path) || !oldTemplate.getFilename().equals(filename) || !oldTemplate.getFilename().equals(channelId)){
+            Channel channel = channelBiz.getChannel(channelId);
+            if(channel == null){
+                return ApiResponse.returnFail(StaticContants.ERROR_CHANNEL_NOT_FOUND);
             }
-            Template2 tmp = new Template2();
-            tmp.setFilename(filename);
-            tmp.setPath(path);
-            Integer b = template2Biz.queryFilenameAndPathCount(tmp);
-            if(b != null && b > 0){
-                return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
+            String filePath = StringUtils.concatUrl(channel.getTemplatePath(), template.getPath(), template.getFilename());
+            File file = new File(filePath);
+            if(file.exists()){
+                return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP + filePath);
             }
-
-            Topic topic = new Topic();
-            topic.setTopicPath(path);
-            topic.setTopicFilename(filename);
-            Integer c = topicBiz.queryFilenameAndPathCount(topic);
-            if(c != null && c > 0){
-                return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
-            }
-            template.setUpload(UploadEnum.NO.getType());
         }
 
         templateBiz.saveTemplate(template);
@@ -215,7 +227,7 @@ public class TemplateController extends BaseController {
         template.setTemplateDesc(templateDesc);
         template.setTemplateName(templateName);
         template.setUpload(UploadEnum.NO.getType());
-        Integer a = templateBiz.queryFilenameAndPathCount(template);
+        /*Integer a = templateBiz.queryFilenameAndPathCount(template);
         if( a != null && a > 0){
             return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
         }
@@ -233,8 +245,16 @@ public class TemplateController extends BaseController {
         Integer c = topicBiz.queryFilenameAndPathCount(topic);
         if(c != null && c > 0){
             return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
+        }*/
+        Channel channel = channelBiz.getChannel(channelId);
+        if(channel == null){
+            return ApiResponse.returnFail(StaticContants.ERROR_CHANNEL_NOT_FOUND);
         }
-
+        String filePath = StringUtils.concatUrl(channel.getTemplatePath(), template.getPath(), template.getFilename());
+        File file = new File(filePath);
+        if(file.exists()){
+            return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP + filePath);
+        }
         templateBiz.saveTemplate(template);
         return ApiResponse.returnSuccess();
     }

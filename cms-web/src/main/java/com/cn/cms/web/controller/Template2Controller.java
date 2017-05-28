@@ -8,10 +8,7 @@ import com.cn.cms.contants.StaticContants;
 import com.cn.cms.enums.Template2ClassifyEnum;
 import com.cn.cms.enums.UploadEnum;
 import com.cn.cms.exception.BizException;
-import com.cn.cms.po.Template;
-import com.cn.cms.po.Template2;
-import com.cn.cms.po.Template2Base;
-import com.cn.cms.po.Topic;
+import com.cn.cms.po.*;
 import com.cn.cms.utils.FileUtil;
 import com.cn.cms.utils.Page;
 import com.cn.cms.utils.RsyncUtils;
@@ -29,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -166,27 +164,36 @@ public class Template2Controller extends BaseController  {
 
         if(!oldTemplate.getPath().equals(path) || !oldTemplate.getFilename().equals(filename)){
 
-            Integer b = template2Biz.queryFilenameAndPathCount(template2);
-            if(b != null && b > 0){
-                return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
+//            Integer b = template2Biz.queryFilenameAndPathCount(template2);
+//            if(b != null && b > 0){
+//                return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
+//            }
+//
+//            Template tmp = new Template();
+//            tmp.setPath(path);
+//            tmp.setFilename(filename);
+//            Integer a = templateBiz.queryFilenameAndPathCount(tmp);
+//            if( a != null && a > 0){
+//                return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
+//            }
+//
+//            Topic topic = new Topic();
+//            topic.setTopicPath(path);
+//            topic.setTopicFilename(filename);
+//            Integer c = topicBiz.queryFilenameAndPathCount(topic);
+//            if(c != null && c > 0){
+//                return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
+//            }
+//            template2.setUpload(UploadEnum.NO.getType());
+            Template2Base template2Base = template2Biz.getTemplate2Base();
+            if(template2Base == null){
+                return ApiResponse.returnFail("第二模版基础信息不存在");
             }
-
-            Template tmp = new Template();
-            tmp.setPath(path);
-            tmp.setFilename(filename);
-            Integer a = templateBiz.queryFilenameAndPathCount(tmp);
-            if( a != null && a > 0){
-                return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
+            String filePath = StringUtils.concatUrl(template2Base.getBasePath(), template2.getPath(), template2.getFilename());
+            File file = new File(filePath);
+            if(file.exists()){
+                return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP + filePath);
             }
-
-            Topic topic = new Topic();
-            topic.setTopicPath(path);
-            topic.setTopicFilename(filename);
-            Integer c = topicBiz.queryFilenameAndPathCount(topic);
-            if(c != null && c > 0){
-                return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
-            }
-            template2.setUpload(UploadEnum.NO.getType());
         }
 
         template2Biz.saveTemplate2(template2);
@@ -222,25 +229,34 @@ public class Template2Controller extends BaseController  {
         template2.setTemplateClassify(templateClassify);
         template2.setTemplateName(templateName);
         template2.setUpload(UploadEnum.NO.getType());
-        Integer b = template2Biz.queryFilenameAndPathCount(template2);
-        if(b != null && b > 0){
-            return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
+//        Integer b = template2Biz.queryFilenameAndPathCount(template2);
+//        if(b != null && b > 0){
+//            return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
+//        }
+//
+//        Template tmp = new Template();
+//        tmp.setPath(path);
+//        tmp.setFilename(filename);
+//        Integer a = templateBiz.queryFilenameAndPathCount(tmp);
+//        if( a != null && a > 0){
+//            return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
+//        }
+//
+//        Topic topic = new Topic();
+//        topic.setTopicPath(path);
+//        topic.setTopicFilename(filename);
+//        Integer c = topicBiz.queryFilenameAndPathCount(topic);
+//        if(c != null && c > 0){
+//            return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
+//        }
+        Template2Base template2Base = template2Biz.getTemplate2Base();
+        if(template2Base == null){
+            return ApiResponse.returnFail("第二模版基础信息不存在");
         }
-
-        Template tmp = new Template();
-        tmp.setPath(path);
-        tmp.setFilename(filename);
-        Integer a = templateBiz.queryFilenameAndPathCount(tmp);
-        if( a != null && a > 0){
-            return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
-        }
-
-        Topic topic = new Topic();
-        topic.setTopicPath(path);
-        topic.setTopicFilename(filename);
-        Integer c = topicBiz.queryFilenameAndPathCount(topic);
-        if(c != null && c > 0){
-            return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
+        String filePath = StringUtils.concatUrl(template2Base.getBasePath(), template2.getPath(), template2.getFilename());
+        File file = new File(filePath);
+        if(file.exists()){
+            return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP + filePath);
         }
 
         template2Biz.saveTemplate2(template2);
