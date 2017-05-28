@@ -6,10 +6,11 @@ import com.cn.cms.contants.StaticContants;
 import com.cn.cms.enums.RelationTypeEnum;
 import com.cn.cms.enums.UploadEnum;
 import com.cn.cms.exception.BizException;
-import com.cn.cms.po.*;
+import com.cn.cms.po.Channel;
+import com.cn.cms.po.Template;
+import com.cn.cms.po.TemplateRelation;
 import com.cn.cms.utils.FileUtil;
 import com.cn.cms.utils.Page;
-import com.cn.cms.utils.RsyncUtils;
 import com.cn.cms.utils.StringUtils;
 import com.cn.cms.web.ann.CheckAuth;
 import com.cn.cms.web.ann.CheckToken;
@@ -169,8 +170,13 @@ public class TemplateController extends BaseController {
 //            }
 //            template.setUpload(UploadEnum.NO.getType());
 //        }
-        if(!oldTemplate.getPath().equals(path) || !oldTemplate.getFilename().equals(filename) || !oldTemplate.getFilename().equals(channelId)){
-            Channel channel = channelBiz.getChannel(channelId);
+        if(!oldTemplate.getPath().equals(path) || !oldTemplate.getFilename().equals(filename) || !oldTemplate.getChannelId().equals(channelId)){
+            Channel channel = null;
+            if(channelId!=null){
+                channel = channelBiz.getChannel(channelId);
+            }else{
+                channel = channelBiz.getChannel(oldTemplate.getChannelId());
+            }
             if(channel == null){
                 return ApiResponse.returnFail(StaticContants.ERROR_CHANNEL_NOT_FOUND);
             }
@@ -282,10 +288,10 @@ public class TemplateController extends BaseController {
         byte[] bytes = FileUtil.base64Upload(baseCode);
         String fileName = StringUtils.concatUrl(channel.getTemplatePath(), template.getPath(), template.getFilename());
         FileUtil.fileUpload(bytes, fileName);
-        if(StaticContants.RSYNC_TEMPLATE_ON == StaticContants.RSYNC_ON){
-            RsyncUtils.rsync(null , StringUtils.delFirstPrefix(StringUtils.concatUrl(template.getPath(), template.getFilename()), StaticContants.FILE_PATH_SP),
-                    StaticContants.RSYNC_TEMPLATE_FILE, channel.getTemplatePath());
-        }
+//        if(StaticContants.RSYNC_TEMPLATE_ON == StaticContants.RSYNC_ON){
+//            RsyncUtils.rsync(null , StringUtils.delFirstPrefix(StringUtils.concatUrl(template.getPath(), template.getFilename()), StaticContants.FILE_PATH_SP),
+//                    StaticContants.RSYNC_TEMPLATE_FILE, channel.getTemplatePath());
+//        }
         templateBiz.uploadTemplate(getCurrentUserId(request), id, UploadEnum.YES.getType());
         Map<String,Object> map = new HashMap<>();
         map.put("fileName",fileName);
