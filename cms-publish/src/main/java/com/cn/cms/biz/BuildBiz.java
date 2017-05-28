@@ -124,6 +124,7 @@ public class BuildBiz extends BaseBiz {
                 if(news == null){
                     publishInfoBiz.recordInfo(PublishStatusEnum.ERROR, body.getId(),
                             TriggerTypeEnum.NEWS, TemplateTypeEnum.NONE, null, "ID为"+ body.getId() +" 的新闻已不存在");
+                    break;
                 }
                 templates = findTemplateForNews(news);
                 this.publishNews(news, body);
@@ -197,11 +198,13 @@ public class BuildBiz extends BaseBiz {
                 if(template2 == null){
                     publishInfoBiz.recordInfo(PublishStatusEnum.ERROR, news.getId(),
                             TriggerTypeEnum.NEWS, TemplateTypeEnum.NONE, null, "ID为"+ newsColumn.getListTemplate2Id() +" 的列表页第二模版已不存在");
+                    return ;
                 }
                 Channel channel = channelBiz.getChannel(newsColumn.getChannelId());
                 if(channel == null){
                     publishInfoBiz.recordInfo(PublishStatusEnum.ERROR, news.getId(),
                             TriggerTypeEnum.NEWS, TemplateTypeEnum.TEMPLATE2, template2.getId(), "ID为"+ newsColumn.getListTemplate2Id() +" 的列表页第二模版的所属频道ID为 " +newsColumn.getChannelId()+" 的频道已不存在");
+                    return ;
                 }
                 newsColumn.setListUrl(StringUtils.concatUrl(channel.getChannelUrl(), template2.getPath(),
                         newsColumn.getId().toString().concat(StaticContants.HTML_SUFFIX)));
@@ -224,6 +227,7 @@ public class BuildBiz extends BaseBiz {
                 if(template2 == null){
                     publishInfoBiz.recordInfo(PublishStatusEnum.ERROR, news.getId(),
                             TriggerTypeEnum.NEWS, TemplateTypeEnum.NONE, null, "ID为"+ newsColumn.getDetailTemplate2Id() +" 的详情页第二模版已不存在");
+                    return ;
                 }
                 String[] contents = HtmlUtils.splitNewsContent(news.getNewsDetail().getContent());
                 //---------------
@@ -269,11 +273,13 @@ public class BuildBiz extends BaseBiz {
                             if(template2 == null){
                                 publishInfoBiz.recordInfo(PublishStatusEnum.ERROR, news.getId(),
                                         TriggerTypeEnum.NEWS, TemplateTypeEnum.NONE, null, "ID为"+ newsColumn.getListTemplate2Id() +" 的列表页第二模版已不存在");
+                                continue;
                             }
                             Channel channel = channelMap.get(newsColumn.getChannelId());
                             if(channel == null){
                                 publishInfoBiz.recordInfo(PublishStatusEnum.ERROR, news.getId(),
                                         TriggerTypeEnum.NEWS, TemplateTypeEnum.TEMPLATE2, template2.getId(), "ID为"+ newsColumn.getListTemplate2Id() +" 的列表页第二模版的所属频道ID为 " +newsColumn.getChannelId()+" 的频道已不存在");
+                                continue;
                             }
                             newsColumn.setListUrl(StringUtils.concatUrl(channel.getChannelUrl(), template2.getPath(),
                                     newsColumn.getId().toString().concat(StaticContants.HTML_SUFFIX)));
