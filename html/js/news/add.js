@@ -9,16 +9,18 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 	        	$scope.$parent.menu.push({name:"新增新闻"});
 	        	var categoryId,channelId,columnId,columnIds = '[';
 	        	function addNews( obj ){
-	        		obj.selectSizeChoose = Tool.changeObjectName(obj.selectSizeChoose,[{name:'id',newName:'val'},{name:'name',newName:'title'}]);
-	        		$.each(obj.selectSizeChoose,function( i , obj ){
-	        			columnIds += "{\"title\":\""+obj.title+"\",\"val\":\""+obj.val+"\"},";
-	        			/*columnIds.push({
-	        				title : obj.title , 
-	        				val : obj.val
-	        			})*/
-	        		})
-	        		columnIds = columnIds.substr(0,columnIds.length-1);
-	        		columnIds += ']';
+	        		if(obj.selectSizeChoose){
+		        		obj.selectSizeChoose = Tool.changeObjectName(obj.selectSizeChoose,[{name:'id',newName:'val'},{name:'name',newName:'title'}]);
+		        		$.each(obj.selectSizeChoose,function( i , obj ){
+		        			columnIds += "{\"title\":\""+obj.title+"\",\"val\":\""+obj.val+"\"},";
+		        			/*columnIds.push({
+		        				title : obj.title , 
+		        				val : obj.val
+		        			})*/
+		        		});
+		        		columnIds = columnIds.substr(0,columnIds.length-1);
+		        		columnIds += ']';
+	        		}
 					$.each(obj.selects,function(){
 						if(this.title == 'channelId'){
 							channelId = this.id;
@@ -29,7 +31,7 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 						if(this.title == 'categoryId'){
 							categoryId = this.id;
 						}
-					})
+					});
 
 					var now = new Date().valueOf();
 
@@ -64,6 +66,7 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 								layer.msg(_data.message);
 
 								if(_data.code == 0) {
+									$scope.clearSelect();
 									$state.reload();
 								}
 							});
@@ -101,30 +104,6 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 				// 		}
 				// 	]
 				// }
-
-				//推送栏目
-				function istuisong(){
-					var _istuisong = $('.istuisong');
-					if(_istuisong.length){
-						var select = _istuisong.find('select');
-						//select.find('option:first').remove();
-						select.attr({size:5})
-					}else{
-						setTimeout(istuisong,20);
-					}
-				}
-				function tuisong(){
-					var tuisonglanmu = $('.tuisonglanmu');
-
-					if(tuisonglanmu.length){
-						var select = tuisonglanmu.find('select');
-						select.find('option:first').remove();
-						select.attr({size:5});
-						istuisong();
-					}else{
-						setTimeout(tuisong,20);
-					}
-				}
 
 				getList(function(list){
 					$.each(list,function( i , obj){
@@ -227,8 +206,24 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 							}
 						]
 					}
+					$scope.clearSelect = function(){
+						function clear( obj ){
+							if(obj.type=='selectSize'){
+								obj.toSelect = [];
+							}
+						}
+						$.each($scope.formdata.list,function( i , obj){
+							if($.type(obj)=='array'){
+								$.each(obj,function(j,_obj){
+									clear(_obj)
+								})
+							}else{
+								clear(obj)
+							}
+						})
+					}
+					$scope.clearSelect();
 					$scope.$apply();
-					tuisong();
 				})
 	        }
 

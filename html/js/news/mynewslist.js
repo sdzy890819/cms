@@ -26,6 +26,30 @@ define(['require',"app",'jquery'
 										var maxNum , index = 2 , 
 											title , name, inputMaxNum,type,
 											firstArr, lastArr;
+
+										function setSelect(obj){ //推送处理
+											if(obj.type=='selectSize' && _data.data.columnIds && _data.data.columnIds.length){
+												obj.toSelect = Tool.changeObjectName(_data.data.columnIds,[{name:'val',newName:'id'},{name:'title',newName:'name'}]);
+												var arrs = obj.toSelect.slice(0) , 
+												b = true,
+												oldarr = [];
+												if(arrs.length){
+													$.each(obj.fromSelect , function( i , _obj ){
+														b = true;
+														for( var j=0;j<arrs.length;j++){
+															if(arrs[j].id == _obj.id ){
+																b = false;
+																break;
+															}
+														}
+														if(b==true){
+															oldarr.push(_obj);
+														}
+													});
+													obj.fromSelect = oldarr;
+												}
+											}
+										}
 										$.each(formList,function(i,obj){
 											if(obj.title=='field1'){
 												title = obj.title.replace(obj.title.match(/\d+$/)[0],'');
@@ -55,6 +79,13 @@ define(['require',"app",'jquery'
 														$scope.$apply();
 													}
 												})
+											}
+											if($.type(obj)=='array'){
+												$.each(obj,function( j , _obj ){
+													setSelect(_obj);
+												})
+											}else{
+												setSelect(obj);
 											}
 										});
 										for(;index<maxNum;index++){

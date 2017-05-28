@@ -39,7 +39,13 @@
             data = clipboardData.getData('Text');
         }else{
         }
-        insertHtml(data);
+        if(window.parent.addContent){//编辑弹出匡时，进行内容填充
+            window.parent.addContent(function( data ){
+                editor.execCommand('insertHtml', data)
+            })
+        }else{
+            editor.execCommand('insertHtml', data)
+        }
     });
     UE.registerUI('button',function(editor,uiName){
         //注册按钮执行时的command命令，使用命令默认就会带有回退操作

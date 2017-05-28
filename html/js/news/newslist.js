@@ -40,6 +40,30 @@ define(['require',"app",'jquery','search','./searchForm'
 										var maxNum , index = 2 , 
 											title , name, inputMaxNum,type,
 											firstArr, lastArr;
+
+										function setSelect(obj){ //推送处理
+											if(obj.type=='selectSize' && _data.data.columnIds && _data.data.columnIds.length){
+												obj.toSelect = Tool.changeObjectName(_data.data.columnIds,[{name:'val',newName:'id'},{name:'title',newName:'name'}]);
+												var arrs = obj.toSelect.slice(0) , 
+												b = true,
+												oldarr = [];
+												if(arrs.length){
+													$.each(obj.fromSelect , function( i , _obj ){
+														b = true;
+														for( var j=0;j<arrs.length;j++){
+															if(arrs[j].id == _obj.id ){
+																b = false;
+																break;
+															}
+														}
+														if(b==true){
+															oldarr.push(_obj);
+														}
+													});
+													obj.fromSelect = oldarr;
+												}
+											}
+										}
 										$.each(formList,function(i,obj){
 											if(obj.title=='field1'){ //填充多个字段
 												title = obj.title.replace(obj.title.match(/\d+$/)[0],'');
@@ -75,6 +99,15 @@ define(['require',"app",'jquery','search','./searchForm'
 														$scope.$apply();																
 													}
 												})
+											}
+
+
+											if($.type(obj)=='array'){
+												$.each(obj,function( j , _obj ){
+													setSelect(_obj);
+												})
+											}else{
+												setSelect(obj);
 											}
 										});
 										for(;index<maxNum;index++){
@@ -162,8 +195,7 @@ define(['require',"app",'jquery','search','./searchForm'
 								$.each(list,function( i , obj){
 									if(obj.title == 'content'){
 										obj.width = '800px';
-									}		
-
+									}
 									if(obj.type=='select'){
 										obj.callback = function( _object ){
 
@@ -196,7 +228,8 @@ define(['require',"app",'jquery','search','./searchForm'
 												})
 											}
 										}
-									}									
+									}
+																		
 								});									
 								getAddForm(function( data){ //获取详情的数据，判断是否要新增字段，和更新二级，三级栏目 
 									callback(data);

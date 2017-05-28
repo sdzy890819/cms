@@ -36,7 +36,6 @@ define(["app",'jquery','form'],function (app,$) {
 					});
 
 					getList(function(list){
-						
 						obj.callback(list,function(_list){
 							$scope.formdata = { //确认按钮
 								title : '编辑',
@@ -58,25 +57,34 @@ define(["app",'jquery','form'],function (app,$) {
 							}
 							obj.updateData(function(_data){
 								$scope.data = _data.data;
-								try{
-									window.top.document.getElementById("editor").contentWindow.insertHtml(_data.data.newsDetail.content);
-								}catch(e){
-									
+
+								window.addContent = function(callback){
+									callback(_data.data.newsDetail.content);
+								}
+								function clear( obj ){
+									if(obj.type=='selectSize'){
+										obj.toSelect = [];
+									}
+								}
+								if(!_data.data.columnIds || !_data.data.columnIds.length){
+									$.each($scope.formdata.list,function( i , obj){
+										if($.type(obj)=='array'){
+											$.each(obj,function(j,_obj){
+												clear(_obj)
+											})
+										}else{
+											clear(obj)
+										}
+									})
 								}
 								if(!$scope.$$phase) { 
 									$scope.$apply();
 								} 
-							});
-							if(!$scope.$$phase) { 
-								$scope.$apply();
-							} 
+							});							
 						})
 					})
 				}
 			});
-    	},
-    	updateData : function(){
-
     	}
     }
 });
