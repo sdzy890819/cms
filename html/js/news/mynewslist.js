@@ -172,43 +172,43 @@ define(['require',"app",'jquery'
 								});
         					},
         					callback : function(list , callback ){ //返回获取的数据 用于操作        						
-										$.each(list,function( i , obj){
-											if(obj.title == 'content'){
-												obj.width = '800px';
-											}
-											if(obj.type=='select'){
+								$.each(list,function( i , obj){
+									if(obj.title == 'content'){
+										obj.width = '1000px';
+									}
+									if(obj.type=='select'){
 
-												obj.callback = function( _object ){
-													if(_object.title == 'categoryId'){
-														getData.channel.currentChannelList({
-															categoryId : _object.obj.id,
-															callback : function(_data){
-																var arr = [obj.select[1][0]];
-																obj.select[1] = arr;
-																obj.select[1] = obj.select[1].concat(Tool.changeObjectName(_data.data,[{name:'channelName',newName:'name'}]));
-											
-																$scope.$apply();
-																_object.callback();
-															}
-														})
-													}else if(_object.title == 'channelId'){
-														getData.news.newscolumnlist({
-															channelId : _object.obj.id,
-															callback : function(_data){
-																var arr = [obj.select[2][0]];
-																obj.select[2] = arr;
-																obj.select[2] = obj.select[2].concat(Tool.changeObjectName(_data.data,[{name:'columnName',newName:'name'}]));
-																$scope.$apply();
-																_object.callback();
-															}
-														})
+										obj.callback = function( _object ){
+											if(_object.title == 'categoryId'){
+												getData.channel.currentChannelList({
+													categoryId : _object.obj.id,
+													callback : function(_data){
+														var arr = [obj.select[1][0]];
+														obj.select[1] = arr;
+														obj.select[1] = obj.select[1].concat(Tool.changeObjectName(_data.data,[{name:'channelName',newName:'name'}]));
+									
+														$scope.$apply();
+														_object.callback();
 													}
-												}
+												})
+											}else if(_object.title == 'channelId'){
+												getData.news.newscolumnlist({
+													channelId : _object.obj.id,
+													callback : function(_data){
+														var arr = [obj.select[2][0]];
+														obj.select[2] = arr;
+														obj.select[2] = obj.select[2].concat(Tool.changeObjectName(_data.data,[{name:'columnName',newName:'name'}]));
+														$scope.$apply();
+														_object.callback();
+													}
+												})
 											}
-										});							
-										getAddForm(function( data){											
-											callback(data);
-										},list)
+										}
+									}
+								});							
+								getAddForm(function( data){											
+									callback(data);
+								},list)
         					},
         					$uibModal :$uibModal 
         				});
@@ -385,9 +385,7 @@ define(['require',"app",'jquery'
 							td : GenerateArrList.setArr(_data.data.list, th) ,
 							edit : [																
 								{cls : '' , name : '编辑',evt:$scope.edit},
-								{cls : '' , name : ' 推荐',evt:$scope.recommend},
-								//{cls : '' , name : '预览',href:'/webapi/news/preview/'}
-								// {cls : 'del' , name : '删除',evt:$scope.del}
+								{cls : '' , name : ' 推荐',evt:$scope.recommend}
 							],
 							edit1 : [												
 								{cls : 'zoom_in' , name : '预览',href:'/webapi/news/preview/'}
@@ -421,7 +419,8 @@ define(['require',"app",'jquery'
 					})
 
 					GenerateArrList.extendType($scope.listdata.table.td,th,['width','name','key']); //把TH 中的出name,key,width属性以外的属性合传给td							
-		      		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');			        		
+		      		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
+		      		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit1,'edit1');		        		
 		      		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.permission,'permission');			        		
 		      		$scope.$apply();						
 				}

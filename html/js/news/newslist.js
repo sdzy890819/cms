@@ -197,7 +197,7 @@ define(['require',"app",'jquery','search','./searchForm'
         					callback : function( list , callback ){ //返回获取的数据 用于操作  				
 								$.each(list,function( i , obj){
 									if(obj.title == 'content'){
-										obj.width = '800px';
+										obj.width = '1000px';
 									}
 									if(obj.type=='select'){
 										obj.callback = function( _object ){
@@ -438,10 +438,7 @@ define(['require',"app",'jquery','search','./searchForm'
 							td : GenerateArrList.setArr(_data.data.list, th) ,
 							edit : [																
 								{cls : '' , name : '编辑',evt:$scope.edit},
-								{cls : '' , name : ' 推荐',evt:$scope.recommend},
-								//{cls : 'edit' , name : ' 预览',evt:$scope.preview}
-								//{cls : 'zoom_in' , name : '预览',href:'/webapi/news/preview/'}
-								// {cls : 'del' , name : '删除',evt:$scope.del}
+								{cls : '' , name : ' 推荐',evt:$scope.recommend}
 							],
 							edit1 : [												
 								{cls : 'zoom_in' , name : '预览',href:'/webapi/news/preview/'}
@@ -450,7 +447,6 @@ define(['require',"app",'jquery','search','./searchForm'
 								{cls : 'del' , name : ' 撤销',evt:$scope.rescind},
 								{cls : 'del' , name : '删除',evt:$scope.del}
 							]
-
 						},
 						/*submit : [
 							selectAll,
