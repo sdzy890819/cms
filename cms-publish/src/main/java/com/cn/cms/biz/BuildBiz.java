@@ -121,6 +121,10 @@ public class BuildBiz extends BaseBiz {
         switch (sourceEnum) {
             case NEWS: {
                 News news = newsBiz.findNewsAndDetail(body.getId());
+                if(news == null){
+                    publishInfoBiz.recordInfo(PublishStatusEnum.ERROR, news.getId(),
+                            TriggerTypeEnum.NEWS, TemplateTypeEnum.NONE, null, "ID为"+ body.getId() +" 的新闻已不存在");
+                }
                 templates = findTemplateForNews(news);
                 this.publishNews(news, body);
                 this.publishTemplate2(news, true);
@@ -190,7 +194,15 @@ public class BuildBiz extends BaseBiz {
             NewsColumn newsColumn = newsBiz.getNewsColumn(news.getColumnId());
             if(newsColumn.getListTemplate2Id()!=null && newsColumn.getListTemplate2Id() > 0){
                 Template2 template2 = template2Biz.getTemplate2(newsColumn.getListTemplate2Id());
+                if(template2 == null){
+                    publishInfoBiz.recordInfo(PublishStatusEnum.ERROR, news.getId(),
+                            TriggerTypeEnum.NEWS, TemplateTypeEnum.TEMPLATE2, template2.getId(), "ID为"+ newsColumn.getListTemplate2Id() +" 的列表页第二模版已不存在");
+                }
                 Channel channel = channelBiz.getChannel(newsColumn.getChannelId());
+                if(channel == null){
+                    publishInfoBiz.recordInfo(PublishStatusEnum.ERROR, news.getId(),
+                            TriggerTypeEnum.NEWS, TemplateTypeEnum.TEMPLATE2, template2.getId(), "ID为"+ newsColumn.getListTemplate2Id() +" 的列表页第二模版的所属频道ID为 " +newsColumn.getChannelId()+" 的频道已不存在");
+                }
                 newsColumn.setListUrl(StringUtils.concatUrl(channel.getChannelUrl(), template2.getPath(),
                         newsColumn.getId().toString().concat(StaticContants.HTML_SUFFIX)));
                 newsBiz.publishListTemplate2(newsColumn);
@@ -209,6 +221,10 @@ public class BuildBiz extends BaseBiz {
 
             if( isContainDetail && newsColumn.getDetailTemplate2Id() != null && newsColumn.getDetailTemplate2Id() > 0){
                 Template2 template2 = template2Biz.getTemplate2(newsColumn.getDetailTemplate2Id());
+                if(template2 == null){
+                    publishInfoBiz.recordInfo(PublishStatusEnum.ERROR, news.getId(),
+                            TriggerTypeEnum.NEWS, TemplateTypeEnum.TEMPLATE2, template2.getId(), "ID为"+ newsColumn.getDetailTemplate2Id() +" 的详情页第二模版已不存在");
+                }
                 String[] contents = HtmlUtils.splitNewsContent(news.getNewsDetail().getContent());
                 //---------------
                 PublishInfo publishInfo = publishInfoBiz.recordInfo(PublishStatusEnum.EXECING, news.getId(),
@@ -250,7 +266,15 @@ public class BuildBiz extends BaseBiz {
                         NewsColumn newsColumn = newsColumns.get(i);
                         if(newsColumn.getListTemplate2Id()!=null && newsColumn.getListTemplate2Id() > 0){
                             Template2 template2 = template2Biz.getTemplate2(newsColumn.getListTemplate2Id());
+                            if(template2 == null){
+                                publishInfoBiz.recordInfo(PublishStatusEnum.ERROR, news.getId(),
+                                        TriggerTypeEnum.NEWS, TemplateTypeEnum.TEMPLATE2, template2.getId(), "ID为"+ newsColumn.getListTemplate2Id() +" 的列表页第二模版已不存在");
+                            }
                             Channel channel = channelMap.get(newsColumn.getChannelId());
+                            if(channel == null){
+                                publishInfoBiz.recordInfo(PublishStatusEnum.ERROR, news.getId(),
+                                        TriggerTypeEnum.NEWS, TemplateTypeEnum.TEMPLATE2, template2.getId(), "ID为"+ newsColumn.getListTemplate2Id() +" 的列表页第二模版的所属频道ID为 " +newsColumn.getChannelId()+" 的频道已不存在");
+                            }
                             newsColumn.setListUrl(StringUtils.concatUrl(channel.getChannelUrl(), template2.getPath(),
                                     newsColumn.getId().toString().concat(StaticContants.HTML_SUFFIX)));
                             newsBiz.publishListTemplate2(newsColumn);
