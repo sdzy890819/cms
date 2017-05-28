@@ -61,10 +61,11 @@ public class NewsColumnController extends BaseController {
     @CheckToken
     @CheckAuth( name = "newscolumn:read" )
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String list(@RequestParam(value = "page",required = false) Integer page,
+    public String list(@RequestParam(value = "channelId", required = false) Long channelId,
+                       @RequestParam(value = "page",required = false) Integer page,
                        @RequestParam(value="pageSize",required = false)Integer pageSize){
         Page page1 = new Page(page, pageSize);
-        List<NewsColumn> list = newsBiz.listNewsColumn(page1);
+        List<NewsColumn> list = newsBiz.listNewsColumn(channelId, page1);
         userBiz.dataInitBase(list);
         channelBiz.dataInitChannel(list);
         Map<String, Object> map = new HashMap<>();

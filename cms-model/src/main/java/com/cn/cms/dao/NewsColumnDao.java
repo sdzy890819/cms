@@ -12,9 +12,9 @@ import java.util.List;
  */
 public interface NewsColumnDao {
 
-    Integer queryListCount();
+    Integer queryListCount(Long channelId);
 
-    List<NewsColumn> queryListForPage(@Param(value = "page") Page page);
+    List<NewsColumn> queryListForPage(@Param(value = "channelId") Long channelId, @Param(value = "page") Page page);
 
     List<NewsColumn> queryList(@Param(value = "channelId") Long channelId);
 

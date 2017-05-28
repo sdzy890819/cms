@@ -51,11 +51,11 @@ public class NewsBiz extends BaseBiz {
         return newsService.queryList(channelId);
     }
 
-    public List<NewsColumn> listNewsColumn(Page page){
-        Integer count = this.newsService.queryListCount();
+    public List<NewsColumn> listNewsColumn(Long channelId, Page page){
+        Integer count = this.newsService.queryListCount(channelId);
         page.setCount(count);
         if(page.isQuery()){
-            return this.newsService.queryListForPage(page);
+            return this.newsService.queryListForPage(channelId, page);
         }
         return null;
     }

@@ -13,9 +13,9 @@ import java.util.List;
  */
 public interface NewsService {
 
-    Integer queryListCount();
+    Integer queryListCount(Long channelId);
 
-    List<NewsColumn> queryListForPage(Page page);
+    List<NewsColumn> queryListForPage(Long channelId, Page page);
 
     List<NewsColumn> queryList(Long channelId);
 

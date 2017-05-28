@@ -44,13 +44,13 @@ public class NewsServiceImpl implements NewsService {
     private ThreadPoolTaskExecutor threadTaskExecutor;
 
     @Override
-    public Integer queryListCount() {
-        return newsColumnDao.queryListCount();
+    public Integer queryListCount(Long channelId) {
+        return newsColumnDao.queryListCount(channelId);
     }
 
     @Override
-    public List<NewsColumn> queryListForPage(Page page) {
-        return newsColumnDao.queryListForPage(page);
+    public List<NewsColumn> queryListForPage(Long channelId, Page page) {
+        return newsColumnDao.queryListForPage(channelId, page);
     }
 
     public List<NewsColumn> queryList(Long channelId) {

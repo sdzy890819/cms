@@ -67,6 +67,7 @@
         select <include refid="sql_column" /> from publish_info
         <include refid="delTag" />
         <include refid="where_find_list" />
+        order by id desc
         limit #{page.start}, #{page.pageSize};
     </select>
 
