@@ -123,7 +123,7 @@ public class UserController extends BaseController{
     public String createUser(HttpServletRequest request, @RequestParam(value="userName")String userName,
                              @RequestParam(value="realName")String realName,
                              @RequestParam(value="pwd")String pwd,
-                             @RequestParam(value="headImage", required = false)String headImage,
+                             @RequestParam(value="headImage", required = false, defaultValue = "http://www.p5w.net/images16/p5w_logo.png")String headImage,
                              @RequestParam(value = "idfa", required = false) String idfa,
                              @RequestParam(value = "positionIds", required = false) Long[] positionIds) throws BizException{
         String userID = getCurrentUserId(request);
