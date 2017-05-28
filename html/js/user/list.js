@@ -256,11 +256,11 @@ define(['require',"app",'jquery',
 						$scope.searchform = {
 							list : data,
 							return : function(){ //返回列表
-								getDataList();
 								$scope.searchform.search = null;
 								page = 1;
 								searchPage = 1;
 								$scope.$$childHead.current = 1;
+								getDataList();
 							},
 							submit : function( obj , data ){
 								function getSearchList(){									

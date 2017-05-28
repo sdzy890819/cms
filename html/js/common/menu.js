@@ -136,11 +136,11 @@ define(["app",'jquery','./data/getData','./moduls/directive'], function ( app,$,
 				        		jian.click(function(){
 				        			open = !open;
 				        			if(open){
-				        				jian.removeClass('cur').html('<');
+				        				jian.removeClass('cur').html('&lt;');
 				        				menu.removeClass('cur');
 				        				right.removeClass('cur');
 				        			}else{
-				        				jian.addClass('cur').html('>');
+				        				jian.addClass('cur').html('&gt;');
 				        				menu.addClass('cur');
 				        				right.addClass('cur');
 				        			}

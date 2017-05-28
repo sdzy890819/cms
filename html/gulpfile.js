@@ -24,7 +24,7 @@ gulp.task('html', function () {
         minifyJS: true,//压缩页面JS
         minifyCSS: true//压缩页面CSS
     };
-    gulp.src(['./*.html','template/*.html','template/**/*.html'])
+    gulp.src(['./*.html','./**/*.html','!dist/*.html','!dist/**/*.html'])
         .pipe(htmlmin(options))
         .pipe(gulp.dest('dist'));
 });

@@ -338,12 +338,12 @@ define(["angular", "angularAMD","angularFileUpload","angular-ui-router",'angular
             .state('publishinfo', angularAMD.route({
                 url: '/publishinfo',
                 templateUrl: 'template/common/index.html',
-                controllerUrl: 'publishinfo/index'
+                controllerUrl: 'aboutpublish/index'
             }))
             .state('publishinfo.list', angularAMD.route({
                 url: '/list',
                 template: '<publishinfo-list></publishinfo-list>',
-                controllerUrl: 'publishinfo/list'
+                controllerUrl: 'aboutpublish/list'
             }))
 
     }]);
