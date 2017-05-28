@@ -12,6 +12,7 @@ define(['require',"app",'jquery'
 	        controller : function($scope,pop,$uibModal , $css , GenerateArrList){
 				$scope.title = "我的新闻列表";
 				$scope.$parent.menu.push({name:$scope.title}); //栏目
+
 				angular.extend($scope,{
 
 					edit : function( obj ){ //保存
@@ -20,8 +21,17 @@ define(['require',"app",'jquery'
 							getData.news.newsdetail({
 								id : obj.id,
 								callback : function(_data){
-									_data.data.writeTime = new Date(_data.data.writeTime).format('yyyy-MM-dd h:m:s');
-									
+									if (_data.data.timer) {
+										_data.data.writeTime = new Date(_data.data.timer).format('yyyy-MM-dd h:m:s');										
+									}else {
+										_data.data.writeTime = '';
+									}
+									if (_data.data.editPublishTime) {
+										_data.data.editPublishTime = new Date(_data.data.editPublishTime).format('yyyy-MM-dd h:m:s');
+									}
+									if (_data.data.timer) {
+										_data.data.timer = new Date(_data.data.timer).format('yyyy-MM-dd h:m:s');
+									}
 									if(formList){ //发果有1条以上的字段则显示
 										var maxNum , index = 2 , 
 											title , name, inputMaxNum,type,
@@ -143,7 +153,8 @@ define(['require',"app",'jquery'
 									"categoryId": categoryId, //部门分类ID
 									"content":obj.html,
 									"autoPublish":(obj.show=='yes'?1:0), //1 是自动发布。0是不自动发布.默认不自动发布
-									"timer":obj.writeTime, //定时发布。//可不传
+									"timer":obj.timer, //定时发布。//可不传
+									"editPublishTime":obj.editPublishTime, //发布时间
 									"field1":obj.field1,
 									"field2":obj.field2,
 									"field3":obj.field3,
@@ -361,11 +372,11 @@ define(['require',"app",'jquery'
 						{name:'预览' , width : '50' , class: 'center'},
 						{name:'权限' , width : '50' , class: 'center'}
 					];
-					
-					$.each(_data.data.list, function(i, obj){
-						obj.channelAndColumnName = [obj.channelName, obj.columnName].join('-');
-					})
-			
+					if(_data.data.list){
+						$.each(_data.data.list, function(i, obj){
+							obj.channelAndColumnName = [obj.channelName, obj.columnName].join('-');
+						})
+					}
 					$scope.listdata = { //确认按钮
 						title : $scope.title,
 						table : {
@@ -402,7 +413,6 @@ define(['require',"app",'jquery'
 							}
 						]*/
 					}
-
 					$.each($scope.listdata.table.td, function(i, obj){
 
 						if (obj.publish) {
@@ -411,9 +421,9 @@ define(['require',"app",'jquery'
 					})
 
 					GenerateArrList.extendType($scope.listdata.table.td,th,['width','name','key']); //把TH 中的出name,key,width属性以外的属性合传给td							
-      		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');			        		
-      		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.permission,'permission');			        		
-      		$scope.$apply();						
+		      		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');			        		
+		      		GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.permission,'permission');			        		
+		      		$scope.$apply();						
 				}
 
 				//搜索

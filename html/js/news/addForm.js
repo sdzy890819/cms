@@ -1,12 +1,12 @@
 define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 	var list = [ //表单
-		
+		[
 			{
 				title : 'title',
 				name : '标题',
 				placeholder : '请输入标题',
 				type : 'text', //text textarea radio checkbox edit
-				cls : 'w600',
+				cls : 'w450',
 				verify : 'title'
 			},
 			{
@@ -14,10 +14,10 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 				name : '附标题',
 				placeholder : '请输入附标题',
 				type : 'text',
-				cls : 'w600',
+				cls : 'w450',
 				check : false			
 			}
-		,
+		],
 		[
 			{
 				title : 'keyword',
@@ -39,15 +39,23 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 				placeholder : '请输入作者来源',
 				type : 'text',
 				verify : 'required'
-			}
-		],
-		[
+			},
 			{
 				title : 'stock',
 				name : '股票代码',
 				placeholder : '股票代码',
 				type : 'text'
 				//verify : 'required'
+			}
+		],
+		[
+			{
+				title : 'description',
+				name : '描述',
+				cls : 'w320',
+				placeholder : '描述',
+				type : 'textarea',
+				check : false
 			},
 			{
 				title : 'push',
@@ -58,13 +66,6 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 				toSelect : []
 			}
 		],
-		{
-			title : 'description',
-			name : '描述',
-			placeholder : '描述',
-			type : 'textarea',
-			check : false
-		},
 		{
 			title : 'channelId',
 			selectName : [
@@ -96,13 +97,38 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 			type : 'edit',
 			verify : 'title'
 		},
-		{
-			title : 'editPublishTime',
-			name : '发布时间',
-			placeholder : '请选择时间 年/月/日 时:分:秒',
-			type : 'date',
-			check : false
-		},
+		[
+			{
+				title : 'editPublishTime',
+				name : '发布时间',
+				placeholder : '请选择时间 年/月/日 时:分:秒',
+				type : 'date',
+				check : false
+			},
+			{
+				title : 'timer',
+				name : '定时发布',
+				placeholder : '请选择时间 年/月/日 时:分:秒',
+				type : 'date',
+				check : false
+			},	
+			{
+				title : 'show',
+				name : '是否发布',
+				type : 'radio',
+				radio : [
+					{
+						title : 'no',
+						name : '否'
+					},
+					{
+						title : 'yes',
+						name : '是' , 
+						checked : true
+					}
+				]
+			}
+		],
 		{
 			title : 'field1',
 			name : '扩展字段',
@@ -110,30 +136,7 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 			num : 1, //当前为第1条
 			inputMaxNum : 5,
 			type : 'text'
-		},
-		{
-			title : 'show',
-			name : '是否发布',
-			type : 'radio',
-			radio : [
-				{
-					title : 'no',
-					name : '否'
-				},
-				{
-					title : 'yes',
-					name : '是' , 
-					checked : true
-				}
-			]
-		},
-		{
-			title : 'writeTime',
-			name : '定时发布',
-			placeholder : '请选择时间 年/月/日 时:分:秒',
-			type : 'date',
-			check : false
-		}		
+		}
 	];
 	function getList(callback){
 		getData.category.listCategory({//部门

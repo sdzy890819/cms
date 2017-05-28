@@ -1,11 +1,11 @@
 var gulp = require('gulp') , 
 	concat = require('gulp-concat'),           //合并  
 	//jshint = require('gulp-jshint'),           //js规范验证  
-	uglify = require('gulp-uglify');           //压缩  
-	/*rename = require('gulp-rename'),          //文件名命名  
-	autoprefixer = require('gulp-autoprefixer'), 
-    fontSpider = require( 'gulp-font-spider' ),
     htmlmin = require('gulp-htmlmin'),
+    uglify = require('gulp-uglify');           //压缩  
+    /*rename = require('gulp-rename'),          //文件名命名  
+    autoprefixer = require('gulp-autoprefixer'), 
+    fontSpider = require( 'gulp-font-spider' ),
     imagemin = require('gulp-imagemin'),
     pngquant = require('imagemin-pngquant'),
     requirejsOptimize = require('gulp-requirejs-optimize'),
@@ -13,7 +13,7 @@ var gulp = require('gulp') ,
     cache = require('gulp-cache'),
 	watch = require('gulp-watch');   
 */
-gulp.task('testHtmlmin', function () {
+gulp.task('html', function () {
     var options = {
         removeComments: true,//清除HTML注释
         collapseWhitespace: true,//压缩HTML
@@ -24,7 +24,7 @@ gulp.task('testHtmlmin', function () {
         minifyJS: true,//压缩页面JS
         minifyCSS: true//压缩页面CSS
     };
-    gulp.src(['./*.html','./**/*.html','!./dist/*.html','!./dist/**/*.html'])
+    gulp.src(['./*.html','template/*.html','template/**/*.html'])
         .pipe(htmlmin(options))
         .pipe(gulp.dest('dist'));
 });
