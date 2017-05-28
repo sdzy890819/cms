@@ -351,15 +351,40 @@ define(['require',"app",'jquery','search','./searchForm'
 								}
 							}
 						});
+
+						$scope.getSearchList = function(page , status , obj , triggerType){
+							getData.publishInfo.list({
+								page:page,
+								pageSize:20,
+								status:status,//状态 
+								triggerId:obj.lastModifyUserName,//ID 对应的新闻、专题、碎片、推荐 的ID
+								triggerType:triggerType,//1|2|3|4 //新闻、专题、碎片、推荐 
+								callback : function(_data){
+									//分页
+									$scope.page = _data.data.page;
+									$scope.page.jump = function( obj ){
+										if(page != obj.curr){
+											page = obj.curr;
+											$scope.getSearchList(page , status , obj , triggerType);
+										}
+									}
+									$scope.searchform.search = {
+										count : _data.data.page.count , 
+										name : obj.condition
+									}
+									setList(_data);
+								}
+							})
+						}
 						$scope.searchform = {
 							list : data,
 							return : function(){ //返回列表
-								getDataList();
 								$scope.searchform.search = null;
 								page = 1;
 								searchPage = 1;
 								$scope.$$childHead.current = 1;
-							},							
+								getDataList();
+							},					
 							submit : function( obj , data ){
 								$scope.isSearch = true;
 								var page = 1 , status , triggerType;
@@ -371,32 +396,7 @@ define(['require',"app",'jquery','search','./searchForm'
                                         triggerType = this.type;
                                     }
                                 });
-								function getSearchList(){
-									getData.publishInfo.list({
-										page:page,
-										pageSize:20,
-										status:status,//状态 
-										triggerId:obj.lastModifyUserName,//ID 对应的新闻、专题、碎片、推荐 的ID
-										triggerType:triggerType,//1|2|3|4 //新闻、专题、碎片、推荐 
-										callback : function(_data){
-											//分页
-											$scope.page = _data.data.page;
-											$scope.page.jump = function( obj ){
-												if(page != obj.curr){
-													page = obj.curr;
-													getSearchList();
-												}
-											}
-											$scope.searchform.search = {
-												count : _data.data.page.count , 
-												name : obj.condition
-											}
-											setList(_data);
-										}
-									})
-								};
-								getSearchList();
-								$scope.getSearchList = getSearchList;
+								$scope.getSearchList(page , status , obj , triggerType);
 							}
 						}
 

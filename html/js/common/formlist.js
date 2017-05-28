@@ -190,7 +190,7 @@ define(["app",'jquery','./moduls/directive'], function ( app , $ ) {
 								cont: 'pages'
 								,pages: $scope.page.pageCount //总页数
 								,groups: 5 //连续显示分页数
-								,curr : $scope.current
+								,curr : $scope.page.page
 								,jump : function( obj ){
 									$scope.current = obj.curr;
 									$scope.page.jump(obj);
