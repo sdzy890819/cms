@@ -167,7 +167,7 @@ public class BuildBiz extends BaseBiz {
     }
 
     public List<Template> findPushTemplate(News news, List<Template> templates){
-        if(news.getPushTag() == PushTagEnum.YES.getType()) {
+        if(news.getPushTag()!=null && news.getPushTag() == PushTagEnum.YES.getType()) {
             List<Template> templates1 = templateBiz.findTemplateListByNewsPushColumnAndNotDetail(news.getId());
             if(templates!=null && templates1!=null){
                 templates.addAll(templates1);
