@@ -124,7 +124,7 @@ public class BuildBiz extends BaseBiz {
                 if(news == null){
                     publishInfoBiz.recordInfo(PublishStatusEnum.ERROR, body.getId(),
                             TriggerTypeEnum.NEWS, TemplateTypeEnum.NONE, null, "ID为"+ body.getId() +" 的新闻已不存在");
-                    break;
+                    return;
                 }
                 templates = findTemplateForNews(news);
                 this.publishNews(news, body);
