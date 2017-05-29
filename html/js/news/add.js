@@ -20,6 +20,8 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 		        		});
 		        		columnIds = columnIds.substr(0,columnIds.length-1);
 		        		columnIds += ']';
+	        		}else{
+	        			columnIds = null;
 	        		}
 					$.each(obj.selects,function(){
 						if(this.title == 'channelId'){
