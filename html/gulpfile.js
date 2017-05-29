@@ -24,7 +24,9 @@ gulp.task('html', function () {
         minifyJS: true,//压缩页面JS
         minifyCSS: true//压缩页面CSS
     };
-    gulp.src(['./*.html','./**/*.html','!dist/*.html','!dist/**/*.html'])
+    gulp.src(['./*.html','./**/*.html','!dist/*.html','!dist/**/*.html',
+            '!ueditor1_4_3_2-utf8-jsp/*.html','!ueditor1_4_3_2-utf8-jsp/**/*.html'
+        ])
         .pipe(htmlmin(options))
         .pipe(gulp.dest('dist'));
 });
@@ -43,32 +45,28 @@ gulp.task('jsmin', function () {
         mangle: false,//类型：Boolean 默认：true 是否修改变量名
         compress: true,//类型：Boolean 默认：true 是否完全压缩
         preserveComments: 'license',//'license', //保留所有注释
-        /*mangle: {except: [//排除混淆关键字
-            'require' ,'exports' ,'module' ,'$','layui',
-            'layer','define','angular','angularAMD','jquery',
-            'jcrop','uploadify','angular-ui-router','angular-css',
-            'ui-bootstrap','ngFileUpload-shim','ngFileUpload',
-            'angularFileUpload','ngload','Upload','upload',
-            '$scope' , '$state' , '$element' , '$rootScope','$uibModal','$css','$timeout',
-            'ngModel','$state','repeatFinish','GenerateArrList','pop','Tool',
-            'form', 'layedit', 'laydate',
-            '$uibModalInstance','$css','file',
-            'animation','ariaLabelledBy','ariaDescribedBy','templateUrl',
-            'size','controller','wangEditor',
-            'restrict','replace','transclude','uploadify'
-        ]}*/
     };
+    //gulp.src([
+    //        'js/*.js', 'js/**/*.js',
+//
+    //        '!js/**/gulpfile.js',
+    //        '!js/**/WebpackConfig.js',
+    //        
+    //        '!js/upload/angular-file-upload/src/*.js',
+    //        '!js/upload/angular-file-upload/src/**/*.js',
+    //    ])
     gulp.src([
             'js/*.js', 'js/**/*.js',
 
             '!js/**/gulpfile.js',
             '!js/**/WebpackConfig.js',
             
-            '!js/upload/angular-file-upload/src/*.js',
-            '!js/upload/angular-file-upload/src/**/*.js',
+            '!js/upload/*.js',
+            '!js/upload/**/*.js',
 
             
-            //'!js/plug/**/*.js'
+            '!js/plug/*.js',
+            '!js/plug/**/*.js'
         ])
         .pipe(uglify(options))
         .pipe(gulp.dest('dist/js'));
