@@ -295,7 +295,7 @@ public class StaticContants {
 
     public static String REGEX_SPLIT_HTML_CONTENT = "(<[^>]*>|&lt;|&gt;|&quot;|&amp;|&nbsp;)";
 
-    public static String REGEX_SPLIT_PAGE = "----*";
+    public static String REGEX_SPLIT_PAGE = "(_ueditor_page_break_tag_)+";
 
     public static String LOCALIZED_KEY = "4667ssvcGpEaAqLwQdDU2VIAorwBrbT06VrXBfE";
 
