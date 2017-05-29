@@ -718,6 +718,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						"author":obj.author,
 						"channelId":obj.channelId,//频道ID
 						"columnId":obj.columnId,//栏目ID
+						"columnIds":obj.columnIds,//栏目ID
 						"categoryId" : obj.categoryId,
 						"content":obj.content,
 						"id":obj.id,
