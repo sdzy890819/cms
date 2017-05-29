@@ -146,14 +146,13 @@ public class NewsServiceImpl implements NewsService {
 
 
     public void updateNews(News news) {
-
-        newsDao.updateNews(news);
-        List<NewsPushColumn> newsPushColumns = TextUtils.packagingNewsPushColumns(news);
-        if(StringUtils.isNotEmpty(newsPushColumns)){
+        if(news.getColumnIds()!=null && news.getColumnIds().size() >0){
             news.setPushTag(PushTagEnum.YES.getType());
         }else{
             news.setPushTag(PushTagEnum.NO.getType());
         }
+        newsDao.updateNews(news);
+        List<NewsPushColumn> newsPushColumns = TextUtils.packagingNewsPushColumns(news);
         newsDetailDao.updateNewsDetail(news.getNewsDetail());
         newsStockDao.delStocks(news.getId());
         if(StringUtils.isNotEmpty(news.getNewsStocks())) {
