@@ -235,7 +235,7 @@ public class StaticContants {
     public static final String HTML_SUFFIX = ".shtml";
 
 
-    public static final String TEMPLATE_KEY_PAGE = "page";
+    public static final String TEMPLATE_KEY_PAGE = "pageNumber";
 
     public static final String TEMPLATE_KEY_DATA = "data";
 
@@ -251,7 +251,7 @@ public class StaticContants {
 
     public static final String TEMPLATE_KEY_PAGE_DETAIL = "pageDetail";
 
-    public static final String TEMPLATE_KEY_PAGE_LIST = "pageList";
+    public static final String TEMPLATE_KEY_PAGE_LIST = "page";
 
     public static final String TEMPLATE_KEY_CURRENT_FILE_NAME = "currentFileName";
 
