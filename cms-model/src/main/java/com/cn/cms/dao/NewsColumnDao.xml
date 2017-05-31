@@ -82,18 +82,10 @@
             <if test="p1.channelId != null">
                 channel_id = ${p1.channelId},
             </if>
-            <if test="p1.listId != null">
                 list_id = ${p1.listId},
-            </if>
-            <if test="p1.detailId != null">
                 detail_id = ${p1.detailId},
-            </if>
-            <if test="p1.listTemplate2Id != null">
                 list_template2_id = ${p1.listTemplate2Id},
-            </if>
-            <if test="p1.detailTemplate2Id != null">
                 detail_template2_id = ${p1.detailTemplate2Id},
-            </if>
             <if test="p1.keywords != null">
                 keywords = #{p1.keywords},
             </if>
