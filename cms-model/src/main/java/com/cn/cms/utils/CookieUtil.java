@@ -42,7 +42,6 @@ public class CookieUtil {
     public static String getCookieVal(HttpServletRequest request, String name){
         Map<String,String> cookieMap = getCookieMap(request);
         if(cookieMap.containsKey(name)){
-            log.info(name + " COOKIE VAL :"+cookieMap.get(name));
             return cookieMap.get(name);
         }else{
             return null;
