@@ -104,12 +104,15 @@ input:focus{ border: 1px solid #bbb !important;} */
 
 .iframe{ border:none; }
 .imagePre {
-  border:  1px solid #ddd;
-  padding: 4px;
+  
   margin: 5px;
   background: #fff;
   border-radius: 4px;
   vertical-align: middle;
+  img{
+    border:  1px solid #ddd;
+    margin: 4px;border-radius: 4px;
+  }
 }
 
 .file {

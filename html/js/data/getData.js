@@ -242,6 +242,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					data : {
 						userName: obj.userName,
 						realName: obj.realName,
+						positionIds:obj.positionIds,
 						idfa : obj.idfa,
 						pwd:  obj.pwd,
 						headImage: obj.headImage						
