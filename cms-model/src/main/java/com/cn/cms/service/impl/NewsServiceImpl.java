@@ -336,6 +336,9 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public void deleteRecommend(Long id) {
         newsDao.deleteRecommend(id);
+        Base base =new Base();
+        base.setId(id);
+        sendIndex(base);
     }
 
     @Override
