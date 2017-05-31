@@ -24,7 +24,7 @@ import java.util.Map;
 
 /**
  * 历史纪录
- * Created by 华盛信息科技有限公司(HS) on 16/12/1.
+ * Created by ADMIN on 16/12/1.
  */
 public class HistoryInterceptor extends HandlerInterceptorAdapter {
 

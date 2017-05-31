@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Created by 华盛信息科技有限公司(HS) on 17/1/7.
+ * Created by ADMIN on 17/1/7.
  */
 @Getter
 @Setter

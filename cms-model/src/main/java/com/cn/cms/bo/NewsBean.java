@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Created by 华盛信息科技有限公司(HS) on 16/12/12.
+ * Created by ADMIN on 16/12/12.
  */
 public class NewsBean  {
 

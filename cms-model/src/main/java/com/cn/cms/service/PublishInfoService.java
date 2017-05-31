@@ -6,7 +6,7 @@ import com.cn.cms.utils.Page;
 import java.util.List;
 
 /**
- * Created by zhangyang on 17/5/9.
+ * Created by ADMIN on 17/5/9.
  */
 public interface PublishInfoService {
 

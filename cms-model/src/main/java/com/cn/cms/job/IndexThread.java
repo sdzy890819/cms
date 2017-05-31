@@ -19,7 +19,7 @@ import javax.annotation.Resource;
 import java.util.Date;
 
 /**
- * Created by 华盛信息科技有限公司(HS) on 17/1/11.
+ * Created by ADMIN on 17/1/11.
  */
 @Getter
 @Setter

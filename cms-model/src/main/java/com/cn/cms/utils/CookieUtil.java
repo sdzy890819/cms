@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by 华盛信息科技有限公司(HS) on 16/11/24.
+ * Created by ADMIN on 16/11/24.
  */
 public class CookieUtil {
 
@@ -42,7 +42,6 @@ public class CookieUtil {
     public static String getCookieVal(HttpServletRequest request, String name){
         Map<String,String> cookieMap = getCookieMap(request);
         if(cookieMap.containsKey(name)){
-            log.info(name + " COOKIE VAL :"+cookieMap.get(name));
             return cookieMap.get(name);
         }else{
             return null;

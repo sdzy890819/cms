@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 
 /**
  * 所有静态类的变量定义。都在这个类里
- * Created by 华盛信息科技有限公司(HS) on 16/11/15.
+ * Created by ADMIN on 16/11/15.
  */
 public class StaticContants {
 
@@ -235,7 +235,7 @@ public class StaticContants {
     public static final String HTML_SUFFIX = ".shtml";
 
 
-    public static final String TEMPLATE_KEY_PAGE = "page";
+    public static final String TEMPLATE_KEY_PAGE = "pageNumber";
 
     public static final String TEMPLATE_KEY_DATA = "data";
 
@@ -250,6 +250,8 @@ public class StaticContants {
     public static final String TEMPLATE_KEY_COLUMN = "column";
 
     public static final String TEMPLATE_KEY_PAGE_DETAIL = "pageDetail";
+
+    public static final String TEMPLATE_KEY_PAGE_LIST = "page";
 
     public static final String TEMPLATE_KEY_CURRENT_FILE_NAME = "currentFileName";
 

@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  * 新闻PO
- * Created by 华盛信息科技有限公司(HS) on 16/11/17.
+ * Created by ADMIN on 16/11/17.
  */
 @Getter
 @Setter
@@ -231,6 +231,11 @@ public class News extends Base implements Cloneable{
      */
     protected String recommendUserId;
 
+    /**
+     * 推荐时间
+     */
+    protected Date recommendTime;
+
     protected String updateTimeStr;
 
     protected String buildTimeStr;
@@ -363,6 +368,7 @@ public class News extends Base implements Cloneable{
             this.setRecommendImages(news.getRecommendImages());
             this.setRecommendColumnId(news.getRecommendColumnId());
             this.setRecommendUserId(news.getRecommendUserId());
+            this.setRecommendTime(news.getRecommendTime());
             this.setRecommend(news.getRecommend());
             this.setNewsStocks(news.getNewsStocks());
             this.setEditPublishTime(news.getEditPublishTime());

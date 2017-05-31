@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by 华盛信息科技有限公司(HS) on 16/12/30.
+ * Created by ADMIN on 16/12/30.
  */
 
 @Controller
@@ -76,10 +76,12 @@ public class PreviewController extends BaseController {
             }
             TemplateBasics templateBasics = null ;
             String templateFile = null;
+            Map<String, Object> map = new HashMap<>();
             if(newsColumn.getDetailTemplate2Id()!=null && newsColumn.getDetailTemplate2Id() > 0){
                 templateBasics = template2Biz.getTemplate2(newsColumn.getDetailTemplate2Id());
                 Template2Base template2Base = template2Biz.getTemplate2Base();
                 templateFile = StringUtils.concatUrl(template2Base.getBasePath(),templateBasics.getPath(),templateBasics.getFilename());
+                map.put(StaticContants.TEMPLATE_KEY_COLUMN, newsColumn);
             }else {
 
                 templateBasics = templateBiz.findTemplateByChannel(channel.getId(), TemplateClassifyEnum.detail.getType(),
@@ -90,14 +92,14 @@ public class PreviewController extends BaseController {
                 templateFile = StringUtils.concatUrl(channel.getTemplatePath(),templateBasics.getPath(),templateBasics.getFilename());
             }
 
-            Map<String, Object> map = new HashMap<>();
+
             map.put(StaticContants.TEMPLATE_KEY_TEMPLATE, templateBasics);
             map.put(StaticContants.TEMPLATE_KEY_DATA, news);
             map.put(StaticContants.TEMPLATE_TEST_TAG, 1);
             map.put(StaticContants.TEMPLATE_KEY_PAGE, 1);
             map.put(StaticContants.TEMPLATE_KEY_CHANNELID, channel.getId());
             map.put(StaticContants.TEMPLATE_KEY_PUBLISH_JOB_TYPE, PublishJobTypeEnum.template.getType());
-            map.put(StaticContants.TEMPLATE_KEY_COLUMN, newsColumn);
+
 
             String content = VelocityUtils.parseTemplate(map, templateFile, templateBasics.getEncoded());
             response.getWriter().write(content);

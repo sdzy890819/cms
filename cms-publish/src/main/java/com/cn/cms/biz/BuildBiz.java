@@ -19,7 +19,7 @@ import java.io.File;
 import java.util.*;
 
 /**
- * Created by 华盛信息科技有限公司(HS) on 16/12/24.
+ * Created by ADMIN on 16/12/24.
  */
 @Component
 public class BuildBiz extends BaseBiz {
@@ -197,7 +197,7 @@ public class BuildBiz extends BaseBiz {
                 Template2 template2 = template2Biz.getTemplate2(newsColumn.getListTemplate2Id());
                 if(template2 == null){
                     publishInfoBiz.recordInfo(PublishStatusEnum.ERROR, news.getId(),
-                            TriggerTypeEnum.NEWS, TemplateTypeEnum.NONE, null, "ID为"+ newsColumn.getListTemplate2Id() +" 的列表页第二模版已不存在");
+                            TriggerTypeEnum.NEWS, TemplateTypeEnum.TEMPLATE2, null, "ID为"+ newsColumn.getListTemplate2Id() +" 的列表页第二模版已不存在");
                     return ;
                 }
                 Channel channel = channelBiz.getChannel(newsColumn.getChannelId());
@@ -226,7 +226,7 @@ public class BuildBiz extends BaseBiz {
                 Template2 template2 = template2Biz.getTemplate2(newsColumn.getDetailTemplate2Id());
                 if(template2 == null){
                     publishInfoBiz.recordInfo(PublishStatusEnum.ERROR, news.getId(),
-                            TriggerTypeEnum.NEWS, TemplateTypeEnum.NONE, null, "ID为"+ newsColumn.getDetailTemplate2Id() +" 的详情页第二模版已不存在");
+                            TriggerTypeEnum.NEWS, TemplateTypeEnum.TEMPLATE2, null, "ID为"+ newsColumn.getDetailTemplate2Id() +" 的详情页第二模版已不存在");
                     return ;
                 }
                 String[] contents = HtmlUtils.splitNewsContent(news.getNewsDetail().getContent());
@@ -343,20 +343,22 @@ public class BuildBiz extends BaseBiz {
         if(StringUtils.isNotEmpty(templates)) {
             this.publishTemplate(templates);
             for (int i = 0; i < templates.size(); i++) {
-                TemplatePublishJob templatePublishJob = new TemplatePublishJob();
+
                 //--------
                 PublishInfo publishInfo = publishInfoBiz.recordInfo(PublishStatusEnum.EXECING, base!=null?base.getId():null,
                         sourceEnum.getTriggerTypeEnum(), TemplateTypeEnum.TEMPLATE, templates.get(i).getId(), null);
-                templatePublishJob.setPublishInfo(publishInfo);
+
                 //--------
                 if(templates.get(i).getTemplateClassify() == TemplateClassifyEnum.detail.getType()) {
                     if(base instanceof News) {
                         News news = (News) base;
                         String[] contents = HtmlUtils.splitNewsContent(news.getNewsDetail().getContent());
                         for (int j = 0; j < contents.length; j++) {
-                            Page pageDetail = new Page(i+1, 1, contents.length);
+                            Page pageDetail = new Page(j+1, 1, contents.length);
                             News publishNews = new News(news);
                             publishNews.getNewsDetail().setContent(contents[j]);
+                            TemplatePublishJob templatePublishJob = new TemplatePublishJob();
+                            templatePublishJob.setPublishInfo(publishInfo);
                             templatePublishJob.setBase(publishNews);
                             templatePublishJob.setPage( j + 1 );
                             templatePublishJob.setPageDetail(pageDetail);
@@ -364,11 +366,15 @@ public class BuildBiz extends BaseBiz {
                             threadTaskExecutor.execute(templatePublishJob);
                         }
                     } else {
+                        TemplatePublishJob templatePublishJob = new TemplatePublishJob();
+                        templatePublishJob.setPublishInfo(publishInfo);
                         templatePublishJob.setBase(base);
                         templatePublishJob.setTemplateBasics(templates.get(i));
                         threadTaskExecutor.execute(templatePublishJob);
                     }
                 }else {
+                    TemplatePublishJob templatePublishJob = new TemplatePublishJob();
+                    templatePublishJob.setPublishInfo(publishInfo);
                     templatePublishJob.setTemplateBasics(templates.get(i));
                     threadTaskExecutor.execute(templatePublishJob);
                 }

@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by 华盛信息科技有限公司(HS) on 17/1/3.
+ * Created by ADMIN on 17/1/3.
  */
 @Component
 public class PreTemplateBiz extends BaseBiz {

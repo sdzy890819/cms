@@ -31,7 +31,7 @@ import java.io.InputStream;
 import java.util.Map;
 
 /**
- * Created by 华盛信息科技有限公司(HS) on 17/2/8.
+ * Created by ADMIN on 17/2/8.
  */
 @RestController
 @RequestMapping(value="/app/upload/",produces = "application/json; charset=UTF-8")

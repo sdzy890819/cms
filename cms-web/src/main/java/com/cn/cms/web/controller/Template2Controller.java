@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by 华盛信息科技有限公司(HS) on 17/1/8.
+ * Created by ADMIN on 17/1/8.
  */
 @Controller
 @RequestMapping(value="/webapi/template2/",produces = "application/json; charset=UTF-8")

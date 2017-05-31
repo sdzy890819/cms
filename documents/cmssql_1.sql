@@ -116,6 +116,7 @@ CREATE TABLE `news` (
 `stock_code` varchar(20) DEFAULT NULL COMMENT '股票代码',
 `stock_name` varchar(20) DEFAULT NULL COMMENT '股票名称',
 `push_tag` tinyint(2) DEFAULT NULL COMMENT '是否推送其他栏目',
+`recommend_time` datetime  DEFAULT NULL COMMENT '推荐时间',
 PRIMARY KEY (`id`) ,
 INDEX `publish_sel` (`publish`),
 INDEX `column_id_sel` (`channel_id`),

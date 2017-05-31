@@ -8,7 +8,7 @@ import com.cn.cms.utils.Page;
 import java.util.List;
 
 /**
- * Created by 华盛信息科技有限公司(HS) on 17/1/8.
+ * Created by ADMIN on 17/1/8.
  */
 public interface Template2Service {
 

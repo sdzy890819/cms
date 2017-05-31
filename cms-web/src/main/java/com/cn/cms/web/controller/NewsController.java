@@ -22,7 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
- * Created by 华盛信息科技有限公司(HS) on 16/12/11.
+ * Created by ADMIN on 16/12/11.
  */
 
 @Controller
@@ -431,6 +431,10 @@ public class NewsController extends BaseController {
         newsRecommend.setRecommendImages(recommendImages);
         newsRecommend.setRecommendUserId(getCurrentUserId(request));
         newsRecommend.setSort(sort);
+        NewsRecommend oldNewsRecommend = newsBiz.findNewsRecommend(id);
+        if(oldNewsRecommend.getRecommend() == RecommendEnum.NO.getType()) {
+            newsRecommend.setRecommendTime(new Date());
+        }
         newsBiz.recommendNews(newsRecommend);
         publishBiz.publish(id, getCurrentUserId(request), CommonMessageSourceEnum.RECOMMEND);
         return ApiResponse.returnSuccess();

@@ -49,7 +49,7 @@ import java.util.List;
 import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
 
 /**
- * Created by 华盛信息科技有限公司(HS) on 17/1/5.
+ * Created by ADMIN on 17/1/5.
  */
 @Getter
 @Setter
@@ -464,6 +464,7 @@ public class ESearchClient {
             builder = builder.field("delTag", news.getDelTag());
             builder = builder.field("lastModifyUserId", news.getLastModifyUserId());
             builder = builder.field("createUserId", news.getCreateUserId());
+            builder = builder.field("recommendTime", DateUtils.convertDateToMillis(news.getRecommendTime()));
             builder = builder.endObject();
             IndexResponse response = client.prepareIndex(ESSearchTypeEnum.news.getIndex(),
                     ESSearchTypeEnum.news.getName(), String.valueOf(news.getId()))

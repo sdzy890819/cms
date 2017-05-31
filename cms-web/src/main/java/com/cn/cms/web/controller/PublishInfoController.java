@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by zhangyang on 17/5/10.
+ * Created by ADMIN on 17/5/10.
  */
 @Controller
 @RequestMapping(value="/webapi/publishInfo/",produces = "application/json; charset=UTF-8")

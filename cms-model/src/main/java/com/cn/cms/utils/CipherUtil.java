@@ -8,7 +8,7 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.ShortBufferException;
 
 /**
- * Created by 华盛信息科技有限公司(HS) on 17/1/19.
+ * Created by ADMIN on 17/1/19.
  */
 public class CipherUtil {
 

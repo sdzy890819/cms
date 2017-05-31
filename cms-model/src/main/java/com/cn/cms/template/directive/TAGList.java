@@ -40,7 +40,7 @@ import java.util.List;
  * size:20
  * #TAGList(String resultObjName,Integer type, String content, Integer count, Integer size)
  * #end
- * Created by 华盛信息科技有限公司(HS) on 16/12/21.
+ * Created by ADMIN on 16/12/21.
  */
 @Getter
 @Setter
@@ -192,7 +192,7 @@ public class TAGList extends Directive {
             pageObj.setCount(count);
         }
         context.put(resultObjName, list);
-        context.put("page" , pageObj);
+        context.put(StaticContants.TEMPLATE_KEY_PAGE_LIST , pageObj);
         if(pageObj.hasNextPage() && list!=null && list.size() >= pageObj.getPageSize() && (testTag == null || testTag < 1)){
             if(model!=null && model == PublishJobTypeEnum.template.getType()) {
                 TemplatePublishJob templatePublishJob = new TemplatePublishJob();

@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Created by 华盛信息科技有限公司(HS) on 16/11/10.
+ * Created by ADMIN on 16/11/10.
  */
 @Component
 public class JedisClient {

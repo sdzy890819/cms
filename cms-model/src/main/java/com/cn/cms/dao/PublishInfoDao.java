@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * Created by zhangyang on 17/5/9.
+ * Created by ADMIN on 17/5/9.
  */
 public interface PublishInfoDao {
 

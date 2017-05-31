@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
- * Created by 华盛信息科技有限公司(HS) on 17/3/9.
+ * Created by ADMIN on 17/3/9.
  */
 public class RsyncUtils {
 
