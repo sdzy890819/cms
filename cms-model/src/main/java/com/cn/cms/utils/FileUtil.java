@@ -334,20 +334,20 @@ public class FileUtil {
      * @return
      */
     public static String getFileNamePrefix(String fileName){
+        String tmp = null;
         if(StringUtils.isNotBlank(fileName) && fileName.indexOf(".")> -1){
             String[] arr = fileName.split("\\.");
-            if(arr[0].indexOf("/")>-1){
-                return arr[0].substring(arr[0].lastIndexOf("/")+1);
-            }else if(arr[0].indexOf("\\") > -1) {
-                return arr[0].substring(arr[0].lastIndexOf("\\")+1);
+            tmp = arr[0];
+            if(tmp.indexOf("/")>-1){
+                tmp =  tmp.substring(tmp.lastIndexOf("/")+1);
+            }else if(tmp.indexOf("\\") > -1) {
+                tmp = tmp.substring(tmp.lastIndexOf("\\")+1);
             }
-            if(arr[0].indexOf("-")>-1){
-                return arr[0].substring(0, arr[0].indexOf("-"));
+            if(tmp.indexOf("-")>-1){
+                tmp = tmp.substring(0, tmp.indexOf("-"));
             }
-
-            return arr[0];
         }
-        return null;
+        return tmp;
     }
 
     /**
