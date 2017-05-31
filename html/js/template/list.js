@@ -184,6 +184,7 @@ define(['require',"app",'jquery'
 					});
 
 					var th = [
+						{name:'id' , key:'id', width : '50'},
 						{name:'模版名称' , key:'templateName', width : '200'},
 						//{name:'模版说明' , key:'templateDesc' },
 						//{name:'文件名',width:'90' , key:'filename'},
