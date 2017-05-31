@@ -127,7 +127,28 @@ define(['require',"app",'jquery'
         					save : function(obj , _detail ){ //保存 新增 确认 等
         						var channelId = _detail.channelId , 
         							columnId = _detail.columnId , 
-        							categoryId = _detail.categoryId;
+        							categoryId = _detail.categoryId , 
+        							columnIds = '[';
+
+        						if(obj.selectSizeChoose){
+					        		obj.selectSizeChoose = Tool.changeObjectName(obj.selectSizeChoose,[{name:'id',newName:'val'},{name:'name',newName:'title'}]);
+					        		
+					        		$.each(obj.selectSizeChoose,function( i , obj ){
+					        			columnIds += "{\"title\":\""+obj.title+"\",\"val\":\""+obj.val+"\"},";
+					        		});
+					        		columnIds = columnIds.substr(0,columnIds.length-1);
+					        		columnIds += ']';
+				        		}else{
+				        			if(_detail.columnIds){
+					        			$.each(_detail.columnIds,function( i , obj ){
+						        			columnIds += "{\"title\":\""+obj.title+"\",\"val\":\""+obj.val+"\"},";
+						        		});
+						        		columnIds = columnIds.substr(0,columnIds.length-1);
+						        		columnIds += ']';
+					        		}else{
+				        				columnIds = null;
+					        		}
+				        		};
 								$.each(obj.selects,function(){
 									if(this.title == 'channelId'){
 										channelId = this.id;
@@ -149,6 +170,7 @@ define(['require',"app",'jquery'
 									"source":obj.source,
 									"author":obj.author,
 									"channelId":channelId,//频道ID
+									"columnIds":columnIds,//
 									"columnId":columnId,//栏目ID
 									"categoryId": categoryId, //部门分类ID
 									"content":obj.html,

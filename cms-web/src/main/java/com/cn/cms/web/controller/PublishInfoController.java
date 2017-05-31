@@ -1,8 +1,11 @@
 package com.cn.cms.web.controller;
 
 import com.cn.cms.biz.PublishInfoBiz;
+import com.cn.cms.biz.UserBiz;
+import com.cn.cms.bo.UserBean;
 import com.cn.cms.po.PublishInfo;
 import com.cn.cms.utils.Page;
+import com.cn.cms.utils.StringUtils;
 import com.cn.cms.web.ann.CheckAuth;
 import com.cn.cms.web.ann.CheckToken;
 import com.cn.cms.web.result.ApiResponse;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +33,8 @@ public class PublishInfoController extends BaseController {
 
     @Resource
     private PublishInfoBiz publishInfoBiz;
+    @Resource
+    private UserBiz userBiz;
 
     /**
      * 列表
@@ -49,6 +55,22 @@ public class PublishInfoController extends BaseController {
         publishInfo.setTriggerId(triggerId);
         publishInfo.setStatus(status);
         List<PublishInfo> list = publishInfoBiz.findPublishInfoList(publishInfo, pageObj);
+        if(StringUtils.isNotEmpty(list)){
+            Map<String, String> map = new HashMap<>();
+            for(int i=0;i<list.size();i++){
+                if(StringUtils.isNotBlank(list.get(i).getCreateUserId())){
+                    map.put(list.get(i).getCreateUserId(),list.get(i).getCreateUserId());
+                }
+            }
+            if(map.size() > 0){
+                Map<String, UserBean> userMap = userBiz.getUserBeanMap(new ArrayList<>(map.values()));
+                for(int i=0;i<list.size();i++){
+                    if(StringUtils.isNotBlank(list.get(i).getCreateUserId()) && userMap!=null && userMap.get(list.get(i).getCreateUserId())!=null){
+                        list.get(i).setCreateUserName(userMap.get(list.get(i).getCreateUserId()).getRealName());
+                    }
+                }
+            }
+        }
         Map<String, Object> result = new HashMap<>();
         result.put("page",pageObj);
         result.put("list",list);

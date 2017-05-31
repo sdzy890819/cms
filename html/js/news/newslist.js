@@ -142,7 +142,28 @@ define(['require',"app",'jquery','search','./searchForm'
         					save : function(obj , _detail ){ //保存 新增 确认 等
         						var channelId = _detail.channelId , 
         							columnId = _detail.columnId , 
-        							categoryId = _detail.categoryId;
+        							categoryId = _detail.categoryId ,
+        							columnIds = '[';
+
+        						if(obj.selectSizeChoose){
+					        		obj.selectSizeChoose = Tool.changeObjectName(obj.selectSizeChoose,[{name:'id',newName:'val'},{name:'name',newName:'title'}]);
+					        		
+					        		$.each(obj.selectSizeChoose,function( i , obj ){
+					        			columnIds += "{\"title\":\""+obj.title+"\",\"val\":\""+obj.val+"\"},";
+					        		});
+					        		columnIds = columnIds.substr(0,columnIds.length-1);
+					        		columnIds += ']';
+				        		}else{
+				        			if(_detail.columnIds){
+					        			$.each(_detail.columnIds,function( i , obj ){
+						        			columnIds += "{\"title\":\""+obj.title+"\",\"val\":\""+obj.val+"\"},";
+						        		});
+						        		columnIds = columnIds.substr(0,columnIds.length-1);
+						        		columnIds += ']';
+					        		}else{
+				        				columnIds = null;
+					        		}
+				        		}
 								$.each(obj.selects,function(){
 									if(this.title == 'channelId'){
 										channelId = this.id;
@@ -161,7 +182,6 @@ define(['require',"app",'jquery','search','./searchForm'
 									alert("发布时间必须大于当前时间");
 									return;
 								}
-
 								getData.news.updateNews({
 									"id":_detail.id,
 									"title":obj.title,
@@ -172,6 +192,7 @@ define(['require',"app",'jquery','search','./searchForm'
 									"author":obj.author,
 									"channelId":channelId,//频道ID
 									"columnId":columnId,//栏目ID
+									"columnIds":columnIds,
 									"categoryId": categoryId, //部门分类ID
 									"content":obj.html,
 									"autoPublish":(obj.show=='yes'?1:0), //1 是自动发布。0是不自动发布.默认不自动发布

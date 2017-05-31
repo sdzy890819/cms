@@ -1,5 +1,6 @@
 package com.cn.cms.biz;
 
+import com.cn.cms.contants.StaticContants;
 import com.cn.cms.enums.PublishStatusEnum;
 import com.cn.cms.enums.TemplateTypeEnum;
 import com.cn.cms.enums.TriggerTypeEnum;
@@ -42,6 +43,8 @@ public class PublishInfoBiz extends BaseBiz {
         publishInfo.setTriggerId(triggerId);
         publishInfo.setTriggerType(triggerTypeEnum.getType());
         publishInfo.setErrorMessage(errorMessage);
+        publishInfo.setCreateUserId(StaticContants.CMS_OPERATION_USER_ID);
+        publishInfo.setLastModifyUserId(StaticContants.CMS_OPERATION_USER_ID);
         publishInfoService.savePublishInfo(publishInfo);
         return publishInfo;
     }

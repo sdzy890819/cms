@@ -251,7 +251,7 @@ define(['require',"app",'jquery','search','./searchForm'
 						{name:'触发的模版' , key:'templateTypeStr'},								
 						{name:'模版ID' , key:'templateId' , width: '80', class: 'center'},
 						{name:'创建时间' , key:'createTimeStr' , width: '80', class: 'center'},
-						{name:'操作人' , key:'createUserName' , width: '80', class: 'center'},
+						//{name:'操作人' , key:'createUserName' , width: '80', class: 'center'},
 						{name:'操作信息' , key:'message' , width: '160', class: 'center'},
 						{name:'操作' , width : '40' , class: 'center'}
 					];

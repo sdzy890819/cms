@@ -235,7 +235,7 @@ public class StaticContants {
     public static final String HTML_SUFFIX = ".shtml";
 
 
-    public static final String TEMPLATE_KEY_PAGE = "page";
+    public static final String TEMPLATE_KEY_PAGE = "pageNumber";
 
     public static final String TEMPLATE_KEY_DATA = "data";
 
@@ -250,6 +250,8 @@ public class StaticContants {
     public static final String TEMPLATE_KEY_COLUMN = "column";
 
     public static final String TEMPLATE_KEY_PAGE_DETAIL = "pageDetail";
+
+    public static final String TEMPLATE_KEY_PAGE_LIST = "page";
 
     public static final String TEMPLATE_KEY_CURRENT_FILE_NAME = "currentFileName";
 
@@ -295,7 +297,7 @@ public class StaticContants {
 
     public static String REGEX_SPLIT_HTML_CONTENT = "(<[^>]*>|&lt;|&gt;|&quot;|&amp;|&nbsp;)";
 
-    public static String REGEX_SPLIT_PAGE = "----*";
+    public static String REGEX_SPLIT_PAGE = "(_ueditor_page_break_tag_)+";
 
     public static String LOCALIZED_KEY = "4667ssvcGpEaAqLwQdDU2VIAorwBrbT06VrXBfE";
 
