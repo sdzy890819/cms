@@ -44,6 +44,13 @@
         <result column="stock_code" property="stockCode" />
         <result column="stock_name" property="stockName" />
         <result column="push_tag" property="pushTag" />
+
+        <result column="recommend_title" property="recommendTitle" />
+        <result column="recommend_description" property="recommendDescription" />
+        <result column="recommend_images" property="recommendImages" />
+        <result column="recommend_column_id" property="recommendColumnId" />
+        <result column="recommend_time" property="recommendTime" />
+        <result column="recommend_user_id" property="recommendUserId" />
     </resultMap>
 
     <resultMap id="newsRecommend" type="com.cn.cms.po.NewsRecommend" extends="news">
