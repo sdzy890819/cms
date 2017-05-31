@@ -197,7 +197,7 @@ public class BuildBiz extends BaseBiz {
                 Template2 template2 = template2Biz.getTemplate2(newsColumn.getListTemplate2Id());
                 if(template2 == null){
                     publishInfoBiz.recordInfo(PublishStatusEnum.ERROR, news.getId(),
-                            TriggerTypeEnum.NEWS, TemplateTypeEnum.NONE, null, "ID为"+ newsColumn.getListTemplate2Id() +" 的列表页第二模版已不存在");
+                            TriggerTypeEnum.NEWS, TemplateTypeEnum.TEMPLATE2, null, "ID为"+ newsColumn.getListTemplate2Id() +" 的列表页第二模版已不存在");
                     return ;
                 }
                 Channel channel = channelBiz.getChannel(newsColumn.getChannelId());
@@ -226,7 +226,7 @@ public class BuildBiz extends BaseBiz {
                 Template2 template2 = template2Biz.getTemplate2(newsColumn.getDetailTemplate2Id());
                 if(template2 == null){
                     publishInfoBiz.recordInfo(PublishStatusEnum.ERROR, news.getId(),
-                            TriggerTypeEnum.NEWS, TemplateTypeEnum.NONE, null, "ID为"+ newsColumn.getDetailTemplate2Id() +" 的详情页第二模版已不存在");
+                            TriggerTypeEnum.NEWS, TemplateTypeEnum.TEMPLATE2, null, "ID为"+ newsColumn.getDetailTemplate2Id() +" 的详情页第二模版已不存在");
                     return ;
                 }
                 String[] contents = HtmlUtils.splitNewsContent(news.getNewsDetail().getContent());
