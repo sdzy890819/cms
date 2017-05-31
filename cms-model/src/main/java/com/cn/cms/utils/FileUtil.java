@@ -341,6 +341,10 @@ public class FileUtil {
             }else if(arr[0].indexOf("\\") > -1) {
                 return arr[0].substring(arr[0].lastIndexOf("\\")+1);
             }
+            if(arr[0].indexOf("-")>-1){
+                return arr[0].substring(0, arr[0].indexOf("-"));
+            }
+
             return arr[0];
         }
         return null;

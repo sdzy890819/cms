@@ -251,6 +251,8 @@ public class StaticContants {
 
     public static final String TEMPLATE_KEY_PAGE_DETAIL = "pageDetail";
 
+    public static final String TEMPLATE_KEY_PAGE_LIST = "pageList";
+
     public static final String TEMPLATE_KEY_CURRENT_FILE_NAME = "currentFileName";
 
     public static final String TEMPLATE_KEY_CURRENT_FILE_SUFFIX = "currentFileSuffix";

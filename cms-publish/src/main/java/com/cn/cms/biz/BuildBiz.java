@@ -343,20 +343,22 @@ public class BuildBiz extends BaseBiz {
         if(StringUtils.isNotEmpty(templates)) {
             this.publishTemplate(templates);
             for (int i = 0; i < templates.size(); i++) {
-                TemplatePublishJob templatePublishJob = new TemplatePublishJob();
+
                 //--------
                 PublishInfo publishInfo = publishInfoBiz.recordInfo(PublishStatusEnum.EXECING, base!=null?base.getId():null,
                         sourceEnum.getTriggerTypeEnum(), TemplateTypeEnum.TEMPLATE, templates.get(i).getId(), null);
-                templatePublishJob.setPublishInfo(publishInfo);
+
                 //--------
                 if(templates.get(i).getTemplateClassify() == TemplateClassifyEnum.detail.getType()) {
                     if(base instanceof News) {
                         News news = (News) base;
                         String[] contents = HtmlUtils.splitNewsContent(news.getNewsDetail().getContent());
                         for (int j = 0; j < contents.length; j++) {
-                            Page pageDetail = new Page(i+1, 1, contents.length);
+                            Page pageDetail = new Page(j+1, 1, contents.length);
                             News publishNews = new News(news);
                             publishNews.getNewsDetail().setContent(contents[j]);
+                            TemplatePublishJob templatePublishJob = new TemplatePublishJob();
+                            templatePublishJob.setPublishInfo(publishInfo);
                             templatePublishJob.setBase(publishNews);
                             templatePublishJob.setPage( j + 1 );
                             templatePublishJob.setPageDetail(pageDetail);
@@ -364,11 +366,15 @@ public class BuildBiz extends BaseBiz {
                             threadTaskExecutor.execute(templatePublishJob);
                         }
                     } else {
+                        TemplatePublishJob templatePublishJob = new TemplatePublishJob();
+                        templatePublishJob.setPublishInfo(publishInfo);
                         templatePublishJob.setBase(base);
                         templatePublishJob.setTemplateBasics(templates.get(i));
                         threadTaskExecutor.execute(templatePublishJob);
                     }
                 }else {
+                    TemplatePublishJob templatePublishJob = new TemplatePublishJob();
+                    templatePublishJob.setPublishInfo(publishInfo);
                     templatePublishJob.setTemplateBasics(templates.get(i));
                     threadTaskExecutor.execute(templatePublishJob);
                 }
