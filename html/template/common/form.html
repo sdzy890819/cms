@@ -50,7 +50,7 @@
 
 
 					    <!-- 时间 -->
-					    <input ng-if="obj.type=='date'" ng-value="data[obj.title]" type="text" name="{{obj.title}}" id="date"placeholder="{{obj.placeholder}}" readonly='readonly' autocomplete="off" class="layui-input date {{obj.cls||'w220'}}" ng-click="selectDate($event)"><!--  lay-verify="date"  -->
+					    <input ng-if="obj.type=='date'" ng-value="data[obj.title]" type="text" name="{{obj.title}}" id="date" placeholder="{{obj.placeholder}}" readonly='readonly' autocomplete="off" class="layui-input date {{obj.cls||'w220'}}" ng-click="selectDate($event)"><!--  lay-verify="date"  -->
 
 					    <!-- 上传按钮 并不能上传需要点击事件 -->
 					    <div ng-if="obj.type=='file'" class="layui-box layui-upload-button" style="cursor:pointer" >

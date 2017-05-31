@@ -17,14 +17,23 @@ define(["app",'./addForm', '../upload/index', '../data/getData','form','position
 							})
 						}
 						function create( obj , data){
-							var ids = [];
+							var ids = [] , positionIds="[";
 							$.each(obj.checkboxs,function(){
 								ids.push(this.id);
 							});
-							data = data || {imageUrl:''}
+							if(ids.length){
+								$.each(ids,function( j , obj ){
+				        			positionIds += obj+",";
+								})
+								positionIds = positionIds.substr(0,positionIds.length-1);
+			        			positionIds += ']';
+			        		}else{
+			        			positionIds = null;
+			        		}
+							data = data || {imageUrl:''};
 							getData.user.createUser({
 								headImage : data.imageUrl,
-								positionIds : ids,
+								positionIds : positionIds,
 								userName: obj.userName,
 								realName: obj.realName,
 								idfa : obj.idfa,

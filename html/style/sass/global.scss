@@ -375,7 +375,7 @@ $leftWidth : 225px;
 }
 .modal.in .modal-dialog{
     &.modal-news{
-        width:98%;
+        width:98%; margin-bottom:100px;
         .imagePre{ display:none;}
     }
 }
