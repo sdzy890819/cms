@@ -464,6 +464,7 @@ public class ESearchClient {
             builder = builder.field("delTag", news.getDelTag());
             builder = builder.field("lastModifyUserId", news.getLastModifyUserId());
             builder = builder.field("createUserId", news.getCreateUserId());
+            builder = builder.field("recommendTime", DateUtils.convertDateToMillis(news.getRecommendTime()));
             builder = builder.endObject();
             IndexResponse response = client.prepareIndex(ESSearchTypeEnum.news.getIndex(),
                     ESSearchTypeEnum.news.getName(), String.valueOf(news.getId()))
