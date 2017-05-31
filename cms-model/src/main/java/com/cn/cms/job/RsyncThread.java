@@ -5,7 +5,7 @@ import lombok.Setter;
 
 /**
  * 暂时废弃
- * Created by 华盛信息科技有限公司(HS) on 17/3/9.
+ * Created by ADMIN on 17/3/9.
  */
 @Getter
 @Setter

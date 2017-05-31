@@ -13,7 +13,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * Created by zhangyang on 17/5/9.
+ * Created by ADMIN on 17/5/9.
  */
 @Component
 public class PublishInfoBiz extends BaseBiz {

@@ -4,7 +4,7 @@ import lombok.Getter;
 
 /**
  * 定时生成或者触发生成枚举
- * Created by 华盛信息科技有限公司(HS) on 16/11/16.
+ * Created by ADMIN on 16/11/16.
  */
 public enum IndexOperEnum {
 

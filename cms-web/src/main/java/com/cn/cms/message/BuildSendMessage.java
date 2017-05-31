@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 
 /**
- * Created by 华盛信息科技有限公司(HS) on 16/11/15.
+ * Created by ADMIN on 16/11/15.
  */
 @Component
 public class BuildSendMessage {

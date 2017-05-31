@@ -25,7 +25,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by 华盛信息科技有限公司(HS) on 16/12/11.
+ * Created by ADMIN on 16/12/11.
  */
 @Component
 public class NewsBiz extends BaseBiz {

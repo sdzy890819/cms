@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
- * Created by 华盛信息科技有限公司(HS) on 16/12/7.
+ * Created by ADMIN on 16/12/7.
  */
 @Controller
 @RequestMapping(value="/webapi/category/",produces = "application/json; charset=UTF-8")

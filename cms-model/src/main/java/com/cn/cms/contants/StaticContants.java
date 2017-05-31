@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 
 /**
  * 所有静态类的变量定义。都在这个类里
- * Created by 华盛信息科技有限公司(HS) on 16/11/15.
+ * Created by ADMIN on 16/11/15.
  */
 public class StaticContants {
 

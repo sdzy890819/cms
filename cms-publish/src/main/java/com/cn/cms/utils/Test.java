@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -17,7 +18,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 /**
- * Created by 华盛信息科技有限公司(HS) on 16/12/28.
+ * Created by ADMIN on 16/12/28.
  */
 public class Test {
 
@@ -84,9 +85,15 @@ public class Test {
 //            jsonArray.add(jsonObject1);
 //        }
 //        System.out.println(jsonArray.getJSONObject(0).getString("abc"));
-        Page pageDetail = new Page(1, 1, 3);
-        System.out.println(pageDetail.getNextPage());
+//        Page pageDetail = new Page(1, 1, 3);
+//        System.out.println(pageDetail.getNextPage());
+//        File file =new File("/Users/zhangyang/Documents/projects/cms/documents/build1.sh");
+//        System.out.println(file.exists());
 
+        String a = "ffffffaaaaaa";
+        System.out.println(JSONArray.toJSONString(HtmlUtils.splitNewsContent(a)));
+
+        System.out.println(FileUtil.getFileNamePrefix("test.html"));
     }
 
 

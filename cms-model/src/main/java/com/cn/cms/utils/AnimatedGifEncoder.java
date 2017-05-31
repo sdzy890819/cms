@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * Created by zhangyang on 17/5/16.
+ * Created by ADMIN on 17/5/16.
  */
 public class AnimatedGifEncoder {
 

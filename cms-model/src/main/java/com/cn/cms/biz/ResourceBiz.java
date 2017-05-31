@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Created by 华盛信息科技有限公司(HS) on 16/11/30.
+ * Created by ADMIN on 16/11/30.
  */
 @Component
 public class ResourceBiz {
