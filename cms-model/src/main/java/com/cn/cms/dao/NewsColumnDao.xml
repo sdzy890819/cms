@@ -80,12 +80,12 @@
               `column_name` = #{p1.columnName},
           </if>
             <if test="p1.channelId != null">
-                channel_id = ${p1.channelId},
+                channel_id = #{p1.channelId},
             </if>
-                list_id = ${p1.listId},
-                detail_id = ${p1.detailId},
-                list_template2_id = ${p1.listTemplate2Id},
-                detail_template2_id = ${p1.detailTemplate2Id},
+                list_id = #{p1.listId},
+                detail_id = #{p1.detailId},
+                list_template2_id = #{p1.listTemplate2Id},
+                detail_template2_id = #{p1.detailTemplate2Id},
             <if test="p1.keywords != null">
                 keywords = #{p1.keywords},
             </if>
