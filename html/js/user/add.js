@@ -17,7 +17,7 @@ define(["app",'./addForm', '../upload/index', '../data/getData','form','position
 							})
 						}
 						function create( obj , data){
-							var ids = [] , positionIds="[";
+							var ids = [] , positionIds="";
 							$.each(obj.checkboxs,function(){
 								ids.push(this.id);
 							});
@@ -26,7 +26,6 @@ define(["app",'./addForm', '../upload/index', '../data/getData','form','position
 				        			positionIds += obj+",";
 								})
 								positionIds = positionIds.substr(0,positionIds.length-1);
-			        			positionIds += ']';
 			        		}else{
 			        			positionIds = null;
 			        		}
