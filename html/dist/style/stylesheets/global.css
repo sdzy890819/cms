@@ -952,6 +952,7 @@ input:focus{ border: 1px solid #bbb !important;} */
 /* line 377, ../sass/global.scss */
 .modal.in .modal-dialog.modal-news {
   width: 98%;
+  margin-bottom: 200px;
 }
 /* line 379, ../sass/global.scss */
 .modal.in .modal-dialog.modal-news .imagePre {
