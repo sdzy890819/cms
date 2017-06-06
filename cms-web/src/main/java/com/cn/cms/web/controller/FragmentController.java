@@ -115,15 +115,14 @@ public class FragmentController extends BaseController {
             return ApiResponse.returnFail(StaticContants.ERROR_FRAGMENT_NOT_FOUND);
         }
         List<String> list = FragmentUtil.getKey(fragment.getFragmentModel(), RegexNumEnum.REGEX_ALL);
-        if(list == null || list.size() != jsonObject.size()){
-            return ApiResponse.returnFail(StaticContants.ERROR_FRAGMENT_LENGTH);
-        }
+
         fragment.setEditUserId(getCurrentUserId(request));
         fragment.setEditTime(new Date());
         String fragmentModel = fragment.getFragmentModel();
         for(int i=0; i<list.size(); i++){
+            String key = list.get(i).substring(2, list.get(i).length()-2).trim();
             fragmentModel = fragmentModel.replace(list.get(i),
-                    jsonObject.getString(list.get(i).substring(2, list.get(i).length()-2).trim()));
+                    jsonObject.getString(key)!=null?jsonObject.getString(key):"");
         }
         fragment.setFragmentContent(fragmentModel);
         fragmentBiz.editFragment(fragment);
