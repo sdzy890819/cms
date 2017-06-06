@@ -34,8 +34,6 @@ public class ResourceServiceImpl implements ResourceService {
     @Resource
     private VideoBaseDao videoBaseDao;
 
-    @Resource(name = "threadTaskExecutor")
-    private ThreadPoolTaskExecutor threadTaskExecutor;
 
     public ImagesBase findImagesBase() {
         return imagesBaseDao.findImagesBase();
@@ -51,17 +49,17 @@ public class ResourceServiceImpl implements ResourceService {
 
     public void saveImages(Images images) {
         imagesDao.saveImages(images);
-        sendIndex(images, ESSearchTypeEnum.images);
+        //sendIndex(images, ESSearchTypeEnum.images);
     }
 
     public void updateImages(Images images) {
         imagesDao.updateImages(images);
-        sendIndex(images, ESSearchTypeEnum.images);
+        //sendIndex(images, ESSearchTypeEnum.images);
     }
 
     public void delImages(String lastModifyUserId, Long id) {
         imagesDao.delImages(lastModifyUserId, id);
-        delIndex(id, ESSearchTypeEnum.images);
+//        delIndex(id, ESSearchTypeEnum.images);
     }
 
     @Override
@@ -101,17 +99,17 @@ public class ResourceServiceImpl implements ResourceService {
 
     public void updateVideo(Video video) {
         videoDao.updateVideo(video);
-        sendIndex(video, ESSearchTypeEnum.video);
+//        sendIndex(video, ESSearchTypeEnum.video);
     }
 
     public void saveVideo(Video video) {
         videoDao.saveVideo(video);
-        sendIndex(video, ESSearchTypeEnum.video);
+//        sendIndex(video, ESSearchTypeEnum.video);
     }
 
     public void delVideo(String lastModifyUserId, Long id) {
         videoDao.delVideo(lastModifyUserId, id);
-        delIndex(id, ESSearchTypeEnum.video);
+//        delIndex(id, ESSearchTypeEnum.video);
     }
 
     @Override
@@ -137,20 +135,5 @@ public class ResourceServiceImpl implements ResourceService {
         return videoDao.queryVideoList(page);
     }
 
-    private void sendIndex(Base base, ESSearchTypeEnum esSearchTypeEnum){
-        IndexThread indexThread = new IndexThread();
-        indexThread.setId(base.getId());
-        indexThread.setIndexOperEnum(IndexOperEnum.update);
-        indexThread.setEsSearchTypeEnum(esSearchTypeEnum);
-        threadTaskExecutor.execute(indexThread);
-    }
 
-
-    private void delIndex(Long id, ESSearchTypeEnum esSearchTypeEnum){
-        IndexThread indexThread = new IndexThread();
-        indexThread.setId(id);
-        indexThread.setIndexOperEnum(IndexOperEnum.delete);
-        indexThread.setEsSearchTypeEnum(esSearchTypeEnum);
-        threadTaskExecutor.execute(indexThread);
-    }
 }

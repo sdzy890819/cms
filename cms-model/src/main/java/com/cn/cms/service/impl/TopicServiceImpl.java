@@ -33,8 +33,7 @@ public class TopicServiceImpl implements TopicService {
     @Resource
     private TopicColumnDao topicColumnDao;
 
-    @Resource(name = "threadTaskExecutor")
-    private ThreadPoolTaskExecutor threadTaskExecutor;
+
 
 
     public Integer queryTopicCount() {
@@ -61,17 +60,17 @@ public class TopicServiceImpl implements TopicService {
 
     public void delTopic(String lastModifyUserId, Long id) {
         topicDao.delTopic(lastModifyUserId, id);
-        delIndex(id);
+        //delIndex(id);
     }
 
     public void saveTopic(Topic topic) {
         topicDao.saveTopic(topic);
-        sendIndex(topic);
+        //sendIndex(topic);
     }
 
     public void updateTopic(Topic topic) {
         topicDao.updateTopic(topic);
-        sendIndex(topic);
+        //sendIndex(topic);
     }
 
     public List<TopicColumn> findTopicColumnAll() {
@@ -129,25 +128,10 @@ public class TopicServiceImpl implements TopicService {
     @Override
     public void publishTopic(Topic topic) {
         topicDao.publishTopic(topic);
-        sendIndex(topic);
-    }
-
-    private void sendIndex(Base base){
-        IndexThread indexThread = new IndexThread();
-        indexThread.setId(base.getId());
-        indexThread.setIndexOperEnum(IndexOperEnum.update);
-        indexThread.setEsSearchTypeEnum(ESSearchTypeEnum.topic);
-        threadTaskExecutor.execute(indexThread);
+        //sendIndex(topic);
     }
 
 
-    private void delIndex(Long id){
-        IndexThread indexThread = new IndexThread();
-        indexThread.setId(id);
-        indexThread.setIndexOperEnum(IndexOperEnum.delete);
-        indexThread.setEsSearchTypeEnum(ESSearchTypeEnum.topic);
-        threadTaskExecutor.execute(indexThread);
-    }
 
     @Override
     public TopicClassify getTopicClassify(Long id) {

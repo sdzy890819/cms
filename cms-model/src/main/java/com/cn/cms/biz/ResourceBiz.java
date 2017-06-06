@@ -3,13 +3,14 @@ package com.cn.cms.biz;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.cn.cms.contants.RedisKeyContants;
+import com.cn.cms.enums.ESSearchTypeEnum;
+import com.cn.cms.enums.IndexOperEnum;
+import com.cn.cms.job.IndexThread;
 import com.cn.cms.middleware.JedisClient;
-import com.cn.cms.po.Images;
-import com.cn.cms.po.ImagesBase;
-import com.cn.cms.po.Video;
-import com.cn.cms.po.VideoBase;
+import com.cn.cms.po.*;
 import com.cn.cms.service.ResourceService;
 import com.cn.cms.utils.Page;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -28,6 +29,9 @@ public class ResourceBiz {
 
     @Resource
     private JedisClient jedisClient;
+
+    @Resource(name = "threadTaskExecutor")
+    private ThreadPoolTaskExecutor threadTaskExecutor;
 
     /**
      * 获取ImagesBase信息。
@@ -56,8 +60,10 @@ public class ResourceBiz {
     public void saveImages(Images images){
         if(images.getId()!=null && images.getId()>0){
             resourceService.updateImages(images);
+            sendIndex(images, ESSearchTypeEnum.images);
         }else{
             resourceService.saveImages(images);
+            sendIndex(images, ESSearchTypeEnum.images);
         }
     }
 
@@ -68,6 +74,7 @@ public class ResourceBiz {
      */
     public void delImages(String lastModifyUserId, Long id){
         resourceService.delImages(lastModifyUserId, id);
+        delIndex(id, ESSearchTypeEnum.images);
     }
 
 
@@ -113,8 +120,10 @@ public class ResourceBiz {
     public void saveVideo(Video video){
         if(video.getId()!=null && video.getId()>0){
             resourceService.updateVideo(video);
+            sendIndex(video, ESSearchTypeEnum.video);
         }else {
             resourceService.saveVideo(video);
+            sendIndex(video, ESSearchTypeEnum.video);
         }
     }
 
@@ -125,6 +134,7 @@ public class ResourceBiz {
      */
     public void delVideo(String lastModifyUserId, Long id){
         resourceService.delVideo(lastModifyUserId, id);
+        delIndex(id, ESSearchTypeEnum.video);
     }
 
     /**
@@ -198,5 +208,22 @@ public class ResourceBiz {
         jsonObject.put("fileName", fileName);
         jsonObject.put("originFileName", originFileName);
         jedisClient.zadd(RedisKeyContants.REDIS_FILE_LIST, jsonObject.toJSONString(), time);
+    }
+
+    private void sendIndex(Base base, ESSearchTypeEnum esSearchTypeEnum){
+        IndexThread indexThread = new IndexThread();
+        indexThread.setId(base.getId());
+        indexThread.setIndexOperEnum(IndexOperEnum.update);
+        indexThread.setEsSearchTypeEnum(esSearchTypeEnum);
+        threadTaskExecutor.execute(indexThread);
+    }
+
+
+    private void delIndex(Long id, ESSearchTypeEnum esSearchTypeEnum){
+        IndexThread indexThread = new IndexThread();
+        indexThread.setId(id);
+        indexThread.setIndexOperEnum(IndexOperEnum.delete);
+        indexThread.setEsSearchTypeEnum(esSearchTypeEnum);
+        threadTaskExecutor.execute(indexThread);
     }
 }

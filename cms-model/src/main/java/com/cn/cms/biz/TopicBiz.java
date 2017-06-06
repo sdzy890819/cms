@@ -1,11 +1,12 @@
 package com.cn.cms.biz;
 
-import com.cn.cms.po.Template;
-import com.cn.cms.po.Topic;
-import com.cn.cms.po.TopicClassify;
-import com.cn.cms.po.TopicColumn;
+import com.cn.cms.enums.ESSearchTypeEnum;
+import com.cn.cms.enums.IndexOperEnum;
+import com.cn.cms.job.IndexThread;
+import com.cn.cms.po.*;
 import com.cn.cms.service.TopicService;
 import com.cn.cms.utils.Page;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -20,6 +21,8 @@ public class TopicBiz extends BaseBiz {
     @Resource
     private TopicService topicService;
 
+    @Resource(name = "threadTaskExecutor")
+    private ThreadPoolTaskExecutor threadTaskExecutor;
 
     /**
      * 分页获取专题列表
@@ -60,6 +63,7 @@ public class TopicBiz extends BaseBiz {
      */
     public void delTopic(String lastModifyUserId, Long id){
         topicService.delTopic(lastModifyUserId, id);
+        delIndex(id);
     }
 
     /**
@@ -69,8 +73,10 @@ public class TopicBiz extends BaseBiz {
     public void saveTopic(Topic topic){
         if(topic.getId()!=null && topic.getId()>0){
             topicService.updateTopic(topic);
+            sendIndex(topic);
         }else{
             topicService.saveTopic(topic);
+            sendIndex(topic);
         }
     }
 
@@ -177,6 +183,7 @@ public class TopicBiz extends BaseBiz {
      */
     public void publishTopic(Topic topic){
         topicService.publishTopic(topic);
+        sendIndex(topic);
     }
 
     public TopicClassify getTopicClassify(Long id){
@@ -189,6 +196,23 @@ public class TopicBiz extends BaseBiz {
 
     public Integer queryFilenameAndPathCount(Topic topic){
         return topicService.queryFilenameAndPathCount(topic);
+    }
+
+    private void sendIndex(Base base){
+        IndexThread indexThread = new IndexThread();
+        indexThread.setId(base.getId());
+        indexThread.setIndexOperEnum(IndexOperEnum.update);
+        indexThread.setEsSearchTypeEnum(ESSearchTypeEnum.topic);
+        threadTaskExecutor.execute(indexThread);
+    }
+
+
+    private void delIndex(Long id){
+        IndexThread indexThread = new IndexThread();
+        indexThread.setId(id);
+        indexThread.setIndexOperEnum(IndexOperEnum.delete);
+        indexThread.setEsSearchTypeEnum(ESSearchTypeEnum.topic);
+        threadTaskExecutor.execute(indexThread);
     }
 
 }
