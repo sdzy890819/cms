@@ -1,20 +1,19 @@
 package com.cn.cms.service.impl;
 
-import com.cn.cms.contants.StaticContants;
 import com.cn.cms.dao.*;
-import com.cn.cms.enums.*;
-import com.cn.cms.job.IndexThread;
+import com.cn.cms.enums.AutoPublishEnum;
+import com.cn.cms.enums.PublishEnum;
+import com.cn.cms.enums.PushTagEnum;
 import com.cn.cms.po.*;
 import com.cn.cms.service.NewsService;
-import com.cn.cms.utils.HtmlUtils;
 import com.cn.cms.utils.Page;
 import com.cn.cms.utils.StringUtils;
 import com.cn.cms.utils.TextUtils;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by ADMIN on 16/11/18.
@@ -40,8 +39,6 @@ public class NewsServiceImpl implements NewsService {
     @Resource
     private NewsPushColumnDao newsPushColumnDao;
 
-    @Resource(name = "threadTaskExecutor")
-    private ThreadPoolTaskExecutor threadTaskExecutor;
 
     @Override
     public Integer queryListCount(Long channelId) {
@@ -121,28 +118,12 @@ public class NewsServiceImpl implements NewsService {
         if(StringUtils.isNotEmpty(newsPushColumns)){
             newsPushColumnDao.saveNewsPushColumns(newsPushColumns);
         }
-        sendIndex(news);
+        //sendIndex(news);
     }
 
 
 
-    private void sendIndex(Base base){
-        IndexThread indexThread = new IndexThread();
-        indexThread.setId(base.getId());
-        indexThread.setIndexOperEnum(IndexOperEnum.update);
-        indexThread.setEsSearchTypeEnum(ESSearchTypeEnum.news);
-        threadTaskExecutor.execute(indexThread);
-    }
 
-    private void delIndex(Long id){
-        Base base = new Base();
-        base.setId(id);
-        IndexThread indexThread = new IndexThread();
-        indexThread.setId(base.getId());
-        indexThread.setIndexOperEnum(IndexOperEnum.delete);
-        indexThread.setEsSearchTypeEnum(ESSearchTypeEnum.news);
-        threadTaskExecutor.execute(indexThread);
-    }
 
 
     public void updateNews(News news) {
@@ -162,14 +143,14 @@ public class NewsServiceImpl implements NewsService {
         if(StringUtils.isNotEmpty(newsPushColumns)){
             newsPushColumnDao.saveNewsPushColumns(newsPushColumns);
         }
-        sendIndex(news);
+        //sendIndex(news);
     }
 
     public void delNews(String lastModifyUserId, Long id) {
         newsDao.delNews(lastModifyUserId, id);
         newsDetailDao.delNewsDetail(lastModifyUserId, id);
         //newsStockDao.delStocks(id);
-        delIndex(id);
+        //delIndex(id);
     }
 
     public void recoverNews(List<NewsStock> list, String lastModifyUserId, Long id){
@@ -178,9 +159,9 @@ public class NewsServiceImpl implements NewsService {
 //        if(StringUtils.isNotEmpty(list)) {
 //            newsStockDao.saveStocks(list);
 //        }
-        Base base = new Base();
-        base.setId(id);
-        sendIndex(base);
+//        Base base = new Base();
+//        base.setId(id);
+//        sendIndex(base);
     }
 
     @Override
@@ -196,7 +177,7 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public void publishNews(News news) {
         newsDao.publishNews(news);
-        sendIndex(news);
+        //sendIndex(news);
     }
 
     @Override
@@ -269,7 +250,7 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public void updateNewsRecommend(NewsRecommend newsRecommend) {
         newsDao.updateNewsRecommend(newsRecommend);
-        sendIndex(newsRecommend);
+        //sendIndex(newsRecommend);
     }
 
     @Override
@@ -320,7 +301,7 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public void updateRescind(News news) {
         newsDao.updateRescind(news);
-        sendIndex(news);
+        //sendIndex(news);
     }
 
     @Override
@@ -336,9 +317,9 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public void deleteRecommend(Long id) {
         newsDao.deleteRecommend(id);
-        Base base =new Base();
-        base.setId(id);
-        sendIndex(base);
+//        Base base =new Base();
+//        base.setId(id);
+//        sendIndex(base);
     }
 
     @Override

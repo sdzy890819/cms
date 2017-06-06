@@ -6,10 +6,8 @@ import com.cn.cms.bo.RelationColumn;
 import com.cn.cms.bo.UserBean;
 import com.cn.cms.contants.RedisKeyContants;
 import com.cn.cms.contants.StaticContants;
-import com.cn.cms.enums.AutoPublishEnum;
-import com.cn.cms.enums.DelTagEnum;
-import com.cn.cms.enums.PublishEnum;
-import com.cn.cms.enums.TemplateClassifyEnum;
+import com.cn.cms.enums.*;
+import com.cn.cms.job.IndexThread;
 import com.cn.cms.middleware.JedisClient;
 import com.cn.cms.po.*;
 import com.cn.cms.service.NewsService;
@@ -17,6 +15,7 @@ import com.cn.cms.utils.HtmlUtils;
 import com.cn.cms.utils.Page;
 import com.cn.cms.utils.StringUtils;
 import com.cn.cms.utils.TextUtils;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -44,8 +43,12 @@ public class NewsBiz extends BaseBiz {
 
     @Resource
     private UserBiz userBiz;
+
     @Resource
     private ChannelBiz channelBiz;
+
+    @Resource(name = "threadTaskExecutor")
+    private ThreadPoolTaskExecutor threadTaskExecutor;
 
     public List<NewsColumn> listNewsColumn(Long channelId){
         return newsService.queryList(channelId);
@@ -342,6 +345,7 @@ public class NewsBiz extends BaseBiz {
     public void saveNews(News news){
         news.setImageUrl(getImagesUrl(news.getNewsDetail().getContent()));
         newsService.saveNews(news);
+        sendIndex(news);
         String result = jedisClient.get(RedisKeyContants.getRedisAddNewPreviousColumnInfo(news.getLastModifyUserId()));
         PreviousColumn previousColumn = null ;
         if(StringUtils.isNotBlank(result)){
@@ -384,6 +388,26 @@ public class NewsBiz extends BaseBiz {
         news.setImageUrl(getImagesUrl(news.getNewsDetail().getContent()));
         news.setNewsStocks(TextUtils.getNewsStock(news.getNewsDetail().getContent(), news.getLastModifyUserId(), news.getId(), news));
         newsService.updateNews(news);
+        sendIndex(news);
+    }
+
+
+    private void sendIndex(Base base){
+        IndexThread indexThread = new IndexThread();
+        indexThread.setId(base.getId());
+        indexThread.setIndexOperEnum(IndexOperEnum.update);
+        indexThread.setEsSearchTypeEnum(ESSearchTypeEnum.news);
+        threadTaskExecutor.execute(indexThread);
+    }
+
+    private void delIndex(Long id){
+        Base base = new Base();
+        base.setId(id);
+        IndexThread indexThread = new IndexThread();
+        indexThread.setId(base.getId());
+        indexThread.setIndexOperEnum(IndexOperEnum.delete);
+        indexThread.setEsSearchTypeEnum(ESSearchTypeEnum.news);
+        threadTaskExecutor.execute(indexThread);
     }
 
     /**
@@ -393,6 +417,7 @@ public class NewsBiz extends BaseBiz {
      */
     public void delNews(String lastModifyUserId, Long id){
         newsService.delNews(lastModifyUserId, id);
+        delIndex(id);
     }
 
     /**
@@ -401,6 +426,7 @@ public class NewsBiz extends BaseBiz {
      */
     public void recoverNews(News news, String lastModifyUserId){
         newsService.recoverNews(TextUtils.getNewsStock(news.getNewsDetail().getContent(), news.getLastModifyUserId(), news.getId(), news), lastModifyUserId, news.getId());
+        sendIndex(news);
     }
 
     /**
@@ -424,6 +450,7 @@ public class NewsBiz extends BaseBiz {
      */
     public void publishNews(News news){
         newsService.publishNews(news);
+        sendIndex(news);
     }
 
     /**
@@ -479,6 +506,7 @@ public class NewsBiz extends BaseBiz {
 
     public void recommendNews(NewsRecommend newsRecommend){
         newsService.updateNewsRecommend(newsRecommend);
+        sendIndex(newsRecommend);
     }
 
     public List<RecommendColumn> listRecommendColumn(){
@@ -564,6 +592,7 @@ public class NewsBiz extends BaseBiz {
      */
     public void rescind(News news){
         newsService.updateRescind(news);
+        sendIndex(news);
     }
 
     public Integer findColumnNameCount(String columnName){
@@ -587,6 +616,9 @@ public class NewsBiz extends BaseBiz {
 
     public void deleteRecommend(Long id){
         newsService.deleteRecommend(id);
+        Base base =new Base();
+        base.setId(id);
+        sendIndex(base);
     }
 
 
