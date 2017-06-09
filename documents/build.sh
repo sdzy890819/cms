@@ -87,6 +87,6 @@ echo "----------------------- Project Restart Finish ------------------------"
 echo "----------------------- Java Jar Restart       ------------------------"
 cd /data/projects/cms-publish/
 
-kill -9 $(ps -ef|grep "java -Xms1500m -Xmx1500m -Xmn700m -XX:+HeapDumpOnOutOfMemoryError -jar cms-publish.jar"|gawk '$0 !~/grep/ {print $2}' |tr -s '\n' ' ')
+kill -9 $(ps -ef|grep "java -Xms1500m -Xmx1500m -XX:+HeapDumpOnOutOfMemoryError -jar cms-publish.jar"|gawk '$0 !~/grep/ {print $2}' |tr -s '\n' ' ')
 
-java -Xms1500m -Xmx1500m -Xmn700m -XX:+HeapDumpOnOutOfMemoryError -jar  cms-publish.jar >> /data/logs/cms-publish/catalina.out 2>&1 &
+java -Xms1500m -Xmx1500m -XX:+HeapDumpOnOutOfMemoryError -jar  cms-publish.jar >> /data/logs/cms-publish/catalina.out 2>&1 &
