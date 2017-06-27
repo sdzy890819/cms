@@ -58,6 +58,22 @@ public class NewsColumn extends Base {
      */
     private String description;
 
+    //---新增
+    /**
+     * 相对路径
+     */
+    private String path;
+
+    /**
+     * 文件名
+     */
+    private String fileName;
+
+    /**
+     * 模版列表页url相对路径。
+     */
+    private String listRelativePath;
+
     /**
      * 额外赋值
      */
@@ -68,4 +84,8 @@ public class NewsColumn extends Base {
      * 额外赋值
      */
     private ColumnPublishInfo columnPublishInfo;
+
+
+
+
 }

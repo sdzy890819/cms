@@ -161,6 +161,9 @@ CREATE TABLE `news_column` (
 `description` varchar(500) NULL COMMENT '描述',
 `list_url` varchar(255) NULL COMMENT '模版列表发布地址',
 `create_user_id` varchar(20) NULL COMMENT '创建人',
+`list_relative_path` varchar(255) DEFAULT NULL COMMENT '列表页相对路径',
+`file_name` varchar(255) DEFAULT NULL COMMENT '列表页可维护文件名',
+`path` varchar(255) DEFAULT NULL COMMENT '列表页可维护相对目录',
 PRIMARY KEY (`id`) ,
 INDEX `channel_id_sel` (`channel_id`)
 )

@@ -268,8 +268,18 @@ public class BuildBiz extends BaseBiz {
                             TriggerTypeEnum.NEWS, TemplateTypeEnum.TEMPLATE2, template2.getId(), "ID为"+ newsColumn.getListTemplate2Id() +" 的列表页第二模版的所属频道ID为 " +newsColumn.getChannelId()+" 的频道已不存在");
                     return ;
                 }
-                newsColumn.setListUrl(StringUtils.concatUrl(channel.getChannelUrl(), template2.getPath(),
-                        newsColumn.getId().toString().concat(StaticContants.HTML_SUFFIX)));
+                String listUrl = "";
+                String listRelativePath = "";
+                if(StringUtils.isNotBlank(newsColumn.getPath()) && StringUtils.isNotBlank(newsColumn.getFileName())){
+                    listRelativePath = StringUtils.concatUrl(newsColumn.getPath(), newsColumn.getFileName());
+                    listUrl = StringUtils.concatUrl(channel.getChannelUrl(), listRelativePath);
+                }else{
+                    listRelativePath = StringUtils.concatUrl(template2.getPath(),
+                            newsColumn.getId().toString().concat(StaticContants.HTML_SUFFIX));
+                    listUrl = StringUtils.concatUrl(channel.getChannelUrl(), listRelativePath);
+                }
+                newsColumn.setListUrl(listUrl);
+                newsColumn.setListRelativePath(listRelativePath);
                 newsBiz.publishListTemplate2(newsColumn);
 
                 TemplatePublishJob templatePublishJob = new TemplatePublishJob();
@@ -343,8 +353,19 @@ public class BuildBiz extends BaseBiz {
                                         TriggerTypeEnum.NEWS, TemplateTypeEnum.TEMPLATE2, template2.getId(), "ID为"+ newsColumn.getListTemplate2Id() +" 的列表页第二模版的所属频道ID为 " +newsColumn.getChannelId()+" 的频道已不存在");
                                 continue;
                             }
-                            newsColumn.setListUrl(StringUtils.concatUrl(channel.getChannelUrl(), template2.getPath(),
-                                    newsColumn.getId().toString().concat(StaticContants.HTML_SUFFIX)));
+                            String listUrl = "";
+                            String listRelativePath = "";
+                            if(StringUtils.isNotBlank(newsColumn.getPath()) && StringUtils.isNotBlank(newsColumn.getFileName())){
+                                listRelativePath = StringUtils.concatUrl(newsColumn.getPath(), newsColumn.getFileName());
+                                listUrl = StringUtils.concatUrl(channel.getChannelUrl(), listRelativePath);
+                            }else{
+                                listRelativePath = StringUtils.concatUrl(template2.getPath(),
+                                        newsColumn.getId().toString().concat(StaticContants.HTML_SUFFIX));
+                                listUrl = StringUtils.concatUrl(channel.getChannelUrl(), listRelativePath);
+                            }
+                            newsColumn.setListUrl(listUrl);
+                            newsColumn.setListRelativePath(listRelativePath);
+
                             newsBiz.publishListTemplate2(newsColumn);
 
                             TemplatePublishJob templatePublishJob = new TemplatePublishJob();

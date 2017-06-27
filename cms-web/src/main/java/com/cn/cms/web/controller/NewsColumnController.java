@@ -95,7 +95,9 @@ public class NewsColumnController extends BaseController {
                                    @RequestParam(value = "listTemplate2Id", required = false) Long listTemplate2Id,
                                    @RequestParam(value = "detailTemplate2Id", required = false) Long detailTemplate2Id,
                                    @RequestParam(value = "keywords", required = false) String keywords,
-                                   @RequestParam(value = "description", required = false) String description){
+                                   @RequestParam(value = "description", required = false) String description,
+                                   @RequestParam(value = "path", required = false) String path,
+                                   @RequestParam(value = "fileName", required = false) String fileName){
         Integer count = newsBiz.findColumnNameCount(columnName);
         if ( count > 0 ) {
             return ApiResponse.returnFail(StaticContants.ERROR_COLUMN_NAME_EXIST);
@@ -111,6 +113,8 @@ public class NewsColumnController extends BaseController {
         newsColumn.setDetailTemplate2Id(detailTemplate2Id);
         newsColumn.setKeywords(keywords);
         newsColumn.setDescription(description);
+        newsColumn.setPath(path);
+        newsColumn.setFileName(fileName);
         newsBiz.saveNewsColumn(newsColumn);
         return ApiResponse.returnSuccess();
     }
@@ -139,7 +143,9 @@ public class NewsColumnController extends BaseController {
                                    @RequestParam(value = "listTemplate2Id", required = false) Long listTemplate2Id,
                                    @RequestParam(value = "detailTemplate2Id", required = false) Long detailTemplate2Id,
                                    @RequestParam(value = "keywords", required = false) String keywords,
-                                   @RequestParam(value = "description", required = false) String description){
+                                   @RequestParam(value = "description", required = false) String description,
+                                   @RequestParam(value = "path", required = false) String path,
+                                   @RequestParam(value = "fileName", required = false) String fileName){
         NewsColumn oldNewsColumn = newsBiz.getNewsColumn(id);
         if( !oldNewsColumn.getColumnName().equals(columnName) ){
             Integer count = newsBiz.findColumnNameCount(columnName);
@@ -158,6 +164,8 @@ public class NewsColumnController extends BaseController {
         newsColumn.setListTemplate2Id(listTemplate2Id);
         newsColumn.setKeywords(keywords);
         newsColumn.setDescription(description);
+        newsColumn.setPath(path);
+        newsColumn.setFileName(fileName);
         newsBiz.updateNewsColumn(newsColumn);
         return ApiResponse.returnSuccess();
     }
