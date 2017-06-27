@@ -51,6 +51,18 @@ public class BuildSendMessage {
         send(commonMessage, mqQueueKeyEnum);
     }
 
+
+    /**
+     * 发送栏目重新发布指令
+     * @param object
+     * @param commonMessageSourceEnum
+     * @param mqQueueKeyEnum
+     */
+    public void sendColumnPublish(Object object , CommonMessageSourceEnum commonMessageSourceEnum
+            , MQQueueKeyEnum mqQueueKeyEnum){
+        CommonMessage commonMessage = new CommonMessage(object, commonMessageSourceEnum.getType(), CommonMessageOperationEnum.COLUMNREPUBLISH.getType());
+        send(commonMessage, mqQueueKeyEnum);
+    }
     /**
      * 任务执行MQ发送
      * @param commonMessage

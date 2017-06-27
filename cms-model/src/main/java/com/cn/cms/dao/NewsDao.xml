@@ -148,6 +148,14 @@
         select <include refid="all_column" /> from news where id = ${id};
     </select>
 
+    <select id="findNewsAndDetailManageList" resultMap="news">
+        select <include refid="all_column" /> from news where id in
+        <foreach collection="list" close=");" open="(" item="item" separator=",">
+            ${item}
+        </foreach>
+
+    </select>
+
 
     <insert id="saveNews" useGeneratedKeys="true" keyProperty="p1.id">
         insert into news ( <include refid="sql_column"/> ) values (
@@ -343,5 +351,18 @@
         recommend_user_id = null,recommend_time = null,
         sort = 0 where id = ${id};
     </update>
+
+
+    <select id="findNewsIdWithColumnIds" resultType="java.lang.Long">
+        select id from news <include refid="delTag"/>
+        <if test="id != null">
+            and id &lt; #{id}
+        </if>
+        <if test="columnId != null">
+        and column_id = #{columnId}
+        </if>
+        order by id desc;
+        limit ${pageSize}
+    </select>
 
 </mapper>

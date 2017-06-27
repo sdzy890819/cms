@@ -36,6 +36,10 @@ public class BuildMessageHandler extends DefaultCommonMessageHandler {
                     buildBiz.rescind(message);
                     break;
                 }
+                case COLUMNREPUBLISH:{
+                    buildBiz.batchPublish(message);
+                    break;
+                }
                 default : break;
             }
         }catch(Exception e){

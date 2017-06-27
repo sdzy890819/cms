@@ -9,7 +9,8 @@ import lombok.Getter;
 public enum CommonMessageOperationEnum {
 
     PUBLISH("发布", 1),
-    RESCIND("撤销发布", 0);
+    RESCIND("撤销发布", 0),
+    COLUMNREPUBLISH("栏目重新发布", 2);
 
     @Getter
     private int type;

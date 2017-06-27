@@ -43,4 +43,19 @@ public class PublishBiz extends BaseBiz {
         buildSendMessage.sendRescind(body, commonMessageSourceEnum, MQQueueKeyEnum.BUILD);
     }
 
+    /**
+     * 发送指令给后端处理。[发布栏目]
+     * @param id
+     * @param userId
+     * @param commonMessageSourceEnum
+     */
+    public void publishColumn(Long id, String userId, CommonMessageSourceEnum commonMessageSourceEnum){
+        Body body = new Body();
+        body.setId(id);
+        body.setUserId(userId);
+        buildSendMessage.sendColumnPublish(body, commonMessageSourceEnum, MQQueueKeyEnum.BUILD);
+    }
+
+
+
 }

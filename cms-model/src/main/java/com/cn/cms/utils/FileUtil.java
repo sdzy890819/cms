@@ -253,7 +253,7 @@ public class FileUtil {
      * @return
      */
     public static String getRelativePath(String basePath, String suffix){
-        String relativePath = getDatePath();
+        String relativePath = getDatePath(null);
         String filePath = StringUtils.concatUrl(basePath,relativePath);
         String fileName = getFileName(suffix);
         File file = new File(filePath);
@@ -281,10 +281,16 @@ public class FileUtil {
      * 获取日期路径
      * @return
      */
-    public static String getDatePath(){
-        Calendar calendar = Calendar.getInstance();
+    public static String getDatePath(Date createTime){
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-        String relativePath = sdf.format(calendar.getTime()).concat("/");
+        String relativePath = "";
+        if(createTime!=null) {
+            relativePath = sdf.format(createTime).concat("/");
+
+        }else{
+            Calendar calendar = Calendar.getInstance();
+            relativePath = sdf.format(calendar.getTime()).concat("/");
+        }
         return relativePath;
     }
 

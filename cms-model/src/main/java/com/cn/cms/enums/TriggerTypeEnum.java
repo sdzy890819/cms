@@ -12,7 +12,8 @@ public enum TriggerTypeEnum {
     TOPIC("专题", 2),
     FRAGMENT("碎片", 3),
     RECOMMEND("推荐新闻", 4),
-    OTHER("模版自动生成", 5);
+    OTHER("模版自动生成", 5),
+    DEFAULT("无意义", 9);
 
     @Getter
     private int type;

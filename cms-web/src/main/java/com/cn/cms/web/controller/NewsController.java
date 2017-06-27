@@ -137,6 +137,42 @@ public class NewsController extends BaseController {
         return ApiResponse.returnSuccess();
     }
 
+    /**
+     * 批量删除
+     * @param request
+     * @param ids
+     * @return
+     */
+    @CheckToken
+    @CheckAuth( name = "news:delete" )
+    @RequestMapping(value = "/deletes",method = RequestMethod.GET)
+    public String deletes(HttpServletRequest request, @RequestParam(value = "ids") String ids){
+        if(StringUtils.isBlank(ids)){
+            return ApiResponse.returnFail(StaticContants.ERROR_NEWS_LIST_NOT_FOUND);
+        }
+        String[] idStr = ids.split(",");
+        List<Long> idList = new ArrayList<>();
+        for(int i=0; i<idStr.length; i++){
+            idList.add(Long.parseLong(idStr[i]));
+        }
+        List<News> newsList = newsBiz.findNewsManageList(idList);
+        for(int i=0;i<newsList.size();i++) {
+            News news = newsList.get(i);
+            if (news == null || news.getDelTag() == DelTagEnum.DEL.getType()) {
+                return ApiResponse.returnSuccess("ID:" + news.getId() + "新闻已不存在, 停止执行!");
+            }
+        }
+        for(int i=0;i<newsList.size();i++) {
+            News news = newsList.get(i);
+            newsBiz.delNews(getCurrentUserId(request), news.getId());
+            if (news.getRecommend() == RecommendEnum.YES.getType()) {
+                publishBiz.publish(news.getId(), getCurrentUserId(request), CommonMessageSourceEnum.RECOMMEND);
+            }
+        }
+        return ApiResponse.returnSuccess();
+    }
+
+
 
     /**
      * 获取上次发布新闻的部门 频道 栏目信息
@@ -389,6 +425,40 @@ public class NewsController extends BaseController {
         return ApiResponse.returnSuccess();
     }
 
+
+    /**
+     * 批量发布.
+     * @param request
+     * @param ids
+     * @return
+     */
+    @CheckToken
+    @CheckAuth( name = "news:publish" )
+    @RequestMapping(value = "/publishes", method = RequestMethod.GET)
+    public String publishes(HttpServletRequest request,
+                          @RequestParam(value = "ids") String ids){
+        if(StringUtils.isBlank(ids)){
+            return ApiResponse.returnFail(StaticContants.ERROR_NEWS_LIST_NOT_FOUND);
+        }
+        String[] idStr = ids.split(",");
+        List<Long> idList = new ArrayList<>();
+        for(int i=0; i<idStr.length; i++){
+            idList.add(Long.parseLong(idStr[i]));
+        }
+        List<News> newsList = newsBiz.findNewsManageList(idList);
+        for(int i=0;i<newsList.size();i++) {
+            if(newsList.get(i).getDelTag() == DelTagEnum.DEL.getType()){
+                return ApiResponse.returnFail("ID："+newsList.get(i).getId() + " 的新闻已被删除，无法发布,需要恢复新闻后才可以发布");
+            }
+        }
+        for(int i=0;i<newsList.size();i++) {
+            publishBiz.publish(newsList.get(i).getId(), getCurrentUserId(request), CommonMessageSourceEnum.NEWS);
+        }
+        return ApiResponse.returnSuccess();
+    }
+
+
+
     /**
      * 获取推荐信息
      * @param id
@@ -512,7 +582,7 @@ public class NewsController extends BaseController {
     @CheckToken
     @CheckAuth( name = "news:rescind" )
     @RequestMapping(value = "/rescind", method = RequestMethod.GET)
-    public String newsManageList(HttpServletRequest request, @RequestParam(value = "id") Long id){
+    public String rescind(HttpServletRequest request, @RequestParam(value = "id") Long id){
         News news = newsBiz.findNewsManage(id);
         if(news == null ){
             return ApiResponse.returnFail(StaticContants.ERROR_NEWS_NOT_FOUND);
@@ -521,6 +591,37 @@ public class NewsController extends BaseController {
             return ApiResponse.returnFail(StaticContants.ERROR_NEWS_CAN_NOT_RESCIND);
         }
         publishBiz.rescind(id, getCurrentUserId(request), CommonMessageSourceEnum.NEWS);
+        return ApiResponse.returnSuccess();
+    }
+
+    /**
+     * 批量撤销新闻。
+     * @param request
+     * @param ids
+     * @return
+     */
+    @CheckToken
+    @CheckAuth( name = "news:rescind" )
+    @RequestMapping(value = "/rescinds", method = RequestMethod.GET)
+    public String rescinds(HttpServletRequest request, @RequestParam(value = "ids") String ids){
+        if(StringUtils.isBlank(ids)){
+            return ApiResponse.returnFail(StaticContants.ERROR_NEWS_LIST_NOT_FOUND);
+        }
+        List<Long> idList = new ArrayList<>();
+        String[] idStr = ids.split(",");
+        for(int i=0; i<idStr.length; i++){
+            idList.add(Long.parseLong(idStr[i]));
+        }
+        List<News> newsList = newsBiz.findNewsManageList(idList);
+        for(int i=0;i<newsList.size();i++) {
+            News news = newsList.get(i);
+            if (news.getPublish() != PublishEnum.YES.getType()) {
+                return ApiResponse.returnFail("ID:" + news.getId() + "的新闻 不在发布状态，无法撤销");
+            }
+        }
+        for(int i=0;i<newsList.size();i++) {
+            publishBiz.rescind(newsList.get(i).getId(), getCurrentUserId(request), CommonMessageSourceEnum.NEWS);
+        }
         return ApiResponse.returnSuccess();
     }
 

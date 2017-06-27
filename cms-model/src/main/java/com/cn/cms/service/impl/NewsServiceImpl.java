@@ -206,6 +206,11 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
+    public List<News> findNewsManageList(List<Long> id) {
+        return newsDao.findNewsAndDetailManageList(id);
+    }
+
+    @Override
     public News findNewsAndDetailManage(Long id) {
         News news = newsDao.findNewsAndDetailManage(id);
         if(news!=null){
@@ -325,5 +330,10 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public void deleteRecommendColumn(Long id, String lastModifyUserId) {
         recommendColumnDao.deleteRecommendColumn(id, lastModifyUserId);
+    }
+
+    @Override
+    public List<Long> findNewsIdWithColumnIds(Long columnId, int size, Long id) {
+        return newsDao.findNewsIdWithColumnIds(columnId, size, id);
     }
 }

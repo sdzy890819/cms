@@ -25,6 +25,8 @@ public interface NewsDao {
 
     News findNewsAndDetailManage(@Param(value = "id") Long id);
 
+    List<News> findNewsAndDetailManageList(@Param(value = "list") List<Long> id);
+
     void delNews(@Param(value = "lastModifyUserId") String lastModifyUserId, @Param(value = "id") Long id);
 
     void recoverNews(@Param(value = "lastModifyUserId") String lastModifyUserId, @Param(value = "id") Long id);
@@ -59,5 +61,7 @@ public interface NewsDao {
     Integer queryNewsRecommendCount(@Param(value = "recommendColumnId") Long recommendColumnId);
 
     void deleteRecommend(@Param(value = "id") Long id);
+
+    List<Long> findNewsIdWithColumnIds(@Param(value = "columnId") Long columnId, @Param(value = "pageSize") int size, @Param(value = "id") Long id);
 
 }

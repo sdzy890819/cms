@@ -12,7 +12,8 @@ public enum CommonMessageSourceEnum {
     TOPIC("TOPIC", 2, TriggerTypeEnum.TOPIC),
     FRAGMENT("FRAGMENT", 3, TriggerTypeEnum.FRAGMENT),
     RECOMMEND("RECOMMEND", 4, TriggerTypeEnum.RECOMMEND),
-    OTHER("OTHER", 5, TriggerTypeEnum.OTHER);
+    OTHER("OTHER", 5, TriggerTypeEnum.OTHER),
+    COLUMN("COLUMN", 9, TriggerTypeEnum.DEFAULT);
 
     @Getter
     private Integer type;

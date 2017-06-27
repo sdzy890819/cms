@@ -114,6 +114,8 @@ public class StaticContants {
 
     public static final String ERROR_NEWS_NOT_FOUND = "找不到此篇新闻";
 
+    public static final String ERROR_NEWS_LIST_NOT_FOUND = "没有新闻被选择";
+
     public static final String ERROR_NEWS_CAN_NOT_RESCIND = "当前新闻不在发布状态，无法撤销";
 
     public static final String ERROR_NEWS_NOT_NEED_RECOVER = "此新闻已被恢复";

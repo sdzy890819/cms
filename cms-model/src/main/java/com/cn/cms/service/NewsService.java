@@ -59,6 +59,8 @@ public interface NewsService {
 
     News findNewsManage(Long id);
 
+    List<News> findNewsManageList(List<Long> id);
+
     News findNewsAndDetailManage(Long id);
 
     News doFindNewsAndDetailManage(Long id);
@@ -100,5 +102,7 @@ public interface NewsService {
     void deleteRecommend(Long id);
 
     void deleteRecommendColumn(Long id, String lastModifyUserId);
+
+    List<Long> findNewsIdWithColumnIds(Long columnId, int size, Long id);
 
 }

@@ -1,6 +1,8 @@
 package com.cn.cms.biz;
 
 import com.alibaba.fastjson.JSONObject;
+import com.cn.cms.bo.ColumnPublishInfo;
+import com.cn.cms.contants.RedisKeyContants;
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.enums.*;
 import com.cn.cms.job.TemplatePublishJob;
@@ -9,6 +11,7 @@ import com.cn.cms.logfactory.CommonLog;
 import com.cn.cms.logfactory.CommonLogFactory;
 import com.cn.cms.message.bean.Body;
 import com.cn.cms.message.common.CommonMessage;
+import com.cn.cms.middleware.JedisClient;
 import com.cn.cms.po.*;
 import com.cn.cms.utils.*;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -46,12 +49,71 @@ public class BuildBiz extends BaseBiz {
     @Resource
     private PublishInfoBiz publishInfoBiz;
 
+    @Resource
+    private JedisClient jedisClient;
+
 
     @Resource(name = "threadTaskExecutor")
     private ThreadPoolTaskExecutor threadTaskExecutor;
 
     private CommonLog log = CommonLogFactory.getLog(this.getClass());
 
+    public void batchPublish(CommonMessage commonMessage){
+        CommonMessageSourceEnum sourceEnum = CommonMessageSourceEnum.get(commonMessage.getSource());
+        Body body = JSONObject.parseObject(((JSONObject) commonMessage.getMessage()).toJSONString(), Body.class);
+        String str = jedisClient.get(RedisKeyContants.getRedisColumnPublishInfo(body.getId()));
+        int pageSize = 999;
+        if(StringUtils.isBlank(str)) {
+            ColumnPublishInfo columnPublishInfo = new ColumnPublishInfo();
+            columnPublishInfo.setColumnId(body.getId());
+            columnPublishInfo.setMessage(ColumnPublishInfo.State.EXEC.getMessage());
+            columnPublishInfo.setState(ColumnPublishInfo.State.EXEC.getType());
+            columnPublishInfo.setUserId(body.getUserId());
+            jedisClient.set(RedisKeyContants.getRedisColumnPublishInfo(body.getId()), JSONObject.toJSONString(columnPublishInfo));
+            try {
+                switch (sourceEnum) {
+                    case OTHER: {
+                        List<Long> list = null;
+                        Long lastId = null;
+                        do {
+                            list = newsBiz.findNewsIdWithColumnIds(body.getId(), pageSize, lastId);
+                            if(StringUtils.isNotEmpty(list)){
+                                for(int i=0;i<list.size();i++){
+                                    try {
+                                        CommonMessage newCommonMessage = new CommonMessage();
+                                        Body newBody = new Body();
+                                        newBody.setId(list.get(i));
+                                        newBody.setUserId(body.getUserId());
+                                        newCommonMessage.setMessage(JSONObject.toJSON(newBody));
+                                        newCommonMessage.setSource(CommonMessageSourceEnum.NEWS.getType());
+                                        this.build(newCommonMessage);
+                                    }catch (Exception error){}
+                                    lastId = list.get(i);
+                                }
+                            }else {
+                                break;
+                            }
+                        }while (StringUtils.isNotEmpty(list));
+                        break;
+                    }
+                    default:
+                        break;
+                }
+            } catch (Exception e) {
+                log.error("栏目批量发布任务执行失败!", e);
+            } finally {
+                jedisClient.del(RedisKeyContants.getRedisColumnPublishInfo(body.getId()));
+            }
+        }else{
+            log.info("已有栏目批量发布任务在执行");
+        }
+    }
+
+
+    /**
+     * 撤销动作
+     * @param commonMessage
+     */
     public void rescind(CommonMessage commonMessage){
 
         CommonMessageSourceEnum sourceEnum = CommonMessageSourceEnum.get(commonMessage.getSource());
@@ -417,18 +479,14 @@ public class BuildBiz extends BaseBiz {
         if(StringUtils.isBlank(news.getBuildUserId())) {
             news.setBuildUserId(body.getUserId());
         }
-            news.setLastModifyUserId(body.getUserId());
-            news.setPublish(PublishEnum.YES.getType());
-            if(news.getEditPublishTime() == null){
-                news.setEditPublishTime(date);
-            }
-            if(StringUtils.isBlank(news.getRelativePath())) {
-                news.setRelativePath(StringUtils.concatUrl(FileUtil.getDatePath(), String.valueOf(news.getId()).concat(StaticContants.HTML_SUFFIX)));
-            }
-            if(StringUtils.isBlank(news.getUrl())) {
-                news.setUrl(StringUtils.concatUrl(channel.getChannelUrl(), news.getRelativePath()));
-            }
-            newsBiz.publishNews(news);
+        news.setLastModifyUserId(body.getUserId());
+        news.setPublish(PublishEnum.YES.getType());
+        if(news.getEditPublishTime() == null){
+            news.setEditPublishTime(date);
+        }
+        news.setRelativePath(StringUtils.concatUrl(FileUtil.getDatePath(news.getCreateTime()), String.valueOf(news.getId()).concat(StaticContants.HTML_SUFFIX)));
+        news.setUrl(StringUtils.concatUrl(channel.getChannelUrl(), news.getRelativePath()));
+        newsBiz.publishNews(news);
     }
 
     /**

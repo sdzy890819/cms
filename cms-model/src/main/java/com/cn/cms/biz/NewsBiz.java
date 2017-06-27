@@ -1,6 +1,7 @@
 package com.cn.cms.biz;
 
 import com.alibaba.fastjson.JSONObject;
+import com.cn.cms.bo.ColumnPublishInfo;
 import com.cn.cms.bo.PreviousColumn;
 import com.cn.cms.bo.RelationColumn;
 import com.cn.cms.bo.UserBean;
@@ -130,6 +131,34 @@ public class NewsBiz extends BaseBiz {
                     list.get(i).setRecommendColumnName(columnMap.get(list.get(i).getRecommendColumnId()) != null ? columnMap.get(list.get(i).getRecommendColumnId()).getColumnName() : "");
                 }
             }
+        }
+    }
+
+
+    /**
+     * 初始化新闻栏目发布信息.
+     * @param list
+     */
+    public void dataColumnPublishInfoInit(List<NewsColumn> list){
+        if(StringUtils.isNotEmpty(list)) {
+            String[] keys = new String[list.size()];
+            for (int i = 0; i < list.size(); i++) {
+                keys[i] = RedisKeyContants.getRedisColumnPublishInfo(list.get(i).getId());
+            }
+            List<String> result = jedisClient.mget(keys);
+            if(StringUtils.isNotEmpty(result)){
+                Map<Long, ColumnPublishInfo> map = new HashMap<>();
+                for(int i=0;i<result.size();i++){
+                    if(StringUtils.isNotBlank(result.get(i))) {
+                        ColumnPublishInfo columnPublishInfo = JSONObject.parseObject(result.get(i), ColumnPublishInfo.class);
+                        map.put(columnPublishInfo.getColumnId(), columnPublishInfo);
+                    }
+                }
+                for (int i = 0; i < list.size(); i++) {
+                    list.get(i).setColumnPublishInfo(map.get(list.get(i).getId()));
+                }
+            }
+
         }
     }
 
@@ -578,6 +607,10 @@ public class NewsBiz extends BaseBiz {
         return newsService.findNewsManage(id);
     }
 
+    public List<News> findNewsManageList(List<Long> id){
+        return newsService.findNewsManageList(id);
+    }
+
     public News findNewsAndDetailManage(Long id){
         return newsService.findNewsAndDetailManage(id);
     }
@@ -626,6 +659,10 @@ public class NewsBiz extends BaseBiz {
         newsService.deleteRecommendColumn(id, lastModifyUserId);
     }
 
+
+    public List<Long> findNewsIdWithColumnIds(Long columnId, int size, Long id){
+        return newsService.findNewsIdWithColumnIds(columnId, size, id);
+    }
 
 }
 

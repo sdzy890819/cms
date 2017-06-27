@@ -47,6 +47,13 @@ public class RedisKeyContants {
 
     public static final String REDIS_FILE_LIST = "CMS_FILE_UPLOAD_LIST";
 
+    public static final String REDIS_COLUMN_PUBLISH_INFO = "CMS_COLUMN_PUBLISH_INFO_";
+
+
+    public static String getRedisColumnPublishInfo(Long id){
+        return REDIS_COLUMN_PUBLISH_INFO + id;
+    }
+
     /**
      * 获取上一次发布新闻选择的频道栏目。
      * @param userId

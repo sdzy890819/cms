@@ -1,5 +1,6 @@
 package com.cn.cms.po;
 
+import com.cn.cms.bo.ColumnPublishInfo;
 import com.cn.cms.enums.PublishEnum;
 import lombok.Getter;
 import lombok.Setter;
@@ -61,4 +62,10 @@ public class NewsColumn extends Base {
      * 额外赋值
      */
     private String channelName;
+
+
+    /**
+     * 额外赋值
+     */
+    private ColumnPublishInfo columnPublishInfo;
 }

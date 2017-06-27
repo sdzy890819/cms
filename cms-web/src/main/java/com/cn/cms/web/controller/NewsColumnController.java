@@ -1,11 +1,9 @@
 package com.cn.cms.web.controller;
 
-import com.cn.cms.biz.ChannelBiz;
-import com.cn.cms.biz.NewsBiz;
-import com.cn.cms.biz.PreTemplateBiz;
-import com.cn.cms.biz.UserBiz;
+import com.cn.cms.biz.*;
 import com.cn.cms.bo.RelationColumn;
 import com.cn.cms.contants.StaticContants;
+import com.cn.cms.enums.CommonMessageSourceEnum;
 import com.cn.cms.po.NewsColumn;
 import com.cn.cms.utils.Page;
 import com.cn.cms.web.ann.CheckAuth;
@@ -41,6 +39,9 @@ public class NewsColumnController extends BaseController {
     @Resource
     private ChannelBiz channelBiz;
 
+    @Resource
+    private PublishBiz publishBiz;
+
     /**
      * 栏目列表
      * @param channelId
@@ -68,6 +69,7 @@ public class NewsColumnController extends BaseController {
         List<NewsColumn> list = newsBiz.listNewsColumn(channelId, page1);
         userBiz.dataInitBase(list);
         channelBiz.dataInitChannel(list);
+        newsBiz.dataColumnPublishInfoInit(list);
         Map<String, Object> map = new HashMap<>();
         map.put("page" ,page1);
         map.put("list", list);
@@ -200,4 +202,16 @@ public class NewsColumnController extends BaseController {
         List<RelationColumn> list = newsBiz.getAll();
         return ApiResponse.returnSuccess(list);
     }
+
+
+    @CheckToken
+    @CheckAuth( name = "newscolumn:publish" )
+    @RequestMapping(value = "/publish",method = RequestMethod.GET)
+    public String publish(HttpServletRequest request, @RequestParam(value = "id") Long id){
+        publishBiz.publishColumn(id, getCurrentUserId(request), CommonMessageSourceEnum.OTHER);
+        return ApiResponse.returnSuccess();
+    }
+
+
+
 }
