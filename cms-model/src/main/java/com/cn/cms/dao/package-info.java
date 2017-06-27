@@ -2,7 +2,7 @@
  * dao包。主要用来存放Dao类和资源
  */
 /**
- * @author zhangyang
+ * @author ADMIN
  *
  */
 package com.cn.cms.dao;

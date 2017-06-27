@@ -2,7 +2,7 @@
  * 业务类BEAN。po
  */
 /**
- * @author zhangyang
+ * @author ADMIN
  *
  */
 package com.cn.cms.bo;
