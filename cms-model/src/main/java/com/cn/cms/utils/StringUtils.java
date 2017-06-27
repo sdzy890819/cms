@@ -109,8 +109,6 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils{
 
 
     public static void main(String[] args){
-        System.out.println(concatUrl("aaa","/index.html"));
-        List<UserBean>  userBeanList = new ArrayList<UserBean>();
-        System.out.println(isNotEmpty(userBeanList));
+        System.out.println(concatUrl("", "/aaa/","/index.html"));
     }
 }

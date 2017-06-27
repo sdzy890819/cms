@@ -192,8 +192,8 @@ public class FileUtil {
                     height = (int) (h * bili);
                 } else {
                     if (height > 0) {
-                        width = (int) (w * bili);
                         bili = height / (double) h;
+                        width = (int) (w * bili);
                     }
                 }
             }
