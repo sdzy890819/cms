@@ -41,13 +41,13 @@ public class NewsServiceImpl implements NewsService {
 
 
     @Override
-    public Integer queryListCount(Long channelId) {
-        return newsColumnDao.queryListCount(channelId);
+    public Integer queryListCount(Long channelId, int delTag) {
+        return newsColumnDao.queryListCount(channelId, delTag);
     }
 
     @Override
-    public List<NewsColumn> queryListForPage(Long channelId, Page page) {
-        return newsColumnDao.queryListForPage(channelId, page);
+    public List<NewsColumn> queryListForPage(Long channelId, int delTag, Page page) {
+        return newsColumnDao.queryListForPage(channelId, delTag, page);
     }
 
     public List<NewsColumn> queryList(Long channelId) {
@@ -73,11 +73,21 @@ public class NewsServiceImpl implements NewsService {
         return newsColumnDao.getNewsColumn(id);
     }
 
+    @Override
+    public NewsColumn doGetNewsColumn(Long id) {
+        return newsColumnDao.doGetNewsColumn(id);
+    }
+
     public void delNewsColumn(String lastModifyUserId, Long id) {
         newsColumnDao.delNewsColumn(lastModifyUserId, id);
     }
 
-    public List<News> queryNewsList(String userId, Integer publish, Integer delTag ,Page page) {
+    @Override
+    public void recoverNewsColumn(String lastModifyUserId, Long id) {
+        newsColumnDao.recoverNewsColumn(lastModifyUserId, id);
+    }
+
+    public List<News> queryNewsList(String userId, Integer publish, Integer delTag , Page page) {
         return newsDao.queryNewsList(userId, publish, delTag, page);
     }
 

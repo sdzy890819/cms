@@ -4,6 +4,7 @@ import com.cn.cms.biz.*;
 import com.cn.cms.bo.RelationColumn;
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.enums.CommonMessageSourceEnum;
+import com.cn.cms.enums.DelTagEnum;
 import com.cn.cms.po.NewsColumn;
 import com.cn.cms.utils.Page;
 import com.cn.cms.web.ann.CheckAuth;
@@ -66,7 +67,7 @@ public class NewsColumnController extends BaseController {
                        @RequestParam(value = "page",required = false) Integer page,
                        @RequestParam(value="pageSize",required = false)Integer pageSize){
         Page page1 = new Page(page, pageSize);
-        List<NewsColumn> list = newsBiz.listNewsColumn(channelId, page1);
+        List<NewsColumn> list = newsBiz.listNewsColumn(channelId, DelTagEnum.NORMAL.getType(), page1);
         userBiz.dataInitBase(list);
         channelBiz.dataInitChannel(list);
         newsBiz.dataColumnPublishInfoInit(list);
@@ -220,6 +221,44 @@ public class NewsColumnController extends BaseController {
         return ApiResponse.returnSuccess();
     }
 
+
+
+
+    /**
+     * 新闻栏目列表分页
+     * @return
+     */
+    @CheckToken
+    @CheckAuth( name = "newscolumn:manage" )
+    @RequestMapping(value = "/manage", method = RequestMethod.GET)
+    public String manage(@RequestParam(value = "channelId", required = false) Long channelId,
+                       @RequestParam(value = "page",required = false) Integer page,
+                       @RequestParam(value="pageSize",required = false)Integer pageSize){
+        Page page1 = new Page(page, pageSize);
+        List<NewsColumn> list = newsBiz.listNewsColumn(channelId, DelTagEnum.DEL.getType(),  page1);
+        userBiz.dataInitBase(list);
+        channelBiz.dataInitChannel(list);
+        newsBiz.dataColumnPublishInfoInit(list);
+        Map<String, Object> map = new HashMap<>();
+        map.put("page" ,page1);
+        map.put("list", list);
+        return ApiResponse.returnSuccess(map);
+    }
+
+
+    /**
+     * 栏目恢复
+     * @param request
+     * @param id
+     * @return
+     */
+    @CheckToken
+    @CheckAuth( name = "newscolumn:recover" )
+    @RequestMapping(value = "/recover",method = RequestMethod.GET)
+    public String recover(HttpServletRequest request, @RequestParam(value = "id") Long id){
+        newsBiz.recoverNewsColumn(getCurrentUserId(request), id);
+        return ApiResponse.returnSuccess();
+    }
 
 
 }

@@ -6,6 +6,7 @@ import com.cn.cms.biz.NewsBiz;
 import com.cn.cms.biz.UserBiz;
 import com.cn.cms.contants.RedisKeyContants;
 import com.cn.cms.enums.CommonMessageSourceEnum;
+import com.cn.cms.enums.DelTagEnum;
 import com.cn.cms.enums.MQQueueKeyEnum;
 import com.cn.cms.message.BuildSendMessage;
 import com.cn.cms.middleware.ESearchClient;
@@ -119,13 +120,13 @@ public class RestTestController extends BaseController{
                 }
             }
 
-            Integer countNewsColumn = newsService.queryListCount(null);
+            Integer countNewsColumn = newsService.queryListCount(null, DelTagEnum.NORMAL.getType());
             int pageSize = 5000;
             if(countNewsColumn!=null && countNewsColumn > 0){
                 pageSize = countNewsColumn;
             }
             Page page = new Page(1, pageSize);
-            List<NewsColumn> newsColumns = newsService.queryListForPage(null, page);
+            List<NewsColumn> newsColumns = newsService.queryListForPage(null, DelTagEnum.NORMAL.getType(), page);
             if(StringUtils.isNotEmpty(newsColumns)){
                 for(int i=0;i<newsColumns.size();i++){
                     if(newsColumns.get(i)!=null){

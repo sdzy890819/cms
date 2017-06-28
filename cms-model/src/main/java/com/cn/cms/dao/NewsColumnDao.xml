@@ -31,6 +31,8 @@
 
     <sql id="delTag"> where del_tag = 1 </sql>
 
+    <sql id="delTagWhere"> where del_tag = #{delTag} </sql>
+
     <sql id="sql_column">
         id,last_modify_user_id,`column_name`,channel_id,list_id,detail_id,list_template2_id,detail_template2_id,keywords,description, list_url
         ,create_user_id,list_relative_path, file_name, path
@@ -139,7 +141,16 @@
         update news_column set last_modify_user_id = #{lastModifyUserId}, del_tag = 0 where id = ${id};
     </update>
 
+    <update id="recoverNewsColumn">
+        update news_column set last_modify_user_id = #{lastModifyUserId}, del_tag = 1 where id = ${id};
+    </update>
+
+
     <select id="getNewsColumn" resultMap="newsColumn" >
+        select <include refid="sql_column_find" /> from news_column <include refid="delTag" /> and id = ${id};
+    </select>
+
+    <select id="doGetNewsColumn" resultMap="newsColumn">
         select <include refid="sql_column_find" /> from news_column <include refid="delTag" /> and id = ${id};
     </select>
 

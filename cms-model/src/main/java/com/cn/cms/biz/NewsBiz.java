@@ -55,11 +55,11 @@ public class NewsBiz extends BaseBiz {
         return newsService.queryList(channelId);
     }
 
-    public List<NewsColumn> listNewsColumn(Long channelId, Page page){
-        Integer count = this.newsService.queryListCount(channelId);
+    public List<NewsColumn> listNewsColumn(Long channelId, int delTag, Page page){
+        Integer count = this.newsService.queryListCount(channelId, delTag);
         page.setCount(count);
         if(page.isQuery()){
-            return this.newsService.queryListForPage(channelId, page);
+            return this.newsService.queryListForPage(channelId, delTag, page);
         }
         return null;
     }
@@ -315,12 +315,29 @@ public class NewsBiz extends BaseBiz {
 //        作废
 //        NewsColumn old = newsService.getNewsColumn(id);
         newsService.delNewsColumn(lastModifyUserId, id);
+
+        jedisClient.del(RedisKeyContants.getRedisNewcolumnId(id));
 //        if(old !=null && old.getDetailTemplateId()!=null){
 //            preTemplateBiz.destroyListTemplate(old.getId(), old.getDetailTemplateId(), lastModifyUserId);
 //        }
 //        if(old !=null && old.getListTemplateId()!=null){
 //            preTemplateBiz.destroyListTemplate(old.getId(), old.getListTemplateId(), lastModifyUserId);
 //        }
+    }
+
+    /**
+     * 恢复
+     * @param lastModifyUserId
+     * @param id
+     */
+    public void recoverNewsColumn(String lastModifyUserId, Long id){
+        newsService.recoverNewsColumn(lastModifyUserId, id);
+        redisNewsColumn(id);
+    }
+
+    public void redisNewsColumn(Long id){
+        NewsColumn newsColumn = newsService.doGetNewsColumn(id);
+        this.jedisClient.set(RedisKeyContants.getRedisNewcolumnId(newsColumn.getId()), JSONObject.toJSONString(newsColumn));
     }
 
     public List<News> listNews(Page page){

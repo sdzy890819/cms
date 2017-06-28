@@ -13,9 +13,9 @@ import java.util.List;
  */
 public interface NewsService {
 
-    Integer queryListCount(Long channelId);
+    Integer queryListCount(Long channelId, int delTag);
 
-    List<NewsColumn> queryListForPage(Long channelId, Page page);
+    List<NewsColumn> queryListForPage(Long channelId, int delTag, Page page);
 
     List<NewsColumn> queryList(Long channelId);
 
@@ -27,7 +27,11 @@ public interface NewsService {
 
     NewsColumn getNewsColumn(Long id);
 
+    NewsColumn doGetNewsColumn(Long id);
+
     void delNewsColumn(String lastModifyUserId, Long id);
+
+    void recoverNewsColumn(String lastModifyUserId, Long id);
 
     List<News> queryNewsList(String userId, Integer publish, Integer delTag, Page page);
 
