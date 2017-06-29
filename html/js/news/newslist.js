@@ -12,6 +12,90 @@ define(['require',"app",'jquery','search','./searchForm'
 	        controller : function($scope,pop,$uibModal , $css , GenerateArrList, $state){
 				$scope.title = "新闻列表";
 				$scope.$parent.menu.push({name:$scope.title}); //栏目
+
+				function verification( obj , callback ){ //验证字段
+
+					if(obj.title.length>20){ //标题
+						layui.use('layer', function(){
+							layui.layer.msg('标题不能超过20个字符!',{icon: 2,anim:6});
+						}); 
+						return false;
+					}
+					if(obj.subTitle.length>20){
+						layui.use('layer', function(){
+							layui.layer.msg('附标题不能超过20个字符!',{icon: 2,anim:6});
+						});
+						return false;
+					}
+					if(obj.keyword.length>10){
+						layui.use('layer', function(){
+							layui.layer.msg('关键字不能超过10个字符!',{icon: 2,anim:6});
+						});
+						return false;
+					}
+					if(obj.author.length>20){
+						layui.use('layer', function(){
+							layui.layer.msg('内容不能小于10位数!',{icon: 2,anim:6});
+						});
+						return false;
+					}
+					if(obj.categoryId.length>20){
+						layui.use('layer', function(){
+							layui.layer.msg('内容不能小于10位数!',{icon: 2,anim:6});
+						});
+						return false;
+					}
+					if(obj.channelId.length>20){
+						layui.use('layer', function(){
+							layui.layer.msg('内容不能小于10位数!',{icon: 2,anim:6});
+						});
+						return false;
+					}
+					if(obj.checkboxs.length>20){
+						layui.use('layer', function(){
+							layui.layer.msg('内容不能小于10位数!',{icon: 2,anim:6});
+						});
+						return false;
+					}
+					if(obj.columnId.length>20){
+						layui.use('layer', function(){
+							layui.layer.msg('内容不能小于10位数!',{icon: 2,anim:6});
+						});
+						return false;
+					}
+					if(obj.description.length>20){
+						layui.use('layer', function(){
+							layui.layer.msg('内容不能小于10位数!',{icon: 2,anim:6});
+						});
+						return false;
+					}
+					if(obj.editPublishTime.length>20){
+						layui.use('layer', function(){
+							layui.layer.msg('内容不能小于10位数!',{icon: 2,anim:6});
+						});
+						return false;
+					}
+					if(obj.field1.length>20){
+						layui.use('layer', function(){
+							layui.layer.msg('内容不能小于10位数!',{icon: 2,anim:6});
+						});
+						return false;
+					}
+					if(obj.html.length>20){
+						layui.use('layer', function(){
+							layui.layer.msg('内容不能小于10位数!',{icon: 2,anim:6});
+						});
+						return false;
+					}
+					if(obj.source.length>20){
+						layui.use('layer', function(){
+							layui.layer.msg('内容不能小于10位数!',{icon: 2,anim:6});
+						});
+						return false;
+					}
+					return true;
+				}
+
 				angular.extend($scope,{
 					isSearch : false, //是否是执行搜索
 					getNewList : function(){
@@ -139,7 +223,10 @@ define(['require',"app",'jquery','search','./searchForm'
         					obj : obj,
         					list : list,
         					updateData : getAddForm,
-        					save : function(obj , _detail ){ //保存 新增 确认 等
+        					noclose : true,
+        					save : function(obj , _detail ,$uibModalInstance){ //保存 新增 确认 等
+        						
+        						if(!verification(obj)) return;
         						var channelId = _detail.channelId , 
         							columnId = _detail.columnId , 
         							categoryId = _detail.categoryId ,
@@ -204,6 +291,7 @@ define(['require',"app",'jquery','search','./searchForm'
 									"field4":obj.field4,
 									"field5":obj.field5,
 									callback : function(_data){
+										$uibModalInstance.dismiss('cancel');
 										layui.use(['layer'], function(){
 											var layer = layui.layer;
 											layer.msg(_data.message);
@@ -555,7 +643,8 @@ define(['require',"app",'jquery','search','./searchForm'
 							],
 							permission : [
 								{cls : 'del' , name : ' 撤销',evt:$scope.rescind},
-								{cls : 'del' , name : '删除',evt:$scope.del}
+								{cls : 'del' , name : '删除',evt:$scope.del},
+								{cls : '' , name : '发布',evt:$scope.publish}
 							]
 						},
 						/*submit : [
