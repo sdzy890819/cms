@@ -409,21 +409,110 @@ define(['require',"app",'jquery','search','./searchForm'
 	 					})						
 					}
 				});
-				/*$scope.navEdit = { //导航操作按钮
+				$scope.navEdit = { //导航操作按钮
 					//nav : [selectAll],
 					list : [
 						{
 							name : '批量删除',
 							event : function(id , scope , evt){
 								scope.delAll(function( ids ){
-									console.log(ids)
+									pop.alert({
+				 						 text:'您确定要批量删除选择的栏目吗'
+				 						,btn : ['确定','取消']
+				 						,fn : function(){
+				 							getData.news.deletes({
+				 								ids : ids,
+				 								callback : function( _data ){
+				 									layui.use(['layer'], function(){
+						                                var layer = layui.layer;
+						                                layer.msg(_data.message);
+						                                                                                                
+						                                if(_data.code == 0) {                                   
+						                                    if($scope.isSearch){
+																$scope.getSearchList();
+															}else{
+																getDataList();
+															}
+						                                }
+
+						                            });
+												}
+				 							})
+										}
+				 					})	
+								});
+							},
+							cls :'red',
+							icon_cls : 'remove'
+						},
+						{
+							name : '批量撤销',
+							event : function(id , scope , evt){
+								scope.delAll(function( ids ){
+									pop.alert({
+				 						 text:'您确定要批量撤销选择的栏目吗'
+				 						,btn : ['确定','取消']
+				 						,fn : function(){
+				 							getData.news.rescinds({
+				 								ids : ids,
+				 								callback : function( _data ){
+													layui.use(['layer'], function(){
+						                                var layer = layui.layer;
+						                                layer.msg(_data.message);
+						                                                                                                
+						                                if(_data.code == 0) {                                   
+						                                    if($scope.isSearch){
+																$scope.getSearchList();
+															}else{
+																getDataList();
+															}
+						                                }
+
+						                            });
+												}
+				 							})
+										}
+				 					})	
+								});
+							},
+							cls :'red',
+							icon_cls : 'remove'
+						},
+						{
+							name : '批量发布',
+							event : function(id , scope , evt){
+								scope.delAll(function( ids ){
+									pop.alert({
+				 						 text:'您确定要批量发布选择的栏目吗'
+				 						,btn : ['确定','取消']
+				 						,fn : function(){
+				 							getData.news.publishes({
+				 								ids : ids,
+				 								callback : function( _data ){
+													layui.use(['layer'], function(){
+						                                var layer = layui.layer;
+						                                layer.msg(_data.message);
+						                                                                                                
+						                                if(_data.code == 0) {                                   
+						                                    if($scope.isSearch){
+																$scope.getSearchList();
+															}else{
+																getDataList();
+															}
+						                                }
+
+						                            });
+												}
+				 							})
+										}
+				 					})	
 								});
 							},
 							cls :'red',
 							icon_cls : 'remove'
 						}
 					]
-				}*/
+				}
 
 				function setList(_data){
 

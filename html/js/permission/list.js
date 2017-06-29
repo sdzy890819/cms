@@ -25,13 +25,13 @@ define(['require',"app",'jquery'
 							edit : function( obj, _detail ){ //保存
 								require(['../common/editPop'], function(pop) {
                   
-                  function getAddForm (callback) {
-										var _data = {
-											data: obj
-										};
-																				
-										callback(_data);
-                  }
+					                  function getAddForm (callback) {
+											var _data = {
+												data: obj
+											};
+																					
+											callback(_data);
+					                  }
 
 	        				pop.init({
 	        					obj        : obj,
@@ -83,9 +83,9 @@ define(['require',"app",'jquery'
 											});  
 
 	        					},
-								  	close : function () {
-									   	$uibModal.dismiss('cancel');
-								  	},  					
+							  	close : function () {
+								   	$uibModal.dismiss('cancel');
+							  	},  					
 	        					callback : function(list, callback){
 	        						callback(list);
 	        					}

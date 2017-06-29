@@ -558,6 +558,39 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					}
 				})
 			},
+			deletes : function(obj) {
+				T.ajax({
+					url : URL.news.deletes , 
+					data : {
+						ids : obj.ids
+					},				
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				})
+			},
+			rescinds : function(obj) {
+				T.ajax({
+					url : URL.news.rescinds , 
+					data : {
+						ids : obj.ids
+					},				
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				})
+			},
+			publishes : function(obj) {
+				T.ajax({
+					url : URL.news.publishes , 
+					data : {
+						ids : obj.ids
+					},				
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				})
+			},
 			createNews : function( obj ){				
 				T.ajax({
 					url : URL.news.createNews , 

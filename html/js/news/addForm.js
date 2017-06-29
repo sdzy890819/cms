@@ -100,7 +100,7 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 		[
 			{
 				title : 'editPublishTime',
-				name : '发布时间',
+				name : '撰写时间',
 				placeholder : '请选择时间 年/月/日 时:分:秒',
 				type : 'date',
 				check : false
