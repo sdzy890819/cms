@@ -53,6 +53,9 @@
         <property name="deleteUrl">
             <value>${mss.video.delete}</value>
         </property>
+        <property name="listUrl">
+            <value>${mss.video.list}</value>
+        </property>
     </bean>
 
     <bean id="tongjiClient" class="com.cn.cms.middleware.TongjiClient">
