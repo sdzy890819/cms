@@ -47,6 +47,10 @@ public interface TemplateDao {
     void publishTemplate(@Param(value = "list") List<Long> list,
                          @Param(value = "publish") int publish);
 
+    void publishTemplates(@Param(value = "list") List<Template> list);
+
+    void publishTemplateOne(@Param(value = "p1") Template template);
+
     List<Template> findTemplateListByAuto(@Param(value = "templateClassify") int templateClassify,
                                           @Param(value = "job") int job);
 

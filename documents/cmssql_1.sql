@@ -164,6 +164,7 @@ CREATE TABLE `news_column` (
 `list_relative_path` varchar(255) DEFAULT NULL COMMENT '列表页相对路径',
 `file_name` varchar(255) DEFAULT NULL COMMENT '列表页可维护文件名',
 `path` varchar(255) DEFAULT NULL COMMENT '列表页可维护相对目录',
+`publish_url` varchar(255) DEFAULT NULL COMMENT '维护的发布地址',
 PRIMARY KEY (`id`) ,
 INDEX `channel_id_sel` (`channel_id`)
 )
@@ -273,6 +274,8 @@ CREATE TABLE `template` (
 `publish` tinyint(2) NULL COMMENT '是否发布',
 `upload` tinyint(2) NULL DEFAULT 0 COMMENT '是否上传模版',
 `create_user_id` varchar(20) NULL COMMENT '创建人',
+`publish_url` varchar(255) DEFAULT NULL COMMENT '发布地址',
+`publish_relative_path` varchar(255) DEFAULT NULL COMMENT '发布地址目录',
 PRIMARY KEY (`id`) ,
 INDEX `desc_sort_num` (`sort_num`),
 INDEX `channel_id_sel` (`channel_id`),
@@ -334,6 +337,7 @@ CREATE TABLE `video` (
 `platform` tinyint(2) NULL COMMENT '平台来源。APP为2，CMS为1',
 `file_name` varchar(100) NULL COMMENT '文件名',
 `create_user_id` varchar(20) NULL COMMENT '创建人',
+`m3u8_url` varchar(255) DEFAULT NULL COMMENT '奥点云m3u8 url',
 PRIMARY KEY (`id`) 
 )
 ENGINE=InnoDB

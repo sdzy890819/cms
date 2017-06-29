@@ -8,6 +8,7 @@ import com.cn.cms.contants.StaticContants;
 import com.cn.cms.enums.CommonMessageSourceEnum;
 import com.cn.cms.exception.BizException;
 import com.cn.cms.po.*;
+import com.cn.cms.utils.FileUtil;
 import com.cn.cms.utils.Page;
 import com.cn.cms.web.ann.CheckAuth;
 import com.cn.cms.web.ann.CheckToken;
@@ -156,7 +157,7 @@ public class TopicController extends BaseController {
         topic.setTopicColumnId(topicColumnId);
         topic.setTopicContent(topicContent);
         topic.setTopicFilename(topicFilename);
-        topic.setTopicPath(topicPath);
+        topic.setTopicPath(FileUtil.delPrefix(topicPath));
         topic.setTopicTitle(topicTitle);
 
 //        Integer c = topicBiz.queryFilenameAndPathCount(topic);
@@ -240,7 +241,7 @@ public class TopicController extends BaseController {
         topic.setTopicColumnId(topicColumnId);
         topic.setTopicContent(topicContent);
         topic.setTopicFilename(topicFilename);
-        topic.setTopicPath(topicPath);
+        topic.setTopicPath(FileUtil.delPrefix(topicPath));
         topic.setTopicTitle(topicTitle);
 //        if(!oldTopic.getTopicPath().equals(topicPath) || !oldTopic.getTopicFilename().equals(topicFilename)) {
 //            Integer c = topicBiz.queryFilenameAndPathCount(topic);

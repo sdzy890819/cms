@@ -450,5 +450,28 @@ public class FileUtil {
 
     }
 
+    /**
+     * 给域名添加后缀 ／
+     * @param url
+     * @return
+     */
+    public static String addSuffix(String url){
+        if(StringUtils.isNotBlank(url) && !url.endsWith("/") && !url.endsWith("\\")){
+            url = url + "/";
+        }
+        return url;
+    }
+
+    /**
+     * 去掉相对路径的前缀 /
+     * @param url
+     * @return
+     */
+    public static String delPrefix(String url){
+        if(StringUtils.isNotBlank(url) && (url.startsWith("/") || url.startsWith("\\"))){
+            url = url.substring(1, url.length());
+        }
+        return url;
+    }
 
 }

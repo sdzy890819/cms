@@ -56,6 +56,8 @@ public interface TemplateService {
 
     void publishTemplate(List<Long> list);
 
+    void publishTemplates(List<Template> list);
+
     List<Template> findTemplateListByAuto();
 
     Template findTemplateByChannel(Long channelId,

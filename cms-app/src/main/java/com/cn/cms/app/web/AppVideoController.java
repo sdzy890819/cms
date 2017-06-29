@@ -2,6 +2,7 @@ package com.cn.cms.app.web;
 
 import com.cn.cms.biz.ResourceBiz;
 import com.cn.cms.enums.PlatformEnum;
+import com.cn.cms.exception.BizException;
 import com.cn.cms.po.Video;
 import com.cn.cms.utils.Page;
 import com.cn.cms.web.ann.CheckAppAuth;
@@ -43,8 +44,7 @@ public class AppVideoController extends AppBaseController {
                               @RequestParam(value = "videoDesc") String videoDesc,
                               @RequestParam(value = "videoUrl") String videoUrl,
                               @RequestParam(value = "videoPath", required = false) String videoPath,
-                              @RequestParam(value = "fileName",required = false) String fileName
-    ){
+                              @RequestParam(value = "fileName",required = false) String fileName) throws BizException {
         String userID = getCurrentUserId(request);
         Video video = new Video();
         video.setLastModifyUserId(userID);
@@ -79,8 +79,7 @@ public class AppVideoController extends AppBaseController {
                               @RequestParam(value = "videoDesc",required = false) String videoDesc,
                               @RequestParam(value = "videoUrl",required = false) String videoUrl,
                               @RequestParam(value = "videoPath",required = false) String videoPath,
-                              @RequestParam(value = "fileName",required = false) String fileName
-    ){
+                              @RequestParam(value = "fileName",required = false) String fileName) throws BizException{
         String userID = getCurrentUserId(request);
         Video video = new Video();
         video.setId(id);

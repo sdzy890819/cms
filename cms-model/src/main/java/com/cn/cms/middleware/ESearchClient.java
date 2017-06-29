@@ -391,7 +391,7 @@ public class ESearchClient {
             video.setVideoUrl((String)hit.getSource().get("videoUrl"));
             video.setVideoPath((String) hit.getSource().get("videoPath"));
             video.setPlatform(convertInteger(hit.getSource().get("platform")));
-
+            video.setM3u8Url((String) hit.getSource().get("m3u8Url"));
             video.setCreateUserId((String)hit.getSource().get("createUserId"));
             video.setLastModifyUserId((String)hit.getSource().get("lastModifyUserId"));
             video.setCreateTime(convertLongAndDate(hit.getSource().get("createTime")));
@@ -621,6 +621,7 @@ public class ESearchClient {
             builder = builder.field("uploadUserId", video.getUploadUserId());
             builder = builder.field("uploadTime", DateUtils.convertDateToMillis(video.getUploadTime()));
             builder = builder.field("videoUrl", video.getVideoUrl());
+            builder = builder.field("m3u8Url", video.getM3u8Url());
             builder = builder.field("videoPath", video.getVideoPath());
             builder = builder.field("platform", video.getPlatform());
             builder = builder.field("createTime", DateUtils.convertDateToMillis(video.getCreateTime()));

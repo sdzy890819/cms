@@ -9,6 +9,7 @@ import com.cn.cms.middleware.bean.VideoResponse;
 import com.cn.cms.po.ImagesBase;
 import com.cn.cms.po.Video;
 import com.cn.cms.po.VideoBase;
+import com.cn.cms.utils.FileUtil;
 import com.cn.cms.utils.Page;
 import com.cn.cms.web.ann.CheckAuth;
 import com.cn.cms.web.ann.CheckToken;
@@ -70,8 +71,8 @@ public class VideoController extends BaseController{
                             @RequestParam(value = "basePath",required = false) String basePath){
         VideoBase videoBase = new VideoBase();
         videoBase.setId(id);
-        videoBase.setBasePath(basePath);
-        videoBase.setBaseUrl(baseUrl);
+        videoBase.setBasePath(FileUtil.addSuffix(basePath));
+        videoBase.setBaseUrl(FileUtil.addSuffix(baseUrl));
         videoBase.setLastModifyUserId(getCurrentUserId(request));
         resourceBiz.saveVideoBase(videoBase);
         return ApiResponse.returnSuccess();
@@ -91,8 +92,8 @@ public class VideoController extends BaseController{
                                   @RequestParam("baseUrl") String baseUrl,
                                   @RequestParam("basePath") String basePath){
         VideoBase videoBase = new VideoBase();
-        videoBase.setBasePath(basePath);
-        videoBase.setBaseUrl(baseUrl);
+        videoBase.setBasePath(FileUtil.addSuffix(basePath));
+        videoBase.setBaseUrl(FileUtil.addSuffix(baseUrl));
         videoBase.setLastModifyUserId(getCurrentUserId(request));
         videoBase.setCreateUserId(getCurrentUserId(request));
         resourceBiz.saveVideoBase(videoBase);
@@ -117,8 +118,7 @@ public class VideoController extends BaseController{
                               @RequestParam(value = "videoDesc") String videoDesc,
                               @RequestParam(value = "videoUrl") String videoUrl,
                               @RequestParam(value = "videoPath", required = false) String videoPath,
-                              @RequestParam(value = "fileName",required = false) String fileName
-                              ){
+                              @RequestParam(value = "fileName",required = false) String fileName) throws BizException{
         String userID = getCurrentUserId(request);
         Video video = new Video();
         video.setLastModifyUserId(userID);
@@ -152,8 +152,7 @@ public class VideoController extends BaseController{
                               @RequestParam(value = "videoDesc",required = false) String videoDesc,
                               @RequestParam(value = "videoUrl",required = false) String videoUrl,
                               @RequestParam(value = "videoPath",required = false) String videoPath,
-                              @RequestParam(value = "fileName",required = false) String fileName
-    ){
+                              @RequestParam(value = "fileName",required = false) String fileName) throws BizException{
         String userID = getCurrentUserId(request);
         Video video = new Video();
         video.setId(id);

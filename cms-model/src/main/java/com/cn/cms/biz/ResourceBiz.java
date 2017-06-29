@@ -5,11 +5,15 @@ import com.alibaba.fastjson.JSONObject;
 import com.cn.cms.contants.RedisKeyContants;
 import com.cn.cms.enums.ESSearchTypeEnum;
 import com.cn.cms.enums.IndexOperEnum;
+import com.cn.cms.exception.BizException;
 import com.cn.cms.job.IndexThread;
 import com.cn.cms.middleware.JedisClient;
+import com.cn.cms.middleware.MSSVideoClient;
+import com.cn.cms.middleware.bean.VideoInfo;
 import com.cn.cms.po.*;
 import com.cn.cms.service.ResourceService;
 import com.cn.cms.utils.Page;
+import com.cn.cms.utils.StringUtils;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 
@@ -29,6 +33,9 @@ public class ResourceBiz {
 
     @Resource
     private JedisClient jedisClient;
+
+    @Resource
+    private MSSVideoClient mssVideoClient;
 
     @Resource(name = "threadTaskExecutor")
     private ThreadPoolTaskExecutor threadTaskExecutor;
@@ -117,11 +124,27 @@ public class ResourceBiz {
      * 保存视频
      * @param video
      */
-    public void saveVideo(Video video){
+    public void saveVideo(Video video) throws BizException {
+
         if(video.getId()!=null && video.getId()>0){
+            Video oldVideo = this.getVideo(video.getId());
+            if(StringUtils.isNotBlank(video.getVideoUrl()) &&
+                    (!video.getVideoUrl().equals(oldVideo.getVideoUrl())
+                            || StringUtils.isBlank(oldVideo.getM3u8Url()))) {
+                VideoInfo videoInfo = mssVideoClient.get(video.getVideoUrl());
+                if (videoInfo != null) {
+                    video.setM3u8Url(videoInfo.getAdaptive());
+                }
+            }
             resourceService.updateVideo(video);
             sendIndex(video, ESSearchTypeEnum.video);
         }else {
+            if(StringUtils.isNotBlank(video.getVideoUrl())) {
+                VideoInfo videoInfo = mssVideoClient.get(video.getVideoUrl());
+                if (videoInfo != null) {
+                    video.setM3u8Url(videoInfo.getAdaptive());
+                }
+            }
             resourceService.saveVideo(video);
             sendIndex(video, ESSearchTypeEnum.video);
         }

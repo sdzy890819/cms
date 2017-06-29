@@ -7,6 +7,7 @@ import com.cn.cms.contants.StaticContants;
 import com.cn.cms.middleware.WeedfsClient;
 import com.cn.cms.po.Images;
 import com.cn.cms.po.ImagesBase;
+import com.cn.cms.utils.FileUtil;
 import com.cn.cms.utils.Page;
 import com.cn.cms.utils.StringUtils;
 import com.cn.cms.web.ann.CheckAuth;
@@ -69,8 +70,8 @@ public class ImagesController extends BaseController{
                                    @RequestParam(value = "basePath",required = false) String basePath){
         ImagesBase imagesBase = new ImagesBase();
         imagesBase.setLastModifyUserId(getCurrentUserId(request));
-        imagesBase.setBasePath(basePath);
-        imagesBase.setBaseUrl(baseUrl);
+        imagesBase.setBasePath(FileUtil.addSuffix(basePath));
+        imagesBase.setBaseUrl(FileUtil.addSuffix(baseUrl));
         imagesBase.setId(id);
         resourceBiz.saveImagesBase(imagesBase);
         return ApiResponse.returnSuccess();

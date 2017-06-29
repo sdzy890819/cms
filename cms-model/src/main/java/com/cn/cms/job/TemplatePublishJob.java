@@ -112,7 +112,12 @@ public class TemplatePublishJob extends BaseTask {
 
             }else{
                 if(templateBasics instanceof Template2 && templateBasics.getTemplateClassify() == TemplateClassifyEnum.list.getType() && newsColumn != null){
-                    publishRelativePath = StringUtils.concatUrl(templateBasics.getPath(), FileUtil.getFileNameByPage(newsColumn.getId().toString().concat(StaticContants.HTML_SUFFIX), getPage()));
+                    if(StringUtils.isNotBlank(newsColumn.getPath()) && StringUtils.isNotBlank(newsColumn.getFileName())){
+                        publishRelativePath = StringUtils.concatUrl(newsColumn.getPath(), FileUtil.getFileNameByPage(newsColumn.getFileName(), getPage()));
+
+                    }else{
+                        publishRelativePath = StringUtils.concatUrl(templateBasics.getPath(), FileUtil.getFileNameByPage(newsColumn.getId().toString().concat(StaticContants.HTML_SUFFIX), getPage()));
+                    }
                     publishPath = StringUtils.concatUrl(channel.getChannelPath(), publishRelativePath);
 
                 }else{

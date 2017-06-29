@@ -24,6 +24,8 @@
         <result column="sort_num" property="sortNum" />
         <result column="publish" property="publish" />
         <result column="upload" property="upload" />
+        <result column="publish_url" property="publishUrl" />
+        <result column="publish_relative_path" property="publishRelativePath" />
     </resultMap>
 
     <sql id="delTag"> where del_tag = 1 </sql>
@@ -31,16 +33,17 @@
     <sql id="sql_column">
         id,last_modify_user_id,
         template_name,template_desc,filename,path,template_classify,user_id,job,encoded,channel_id,sort_num,publish,update_time,create_time,upload,create_user_id
+        ,publish_url,publish_relative_path
     </sql>
     <sql id="insert_sql_column">
         id,last_modify_user_id,
-        template_name,template_desc,filename,path,template_classify,user_id,job,encoded,channel_id,sort_num,publish,upload,create_user_id
+        template_name,template_desc,filename,path,template_classify,user_id,job,encoded,channel_id,sort_num,publish,upload,create_user_id,publish_url,publish_relative_path
     </sql>
 
     <sql id="sql_column_find">
         id,last_modify_user_id,
         template_name,template_desc,filename,path,template_classify,user_id,job,encoded,channel_id,sort_num,publish,update_time,create_time,upload,create_user_id
-        ,create_time,update_time,del_tag
+        ,create_time,update_time,del_tag,publish_url,publish_relative_path
     </sql>
 
     <select id="queryTemplateCount" resultType="java.lang.Integer">
@@ -82,7 +85,7 @@
     <insert id="saveTemplate" useGeneratedKeys="true" keyProperty="p1.id">
         insert into template ( <include refid="insert_sql_column" /> ) values (
         null,#{p1.lastModifyUserId},#{p1.templateName},#{p1.templateDesc},#{p1.filename},#{p1.path},${p1.templateClassify},
-        #{p1.userId},${p1.job},#{p1.encoded},${p1.channelId},${p1.sortNum},${p1.publish},${p1.upload},#{p1.createUserId});
+        #{p1.userId},${p1.job},#{p1.encoded},${p1.channelId},${p1.sortNum},${p1.publish},${p1.upload},#{p1.createUserId},#{p1.publishUrl},#{p1.publishRelativePath});
     </insert>
 
     <update id="updateTemplate">
@@ -153,6 +156,20 @@
         </foreach>
 
     </update>
+
+
+    <update id="publishTemplates">
+        <foreach collection="list" separator=";" item="p1">
+            update template set publish = #{p1.publish}, publish_url = #{p1.publishUrl}, publish_relative_path = #{p1.publishRelativePath}
+            where id = #{p1.id}
+        </foreach>
+    </update>
+
+    <update id="publishTemplateOne">
+        update template set publish = #{p1.publish}, publish_url = #{p1.publishUrl}, publish_relative_path = #{p1.publishRelativePath}
+            where id = #{p1.id}
+    </update>
+
 
     <select id="findTemplateListByAuto" resultMap="template">
         select <include refid="sql_column" /> from template <include refid="delTag" /> and template_classify != ${templateClassify}

@@ -75,6 +75,11 @@ public class NewsColumn extends Base {
     private String listRelativePath;
 
     /**
+     * 发布地址
+     */
+    private String publishUrl;
+
+    /**
      * 额外赋值
      */
     private String channelName;

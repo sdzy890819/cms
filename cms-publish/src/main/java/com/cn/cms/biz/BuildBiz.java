@@ -271,11 +271,15 @@ public class BuildBiz extends BaseBiz {
                 String listUrl = "";
                 String listRelativePath = "";
                 if(StringUtils.isNotBlank(newsColumn.getPath()) && StringUtils.isNotBlank(newsColumn.getFileName())){
-                    listRelativePath = StringUtils.concatUrl(newsColumn.getPath(), newsColumn.getFileName());
+                    if(StringUtils.isNotBlank(StaticContants.indexMap.get(newsColumn.getFileName()))){
+                        listRelativePath = FileUtil.addSuffix(FileUtil.delPrefix(newsColumn.getPath()));
+                    }else{
+                        listRelativePath = FileUtil.delPrefix(StringUtils.concatUrl(newsColumn.getPath(), newsColumn.getFileName()));
+                    }
                     listUrl = StringUtils.concatUrl(channel.getChannelUrl(), listRelativePath);
                 }else{
-                    listRelativePath = StringUtils.concatUrl(template2.getPath(),
-                            newsColumn.getId().toString().concat(StaticContants.HTML_SUFFIX));
+                    listRelativePath = FileUtil.delPrefix(StringUtils.concatUrl(template2.getPath(),
+                            newsColumn.getId().toString().concat(StaticContants.HTML_SUFFIX)));
                     listUrl = StringUtils.concatUrl(channel.getChannelUrl(), listRelativePath);
                 }
                 newsColumn.setListUrl(listUrl);
@@ -356,11 +360,15 @@ public class BuildBiz extends BaseBiz {
                             String listUrl = "";
                             String listRelativePath = "";
                             if(StringUtils.isNotBlank(newsColumn.getPath()) && StringUtils.isNotBlank(newsColumn.getFileName())){
-                                listRelativePath = StringUtils.concatUrl(newsColumn.getPath(), newsColumn.getFileName());
+                                if(StringUtils.isNotBlank(StaticContants.indexMap.get(newsColumn.getFileName()))){
+                                    listRelativePath = FileUtil.addSuffix(FileUtil.delPrefix(newsColumn.getPath()));
+                                }else{
+                                    listRelativePath = FileUtil.delPrefix(StringUtils.concatUrl(newsColumn.getPath(), newsColumn.getFileName()));
+                                }
                                 listUrl = StringUtils.concatUrl(channel.getChannelUrl(), listRelativePath);
                             }else{
-                                listRelativePath = StringUtils.concatUrl(template2.getPath(),
-                                        newsColumn.getId().toString().concat(StaticContants.HTML_SUFFIX));
+                                listRelativePath = FileUtil.delPrefix(StringUtils.concatUrl(template2.getPath(),
+                                        newsColumn.getId().toString().concat(StaticContants.HTML_SUFFIX)));
                                 listUrl = StringUtils.concatUrl(channel.getChannelUrl(), listRelativePath);
                             }
                             newsColumn.setListUrl(listUrl);
@@ -424,7 +432,8 @@ public class BuildBiz extends BaseBiz {
      */
     void publishTemplate(List<Template> templates, Base base, CommonMessageSourceEnum sourceEnum){
         if(StringUtils.isNotEmpty(templates)) {
-            this.publishTemplate(templates);
+            //this.publishTemplate(templates);
+            List<Template> tmplist = new ArrayList<>();
             for (int i = 0; i < templates.size(); i++) {
 
                 //--------
@@ -456,11 +465,28 @@ public class BuildBiz extends BaseBiz {
                         threadTaskExecutor.execute(templatePublishJob);
                     }
                 }else {
+                    Channel channel = channelBiz.getChannel(templates.get(i).getChannelId());
+                    String publishRelativePath = "";
+                    if(StringUtils.isNotBlank(StaticContants.indexMap.get(templates.get(i).getFilename()))){
+                        publishRelativePath = FileUtil.addSuffix(templates.get(i).getPath());
+                    } else {
+                        publishRelativePath = StringUtils.concatUrl(templates.get(i).getPath(), templates.get(i).getFilename());
+                    }
+
+                    String publishPath = StringUtils.concatUrl(channel.getChannelPath(), publishRelativePath);
+
+                    templates.get(i).setPublish(PublishEnum.YES.getType());
+                    templates.get(i).setPublishRelativePath(FileUtil.delPrefix(publishRelativePath));
+                    templates.get(i).setPublishUrl(publishPath);
+                    tmplist.add(templates.get(i));
                     TemplatePublishJob templatePublishJob = new TemplatePublishJob();
                     templatePublishJob.setPublishInfo(publishInfo);
                     templatePublishJob.setTemplateBasics(templates.get(i));
                     threadTaskExecutor.execute(templatePublishJob);
                 }
+            }
+            if(StringUtils.isNotEmpty(tmplist)){
+                templateBiz.publishTemplates(tmplist);
             }
         }
     }
@@ -469,12 +495,12 @@ public class BuildBiz extends BaseBiz {
      * 模版是否发布过标记
      * @param templates
      */
+    @Deprecated
     void publishTemplate(List<Template> templates){
         List<Long> list = new ArrayList<>();
         if(StringUtils.isNotEmpty(templates)) {
             for (int i = 0; i < templates.size(); i++) {
-                if(templates.get(i).getTemplateClassify() != TemplateClassifyEnum.detail.getType()
-                        && templates.get(i).getPublish() == PublishEnum.NO.getType()){
+                if(templates.get(i).getTemplateClassify() != TemplateClassifyEnum.detail.getType()){
                     list.add(templates.get(i).getId());
                 }
             }
@@ -517,7 +543,11 @@ public class BuildBiz extends BaseBiz {
      */
     void publishTopic(Topic topic, Body body){
         Channel channel = channelBiz.getChannel(topic.getChannelId());
-        topic.setTopicUrl(StringUtils.concatUrl(channel.getChannelUrl(),topic.getTopicPath(),topic.getTopicFilename()));
+        if(StringUtils.isNotBlank(StaticContants.indexMap.get(topic.getTopicFilename()))){
+            topic.setTopicUrl(StringUtils.concatUrl(channel.getChannelUrl(),topic.getTopicPath()));
+        }else {
+            topic.setTopicUrl(StringUtils.concatUrl(channel.getChannelUrl(),topic.getTopicPath(),topic.getTopicFilename()));
+        }
         topic.setBuildUserId(body.getUserId());
         topic.setLastModifyUserId(body.getUserId());
         topic.setPublish(PublishEnum.YES.getType());

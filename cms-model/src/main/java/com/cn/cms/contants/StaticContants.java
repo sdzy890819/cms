@@ -504,4 +504,11 @@ public class StaticContants {
     }
 
 
+
+    public static Map<String, String> indexMap = new HashMap<>();
+
+    static {
+        indexMap.put("index.html", "index.html");
+    }
+
 }

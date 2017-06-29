@@ -129,6 +129,13 @@ public class TemplateServiceImpl implements TemplateService {
     }
 
     @Override
+    public void publishTemplates(List<Template> list) {
+        for(int i=0;i<list.size();i++){
+            templateDao.publishTemplateOne(list.get(i));
+        }
+    }
+
+    @Override
     public List<Template> findTemplateListByAuto() {
         return templateDao.findTemplateListByAuto(TemplateClassifyEnum.detail.getType(), JobEnum.job.getType());
     }

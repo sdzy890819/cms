@@ -153,6 +153,7 @@ public class Template2Controller extends BaseController  {
                                  @RequestParam(value = "path",required = false) String path,
                                  @RequestParam(value = "templateClassify",required = false) Integer templateClassify,
                                  @RequestParam(value = "encoded",required = false) String encoded){
+        path = FileUtil.delPrefix(path);
         Template2 oldTemplate = template2Biz.getTemplate2(id);
         Template2 template2 = new Template2();
         template2.setId(id);
@@ -221,6 +222,7 @@ public class Template2Controller extends BaseController  {
                                  @RequestParam(value = "path") String path,
                                  @RequestParam(value = "templateClassify") Integer templateClassify,
                                  @RequestParam(value = "encoded") String encoded){
+        path = FileUtil.delPrefix(path);
         Template2 template2 = new Template2();
         template2.setLastModifyUserId(getCurrentUserId(request));
         template2.setCreateUserId(getCurrentUserId(request));
@@ -353,7 +355,7 @@ public class Template2Controller extends BaseController  {
         template2Base.setId(id);
         template2Base.setLastModifyUserId(getCurrentUserId(request));
         template2Base.setCreateUserId(getCurrentUserId(request));
-        template2Base.setBasePath(basePath);
+        template2Base.setBasePath(FileUtil.addSuffix(basePath));
         template2Biz.saveTemplate2Base(template2Base);
         return ApiResponse.returnSuccess(template2Base);
     }

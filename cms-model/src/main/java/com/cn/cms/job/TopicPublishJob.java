@@ -79,7 +79,8 @@ public class TopicPublishJob extends BaseTask {
             map.put(StaticContants.TEMPLATE_KEY_PAGE, page);
             String publishRelativePath = StringUtils.concatUrl(topic.getTopicPath(), FileUtil.getFileNameByPage(topic.getTopicFilename(),page));
             publishPath = StringUtils.concatUrl(channel.getChannelPath(), publishRelativePath);
-
+            map.put(StaticContants.TEMPLATE_KEY_CURRENT_FILE_NAME, FileUtil.getFileNamePrefix(publishPath));
+            map.put(StaticContants.TEMPLATE_KEY_CURRENT_FILE_SUFFIX, FileUtil.getFileNameSuffix(publishPath));
             if (lock(publishPath)) {
                 VelocityUtils.publish(map, content, publishPath);
                 if (StaticContants.rsyncRoot == StaticContants.RSYNC_ON) {

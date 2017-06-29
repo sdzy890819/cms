@@ -40,6 +40,11 @@ public class Video extends Base {
     private String videoUrl;
 
     /**
+     * 当url生成使用奥点云。填充当前URL 使用adaptive字段
+     */
+    private String m3u8Url;
+
+    /**
      * 视频相对路径
      */
     private String videoPath;

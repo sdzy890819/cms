@@ -135,6 +135,7 @@ public class TemplateController extends BaseController {
                                  @RequestParam(value = "encoded",required = false) String encoded,
                                  @RequestParam(value = "channelId",required = false) Long channelId,
                                  @RequestParam(value = "sortNum",required = false) Integer sortNum){
+        path = FileUtil.delPrefix(path);
         Template oldTemplate = templateBiz.getTemplate(id);
         Template template = new Template();
         template.setId(id);
@@ -220,7 +221,7 @@ public class TemplateController extends BaseController {
                                  @RequestParam(value = "encoded") String encoded,
                                  @RequestParam(value = "channelId") Long channelId,
                                  @RequestParam(value = "sortNum") Integer sortNum){
-
+        path = FileUtil.delPrefix(path);
         Template template = new Template();
         template.setLastModifyUserId(getCurrentUserId(request));
         template.setCreateUserId(getCurrentUserId(request));
