@@ -15,81 +15,69 @@ define(['require',"app",'jquery','search','./searchForm'
 
 				function verification( obj , callback ){ //验证字段
 
-					if(obj.title.length>20){ //标题
+					if(obj.title.length>255){ //标题
 						layui.use('layer', function(){
-							layui.layer.msg('标题不能超过20个字符!',{icon: 2,anim:6});
+							layui.layer.msg('标题不能超过255个字符!',{icon: 2,anim:6});
 						}); 
 						return false;
 					}
-					if(obj.subTitle.length>20){
+					if(obj.subTitle.length>255){
 						layui.use('layer', function(){
-							layui.layer.msg('附标题不能超过20个字符!',{icon: 2,anim:6});
+							layui.layer.msg('附标题不能超过255个字符!',{icon: 2,anim:6});
 						});
 						return false;
 					}
-					if(obj.keyword.length>10){
+					if(obj.keyword.length>255){
 						layui.use('layer', function(){
-							layui.layer.msg('关键字不能超过10个字符!',{icon: 2,anim:6});
+							layui.layer.msg('关键字不能超过255个字符!',{icon: 2,anim:6});
 						});
 						return false;
 					}
-					if(obj.author.length>20){
+					if(obj.author.length>255){
 						layui.use('layer', function(){
-							layui.layer.msg('内容不能小于10位数!',{icon: 2,anim:6});
+							layui.layer.msg('来源不能超过255个字符!',{icon: 2,anim:6});
 						});
 						return false;
 					}
-					if(obj.categoryId.length>20){
+					if(obj.description.length>500){
 						layui.use('layer', function(){
-							layui.layer.msg('内容不能小于10位数!',{icon: 2,anim:6});
+							layui.layer.msg('描述不能超过500个字符!',{icon: 2,anim:6});
 						});
 						return false;
 					}
-					if(obj.channelId.length>20){
+					if(obj.html.length>65535){
 						layui.use('layer', function(){
-							layui.layer.msg('内容不能小于10位数!',{icon: 2,anim:6});
+							layui.layer.msg('内容不能超过65535个字符!',{icon: 2,anim:6});
 						});
 						return false;
 					}
-					if(obj.checkboxs.length>20){
+					if(obj.field1.length>255){
 						layui.use('layer', function(){
-							layui.layer.msg('内容不能小于10位数!',{icon: 2,anim:6});
+							layui.layer.msg('扩展字段不能小于255位数!',{icon: 2,anim:6});
 						});
 						return false;
 					}
-					if(obj.columnId.length>20){
+					if(obj.field2 && obj.field2.length>255){
 						layui.use('layer', function(){
-							layui.layer.msg('内容不能小于10位数!',{icon: 2,anim:6});
+							layui.layer.msg('扩展字段不能小于255位数!',{icon: 2,anim:6});
 						});
 						return false;
 					}
-					if(obj.description.length>20){
+					if(obj.field3 && obj.field3.length>255){
 						layui.use('layer', function(){
-							layui.layer.msg('内容不能小于10位数!',{icon: 2,anim:6});
+							layui.layer.msg('扩展字段不能小于255位数!',{icon: 2,anim:6});
 						});
 						return false;
 					}
-					if(obj.editPublishTime.length>20){
+					if(obj.field4 && obj.field4.length>255){
 						layui.use('layer', function(){
-							layui.layer.msg('内容不能小于10位数!',{icon: 2,anim:6});
+							layui.layer.msg('扩展字段不能小于255位数!',{icon: 2,anim:6});
 						});
 						return false;
 					}
-					if(obj.field1.length>20){
+					if(obj.field5 && obj.field5.length>255){
 						layui.use('layer', function(){
-							layui.layer.msg('内容不能小于10位数!',{icon: 2,anim:6});
-						});
-						return false;
-					}
-					if(obj.html.length>20){
-						layui.use('layer', function(){
-							layui.layer.msg('内容不能小于10位数!',{icon: 2,anim:6});
-						});
-						return false;
-					}
-					if(obj.source.length>20){
-						layui.use('layer', function(){
-							layui.layer.msg('内容不能小于10位数!',{icon: 2,anim:6});
+							layui.layer.msg('扩展字段不能小于255位数!',{icon: 2,anim:6});
 						});
 						return false;
 					}

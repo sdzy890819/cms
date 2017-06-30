@@ -20,6 +20,12 @@ define(["app",'./addForm','../upload/index','../data/getData','form','position',
 							height = obj.imageHeight,
 							title = obj.title;
 						
+						if(height>0){
+							width = 0;
+						}
+						if(width>0){
+							height = 0
+						}
 
 						function alert(content){
 							layui.use(['layer'], function(){
@@ -29,7 +35,7 @@ define(["app",'./addForm','../upload/index','../data/getData','form','position',
 						}
 
 						if (!$scope.imageInfo) {
-							alert("请上传图片!");
+							return alert("请上传图片!");
 						}
 						var suffix = $scope.imageInfo.name.match(/\w+$/)[0];
 						Upload.base64DataUrl($scope.imageInfo).then(function(urls){
@@ -123,9 +129,11 @@ define(["app",'./addForm','../upload/index','../data/getData','form','position',
 				  			if(iswidth == false){
 				  				height_parent.show();
 				  				width_parent.hide();
+				  				width.val('');
 				  			}else{
 				  				height_parent.hide();
 				  				width_parent.show();
+				  				height.val('')
 				  			}
 				  		}
 					  	form.on('radio',function( _obj ){ //
