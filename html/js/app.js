@@ -88,6 +88,11 @@ define(["angular", "angularAMD","angularFileUpload","angular-ui-router",'angular
                 template : '<newscolumn-list></newscolumn-list>',
                 controllerUrl: 'newscolumn/list'
             }))
+            .state('newscolumn.manage', angularAMD.route({
+                url: '/manage',
+                template : '<newscolumn-manage></newscolumn-manage>',
+                controllerUrl: 'newscolumn/manage'
+            }))
 
             //部门
             .state('category', angularAMD.route({

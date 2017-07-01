@@ -30,6 +30,9 @@ define(["app",'./columnForm','../data/getData','form','position','fixedNav'], fu
 						detailTemplate2Id:detailTemplate2Id,//第二套模版接口模版ID，不是必须。如果选择则传参。参考B19文档
 						keywords:obj.keywords, //不是必须
 						description:obj.description, //不是必须
+						path : obj.path,
+						fileName : obj.fileName,
+						publishUrl : obj.publishUrl,
 						callback : function(_data){
 							layui.use(['layer'], function(){
 								var layer = layui.layer;

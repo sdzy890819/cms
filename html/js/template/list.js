@@ -217,8 +217,11 @@ define(['require',"app",'jquery'
 					GenerateArrList.extendType($scope.listdata.table.td,$scope.listdata.table.th,['width','name']); //把TH 中的出name属性以外的属性合传给td
         			GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
         			$.each($scope.listdata.table.td,function( i , item ){
-						if (item.publish) {
+						/*if (item.publish) {
 							item.list[0].href = '/webapi/template/redirect/'+item.id;
+						}*/
+						if (item.publishUrl) {
+							item.list[0].href = item.publishUrl;
 						}
 						var arr = [];
 						$.each(item.list.edit,function( j , obj ){

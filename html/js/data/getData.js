@@ -635,6 +635,9 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						detailTemplate2Id:obj.detailTemplate2Id,//第二套模版接口模版ID，不是必须。如果选择则传参。参考B19文档
 						keywords:obj.keywords, //不是必须
 						description:obj.description, //不是必须
+						path : obj.path,
+						fileName : obj.fileName,
+						publishUrl : obj.publishUrl,
 					},
 					success : function( _data ){
 						obj.callback(_data);
@@ -715,6 +718,24 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 				T.ajax({
 					url : URL.news.newscolumn , 
 					data : {id:obj.id},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				})
+			},
+			newscolumn_recover : function( obj ){ //获取获取栏目信息
+				T.ajax({
+					url : URL.news.newscolumn_recover , 
+					data : {id:obj.id},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				})
+			},
+			newscolumn_manage : function( obj ){ //栏目删除列表
+				T.ajax({
+					url : URL.news.newscolumn_manage , 
+					data : {page:obj.page,pageSize:obj.pageSize},
 					success : function( _data ){
 						obj.callback(_data);
 					}
@@ -843,7 +864,10 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						listTemplate2Id:obj.listTemplate2Id, //第二套模版接口模版ID，不是必须。如果选择则传参。参考B19文档
 						detailTemplate2Id:obj.detailTemplate2Id,//第二套模版接口模版ID，不是必须。如果选择则传参。参考B19文档
 						keywords:obj.keywords, //不是必须
-						description:obj.description //不是必须
+						description:obj.description, //不是必须
+						path : obj.path,
+						fileName : obj.fileName,
+						publishUrl : obj.publishUrl
 					},
 					success : function( _data ){
 						obj.callback(_data);

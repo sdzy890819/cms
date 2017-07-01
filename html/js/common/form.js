@@ -349,11 +349,8 @@ define(["app",'require','jquery','./moduls/directive'], function ( app , require
 									};
 								}
 								,path : function( value ){
-									console.log(value);
 									var reg = /[\s,，.。\|\*\#]/;
-									console.log(value.match(reg));
-									if(value.match(reg) != null){
-										console.log(value.match(reg));
+									if(value.match(reg) != null || value==''){
 										return '请输入正确的路经（例：xy/xy）';
 									};
 								}
