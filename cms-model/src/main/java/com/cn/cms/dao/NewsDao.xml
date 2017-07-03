@@ -361,7 +361,7 @@
         <if test="columnId != null">
         and column_id = #{columnId}
         </if>
-        order by id desc;
+        order by id desc 
         limit ${pageSize}
     </select>
 
