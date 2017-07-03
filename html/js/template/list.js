@@ -220,8 +220,15 @@ define(['require',"app",'jquery'
 						/*if (item.publish) {
 							item.list[0].href = '/webapi/template/redirect/'+item.id;
 						}*/
-						if (item.publishUrl) {
+						/*if (item.publishUrl) {
 							item.list[0].href = item.publishUrl;
+						}*/
+						if (item.publish) {
+						  	if(item.publishUrl !=null) {
+						   		item.list[0].href = item.publishUrl;
+						   	}else {
+						   		item.list[0].href = '/webapi/template/redirect/'+item.id;
+						   	}
 						}
 						var arr = [];
 						$.each(item.list.edit,function( j , obj ){

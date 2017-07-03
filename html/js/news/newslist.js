@@ -650,8 +650,18 @@ define(['require',"app",'jquery','search','./searchForm'
 						]*/
 					}
 					$.each($scope.listdata.table.td, function(i, obj){
+						/*if (obj.publish) {
+							obj.list[2].href = obj.publish;
+						}*/
+						/*else if (obj.publish) {
+							item.list[2].href = '/webapi/template/redirect/'+obj.id;
+						}*/
 						if (obj.publish) {
-							obj.list[2].href = obj.url;
+					  		if(obj.publishUrl !=null) {
+						   		obj.list[2].href = obj.publishUrl
+						  	}else {
+						   		obj.list[2].href = obj.listUrl
+						   	}
 						}
 					})
 
