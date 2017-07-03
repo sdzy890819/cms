@@ -236,9 +236,19 @@ define(['require',"app",'jquery' , 'search','./searchForm','./columnForm'
 
 					$.each($scope.listdata.table.td, function(i, obj){
 
-						if (obj.listUrl) {
+						/*if (obj.listUrl) {
 							obj.list[1].href = obj.listUrl;
-						}
+						}*/
+
+						if (obj.publishUrl !=null) {
+						   obj.list[1].href = obj.publishUrl
+						   
+						}else {
+							
+						  if(obj.publish) {
+						  	obj.list[1].href = obj.listUrl
+						  }
+						} 
 					})							
     				GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
     				$scope.$apply();

@@ -1,1 +1,1 @@
-define(["../data/getData","../moduls/Tool"],function(getData,Tool){return[{title:"columnName",name:"推荐栏目名称",type:"text",placeholder:"请输入推荐栏目名称",verify:"title"}]});
+define(["../data/getData","../moduls/Tool"],function(getData,Tool){var list=[{title:"columnName",name:"推荐栏目名称",type:"text",placeholder:"请输入推荐栏目名称",verify:"title"}];return list});
