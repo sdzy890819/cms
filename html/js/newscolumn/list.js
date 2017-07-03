@@ -167,7 +167,14 @@ define(['require',"app",'jquery' , 'search','./searchForm','./columnForm'
 	 						 text:'您确认要发布当前栏目下的所有新闻页吗?'
 	 						,btn : ['确定','取消']
 	 						,fn : function(){
-	 							getData.news.newscolumn_publish(obj);	 								 							
+	 							if(obj.columnPublishInfo && obj.columnPublishInfo.state!=0){
+	 								pop.alert({
+				 						 text:obj.columnPublishInfo.message
+				 						,btn : ['确定']
+				 					})
+	 							}else{
+	 								getData.news.newscolumn_publish(obj);	 								 							
+	 							}
 							}
 	 					})						
 					}
