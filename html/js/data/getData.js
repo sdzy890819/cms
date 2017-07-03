@@ -661,6 +661,14 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						obj.callback(_data);
 					}
 				})
+			},newscolumn_publish : function( obj ){ //发布栏目下的新闻 接口
+				T.ajax({
+					url : URL.news.newscolumn_publish , 
+					data : {id:obj.id},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				})
 			},
 			recommendList : function( obj ){ //获取新闻的推荐列表
 				var newobj = {
@@ -735,7 +743,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 			newscolumn_manage : function( obj ){ //栏目删除列表
 				T.ajax({
 					url : URL.news.newscolumn_manage , 
-					data : {page:obj.page,pageSize:obj.pageSize},
+					data : {page:obj.page,pageSize:obj.pageSize,channelId:obj.channelId},
 					success : function( _data ){
 						obj.callback(_data);
 					}

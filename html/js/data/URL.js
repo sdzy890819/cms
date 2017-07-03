@@ -72,6 +72,7 @@ define(function(require){
 			delNewsColumn : url+'/newscolumn/delNewsColumn',//删除栏目
 			newscolumn_manage : url+'/newscolumn/manage',
 			newscolumn_recover : url+'/newscolumn/recover',
+			newscolumn_publish : url+'/newscolumn/publish',
 			newslist : url+'/news/newslist',//新闻列表
 			newsdetail : url+'/news/newsdetail',//新闻详细信息
 			delNews : url+'/news/delNews',//删除新闻

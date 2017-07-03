@@ -145,6 +145,8 @@ define(["app",'./addForm','../upload/index','../data/getData','form','position',
 					  				selectSize_parent.hide();
 					  				width_parent.hide();
 					  				height_parent.hide();
+					  				width.val('0');
+					  				height.val('0')
 					  			}else{
 					  				selectSize_parent.show();
 					  				setWidthAndHeightInput();

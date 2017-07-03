@@ -13,19 +13,19 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 			name : '自定义相对路径',
 			placeholder : '请输入自定义生成相对路径',
 			type : 'text',
-			verify : 'path'
+			//verify : 'path'
 		},{
 			title : 'fileName',
 			name : '自定义文件名',
 			placeholder : '请输入自定义生成文件名',
 			type : 'text',
-			verify : 'html'	
+			//verify : 'html'	
 		},{
 			title : 'publishUrl',
 			name : '地址维护',
 			placeholder : '请输入自定义跳转地址',
 			type : 'text',
-			verify : 'http'	
+			//verify : 'http'	
 		},
 		{
 			title : 'keywords',
