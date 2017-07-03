@@ -154,6 +154,22 @@ define(['require',"app",'jquery' , 'search','./searchForm','./columnForm'
 	        					$uibModal :$uibModal 
 	        				});
 						})
+					},
+					publish : function(obj){
+						obj.callback = function(_data){//删除成功
+							layui.use(['layer'], function(){
+								var layer = layui.layer;
+								layer.msg(_data.message);
+								//$state.reload();
+							});
+						};
+						pop.alert({
+	 						 text:'您确认要发布当前栏目下的所有新闻页吗?'
+	 						,btn : ['确定','取消']
+	 						,fn : function(){
+	 							getData.news.newscolumn_publish(obj);	 								 							
+							}
+	 					})						
 					}
 				});
 				 
@@ -197,6 +213,7 @@ define(['require',"app",'jquery' , 'search','./searchForm','./columnForm'
 							edit : [
 								{cls : 'edit' , name : '编辑',evt:$scope.edit},
 								{cls : 'edit' , name : '对应模版',evt:$scope.template},
+								{cls : 'edit' , name : '发布',evt:$scope.publish},
 							/*	{cls : 'edit' , name : '添加权限到组',evt:$scope.edit},*/
 								{cls : 'del' , name : '删除',evt:$scope.del}
 							]

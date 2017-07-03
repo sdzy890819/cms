@@ -627,8 +627,8 @@ define(['require',"app",'jquery','search','./searchForm'
 								{cls : '' , name : ' 推荐',evt:$scope.recommend}
 							],
 							edit1 : [												
-								{cls : 'zoom_in' , name : '预览',href:'/webapi/news/preview/'},
-								{cls : '' , name : '发布',evt:$scope.publish}
+								{cls : '' , name : '发布',evt:$scope.publish},
+								{cls : 'zoom_in' , name : '预览',href:'/webapi/news/preview/'}
 							],
 							permission : [
 								{cls : 'del' , name : ' 撤销',evt:$scope.rescind},
