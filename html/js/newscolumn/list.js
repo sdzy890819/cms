@@ -245,7 +245,7 @@ define(['require',"app",'jquery' , 'search','./searchForm','./columnForm'
 						   
 						}else {
 							
-						  if(obj.publish) {
+						  if(obj.listUrl != null) {
 						  	obj.list[1].href = obj.listUrl
 						  }
 						} 
