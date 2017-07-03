@@ -120,7 +120,7 @@ define(['require',"app",'jquery' , 'search','./searchForm','./columnForm'
                                     }
                                 });
 								function getSearchList(){
-									getData.news.newscolumn_list({
+									getData.news.newscolumn_manage({
 										channelId : channelId,
 										page : page,
 										pageSize : 20,
@@ -145,14 +145,13 @@ define(['require',"app",'jquery' , 'search','./searchForm','./columnForm'
 								$scope.getSearchList = getSearchList;
 							}
 						}
-
 						setTimeout(function(){
 							var input = $('.layui-form input[name="condition"');
 							$("<br>").insertBefore(input.parent().parent());
 						},300)
 					});
 				}
-				//search();
+				search();
 				//end 搜索
 
 				var page = 1;

@@ -735,7 +735,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 			newscolumn_manage : function( obj ){ //栏目删除列表
 				T.ajax({
 					url : URL.news.newscolumn_manage , 
-					data : {page:obj.page,pageSize:obj.pageSize},
+					data : {page:obj.page,pageSize:obj.pageSize,channelId:obj.channelId},
 					success : function( _data ){
 						obj.callback(_data);
 					}

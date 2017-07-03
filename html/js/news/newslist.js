@@ -627,12 +627,12 @@ define(['require',"app",'jquery','search','./searchForm'
 								{cls : '' , name : ' 推荐',evt:$scope.recommend}
 							],
 							edit1 : [												
-								{cls : 'zoom_in' , name : '预览',href:'/webapi/news/preview/'}
+								{cls : 'zoom_in' , name : '预览',href:'/webapi/news/preview/'},
+								{cls : '' , name : '发布',evt:$scope.publish}
 							],
 							permission : [
 								{cls : 'del' , name : ' 撤销',evt:$scope.rescind},
 								{cls : 'del' , name : '删除',evt:$scope.del},
-								{cls : '' , name : '发布',evt:$scope.publish}
 							]
 						},
 						/*submit : [
