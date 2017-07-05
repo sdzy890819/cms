@@ -1,1 +1,1 @@
-define(["app"],function(app){app.directive("repeatFinish",function($timeout){return{restrict:"A",link:function(scope,element,attr){scope.$last===!0&&$timeout(function(){scope.$parent&&scope.$eval(scope.$parent[attr.repeatFinish]),scope.$emit(attr.repeatFinish,element,attr)},200)}}})});
+define(["app"],function(app){app.directive("repeatFinish",function($timeout){return{restrict:"A",link:function(scope,element,attr){!0===scope.$last&&$timeout(function(){scope.$parent&&scope.$eval(scope.$parent[attr.repeatFinish]),scope.$emit(attr.repeatFinish,element,attr)},200)}}})});
