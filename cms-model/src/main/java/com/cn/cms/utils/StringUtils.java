@@ -68,7 +68,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils{
                             }
                         } else {
                             if (strings[i].endsWith("/")) {
-                                sbf.append(strings[i].substring(0, strings[i].length() - 1));
+                                sbf.append(strings[i]);
                             } else {
                                 sbf.append(strings[i]);
                                 sbf.append("/");
@@ -109,6 +109,6 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils{
 
 
     public static void main(String[] args){
-        System.out.println(concatUrl("", "/aaa/","/index.html"));
+        System.out.println(concatUrl("http://www.baidu.com","/mmindex.html"));
     }
 }
