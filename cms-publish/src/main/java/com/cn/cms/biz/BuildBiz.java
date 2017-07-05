@@ -473,7 +473,7 @@ public class BuildBiz extends BaseBiz {
                         publishRelativePath = StringUtils.concatUrl(templates.get(i).getPath(), templates.get(i).getFilename());
                     }
 
-                    String publishPath = StringUtils.concatUrl(channel.getChannelPath(), publishRelativePath);
+                    String publishPath = StringUtils.concatUrl(channel.getChannelUrl(), publishRelativePath);
 
                     templates.get(i).setPublish(PublishEnum.YES.getType());
                     templates.get(i).setPublishRelativePath(FileUtil.delPrefix(publishRelativePath));

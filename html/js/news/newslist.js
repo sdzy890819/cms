@@ -650,19 +650,19 @@ define(['require',"app",'jquery','search','./searchForm'
 						]*/
 					}
 					$.each($scope.listdata.table.td, function(i, obj){
-						/*if (obj.publish) {
-							obj.list[2].href = obj.publish;
-						}*/
+						if (obj.publish) {
+							obj.list[2].href = obj.url;
+						}
 						/*else if (obj.publish) {
 							item.list[2].href = '/webapi/template/redirect/'+obj.id;
 						}*/
-						if (obj.publish) {
+						/*if (obj.publish) {
 					  		if(obj.publishUrl !=null) {
 						   		obj.list[2].href = obj.publishUrl
 						  	}else {
 						   		obj.list[2].href = obj.listUrl
 						   	}
-						}
+						}*/
 					})
 
 					GenerateArrList.extendType($scope.listdata.table.td,th,['width','name','key']); //把TH 中的出name,key,width属性以外的属性合传给td							

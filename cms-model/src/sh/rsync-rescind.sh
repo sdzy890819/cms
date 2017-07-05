@@ -14,4 +14,11 @@ if [[ ! -n $3 ]]; then
 	exit -1 
 fi
 cd $3 
+if [[ $2 =~ "/" ]]; then
+FILENAME=${2##*/}
+RPATH=${2%/*}
+echo "FILENAME: $FILENAME  RPATH: $RPATH"
+rsync -avRz --delete --password-file=/etc/rsyncd.pass --include=$FILENAME --exclude=/* ./ hsrsync@120.77.220.11::$1/$RPATH
+else
 rsync -avRz --delete --password-file=/etc/rsyncd.pass --include=$2 --exclude=/* ./ hsrsync@120.77.220.11::$1
+fi
