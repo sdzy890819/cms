@@ -140,8 +140,15 @@ define(['require',"app",'jquery' , 'search','./searchForm','./columnForm'
 			                            GenerateArrList.extendChild(listdata.table.td,listdata.table.edit,'edit');
 										
 			                            $.each(listdata.table.td,function( i , item ){
-											if (item.publish==1) {
+											/*if (item.publish==1) {
 												item.list[1].href = '/webapi/template/redirect/'+item.id;
+											}*/
+											if (item.publish) {
+											  	if(item.publishUrl !=null) {
+											   		item.list[1].href = item.publishUrl;
+											   	}else {
+											   		item.list[1].href = '/webapi/template/redirect/'+item.id;
+											   	}
 											}
 						        		});
 										callback(_data , listdata);
@@ -243,16 +250,16 @@ define(['require',"app",'jquery' , 'search','./searchForm','./columnForm'
 
 					$.each($scope.listdata.table.td, function(i, obj){
 
-						/*if (obj.listUrl) {
+						if (obj.listUrl) {
 							obj.list[1].href = obj.listUrl;
-						}*/
-						if (obj.publish) {
+						}
+						/*if (obj.publish) {
 						  	if(obj.publishUrl !=null) {
 						   		obj.list[1].href = obj.publishUrl;
 						   	}else {
 						   		obj.list[1].href = '/webapi/template/redirect/'+obj.id;
 						   	}
-						}
+						}*/
 					})							
     				GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
     				$scope.$apply();
