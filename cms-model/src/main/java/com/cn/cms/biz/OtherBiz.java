@@ -30,9 +30,9 @@ public class OtherBiz {
                 tmp.indexOf("DELETE ") < 0 && tmp.indexOf("INSERT ") < 0 && tmp.indexOf("CREATE ") < 0 &&
                 tmp.indexOf("SHOW ") < 0){
             if(tmp.indexOf("LIMIT")>0){
-                content = content.substring(0,tmp.indexOf("LIMIT"));
+                content = content.substring(0,tmp.lastIndexOf("LIMIT"));
             }
-            String countContent = "SELECT COUNT(1) " + content.substring(content.indexOf("FROM"), content.length());
+            String countContent = "SELECT COUNT(1) " + content.substring(tmp.indexOf("FROM"), content.length());
 
             String limitContent = content.concat(" LIMIT ").concat(String.valueOf(page.getStart())).concat(",").concat(String.valueOf(page.getPageSize()));
             Integer count = otherService.execSqlCount(countContent);
@@ -56,7 +56,7 @@ public class OtherBiz {
                 tmp.indexOf("DELETE ") < 0 && tmp.indexOf("INSERT ") < 0 && tmp.indexOf("CREATE ") < 0 &&
                 tmp.indexOf("SHOW ") < 0){
             if(tmp.indexOf("LIMIT")>0){
-                content = content.substring(0,tmp.indexOf("LIMIT"));
+                content = content.substring(0,tmp.lastIndexOf("LIMIT"));
             }
             content = content.concat(" LIMIT 1 ");
             return otherService.execSqlOne(content);
