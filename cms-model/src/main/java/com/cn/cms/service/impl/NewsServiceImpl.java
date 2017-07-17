@@ -258,6 +258,11 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
+    public List<News> findNewsListByRecommedColumnId(Long recommendColumnId, Page page) {
+        return newsDao.findNewsListByRecommedColumnId(recommendColumnId, page);
+    }
+
+    @Override
     public Integer findListByRecommedColumnIdCount(Long recommendColumnId) {
         return newsDao.findListByRecommedColumnIdCount(recommendColumnId);
     }

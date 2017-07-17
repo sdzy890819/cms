@@ -27,4 +27,32 @@ public class NewsPushColumn extends Base {
     private String channelName;
 
     private String columnName;
+
+    /**
+     * 部门ID
+     */
+    private Long categoryId;
+
+    /**
+     * 是否推送
+     */
+    private Integer pushColumn = PushColumn.YES.getTab();
+
+    public enum PushColumn{
+        YES("YES", 1),
+        NO("NO", 0);
+
+        @Getter
+        private String text;
+        @Getter
+        private int tab;
+
+        PushColumn(String text, int tab){
+            this.text = text;
+            this.tab = tab;
+        }
+
+    }
+
 }
+

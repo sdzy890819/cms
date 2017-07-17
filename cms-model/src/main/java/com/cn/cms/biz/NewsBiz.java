@@ -550,6 +550,22 @@ public class NewsBiz extends BaseBiz {
         return null;
     }
 
+    /**
+     * 分页获取新闻信息
+     * @param recommendColumnId
+     * @param page
+     * @return
+     */
+    public List<News> findNewsListByRecommedColumnId(Long recommendColumnId, Page page){
+        Integer count = newsService.findListByRecommedColumnIdCount(recommendColumnId);
+        page.setCount(count);
+        if(page.isQuery()) {
+            return newsService.findNewsListByRecommedColumnId(recommendColumnId, page);
+        }
+        return null;
+    }
+
+
     public void recommendNews(NewsRecommend newsRecommend){
         newsService.updateNewsRecommend(newsRecommend);
         sendIndex(newsRecommend);

@@ -242,12 +242,12 @@
     </update>
 
     <select id="findNewsByColumnId" resultMap="news">
-        select <include refid="all_column" /> from news <include refid="delTag" /> and publish = 1 and column_id = ${columnId}
+        select <include refid="all_column" /> from news <include refid="delTag" /> and publish = 1 and id in (select news_id from news_push_column where column_id = ${columnId})
         order by id desc limit ${page.start}, ${page.pageSize};
     </select>
 
     <select id="findNewsByColumnIdCount" resultType="java.lang.Integer">
-        select count(1) from news <include refid="delTag" /> and publish = 1 and column_id = ${columnId}
+        select count(1) from news <include refid="delTag" /> and publish = 1 and id in (select news_id from news_push_column where column_id = ${columnId})
     </select>
 
     <update id="publishNews" >
@@ -318,6 +318,17 @@
         and recommend = 1
         order by sort,recommend_time desc limit ${page.start}, ${page.pageSize};
     </select>
+
+
+    <select id="findNewsListByRecommedColumnId" resultMap="news">
+        select <include refid="all_column" /> from news <include refid="delTag"/>
+        <if test="recommendColumnId != null">
+            and recommend_column_id = ${recommendColumnId}
+        </if>
+        and recommend = 1
+        order by sort,recommend_time desc limit ${page.start}, ${page.pageSize};
+    </select>
+
 
     <select id="findListByRecommedColumnIdCount" resultType="java.lang.Integer">
         select count(1) from news <include refid="delTag"/>

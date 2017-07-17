@@ -189,7 +189,7 @@
     </select>
 
     <update id="uploadTemplate">
-        update template set upload = ${upload}, last_modify_user_id = #{lastModifyUserId} where id = ${id};
+        update template set upload = ${upload}, last_modify_user_id = #{lastModifyUserId}, update_time = now()  where id = ${id};
     </update>
 
     <select id="queryFilenameAndPathCount" resultType="java.lang.Integer">

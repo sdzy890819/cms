@@ -177,7 +177,7 @@ public class TAGList extends Directive {
                 break;
             }
             case RECOMMENDCOLUMN:{
-                list = newsBiz.findListByRecommedColumnId(Long.parseLong(content), pageObj);
+                list = newsBiz.findNewsListByRecommedColumnId(Long.parseLong(content), pageObj);
                 break;
             }
             case SQL:{

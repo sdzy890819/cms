@@ -16,6 +16,8 @@
         <result column="news_id" property="newsId" />
         <result column="channel_id" property="channelId" />
         <result column="column_id" property="columnId" />
+        <result column="category_id" property="categoryId" />
+        <result column="push_column" property="pushColumn" />
     </resultMap>
 
 
@@ -23,23 +25,23 @@
 
     <sql id="sql_column">
         id,create_time,update_time,del_tag,last_modify_user_id,create_user_id,
-        news_id,channel_id,column_id
+        news_id,channel_id,column_id,category_id,push_column
     </sql>
 
     <sql id="ins_sql_column">
-        id,last_modify_user_id,create_user_id,news_id,channel_id,column_id
+        id,last_modify_user_id,create_user_id,news_id,channel_id,column_id,category_id,push_column
     </sql>
 
     <insert id="saveNewsPushColumns">
         insert into news_push_column ( <include refid="ins_sql_column"/> ) values
         <foreach collection="list" item="p1" separator=",">
-            (null, #{p1.lastModifyUserId}, #{p1.createUserId}, #{p1.newsId}, #{p1.channelId}, #{p1.columnId})
+            (null, #{p1.lastModifyUserId}, #{p1.createUserId}, #{p1.newsId}, #{p1.channelId}, #{p1.columnId}, #{p1.categoryId}, #{p1.pushColumn})
         </foreach>
     </insert>
 
     <select id="findListByNewsId" resultMap="newsPushColumn">
         SELECT <include refid="ins_sql_column"/> from news_push_column
-        <include refid="delTag" /> and news_id = #{newsId} order by id desc;
+        <include refid="delTag" /> and news_id = #{newsId} and push_column = 1  order by id desc;
     </select>
 
     <delete id="delNewsPushColumns">

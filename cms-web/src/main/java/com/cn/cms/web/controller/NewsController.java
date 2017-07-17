@@ -266,7 +266,7 @@ public class NewsController extends BaseController {
         news.setAutoPublish(autoPublish);
         news.setStockCode(stockCode);
         news.setStockName(stockName);
-        if(StringUtils.isNotBlank(columnIds)){
+        if(StringUtils.isNotBlank(columnIds) && columnIds.length() > 1){
             news.setColumnIds(JSONArray.parseArray(columnIds));
         }
         if(StringUtils.isNotBlank(editPublishTime)){
@@ -375,7 +375,7 @@ public class NewsController extends BaseController {
             news.setPublish(publish);
         }
         news.setId(id);
-        if(StringUtils.isNotBlank(columnIds)){
+        if(StringUtils.isNotBlank(columnIds) && columnIds.length() > 1){
             news.setColumnIds(JSONArray.parseArray(columnIds));
         }
         if(StringUtils.isNotBlank(editPublishTime)){

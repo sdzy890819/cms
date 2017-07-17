@@ -75,6 +75,8 @@ public interface NewsService {
 
     List<NewsRecommend> findListByRecommedColumnId(Long recommendColumnId, Page page);
 
+    List<News> findNewsListByRecommedColumnId(Long recommendColumnId, Page page);
+
     Integer findListByRecommedColumnIdCount(Long recommendColumnId);
 
     void updateNewsRecommend(NewsRecommend newsRecommend);

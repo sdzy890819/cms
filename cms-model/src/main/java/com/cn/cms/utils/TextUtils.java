@@ -60,6 +60,14 @@ public class TextUtils {
     public static List<NewsPushColumn> packagingNewsPushColumns(News news){
         Map<String, NewsPushColumn> map = new HashMap<>();
         JSONArray columnIds = news.getColumnIds();
+        NewsPushColumn firstColumn = new NewsPushColumn();
+        firstColumn.setNewsId(news.getId());
+        firstColumn.setChannelId(news.getChannelId());
+        firstColumn.setColumnId(news.getColumnId());
+        firstColumn.setCreateUserId(news.getLastModifyUserId());
+        firstColumn.setLastModifyUserId(news.getLastModifyUserId());
+        firstColumn.setPushColumn(NewsPushColumn.PushColumn.NO.getTab());
+        map.put(String.valueOf(news.getColumnId()), firstColumn);
         if(columnIds!=null && columnIds.size()>0){
             for(int i = 0; i<columnIds.size(); i++){
                 String tmp[] = columnIds.getJSONObject(i).getString("val").split("-");
@@ -70,7 +78,10 @@ public class TextUtils {
                     newsPushColumn.setColumnId(Long.parseLong(tmp[1]));
                     newsPushColumn.setCreateUserId(news.getLastModifyUserId());
                     newsPushColumn.setLastModifyUserId(news.getLastModifyUserId());
-                    map.put(tmp[1], newsPushColumn);
+                    newsPushColumn.setPushColumn(NewsPushColumn.PushColumn.YES.getTab());
+                    if(map.get(tmp[1]) == null) {
+                        map.put(tmp[1], newsPushColumn);
+                    }
                 }
             }
             return new ArrayList<>(map.values());
