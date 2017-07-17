@@ -608,3 +608,18 @@ CREATE TABLE `publish_info` (
   `error_message` varchar(255) DEFAULT NULL COMMENT '错误日志,只存储255个字符',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10000 DEFAULT CHARSET=utf8 COMMENT='发布日志表';
+
+CREATE TABLE `news_push_column` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID。',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  `del_tag` tinyint(3) DEFAULT '1' COMMENT '删除位。0删除、1正常',
+  `news_id` bigint(20) DEFAULT NULL COMMENT '新闻ID',
+  `last_modify_user_id` varchar(20) DEFAULT NULL COMMENT '最后一次修改人',
+  `create_user_id` varchar(20) DEFAULT NULL COMMENT '创建人',
+  `channel_id` bigint(20) DEFAULT NULL COMMENT '频道ID',
+  `column_id` bigint(20) DEFAULT NULL COMMENT '新闻栏目ID',
+  `category_id` bigint(20) DEFAULT NULL COMMENT '部门ID',
+  `push_column` tinyint(2) DEFAULT NULL COMMENT '是否是推送栏目。1是 0不是',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8 COMMENT='新闻推送栏目表-包含自有栏目和推送栏目两类'
