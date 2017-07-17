@@ -50,6 +50,7 @@ ALTER TABLE `news_stock`DROP PRIMARY KEY;
 DROP TABLE `news`;
 DROP TABLE `news_detail`;
 DROP TABLE `news_column`;
+DROP TABLE `news_push_column`;
 DROP TABLE `channel`;
 DROP TABLE `category`;
 DROP TABLE `images`;
