@@ -84,6 +84,8 @@ public class TextUtils {
                     }
                 }
             }
+        }
+        if(map.size() > 0) {
             return new ArrayList<>(map.values());
         }
         return null;
