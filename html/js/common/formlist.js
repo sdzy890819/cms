@@ -84,7 +84,7 @@ define(["app",'jquery','./moduls/directive'], function ( app , $ ) {
 				function check(select,callback){
 					select.each(function(){
 						var input = $(this).find('input');
-						input.click(function(e ){
+						input.unbind().click(function(e ){
 							e.stopPropagation();
 							callback(this.checked)
 						})
