@@ -493,7 +493,7 @@ define(['require',"app",'jquery','search','./searchForm'
 							event : function(id , scope , evt){
 								scope.delAll(function( ids ){
 									pop.alert({
-				 						 text:'您确定要批量删除选择的栏目吗'
+				 						 text:'您确定要批量删除选择的新闻吗'
 				 						,btn : ['确定','取消']
 				 						,fn : function(){
 				 							getData.news.deletes({
@@ -526,7 +526,7 @@ define(['require',"app",'jquery','search','./searchForm'
 							event : function(id , scope , evt){
 								scope.delAll(function( ids ){
 									pop.alert({
-				 						 text:'您确定要批量撤销选择的栏目吗'
+				 						 text:'您确定要批量撤销选择的新闻吗'
 				 						,btn : ['确定','取消']
 				 						,fn : function(){
 				 							getData.news.rescinds({
@@ -559,7 +559,7 @@ define(['require',"app",'jquery','search','./searchForm'
 							event : function(id , scope , evt){
 								scope.delAll(function( ids ){
 									pop.alert({
-				 						 text:'您确定要批量发布选择的栏目吗'
+				 						 text:'您确定要批量发布选择的新闻吗'
 				 						,btn : ['确定','取消']
 				 						,fn : function(){
 				 							getData.news.publishes({
