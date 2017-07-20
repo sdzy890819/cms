@@ -4410,6 +4410,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
         }
         tmpStart && domUtils.remove(tmpStart);
         tmpEnd && domUtils.remove(tmpEnd);
+        frag.textContent = frag.textContent.replace(/^\s+/,'');
         return frag;
     }
 
