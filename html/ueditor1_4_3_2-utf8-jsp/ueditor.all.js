@@ -4410,6 +4410,10 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
         }
         tmpStart && domUtils.remove(tmpStart);
         tmpEnd && domUtils.remove(tmpEnd);
+        /*bo.peng*/
+        frag.textContent = frag.textContent.replace(/^\s+/,'');
+        frag.textContent = frag.textContent.replace(/^(&nbsp;)+/,'');
+        /* end bo.peng*/
         return frag;
     }
 
@@ -10508,6 +10512,11 @@ UE.plugins['autotypeset'] = function(){
             ){
                 return 0;
             }
+
+            /*bo.peng*/
+            node.innerText = node.innerText.replace(/^\s+/,'');
+            node.innerText = node.innerText.replace(/^(&nbsp;)+/,'');
+            /*end bo.peng*/
 
             return notEmpty ? !domUtils.isEmptyBlock(node) : domUtils.isEmptyBlock(node,new RegExp('[\\s'+domUtils.fillChar
                 +']','g'));
