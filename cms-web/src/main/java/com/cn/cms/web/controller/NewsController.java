@@ -517,9 +517,14 @@ public class NewsController extends BaseController {
     @CheckToken
     @CheckAuth( name = "recommendcolumn:read" )
     @RequestMapping(value = "/recommendColumnlist", method = RequestMethod.GET)
-    public String recommendColumnlist(){
-        List<RecommendColumn> recommendColumns = newsBiz.listRecommendColumn();
-        return ApiResponse.returnSuccess(recommendColumns);
+    public String recommendColumnlist(@RequestParam(value = "st", required = false) String st){
+        if(StringUtils.isNotBlank(st) && "sortByColumnName".equals(st)) {
+            List<RecommendColumn> recommendColumns = newsBiz.listRecommendColumn(st);
+            return ApiResponse.returnSuccess(recommendColumns);
+        } else{
+            List<RecommendColumn> recommendColumns = newsBiz.listRecommendColumn(null);
+            return ApiResponse.returnSuccess(recommendColumns);
+        }
     }
 
     /**

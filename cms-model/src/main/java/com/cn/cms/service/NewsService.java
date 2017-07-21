@@ -81,7 +81,7 @@ public interface NewsService {
 
     void updateNewsRecommend(NewsRecommend newsRecommend);
 
-    List<RecommendColumn> findAll();
+    List<RecommendColumn> findAll(String st);
 
     List<RecommendColumn> findRecommendColumnByIds(List<Long> ids);
 

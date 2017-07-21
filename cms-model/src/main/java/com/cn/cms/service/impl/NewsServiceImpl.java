@@ -274,8 +274,8 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public List<RecommendColumn> findAll() {
-        return recommendColumnDao.findAll();
+    public List<RecommendColumn> findAll(String st) {
+        return recommendColumnDao.findAll(st);
     }
 
     @Override

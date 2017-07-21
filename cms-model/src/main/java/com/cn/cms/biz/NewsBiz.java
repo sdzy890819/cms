@@ -571,8 +571,8 @@ public class NewsBiz extends BaseBiz {
         sendIndex(newsRecommend);
     }
 
-    public List<RecommendColumn> listRecommendColumn(){
-        return newsService.findAll();
+    public List<RecommendColumn> listRecommendColumn(String st){
+        return newsService.findAll(st);
     }
 
     public void saveRecommendColumn(RecommendColumn p1){

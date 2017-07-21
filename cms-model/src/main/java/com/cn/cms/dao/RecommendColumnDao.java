@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface RecommendColumnDao {
 
-    List<RecommendColumn> findAll();
+    List<RecommendColumn> findAll(@Param(value = "st") String st);
 
     void createRecommendColumn(@Param(value = "p1") RecommendColumn recommendColumn);
 
