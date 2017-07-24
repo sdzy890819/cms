@@ -181,7 +181,7 @@ public class StaticContants {
 
     public static final String FRAGMENT_REGEX = "\\{#([^#][^\\}]+)#\\}";
 
-    public static final String FRAGMENT_ALL_REGEX = "(.*)";
+    public static final String FRAGMENT_ALL_REGEX = "(.*?)";
 
 
     public static final String YYYY_MM_DD = "yyyy-MM-dd";

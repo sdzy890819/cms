@@ -521,7 +521,7 @@ public class NewsController extends BaseController {
         if(StringUtils.isNotBlank(st) && "sortByColumnName".equals(st)) {
             List<RecommendColumn> recommendColumns = newsBiz.listRecommendColumn(st);
             return ApiResponse.returnSuccess(recommendColumns);
-        } else{
+        } else {
             List<RecommendColumn> recommendColumns = newsBiz.listRecommendColumn(null);
             return ApiResponse.returnSuccess(recommendColumns);
         }

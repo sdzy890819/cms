@@ -50,6 +50,8 @@ public class FragmentUtil {
         String regex = model.replaceAll(StaticContants.FRAGMENT_REGEX, StaticContants.FRAGMENT_ALL_REGEX);
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(str);
+
+
         List<String> list = new ArrayList<>();
         if(matcher.find()){
             for(int i = 1; i <= matcher.groupCount(); i++){
@@ -59,6 +61,38 @@ public class FragmentUtil {
         return list;
     }
 
+    public static List<String> getVal2(String model, String str){
+        String[] tmp = model.split(StaticContants.FRAGMENT_REGEX);
+        StringBuffer sbf = new StringBuffer();
+        if(tmp != null && tmp.length > 0){
+            for(int i =0;i<tmp.length;i++) {
+                sbf.append(escapeExprSpecialWord(tmp[i]));
+                sbf.append(StaticContants.FRAGMENT_ALL_REGEX);
+            }
+        }
+        String regex = sbf.toString();
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(str);
+        List<String> list = new ArrayList<>();
+        if(matcher.matches()){
+            for(int i = 1; i <= matcher.groupCount(); i++){
+                list.add(matcher.group(i));
+            }
+        }
+        return list;
+    }
 
+
+    public static String escapeExprSpecialWord(String keyword) {
+        if (StringUtils.isNotBlank(keyword)) {
+            String[] fbsArr = { "\\", "$", "(", ")", "*", "+", ".", "[", "]", "?", "^", "{", "}", "|" };
+            for (String key : fbsArr) {
+                if (keyword.contains(key)) {
+                    keyword = keyword.replace(key, "\\" + key);
+                }
+            }
+        }
+        return keyword;
+    }
 
 }
