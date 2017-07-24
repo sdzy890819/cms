@@ -152,7 +152,7 @@ public class FragmentController extends BaseController {
         }
         List<String> values = null ;
         if(StringUtils.isNotBlank(fragment.getFragmentContent())) {
-            values = FragmentUtil.getVal(fragment.getFragmentModel(), fragment.getFragmentContent());
+            values = FragmentUtil.getVal2(fragment.getFragmentModel(), fragment.getFragmentContent());
             if (StringUtils.isEmpty(values)) {
                 return ApiResponse.returnFail(StaticContants.ERROR_FRAGMENT_MODEL);
             }
