@@ -120,7 +120,7 @@ define(['require',"app",'jquery','search','./recommendlistForm'
 				function setList(_data){
 					var th = [	
 						{name:'推荐名' , key:'title'},					
-						{name:'推荐人' , key:'title'},								
+						{name:'推荐人' , key:'recommendUserName'},								
 						{name:'推荐栏目' , key:'recommendColumnName'},
 						{name:'操作' , width : '220' , class: 'center'}
 					];
