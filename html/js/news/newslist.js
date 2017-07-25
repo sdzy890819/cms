@@ -39,6 +39,12 @@ define(['require',"app",'jquery','search','./searchForm'
 						});
 						return false;
 					}
+					if(obj.stock.search(/[^\d]/)>-1 || obj.stock.length>6){
+						layui.use('layer', function(){
+							layui.layer.msg('请输入正确的股票代码!',{icon: 2,anim:6});
+						});
+						return false;
+					}
 					if(obj.description.length>500){
 						layui.use('layer', function(){
 							layui.layer.msg('描述不能超过500个字符!',{icon: 2,anim:6});
@@ -278,6 +284,7 @@ define(['require',"app",'jquery','search','./searchForm'
 									"field3":obj.field3,
 									"field4":obj.field4,
 									"field5":obj.field5,
+									stockCode : obj.stock, //股票代码
 									callback : function(_data){
 										$uibModalInstance.dismiss('cancel');
 										layui.use(['layer'], function(){

@@ -1,1 +1,1 @@
-define(["head","menu"],function(){return["$scope","$location",function($scope,$location){$scope.$on("$viewContentLoaded",function(){$scope.menu=[{name:"频道管理",link:"column.list"}]}),$scope.menu=[{name:"频道管理",link:"column.list"}]}]});
+define(["head","menu"],function(){return["$scope","$location",function(n,e){n.$on("$viewContentLoaded",function(){n.menu=[{name:"频道管理",link:"column.list"}]}),n.menu=[{name:"频道管理",link:"column.list"}]}]});

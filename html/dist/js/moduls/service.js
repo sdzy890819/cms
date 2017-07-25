@@ -1,1 +1,1 @@
-define(["app"],function(app){app.service("pop",function(){this.alert=function(obj){layui.use(["layer"],function(){layui.layer.alert(obj.text,{skin:obj.cls||"layui-layer-molv",title:obj.title,anim:obj.anim||1,btn:obj.btn,shadeClose:!0},obj.fn,obj.fn1,obj.fn2)})}})});
+define(["app"],function(n){n.service("pop",function(){this.alert=function(n){layui.use(["layer"],function(){layui.layer.alert(n.text,{skin:n.cls||"layui-layer-molv",title:n.title,anim:n.anim||1,btn:n.btn,shadeClose:!0},n.fn,n.fn1,n.fn2)})}})});

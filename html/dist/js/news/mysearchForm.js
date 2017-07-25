@@ -1,1 +1,1 @@
-define(function(getData,Tool){function getList(callback){callback(list)}var list=[{title:"publish",selectName:["publish"],name:"发布状态",type:"select",select:[[{name:"全部"},{title:0,name:"未发布"},{title:1,name:"已发布"},{title:2,name:"草稿"},{title:3,name:"已撤销"}]]}];return getList});
+define(function(e,t){var n=[{title:"publish",selectName:["publish"],name:"发布状态",type:"select",select:[[{name:"全部"},{title:0,name:"未发布"},{title:1,name:"已发布"},{title:2,name:"草稿"},{title:3,name:"已撤销"}]]}];return function(e){e(n)}});

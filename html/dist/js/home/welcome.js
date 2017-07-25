@@ -1,1 +1,1 @@
-define(["app","require","../data/getData","head","menu"],function(app,require,getData){return app.directive("homeWelcome",function(){return{restrict:"E",replace:!0,transclude:!0,templateUrl:"../template/home/welcome.html",controller:function($scope,$uibModal,$css){}}}),["$uibModal",function($uibModal){}]});
+define(["app","require","../data/getData","head","menu"],function(e,t,n){return e.directive("homeWelcome",function(){return{restrict:"E",replace:!0,transclude:!0,templateUrl:"../template/home/welcome.html",controller:function(e,t,n){}}}),["$uibModal",function(e){}]});

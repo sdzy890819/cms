@@ -1,1 +1,1 @@
-define(["head","menu"],function(){return["$scope","$location",function($scope,$location){$scope.$on("$viewContentLoaded",function(){$scope.menu=[{name:"用户管理系统",link:"user.list"}]}),$scope.menu=[{name:"用户管理系统",link:"user.list"}]}]});
+define(["head","menu"],function(){return["$scope","$location",function(n,e){n.$on("$viewContentLoaded",function(){n.menu=[{name:"用户管理系统",link:"user.list"}]}),n.menu=[{name:"用户管理系统",link:"user.list"}]}]});

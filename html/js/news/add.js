@@ -8,7 +8,88 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 	        controller : function($scope, $state){
 	        	$scope.$parent.menu.push({name:"新增新闻"});
 	        	var categoryId,channelId,columnId,columnIds = '[';
+
+	        	function verification( obj , callback ){ //验证字段
+
+					if(obj.title.length>255){ //标题
+						layui.use('layer', function(){
+							layui.layer.msg('标题不能超过255个字符!',{icon: 2,anim:6});
+						}); 
+						return false;
+					}
+					if(obj.subTitle.length>255){
+						layui.use('layer', function(){
+							layui.layer.msg('附标题不能超过255个字符!',{icon: 2,anim:6});
+						});
+						return false;
+					}
+					if(obj.keyword.length>255){
+						layui.use('layer', function(){
+							layui.layer.msg('关键字不能超过255个字符!',{icon: 2,anim:6});
+						});
+						return false;
+					}
+					if(obj.author.length>255){
+						layui.use('layer', function(){
+							layui.layer.msg('来源不能超过255个字符!',{icon: 2,anim:6});
+						});
+						return false;
+					}
+					if(obj.stock.search(/[^\d]/)>-1 || obj.stock.length>6){
+						layui.use('layer', function(){
+							layui.layer.msg('请输入正确的股票代码!',{icon: 2,anim:6});
+						});
+						return false;
+					}
+					if(obj.description.length>500){
+						layui.use('layer', function(){
+							layui.layer.msg('描述不能超过500个字符!',{icon: 2,anim:6});
+						});
+						return false;
+					}
+					if(obj.html.length>65535){
+						layui.use('layer', function(){
+							layui.layer.msg('内容不能超过65535个字符!',{icon: 2,anim:6});
+						});
+						return false;
+					}
+					if(obj.field1.length>255){
+						layui.use('layer', function(){
+							layui.layer.msg('扩展字段不能小于255位数!',{icon: 2,anim:6});
+						});
+						return false;
+					}
+					if(obj.field2 && obj.field2.length>255){
+						layui.use('layer', function(){
+							layui.layer.msg('扩展字段不能小于255位数!',{icon: 2,anim:6});
+						});
+						return false;
+					}
+					if(obj.field3 && obj.field3.length>255){
+						layui.use('layer', function(){
+							layui.layer.msg('扩展字段不能小于255位数!',{icon: 2,anim:6});
+						});
+						return false;
+					}
+					if(obj.field4 && obj.field4.length>255){
+						layui.use('layer', function(){
+							layui.layer.msg('扩展字段不能小于255位数!',{icon: 2,anim:6});
+						});
+						return false;
+					}
+					if(obj.field5 && obj.field5.length>255){
+						layui.use('layer', function(){
+							layui.layer.msg('扩展字段不能小于255位数!',{icon: 2,anim:6});
+						});
+						return false;
+					}
+					return true;
+				}
+
 	        	function addNews( obj ){
+	        		debugger;
+	        		if(!verification(obj)) return;
+
 	        		if(obj.selectSizeChoose){
 		        		obj.selectSizeChoose = Tool.changeObjectName(obj.selectSizeChoose,[{name:'id',newName:'val'},{name:'name',newName:'title'}]);
 		        		$.each(obj.selectSizeChoose,function( i , obj ){
@@ -62,6 +143,7 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 						"field5":obj.field5,
 						columnIds : columnIds,
 						publish : obj.publish,
+						stockCode : obj.stock, //股票代码
 						callback : function(_data){
 							layui.use(['layer'], function(){
 								var layer = layui.layer;

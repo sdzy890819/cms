@@ -615,6 +615,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						"field4":obj.field4,
 						"field5":obj.field5,
 						columnIds : obj.columnIds,
+						stockCode : obj.stockCode,
 						"publish":obj.publish
 					},
 					success : function( _data ){
@@ -792,6 +793,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						"field5":obj.field5,
 						"autoPublish":obj.autoPublish, //1 是自动发布。0是不自动发布.默认不自动发布
 						"timer":obj.timer, //定时发布。
+						stockCode : obj.stockCode, //股票代码
 						"editPublishTime":obj.editPublishTime //定时发布。
 					},
 					success : function( _data ){

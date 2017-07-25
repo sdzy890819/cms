@@ -2,6 +2,7 @@ var gulp = require('gulp') ,
 	concat = require('gulp-concat'),           //合并  
 	//jshint = require('gulp-jshint'),           //js规范验证  
     htmlmin = require('gulp-htmlmin'),
+    pump = require('pump'),
     uglify = require('gulp-uglify');           //压缩  
     /*rename = require('gulp-rename'),          //文件名命名  
     autoprefixer = require('gulp-autoprefixer'), 
@@ -40,7 +41,7 @@ gulp.task('testImagemin', function () {
         })))
         .pipe(gulp.dest('dist/images'));
 });
-gulp.task('jsmin', function () {
+gulp.task('jsmin', function (cb) {
     const options = {
         mangle: false,//类型：Boolean 默认：true 是否修改变量名
         compress: true,//类型：Boolean 默认：true 是否完全压缩
@@ -55,31 +56,63 @@ gulp.task('jsmin', function () {
     //        '!js/upload/angular-file-upload/src/*.js',
     //        '!js/upload/angular-file-upload/src/**/*.js',
     //    ])
-    gulp.src([
-            'js/*.js', 'js/**/*.js',
 
-            '!js/**/gulpfile.js',
-            '!js/**/WebpackConfig.js',
+    pump([
+            gulp.src([
+                'js/*.js', 'js/**/*.js',
+
+                '!js/**/gulpfile.js',
+                '!js/**/WebpackConfig.js',
+                
+                '!js/upload/*.js',
+                '!js/upload/**/*.js',
+
+                
+                '!js/plug/*.js',
+                '!js/plug/**/*.js'
+            ]),
+            uglify(),
+            gulp.dest('dist/js')
+        ],
+        cb
+    );
+    pump([
+            gulp.src([
+              'ueditor1_4_3_2-utf8-jsp/ueditor.all.js',
+              'ueditor1_4_3_2-utf8-jsp/ueditor.config.js',
+              'ueditor1_4_3_2-utf8-jsp/ueditor.parse.js',
+              'ueditor1_4_3_2-utf8-jsp/webuploader/**/*.js',
+            ]),
+            uglify(),
+            gulp.dest('dist/ueditor1_4_3_2-utf8-jsp')
+        ],
+        cb
+    );
+    // gulp.src([
+    //         'js/*.js', 'js/**/*.js',
+
+    //         '!js/**/gulpfile.js',
+    //         '!js/**/WebpackConfig.js',
             
-            '!js/upload/*.js',
-            '!js/upload/**/*.js',
+    //         '!js/upload/*.js',
+    //         '!js/upload/**/*.js',
 
             
-            '!js/plug/*.js',
-            '!js/plug/**/*.js'
-        ])
-        .pipe(uglify(options))
-        .pipe(gulp.dest('dist/js'));
+    //         '!js/plug/*.js',
+    //         '!js/plug/**/*.js'
+    //     ])
+    //     .pipe(uglify(options))
+    //     .pipe(gulp.dest('dist/js'));
 
 
-     gulp.src([
-             'ueditor1_4_3_2-utf8-jsp/ueditor.all.js',
-             'ueditor1_4_3_2-utf8-jsp/ueditor.config.js',
-             'ueditor1_4_3_2-utf8-jsp/ueditor.parse.js',
-             'ueditor1_4_3_2-utf8-jsp/webuploader/**/*.js',
-         ])
-         .pipe(uglify(options))
-         .pipe(gulp.dest('dist/ueditor1_4_3_2-utf8-jsp'))
+     // gulp.src([
+     //         'ueditor1_4_3_2-utf8-jsp/ueditor.all.js',
+     //         'ueditor1_4_3_2-utf8-jsp/ueditor.config.js',
+     //         'ueditor1_4_3_2-utf8-jsp/ueditor.parse.js',
+     //         'ueditor1_4_3_2-utf8-jsp/webuploader/**/*.js',
+     //     ])
+     //     .pipe(uglify(options))
+     //     .pipe(gulp.dest('dist/ueditor1_4_3_2-utf8-jsp'))
 });
 
 
