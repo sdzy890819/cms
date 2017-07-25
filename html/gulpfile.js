@@ -77,7 +77,7 @@ gulp.task('jsmin', function (cb) {
               'ueditor1_4_3_2-utf8-jsp/ueditor.all.js',
               'ueditor1_4_3_2-utf8-jsp/ueditor.config.js',
               'ueditor1_4_3_2-utf8-jsp/ueditor.parse.js',
-              'ueditor1_4_3_2-utf8-jsp/webuploader/**/*.js',
+              '!ueditor1_4_3_2-utf8-jsp/webuploader/**/*.js',
             ]),
             uglify(),
             gulp.dest('dist/ueditor1_4_3_2-utf8-jsp')
