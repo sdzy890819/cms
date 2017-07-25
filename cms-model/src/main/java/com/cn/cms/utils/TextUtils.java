@@ -43,8 +43,10 @@ public class TextUtils {
                     result.put(newsStock.getStockCode(), newsStock);
                 }
             }
+        }
+        if(result.size() > 0) {
             resultList = new ArrayList<>(result.values());
-            if(StringUtils.isBlank(news.getStockCode())&&resultList.size()>0){
+            if(StringUtils.isBlank(news.getStockCode()) && resultList.size()>0){
                 news.setStockCode(resultList.get(0).getStockCode());
                 news.setStockName(resultList.get(0).getStockName());
             }
