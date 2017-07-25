@@ -105,6 +105,7 @@ define(['require',"app",'jquery','search','./searchForm'
 							getData.news.newsdetail({
 								id : obj.id,
 								callback : function(_data){
+									_data.data.stock = _data.data.stockCode;
 									if (_data.data.timer) {
 										_data.data.writeTime = new Date(_data.data.timer).format('yyyy-MM-dd h:m:s');										
 									}else {
