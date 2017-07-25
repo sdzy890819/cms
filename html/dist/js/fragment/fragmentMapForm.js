@@ -1,1 +1,1 @@
-define(["../data/getData","../moduls/Tool"],function(a,o){});
+define(["../data/getData","../moduls/Tool"],function(Data,Tool){});
