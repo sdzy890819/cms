@@ -72,11 +72,7 @@ gulp.task('jsmin', function (cb) {
                 '!js/plug/**/*.js'
             ]),
             uglify(),
-            gulp.dest('dist/js')
-        ],
-        cb
-    );
-    pump([
+            gulp.dest('dist/js'),
             gulp.src([
               'ueditor1_4_3_2-utf8-jsp/ueditor.all.js',
               'ueditor1_4_3_2-utf8-jsp/ueditor.config.js',
@@ -88,6 +84,7 @@ gulp.task('jsmin', function (cb) {
         ],
         cb
     );
+    
     // gulp.src([
     //         'js/*.js', 'js/**/*.js',
 
