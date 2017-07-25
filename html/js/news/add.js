@@ -87,7 +87,6 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 				}
 
 	        	function addNews( obj ){
-	        		debugger;
 	        		if(!verification(obj)) return;
 
 	        		if(obj.selectSizeChoose){

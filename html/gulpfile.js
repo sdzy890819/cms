@@ -42,11 +42,11 @@ gulp.task('testImagemin', function () {
         .pipe(gulp.dest('dist/images'));
 });
 gulp.task('jsmin', function (cb) {
-    const options = {
-        mangle: false,//类型：Boolean 默认：true 是否修改变量名
+    /*const options = {
+        mangle: true,//类型：Boolean 默认：true 是否修改变量名,
         compress: true,//类型：Boolean 默认：true 是否完全压缩
         preserveComments: 'license',//'license', //保留所有注释
-    };
+    };*/
     //gulp.src([
     //        'js/*.js', 'js/**/*.js',
 //
@@ -57,6 +57,17 @@ gulp.task('jsmin', function (cb) {
     //        '!js/upload/angular-file-upload/src/**/*.js',
     //    ])
 
+    const options = {
+        mangle: {//类型：Boolean 默认：true 是否修改变量名,
+            toplevel: true,
+            keep_fnames : true,
+            properties : {
+                keep_quoted : true
+            }
+        },
+        compress: true,//类型：Boolean 默认：true 是否完全压缩
+        preserveComments: 'license',//'license', //保留所有注释
+    };
     pump([
             gulp.src([
                 'js/*.js', 'js/**/*.js',
@@ -77,7 +88,7 @@ gulp.task('jsmin', function (cb) {
               'ueditor1_4_3_2-utf8-jsp/ueditor.all.js',
               'ueditor1_4_3_2-utf8-jsp/ueditor.config.js',
               'ueditor1_4_3_2-utf8-jsp/ueditor.parse.js',
-              '!ueditor1_4_3_2-utf8-jsp/webuploader/**/*.js',
+              'ueditor1_4_3_2-utf8-jsp/webuploader/**/*.js',
             ]),
             uglify(),
             gulp.dest('dist/ueditor1_4_3_2-utf8-jsp')
@@ -102,14 +113,14 @@ gulp.task('jsmin', function (cb) {
     //     .pipe(gulp.dest('dist/js'));
 
 
-     // gulp.src([
-     //         'ueditor1_4_3_2-utf8-jsp/ueditor.all.js',
-     //         'ueditor1_4_3_2-utf8-jsp/ueditor.config.js',
-     //         'ueditor1_4_3_2-utf8-jsp/ueditor.parse.js',
-     //         'ueditor1_4_3_2-utf8-jsp/webuploader/**/*.js',
-     //     ])
-     //     .pipe(uglify(options))
-     //     .pipe(gulp.dest('dist/ueditor1_4_3_2-utf8-jsp'))
+    //  gulp.src([
+    //          'ueditor1_4_3_2-utf8-jsp/ueditor.all.js',
+    //          'ueditor1_4_3_2-utf8-jsp/ueditor.config.js',
+    //          'ueditor1_4_3_2-utf8-jsp/ueditor.parse.js',
+    //          'ueditor1_4_3_2-utf8-jsp/webuploader/**/*.js',
+    //      ])
+    //      .pipe(uglify(options))
+    //      .pipe(gulp.dest('dist/ueditor1_4_3_2-utf8-jsp'))
 });
 
 
