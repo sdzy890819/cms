@@ -105,10 +105,49 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils{
         return false;
     }
 
-
+    /**
+     *
+     * 转义字符。json转义双引号
+     * 转义字符。js转义单引号
+     * 转义字符。xml转义&符号
+     * @param str
+     * @param format 支持JSON，XML，js
+     * @return
+     */
+    public static String filter(String str, String format){
+        String result = "";
+        if(isNotBlank(str)) {
+            switch (format) {
+                case "json":
+                case "JSON": {
+                    str = str.replaceAll("\\\\\"", "\"");
+                    result = str.replaceAll("\"", "\\\\\"");
+                    break;
+                }
+                case "xml":
+                case "XML": {
+                    str = str.replaceAll("&amp;", "&");
+                    result = str.replaceAll("&", "&amp;");
+                    break;
+                }
+                case "js":
+                case "JS": {
+                    str = str.replaceAll("\\\\'", "'");
+                    result = str.replaceAll("'", "\\\\'");
+                    break;
+                }
+                default: {
+                    result = str;
+                    break;
+                }
+            }
+        }
+        return result;
+    }
 
 
     public static void main(String[] args){
         System.out.println(concatUrl("http://www.baidu.com","/mmindex.html"));
+        System.out.println(filter("", "XML"));
     }
 }

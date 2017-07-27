@@ -13,6 +13,7 @@ public enum CommonMessageSourceEnum {
     FRAGMENT("FRAGMENT", 3, TriggerTypeEnum.FRAGMENT),
     RECOMMEND("RECOMMEND", 4, TriggerTypeEnum.RECOMMEND),
     OTHER("OTHER", 5, TriggerTypeEnum.OTHER),
+    OTHER_ONLY_COLUMN("OTHER_ONLY_COLUMN", 6, TriggerTypeEnum.NEWSCOLUMN),
     COLUMN("COLUMN", 9, TriggerTypeEnum.DEFAULT);
 
     @Getter
