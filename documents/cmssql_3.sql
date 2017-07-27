@@ -77,5 +77,10 @@ INSERT INTO `template2_base` VALUES ('10000', '2017-01-11 22:18:14', '2017-02-21
 COMMIT;
 
 
+alter table news_detail modify content mediumtext;
+
+alter table fragment modify fragment_content varchar(10000);
+
+alter table fragment modify fragment_model varchar(10000);
 
 SET FOREIGN_KEY_CHECKS = 1;
