@@ -466,6 +466,12 @@ public class BuildBiz extends BaseBiz {
                     }
                 }else {
                     Channel channel = channelBiz.getChannel(templates.get(i).getChannelId());
+                    if(channel == null){
+                        publishInfoBiz.recordInfo(PublishStatusEnum.ERROR, base!=null?base.getId():null,
+                                sourceEnum.getTriggerTypeEnum(), TemplateTypeEnum.TEMPLATE, templates.get(i).getId(),
+                                "ID为"+ templates.get(i).getId() +" 的模版的所属频道ID为 " +templates.get(i).getChannelId()+" 的频道已不存在");
+                        continue;
+                    }
                     String publishRelativePath = "";
                     if(StringUtils.isNotBlank(StaticContants.indexMap.get(templates.get(i).getFilename()))){
                         publishRelativePath = FileUtil.addSuffix(templates.get(i).getPath());
