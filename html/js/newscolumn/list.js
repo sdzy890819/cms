@@ -171,7 +171,7 @@ define(['require',"app",'jquery' , 'search','./searchForm','./columnForm'
 							});
 						};
 						pop.alert({
-	 						 text:'您确认要重新发布当前栏目所关联的所有模版页吗?<br><label><input id="newColumnPublish" type=checkbox>是否重新发布新闻</label>'
+	 						 text:'您确认要发布当前栏目所关联的所有模版页吗？<br><label><input id="newColumnPublish" type=checkbox>是否发布所有新闻</label>'
 	 						,btn : ['确定','取消']
 	 						,fn : function(){
 	 							var check = $('#newColumnPublish')[0].checked;
