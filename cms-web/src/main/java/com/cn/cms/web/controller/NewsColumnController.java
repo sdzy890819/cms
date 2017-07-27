@@ -218,11 +218,25 @@ public class NewsColumnController extends BaseController {
     }
 
 
+    /**
+     * 栏目发布。onlycolumn OR all
+     * @param request
+     * @param id
+     * @param model onlycolumn OR all
+     * @return
+     */
     @CheckToken
     @CheckAuth( name = "newscolumn:publish" )
     @RequestMapping(value = "/publish",method = RequestMethod.GET)
-    public String publish(HttpServletRequest request, @RequestParam(value = "id") Long id){
-        publishBiz.publishColumn(id, getCurrentUserId(request), CommonMessageSourceEnum.OTHER);
+    public String publish(HttpServletRequest request,
+                          @RequestParam(value = "id") Long id,
+                          @RequestParam(value = "model", required = false, defaultValue = "all") String model){
+        if("all".equals(model)) {
+            publishBiz.publishColumn(id, getCurrentUserId(request), CommonMessageSourceEnum.OTHER);
+        }else{
+            publishBiz.publishColumn(id, getCurrentUserId(request), CommonMessageSourceEnum.OTHER_ONLY_COLUMN);
+        }
+
         return ApiResponse.returnSuccess();
     }
 

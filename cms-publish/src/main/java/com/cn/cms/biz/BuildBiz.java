@@ -58,6 +58,10 @@ public class BuildBiz extends BaseBiz {
 
     private CommonLog log = CommonLogFactory.getLog(this.getClass());
 
+    /**
+     * 新闻栏目批量发布
+     * @param commonMessage
+     */
     public void batchPublish(CommonMessage commonMessage){
         CommonMessageSourceEnum sourceEnum = CommonMessageSourceEnum.get(commonMessage.getSource());
         Body body = JSONObject.parseObject(((JSONObject) commonMessage.getMessage()).toJSONString(), Body.class);
@@ -94,6 +98,16 @@ public class BuildBiz extends BaseBiz {
                                 break;
                             }
                         }while (StringUtils.isNotEmpty(list));
+                        break;
+                    }
+                    case OTHER_ONLY_COLUMN:{
+                        List<Template> templates = templateBiz.findTemplateListByRelationNotDetail(body.getId(), RelationTypeEnum.column.getType());
+                        Base base = new Base();
+                        base.setId(body.getId());
+                        base.setLastModifyUserId(body.getUserId());
+                        this.publishTemplate(templates, base, sourceEnum);
+                        this.publishListTemplate2(body, sourceEnum);
+
                         break;
                     }
                     default:
@@ -248,6 +262,53 @@ public class BuildBiz extends BaseBiz {
 
 
 
+    public void publishListTemplate2(Body body, CommonMessageSourceEnum sourceEnum){
+        NewsColumn newsColumn = newsBiz.getNewsColumn(body.getId());
+        if(newsColumn != null && newsColumn.getListTemplate2Id()!=null && newsColumn.getListTemplate2Id() > 0){
+            Template2 template2 = template2Biz.getTemplate2(newsColumn.getListTemplate2Id());
+            if(template2 == null){
+                publishInfoBiz.recordInfo(PublishStatusEnum.ERROR, body.getId(),
+                        sourceEnum.getTriggerTypeEnum(), TemplateTypeEnum.TEMPLATE2, null, "ID为"+ newsColumn.getListTemplate2Id() +" 的列表页第二模版已不存在");
+                return ;
+            }
+            Channel channel = channelBiz.getChannel(newsColumn.getChannelId());
+            if(channel == null){
+                publishInfoBiz.recordInfo(PublishStatusEnum.ERROR, body.getId(),
+                        sourceEnum.getTriggerTypeEnum(), TemplateTypeEnum.TEMPLATE2, template2.getId(), "ID为"+ newsColumn.getListTemplate2Id() +" 的列表页第二模版的所属频道ID为 " +newsColumn.getChannelId()+" 的频道已不存在");
+                return ;
+            }
+            String listUrl = "";
+            String listRelativePath = "";
+            if(StringUtils.isNotBlank(newsColumn.getPath()) && StringUtils.isNotBlank(newsColumn.getFileName())){
+                if(StringUtils.isNotBlank(StaticContants.indexMap.get(newsColumn.getFileName()))){
+                    listRelativePath = FileUtil.addSuffix(FileUtil.delPrefix(newsColumn.getPath()));
+                }else{
+                    listRelativePath = FileUtil.delPrefix(StringUtils.concatUrl(newsColumn.getPath(), newsColumn.getFileName()));
+                }
+                listUrl = StringUtils.concatUrl(channel.getChannelUrl(), listRelativePath);
+            }else{
+                listRelativePath = FileUtil.delPrefix(StringUtils.concatUrl(template2.getPath(),
+                        newsColumn.getId().toString().concat(StaticContants.HTML_SUFFIX)));
+                listUrl = StringUtils.concatUrl(channel.getChannelUrl(), listRelativePath);
+            }
+            newsColumn.setListUrl(listUrl);
+            newsColumn.setListRelativePath(listRelativePath);
+            newsBiz.publishListTemplate2(newsColumn);
+
+            TemplatePublishJob templatePublishJob = new TemplatePublishJob();
+            templatePublishJob.setChannelId(newsColumn.getChannelId());
+            templatePublishJob.setNewsColumn(newsColumn);
+            templatePublishJob.setTemplateBasics(template2);
+            //--------
+            PublishInfo publishInfo = publishInfoBiz.recordInfo(PublishStatusEnum.EXECING, body.getId(),
+                    sourceEnum.getTriggerTypeEnum(), TemplateTypeEnum.TEMPLATE2, template2.getId(), null);
+            templatePublishJob.setPublishInfo(publishInfo);
+            //--------
+            threadTaskExecutor.execute(templatePublishJob);
+        }
+    }
+
+
     /**
      * 第二模版发布
      * @param news
@@ -255,7 +316,7 @@ public class BuildBiz extends BaseBiz {
     public void publishTemplate2(News news, boolean isContainDetail){
         if(news.getColumnId()!=null && news.getColumnId()>0) {
             NewsColumn newsColumn = newsBiz.getNewsColumn(news.getColumnId());
-            if(newsColumn.getListTemplate2Id()!=null && newsColumn.getListTemplate2Id() > 0){
+            if(newsColumn != null && newsColumn.getListTemplate2Id()!=null && newsColumn.getListTemplate2Id() > 0){
                 Template2 template2 = template2Biz.getTemplate2(newsColumn.getListTemplate2Id());
                 if(template2 == null){
                     publishInfoBiz.recordInfo(PublishStatusEnum.ERROR, news.getId(),
@@ -298,7 +359,7 @@ public class BuildBiz extends BaseBiz {
                 threadTaskExecutor.execute(templatePublishJob);
             }
 
-            if( isContainDetail && newsColumn.getDetailTemplate2Id() != null && newsColumn.getDetailTemplate2Id() > 0){
+            if( isContainDetail && newsColumn != null && newsColumn.getDetailTemplate2Id() != null && newsColumn.getDetailTemplate2Id() > 0){
                 Template2 template2 = template2Biz.getTemplate2(newsColumn.getDetailTemplate2Id());
                 if(template2 == null){
                     publishInfoBiz.recordInfo(PublishStatusEnum.ERROR, news.getId(),

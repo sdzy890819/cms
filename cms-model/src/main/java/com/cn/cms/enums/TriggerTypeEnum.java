@@ -13,6 +13,7 @@ public enum TriggerTypeEnum {
     FRAGMENT("碎片", 3),
     RECOMMEND("推荐新闻", 4),
     OTHER("模版自动生成", 5),
+    NEWSCOLUMN("新闻栏目", 6),
     DEFAULT("无意义", 9);
 
     @Getter
