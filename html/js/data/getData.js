@@ -663,9 +663,15 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					}
 				})
 			},newscolumn_publish : function( obj ){ //发布栏目下的新闻 接口
+				var _obj = {
+					id : obj.id
+				}
+				if(obj.model){
+					_obj.model = obj.model
+				}
 				T.ajax({
 					url : URL.news.newscolumn_publish , 
-					data : {id:obj.id},
+					data : _obj,
 					success : function( _data ){
 						obj.callback(_data);
 					}

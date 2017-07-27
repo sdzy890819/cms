@@ -162,8 +162,8 @@ define(['require',"app",'jquery' , 'search','./searchForm','./columnForm'
 	        				});
 						})
 					},
-					publish : function(obj){
-						obj.callback = function(_data){//删除成功
+					publish : function(obj){//发布
+						obj.callback = function(_data){
 							layui.use(['layer'], function(){
 								var layer = layui.layer;
 								layer.msg(_data.message);
@@ -171,15 +171,20 @@ define(['require',"app",'jquery' , 'search','./searchForm','./columnForm'
 							});
 						};
 						pop.alert({
-	 						 text:'您确认要发布当前栏目下的所有新闻页吗?'
+	 						 text:'您确认要重新发布当前栏目所关联的所有模版页吗?<br><label><input id="newColumnPublish" type=checkbox>是否重新发布新闻</label>'
 	 						,btn : ['确定','取消']
 	 						,fn : function(){
+	 							var check = $('#newColumnPublish')[0].checked;
+
 	 							if(obj.columnPublishInfo && obj.columnPublishInfo.state!=0){
 	 								pop.alert({
 				 						 text:obj.columnPublishInfo.message
 				 						,btn : ['确定']
 				 					})
 	 							}else{
+	 								if(check){
+	 									obj.model = 'onlycolumn';
+	 								}
 	 								getData.news.newscolumn_publish(obj);	 								 							
 	 							}
 							}
@@ -216,7 +221,8 @@ define(['require',"app",'jquery' , 'search','./searchForm','./columnForm'
 						{name: '修改人', key: 'lastModifyUserName' , width:60},
 						{name: '修改时间', key: 'updateTimeStr' , width:80},
 						
-						{name:'操作' , width : 150 , class:'center'}
+						{name:'操作' , width : 150 , class:'center'},
+						{name:'权限' , width : 60 , class: 'center'}
 					];
 					$scope.listdata = { //确认按钮
 						title : $scope.title,
@@ -227,9 +233,12 @@ define(['require',"app",'jquery' , 'search','./searchForm','./columnForm'
 							edit : [
 								{cls : 'edit' , name : '编辑',evt:$scope.edit},
 								{cls : 'edit' , name : '对应模版',evt:$scope.template},
-								{cls : 'edit' , name : '发布',evt:$scope.publish},
 							/*	{cls : 'edit' , name : '添加权限到组',evt:$scope.edit},*/
 								{cls : 'del' , name : '删除',evt:$scope.del}
+							],
+							edit1 : [												
+								//{cls : 'add' , name : '发布栏目相关模版',evt:$scope.release},
+								{cls : 'edit' , name : '发布',evt:$scope.publish}
 							]
 						},
 						/*submit : [
@@ -262,6 +271,7 @@ define(['require',"app",'jquery' , 'search','./searchForm','./columnForm'
 						}*/
 					})							
     				GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit,'edit');
+    				GenerateArrList.extendChild($scope.listdata.table.td,$scope.listdata.table.edit1,'edit1');
     				$scope.$apply();
 				}
 				//搜索
