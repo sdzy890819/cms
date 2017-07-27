@@ -1,1 +1,1 @@
-define(["../data/getData"],function(a){});
+define(["../data/getData"],function(getData){});

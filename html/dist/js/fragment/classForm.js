@@ -1,1 +1,1 @@
-define(["../data/getData","../moduls/Tool"],function(e,t){return[{title:"classifyName",name:"分类名称",type:"text",placeholder:"请输入分类名",verify:"title"}]});
+define(["../data/getData","../moduls/Tool"],function(getData,Tool){return[{title:"classifyName",name:"分类名称",type:"text",placeholder:"请输入分类名",verify:"title"}]});
