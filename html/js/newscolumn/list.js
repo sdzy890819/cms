@@ -183,6 +183,8 @@ define(['require',"app",'jquery' , 'search','./searchForm','./columnForm'
 				 					})
 	 							}else{
 	 								if(check){
+	 									obj.model = 'all';
+	 								}else{
 	 									obj.model = 'onlycolumn';
 	 								}
 	 								getData.news.newscolumn_publish(obj);	 								 							
