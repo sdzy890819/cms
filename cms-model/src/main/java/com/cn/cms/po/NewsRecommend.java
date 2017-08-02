@@ -55,12 +55,12 @@ public class NewsRecommend extends News {
 
 
     @Override
-    public Integer getSort(){
+    public Long getSort(){
         return super.sort;
     }
 
     @Override
-    public void setSort(Integer sort){
+    public void setSort(Long sort){
         super.sort = sort;
     }
 }

@@ -598,7 +598,12 @@ public class BuildBiz extends BaseBiz {
         if(news.getEditPublishTime() == null){
             news.setEditPublishTime(date);
         }
-        news.setRelativePath(StringUtils.concatUrl(FileUtil.getDatePath(news.getCreateTime()), String.valueOf(news.getId()).concat(StaticContants.HTML_SUFFIX)));
+        NewsColumn newsColumn = newsBiz.getNewsColumn(news.getColumnId());
+        if(newsColumn!=null && StringUtils.isNotBlank(newsColumn.getPath())){
+            news.setRelativePath(StringUtils.concatUrl(FileUtil.delPrefix(newsColumn.getPath()), FileUtil.getDatePath(news.getCreateTime()), String.valueOf(news.getId()).concat(StaticContants.HTML_SUFFIX)));
+        } else {
+            news.setRelativePath(StringUtils.concatUrl(FileUtil.getDatePath(news.getCreateTime()), String.valueOf(news.getId()).concat(StaticContants.HTML_SUFFIX)));
+        }
         news.setUrl(StringUtils.concatUrl(channel.getChannelUrl(), news.getRelativePath()));
         newsBiz.publishNews(news);
     }

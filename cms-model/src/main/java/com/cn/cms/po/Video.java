@@ -59,4 +59,20 @@ public class Video extends Base {
      */
     private Integer platform = PlatformEnum.CMS.getType();
 
+
+    /**
+     * 关键词
+     */
+    private String keyword;
+
+    /**
+     * 图片分类
+     */
+    private Long videoClassifyId;
+
+    /**
+     * 赋值
+     */
+    private String videoClassifyName;
+
 }

@@ -248,6 +248,11 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
+    public List<NewsRecommend> findNewsRecommendNear(int start, int size) {
+        return newsDao.findNewsRecommendNear(start, size);
+    }
+
+    @Override
     public NewsRecommend findNewsRecommendManage(Long id) {
         return newsDao.findNewsRecommendManage(id);
     }

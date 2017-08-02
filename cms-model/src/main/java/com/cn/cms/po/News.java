@@ -204,7 +204,7 @@ public class News extends Base implements Cloneable{
     /**
      * 推荐排序
      */
-    protected Integer sort = 1000;
+    protected Long sort = 1000L;
 
     /**
      * 推荐标题

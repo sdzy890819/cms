@@ -71,6 +71,8 @@ public interface NewsService {
 
     NewsRecommend findNewsRecommend(Long id);
 
+    List<NewsRecommend> findNewsRecommendNear(int start, int size);
+
     NewsRecommend findNewsRecommendManage(Long id);
 
     List<NewsRecommend> findListByRecommedColumnId(Long recommendColumnId, Page page);

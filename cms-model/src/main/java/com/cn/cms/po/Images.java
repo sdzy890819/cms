@@ -84,6 +84,18 @@ public class Images extends Base{
      */
     private Integer platform = PlatformEnum.CMS.getType();
 
+    /**
+     * 关键词
+     */
+    private String keyword;
+
+    /**
+     * 图片分类
+     */
+    private Long imagesClassifyId;
+
+    private String imagesClassifyName;
+
 
 
 }

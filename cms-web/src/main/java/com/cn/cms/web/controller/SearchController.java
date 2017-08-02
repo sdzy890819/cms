@@ -58,6 +58,9 @@ public class SearchController extends BaseController {
     @Resource
     private NewsBiz newsBiz;
 
+    @Resource
+    private ResourceBiz resourceBiz;
+
     /**
      * 全文检索新闻
      * @param condition
@@ -211,15 +214,18 @@ public class SearchController extends BaseController {
     @CheckAuth(name = "images:search")
     @RequestMapping(value = "/searchImages", method = RequestMethod.POST)
     public String searchImages(@RequestParam(value = "condition", required = false) String condition,
+                               @RequestParam(value = "imagesClassifyId", required = false) Long imagesClassifyId,
                               @RequestParam(value = "page", required = false) Integer page,
                               @RequestParam(value = "pageSize", required = false) Integer pageSize){
 
         ImagesSearch imagesSearch = new ImagesSearch();
         imagesSearch.setCondition(condition);
+        imagesSearch.setImagesClassifyId(imagesClassifyId);
         Page pageObj = new Page(page, pageSize);
         QueryResult<Images> queryResult = eSearchClient.searchImages(imagesSearch,pageObj);
         if(StringUtils.isNotEmpty(queryResult.getList())){
             userBiz.dataInitBase(queryResult.getList());
+            resourceBiz.dataInitImages(queryResult.getList());
         }
         return ApiResponse.returnSuccess(queryResult);
     }
@@ -235,15 +241,19 @@ public class SearchController extends BaseController {
     @CheckAuth(name = "video:search")
     @RequestMapping(value = "/searchVideo", method = RequestMethod.POST)
     public String searchVideo(@RequestParam(value = "condition", required = false) String condition,
+                              @RequestParam(value = "videoClassifyId", required = false) Long videoClassifyId,
                                @RequestParam(value = "page", required = false) Integer page,
                                @RequestParam(value = "pageSize", required = false) Integer pageSize){
 
         VideoSearch videoSearch = new VideoSearch();
         videoSearch.setCondition(condition);
+        videoSearch.setVideoClassifyId(videoClassifyId);
         Page pageObj = new Page(page, pageSize);
         QueryResult<Video> queryResult = eSearchClient.searchVideo(videoSearch,pageObj);
         if(StringUtils.isNotEmpty(queryResult.getList())){
             userBiz.dataInitBase(queryResult.getList());
+            resourceBiz.dataInitVideo(queryResult.getList());
+
         }
         return ApiResponse.returnSuccess(queryResult);
     }

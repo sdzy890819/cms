@@ -31,6 +31,10 @@ public class Page {
     @Setter
     private Integer page = StaticContants.PAGE;
 
+    @Getter
+    @Setter
+    private Integer offset = 0;
+
     public Page(Integer page, Integer pageSize, Integer count){
         if(page!=null && page > 0) {
             this.page = page;
@@ -54,12 +58,13 @@ public class Page {
         }
     }
 
+
     public Integer getStart() {
-        return (page-1) * pageSize;
+        return (page-1) * pageSize + offset;
     }
 
     public Integer getEnd() {
-        return page*pageSize-1;
+        return page*pageSize-1 + offset;
     }
 
     public Integer getPageCount() {

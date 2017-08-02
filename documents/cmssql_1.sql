@@ -624,3 +624,32 @@ CREATE TABLE `news_push_column` (
   `push_column` tinyint(2) DEFAULT NULL COMMENT '是否是推送栏目。1是 0不是',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8 COMMENT='新闻推送栏目表-包含自有栏目和推送栏目两类'
+
+-- 2017-08-01
+CREATE TABLE `images_classify` (
+	`id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID。',
+	`create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+	`update_time` datetime ON UPDATE CURRENT_TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
+	`del_tag` tinyint(3) DEFAULT 1 COMMENT '删除位。0删除、1正常',
+	`last_modify_user_id` varchar(20) DEFAULT NULL COMMENT '最后一次修改人',
+	`create_user_id` varchar(20) DEFAULT NULL COMMENT '创建人',
+	`classify_name` varchar(100),
+	PRIMARY KEY (`id`)
+) COMMENT='图片分类';
+
+
+CREATE TABLE `video_classify` (
+	`id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID。',
+	`create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+	`update_time` datetime ON UPDATE CURRENT_TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
+	`del_tag` tinyint(3) DEFAULT 1 COMMENT '删除位。0删除、1正常',
+	`last_modify_user_id` varchar(20) DEFAULT NULL COMMENT '最后一次修改人',
+	`create_user_id` varchar(20) DEFAULT NULL COMMENT '创建人',
+	`classify_name` varchar(100),
+	PRIMARY KEY (`id`)
+) COMMENT='视频分类';
+
+
+ALTER TABLE `video` ADD COLUMN `video_classify_id` bigint COMMENT '视频分类' AFTER `m3u8_url`, ADD COLUMN `keyword` varchar(200) COMMENT '关键词' AFTER `video_classify_id`;
+
+ALTER TABLE `images` ADD COLUMN `images_classify_id` bigint(20) DEFAULT NULL COMMENT '图片分类' AFTER `create_user_id`, ADD COLUMN `keyword` varchar(200) DEFAULT NULL COMMENT '关键词' AFTER `images_classify_id`;

@@ -23,11 +23,7 @@ import com.cn.cms.web.ann.CheckAuth;
 import com.cn.cms.web.ann.CheckToken;
 import com.cn.cms.web.ann.NotSaveBody;
 import com.cn.cms.web.result.ApiResponse;
-import org.apache.commons.fileupload.FileItemIterator;
-import org.apache.commons.fileupload.FileItemStream;
 import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,7 +33,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.awt.*;
 import java.io.*;
 import java.util.Date;
 import java.util.HashMap;
@@ -319,6 +314,7 @@ public class UploadController extends BaseController {
                     images.setOrgHeightPixel(Integer.parseInt(map.get("imageHeightPixel").toString()));
                     images.setOrgWidthPixel(Integer.parseInt(map.get("imageHeightPixel").toString()));
                     images.setWatermark(WatermarkEnum.notwatermark.getType());
+                    images.setImagesClassifyId(10000L);
                     images.setUploadTime(new Date());
 
                     if(StaticContants.IMAGESON != 1 ) {
@@ -457,6 +453,7 @@ public class UploadController extends BaseController {
                     video.setVideoTitle(fileName.substring(0, fileName.length() - (suffix.length() + 1) ));
                     video.setVideoUrl(((VideoFinishResponse)videoResponse).getLocation());
                     video.setFileName(fileName);
+                    video.setVideoClassifyId(StaticContants.VIDEO_DEFAULT_CLASSIFY_ID);
                     resourceBiz.saveVideo(video);
 
                     map.put("url", ((VideoFinishResponse)videoResponse).getLocation());

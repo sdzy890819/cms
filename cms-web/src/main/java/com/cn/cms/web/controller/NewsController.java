@@ -233,6 +233,9 @@ public class NewsController extends BaseController {
                              @RequestParam(value = "stockCode", required = false) String stockCode,
                              @RequestParam(value = "stockName", required = false) String stockName,
                              @RequestParam(value = "columnIds", required = false) String columnIds){
+        if(StringUtils.isNotBlank(keyword)){
+            keyword = keyword.replaceAll("[\\s，,]+", ",");
+        }
         String userID = getCurrentUserId(request);
         News news = new News();
         news.setTitle(title);
@@ -341,6 +344,9 @@ public class NewsController extends BaseController {
                              @RequestParam(value = "stockCode", required = false) String stockCode,
                              @RequestParam(value = "stockName", required = false) String stockName,
                              @RequestParam(value = "columnIds", required = false) String columnIds){
+        if(StringUtils.isNotBlank(keyword)){
+            keyword = keyword.replaceAll("[\\s，,]+", ",");
+        }
         String userID = getCurrentUserId(request);
         News old = newsBiz.findNews(id);
         News news = new News();
@@ -491,7 +497,7 @@ public class NewsController extends BaseController {
                             @RequestParam(value = "recommendDescription") String recommendDescription,
                             @RequestParam(value = "recommendImages") String recommendImages,
                             @RequestParam(value = "recommendColumnId") Long recommendColumnId,
-                            @RequestParam(value = "sort") Integer sort){
+                            @RequestParam(value = "position" ,required = false) Integer position){
         NewsRecommend newsRecommend = new NewsRecommend();
         newsRecommend.setId(id);
         newsRecommend.setRecommendTitle(recommendTitle);
@@ -500,7 +506,40 @@ public class NewsController extends BaseController {
         newsRecommend.setRecommendColumnId(recommendColumnId);
         newsRecommend.setRecommendImages(recommendImages);
         newsRecommend.setRecommendUserId(getCurrentUserId(request));
-        newsRecommend.setSort(sort);
+        Date date = new Date();
+        newsRecommend.setRecommendTime(date);
+        if(position!=null && position>0) {
+            int start = position -1 ;
+            int size = 0;
+            if(position > 1){
+                size = 2;
+                List<NewsRecommend> list = newsBiz.findNewsRecommendNear(start, size);
+                if(list!=null && list.size() == 2){
+                    NewsRecommend newsRecommend1 = list.get(0);
+                    NewsRecommend newsRecommend2 = list.get(1);
+                    newsRecommend.setSort((newsRecommend1.getSort()-newsRecommend2.getSort())/2 + newsRecommend2.getSort());
+                }else if(list !=null && list.size() == 1){
+                    NewsRecommend newsRecommend1 = list.get(0);
+                    newsRecommend.setSort(newsRecommend1.getSort()/2);
+                }else {
+                    int count = newsBiz.queryNewsRecommendCount(null);
+                    start = count - 1;
+                    size = 1;
+                    List<NewsRecommend> tmpList = newsBiz.findNewsRecommendNear(start, size);
+                    if(tmpList!=null && tmpList.size()>0){
+                        NewsRecommend newsRecommend1 = list.get(0);
+                        newsRecommend.setSort(newsRecommend1.getSort()/2);
+                    }else {
+                        newsRecommend.setSort(0L);
+                    }
+                }
+            } else {
+                newsRecommend.setSort(date.getTime());
+            }
+
+        } else {
+            newsRecommend.setSort(date.getTime());
+        }
         NewsRecommend oldNewsRecommend = newsBiz.findNewsRecommend(id);
         if(oldNewsRecommend.getRecommend() == RecommendEnum.NO.getType()) {
             newsRecommend.setRecommendTime(new Date());

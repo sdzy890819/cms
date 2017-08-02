@@ -303,10 +303,17 @@ public class ESearchClient {
     public QueryResult<Images> searchImages(ImagesSearch imagesSearch, Page page){
         BoolQueryBuilder qb = QueryBuilders.boolQuery();
         if(StringUtils.isNotBlank(imagesSearch.getCondition())) {
-            if(imagesSearch.getCondition().length() == imagesSearch.getCondition().getBytes().length){
-                qb = qb.must(QueryBuilders.multiMatchQuery(imagesSearch.getCondition(), new String[]{"imageTitle", "imageTitle.pinyin"}));
-            }else {
-                qb = qb.must(QueryBuilders.matchQuery("imageTitle", imagesSearch.getCondition()));
+//            if(imagesSearch.getCondition().length() == imagesSearch.getCondition().getBytes().length){
+//                qb = qb.must(QueryBuilders.multiMatchQuery(imagesSearch.getCondition(), new String[]{"imageTitle", "imageTitle.pinyin", "keyword"}));
+//            }else {
+//                qb = qb.must(QueryBuilders.matchQuery("imageTitle", imagesSearch.getCondition()));
+//            }
+
+            qb = qb.should(QueryBuilders.matchQuery("imageTitle", imagesSearch.getCondition()));
+            qb = qb.should(QueryBuilders.matchQuery("imageTitle.pinyin", imagesSearch.getCondition()));
+            qb = qb.should(QueryBuilders.matchQuery("keyword", imagesSearch.getCondition()));
+            if(imagesSearch.getImagesClassifyId()!=null && imagesSearch.getImagesClassifyId()>0){
+                qb = qb.must(QueryBuilders.matchQuery("imagesClassifyId", imagesSearch.getCondition()));
             }
         }
         SearchRequestBuilder builder = this.client.prepareSearch(ESSearchTypeEnum.images.getIndex())
@@ -342,6 +349,8 @@ public class ESearchClient {
             images.setLastModifyUserId((String)hit.getSource().get("lastModifyUserId"));
             images.setCreateTime(convertLongAndDate(hit.getSource().get("createTime")));
             images.setUpdateTime(convertLongAndDate(hit.getSource().get("updateTime")));
+            images.setKeyword((String)hit.getSource().get("keyword"));
+            images.setImagesClassifyId(convertLong(hit.getSource().get("imagesClassifyId")));
 
             imagesList.add(images);
         }
@@ -359,10 +368,17 @@ public class ESearchClient {
     public QueryResult<Video> searchVideo(VideoSearch videoSearch, Page page){
         BoolQueryBuilder qb = QueryBuilders.boolQuery();
         if(StringUtils.isNotBlank(videoSearch.getCondition())) {
-            if(videoSearch.getCondition().length() == videoSearch.getCondition().getBytes().length){
-                qb = qb.must(QueryBuilders.multiMatchQuery(videoSearch.getCondition(), new String[]{"videoTitle", "videoTitle.pinyin", "videoDesc"}));
-            }else {
-                qb = qb.must(QueryBuilders.multiMatchQuery(videoSearch.getCondition(), new String[]{"videoTitle", "videoDesc"}));
+//            if(videoSearch.getCondition().length() == videoSearch.getCondition().getBytes().length){
+//                qb = qb.must(QueryBuilders.multiMatchQuery(videoSearch.getCondition(), new String[]{"videoTitle", "videoTitle.pinyin", "videoDesc"}));
+//            }else {
+//                qb = qb.must(QueryBuilders.multiMatchQuery(videoSearch.getCondition(), new String[]{"videoTitle", "videoDesc"}));
+//            }
+            qb = qb.should(QueryBuilders.matchQuery("videoTitle", videoSearch.getCondition()));
+            qb = qb.should(QueryBuilders.matchQuery("videoDesc", videoSearch.getCondition()));
+            qb = qb.should(QueryBuilders.matchQuery("videoTitle.pinyin", videoSearch.getCondition()));
+            qb = qb.should(QueryBuilders.matchQuery("keyword", videoSearch.getCondition()));
+            if(videoSearch.getVideoClassifyId()!=null && videoSearch.getVideoClassifyId()>0){
+                qb = qb.must(QueryBuilders.matchQuery("videoClassifyId", videoSearch.getCondition()));
             }
         }
 
@@ -396,6 +412,8 @@ public class ESearchClient {
             video.setLastModifyUserId((String)hit.getSource().get("lastModifyUserId"));
             video.setCreateTime(convertLongAndDate(hit.getSource().get("createTime")));
             video.setUpdateTime(convertLongAndDate(hit.getSource().get("updateTime")));
+            video.setKeyword((String)hit.getSource().get("keyword"));
+            video.setVideoClassifyId(convertLong(hit.getSource().get("videoClassifyId")));
 
             videos.add(video);
         }
@@ -594,6 +612,9 @@ public class ESearchClient {
             builder = builder.field("delTag", images.getDelTag());
             builder = builder.field("lastModifyUserId", images.getLastModifyUserId());
             builder = builder.field("createUserId", images.getCreateUserId());
+            builder = builder.field("keyword", images.getKeyword());
+            builder = builder.field("keywordArray", JSONArray.toJSONString(images.getKeyword().split(StaticContants.REGEX_SPLIT)));
+            builder = builder.field("imagesClassifyId", images.getImagesClassifyId());
             builder = builder.endObject();
             IndexResponse response = client.prepareIndex(ESSearchTypeEnum.images.getIndex(),
                     ESSearchTypeEnum.images.getName(), String.valueOf(images.getId()))
@@ -629,6 +650,9 @@ public class ESearchClient {
             builder = builder.field("delTag", video.getDelTag());
             builder = builder.field("lastModifyUserId", video.getLastModifyUserId());
             builder = builder.field("createUserId", video.getCreateUserId());
+            builder = builder.field("keyword", video.getKeyword());
+            builder = builder.field("keywordArray", JSONArray.toJSONString(video.getKeyword().split(StaticContants.REGEX_SPLIT)));
+            builder = builder.field("videoClassifyId", video.getVideoClassifyId());
             builder = builder.endObject();
             IndexResponse response = client.prepareIndex(ESSearchTypeEnum.video.getIndex(),
                     ESSearchTypeEnum.video.getName(), String.valueOf(video.getId()))

@@ -90,10 +90,9 @@ public class Test {
 //        File file =new File("/Users/zhangyang/Documents/projects/cms/documents/build1.sh");
 //        System.out.println(file.exists());
 
-        String a = "ffffffaaaaaa";
-        System.out.println(JSONArray.toJSONString(HtmlUtils.splitNewsContent(a)));
 
-        System.out.println(FileUtil.getFileNamePrefix("test.html"));
+        System.out.println("最新 世界 ,价值".replaceAll("[\\s，,]+", ","));
+
     }
 
 

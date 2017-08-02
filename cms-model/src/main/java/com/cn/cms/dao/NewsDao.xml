@@ -278,6 +278,10 @@
       select <include refid="recommend_sql_column" /> from news <include refid="delTag"/> and id = ${id} ;
     </select>
 
+    <select id="findNewsRecommendNear" resultMap="newsRecommend">
+        select <include refid="recommend_sql_column" /> from news <include refid="delTag"/> and recommend = 1 order by sort,recommend_time desc limit ${start}, ${size};
+    </select>
+
     <select id="findNewsRecommendManage" resultMap="newsRecommend">
         select <include refid="recommend_sql_column" /> from news where id = ${id} ;
     </select>
