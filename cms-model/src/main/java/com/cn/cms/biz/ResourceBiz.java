@@ -18,9 +18,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by ADMIN on 16/11/30.
@@ -100,6 +98,25 @@ public class ResourceBiz {
         return null;
     }
 
+    public List<ImagesClassify> listImagesClassify(Page page){
+        Integer count = resourceService.queryImagesClassifyCount();
+        page.setCount(count);
+        if(page.isQuery()){
+            List<ImagesClassify> imagesClassifyList = resourceService.queryImagesClassifyList(page);
+            return imagesClassifyList;
+        }
+        return null;
+    }
+
+    public List<ImagesClassify> findAllImagesClassify(){
+        return resourceService.findAllImagesClassify();
+    }
+
+    public ImagesClassify getImagesClassify(Long id){
+        return resourceService.getImagesClassify(id);
+    }
+
+
     /**
      * 查询视频基础信息
      * @return
@@ -149,6 +166,136 @@ public class ResourceBiz {
             sendIndex(video, ESSearchTypeEnum.video);
         }
     }
+
+    /**
+     * 修改视频分类
+     * @param classify
+     * @throws BizException
+     */
+    public void saveVideoClassify(VideoClassify classify) throws BizException{
+        if(classify.getId() !=null && classify.getId() > 0){
+            resourceService.saveVideoClassify(classify);
+        } else {
+            resourceService.updateVideoClassify(classify);
+        }
+    }
+
+    /**
+     * 修改图片分类
+     * @param classify
+     * @throws BizException
+     */
+    public void saveImagesClassify(ImagesClassify classify) throws BizException{
+        if(classify.getId() !=null && classify.getId() > 0){
+            resourceService.saveImagesClassify(classify);
+        } else {
+            resourceService.updateImagesClassify(classify);
+        }
+    }
+
+
+    public void delImagesClassify(String lastModifyUserId, Long id){
+        resourceService.delImagesClassify(lastModifyUserId, id);
+    }
+
+    /**
+     * 视频分类列表
+     * @param page
+     * @return
+     * @throws BizException
+     */
+    public List<VideoClassify> queryVideoClassifyList(Page page) throws BizException{
+        Integer count = resourceService.queryVideoClassifyCount();
+        page.setCount(count);
+        if(page.isQuery()){
+            return resourceService.queryVideoClassifyList(page);
+        }
+        return null;
+    }
+
+    public List<VideoClassify> findAllVideoClassify(){
+        return resourceService.findAllVideoClassify();
+    }
+
+
+    public VideoClassify getVideoClassify(Long id){
+        return resourceService.getVideoClassify(id);
+    }
+
+    public void delVideoClassify(String lastModifyUserId, Long id){
+        resourceService.delVideoClassify(lastModifyUserId, id);
+    }
+
+
+    public Map<Long, VideoClassify> getVideoClassifyMap(List<Long> ids){
+        List<VideoClassify> list = resourceService.getVideoClassifyList(ids);
+        Map<Long, VideoClassify> map = new HashMap<>();
+        if(list!=null && list.size()>0){
+            for(int i = 0;i<list.size(); i++){
+                VideoClassify videoClassify = list.get(i);
+                map.put(videoClassify.getId(), videoClassify);
+            }
+        }
+        return map;
+    }
+
+
+    public Map<Long, ImagesClassify> getImagesClassifyMap(List<Long> ids){
+        List<ImagesClassify> list = resourceService.getImagesClassifyList(ids);
+        Map<Long, ImagesClassify> map = new HashMap<>();
+        if(list!=null && list.size()>0){
+            for(int i = 0;i<list.size(); i++){
+                ImagesClassify imagesClassify = list.get(i);
+                map.put(imagesClassify.getId(), imagesClassify);
+            }
+        }
+        return map;
+    }
+
+
+    /**
+     * 视频分类加载
+     * @param list
+     */
+    public void dataInitVideo(List<Video> list){
+        if(StringUtils.isNotEmpty(list)) {
+            List<Long> videoClassifyIds = new ArrayList<>();
+            for (int i = 0; i < list.size(); i++) {
+                Video video = list.get(i);
+                if(video.getVideoClassifyId()!=null){
+                    videoClassifyIds.add(video.getVideoClassifyId());
+                }
+            }
+            if (videoClassifyIds.size() > 0) {
+                Map<Long, VideoClassify> map = getVideoClassifyMap(videoClassifyIds);
+                for (int i = 0; i < list.size(); i++) {
+                    Video video = list.get(i);
+                    video.setVideoClassifyName(map.get(video.getVideoClassifyId())!=null?map.get(video.getVideoClassifyId()).getClassifyName():"");
+                }
+            }
+        }
+    }
+
+
+    public void dataInitImages(List<Images> list){
+        if(StringUtils.isNotEmpty(list)) {
+            List<Long> imagesClassifyIds = new ArrayList<>();
+            for (int i = 0; i < list.size(); i++) {
+                Images images = list.get(i);
+                if(images.getImagesClassifyId()!=null){
+                    imagesClassifyIds.add(images.getImagesClassifyId());
+                }
+            }
+            if (imagesClassifyIds.size() > 0) {
+                Map<Long, ImagesClassify> map = getImagesClassifyMap(imagesClassifyIds);
+                for (int i = 0; i < list.size(); i++) {
+                    Images images = list.get(i);
+                    images.setImagesClassifyName(map.get(images.getImagesClassifyId())!=null?map.get(images.getImagesClassifyId()).getClassifyName():"");
+                }
+            }
+        }
+    }
+
 
     /**
      * 删除视频

@@ -48,6 +48,8 @@ public interface NewsDao {
 
     NewsRecommend findNewsRecommend(@Param(value = "id") Long id);
 
+    List<NewsRecommend> findNewsRecommendNear(@Param(value = "start") int start, @Param(value = "size") int size);
+
     NewsRecommend findNewsRecommendManage(@Param(value = "id") Long id);
 
     List<NewsRecommend> findListByRecommedColumnId(@Param(value = "recommendColumnId") Long recommendColumnId, @Param(value = "page") Page page);

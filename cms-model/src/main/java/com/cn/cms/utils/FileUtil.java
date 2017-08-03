@@ -9,6 +9,7 @@ import com.cn.cms.logfactory.CommonLogFactory;
 import sun.misc.BASE64Decoder;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -117,14 +118,27 @@ public class FileUtil {
 
             //-----水印
             if(watermark == WatermarkEnum.watermark.getType()) {
-                int x = width - 10 * 5;
-                int y = height - 10 * 2;
-                int x1 = width - 10 * 7;
-                int y1 = height - 10 ;
-                graphics.setColor(Color.BLACK);
-                graphics.setFont(new Font("Serif", Font.PLAIN ,10));
-                graphics.drawString(StaticContants.WATERMARK_TEXT_EN, x, y);
-                graphics.drawString(StaticContants.WATERMARK_TEXT_URL, x1, y1);
+                //---文字水印
+//                int x = width - 10 * 5;
+//                int y = height - 10 * 2;
+//                int x1 = width - 10 * 7;
+//                int y1 = height - 10 ;
+//                graphics.setColor(Color.BLACK);
+//                graphics.setFont(new Font("Serif", Font.PLAIN ,10));
+//                graphics.drawString(StaticContants.WATERMARK_TEXT_EN, x, y);
+//                graphics.drawString(StaticContants.WATERMARK_TEXT_URL, x1, y1);
+
+
+                //-----图片水印
+                Image img = ImageIO.read(FileUtil.class.getClassLoader().getResourceAsStream(StaticContants.LOGO_NAME));
+                float alpha = 0.5f; // 透明度
+                graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, alpha));
+                int y2 = height - img.getHeight(null);
+                int x2 = width - img.getWidth(null);
+                graphics.drawImage(img, x2, y2, null);
+                graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER));
+                graphics.dispose();
+
             }
             //-----水印结束
 
@@ -151,14 +165,24 @@ public class FileUtil {
             graphics.drawImage(image.getScaledInstance(width, height, Image.SCALE_SMOOTH), 0, 0, null);
             //-----水印
             if(watermark == WatermarkEnum.watermark.getType()) {
-                int y = height - 10 * 2;
-                int x = width - 10 * 5;
-                int x1 = width - 10 * 7;
-                int y1 = height - 10 ;
-                graphics.setColor(Color.BLACK);
-                graphics.setFont(new Font("Serif", Font.PLAIN ,10));
-                graphics.drawString(StaticContants.WATERMARK_TEXT_EN, x, y);
-                graphics.drawString(StaticContants.WATERMARK_TEXT_URL, x1, y1);
+//                int y = height - 10 * 2;
+//                int x = width - 10 * 5;
+//                int x1 = width - 10 * 7;
+//                int y1 = height - 10 ;
+//                graphics.setColor(Color.BLACK);
+//                graphics.setFont(new Font("Serif", Font.PLAIN ,10));
+//                graphics.drawString(StaticContants.WATERMARK_TEXT_EN, x, y);
+//                graphics.drawString(StaticContants.WATERMARK_TEXT_URL, x1, y1);
+
+                //-----图片水印
+                Image img = ImageIO.read(FileUtil.class.getClassLoader().getResourceAsStream(StaticContants.LOGO_NAME));
+                float alpha = 0.5f; // 透明度
+                graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, alpha));
+                int x2 = width - img.getWidth(null);
+                int y2 = height - img.getHeight(null);
+                graphics.drawImage(img, x2, y2, null);
+                graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER));
+                graphics.dispose();
             }
             //-----水印结束
             ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -439,15 +463,20 @@ public class FileUtil {
 
 
     public static void main(String[] args) throws IOException, BizException {
-        File file = new File("/Users/zhangyang/Documents/gif.gif");
-        File newFile = new File("/Users/zhangyang/Documents/gif_zipaa.gif");
-        FileInputStream fileInputStream = new FileInputStream(file);
-        byte[] bytes = new byte[fileInputStream.available()];
-        fileInputStream.read(bytes);
+//        File file = new File("/Users/zhangyang/Documents/gif.gif");
+//        File newFile = new File("/Users/zhangyang/Documents/gif_zipaa.gif");
+//        FileInputStream fileInputStream = new FileInputStream(file);
+//        byte[] bytes = new byte[fileInputStream.available()];
+//        fileInputStream.read(bytes);
+//
+//        Map<String, Object> map = compress(bytes, 200, 0, "/Users/zhangyang/Documents/gif_zip.gif", 1);
+//        System.out.println(JSONObject.toJSONString(map));
 
-        Map<String, Object> map = compress(bytes, 200, 0, "/Users/zhangyang/Documents/gif_zip.gif", 1);
-        System.out.println(JSONObject.toJSONString(map));
-
+        //Image img = ImageIO.read(FileUtil.class.getClassLoader().getResourceAsStream(StaticContants.LOGO_NAME));
+        //System.out.println(img.getHeight(null));
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(FileUtil.class.getClass().getResourceAsStream("/ab.ini")));
+        System.out.println(bufferedReader.readLine());
+        bufferedReader.close();
     }
 
     /**

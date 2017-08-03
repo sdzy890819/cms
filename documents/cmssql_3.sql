@@ -79,8 +79,17 @@ COMMIT;
 
 alter table news_detail modify content mediumtext;
 
-alter table fragment modify fragment_content varchar(10000);
+alter table fragment modify fragment_content text;
 
-alter table fragment modify fragment_model varchar(10000);
+alter table fragment modify fragment_model text;
+
+alter table fragment_history modify fragment_content text;
+
+
+insert into video_classify VALUES (10000, now(), now(), 1, '100000000000000001', '100000000000000001', '正文页视频');
+
+insert into images_classify VALUES (10000, now(), now(), 1, '100000000000000001', '100000000000000001', '正文页图片');
+
+ALTER TABLE `news` CHANGE COLUMN `sort` `sort` bigint(20) DEFAULT 0 COMMENT '排序';
 
 SET FOREIGN_KEY_CHECKS = 1;

@@ -42,7 +42,7 @@
         select <include refid="sel_sql_column" /> from recommend_column <include refid="delTag" />
         <choose>
             <when test="st != null">
-                order by `column_name` desc
+                order by `column_name` asc
             </when>
             <otherwise>
                 order by id desc

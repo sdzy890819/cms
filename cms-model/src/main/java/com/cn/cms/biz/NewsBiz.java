@@ -531,6 +531,12 @@ public class NewsBiz extends BaseBiz {
         return newsService.findNewsRecommend(id);
     }
 
+    public List<NewsRecommend> findNewsRecommendNear(int start, int size){
+        return newsService.findNewsRecommendNear(start, size);
+    }
+
+
+
     public NewsRecommend findNewsRecommendManage(Long id){
         return newsService.findNewsRecommendManage(id);
     }
@@ -678,6 +684,10 @@ public class NewsBiz extends BaseBiz {
             return findListByRecommedColumnId(recommendColumnId, page);
         }
         return null;
+    }
+
+    public Integer queryNewsRecommendCount(Long recommendColumnId){
+        return newsService.queryNewsRecommendCount(recommendColumnId);
     }
 
     public void deleteRecommend(Long id){

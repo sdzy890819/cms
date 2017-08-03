@@ -9,8 +9,10 @@ import com.cn.cms.middleware.bean.VideoResponse;
 import com.cn.cms.po.ImagesBase;
 import com.cn.cms.po.Video;
 import com.cn.cms.po.VideoBase;
+import com.cn.cms.po.VideoClassify;
 import com.cn.cms.utils.FileUtil;
 import com.cn.cms.utils.Page;
+import com.cn.cms.utils.StringUtils;
 import com.cn.cms.web.ann.CheckAuth;
 import com.cn.cms.web.ann.CheckToken;
 import com.cn.cms.web.result.ApiResponse;
@@ -118,7 +120,12 @@ public class VideoController extends BaseController{
                               @RequestParam(value = "videoDesc") String videoDesc,
                               @RequestParam(value = "videoUrl") String videoUrl,
                               @RequestParam(value = "videoPath", required = false) String videoPath,
-                              @RequestParam(value = "fileName",required = false) String fileName) throws BizException{
+                              @RequestParam(value = "fileName",required = false) String fileName,
+                              @RequestParam(value = "keyword",required = false) String keyword,
+                              @RequestParam(value = "videoClassifyId",required = false) Long videoClassifyId) throws BizException{
+        if(StringUtils.isNotBlank(keyword)){
+            keyword = keyword.replaceAll("[\\s，,]+", ",");
+        }
         String userID = getCurrentUserId(request);
         Video video = new Video();
         video.setLastModifyUserId(userID);
@@ -130,6 +137,9 @@ public class VideoController extends BaseController{
         video.setVideoTitle(videoTitle);
         video.setVideoUrl(videoUrl);
         video.setFileName(fileName);
+
+        video.setKeyword(keyword);
+        video.setVideoClassifyId(videoClassifyId);
         resourceBiz.saveVideo(video);
         return ApiResponse.returnSuccess();
     }
@@ -152,7 +162,12 @@ public class VideoController extends BaseController{
                               @RequestParam(value = "videoDesc",required = false) String videoDesc,
                               @RequestParam(value = "videoUrl",required = false) String videoUrl,
                               @RequestParam(value = "videoPath",required = false) String videoPath,
-                              @RequestParam(value = "fileName",required = false) String fileName) throws BizException{
+                              @RequestParam(value = "fileName",required = false) String fileName,
+                              @RequestParam(value = "keyword",required = false) String keyword,
+                              @RequestParam(value = "videoClassifyId",required = false) Long videoClassifyId) throws BizException{
+        if(StringUtils.isNotBlank(keyword)){
+            keyword = keyword.replaceAll("[\\s，,]+", ",");
+        }
         String userID = getCurrentUserId(request);
         Video video = new Video();
         video.setId(id);
@@ -164,6 +179,9 @@ public class VideoController extends BaseController{
         video.setVideoTitle(videoTitle);
         video.setVideoUrl(videoUrl);
         video.setFileName(fileName);
+
+        video.setKeyword(keyword);
+        video.setVideoClassifyId(videoClassifyId);
         resourceBiz.saveVideo(video);
         return ApiResponse.returnSuccess();
     }
@@ -206,12 +224,128 @@ public class VideoController extends BaseController{
         Page pageObj = new Page(page,pageSize);
         List<Video> videos = resourceBiz.listVideo(pageObj);
         userBiz.dataInitBase(videos);
+        resourceBiz.dataInitVideo(videos);
         Map<String, Object> result = new HashMap<String, Object>();
         result.put("page",pageObj);
         result.put("list",videos);
         return ApiResponse.returnSuccess(result);
     }
 
+
+    /**
+     * 创建视频分类
+     * @param request
+     * @param classifyName
+     * @return
+     * @throws BizException
+     */
+    @CheckToken
+    @CheckAuth( name = "videoclassify:write" )
+    @RequestMapping(value = "/createVideoClassify", method = RequestMethod.POST)
+    public String createVideoClassify(HttpServletRequest request,
+                              @RequestParam(value = "classifyName") String classifyName) throws BizException{
+
+        String userID = getCurrentUserId(request);
+        VideoClassify classify = new VideoClassify();
+        classify.setLastModifyUserId(userID);
+        classify.setClassifyName(classifyName);
+        classify.setCreateUserId(userID);
+        resourceBiz.saveVideoClassify(classify);
+        return ApiResponse.returnSuccess();
+    }
+
+    /**
+     * 修改VideoClassify
+     * @param request
+     * @param classifyName
+     * @return
+     */
+    @CheckToken
+    @CheckAuth( name = "videoclassify:update" )
+    @RequestMapping(value = "/updateVideoClassify", method = RequestMethod.POST)
+    public String updateVideoClassify(HttpServletRequest request,
+                              @RequestParam(value = "classifyName") String classifyName,
+                                      @RequestParam(value = "id") Long id) throws BizException{
+        String userID = getCurrentUserId(request);
+        VideoClassify classify = new VideoClassify();
+        classify.setLastModifyUserId(userID);
+        classify.setClassifyName(classifyName);
+        classify.setId(id);
+        resourceBiz.saveVideoClassify(classify);
+        return ApiResponse.returnSuccess();
+    }
+
+    /**
+     * 视频分类列表
+     * @param request
+     * @param page
+     * @param pageSize
+     * @return
+     * @throws BizException
+     */
+    @CheckToken
+    @CheckAuth( name = "videoclassify:read" )
+    @RequestMapping(value = "/videoclassifylist")
+    public String videoclassifylist(HttpServletRequest request,
+                                    @RequestParam(value = "page",required = false) Integer page,
+                                    @RequestParam(value="pageSize",required = false)Integer pageSize) throws BizException{
+        Page pageObj = new Page(page,pageSize);
+        List<VideoClassify> list = resourceBiz.queryVideoClassifyList(pageObj);
+        userBiz.dataInitBase(list);
+        Map<String, Object> result = new HashMap<>();
+        result.put("page",pageObj);
+        result.put("list",list);
+        return ApiResponse.returnSuccess(result);
+    }
+
+
+    /**
+     * 视频分类列表
+     * @return
+     * @throws BizException
+     */
+    @CheckToken
+    @CheckAuth( name = "video:read" )
+    @RequestMapping(value = "/videoclassifyalllist")
+    public String videlClassifyListAll() throws BizException{
+        List<VideoClassify> list = resourceBiz.findAllVideoClassify();
+        return ApiResponse.returnSuccess(list);
+    }
+
+
+
+    /**
+     * 视频分类详情
+     * @param request
+     * @param id
+     * @return
+     * @throws BizException
+     */
+    @CheckToken
+    @CheckAuth( name = "videoclassify:read" )
+    @RequestMapping(value = "/videoclassify")
+    public String videoclassify(HttpServletRequest request,
+                                    @RequestParam(value = "id") Long id) throws BizException{
+        VideoClassify classify = resourceBiz.getVideoClassify(id);
+        return ApiResponse.returnSuccess(classify);
+    }
+
+
+    /**
+     * 删除
+     * @param request
+     * @param id
+     * @return
+     * @throws BizException
+     */
+    @CheckToken
+    @CheckAuth( name = "videoclassify:delete" )
+    @RequestMapping(value = "/delVideoClassify")
+    public String delVideoClassify(HttpServletRequest request,
+                                @RequestParam(value = "id") Long id) throws BizException{
+        resourceBiz.delVideoClassify(getCurrentUserId(request), id);
+        return ApiResponse.returnSuccess();
+    }
 
 
 }

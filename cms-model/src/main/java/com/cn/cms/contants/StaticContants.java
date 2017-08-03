@@ -41,6 +41,8 @@ public class StaticContants {
 
     //---默认分页书  end
 
+    public static final String LOGO_NAME = "logo.png";
+
     public static final String COOKIE_USER_ID = "CMS_QUANJING_USER_ID";
 
     public static final String COOKIE_USER_TOKEN = "CMS_QUANJING_USER_TOKEN";
@@ -302,6 +304,11 @@ public class StaticContants {
     public static String REGEX_SPLIT_PAGE = "(_ueditor_page_break_tag_)+";
 
     public static String LOCALIZED_KEY = "4667ssvcGpEaAqLwQdDU2VIAorwBrbT06VrXBfE";
+
+    public static Long IMAGES_DEFAULT_CLASSIFY_ID = 10000L;
+
+    public static Long VIDEO_DEFAULT_CLASSIFY_ID = 10000L;
+
 
     /**
      * 开关 1 是开启。0是关闭

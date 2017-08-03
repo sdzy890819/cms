@@ -11,4 +11,6 @@ import lombok.Setter;
 public class VideoSearch {
 
     private String condition;
+
+    private Long videoClassifyId;
 }

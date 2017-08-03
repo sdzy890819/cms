@@ -22,30 +22,32 @@
         <result column="platform" property="platform" />
         <result column="file_name" property="fileName" />
         <result column="m3u8_url" property="m3u8Url" />
+        <result column="video_classify_id" property="videoClassifyId" />
+        <result column="keyword" property="keyword" />
     </resultMap>
 
     <sql id="delTag"> where del_tag = 1 </sql>
 
     <sql id="sql_column">
         id,last_modify_user_id,
-        video_title,video_desc,upload_user_id,upload_time,video_url,video_path,platform,file_name,create_user_id,m3u8_url
+        video_title,video_desc,upload_user_id,upload_time,video_url,video_path,platform,file_name,create_user_id,m3u8_url,video_classify_id,keyword
     </sql>
 
     <sql id="sql_column_find">
         id,last_modify_user_id,
-        video_title,video_desc,upload_user_id,upload_time,video_url,video_path,platform,file_name,create_user_id,create_time,update_time,del_tag,m3u8_url
+        video_title,video_desc,upload_user_id,upload_time,video_url,video_path,platform,file_name,create_user_id,create_time,update_time,del_tag,m3u8_url,video_classify_id,keyword
     </sql>
 
     <sql id="all_column" >
         id,last_modify_user_id,
         video_title,video_desc,upload_user_id,upload_time,video_url,video_path,platform,file_name
-        ,create_time,update_time,del_tag,create_user_id,m3u8_url
+        ,create_time,update_time,del_tag,create_user_id,m3u8_url,video_classify_id,keyword
     </sql>
 
     <insert id="saveVideo" useGeneratedKeys="true" keyProperty="p1.id">
     insert into video ( <include refid="sql_column"/> ) values (
         null,#{p1.lastModifyUserId},#{p1.videoTitle},#{p1.videoDesc},#{p1.uploadUserId},
-        #{p1.uploadTime},#{p1.videoUrl},#{p1.videoPath},#{p1.platform},#{p1.fileName},#{p1.createUserId},#{p1.m3u8Url});
+        #{p1.uploadTime},#{p1.videoUrl},#{p1.videoPath},#{p1.platform},#{p1.fileName},#{p1.createUserId},#{p1.m3u8Url},#{p1.videoClassifyId},#{p1.keyword});
     </insert>
 
     <update id="updateVideo">
@@ -78,7 +80,11 @@
            <if test="p1.m3u8Url != null">
                m3u8_url = #{p1.m3u8Url},
            </if>
-           last_modify_user_id=#{p1.lastModifyUserId}
+           <if test="p1.videoClassifyId != null">
+              video_classify_id = #{p1.videoClassifyId},
+           </if>
+              keyword = #{p1.keyword},
+              last_modify_user_id=#{p1.lastModifyUserId}
        </set>
         where id = ${p1.id} ;
     </update>

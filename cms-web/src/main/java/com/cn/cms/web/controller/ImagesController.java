@@ -4,9 +4,11 @@ import com.cn.cms.biz.ResourceBiz;
 import com.cn.cms.biz.UserBiz;
 import com.cn.cms.bo.UserBean;
 import com.cn.cms.contants.StaticContants;
+import com.cn.cms.exception.BizException;
 import com.cn.cms.middleware.WeedfsClient;
 import com.cn.cms.po.Images;
 import com.cn.cms.po.ImagesBase;
+import com.cn.cms.po.ImagesClassify;
 import com.cn.cms.utils.FileUtil;
 import com.cn.cms.utils.Page;
 import com.cn.cms.utils.StringUtils;
@@ -127,7 +129,12 @@ public class ImagesController extends BaseController{
                                @RequestParam("watermark") Integer watermark,
                                @RequestParam("compress") Integer compress,
                                @RequestParam("fid") String fid,
-                               @RequestParam("size") Integer size){
+                               @RequestParam("size") Integer size,
+                               @RequestParam(value = "keyword", required = false) String keyword,
+                               @RequestParam("imagesClassifyId") Long imagesClassifyId){
+        if(StringUtils.isNotBlank(keyword)){
+            keyword = keyword.replaceAll("[\\s，,]+", ",");
+        }
         Images images = new Images();
         images.setLastModifyUserId(getCurrentUserId(request));
         images.setCompress(compress);
@@ -144,6 +151,8 @@ public class ImagesController extends BaseController{
         images.setUploadTime(new Date());
         images.setSize(size);
         images.setFid(fid);
+        images.setImagesClassifyId(imagesClassifyId);
+        images.setKeyword(keyword);
         resourceBiz.saveImages(images);
         return ApiResponse.returnSuccess();
     }
@@ -177,7 +186,12 @@ public class ImagesController extends BaseController{
                                @RequestParam(value = "watermark",required = false) Integer watermark,
                                @RequestParam(value = "compress",required = false) Integer compress,
                                @RequestParam(value = "fid",required = false) String fid,
-                               @RequestParam(value = "size",required = false) Integer size){
+                               @RequestParam(value = "size",required = false) Integer size,
+                               @RequestParam(value = "keyword", required = false) String keyword,
+                               @RequestParam(value = "imagesClassifyId", required = false) Long imagesClassifyId){
+        if(StringUtils.isNotBlank(keyword)){
+            keyword = keyword.replaceAll("[\\s，,]+", ",");
+        }
         Images images = new Images();
         images.setLastModifyUserId(getCurrentUserId(request));
         images.setCompress(compress);
@@ -194,6 +208,8 @@ public class ImagesController extends BaseController{
         images.setSize(size);
         images.setFid(fid);
         images.setId(id);
+        images.setImagesClassifyId(imagesClassifyId);
+        images.setKeyword(keyword);
         resourceBiz.saveImages(images);
         return ApiResponse.returnSuccess();
     }
@@ -252,5 +268,118 @@ public class ImagesController extends BaseController{
         result.put("list",images);
         return ApiResponse.returnSuccess(result);
     }
+
+
+    /**
+     * 图片分类列表
+     * @param request
+     * @param page
+     * @param pageSize
+     * @return
+     */
+    @CheckToken
+    @CheckAuth( name = "imagesclassify:read" )
+    @RequestMapping(value = "/imagesclassifylist")
+    public String imagesclassifylist(HttpServletRequest request, @RequestParam(value = "page",required = false) Integer page,
+                             @RequestParam(value="pageSize",required = false)Integer pageSize){
+        Page pageObj = new Page(page,pageSize);
+        List<ImagesClassify> imagesClassifyList = resourceBiz.listImagesClassify(pageObj);
+        userBiz.dataInitBase(imagesClassifyList);
+        Map<String, Object> result = new HashMap<>();
+        result.put("page",pageObj);
+        result.put("list",imagesClassifyList);
+        return ApiResponse.returnSuccess(result);
+    }
+
+    /**
+     * 获取图片分类。所有
+     * @return
+     */
+    @CheckToken
+    @CheckAuth( name = "images:read" )
+    @RequestMapping(value = "/imagesclassifyalllist")
+    public String imagesclassifyalllist(){
+        List<ImagesClassify> imagesClassifyList = resourceBiz.findAllImagesClassify();
+        return ApiResponse.returnSuccess(imagesClassifyList);
+    }
+
+
+    /**
+     * 图片分类详情
+     * @param id
+     * @return
+     */
+    @CheckToken
+    @CheckAuth( name = "imagesclassify:read" )
+    @RequestMapping(value = "/imagesclassify")
+    public String imagesclassify(@RequestParam(value = "id") Long id){
+        ImagesClassify classify = resourceBiz.getImagesClassify(id);
+        return ApiResponse.returnSuccess(classify);
+    }
+
+
+    /**
+     * 创建图片分类
+     * @param request
+     * @param classifyName
+     * @return
+     * @throws BizException
+     */
+    @CheckToken
+    @CheckAuth( name = "imagesclassify:write" )
+    @RequestMapping(value = "/createImagesClassify", method = RequestMethod.POST)
+    public String createImagesClassify(HttpServletRequest request,
+                                      @RequestParam(value = "classifyName") String classifyName) throws BizException {
+
+        String userID = getCurrentUserId(request);
+        ImagesClassify classify = new ImagesClassify();
+        classify.setLastModifyUserId(userID);
+        classify.setClassifyName(classifyName);
+        classify.setCreateUserId(userID);
+        resourceBiz.saveImagesClassify(classify);
+        return ApiResponse.returnSuccess();
+    }
+
+    /**
+     * 修改图片分类
+     * @param request
+     * @param classifyName
+     * @param id
+     * @return
+     * @throws BizException
+     */
+    @CheckToken
+    @CheckAuth( name = "imagesclassify:update" )
+    @RequestMapping(value = "/updateImagesClassify", method = RequestMethod.POST)
+    public String updateImagesClassify(HttpServletRequest request,
+                                       @RequestParam(value = "classifyName") String classifyName,
+                                       @RequestParam(value = "id") Long id) throws BizException {
+
+        String userID = getCurrentUserId(request);
+        ImagesClassify classify = new ImagesClassify();
+        classify.setLastModifyUserId(userID);
+        classify.setClassifyName(classifyName);
+        classify.setId(id);
+        resourceBiz.saveImagesClassify(classify);
+        return ApiResponse.returnSuccess();
+    }
+
+    /**
+     * 删除
+     * @param request
+     * @param id
+     * @return
+     * @throws BizException
+     */
+    @CheckToken
+    @CheckAuth( name = "imagesclassify:delete" )
+    @RequestMapping(value = "/delImagesClassify")
+    public String delImagesClassify(HttpServletRequest request,
+                                   @RequestParam(value = "id") Long id) throws BizException{
+        resourceBiz.delImagesClassify(getCurrentUserId(request),id);
+        return ApiResponse.returnSuccess();
+    }
+
+
 
 }

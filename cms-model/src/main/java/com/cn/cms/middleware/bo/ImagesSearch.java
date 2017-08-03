@@ -11,4 +11,6 @@ import lombok.Setter;
 public class ImagesSearch {
 
     private String condition;
+
+    private Long imagesClassifyId;
 }

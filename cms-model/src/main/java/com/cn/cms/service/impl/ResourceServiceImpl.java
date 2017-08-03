@@ -1,9 +1,6 @@
 package com.cn.cms.service.impl;
 
-import com.cn.cms.dao.ImagesBaseDao;
-import com.cn.cms.dao.ImagesDao;
-import com.cn.cms.dao.VideoBaseDao;
-import com.cn.cms.dao.VideoDao;
+import com.cn.cms.dao.*;
 import com.cn.cms.enums.ESSearchTypeEnum;
 import com.cn.cms.enums.IndexOperEnum;
 import com.cn.cms.job.IndexThread;
@@ -33,6 +30,12 @@ public class ResourceServiceImpl implements ResourceService {
 
     @Resource
     private VideoBaseDao videoBaseDao;
+
+    @Resource
+    private VideoClassifyDao videoClassifyDao;
+
+    @Resource
+    private ImagesClassifyDao imagesClassifyDao;
 
 
     public ImagesBase findImagesBase() {
@@ -85,6 +88,26 @@ public class ResourceServiceImpl implements ResourceService {
         return imagesDao.queryImagesList(page);
     }
 
+    @Override
+    public Integer queryImagesClassifyCount() {
+        return imagesClassifyDao.queryImagesClassifyCount();
+    }
+
+    @Override
+    public List<ImagesClassify> queryImagesClassifyList(Page page) {
+        return imagesClassifyDao.queryImagesClassifyList(page);
+    }
+
+    @Override
+    public List<ImagesClassify> findAllImagesClassify() {
+        return imagesClassifyDao.findAllImagesClassify();
+    }
+
+    @Override
+    public ImagesClassify getImagesClassify(Long id) {
+        return imagesClassifyDao.getImagesClassify(id);
+    }
+
     public VideoBase findVideoBase() {
         return videoBaseDao.findVideoBase();
     }
@@ -105,6 +128,36 @@ public class ResourceServiceImpl implements ResourceService {
     public void saveVideo(Video video) {
         videoDao.saveVideo(video);
 //        sendIndex(video, ESSearchTypeEnum.video);
+    }
+
+    @Override
+    public void saveVideoClassify(VideoClassify classify) {
+        videoClassifyDao.saveVideoClassify(classify);
+    }
+
+    @Override
+    public void updateVideoClassify(VideoClassify classify) {
+        videoClassifyDao.updateVideoClassify(classify);
+    }
+
+    @Override
+    public void saveImagesClassify(ImagesClassify classify) {
+        imagesClassifyDao.saveImagesClassify(classify);
+    }
+
+    @Override
+    public void updateImagesClassify(ImagesClassify classify) {
+        imagesClassifyDao.updateImagesClassify(classify);
+    }
+
+    @Override
+    public void delImagesClassify(String lastModifyUserId, Long id) {
+        imagesClassifyDao.delImagesClassify(lastModifyUserId, id);
+    }
+
+    @Override
+    public List<ImagesClassify> getImagesClassifyList(List<Long> ids) {
+        return imagesClassifyDao.getImagesClassifyList(ids);
     }
 
     public void delVideo(String lastModifyUserId, Long id) {
@@ -136,4 +189,33 @@ public class ResourceServiceImpl implements ResourceService {
     }
 
 
+    @Override
+    public List<VideoClassify> queryVideoClassifyList(Page page) {
+        return videoClassifyDao.queryVideoClassifyList(page);
+    }
+
+    @Override
+    public Integer queryVideoClassifyCount() {
+        return videoClassifyDao.queryVideoClassifyCount();
+    }
+
+    @Override
+    public VideoClassify getVideoClassify(Long id) {
+        return videoClassifyDao.getVideoClassify(id);
+    }
+
+    @Override
+    public List<VideoClassify> findAllVideoClassify() {
+        return videoClassifyDao.findAllVideoClassify();
+    }
+
+    @Override
+    public List<VideoClassify> getVideoClassifyList(List<Long> ids) {
+        return videoClassifyDao.getVideoClassifyList(ids);
+    }
+
+    @Override
+    public void delVideoClassify(String lastModifyUserId, Long id) {
+        videoClassifyDao.delVideoClassify(lastModifyUserId, id);
+    }
 }

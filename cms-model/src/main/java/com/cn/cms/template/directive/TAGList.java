@@ -38,7 +38,7 @@ import java.util.List;
  * content:如果新闻栏目就是栏目号，如果是系列专题就是系列专题号、如果是专题分类名就是专题分类名、依次类推
  * count:总数。需要的总数
  * size:20
- * #TAGList(String resultObjName,Integer type, String content, Integer count, Integer size)
+ * #TAGList(String resultObjName,Integer type, String content, Integer count, Integer size, Integer offset)
  * #end
  * Created by ADMIN on 16/12/21.
  */
@@ -85,6 +85,11 @@ public class TAGList extends Directive {
      * 测试标记
      */
     private Integer testTag;
+
+    /**
+     * 偏移量
+     */
+    private Integer offset = 0;
 
     //------------------------------------------
     private NewsColumn newsColumn;
@@ -135,6 +140,11 @@ public class TAGList extends Directive {
                             count = (Integer) node.jjtGetChild(3).value(context);
                         } else if (i == 4) {
                             size = (Integer) node.jjtGetChild(4).value(context);
+                        } else if (i == 5) {
+                            Object offsetObj = node.jjtGetChild(5).value(context);
+                            if(offsetObj!=null) {
+                                offset = (Integer) offsetObj;
+                            }
                         }
                     } else {
                         parse(context);
@@ -161,6 +171,9 @@ public class TAGList extends Directive {
             size = StaticContants.TEMPLATE_SIZE;
         }
         Page pageObj = new Page(page, size);
+        if(offset !=null && offset > 0){
+            pageObj.setOffset(offset);
+        }
         TAGListTypeEnum tagListTypeEnum = TAGListTypeEnum.get(type);
         List<?> list = null;
         switch (tagListTypeEnum){
