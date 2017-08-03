@@ -9,17 +9,23 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 	        	$scope.title = '新增模版';
 	        	$scope.$parent.menu.push({name:$scope.title});
 	        	$scope.rlease = function( obj ){ //发布
-					var templateClassify  , channelId;
-					console.log(obj.selects);
+					var templateClassify  , channelId , selectID;
 					$.each(obj.selects,function(){
 						if(this.title == 'templateClassify'){
 							templateClassify = this.type;
+							selectID = this.id;
 						}
 
 						if(this.title == 'channelId'){
 							channelId = this.id;
 						}
 					});
+					if(selectID == 3 && obj.job =='定时生成'){
+						layui.use('layer', function(){
+							layui.layer.msg('详情页模版只能使用触发生成!',{icon: 2,anim:6});
+						}); 	
+						return;
+					}
 					getData.template.createTemplate({
 						"templateName":obj.templateName,
 						"templateDesc":obj.templateDesc,

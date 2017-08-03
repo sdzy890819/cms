@@ -95,7 +95,7 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 				self.radio[0].checked = true;
 			}else if(self.title=='job'){
 				self.radio = Tool.changeObjectName(obj.data.job,[{name:'name',newName:'title'}]);
-				self.radio[0].checked = true;
+				self.radio[1].checked = true;
 			}
 		}
 	};

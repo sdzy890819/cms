@@ -208,7 +208,7 @@ define(['require',"app",'jquery','search','./recommendlistForm'
 								$scope.getSearchList = getSearchList;
 							}
 						}
-					});
+					},{st:"sortByColumnName"});
 				}
 				search();
 				//end 搜索

@@ -830,6 +830,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 			recommendColumnlist : function( obj ){
 				T.ajax({					
 					url : URL.news.recommendColumnlist , 
+					data : obj.obj,
 					success : function( _data ){
 						obj.callback(_data);
 					}
