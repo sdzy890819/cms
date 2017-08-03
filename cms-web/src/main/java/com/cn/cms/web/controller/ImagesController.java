@@ -263,6 +263,7 @@ public class ImagesController extends BaseController{
         Page pageObj = new Page(page,pageSize);
         List<Images> images = resourceBiz.listImages(pageObj);
         userBiz.dataInitBase(images);
+        resourceBiz.dataInitImages(images);
         Map<String, Object> result = new HashMap<>();
         result.put("page",pageObj);
         result.put("list",images);
