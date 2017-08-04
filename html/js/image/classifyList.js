@@ -21,15 +21,14 @@ define(['require', "app", 'jquery', 'search','../data/getData', './classfyForm',
                         })
                     },
                     edit: function(obj) { //保存
-                        require(['./editImagePop'], function(pop) {
+                        require(['../common/editPop'], function(pop) {
                             function getAddForm(callback) {
-                               /* getData.image.imagesclassify({
+                               getData.image.imagesclassify({
                                     id : obj.id,
-                                    success : function(){
-                                        debugger;
+                                    callback : function( _data ){
+                                        callback(_data);
                                     }
-                                })*/
-                                callback(_data);
+                                });
                             }
                             pop.init({
                                 obj: obj,
@@ -38,6 +37,19 @@ define(['require', "app", 'jquery', 'search','../data/getData', './classfyForm',
                                 updateData: getAddForm,
                                 callback: function(list, callback) {
                                     callback(list);
+                                },
+                                save : function( obj , _data ){
+                                    getData.image.updateImagesClassify({
+                                        classifyName:obj.classifyName,
+                                        id:_data.id,
+                                        callback: function(_data) {
+                                            layui.use(['layer'], function(){
+                                                var layer = layui.layer;
+                                                layer.msg(_data.message);
+                                                getDataList();
+                                            }); 
+                                        }
+                                    })
                                 }
                             });
                         });
@@ -45,24 +57,16 @@ define(['require', "app", 'jquery', 'search','../data/getData', './classfyForm',
                     del: function(obj) { //删除
                         layui.use(['layer'], function() {
                             var layer = layui.layer;
-                            layer.alert('你确定删除：' + obj.imageTitle, {
+                            layer.alert('你确定删除：' + obj.classifyName, {
                                 skin: 'layui-layer-molv newBtn' //样式类名
                                     ,
                                 title: '删除',
                                 anim: 1 //动画类型
                                     ,
-                                btn: ['普通删除', '物理删除', '取消'],
+                                btn: ['确定', '取消'],
                                 shadeClose: true,
                                 yes: function(index) {
-                                    getData.image.delImage(obj);
-                                    layer.close(index);
-                                },
-                                btn2: function(index) {
-                                    getData.image.delImage({
-                                        id:obj.id ,
-                                        force : 1,
-                                        callback : obj.callback
-                                    });
+                                    getData.image.delImagesClassify(obj);
                                     layer.close(index);
                                 }
                             });

@@ -30,7 +30,17 @@ define(["app",'jquery', '../upload/index', '../data/getData','form'],function (a
 								width = newData.imageWidth , 
 								height = newData.imageHeight,
 								title = newData.title,
+								imagesClassifyId,
+								keyword = newData.keyword,
 								suffix = _obj.imageUrl.split('.')[1];
+
+							watermark = isSize=='no'?0:1;
+
+							$.each(newData.selects,function(){
+								if(this.title == 'imagesClassifyId'){
+									imagesClassifyId = this.id;
+								}
+							});
 
 							function alert(content){
 								layui.use(['layer'], function(){
@@ -75,6 +85,8 @@ define(["app",'jquery', '../upload/index', '../data/getData','form'],function (a
 													orgWidthPixel : data.orgWidthPixel, //原始长像素  图片上传接口返回
 													orgHeightPixel : data.orgHeightPixel, //原始宽像素  图片上传接口返回
 													imageTitle : title,
+													keyword : keyword,
+													imagesClassifyId : imagesClassifyId,
 													imagePath : data.imagePath,
 													watermark : data.watermark, //是否水印 1、0
 													compress : data.compress, //是否压缩
@@ -172,6 +184,8 @@ define(["app",'jquery', '../upload/index', '../data/getData','form'],function (a
 							iswidth = true;
 
 						height_parent.hide();
+						width_parent.hide();
+						selectSize_parent.hide();
 						layui.use(['form', 'layedit', 'laydate'], function(){
 							var form = layui.form()
 						 		,layer = layui.layer

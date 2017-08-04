@@ -1138,6 +1138,35 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						obj.callback(_data);
 					}
 				})
+			},updateImagesClassify : function( obj ){
+				T.ajax({
+					url : URL.images.updateImagesClassify , 
+					type : 'post',
+					data : {
+						classifyName : obj.classifyName,
+						id : obj.id
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				})
+			},delImagesClassify : function( obj ){
+				T.ajax({
+					url : URL.images.delImagesClassify , 
+					data : {
+						id : obj.id
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				})
+			},imagesclassifyalllist : function( obj ){
+				T.ajax({
+					url : URL.images.imagesclassifyalllist , 
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				})
 			},
 			imagesclassify : function( obj ){ //栏目列表
 				T.ajax({
@@ -1160,6 +1189,8 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						orgWidthPixel : obj.orgWidthPixel, //原始长像素  图片上传接口返回
 						orgHeightPixel : obj.orgHeightPixel, //原始宽像素  图片上传接口返回
 						imageTitle : obj.imageTitle,
+						keyword : obj.keyword,
+						imagesClassifyId : obj.imagesClassifyId,
 						imagePath : obj.imagePath,
 						watermark : obj.watermark, //是否水印 1、0
 						compress : obj.compress, //是否压缩
@@ -1185,6 +1216,8 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						orgHeightPixel : obj.orgHeightPixel, //原始宽像素  图片上传接口返回
 						imageTitle : obj.imageTitle,
 						imagePath : obj.imagePath,
+						keyword : obj.keyword,
+						imagesClassifyId : obj.imagesClassifyId,
 						watermark : obj.watermark, //是否水印 1、0
 						compress : obj.compress, //是否压缩
 						fid : obj.fid, //图片上传接口返回

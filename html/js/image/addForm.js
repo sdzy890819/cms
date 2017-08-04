@@ -1,4 +1,4 @@
-define(function(){
+define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 	var list = [ //表单
 		{
 			title : 'title',
@@ -6,6 +6,24 @@ define(function(){
 			placeholder : '请填写图片标题',
 			type : 'text',
 			verify : 'imageTitle'
+		},
+		{
+			title : 'imagesClassifyId',
+			selectName : ['imagesClassifyId'],
+			name : '选择图片分类',
+			type : 'select',
+			verify : 'select',
+			select : [
+				[
+					{name:'请选择图片分类',title:'imagesClassifyId'}
+				]
+			]
+		},
+		{
+			title : 'keyword',
+			name : '关键词',
+			placeholder : '请填写关键词以","区分',
+			type : 'text'
 		},		
 		{
 			title : 'watermark',
@@ -30,12 +48,13 @@ define(function(){
 			radio : [
 				{
 					title : 'yes',
-					name : '是',
-					checked : true
+					name : '是'
+					//checked : true
 				},
 				{
 					title : 'no',
-					name : '否'
+					name : '否',
+					checked : true
 				}
 			]
 		},
@@ -46,7 +65,7 @@ define(function(){
 			radio : [
 				{
 					title : 'yes',
-					name : '宽' , 
+					name : '宽' ,
 					checked : true
 				},
 				{
@@ -78,8 +97,18 @@ define(function(){
 		}		
 	];
 
-	// function getList(callback){
-	// 	callback(list);
-	// }
-	return list;
+	 function getList(callback){
+	 	getData.image.imagesclassifyalllist({
+			callback:function(_data){
+				$.each(list,function(i,obj){
+					if(obj.type=='select' && obj.select[0][0].title=='imagesClassifyId'){
+						obj.select[0] = [obj.select[0][0]];
+						obj.select[0] = obj.select[0].concat(Tool.changeObjectName(_data.data,[{name:'classifyName',newName:'name'}]));
+					}
+				})
+	 			callback(list);
+			}
+		});
+	 }
+	return getList;
 })

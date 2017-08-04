@@ -127,6 +127,9 @@ define(function(require){
 			imagesBase : url+'/images/imagesBase',
 			createImagesClassify : url+'/images/createImagesClassify',
 			imagesclassify : url+'/images/imagesclassify',
+			updateImagesClassify : url+'/images/updateImagesClassify',
+			delImagesClassify : url+'/images/delImagesClassify',
+			imagesclassifyalllist : url+'/images/imagesclassifyalllist',
 			imagesclassifylist : url+'/images/imagesclassifylist'
 		},
 		video : {//获取视频基础库

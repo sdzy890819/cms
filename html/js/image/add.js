@@ -18,7 +18,16 @@ define(["app",'./addForm','../upload/index','../data/getData','form','position',
 							selectSize = obj.selectSize , //选择宽还是高
 							width = obj.imageWidth , 
 							height = obj.imageHeight,
-							title = obj.title;
+							keyword = obj.keyword,
+							title = obj.title,
+							imagesClassifyId;
+
+
+						$.each(obj.selects,function(){
+							if(this.title == 'imagesClassifyId'){
+								imagesClassifyId = this.id;
+							}
+						});
 						
 						if(height>0){
 							width = 0;
@@ -26,6 +35,7 @@ define(["app",'./addForm','../upload/index','../data/getData','form','position',
 						if(width>0){
 							height = 0
 						}
+						watermark = isSize=='no'?0:1;
 
 						function alert(content){
 							layui.use(['layer'], function(){
@@ -56,6 +66,8 @@ define(["app",'./addForm','../upload/index','../data/getData','form','position',
 											orgWidthPixel : data.orgWidthPixel, //原始长像素  图片上传接口返回
 											orgHeightPixel : data.orgHeightPixel, //原始宽像素  图片上传接口返回
 											imageTitle : title,
+											keyword : keyword,
+											imagesClassifyId : imagesClassifyId,
 											imagePath : data.imagePath,
 											watermark : data.watermark, //是否水印 1、0
 											compress : data.compress, //是否压缩
@@ -118,7 +130,9 @@ define(["app",'./addForm','../upload/index','../data/getData','form','position',
 						height_parent = height.parent().parent() , 
 						iswidth = true;
 
+					width_parent.hide();
 					height_parent.hide();
+					selectSize_parent.hide();
 					layui.use(['form', 'layedit', 'laydate'], function(){
 						var form = layui.form()
 					 		,layer = layui.layer
@@ -139,7 +153,6 @@ define(["app",'./addForm','../upload/index','../data/getData','form','position',
 					  	form.on('radio',function( _obj ){ //
 					  		var name = _obj.elem.name , 
 					  			value = _obj.value;
-
 					  		if(name == 'isSize'){
 					  			if(value == 'no'){
 					  				selectSize_parent.hide();
@@ -162,23 +175,25 @@ define(["app",'./addForm','../upload/index','../data/getData','form','position',
 					  	});
 					})
 				});
-				$scope.formdata = { //确认按钮
-					title : $scope.title,
-					list : list,
-					submit : [
-						{
-							name : '保存',
-							evt : 'save',
-							icon_cls : 'save'
-						},
-						{
-							name:'取消',
-							evt : 'cancel',
-							icon_cls : 'cancel',
-							cls : 'cancel'
-						}
-					]
-				}
+				list(function( data ){
+					$scope.formdata = { //确认按钮
+						title : $scope.title,
+						list : data,
+						submit : [
+							{
+								name : '保存',
+								evt : 'save',
+								icon_cls : 'save'
+							},
+							{
+								name:'取消',
+								evt : 'cancel',
+								icon_cls : 'cancel',
+								cls : 'cancel'
+							}
+						]
+					}
+				})
         	}
 	    };
 	});
