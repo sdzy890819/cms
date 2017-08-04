@@ -174,9 +174,9 @@ public class ResourceBiz {
      */
     public void saveVideoClassify(VideoClassify classify) throws BizException{
         if(classify.getId() !=null && classify.getId() > 0){
-            resourceService.saveVideoClassify(classify);
-        } else {
             resourceService.updateVideoClassify(classify);
+        } else {
+            resourceService.saveVideoClassify(classify);
         }
     }
 
@@ -187,9 +187,10 @@ public class ResourceBiz {
      */
     public void saveImagesClassify(ImagesClassify classify) throws BizException{
         if(classify.getId() !=null && classify.getId() > 0){
-            resourceService.saveImagesClassify(classify);
-        } else {
+
             resourceService.updateImagesClassify(classify);
+        } else {
+            resourceService.saveImagesClassify(classify);
         }
     }
 
