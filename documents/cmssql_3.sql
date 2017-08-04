@@ -110,6 +110,10 @@ VALUES (null, '2017-07-13 21:56:06', '2017-07-13 21:56:06', '1', '10001', '10011
 (null, '2017-07-13 21:56:06', '2017-07-13 21:56:06', '1', '10001', '100120', '100000000000000001', '100000000000000001');
 
 
+update permission set url = 'image.classifyAdd' where id = 100115;
+update permission set url = 'image.classifyList' where id = 100116;
+update permission set url = 'video.classifyAdd' where id = 100118;
+update permission set url = 'video.classifyList' where id = 100119;
 
 
 SET FOREIGN_KEY_CHECKS = 1;
