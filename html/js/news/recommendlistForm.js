@@ -18,7 +18,7 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
     
     function getList(callback,obj){
         getData.news.recommendColumnlist({//部门
-            obj,
+			obj : obj,
             callback:function(_data){
                 $.each(list,function(i , obj){
                     if(obj.type=='select'){
