@@ -14535,7 +14535,9 @@ UE.plugins['paste'] = function () {
             }
             range.moveToBookmark(bk).select(true);
             /*update 20170804 bo.peng*/
-            debugger;
+            if(window.parent.pasteEvent){//编辑弹出匡时，进行内容填充
+                window.parent.pasteEvent(pastebin)
+            }
             /*end update 20170804 bo.peng*/
             callback(pastebin);
         }, 0);
