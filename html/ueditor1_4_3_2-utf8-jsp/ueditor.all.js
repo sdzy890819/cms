@@ -14534,6 +14534,9 @@ UE.plugins['paste'] = function () {
             } catch (e) {
             }
             range.moveToBookmark(bk).select(true);
+            /*update 20170804 bo.peng*/
+            debugger;
+            /*end update 20170804 bo.peng*/
             callback(pastebin);
         }, 0);
     }
