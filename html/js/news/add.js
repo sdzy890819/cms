@@ -9,6 +9,17 @@ define(["app",'./addForm','../data/getData','../moduls/Tool','form','position','
 	        	$scope.$parent.menu.push({name:"新增新闻"});
 	        	var categoryId,channelId,columnId,columnIds = '[';
 
+	        	window.pasteEvent = function(data){ //编辑器粘贴事件
+	        		var html = (data.innerHTML);
+	        		try{
+	        			var title = html.match(/<[hH][1-6][^>]*>([^<]*)<\/[hH][1-6][^>]*>/)[1];
+	        			$scope.data.title = title;
+	        			$scope.$apply();
+	        		}catch(e){
+	        			console.log('没有获取到title')
+	        		}
+
+	        	}
 	        	function verification( obj , callback ){ //验证字段
 
 					if(obj.title.length>255){ //标题
