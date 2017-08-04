@@ -124,7 +124,10 @@ define(function(require){
 			createImages : url+'/images/createImages',
 			createImagesBase : url+'/images/createImagesBase',
 			updateImagesBase : url+'/images/updateImagesBase', //修改图片基础信息
-			imagesBase : url+'/images/imagesBase'
+			imagesBase : url+'/images/imagesBase',
+			createImagesClassify : url+'/images/createImagesClassify',
+			imagesclassify : url+'/images/imagesclassify',
+			imagesclassifylist : url+'/images/imagesclassifylist'
 		},
 		video : {//获取视频基础库
 			videoBase : url+'/video/videoBase',//获取视频基础库

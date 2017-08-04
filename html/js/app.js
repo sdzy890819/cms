@@ -183,7 +183,17 @@ define(["angular", "angularAMD","angularFileUpload","angular-ui-router",'angular
                 url: '/imageBase',   
                 template: '<image-base></image-base>',         
                 controllerUrl: 'image/imageBase'
-            }))            
+            }))
+            .state('image.classifyAdd', angularAMD.route({
+                url: '/classifyAdd',   
+                template: '<classify-add></classify-add>',         
+                controllerUrl: 'image/classifyAdd'
+            }))
+            .state('image.classifyList', angularAMD.route({
+                url: '/classifyList',   
+                template: '<classify-list></classify-list>',         
+                controllerUrl: 'image/classifyList'
+            }))   
 
             //视频上传功能
             .state('video', angularAMD.route({

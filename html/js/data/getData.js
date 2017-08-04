@@ -1118,7 +1118,37 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					error : function(){}
 				})
 			},
-
+			createImagesClassify : function( obj ){ //栏目列表
+				T.ajax({
+					url : URL.images.createImagesClassify , 
+					type : 'post',
+					data : {
+						classifyName : obj.classifyName
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				})
+			},
+			imagesclassifylist : function( obj ){ //栏目列表
+				T.ajax({
+					url : URL.images.imagesclassifylist , 
+					type : 'get',
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				})
+			},
+			imagesclassify : function( obj ){ //栏目列表
+				T.ajax({
+					url : URL.images.imagesclassify , 
+					type : 'get',
+					data : { id : obj.id },
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				})
+			},
 			createImages : function(obj) {
 				T.ajax({
 					url : URL.images.createImages , 
