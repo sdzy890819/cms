@@ -846,6 +846,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 						recommendDescription : obj.recommendDescription,
 						recommendImages : obj.recommendImages,
 						recommendColumnId : obj.recommendColumnId,
+						position : obj.position,
 						sort : obj.sort	
 					},
 					success : function( _data ){
@@ -1287,7 +1288,57 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 			}								
 		},
 		video : {
-			videoBase : function(obj) {
+			createVideoClassify : function(obj) {
+				T.ajax({
+					url : URL.video.createVideoClassify , 
+					type : 'post',
+					data : {classifyName:obj.classifyName},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				})				
+			},videoclassifyalllist : function(obj) {
+				T.ajax({
+					url : URL.video.videoclassifyalllist , 
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				})				
+			},videoclassify : function(obj) {
+				T.ajax({
+					url : URL.video.videoclassify , 
+					data : {
+						id : obj.id
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				})				
+			},videoclassifylist : function(obj) {
+				T.ajax({
+					url : URL.video.videoclassifylist , 
+					data : {
+						page : obj.page,
+						pageSize : obj.pageSize
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					}
+				})				
+			},updateVideoClassify : function(obj) {
+				T.ajax({
+					url : URL.video.updateVideoClassify , 
+					type : 'post',
+					data : {
+						classifyName:obj.classifyName,
+						id:obj.id
+					},
+					success : function( _data ){
+						obj.callback(_data);
+					},
+					error : function(){}
+				})				
+			},videoBase : function(obj) {
 				T.ajax({
 					url : URL.video.videoBase , 
 					type : 'get',
@@ -2174,6 +2225,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					data : {
 						//所有参数都不是必传项
 						"condition":obj.condition,
+						"imagesClassifyId":obj.imagesClassifyId,
 						"page":obj.page,
 						"pageSize":obj.pageSize
 					},
@@ -2189,6 +2241,7 @@ define(['./URL','jquery','./getInitInfo'],function(URL,$, initInfo){
 					data : {
 						//所有参数都不是必传项
 						"condition":obj.condition,
+						"videoClassifyId":obj.videoClassifyId,
 						"page":obj.page,
 						"pageSize":obj.pageSize
 					},

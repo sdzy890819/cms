@@ -186,12 +186,12 @@ define(["angular", "angularAMD","angularFileUpload","angular-ui-router",'angular
             }))
             .state('image.classifyAdd', angularAMD.route({
                 url: '/classifyAdd',   
-                template: '<classify-add></classify-add>',         
+                template: '<image-classify-add></image-classify-add>',         
                 controllerUrl: 'image/classifyAdd'
             }))
             .state('image.classifyList', angularAMD.route({
                 url: '/classifyList',   
-                template: '<classify-list></classify-list>',         
+                template: '<image-classify-list></image-classify-list>',         
                 controllerUrl: 'image/classifyList'
             }))   
 
@@ -215,6 +215,16 @@ define(["angular", "angularAMD","angularFileUpload","angular-ui-router",'angular
                 url: '/base',
                 template: '<video-base></video-base>',
                 controllerUrl: 'video/base'
+            }))
+            .state('video.classifyAdd', angularAMD.route({ 
+                url: '/classifyAdd',
+                template: '<video-classify-add></video-classify-add>',
+                controllerUrl: 'video/classifyAdd'
+            }))
+            .state('video.classifyList', angularAMD.route({
+                url: '/classifyList',
+                template: '<video-classify-list></video-classify-list>',
+                controllerUrl: 'video/classifyList'
             }))
 
             //模版管理

@@ -20,6 +20,12 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 			placeholder : '请输入推荐标题',
 			type : 'text',
 			verify : 'title'
+		},{
+			title : 'position',
+			name : '位置',
+			placeholder : '请输入位置',
+			type : 'text',
+			verify : 'title'
 		},
 		
 		{

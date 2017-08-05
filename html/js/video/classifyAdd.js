@@ -1,16 +1,16 @@
 define(["app",'./classfyForm','../upload/index','../data/getData','form','position','fixedNav'], function ( app , list , upload , getData ) {
-    app.directive('imageClassifyAdd',function(){
+    app.directive('videoClassifyAdd',function(){
         return {
             restrict : 'E',
             replace : true,
             transclude : true,
             templateUrl : '../template/common/addAndEdit.html',
             controller : function($scope,Upload,$uibModal, $state){
-                $scope.title = '新增图片分类';
+                $scope.title = '新增视频分类';
                 $scope.$parent.menu.push({name:$scope.title});
                 angular.extend($scope,{
                     save : function( obj ){ //保存
-                        getData.image.createImagesClassify({
+                        getData.video.createVideoClassify({
                             classifyName : obj.classifyName,
                             callback : function(_data){
                                 layui.use(['layer'], function(){
@@ -18,7 +18,7 @@ define(["app",'./classfyForm','../upload/index','../data/getData','form','positi
                                     layer.msg(_data.message);
 
                                     if (_data.code == 0) {
-                                        $state.go('image.classifyList');
+                                        $state.go('video.classifyList');
                                     }
                                 }); 
                             }

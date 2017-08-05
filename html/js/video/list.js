@@ -166,10 +166,17 @@ define(['require',"app",'jquery'
 										getDataList();
 									},
 									submit : function( obj , data ){
+										var videoClassifyId = '';
+		                                $.each(obj.selects,function(){
+		                                    if(this.title == 'videoClassifyId'){
+		                                        videoClassifyId = this.id;
+		                                    }
+		                                });
 										$scope.isSearch = true;
 										function getSearchList(){											
 											getData.search.searchVideo({
 												"condition":obj.condition,
+												videoClassifyId : videoClassifyId,
 												page : searchPage,
 												pageSize : 20,
 												callback : function(_data){

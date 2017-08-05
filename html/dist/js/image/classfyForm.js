@@ -1,0 +1,1 @@
+define(function(){return[{title:"classifyName",name:"图片分类",placeholder:"请填写图片分类标题",type:"text",verify:"imageTitle"}]});

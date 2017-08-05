@@ -53,7 +53,17 @@ define(["app",'jquery', '../upload/index', '../data/getData','form'],function (a
 								getData.image.updateImages({
 									id : _obj.id,
 									imageUrl : _obj.imageUrl,
-									imageTitle : newData.title,									
+									imageTitle : newData.title,	
+
+									/*imageWidthPixel : data.imageWidthPixel, 
+									imageHeightPixel : data.imageHeightPixel, // 图片宽像素  图片上传接口返回
+									orgWidthPixel : data.orgWidthPixel, //原始长像素  图片上传接口返回
+									orgHeightPixel : data.orgHeightPixel, //原始宽像素  图片上传接口返回
+									imagePath : data.imagePath,
+									watermark : data.watermark, //是否水印 1、0
+									compress : data.compress, //是否压缩
+									fid : data.fid, //图片上传接口返回
+									size : data.size, //图片上传接口返回*/					
 								
 									callback : function(_data){
 										layui.use(['layer'], function(){

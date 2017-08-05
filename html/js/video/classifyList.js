@@ -1,12 +1,12 @@
 define(['require', "app", 'jquery', 'search','../data/getData', './classfyForm', , 'formlist', 'fixedNav', 'position', '../moduls/service', '../moduls/factory'], function(require, app, $, search, getData, list) {
-    app.directive('imageClassifyList', function() {
+    app.directive('videoClassifyList', function() {
         return {
             restrict: 'E',
             replace: true,
             transclude: true,
             templateUrl: '../template/common/list.html',
             controller: function($scope, pop, $uibModal, $css, GenerateArrList) {
-                $scope.title = "图片分类列表";
+                $scope.title = "视频分类列表";
                 $scope.$parent.menu.push({
                     name: $scope.title
                 }); //栏目
@@ -23,7 +23,7 @@ define(['require', "app", 'jquery', 'search','../data/getData', './classfyForm',
                     edit: function(obj) { //保存
                         require(['../common/editPop'], function(pop) {
                             function getAddForm(callback) {
-                               getData.image.imagesclassify({
+                               getData.video.videoclassify({
                                     id : obj.id,
                                     callback : function( _data ){
                                         callback(_data);
@@ -39,7 +39,7 @@ define(['require', "app", 'jquery', 'search','../data/getData', './classfyForm',
                                     callback(list);
                                 },
                                 save : function( obj , _data ){
-                                    getData.image.updateImagesClassify({
+                                    getData.video.updateVideoClassify({
                                         classifyName:obj.classifyName,
                                         id:_data.id,
                                         callback: function(_data) {
@@ -109,7 +109,7 @@ define(['require', "app", 'jquery', 'search','../data/getData', './classfyForm',
                         key: 'id',
                         width:50
                     }, {
-                        name: '图片分类名称',
+                        name: '视频分类名称',
                         key: 'classifyName',
                         width:180
                     }, {
@@ -160,7 +160,7 @@ define(['require', "app", 'jquery', 'search','../data/getData', './classfyForm',
                 var page = 1;
 
                 function getDataList() {
-                    getData.image.imagesclassifylist({
+                    getData.video.videoclassifylist({
                         page: page,
                         pageSize: 20,
                         callback: setList

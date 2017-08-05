@@ -1,8 +1,8 @@
 define(['require',"app",'jquery','search','./recommendlistForm'
-	,'./recommendForm','../common/editPop','../data/getData','../moduls/Tool'
+	,'../common/editPop','../data/getData','../moduls/Tool'
 	,'formlist','fixedNav','position'
 	,'../moduls/service','../moduls/factory'
-], function ( require , app , $ , search , searchForm , list , editPop ,getData , Tool  ) {
+], function ( require , app , $ , search , searchForm  , editPop ,getData , Tool  ) {
 	app.directive('newsRecommendList',function(){
 		return {
 	    	restrict : 'E',
@@ -22,62 +22,65 @@ define(['require',"app",'jquery','search','./recommendlistForm'
 						}
 					},
 					edit : function( obj ){ //保存
-						var newsId = obj.id;
-						function getAddForm(callback){
-							getData.news.recommendNewsInfo({
-								id : obj.id,
-								callback : function(_data){										
-									callback(_data);
-								}
-							})
-						}
-						editPop.init({
-							obj : obj,
-							$uibModal : $uibModal,
-							list : list,
-							updateData : getAddForm,
-
-							save : function(obj , _detail){		
-
-								var recommendColumnId = _detail.recommendColumnId;									
-								$.each(obj.selects,function(){										
-									if(this.title == 'recommendColumnId'){
-										recommendColumnId = this.id;
-									}										
-								})
-
-								if(recommendColumnId == undefined) {											
-									alert('请选择推荐栏目');
-									return;
-								}							
-								
-								getData.news.recommend({
-									id : newsId,
-									recommendTitle : obj.recommendTitle,
-									recommendDescription : obj.recommendDescription,
-									recommendImages : obj.recommendImages,
-									recommendColumnId : recommendColumnId,
-									sort : obj.sort,
-
-									callback : function(_data){
-										layui.use(['layer'], function(){
-											var layer = layui.layer;
-											layer.msg(_data.message);
-											if(_data.code == 0) {									
-												$scope.getNewList();
-											}
-											// setTimeout(function(){
-											// 	location.reload();
-											// },300);
-										});											
+						require(['./recommendListEditForm'], function(list){
+							var newsId = obj.id;
+							function getAddForm(callback){
+								getData.news.recommendNewsInfo({
+									id : obj.id,
+									callback : function(_data){										
+										callback(_data);
 									}
-								})						
-							},
-
-							callback : function(list, callback){
-								callback(list)
+								})
 							}
+							editPop.init({
+								obj : obj,
+								$uibModal : $uibModal,
+								list : list,
+								updateData : getAddForm,
 
+								save : function(obj , _detail){		
+
+									var recommendColumnId = _detail.recommendColumnId;									
+									$.each(obj.selects,function(){										
+										if(this.title == 'recommendColumnId'){
+											recommendColumnId = this.id;
+										}										
+									})
+
+									if(recommendColumnId == undefined) {											
+										alert('请选择推荐栏目');
+										return;
+									}							
+									
+									getData.news.recommend({
+										id : newsId,
+										recommendTitle : obj.recommendTitle,
+										recommendDescription : obj.recommendDescription,
+										recommendImages : obj.recommendImages,
+										recommendColumnId : recommendColumnId,
+										position : obj.position,
+										sort : obj.sort,
+
+										callback : function(_data){
+											layui.use(['layer'], function(){
+												var layer = layui.layer;
+												layer.msg(_data.message);
+												if(_data.code == 0) {									
+													$scope.getNewList();
+												}
+												// setTimeout(function(){
+												// 	location.reload();
+												// },300);
+											});											
+										}
+									})						
+								},
+
+								callback : function(list, callback){
+									callback(list)
+								}
+
+							})
 						})
 					},
 					del : function( obj ){ //取消

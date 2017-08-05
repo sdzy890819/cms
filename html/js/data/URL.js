@@ -141,6 +141,11 @@ define(function(require){
 			delVideo : url+'/video/delVideo',//删除视频 接口
 			videolist : url+'/video/videolist',//获取视频列表 接口
 			uploadVideo : url+'/video/uploadVideo',//视频上传
+			createVideoClassify : url+'/video/createVideoClassify',//
+			videoclassifylist : url+'/video/videoclassifylist',//
+			updateVideoClassify : url+'/video/updateVideoClassify',//
+			videoclassify : url+'/video/videoclassify',//
+			videoclassifyalllist : url+'/video/videoclassifyalllist',//
 			uploadVideo2 : url+'/upload/uploadVideo2'//视频上传
 		},
 		template : {

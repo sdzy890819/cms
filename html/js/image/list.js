@@ -134,8 +134,8 @@ define(['require', "app", 'jquery', 'search', './searchForm', '../data/getData',
                     }, 
                     {name: '创建人', key: 'createUserName' , width:60},
                     {name: '创建时间', key: 'createTimeStr' , width:80},
-                    {name: '修改人', key: 'lastModifyUserName' , width:60},
-                    {name: '修改时间', key: 'updateTimeStr' , width:80},
+                    {name: '显示类别', key: 'lastModifyUserName' , width:60},
+                    {name: '关键词', key: 'keyword' , width:80},
                     {
                         name: '操作',
                         width: '100',
@@ -168,6 +168,7 @@ define(['require', "app", 'jquery', 'search', './searchForm', '../data/getData',
                         $scope.$apply();
                     }
                 }
+
                 //显示列表
                 var page = 1;
 
@@ -180,6 +181,7 @@ define(['require', "app", 'jquery', 'search', './searchForm', '../data/getData',
                 }
                 getDataList();
                 //end 显示列表
+
                 //搜索
                 function search() {
                     var searchPage = 1;
@@ -194,11 +196,18 @@ define(['require', "app", 'jquery', 'search', './searchForm', '../data/getData',
                                 getDataList();
                             },
                             submit: function(obj, data) {
+                                var imagesClassifyId = '';
+                                $.each(obj.selects,function(){
+                                    if(this.title == 'imagesClassifyId'){
+                                        imagesClassifyId = this.id;
+                                    }
+                                });
                                 function getSearchList() {
                                     getData.search.searchImages({
                                         "condition": obj.condition,
                                         page: searchPage,
                                         pageSize: 20,
+                                        imagesClassifyId: imagesClassifyId,
                                         callback: function(_data) {
                                             //分页
                                             $scope.page = _data.data.page;
