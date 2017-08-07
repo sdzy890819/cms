@@ -108,8 +108,8 @@ define(['require',"app",'jquery'
 										{name:'视频链接URL', key: 'videoUrl' },
 										{name: '创建人', key: 'createUserName' , width:60},
 					                    {name: '创建时间', key: 'createTimeStr' , width:80},
-					                    {name: '修改人', key: 'lastModifyUserName' , width:60},
-					                    {name: '修改时间', key: 'updateTimeStr' , width:80},
+					                    {name: '显示类别', key: 'videoClassifyName' , width:60},
+					                    {name: '关键词', key: 'keyword' , width:80},
 					                    {name: 'm3u8Url', key: 'm3u8Url' , width:80},
 										{name:'操作' , width : '120', class:'center'}
 									];		
