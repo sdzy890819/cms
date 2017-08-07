@@ -27,7 +27,8 @@ define(['require',"app",'jquery','search','./recommendlistForm'
 							function getAddForm(callback){
 								getData.news.recommendNewsInfo({
 									id : obj.id,
-									callback : function(_data){										
+									callback : function(_data){	
+										_data.data.position = obj.paixue;			
 										callback(_data);
 									}
 								})
@@ -123,16 +124,23 @@ define(['require',"app",'jquery','search','./recommendlistForm'
 				function setList(_data){
 					var th = [	
 						{name:'推荐名' , key:'title'},					
+						{name:'排序' , key:'paixue'},					
 						{name:'推荐人' , key:'recommendUserName'},								
 						{name:'推荐栏目' , key:'recommendColumnName'},
 						{name:'操作' , width : '220' , class: 'center'}
 					];
+					var list = _data.data.list;
+					$.each(list,function( i , obj ){ //增加排序
+						obj.paixue = (i+1)*page;
+					});
+					var td = GenerateArrList.setArr(list, th);
+
 					$scope.listdata = { //确认按钮
 						title : $scope.title + "（共" + _data.data.page.count + "条数据）",
 						table : {
 							select : true,
 							th : th,									
-							td : GenerateArrList.setArr(_data.data.list, th) ,
+							td : td,
 							edit : [																
 								{cls : 'edit' , name : '修改推荐',evt:$scope.edit},
 								{cls : 'del' , name : '取消推荐',evt:$scope.del},

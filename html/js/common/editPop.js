@@ -24,7 +24,6 @@ define(["app",'jquery','form'],function (app,$) {
 					  		close : true
 					  	},
 						save : function( arr ){ //保存
-							debugger;
 							obj.save(arr,$scope.data,$uibModalInstance);
 							if(!obj.noclose){
 								$uibModalInstance.dismiss('cancel');

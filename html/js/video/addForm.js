@@ -43,8 +43,7 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 			title : 'videoDesc',
 			name : '视频描述',
 			placeholder : '请输入视频描述',
-			type : 'textarea', //text textarea radio checkbox edit
-			verify : 'title'
+			type : 'textarea' //text textarea radio checkbox edit
 		}		
 	]
 	function getList(callback){

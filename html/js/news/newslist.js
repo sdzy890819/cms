@@ -1,17 +1,19 @@
 define(['require',"app",'jquery','search','./searchForm'
 	,'./addForm','../common/editPop','../data/getData','../moduls/Tool'
+	,'../upload/index'
 	,'formlist','fixedNav','position'
 	,'../moduls/service','../moduls/factory'
-], function ( require , app , $ , search , searchForm , list , editPop ,getData , Tool  ) {
+], function ( require , app , $ , search , searchForm , list , editPop ,getData , Tool,upload  ) {
 	app.directive('newsList',function(){
 		return {
 	    	restrict : 'E',
 	    	replace : true,
 	    	transclude : true,
 	        templateUrl : '../template/common/list.html',
-	        controller : function($scope,pop,$uibModal , $css , GenerateArrList, $state){
+	        controller : function($scope,pop,$uibModal , $css , GenerateArrList, $state , Upload){
 				$scope.title = "新闻列表";
 				$scope.$parent.menu.push({name:$scope.title}); //栏目
+				var imageInfo;
 
 				function verification( obj , callback ){ //验证字段
 
@@ -399,6 +401,28 @@ define(['require',"app",'jquery','search','./searchForm'
 									id : obj.id,
 									callback : function(_data){										
 										callback(_data);
+										$('.layui-upload-button').unbind().click(function(){
+											upload.init({
+					        					data : {
+					        						obj : {},
+						        					title : '上传图片',
+						        					name : '请选择图片',
+						        					type : 'image',
+						        					event : function(file , $uibModalInstance){	        						
+						        						imageInfo = file;
+														Upload.base64DataUrl(imageInfo).then(function(urls){	        						   						
+								        					var image = "<img src='" + file.$ngfDataUrl + "'width='50px' class='thumb'>";        						
+								        						// $('.layui-upload-button').empty().append(image);												
+								        					$('.imagePre').empty().append(image);
+														})
+						        						
+						        						$uibModalInstance.dismiss('cancel');
+						        					}
+					        					},
+					        					$uibModal :$uibModal
+					        				});
+										});
+										
 									}
 								})
 							}
@@ -419,7 +443,7 @@ define(['require',"app",'jquery','search','./searchForm'
 									if(recommendColumnId == undefined) {											
 										alert('请选择推荐栏目');
 										return;
-									}							
+									}
 									
 									getData.news.recommend({
 										id : newsId,
@@ -436,7 +460,7 @@ define(['require',"app",'jquery','search','./searchForm'
 												// setTimeout(function(){
 												// 	location.reload();
 												// },300);
-											});											
+											});										
 										}
 									})						
 								},
@@ -616,6 +640,7 @@ define(['require',"app",'jquery','search','./searchForm'
 						{name:'预览' , width : '50' , class: 'center'},
 						{name:'权限' , width : '40' , class: 'center'}
 					];
+					
 					
 					$.each(_data.data.list, function(i, obj){
 						obj.channelAndColumnName = [obj.channelName, obj.columnName].join('-');

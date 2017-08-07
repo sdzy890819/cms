@@ -66,7 +66,6 @@ define(['app','jquery'],function(app,$){
 						li.list = _arr;
 						arr.push(li);
 					});
-					console.log(arr)
 					return arr;
 				},
 				setArr : function( list , th ){ //只显示 th 字段中的数据
