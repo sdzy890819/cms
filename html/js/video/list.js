@@ -36,7 +36,7 @@ define(['require',"app",'jquery'
 									function getAddForm(callback){
 										var _data = {
 											data : obj
-										}										
+										}									
 										callback(_data);
 									}
 
