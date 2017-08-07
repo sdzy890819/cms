@@ -192,7 +192,10 @@ define(["app",'./addForm','../upload/index','../data/getData','form','position',
 								cls : 'cancel'
 							}
 						]
-					}
+					};
+					if (!$scope.$$phase) {
+                        $scope.$apply();
+                    }
 				})
         	}
 	    };

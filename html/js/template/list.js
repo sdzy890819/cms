@@ -71,16 +71,26 @@ define(['require',"app",'jquery'
         					obj : obj,
         					list : list,
         					updateData : updateData,
+        					noclose : true,
         					save : function(obj , _detail ){ //保存 新增 确认 等
-								var templateClassify  , channelId;
-								$.each(obj.selects,function(){
-									if(this.title == 'templateClassify'){
-										templateClassify = this.type;
-									}
-									if(this.title == 'channelId'){
-										channelId = this.id;
-									}
-								});
+								var templateClassify  , channelId , selectID;
+                                selectID = _detail.templateClassify;
+                                $.each(obj.selects,function(){
+                                    if(this.title == 'templateClassify'){
+                                        templateClassify = this.type;
+                                        selectID = this.id;
+                                    }
+
+                                    if(this.title == 'channelId'){
+                                        channelId = this.id;
+                                    }
+                                });
+                                if(selectID == 3 && obj.job =='定时生成'){
+                                    layui.use('layer', function(){
+                                        layui.layer.msg('详情页模版只能使用触发生成!',{icon: 2,anim:6});
+                                    });
+                                    return;
+                                }
 								getData.template.updateTemplate({
 									id : _detail.id,
 									"templateName":obj.templateName,

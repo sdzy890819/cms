@@ -26,6 +26,7 @@ define(['require', "app", 'jquery', 'search', './searchForm', '../data/getData',
                                 var data = {};
                                 data.imageUrl = obj.imageUrl;
                                 data.title = obj.imageTitle;
+                                data.imagesClassifyId = obj.imagesClassifyId;
                                 if (obj.watermark == 0) {
                                     data.watermark = '否';
                                 } else {
@@ -134,7 +135,7 @@ define(['require', "app", 'jquery', 'search', './searchForm', '../data/getData',
                     }, 
                     {name: '创建人', key: 'createUserName' , width:60},
                     {name: '创建时间', key: 'createTimeStr' , width:80},
-                    {name: '显示类别', key: 'lastModifyUserName' , width:60},
+                    {name: '图片类型', key: 'imagesClassifyName' , width:60},
                     {name: '关键词', key: 'keyword' , width:80},
                     {
                         name: '操作',
