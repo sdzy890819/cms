@@ -107,7 +107,7 @@
           <if test="p1.size != null ">
               `size`=#{p1.size},
           </if>
-          <if test="">
+          <if test="p1.imagesClassifyId != null ">
               images_classify_id = #{p1.imagesClassifyId},
           </if>
               keyword = #{p1.keyword},

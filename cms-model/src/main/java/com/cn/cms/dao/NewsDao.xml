@@ -320,7 +320,7 @@
         and recommend_column_id = ${recommendColumnId}
         </if>
         and recommend = 1
-        order by sort,recommend_time desc limit ${page.start}, ${page.pageSize};
+        order by sort DESC ,recommend_time DESC limit ${page.start}, ${page.pageSize};
     </select>
 
 
@@ -330,7 +330,7 @@
             and recommend_column_id = ${recommendColumnId}
         </if>
         and recommend = 1
-        order by sort,recommend_time desc limit ${page.start}, ${page.pageSize};
+        order by sort DESC,recommend_time DESC limit ${page.start}, ${page.pageSize};
     </select>
 
 
