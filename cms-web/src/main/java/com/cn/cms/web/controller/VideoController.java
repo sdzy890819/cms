@@ -117,7 +117,7 @@ public class VideoController extends BaseController{
     @RequestMapping(value = "/createVideo", method = RequestMethod.POST)
     public String createVideo(HttpServletRequest request,
                               @RequestParam(value = "videoTitle") String videoTitle,
-                              @RequestParam(value = "videoDesc") String videoDesc,
+                              @RequestParam(value = "videoDesc", required = false) String videoDesc,
                               @RequestParam(value = "videoUrl") String videoUrl,
                               @RequestParam(value = "videoPath", required = false) String videoPath,
                               @RequestParam(value = "fileName",required = false) String fileName,
