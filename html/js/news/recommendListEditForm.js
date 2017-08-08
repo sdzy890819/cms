@@ -42,6 +42,12 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 			placeholder : '图片URL',
 			type : 'text'			
 		},
+		{
+			title : 'imageUrl',
+			name : '上传图片',
+			type : 'file', //text textarea radio checkbox edit
+			typeName : 'images'
+		}
 		/*{
 			title : 'sort',
 			name : '排序值',

@@ -40,8 +40,7 @@ define(['../data/getData','../moduls/Tool'],function(getData,Tool){
 			title : 'imageUrl',
 			name : '上传图片',
 			type : 'file', //text textarea radio checkbox edit
-			typeName : 'images',
-			verify : 'image'
+			typeName : 'images'
 		}
 		/*{
 			title : 'sort',

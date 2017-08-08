@@ -410,10 +410,23 @@ define(['require',"app",'jquery','search','./searchForm'
 						        					type : 'image',
 						        					event : function(file , $uibModalInstance){	        						
 						        						imageInfo = file;
+						        						var suffix = imageInfo.name.match(/\w+$/)[0];
 														Upload.base64DataUrl(imageInfo).then(function(urls){	        						   						
 								        					var image = "<img src='" + file.$ngfDataUrl + "'width='50px' class='thumb'>";        						
 								        						// $('.layui-upload-button').empty().append(image);												
 								        					$('.imagePre').empty().append(image);
+															if( urls  ){
+																getData.upload.uploadImage({
+																	"baseCode":urls.split(',')[1],
+																	"suffix":suffix,//"文件后缀png|jpg"
+																	"watermark":0, //是否水印
+
+																	callback : function(_data) {
+																		var data = _data.data;
+																		$scope.imgInfo = data;
+																	}
+																})
+															}
 														})
 						        						
 						        						$uibModalInstance.dismiss('cancel');
@@ -444,15 +457,15 @@ define(['require',"app",'jquery','search','./searchForm'
 										alert('请选择推荐栏目');
 										return;
 									}
+									var imgsrc = $scope.imgInfo?$scope.imgInfo.imageUrl:'';
 									
 									getData.news.recommend({
 										id : newsId,
 										recommendTitle : obj.recommendTitle,
 										recommendDescription : obj.recommendDescription,
-										recommendImages : obj.recommendImages,
 										recommendColumnId : recommendColumnId,
 										sort : obj.sort,
-
+										recommendImages : imgsrc,
 										callback : function(_data){
 											layui.use(['layer'], function(){
 												var layer = layui.layer;

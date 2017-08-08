@@ -1,15 +1,15 @@
 define(['require',"app",'jquery','search','./recommendlistForm'
-	,'../common/editPop','../data/getData','../moduls/Tool'
+	,'../common/editPop','../data/getData','../moduls/Tool','../upload/index'
 	,'formlist','fixedNav','position'
 	,'../moduls/service','../moduls/factory'
-], function ( require , app , $ , search , searchForm  , editPop ,getData , Tool  ) {
+], function ( require , app , $ , search , searchForm  , editPop ,getData , Tool,upload  ) {
 	app.directive('newsRecommendList',function(){
 		return {
 	    	restrict : 'E',
 	    	replace : true,
 	    	transclude : true,
 	        templateUrl : '../template/common/list.html',
-	        controller : function($scope,pop,$uibModal , $css , GenerateArrList, $state){
+	        controller : function($scope,pop,$uibModal , $css , GenerateArrList, $state,Upload){
 				$scope.title = "推荐新闻列表";
 				$scope.$parent.menu.push({name:$scope.title}); //栏目
 				angular.extend($scope,{
@@ -28,8 +28,43 @@ define(['require',"app",'jquery','search','./recommendlistForm'
 								getData.news.recommendNewsInfo({
 									id : obj.id,
 									callback : function(_data){	
-										_data.data.position = obj.paixue;			
+										_data.data.position = obj.paixue;
 										callback(_data);
+										$('.layui-upload-button').unbind().click(function(){
+											upload.init({
+					        					data : {
+					        						obj : {},
+						        					title : '上传图片',
+						        					name : '请选择图片',
+						        					type : 'image',
+						        					event : function(file , $uibModalInstance){	        						
+						        						imageInfo = file;
+						        						var suffix = imageInfo.name.match(/\w+$/)[0];
+														Upload.base64DataUrl(imageInfo).then(function(urls){	        						   						
+								        					var image = "<img src='" + file.$ngfDataUrl + "'width='50px' class='thumb'>";        						
+								        						// $('.layui-upload-button').empty().append(image);												
+								        					$('.imagePre').empty().append(image);
+															if( urls  ){
+																getData.upload.uploadImage({
+																	"baseCode":urls.split(',')[1],
+																	"suffix":suffix,//"文件后缀png|jpg"
+																	"watermark":0, //是否水印
+
+																	callback : function(_data) {
+																		var data = _data.data;
+																		$scope.imgInfo = data;
+																	}
+																})
+															}
+														})
+						        						
+						        						$uibModalInstance.dismiss('cancel');
+						        					}
+					        					},
+					        					$uibModal :$uibModal
+					        				});
+										});		
+										
 									}
 								})
 							}
@@ -51,13 +86,14 @@ define(['require',"app",'jquery','search','./recommendlistForm'
 									if(recommendColumnId == undefined) {											
 										alert('请选择推荐栏目');
 										return;
-									}							
+									}					
+									var imgsrc = $scope.imgInfo?$scope.imgInfo.imageUrl:'';		
 									
 									getData.news.recommend({
 										id : newsId,
 										recommendTitle : obj.recommendTitle,
 										recommendDescription : obj.recommendDescription,
-										recommendImages : obj.recommendImages,
+										recommendImages : imgsrc,
 										recommendColumnId : recommendColumnId,
 										position : obj.position,
 										sort : obj.sort,
