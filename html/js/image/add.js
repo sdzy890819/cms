@@ -23,7 +23,6 @@ define(["app",'./addForm','../upload/index','../data/getData','form','position',
 							imagesClassifyId;
 
 
-							debugger;
 						$.each(obj.selects,function(){
 							if(this.title == 'imagesClassifyId'){
 								imagesClassifyId = this.id;
@@ -40,7 +39,7 @@ define(["app",'./addForm','../upload/index','../data/getData','form','position',
 							width = 0;
 							height = 0;
 						}
-						watermark = isSize=='no'?0:1;
+						//watermark = isSize=='no'?0:1;
 
 						function alert(content){
 							layui.use(['layer'], function(){
