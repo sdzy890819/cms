@@ -419,7 +419,7 @@ define(['require',"app",'jquery','search','./searchForm'
 																getData.upload.uploadImage({
 																	"baseCode":urls.split(',')[1],
 																	"suffix":suffix,//"文件后缀png|jpg"
-																	"watermark":1, //是否水印
+																	"watermark":0, //是否水印
 
 																	callback : function(_data) {
 																		var data = _data.data;
