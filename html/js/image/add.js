@@ -13,7 +13,7 @@ define(["app",'./addForm','../upload/index','../data/getData','form','position',
 	        	}
 	        	angular.extend($scope,{
 					save : function( obj ){ //保存
-						var watermark = (obj.watermark=='yes'?0:1), //水印
+						var watermark = (obj.watermark=='yes'?1:0), //水印
 							isSize = obj.isSize , //是否等比缩放
 							selectSize = obj.selectSize , //选择宽还是高
 							width = obj.imageWidth , 
@@ -23,6 +23,7 @@ define(["app",'./addForm','../upload/index','../data/getData','form','position',
 							imagesClassifyId;
 
 
+							debugger;
 						$.each(obj.selects,function(){
 							if(this.title == 'imagesClassifyId'){
 								imagesClassifyId = this.id;
