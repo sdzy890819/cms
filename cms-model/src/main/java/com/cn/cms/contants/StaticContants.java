@@ -9,8 +9,6 @@ import com.cn.cms.utils.PropertyManager;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * 所有静态类的变量定义。都在这个类里
@@ -41,7 +39,7 @@ public class StaticContants {
 
     //---默认分页书  end
 
-    public static final String LOGO_NAME = "logo.png";
+    public static final String LOGO_NAME = "/logo.png";
 
     public static final String COOKIE_USER_ID = "CMS_QUANJING_USER_ID";
 

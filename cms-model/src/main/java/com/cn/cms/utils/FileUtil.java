@@ -1,6 +1,5 @@
 package com.cn.cms.utils;
 
-import com.alibaba.fastjson.JSONObject;
 import com.cn.cms.contants.StaticContants;
 import com.cn.cms.enums.WatermarkEnum;
 import com.cn.cms.exception.BizException;
@@ -9,7 +8,6 @@ import com.cn.cms.logfactory.CommonLogFactory;
 import sun.misc.BASE64Decoder;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -128,9 +126,8 @@ public class FileUtil {
 //                graphics.drawString(StaticContants.WATERMARK_TEXT_EN, x, y);
 //                graphics.drawString(StaticContants.WATERMARK_TEXT_URL, x1, y1);
 
-
                 //-----图片水印
-                Image img = ImageIO.read(FileUtil.class.getClassLoader().getResourceAsStream(StaticContants.LOGO_NAME));
+                Image img = ImageIO.read(FileUtil.class.getResourceAsStream(StaticContants.LOGO_NAME));
                 float alpha = 0.5f; // 透明度
                 graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, alpha));
                 int y2 = height - img.getHeight(null);
@@ -175,7 +172,7 @@ public class FileUtil {
 //                graphics.drawString(StaticContants.WATERMARK_TEXT_URL, x1, y1);
 
                 //-----图片水印
-                Image img = ImageIO.read(FileUtil.class.getClassLoader().getResourceAsStream(StaticContants.LOGO_NAME));
+                Image img = ImageIO.read(FileUtil.class.getResourceAsStream(StaticContants.LOGO_NAME));
                 float alpha = 0.5f; // 透明度
                 graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, alpha));
                 int x2 = width - img.getWidth(null);
@@ -474,9 +471,6 @@ public class FileUtil {
 
         //Image img = ImageIO.read(FileUtil.class.getClassLoader().getResourceAsStream(StaticContants.LOGO_NAME));
         //System.out.println(img.getHeight(null));
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(FileUtil.class.getClass().getResourceAsStream("/ab.ini")));
-        System.out.println(bufferedReader.readLine());
-        bufferedReader.close();
     }
 
     /**
