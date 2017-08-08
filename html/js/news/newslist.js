@@ -396,7 +396,7 @@ define(['require',"app",'jquery','search','./searchForm'
 					recommend : function (obj) {
 						var newsId = obj.id;
 						require(['./recommendForm'], function(recommendFormList){
-							function getAddForm(callback){
+							function getAddForm(callback,editPopScope){
 								getData.news.recommendNewsInfo({
 									id : obj.id,
 									callback : function(_data){										
@@ -424,6 +424,9 @@ define(['require',"app",'jquery','search','./searchForm'
 																	callback : function(_data) {
 																		var data = _data.data;
 																		$scope.imgInfo = data;
+																		editPopScope.updateData({
+																			recommendImages : data.imageUrl
+																		})
 																	}
 																})
 															}

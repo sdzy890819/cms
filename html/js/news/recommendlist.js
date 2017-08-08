@@ -24,7 +24,7 @@ define(['require',"app",'jquery','search','./recommendlistForm'
 					edit : function( obj ){ //保存
 						require(['./recommendListEditForm'], function(list){
 							var newsId = obj.id;
-							function getAddForm(callback){
+							function getAddForm(callback , editPopScope){
 								getData.news.recommendNewsInfo({
 									id : obj.id,
 									callback : function(_data){	
@@ -53,6 +53,9 @@ define(['require',"app",'jquery','search','./recommendlistForm'
 																	callback : function(_data) {
 																		var data = _data.data;
 																		$scope.imgInfo = data;
+																		editPopScope.updateData({
+																			recommendImages : data.imageUrl
+																		})
 																	}
 																})
 															}

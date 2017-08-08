@@ -23,6 +23,12 @@ define(["app",'jquery','form'],function (app,$) {
 						titelement : {
 					  		close : true
 					  	},
+					  	updateData : function( obj ){
+					  		angular.extend($scope.data,obj);
+					  		if(!$scope.$$phase) { 
+								$scope.$apply();
+							} 
+					  	},
 						save : function( arr ){ //保存
 							obj.save(arr,$scope.data,$uibModalInstance);
 							if(!obj.noclose){
@@ -82,7 +88,7 @@ define(["app",'jquery','form'],function (app,$) {
 								if(!$scope.$$phase) { 
 									$scope.$apply();
 								} 
-							});							
+							},$scope);							
 						})
 					})
 				}
