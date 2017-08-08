@@ -54,6 +54,8 @@ define(["app",'jquery', '../upload/index', '../data/getData','form'],function (a
 									id : _obj.id,
 									imageUrl : _obj.imageUrl,
 									imageTitle : newData.title,	
+									imagesClassifyId : imagesClassifyId,
+									keyword : keyword,
 
 									/*imageWidthPixel : data.imageWidthPixel, 
 									imageHeightPixel : data.imageHeightPixel, // 图片宽像素  图片上传接口返回

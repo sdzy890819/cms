@@ -1,17 +1,19 @@
 define(['require',"app",'jquery','search','./searchForm'
 	,'./addForm','../common/editPop','../data/getData','../moduls/Tool'
+	,'../upload/index'
 	,'formlist','fixedNav','position'
 	,'../moduls/service','../moduls/factory'
-], function ( require , app , $ , search , searchForm , list , editPop ,getData , Tool  ) {
+], function ( require , app , $ , search , searchForm , list , editPop ,getData , Tool,upload  ) {
 	app.directive('newsList',function(){
 		return {
 	    	restrict : 'E',
 	    	replace : true,
 	    	transclude : true,
 	        templateUrl : '../template/common/list.html',
-	        controller : function($scope,pop,$uibModal , $css , GenerateArrList, $state){
+	        controller : function($scope,pop,$uibModal , $css , GenerateArrList, $state , Upload){
 				$scope.title = "新闻列表";
 				$scope.$parent.menu.push({name:$scope.title}); //栏目
+				var imageInfo;
 
 				function verification( obj , callback ){ //验证字段
 
@@ -394,11 +396,49 @@ define(['require',"app",'jquery','search','./searchForm'
 					recommend : function (obj) {
 						var newsId = obj.id;
 						require(['./recommendForm'], function(recommendFormList){
-							function getAddForm(callback){
+							function getAddForm(callback,editPopScope){
 								getData.news.recommendNewsInfo({
 									id : obj.id,
 									callback : function(_data){										
 										callback(_data);
+										$('.layui-upload-button').unbind().click(function(){
+											upload.init({
+					        					data : {
+					        						obj : {},
+						        					title : '上传图片',
+						        					name : '请选择图片',
+						        					type : 'image',
+						        					event : function(file , $uibModalInstance){	        						
+						        						imageInfo = file;
+						        						var suffix = imageInfo.name.match(/\w+$/)[0];
+														Upload.base64DataUrl(imageInfo).then(function(urls){	        						   						
+								        					var image = "<img src='" + file.$ngfDataUrl + "'width='50px' class='thumb'>";        						
+								        						// $('.layui-upload-button').empty().append(image);												
+								        					$('.imagePre').empty().append(image);
+															if( urls  ){
+																getData.upload.uploadImage({
+																	"baseCode":urls.split(',')[1],
+																	"suffix":suffix,//"文件后缀png|jpg"
+																	"watermark":0, //是否水印
+
+																	callback : function(_data) {
+																		var data = _data.data;
+																		$scope.imgInfo = data;
+																		editPopScope.updateData({
+																			recommendImages : data.imageUrl
+																		})
+																	}
+																})
+															}
+														})
+						        						
+						        						$uibModalInstance.dismiss('cancel');
+						        					}
+					        					},
+					        					$uibModal :$uibModal
+					        				});
+										});
+										
 									}
 								})
 							}
@@ -419,16 +459,16 @@ define(['require',"app",'jquery','search','./searchForm'
 									if(recommendColumnId == undefined) {											
 										alert('请选择推荐栏目');
 										return;
-									}							
+									}
+									var imgsrc = $scope.imgInfo?$scope.imgInfo.imageUrl:'';
 									
 									getData.news.recommend({
 										id : newsId,
 										recommendTitle : obj.recommendTitle,
 										recommendDescription : obj.recommendDescription,
-										recommendImages : obj.recommendImages,
 										recommendColumnId : recommendColumnId,
 										sort : obj.sort,
-
+										recommendImages : imgsrc,
 										callback : function(_data){
 											layui.use(['layer'], function(){
 												var layer = layui.layer;
@@ -436,7 +476,7 @@ define(['require',"app",'jquery','search','./searchForm'
 												// setTimeout(function(){
 												// 	location.reload();
 												// },300);
-											});											
+											});										
 										}
 									})						
 								},
@@ -616,6 +656,7 @@ define(['require',"app",'jquery','search','./searchForm'
 						{name:'预览' , width : '50' , class: 'center'},
 						{name:'权限' , width : '40' , class: 'center'}
 					];
+					
 					
 					$.each(_data.data.list, function(i, obj){
 						obj.channelAndColumnName = [obj.channelName, obj.columnName].join('-');

@@ -23,7 +23,7 @@ define(['require', "app", 'jquery', 'search', './searchForm', '../data/getData',
                     edit: function(obj) { //保存
                         require(['./editImagePop'], function(pop) {
                             function getAddForm(callback) {
-                                var data = {};
+                                /*var data = {};
                                 data.imageUrl = obj.imageUrl;
                                 data.title = obj.imageTitle;
                                 data.imagesClassifyId = obj.imagesClassifyId;
@@ -36,8 +36,16 @@ define(['require', "app", 'jquery', 'search', './searchForm', '../data/getData',
                                 data.imageHeight = obj.imageHeightPixel;
                                 var _data = {
                                     data: data
-                                };
-                                callback(_data);
+                                };*/
+                                if (obj.watermark == 0) {
+                                    obj.watermark = '否';
+                                } else {
+                                    obj.watermark = '是';
+                                }
+                                obj.imageWidth = obj.imageWidthPixel;
+                                obj.imageHeight = obj.imageHeightPixel;
+                                obj.title = obj.imageTitle;
+                                callback({data:obj});
                             }
                             pop.init({
                                 obj: obj,
