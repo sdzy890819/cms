@@ -170,7 +170,7 @@ define(['require',"app",'jquery','search','./recommendlistForm'
 					];
 					var list = _data.data.list;
 					$.each(list,function( i , obj ){ //增加排序
-						obj.paixue = (i+1)*page;
+						obj.paixue = (i+1)+pageSize*(page-1);
 					});
 					var td = GenerateArrList.setArr(list, th);
 
@@ -263,13 +263,13 @@ define(['require',"app",'jquery','search','./recommendlistForm'
 				search();
 				//end 搜索
 
-				var page = 1;
+				var page = 1 , pageSize = 20;
 
 				function getDataList(){
 					$scope.isSearch = false;
 					getData.news.recommendList({
 						page : page,
-						pageSize : 20,
+						pageSize : pageSize,
 						callback : function(_data){
 							//分页
 							$scope.page = _data.data.page;
