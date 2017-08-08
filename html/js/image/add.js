@@ -35,6 +35,10 @@ define(["app",'./addForm','../upload/index','../data/getData','form','position',
 						if(width>0){
 							height = 0
 						}
+						if(isSize=='no'){
+							width = 0;
+							height = 0;
+						}
 						watermark = isSize=='no'?0:1;
 
 						function alert(content){
