@@ -470,7 +470,7 @@ public class ESearchClient {
             builder = builder.field("field5", news.getField5());
             builder = builder.field("autoPublish", news.getAutoPublish());
             builder = builder.field("timer", DateUtils.convertDateToMillis(news.getTimer()));
-            builder = builder.field("sort", news.getSort());
+            builder = builder.field("sortV2", news.getSort());
             builder = builder.field("recommendTitle",news.getRecommendTitle());
             builder = builder.field("recommendDescription", news.getRecommendDescription());
             builder = builder.field("recommendImages", news.getRecommendImages());

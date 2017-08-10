@@ -11,7 +11,7 @@ public enum SortEnum {
     UPDATETIME("修改时间", "updateTime", 2),
     BUILDTIME("发布时间", "buildTime", 3),
     WRITETIME("编写时间", "writeTime", 4),
-    SORT("推荐排序", "sort", 5);
+    SORT("推荐排序", "sortV2", 5);
 
     @Getter
     private int type;
