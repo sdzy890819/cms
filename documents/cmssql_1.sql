@@ -653,3 +653,4 @@ CREATE TABLE `video_classify` (
 ALTER TABLE `video` ADD COLUMN `video_classify_id` bigint COMMENT '视频分类' AFTER `m3u8_url`, ADD COLUMN `keyword` varchar(200) COMMENT '关键词' AFTER `video_classify_id`;
 
 ALTER TABLE `images` ADD COLUMN `images_classify_id` bigint(20) DEFAULT NULL COMMENT '图片分类' AFTER `create_user_id`, ADD COLUMN `keyword` varchar(200) DEFAULT NULL COMMENT '关键词' AFTER `images_classify_id`;
+
