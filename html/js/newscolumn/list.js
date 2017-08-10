@@ -25,6 +25,7 @@ define(['require',"app",'jquery' , 'search','./searchForm','./columnForm'
 								}
 							})
 						}
+						obj.size = 'lg';
         				editPop.init({
         					obj : obj,
         					list : list,
