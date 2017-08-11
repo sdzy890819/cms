@@ -4400,6 +4400,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
                     }
                     ei = current.previousSibling;
                     clone.insertBefore(!action ? current.cloneNode(true) : current, clone.firstChild);
+
                     current = ei;
                 }
             }
@@ -4411,8 +4412,8 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
         tmpStart && domUtils.remove(tmpStart);
         tmpEnd && domUtils.remove(tmpEnd);
         /*bo.peng*/
-        frag.textContent = frag.textContent.replace(/^\s+/,'');
-        frag.textContent = frag.textContent.replace(/^(&nbsp;)+/,'');
+        //frag.textContent = frag.textContent.replace(/^\s+/,'');
+        //frag.textContent = frag.textContent.replace(/^(&nbsp;)+/,'');
         /* end bo.peng*/
         return frag;
     }
