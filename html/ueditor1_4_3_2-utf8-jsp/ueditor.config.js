@@ -282,9 +282,9 @@
         //removeFormat
         //清除格式时可以删除的标签和属性
         //removeForamtTags标签
-        //,removeFormatTags:'b,big,code,del,dfn,em,font,i,ins,kbd,q,samp,small,span,strike,strong,sub,sup,tt,u,var'
+        ,removeFormatTags:'b,big,code,del,dfn,em,font,i,ins,kbd,q,samp,small,span,strike,strong,sub,sup,tt,u,var,iframe,script,a'
         //removeFormatAttributes属性
-        //,removeFormatAttributes:'class,style,lang,width,height,align,hspace,valign'
+        ,removeFormatAttributes:'class,style,lang,width,height,align,hspace,valign,href'
 
         //undo
         //可以最多回退的次数,默认20
