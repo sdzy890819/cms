@@ -32,7 +32,7 @@ define(['require',"app",'jquery'
 									if (_data.data.timer) {
 										_data.data.timer = new Date(_data.data.timer).format('yyyy-MM-dd h:m:s');
 									}
-									if(formList){ //发果有1条以上的字段则显示
+									if($.type(formList)=='array'){ //发果有1条以上的字段则显示
 										var maxNum , index = 2 , 
 											title , name, inputMaxNum,type,
 											firstArr, lastArr;
