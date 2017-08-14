@@ -120,7 +120,7 @@ define(['require',"app",'jquery','search','./searchForm'
 									if (_data.data.timer) {
 										_data.data.timer = new Date(_data.data.timer).format('yyyy-MM-dd h:m:s');
 									}
-									if(formList){ //如果有1条以上的字段则显示
+									if($.type(formList)=='array'){ //如果有1条以上的字段则显示
 										var maxNum , index = 2 , 
 											title , name, inputMaxNum,type,
 											firstArr, lastArr;
@@ -148,50 +148,52 @@ define(['require',"app",'jquery','search','./searchForm'
 												}
 											}
 										}
+
 										$.each(formList,function(i,obj){
-											if(obj.title=='field1'){ //填充多个字段
-												title = obj.title.replace(obj.title.match(/\d+$/)[0],'');
-												name = obj.name.match(/\d+$/);
-												if(name){
-													name = obj.name.replace(name[0],'');
-												}else{
-													name = obj.name;
+											if($.type(obj)=='object'){
+												if(obj.title=='field1'){ //填充多个字段
+													title = obj.title.replace(obj.title.match(/\d+$/)[0],'');
+													name = obj.name.match(/\d+$/);
+													if(name){
+														name = obj.name.replace(name[0],'');
+													}else{
+														name = obj.name;
+													}
+													inputMaxNum = obj.inputMaxNum;
+													type = obj.type;
+													firstArr = formList.slice(0,i+1) 
+													lastArr = formList.slice(i+1) 
+													maxNum = obj.inputMaxNum+1;
+												}else if(obj.type=='select'){//填充二级 三级栏目
+													getData.channel.currentChannelList({
+														categoryId : _data.data.categoryId,
+														callback : function(_data){
+															var arr = [obj.select[1][0]];
+															obj.select[1] = arr;
+															obj.select[1] = obj.select[1].concat(Tool.changeObjectName(_data.data,[{name:'channelName',newName:'name'}]));
+															
+															$scope.$apply();																
+														}
+													})
+
+													getData.news.newscolumnlist({
+														channelId : _data.data.channelId,
+														callback : function(_data){
+															var arr = [obj.select[2][0]];
+															obj.select[2] = arr;
+															obj.select[2] = obj.select[2].concat(Tool.changeObjectName(_data.data,[{name:'columnName',newName:'name'}]));
+															$scope.$apply();																
+														}
+													})
 												}
-												inputMaxNum = obj.inputMaxNum;
-												type = obj.type;
-												firstArr = formList.slice(0,i+1) 
-												lastArr = formList.slice(i+1) 
-												maxNum = obj.inputMaxNum+1;
-											}else if(obj.type=='select'){//填充二级 三级栏目
-												getData.channel.currentChannelList({
-													categoryId : _data.data.categoryId,
-													callback : function(_data){
-														var arr = [obj.select[1][0]];
-														obj.select[1] = arr;
-														obj.select[1] = obj.select[1].concat(Tool.changeObjectName(_data.data,[{name:'channelName',newName:'name'}]));
-														
-														$scope.$apply();																
-													}
-												})
-
-												getData.news.newscolumnlist({
-													channelId : _data.data.channelId,
-													callback : function(_data){
-														var arr = [obj.select[2][0]];
-														obj.select[2] = arr;
-														obj.select[2] = obj.select[2].concat(Tool.changeObjectName(_data.data,[{name:'columnName',newName:'name'}]));
-														$scope.$apply();																
-													}
-												})
 											}
-
-
 											if($.type(obj)=='array'){
 												$.each(obj,function( j , _obj ){
 													setSelect(_obj);
 												})
-											}else{
+											}else if($.type(obj)=='object'){
 												setSelect(obj);
+
 											}
 										});
 										for(;index<maxNum;index++){
@@ -207,7 +209,11 @@ define(['require',"app",'jquery','search','./searchForm'
 												})
 											}
 										}
-										callback(firstArr.concat(lastArr));
+										try{
+											callback(firstArr.concat(lastArr));
+										}catch(e){
+											console.log('firstArr:'+firstArr+' lastArr:'+lastArr)
+										}
 									}else{
 										callback(_data);
 									}
