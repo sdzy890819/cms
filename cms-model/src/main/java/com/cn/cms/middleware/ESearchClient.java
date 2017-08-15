@@ -308,9 +308,10 @@ public class ESearchClient {
 //            }else {
 //                qb = qb.must(QueryBuilders.matchQuery("imageTitle", imagesSearch.getCondition()));
 //            }
-            qb = qb.should(QueryBuilders.matchQuery("imageTitle", imagesSearch.getCondition()));
-            qb = qb.should(QueryBuilders.matchQuery("imageTitle.pinyin", imagesSearch.getCondition()));
-            qb = qb.should(QueryBuilders.matchQuery("keyword", imagesSearch.getCondition()));
+//            qb = qb.should(QueryBuilders.matchQuery("imageTitle", imagesSearch.getCondition()));
+//            qb = qb.should(QueryBuilders.matchQuery("imageTitle.pinyin", imagesSearch.getCondition()));
+//            qb = qb.should(QueryBuilders.matchQuery("keyword", imagesSearch.getCondition()));
+            qb = qb.must(QueryBuilders.multiMatchQuery(imagesSearch.getCondition(), new String[]{"imageTitle", "imageTitle.pinyin", "keyword"}));
         }
         if(imagesSearch.getImagesClassifyId()!=null && imagesSearch.getImagesClassifyId()>0){
             qb = qb.must(QueryBuilders.termQuery("imagesClassifyId", imagesSearch.getImagesClassifyId()));
@@ -372,10 +373,11 @@ public class ESearchClient {
 //            }else {
 //                qb = qb.must(QueryBuilders.multiMatchQuery(videoSearch.getCondition(), new String[]{"videoTitle", "videoDesc"}));
 //            }
-            qb = qb.should(QueryBuilders.matchQuery("videoTitle", videoSearch.getCondition()));
-            qb = qb.should(QueryBuilders.matchQuery("videoDesc", videoSearch.getCondition()));
-            qb = qb.should(QueryBuilders.matchQuery("videoTitle.pinyin", videoSearch.getCondition()));
-            qb = qb.should(QueryBuilders.matchQuery("keyword", videoSearch.getCondition()));
+//            qb = qb.should(QueryBuilders.matchQuery("videoTitle", videoSearch.getCondition()));
+//            qb = qb.should(QueryBuilders.matchQuery("videoDesc", videoSearch.getCondition()));
+//            qb = qb.should(QueryBuilders.matchQuery("videoTitle.pinyin", videoSearch.getCondition()));
+//            qb = qb.should(QueryBuilders.matchQuery("keyword", videoSearch.getCondition()));
+            qb = qb.must(QueryBuilders.multiMatchQuery(videoSearch.getCondition(), new String[]{"videoTitle", "videoDesc","videoTitle.pinyin","keyword"}));
         }
 
         if(videoSearch.getVideoClassifyId()!=null && videoSearch.getVideoClassifyId()>0){
