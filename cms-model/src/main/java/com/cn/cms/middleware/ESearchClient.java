@@ -308,13 +308,12 @@ public class ESearchClient {
 //            }else {
 //                qb = qb.must(QueryBuilders.matchQuery("imageTitle", imagesSearch.getCondition()));
 //            }
-
             qb = qb.should(QueryBuilders.matchQuery("imageTitle", imagesSearch.getCondition()));
             qb = qb.should(QueryBuilders.matchQuery("imageTitle.pinyin", imagesSearch.getCondition()));
             qb = qb.should(QueryBuilders.matchQuery("keyword", imagesSearch.getCondition()));
-            if(imagesSearch.getImagesClassifyId()!=null && imagesSearch.getImagesClassifyId()>0){
-                qb = qb.must(QueryBuilders.termQuery("imagesClassifyId", imagesSearch.getImagesClassifyId()));
-            }
+        }
+        if(imagesSearch.getImagesClassifyId()!=null && imagesSearch.getImagesClassifyId()>0){
+            qb = qb.must(QueryBuilders.termQuery("imagesClassifyId", imagesSearch.getImagesClassifyId()));
         }
         SearchRequestBuilder builder = this.client.prepareSearch(ESSearchTypeEnum.images.getIndex())
                 .setTypes(ESSearchTypeEnum.images.getName())
@@ -377,11 +376,11 @@ public class ESearchClient {
             qb = qb.should(QueryBuilders.matchQuery("videoDesc", videoSearch.getCondition()));
             qb = qb.should(QueryBuilders.matchQuery("videoTitle.pinyin", videoSearch.getCondition()));
             qb = qb.should(QueryBuilders.matchQuery("keyword", videoSearch.getCondition()));
-            if(videoSearch.getVideoClassifyId()!=null && videoSearch.getVideoClassifyId()>0){
-                qb = qb.must(QueryBuilders.termQuery("videoClassifyId", videoSearch.getVideoClassifyId()));
-            }
         }
 
+        if(videoSearch.getVideoClassifyId()!=null && videoSearch.getVideoClassifyId()>0){
+            qb = qb.must(QueryBuilders.termQuery("videoClassifyId", videoSearch.getVideoClassifyId()));
+        }
         SearchRequestBuilder builder = this.client.prepareSearch(ESSearchTypeEnum.video.getIndex())
                 .setTypes(ESSearchTypeEnum.video.getName())
                 .setFrom(page.getStart())
