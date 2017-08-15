@@ -313,7 +313,7 @@ public class ESearchClient {
             qb = qb.should(QueryBuilders.matchQuery("imageTitle.pinyin", imagesSearch.getCondition()));
             qb = qb.should(QueryBuilders.matchQuery("keyword", imagesSearch.getCondition()));
             if(imagesSearch.getImagesClassifyId()!=null && imagesSearch.getImagesClassifyId()>0){
-                qb = qb.must(QueryBuilders.matchQuery("imagesClassifyId", imagesSearch.getCondition()));
+                qb = qb.must(QueryBuilders.termQuery("imagesClassifyId", imagesSearch.getImagesClassifyId()));
             }
         }
         SearchRequestBuilder builder = this.client.prepareSearch(ESSearchTypeEnum.images.getIndex())
@@ -378,7 +378,7 @@ public class ESearchClient {
             qb = qb.should(QueryBuilders.matchQuery("videoTitle.pinyin", videoSearch.getCondition()));
             qb = qb.should(QueryBuilders.matchQuery("keyword", videoSearch.getCondition()));
             if(videoSearch.getVideoClassifyId()!=null && videoSearch.getVideoClassifyId()>0){
-                qb = qb.must(QueryBuilders.matchQuery("videoClassifyId", videoSearch.getCondition()));
+                qb = qb.must(QueryBuilders.termQuery("videoClassifyId", videoSearch.getVideoClassifyId()));
             }
         }
 
