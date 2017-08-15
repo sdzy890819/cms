@@ -3,7 +3,6 @@ define(["app",'jquery','form'],function (app,$) {
     	init : function( obj ){
 			var $uibModal = obj.$uibModal , 
 				getList = obj.list;
-			
 			if($.type(getList)=='array'){
 				getList = function(callback){
 					callback(obj.list);

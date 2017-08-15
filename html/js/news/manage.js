@@ -35,7 +35,7 @@ define(['require',"app",'jquery','search','./searchForm'
                                     if (_data.data.editPublishTime) {
                                         _data.data.editPublishTime = new Date(_data.data.editPublishTime).format('yyyy-MM-dd h:m:s');
                                     }
-                                    if(formList){ //如果有1条以上的字段则显示
+                                    if($.type(formList)=='array'){ //如果有1条以上的字段则显示
                                         var maxNum , index = 2 , 
                                             title , name, inputMaxNum,type,
                                             firstArr, lastArr;

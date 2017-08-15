@@ -29,7 +29,7 @@ define(['require',"app",'jquery','search','./searchForm'
 								id : obj.id,
 								callback : function(_data){
 									_data.data.releaseTime = new Date(_data.data.releaseTime).format('yyyy-MM-dd h:m:s');
-									if(formList){
+									if($.type(formList)=='array'){
 										$.each(formList,function(i,obj){
 											if(obj.type=='select'){//填充二级 三级栏目
 												getData.channel.currentChannelList({
