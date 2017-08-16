@@ -66,7 +66,12 @@ define(["app",'jquery','form'],function (app,$) {
 								$scope.data = _data.data;
 
 								window.addContent = function(callback){
-									callback(_data.data.newsDetail.content);
+									try{
+										callback(_data.data.newsDetail.content);
+									}catch(e){
+										console.log('暂无内容')
+									}
+									
 								}
 								function clear( obj ){
 									if(obj.type=='selectSize'){
