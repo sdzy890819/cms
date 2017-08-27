@@ -3,14 +3,20 @@ package com.cn.cms.biz;
 import com.cn.cms.bo.TemplateSearch;
 import com.cn.cms.enums.RelationTypeEnum;
 import com.cn.cms.enums.TemplateClassifyEnum;
+import com.cn.cms.po.Channel;
 import com.cn.cms.po.Template;
 import com.cn.cms.po.TemplateRelation;
+import com.cn.cms.po.Topic;
 import com.cn.cms.service.TemplateService;
 import com.cn.cms.utils.Page;
+import com.cn.cms.utils.StringUtils;
+import org.jboss.netty.util.internal.StringUtil;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by ADMIN on 16/12/7.
@@ -20,6 +26,9 @@ public class TemplateBiz extends BaseBiz {
 
     @Resource
     private TemplateService templateService;
+
+    @Resource
+    private ChannelBiz channelBiz;
 
 
     /**
@@ -75,6 +84,10 @@ public class TemplateBiz extends BaseBiz {
 
     public Integer queryFilenameAndPathCount(Template template){
         return templateService.queryFilenameAndPathCount(template);
+    }
+
+    public List<Template> queryFilenameAndPath(Template template){
+        return templateService.queryFilenameAndPath(template);
     }
 
     /**
@@ -188,5 +201,32 @@ public class TemplateBiz extends BaseBiz {
         templateService.uploadTemplate(lastModifyUserId, id, upload);
     }
 
+    /**
+     * 是否重复
+     * @param newTemplate
+     * @param templates
+     * @return
+     */
+    public boolean repeat(Template newTemplate, List<Template> templates){
+        boolean bool = false;
+        if(templates!=null && templates.size() > 0){
+            List<Long> ids = new ArrayList<>();
+            ids.add(newTemplate.getChannelId());
+            for( int i=0; i<templates.size(); i ++ ) {
+                Template template = templates.get(i);
+                ids.add(template.getChannelId());
+            }
+            Map<Long, Channel> map = channelBiz.getChannelMap(ids);
+            String templatePath = map.get(newTemplate.getChannelId()).getTemplatePath();
+            for( int i=0; i<templates.size(); i ++ ) {
+                if(StringUtils.isNotBlank(templatePath) && templatePath.equals(map.get(templates.get(i).getChannelId()).getTemplatePath())){
+                    bool = true;
+                    break;
+                }
+            }
+        }
+
+        return bool;
+    }
 
 }

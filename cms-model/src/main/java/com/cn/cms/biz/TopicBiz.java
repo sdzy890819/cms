@@ -198,6 +198,10 @@ public class TopicBiz extends BaseBiz {
         return topicService.queryFilenameAndPathCount(topic);
     }
 
+    public List<Topic> queryFilenameAndPath(Topic topic) {
+        return topicService.queryFilenameAndPath(topic);
+    }
+
     private void sendIndex(Base base){
         IndexThread indexThread = new IndexThread();
         indexThread.setId(base.getId());

@@ -196,6 +196,11 @@ public class Template2Controller extends BaseController  {
             if(file.exists()){
                 return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP + filePath);
             }
+            Integer b = template2Biz.queryFilenameAndPathCount(template2);
+            if(b != null && b > 0){
+                return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
+            }
+
         }
 
         template2Biz.saveTemplate2(template2);
@@ -261,7 +266,10 @@ public class Template2Controller extends BaseController  {
         if(file.exists()){
             return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP + filePath);
         }
-
+        Integer b = template2Biz.queryFilenameAndPathCount(template2);
+        if(b != null && b > 0){
+            return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
+        }
         template2Biz.saveTemplate2(template2);
         return ApiResponse.returnSuccess();
     }

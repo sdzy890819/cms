@@ -202,4 +202,11 @@
         </if>
     </select>
 
+    <select id="queryFilenameAndPath" resultMap="template">
+        select <include refid="sql_column" /> from template <include refid="delTag" /> and path = #{p1.path} and filename = #{p1.filename}
+        <if test="p1.id != null">
+            and id != #{p1.id}
+        </if>
+    </select>
+
 </mapper>

@@ -28,6 +28,8 @@ public interface TemplateService {
 
     Integer queryFilenameAndPathCount(Template template);
 
+    List<Template> queryFilenameAndPath(Template template);
+
     void updateTemplate(Template template);
 
     Template getTemplate(Long id);

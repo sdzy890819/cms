@@ -27,6 +27,8 @@ public interface TemplateDao {
 
     Integer queryFilenameAndPathCount(@Param(value = "p1") Template template);
 
+    List<Template> queryFilenameAndPath(@Param(value = "p1") Template template);
+
     void updateTemplate(@Param(value = "p1") Template template);
 
     Template getTemplate(@Param(value = "id") Long id);

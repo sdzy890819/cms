@@ -65,6 +65,11 @@ public class TemplateServiceImpl implements TemplateService {
         return templateDao.queryFilenameAndPathCount(template);
     }
 
+    @Override
+    public List<Template> queryFilenameAndPath(Template template) {
+        return templateDao.queryFilenameAndPath(template);
+    }
+
     public void updateTemplate(Template template) {
         templateDao.updateTemplate(template);
     }

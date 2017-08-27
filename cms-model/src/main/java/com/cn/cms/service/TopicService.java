@@ -60,4 +60,6 @@ public interface TopicService {
 
     Integer queryFilenameAndPathCount(Topic topic);
 
+    List<Topic> queryFilenameAndPath(Topic topic);
+
 }

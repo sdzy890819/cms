@@ -147,4 +147,9 @@ public class TopicServiceImpl implements TopicService {
     public Integer queryFilenameAndPathCount(Topic topic) {
         return topicDao.queryFilenameAndPathCount(topic);
     }
+
+    @Override
+    public List<Topic> queryFilenameAndPath(Topic topic) {
+        return topicDao.queryFilenameAndPath(topic);
+    }
 }

@@ -37,4 +37,6 @@ public interface TopicDao {
     void publishTopic(@Param(value = "p1") Topic topic);
 
     Integer queryFilenameAndPathCount(@Param(value = "p1") Topic topic);
+
+    List<Topic> queryFilenameAndPath(@Param(value = "p1") Topic topic);
 }

@@ -9,6 +9,7 @@ import com.cn.cms.exception.BizException;
 import com.cn.cms.po.Channel;
 import com.cn.cms.po.Template;
 import com.cn.cms.po.TemplateRelation;
+import com.cn.cms.po.Topic;
 import com.cn.cms.utils.FileUtil;
 import com.cn.cms.utils.Page;
 import com.cn.cms.utils.RsyncUtils;
@@ -172,6 +173,8 @@ public class TemplateController extends BaseController {
 //            }
 //            template.setUpload(UploadEnum.NO.getType());
 //        }
+
+
         if(!oldTemplate.getPath().equals(path) || !oldTemplate.getFilename().equals(filename) || ( channelId != null && !oldTemplate.getChannelId().equals(channelId))){
             Channel channel = null;
             if(channelId!=null){
@@ -187,6 +190,12 @@ public class TemplateController extends BaseController {
             if(file.exists()){
                 return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP + filePath);
             }
+            template.setChannelId(channel.getId());
+            List<Template> list = templateBiz.queryFilenameAndPath(template);
+            if(templateBiz.repeat(template, list)){
+                return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
+            }
+
         }
 
         templateBiz.saveTemplate(template);
@@ -254,6 +263,12 @@ public class TemplateController extends BaseController {
         if(c != null && c > 0){
             return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
         }*/
+
+        List<Template> list = templateBiz.queryFilenameAndPath(template);
+        if(templateBiz.repeat(template, list)){
+            return ApiResponse.returnFail(StaticContants.ERROR_TEMPLATE_PATH_FILENAME_DUP);
+        }
+
         Channel channel = channelBiz.getChannel(channelId);
         if(channel == null){
             return ApiResponse.returnFail(StaticContants.ERROR_CHANNEL_NOT_FOUND);
