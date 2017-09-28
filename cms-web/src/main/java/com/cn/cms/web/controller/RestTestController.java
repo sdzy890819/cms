@@ -108,8 +108,8 @@ public class RestTestController extends BaseController{
                             tmp.setNewsStocks(newsBiz.findNewsStockList(news.getId()));
                             eSearchClient.updateNews(tmp);
                         }
-                        log.info("执行更新索引完毕.当前页：{" + page.getPage() + "},总条数：{" + page.getCount() + "}.");
                     }
+                    log.info("执行更新索引完毕.当前页：{" + page.getPage() + "},总条数：{" + page.getCount() + "}.");
                 }else {
                     log.info("查询结果为空，结束本次更新.当前页：{" + page.getPage() + "},总条数：{" + page.getCount() + "}.");
                     break;
