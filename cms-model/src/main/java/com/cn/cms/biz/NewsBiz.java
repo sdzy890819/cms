@@ -349,6 +349,10 @@ public class NewsBiz extends BaseBiz {
         return null;
     }
 
+    public List<News> findAllNewsLimitPage(Page page){
+        return newsService.queryNewsLimit(page);
+    }
+
     public List<News> myNewsList(String userId, Integer publish, Page page){
         Integer count = newsService.queryNewsCount(userId, publish, null);
         page.setCount(count);

@@ -19,6 +19,8 @@ public interface NewsDao {
                              @Param(value = "delTag") Integer delTag,
                              @Param(value = "page") Page page);
 
+    List<News> queryNewsLimit(@Param(value = "page") Page page);
+
     Integer queryNewsCount(@Param(value = "userId") String userId, @Param(value = "publish") Integer publish, @Param(value = "delTag") Integer delTag);
 
     News findNewsAndDetail(@Param(value = "id") Long id, @Param(value = "delTag") Integer delTag);

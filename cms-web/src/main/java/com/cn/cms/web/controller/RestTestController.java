@@ -64,6 +64,8 @@ public class RestTestController extends BaseController{
     @Resource(name="threadTaskExecutor")
     private ThreadPoolTaskExecutor threadPoolTaskExecutor;
 
+    private final static int PAGE_SIZE = 1000 ;
+
     /**
      * 测试发送MQ
      * @return
@@ -85,22 +87,36 @@ public class RestTestController extends BaseController{
      * @return
      */
     @RequestMapping(value = "/reBuildES", method = RequestMethod.POST)
-    public String reBuildES(@RequestParam(value = "p", required = false) Integer p){
-        Page page = new Page(1, p);
+    public String reBuildES(@RequestParam(value = "p", required = false) final Integer p){
+        Page page = new Page();
+        page.setPage(1);
+        if(p >= PAGE_SIZE) {
+            page.setPage(PAGE_SIZE);
+            page.setCount(p);
+        } else {
+            page.setPage(p);
+        }
 
         Runnable runnable = () -> {
-            List<News> list = newsBiz.listNews(page);
-            List<News> list2 = newsBiz.listNewsManage(page);
-            list.addAll(list2);
-            if(StringUtils.isNotEmpty(list)){
-                for(News news : list){
-                    News tmp = newsBiz.findNewsAndDetailManage(news.getId());
-                    if(tmp!=null) {
-                        tmp.setNewsStocks(newsBiz.findNewsStockList(news.getId()));
-                        eSearchClient.updateNews(tmp);
+            do {
+                log.info("开始执行查询操作..当前页：{" + page.getPage() + "},总条数：{" + page.getCount() + "}.");
+                List<News> list = newsBiz.listNews(page);
+                if (StringUtils.isNotEmpty(list)) {
+                    for (News news : list) {
+                        News tmp = newsBiz.findNewsAndDetailManage(news.getId());
+                        if (tmp != null) {
+                            tmp.setNewsStocks(newsBiz.findNewsStockList(news.getId()));
+                            eSearchClient.updateNews(tmp);
+                        }
+                        log.info("执行更新索引完毕.当前页：{" + page.getPage() + "},总条数：{" + page.getCount() + "}.");
                     }
+                }else {
+                    log.info("查询结果为空，结束本次更新.当前页：{" + page.getPage() + "},总条数：{" + page.getCount() + "}.");
+                    break;
                 }
-            }
+                page.setPage(page.getPage() + 1);
+            } while (page.hasNextPage());
+            log.info("任务更新完成。");
 
         };
         threadPoolTaskExecutor.execute(runnable);

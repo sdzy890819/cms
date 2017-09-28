@@ -91,6 +91,11 @@ public class NewsServiceImpl implements NewsService {
         return newsDao.queryNewsList(userId, publish, delTag, page);
     }
 
+    @Override
+    public List<News> queryNewsLimit(Page page) {
+        return newsDao.queryNewsLimit(page);
+    }
+
     public Integer queryNewsCount(String userId, Integer publish, Integer delTag) {
         return newsDao.queryNewsCount(userId, publish, delTag);
     }

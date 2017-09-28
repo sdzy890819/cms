@@ -129,6 +129,10 @@
         </if>
         order by id desc limit ${page.start},${page.pageSize};
     </select>
+
+    <select id="queryNewsLimit" resultMap="news">
+        select <include refid="sql_column_simple" /> from news order by id desc limit ${page.start},${page.pageSize};
+    </select>
     
     <select id="findNewsAndDetail" resultMap="news">
         select <include refid="all_column" /> from news where

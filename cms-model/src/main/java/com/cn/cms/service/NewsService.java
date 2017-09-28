@@ -35,6 +35,8 @@ public interface NewsService {
 
     List<News> queryNewsList(String userId, Integer publish, Integer delTag, Page page);
 
+    List<News> queryNewsLimit(Page page);
+
     Integer queryNewsCount(String userId, Integer publish, Integer delTag);
 
     News findNewsAndDetail(Long id);

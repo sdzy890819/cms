@@ -13,9 +13,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by ADMIN on 16/12/28.
@@ -92,6 +90,10 @@ public class Test {
 
 
         System.out.println("最新 世界 ,价值".replaceAll("[\\s，,]+", ","));
+        List<String> a  = new ArrayList<>();
+        a.add("aaa");
+        List<String> b = null;
+        a.addAll(b);
 
     }
 
