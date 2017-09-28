@@ -101,7 +101,7 @@ public class RestTestController extends BaseController{
             do {
                 page.setPage(page.getPage() + 1);
                 log.info("开始执行查询操作..当前页：{" + page.getPage() + "},总条数：{" + page.getCount() + "}.");
-                List<News> list = newsBiz.listNews(page);
+                List<News> list = newsBiz.findAllNewsLimitPage(page);
                 if (StringUtils.isNotEmpty(list)) {
                     for (News news : list) {
                         News tmp = newsBiz.findNewsAndDetailManage(news.getId());
