@@ -89,16 +89,17 @@ public class RestTestController extends BaseController{
     @RequestMapping(value = "/reBuildES", method = RequestMethod.POST)
     public String reBuildES(@RequestParam(value = "p", required = false) final Integer p){
         Page page = new Page();
-        page.setPage(1);
+        page.setPage(0);
+        page.setCount(p);
         if(p >= PAGE_SIZE) {
-            page.setPage(PAGE_SIZE);
-            page.setCount(p);
+            page.setPageSize(PAGE_SIZE);
         } else {
-            page.setPage(p);
+            page.setPageSize(p);
         }
 
         Runnable runnable = () -> {
             do {
+                page.setPage(page.getPage() + 1);
                 log.info("开始执行查询操作..当前页：{" + page.getPage() + "},总条数：{" + page.getCount() + "}.");
                 List<News> list = newsBiz.listNews(page);
                 if (StringUtils.isNotEmpty(list)) {
@@ -114,7 +115,6 @@ public class RestTestController extends BaseController{
                     log.info("查询结果为空，结束本次更新.当前页：{" + page.getPage() + "},总条数：{" + page.getCount() + "}.");
                     break;
                 }
-                page.setPage(page.getPage() + 1);
             } while (page.hasNextPage());
             log.info("任务更新完成。");
 

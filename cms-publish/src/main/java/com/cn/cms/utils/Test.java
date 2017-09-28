@@ -88,12 +88,28 @@ public class Test {
 //        File file =new File("/Users/zhangyang/Documents/projects/cms/documents/build1.sh");
 //        System.out.println(file.exists());
 
+        final int PAGE_SIZE = 1000;
+        final int p = 3000;
+        Page page = new Page();
+        page.setPage(0);
+        page.setCount(p);
+        if(p >= PAGE_SIZE) {
+            page.setPageSize(PAGE_SIZE);
+        } else {
+            page.setPageSize(p);
+        }
 
-        System.out.println("最新 世界 ,价值".replaceAll("[\\s，,]+", ","));
-        List<String> a  = new ArrayList<>();
-        a.add("aaa");
-        List<String> b = null;
-        a.addAll(b);
+        Runnable runnable = () -> {
+            do {
+                page.setPage(page.getPage() + 1);
+                log.info("开始执行查询操作..当前页：{" + page.getPage() + "},总条数：{" + page.getCount() + "}.");
+
+            } while (page.hasNextPage());
+            log.info("任务更新完成。");
+
+        };
+        Thread thread = new Thread(runnable);
+        thread.start();
 
     }
 
