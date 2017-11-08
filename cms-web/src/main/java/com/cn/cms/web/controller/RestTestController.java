@@ -172,15 +172,19 @@ public class RestTestController extends BaseController {
         String jsapiTicket = JsapiTicketUtil.getJSApiTicket();
         Map<String, String> map = WeixinUtil.sign(jsapiTicket, url);
         String content = getHtml().toString();
-        content.replace("${config.appId}", "wx0bd6e1a989032b4c");
-        content.replace("${config.nonce}", map.get("nonceStr"));
-        content.replace("${config.signature}", map.get("signature"));
-        content.replace("${config.timestamp}", map.get("timestamp"));
+        content = content.replace("${config.appId}", "wx0bd6e1a989032b4c");
+        content = content.replace("${config.nonce}", map.get("nonceStr"));
+        content = content.replace("${config.signature}", map.get("signature"));
+        content = content.replace("${config.timestamp}", map.get("timestamp"));
         return content;
     }
 
+    public static void main(String[] args){
+        System.out.println(getHtml().toString().replace("${config.appId}", "").replace("${config.nonce}", ""));
+    }
 
-    public StringBuffer getHtml() {
+
+    public static StringBuffer getHtml() {
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">\n" +
                 "<html>\n" +
