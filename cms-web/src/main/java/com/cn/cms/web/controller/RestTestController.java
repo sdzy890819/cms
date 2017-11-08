@@ -224,12 +224,12 @@ public class RestTestController extends BaseController {
                 "\n" +
                 "    wx.config({\n" +
                 "        beta : true, // 开启内测接口调用，注入wx.invoke方法\n" +
-                "        debug : false, // 开启调试模式\n" +
+                "        debug : true, // 开启调试模式\n" +
                 "        appId : '${config.appId}', // 第三方app唯一标识\n" +
                 "        timestamp : '${config.timestamp}', // 生成签名的时间戳\n" +
                 "        nonceStr : '${config.nonce}', // 生成签名的随机串\n" +
                 "        signature : '${config.signature}',// 签名\n" +
-                "        jsApiList : ['configWXDeviceWiFi','scanQRCode'] // 需要使用的jsapi列表\n" +
+                "        jsApiList : ['onMenuShareTimeline','configWXDeviceWiFi','scanQRCode'] // 需要使用的jsapi列表\n" +
                 "    });\n" +
                 "\n" +
                 "    var second = 5;\n" +

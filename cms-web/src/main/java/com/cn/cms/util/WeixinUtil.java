@@ -72,6 +72,6 @@ public class WeixinUtil {
 
     public static void main(String[] args){
         String str = "abcdef<skus><sku>默认,巧克力,10,1</sku><sku>默认2,豆奶,3,1</sku></skus>fgh";
-        System.out.println(str.replaceAll("<[/]?sku[s]?>", ""));
+        System.out.println(str.replaceAll("<skus>.*</skus>", ""));
     }
 }
