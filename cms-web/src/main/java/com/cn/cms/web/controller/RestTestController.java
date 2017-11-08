@@ -16,6 +16,7 @@ import com.cn.cms.po.User;
 import com.cn.cms.service.NewsService;
 import com.cn.cms.service.UserService;
 import com.cn.cms.util.JsapiTicketUtil;
+import com.cn.cms.util.StreamUtils;
 import com.cn.cms.util.WeixinUtil;
 import com.cn.cms.utils.Page;
 import com.cn.cms.utils.StringUtils;
@@ -30,6 +31,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
@@ -60,6 +65,74 @@ public class RestTestController extends BaseController {
     private JedisClient jedisClient;
     @Resource(name = "threadTaskExecutor")
     private ThreadPoolTaskExecutor threadPoolTaskExecutor;
+
+    public static void main(String[] args) {
+        System.out.println(getHtml().toString().replace("${config.appId}", "").replace("${config.nonce}", ""));
+    }
+
+    public static StringBuffer getHtml() {
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">\n" +
+                "<html>\n" +
+                "<head>\n" +
+                "\n" +
+                "<title>AIRKISS</title>\n" +
+                "  <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n" +
+                "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no\">\n" +
+                "  <meta name=\"format-detection\" content=\"telephone=no\">\n" +
+                "  <meta name=\"renderer\" content=\"webkit\">\n" +
+                "  <meta http-equiv=\"Cache-Control\" content=\"no-siteapp\" />\n" +
+                "  <style>\n" +
+                "* { margin: 0; padding: 0; }  \n" +
+                " html, body { height: 100%; width: 100%; }  \n" +
+                "  </style>\n" +
+                "  <script>\n" +
+                "\n" +
+                "</script>\n" +
+                "</head>\n" +
+                "<body>\n" +
+                "<h1>设置设备Wifi</h1>\n" +
+                "<br><br>\n" +
+                "<div id=\"message\"></div>\n" +
+                "</body>\n" +
+                "<!--[if (gte IE 9)|!(IE)]><!-->\n" +
+                "<script src=\"http://www.w3school.com.cn/jquery/jquery.js\"></script>\n" +
+                "<!--<![endif]-->\n" +
+                "<script src=\"http://res.wx.qq.com/open/js/jweixin-1.0.0.js\"></script>\n" +
+                "<script type=\"text/javascript\">\n" +
+                "\n" +
+                "    wx.config({\n" +
+                "        beta : true, // 开启内测接口调用，注入wx.invoke方法\n" +
+                "        debug : true, // 开启调试模式\n" +
+                "        appId : '${config.appId}', // 第三方app唯一标识\n" +
+                "        timestamp : '${config.timestamp}', // 生成签名的时间戳\n" +
+                "        nonceStr : '${config.nonce}', // 生成签名的随机串\n" +
+                "        signature : '${config.signature}',// 签名\n" +
+                "        jsApiList : ['onMenuShareTimeline','configWXDeviceWiFi','scanQRCode'] // 需要使用的jsapi列表\n" +
+                "    });\n" +
+                "\n" +
+                "    var second = 5;\n" +
+                "    wx.ready(function () {\n" +
+                "        wx.checkJsApi({\n" +
+                "            jsApiList: ['configWXDeviceWiFi'],\n" +
+                "            success: function(res) {\n" +
+                "                wx.invoke('configWXDeviceWiFi', {}, function(res){\n" +
+                "                    var err_msg = res.err_msg;\n" +
+                "                    if(err_msg == 'configWXDeviceWiFi:ok') {\n" +
+                "                       alert(\"配置成功!\");" +
+                "                        wx.closeWindow();\n" +
+                "                    } else {\n" +
+                "                        $('#message').html(\"配置 WIFI失败，是否<a href=\\\"/wechat/scan/airkiss\" + window.location.search +  \"\\\">再次扫描</a>。<br>不配置WIFI,<a href=\\\"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf1867e87a4eeeb16&redirect_uri=http://letux.xyz/wechat/page/main&response_type=code&scope=snsapi_base&state=1#wechat_redirect\\\">直接进入首页</a>。\");\n" +
+                "                    }\n" +
+                "                });\n" +
+                "            }\n" +
+                "        });\n" +
+                "    });\n" +
+                "\n" +
+                "</script>\n" +
+                "</html>");
+        return stringBuffer;
+    }
 
     /**
      * 测试发送MQ
@@ -165,94 +238,27 @@ public class RestTestController extends BaseController {
     }
 
     @RequestMapping(value = "/test_wifi", method = RequestMethod.GET, produces = "text/html")
-    public String test(HttpServletRequest request, HttpServletResponse response) {
+    public String test(HttpServletRequest request, HttpServletResponse response) throws FileNotFoundException, UnsupportedEncodingException {
         String queryString = request.getQueryString();
         String url = null;
         System.out.println(queryString);
-        if(StringUtils.isNotBlank(queryString)) {
+        if (StringUtils.isNotBlank(queryString)) {
             url = request.getRequestURL() + "?" + request.getQueryString();
-        }else {
+        } else {
             url = request.getRequestURL().toString();
         }
         System.out.println("请求地址" + url);
 
         String jsapiTicket = JsapiTicketUtil.getJSApiTicket();
         Map<String, String> map = WeixinUtil.sign(jsapiTicket, url);
-        String content = getHtml().toString();
+        File file = new File("/data/sh/wifi_html");
+        FileInputStream fileInputStream = new FileInputStream(file);
+        String content = new String(StreamUtils.getBytes(fileInputStream), "UTF-8");
         content = content.replace("${config.appId}", "wx0bd6e1a989032b4c");
         content = content.replace("${config.nonce}", map.get("nonceStr"));
         content = content.replace("${config.signature}", map.get("signature"));
         content = content.replace("${config.timestamp}", map.get("timestamp"));
         return content;
-    }
-
-    public static void main(String[] args){
-        System.out.println(getHtml().toString().replace("${config.appId}", "").replace("${config.nonce}", ""));
-    }
-
-
-    public static StringBuffer getHtml() {
-        StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">\n" +
-                "<html>\n" +
-                "<head>\n" +
-                "\n" +
-                "<title>AIRKISS</title>\n" +
-                "  <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n" +
-                "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no\">\n" +
-                "  <meta name=\"format-detection\" content=\"telephone=no\">\n" +
-                "  <meta name=\"renderer\" content=\"webkit\">\n" +
-                "  <meta http-equiv=\"Cache-Control\" content=\"no-siteapp\" />\n" +
-                "  <style>\n" +
-                "* { margin: 0; padding: 0; }  \n" +
-                " html, body { height: 100%; width: 100%; }  \n" +
-                "  </style>\n" +
-                "  <script>\n" +
-                "\n" +
-                "</script>\n" +
-                "</head>\n" +
-                "<body>\n" +
-                "<h1>设置设备Wifi</h1>\n" +
-                "<br><br>\n" +
-                "<div id=\"message\"></div>\n" +
-                "</body>\n" +
-                "<!--[if (gte IE 9)|!(IE)]><!-->\n" +
-                "<script src=\"http://www.w3school.com.cn/jquery/jquery.js\"></script>\n" +
-                "<!--<![endif]-->\n" +
-                "<script src=\"http://res.wx.qq.com/open/js/jweixin-1.0.0.js\"></script>\n" +
-                "<script type=\"text/javascript\">\n" +
-                "\n" +
-                "    wx.config({\n" +
-                "        beta : true, // 开启内测接口调用，注入wx.invoke方法\n" +
-                "        debug : true, // 开启调试模式\n" +
-                "        appId : '${config.appId}', // 第三方app唯一标识\n" +
-                "        timestamp : '${config.timestamp}', // 生成签名的时间戳\n" +
-                "        nonceStr : '${config.nonce}', // 生成签名的随机串\n" +
-                "        signature : '${config.signature}',// 签名\n" +
-                "        jsApiList : ['onMenuShareTimeline','configWXDeviceWiFi','scanQRCode'] // 需要使用的jsapi列表\n" +
-                "    });\n" +
-                "\n" +
-                "    var second = 5;\n" +
-                "    wx.ready(function () {\n" +
-                "        wx.checkJsApi({\n" +
-                "            jsApiList: ['configWXDeviceWiFi'],\n" +
-                "            success: function(res) {\n" +
-                "                wx.invoke('configWXDeviceWiFi', {}, function(res){\n" +
-                "                    var err_msg = res.err_msg;\n" +
-                "                    if(err_msg == 'configWXDeviceWiFi:ok') {\n" +
-                "                    alert(\"配置成功!\");"+
-                "                        wx.closeWindow();\n" +
-                "                    } else {\n" +
-                "                        $('#message').html(\"配置 WIFI失败，是否<a href=\\\"/wechat/scan/airkiss\" + window.location.search +  \"\\\">再次扫描</a>。<br>不配置WIFI,<a href=\\\"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf1867e87a4eeeb16&redirect_uri=http://letux.xyz/wechat/page/main&response_type=code&scope=snsapi_base&state=1#wechat_redirect\\\">直接进入首页</a>。\");\n" +
-                "                    }\n" +
-                "                });\n" +
-                "            }\n" +
-                "        });\n" +
-                "    });\n" +
-                "\n" +
-                "</script>\n" +
-                "</html>");
-        return stringBuffer;
     }
 
 }
