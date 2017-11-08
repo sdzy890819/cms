@@ -239,8 +239,8 @@ public class RestTestController extends BaseController {
                 "            success: function(res) {\n" +
                 "                wx.invoke('configWXDeviceWiFi', {}, function(res){\n" +
                 "                    var err_msg = res.err_msg;\n" +
-                "                    alert(\"配置成功!\")"+
                 "                    if(err_msg == 'configWXDeviceWiFi:ok') {\n" +
+                "                    alert(\"配置成功!\")"+
                 "                        wx.closeWindow();\n" +
                 "                    } else {\n" +
                 "                        $('#message').html(\"配置 WIFI失败，是否<a href=\\\"/wechat/scan/airkiss\" + window.location.search +  \"\\\">再次扫描</a>。<br>不配置WIFI,<a href=\\\"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf1867e87a4eeeb16&redirect_uri=http://letux.xyz/wechat/page/main&response_type=code&scope=snsapi_base&state=1#wechat_redirect\\\">直接进入首页</a>。\");\n" +
