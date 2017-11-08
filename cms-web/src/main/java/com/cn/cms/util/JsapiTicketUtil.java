@@ -75,7 +75,7 @@ public class JsapiTicketUtil {
     }
 
     public static void main(String[] args){
-        System.out.println(getAccessToken());
+        System.out.println(getJSApiTicket());
     }
 
 }

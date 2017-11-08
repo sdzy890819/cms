@@ -166,7 +166,14 @@ public class RestTestController extends BaseController {
 
     @RequestMapping(value = "/test_wifi", method = RequestMethod.GET, produces = "text/html")
     public String test(HttpServletRequest request, HttpServletResponse response) {
-        String url = request.getRequestURL() + "?" + request.getQueryString();
+        String queryString = request.getQueryString();
+        String url = null;
+        System.out.println(queryString);
+        if(StringUtils.isNotBlank(queryString)) {
+            url = request.getRequestURL() + "?" + request.getQueryString();
+        }else {
+            url = request.getRequestURL().toString();
+        }
         System.out.println("请求地址" + url);
 
         String jsapiTicket = JsapiTicketUtil.getJSApiTicket();
@@ -212,17 +219,17 @@ public class RestTestController extends BaseController {
                 "<!--[if (gte IE 9)|!(IE)]><!-->\n" +
                 "<script src=\"http://www.w3school.com.cn/jquery/jquery.js\"></script>\n" +
                 "<!--<![endif]-->\n" +
-                "<script src=\"http://res.wx.qq.com/open/js/jweixin-1.2.0.js\"></script>\n" +
+                "<script src=\"http://res.wx.qq.com/open/js/jweixin-1.0.0.js\"></script>\n" +
                 "<script type=\"text/javascript\">\n" +
                 "\n" +
                 "    wx.config({\n" +
                 "        beta : true, // 开启内测接口调用，注入wx.invoke方法\n" +
-                "        debug : true, // 开启调试模式\n" +
+                "        debug : false, // 开启调试模式\n" +
                 "        appId : '${config.appId}', // 第三方app唯一标识\n" +
                 "        timestamp : '${config.timestamp}', // 生成签名的时间戳\n" +
                 "        nonceStr : '${config.nonce}', // 生成签名的随机串\n" +
                 "        signature : '${config.signature}',// 签名\n" +
-                "        jsApiList : ['configWXDeviceWiFi'] // 需要使用的jsapi列表\n" +
+                "        jsApiList : ['configWXDeviceWiFi','scanQRCode'] // 需要使用的jsapi列表\n" +
                 "    });\n" +
                 "\n" +
                 "    var second = 5;\n" +
@@ -232,10 +239,9 @@ public class RestTestController extends BaseController {
                 "            success: function(res) {\n" +
                 "                wx.invoke('configWXDeviceWiFi', {}, function(res){\n" +
                 "                    var err_msg = res.err_msg;\n" +
+                "                    alert(\"配置成功!\")"+
                 "                    if(err_msg == 'configWXDeviceWiFi:ok') {\n" +
-                "                        $('#message').html(\"配置 WIFI成功，<span id='second'>5</span>秒后跳转到首页。\");\n" +
-                "                        setInterval(count,1000);\n" +
-                "                        return;\n" +
+                "                        wx.closeWindow();\n" +
                 "                    } else {\n" +
                 "                        $('#message').html(\"配置 WIFI失败，是否<a href=\\\"/wechat/scan/airkiss\" + window.location.search +  \"\\\">再次扫描</a>。<br>不配置WIFI,<a href=\\\"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf1867e87a4eeeb16&redirect_uri=http://letux.xyz/wechat/page/main&response_type=code&scope=snsapi_base&state=1#wechat_redirect\\\">直接进入首页</a>。\");\n" +
                 "                    }\n" +
@@ -244,14 +250,6 @@ public class RestTestController extends BaseController {
                 "        });\n" +
                 "    });\n" +
                 "\n" +
-                "    function count(){\n" +
-                "        second--;\n" +
-                "        $('#second').html(second);\n" +
-                "        if(second == 0){\n" +
-                "            //跳转到首页\n" +
-                "            window.location.href='/consumer/main'\n" +
-                "        }\n" +
-                "    }\n" +
                 "</script>\n" +
                 "</html>");
         return stringBuffer;
