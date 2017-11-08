@@ -254,7 +254,7 @@ public class RestTestController extends BaseController {
         File file = new File("/data/sh/wifi_html");
         FileInputStream fileInputStream = new FileInputStream(file);
         String content = new String(StreamUtils.getBytes(fileInputStream), "UTF-8");
-        content = content.replace("${config.appId}", "wx0bd6e1a989032b4c");
+        content = content.replace("${config.appId}", "wx482a5addc8ba62e1");
         content = content.replace("${config.nonce}", map.get("nonceStr"));
         content = content.replace("${config.signature}", map.get("signature"));
         content = content.replace("${config.timestamp}", map.get("timestamp"));

@@ -47,7 +47,7 @@ public class WeixinUtil {
         ret.put("nonceStr", nonce_str);
         ret.put("timestamp", timestamp);
         ret.put("signature", signature);
-
+        System.out.println("signature" + signature);
         return ret;
     }
 
@@ -71,7 +71,30 @@ public class WeixinUtil {
 
 
     public static void main(String[] args){
-        String str = "abcdef<skus><sku>默认,巧克力,10,1</sku><sku>默认2,豆奶,3,1</sku></skus>fgh";
-        System.out.println(str.replaceAll("<skus>.*</skus>", ""));
+        String jsapi_ticket = "kgt8ON7yVITDhtdwci0qebCUwdjyjkYdw9sgb8hwNe_632AI73j6NRPs8MhGdm6hsu6-E684_jRcyqpNOgNXgQ";
+        String nonce_str = "1219e7ed-3e10-4137-a0d7-618715d415a7";
+        String timestamp = "1510128253";
+        String url = "http://120.77.220.11:8080/webapi/test/test_wifi?nsukey=WN7SADIezHovSO7kEKW6wIDWYsH3vwDhKakwG3%2Ff%2BWtTnqUP92TeOfNVpt7c9cL5zf3Vs230DC3gngO6GhfUhPZaFnaa2WQ2eeC%2BMl6HIK0oRh15kBFXQ1uzd%2B5NDs%2F1U0ZcOpQtXRLaiGg8sJVyqTVxYMZ0cZqiLcNyzxVaVE9X8ebRo4uWSeZkDKiV13YYoqNFrdApSbVkSkKflE%2BUPA%3D%3D";
+        String string1;
+        String signature = "";
+
+        //注意这里参数名必须全部小写，且必须有序
+        string1 = "jsapi_ticket=" + jsapi_ticket +
+                "&noncestr=" + nonce_str +
+                "&timestamp=" + timestamp +
+                "&url=" + url;
+        System.out.println(string1);
+
+        try {
+            MessageDigest crypt = MessageDigest.getInstance("SHA-1");
+            crypt.reset();
+            crypt.update(string1.getBytes("UTF-8"));
+            signature = byteToHex(crypt.digest());
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        System.out.println(signature);
     }
 }
